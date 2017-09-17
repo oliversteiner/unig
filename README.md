@@ -1,6 +1,6 @@
-##Todo
+## Todo
 
-###Einstellungen:
+### Einstellungen:
 - Plubload Einstellungen:
     - erlaubte Dateiendungen : OK
 - Standartalbum : OK
