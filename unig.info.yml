@@ -1,0 +1,10 @@
+name: UniG - Universal Gallery
+type: module
+description: 'Image / File Gallery with Multifield upload'
+package: Media
+core: 8.x
+configure: unig.settings_form
+dependencies:
+  - drupal:node
+  - plupload
+  - plupload_widget

@@ -1,0 +1,5 @@
+unig:
+  page_title: 'Lorem ipsum'
+  default_project: 'New'
+  plupload:
+    file_validate_extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'

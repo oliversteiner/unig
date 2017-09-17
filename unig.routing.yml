@@ -1,0 +1,107 @@
+##
+# Todo:  Check Permissions
+#
+#
+# Admin Page
+#
+
+unig.admin:
+  path: '/unig/admin'
+  defaults:
+    _controller: '\Drupal\unig\Controller\AdminController::adminTemplate'
+    _title: 'Gallery Admin'
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# Admin Page projects
+#
+unig.projects:
+  path: '/unig/admin/projects'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::listAllProjects'
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# Admin Page project detail
+#
+unig.project_detail:
+  path: '/unig/admin/projects/{project_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::projectDetail'
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# Upload Formular
+#
+unig.upload:
+  path: '/unig/upload'
+  defaults:
+      _form:  '\Drupal\unig\Form\UploadForm'
+      _title: 'Bilder hochladen'
+  requirements:
+    _permission: 'access upload form'
+
+#
+# Upload with Args
+#
+unig.upload_albumid:
+  path: '/unig/upload/{project_nid}'
+  defaults:
+      _form:  '\Drupal\unig\Form\UploadForm'
+      _title: 'Bilder hochladen'
+  requirements:
+    _permission: 'access upload form'
+
+#
+# Config Settings Page
+#
+unig.settings_form:
+  path: '/admin/config/media/unig'
+  defaults:
+    _form: '\Drupal\unig\Form\UniGSettingsForm'
+    _title: 'Universal Gallery'
+  requirements:
+    _permission: 'administer site configuration'
+
+#
+# test config
+#
+unig.admin.test_config:
+  path: '/unig/admin/test-config'
+  defaults:
+    _controller: '\Drupal\unig\Controller\AdminController::testConfig'
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# Views Files
+#
+unig.admin.files:
+  path: '/unig/admin/files/{project_nid}'
+  defaults:
+      _form:  '\Drupal\unig\Form\FilesForm'
+      _title: 'Files Admin'
+  requirements:
+    _permission: 'access upload form'
+
+#
+# Views Projects
+#
+unig.admin.projects.views:
+  path: '/unig/admin/projects-v'
+
+
+
+#
+# Views Files
+#
+unig.admin.test:
+  path: '/unig/admin/test'
+  defaults:
+      _form:  '\Drupal\unig\Form\FilesForm'
+      _title: 'Files Admin'
+  requirements:
+    _permission: 'access upload form'

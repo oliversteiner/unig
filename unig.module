@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Module file for unig.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views\ViewExecutable;
+
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function unig_views_pre_render(ViewExecutable $view) {
+  drupal_set_message($view->storage->id());
+
+    if (isset($view) && ($view->storage->id() === 'unig_files')) {
+        $view->element['#attached']['library'][] = 'unig/unig.admin.images';
+    }
+}
+
+function unig_page_attachments(array &$attachments) {
+ //   $attachments['#attached']['library'][] = 'unig/unig.upload';
+}
+
+
+
+
+
+/**
+ * @defgroup unig
+ * @ingroup ost
+ * @{
+ * Universal Gallery
+ * Each Item (Image, File) is an Node
+ * Organized in Projects also as Node
+ * and Albums(Image) / Groups(Files) as Taxonomy
+ *
+ *
+ */
+
+/**
+ * Implements hook_help().
+ *
+ *
+ * @see https://www.drupal.org/documentation/help-text-standards
+ *
+ * @see hook_help()
+ */
+function unig_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'unig.upload':
+      // Help text for the simple page registered for this path.
+      return t('Sorry, No help-page jet.');
+
+    case 'help.page.unig':
+      // Help text for the admin section, using the module name in the path.
+        return t('Sorry, No help-page jet.');
+  }
+}
+
+/**
+ * @} End of "defgroup unig".
+ */

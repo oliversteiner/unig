@@ -1,0 +1,8 @@
+#
+# Setting Page
+#
+unig.settings_form:
+  title: 'Universal Gallery'
+  description: 'Configure Upload and default Projects settings'
+  route_name: unig.settings_form
+  parent: 'system.admin_config_media'

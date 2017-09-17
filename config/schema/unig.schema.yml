@@ -1,0 +1,21 @@
+# Schema for the configuration files of the Universal Gallery module.
+#
+unig.settings:
+  type: config_object
+  label: 'Universal Gallery Settings'
+  mapping:
+    unig:
+      type: mapping
+      mapping:
+        page_title:
+          type: text
+          label: 'Test'
+        default_project:
+          type: text
+          label: 'Default Project Name'
+      plupload:
+        type: mapping
+        mapping:
+          file_validate_extensions:
+            type: text
+            label: 'File Extensions'

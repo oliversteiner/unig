@@ -1,0 +1,28 @@
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_preview
+    - node.type.unig_file
+    - node.type.unig_project
+id: node.unig_project.field_unig_preview
+field_name: field_unig_preview
+entity_type: node
+bundle: unig_project
+label: 'UniG Preview'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      unig_file: unig_file
+    sort:
+      field: field_title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

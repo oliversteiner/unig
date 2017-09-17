@@ -1,0 +1,43 @@
+option[role='seperator'] {
+    margin-top: 8px;
+    border-top: 1px solid #666;
+    padding: 0;
+}
+
+@media all {
+    div .plupload_filelist_footer {
+        height: 31px;
+    !important;
+
+    }
+}
+
+.unig-file-edit-col {
+    padding: 5px;
+    margin: 5px;
+    border: solid grey 1px;
+    min-height: 150px;
+}
+
+.unig-file-edit-col:hover {
+    padding: 5px;
+    margin: 5px;
+    border: solid green 2px;
+    min-height: 150px;
+}
+
+
+.unig-image-toolbox{
+    bottom: 0;
+    display: none;
+}
+
+.result_hover{
+    display: block;
+    border: 2px solid green;
+
+}
+
+.ost-test-2{
+    background: lightseagreen;
+}

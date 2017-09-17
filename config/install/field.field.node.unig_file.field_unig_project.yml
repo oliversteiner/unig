@@ -1,0 +1,27 @@
+langcode: de
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_project
+    - node.type.unig_file
+    - node.type.unig_project
+id: node.unig_file.field_unig_project
+field_name: field_unig_project
+entity_type: node
+bundle: unig_file
+label: 'uni gallery project'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      unig_project: unig_project
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

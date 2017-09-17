@@ -1,0 +1,23 @@
+langcode: de
+status: true
+dependencies:
+  module:
+    - hide_revision_field
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  hide_revision_field:
+    hide: false
+    personalizable: false
+_core:
+  default_config_hash: rKxGGGENp2FZ1Fq2eBPP76a80i5U4w_OQ0jLW6dg7pw
+name: 'Universal Gallery File'
+type: unig_file
+description: 'Files or Images'
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

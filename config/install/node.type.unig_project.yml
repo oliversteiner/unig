@@ -1,0 +1,19 @@
+langcode: de
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: rQ-c31CmuX0b-z8KBlxvQjo1DjraTobQ-1UG3_2IvJA
+name: 'Universal Gallery Project'
+type: unig_project
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true
