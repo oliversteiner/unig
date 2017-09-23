@@ -222,6 +222,7 @@ class FilesForm extends FormBase
         $rendered_message = \Drupal\Core\Render\Markup::create($message_go_to);
 
 
+
         switch ($variante) {
             case 'new_one' :
                 $message = $message_new_one;
