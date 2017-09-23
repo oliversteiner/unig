@@ -86,9 +86,9 @@ class FilesForm extends FormBase
             '#type' => 'select',
             '#options' => $this->getProjectlist(),
             '#default_value' => $this->getDefaultProjectNid(),
-            '#ajax' => [
+        /*    '#ajax' => [
                 'callback' => '::selectNewProject',
-            ],
+            ],*/
 
             '#prefix' => '<div id="unig_form_upload_project" class="" style="display:none">',
             '#suffix' => '</div>',
@@ -175,7 +175,7 @@ class FilesForm extends FormBase
 
         if (isset($new_project) && !empty($new_project)) {
             $create_new_project = TRUE;
-            $project_nid = $this->createUniGProject($new_project);
+              $project_nid = $this->createUniGProject($new_project);
 
             // Titel herausfinden
             $project_title = $new_project;
@@ -220,6 +220,7 @@ class FilesForm extends FormBase
 
         $message_go_to = "<a href=\"/unig/project/$project_nid\">Die UniG <strong>$project_title</strong> anzeigen</a>";
         $rendered_message = \Drupal\Core\Render\Markup::create($message_go_to);
+
 
 
         switch ($variante) {
