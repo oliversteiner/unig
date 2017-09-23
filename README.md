@@ -9,3 +9,16 @@
 ## Ideen
 Album zu Projekt
 mit Alben/Gruppen als Taxonomy
+
+## Requirements
+
+
+## Optional Requirements
+
+Font Awesome
+
+
+
+
+## Install:
+`composer require drupal/fontawesome`
