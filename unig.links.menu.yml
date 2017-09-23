@@ -6,3 +6,9 @@ unig.settings_form:
   description: 'Configure Upload and default Projects settings'
   route_name: unig.settings_form
   parent: 'system.admin_config_media'
+
+unig.admin_content:
+    title: 'Universal Gallery'
+    description: 'Show all Galleries'
+    route_name: unig.projects
+    parent: 'system.admin_content'

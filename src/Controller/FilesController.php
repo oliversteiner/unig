@@ -25,6 +25,16 @@ class FilesController extends ControllerBase
     }
 
 
+  /**
+   * @return array
+   */
+  public function selectNewProject()
+  {
+    return array(
+      '#markup' => '<p>selectNewProject</p>',
+    );
+  }
+
     /**
      * @return array
      */
