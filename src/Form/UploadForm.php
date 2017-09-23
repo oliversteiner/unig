@@ -101,9 +101,9 @@ class UploadForm extends FormBase
             '#type' => 'select',
             '#options' => $this->getProjectlist(),
             '#default_value' => $this->getDefaultProjectNid(),
-            '#ajax' => [
+          /*  '#ajax' => [
                 'callback' => '::selectNewProject',
-            ],
+            ],*/
 
             '#prefix' => '<div id="unig_form_upload_project" class="" style="display:none">',
             '#suffix' => '</div>',
