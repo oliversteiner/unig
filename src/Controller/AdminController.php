@@ -54,7 +54,7 @@
       $nid_project = 43;
       $nid_image = NULL;
 
-      $result_2 = ProjectTrait::setPreviewImage($nid_project, $nid_image);
+      $result_2 = ProjectTrait::setCover($nid_project, $nid_image);
       $result_3 = ProjectTrait::countFilesInProject($nid_project);
 
 

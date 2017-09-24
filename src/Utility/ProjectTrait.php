@@ -7,6 +7,7 @@
   use Drupal\Core\Ajax\ReplaceCommand;
   use Drupal\Core\Datetime\Element\Datetime;
   use Drupal\Core\Form\FormStateInterface;
+  use Drupal\image\Entity\ImageStyle;
   use Drupal\node\Entity\Node;
   use Drupal\unig\Utility\UniGTrait;
 
@@ -180,7 +181,7 @@
      *
      * @return integer
      */
-    public static function setPreviewImage($nid_project, $nid_image = NULL) {
+    public static function setCover($nid_project, $nid_image = NULL) {
 
 
       // Wenn nicht:
@@ -205,6 +206,90 @@
       $node->save();
 
       return $nid_image;
+    }
+
+    /**
+     *
+     * get uri from all styles from Cover image
+     *
+     * @param $nid
+     *
+     * @return array
+     */
+    public static function getAlbumList($project_nid) {
+      $variables = [];
+      $node = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($project_nid);
+
+
+      // Field Event Image
+      if (!empty($node->field_unig_album)) {
+        if (isset($node->field_unig_album->entity)) {
+
+
+          foreach ($node->field_unig_album as $album) {
+
+            if ($album->entity) {
+
+              $nid = $album->entity->id();
+              $label = $album->entity->label();
+
+              // save
+              $variables[] = ['nid' => $nid, 'title' => $label];
+            }
+          }
+        }
+
+      }
+      return $variables;
+
+    }
+
+
+    /**
+     *
+     * get uri from all styles from Cover image
+     *
+     * @param $nid
+     *
+     * @return array
+     */
+    public static function getCoverImage($nid) {
+      $variables = [];
+
+      $node = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($project_nid);
+
+
+      // Field Event Image
+      if (!empty($node->field_unig_image)) {
+        if (isset($node->field_unig_image->entity)) {
+
+          $list_image_styles = \Drupal::entityQuery('image_style')->execute();
+          $count = 0;
+
+          foreach ($node->field_unig_image as $image) {
+
+            if ($image->entity) {
+
+              $path = $image->entity->getFileUri();
+
+              foreach ($list_image_styles as $images_style) {
+
+                $style = ImageStyle::load($images_style);
+                $variables[$count][$images_style] = $style->buildUrl($path);
+              }
+            }
+            $count++;
+          }
+        }
+
+
+      }
+      return $variables[0];
+
     }
 
     /**
@@ -314,23 +399,29 @@
         // Year
         $year = $php_date_obj->format("Y");
 
+        // Year
+        $year = $php_date_obj->format("Y");
+
         // weight
         // TODO
 
-        // Preview
+        // Cover Node ID
         $node_cover = $node->get('field_unig_project_cover')->getValue();
         $cover_id = $node_cover[0]['target_id'];
 
-        if ($cover_id == null) {
-          $cover_id = self::setPreviewImage($nid);
+        if ($cover_id == NULL) {
+          $cover_id = self::setCover($nid);
         }
 
-        dpm($cover_id);
-
+        // Cover Image
+        $cover_image = self::getCoverImage($cover_id);
 
         // number_of_items
         $number_of_items = self::countFilesInProject($nid);
 
+
+        // Album List
+        $album_list = self::getAlbumList($nid);
 
         // Twig-Variables
         $project = [
@@ -340,7 +431,10 @@
           'date' => $date,
           'timestamp' => $timestamp,
           'year' => $year,
-          '$number_of_items' => $number_of_items,
+          'number_of_items' => $number_of_items,
+          'cover_id' => $cover_id,
+          'cover_image' => $cover_image,
+          'album_list' => $album_list,
 
         ];
 
