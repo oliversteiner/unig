@@ -201,7 +201,9 @@ trait ProjectTrait {
 
     $nids = array();
 
-    $entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'article']);
+    $entities = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['type' => 'article']);
 
     return $nids;
   }

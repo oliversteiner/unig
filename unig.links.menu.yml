@@ -7,6 +7,10 @@ unig.settings_form:
   route_name: unig.settings_form
   parent: 'system.admin_config_media'
 
+#
+# Content > Universal Gallery
+#     (Admin list of all Galleries)
+#
 unig.admin_content:
     title: 'Universal Gallery'
     description: 'Show all Galleries'
@@ -14,6 +18,19 @@ unig.admin_content:
     parent: 'system.admin_content'
 
 
+#
+# Content > Universal Gallery > New Project
+#
+unig.new_project:
+    title: 'New Project'
+    description: 'Add new Gallery Project'
+    route_name: unig.upload
+    parent: 'unig.admin_content'
+
+
+#
+# Content > Universal Gallery > Sandbox
+#
 unig.sandbox:
     title: 'Sandbox'
     description: 'Testing new Functions'
