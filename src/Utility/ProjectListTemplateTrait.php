@@ -48,7 +48,7 @@
     protected function getProjectListVariables() {
       $variables = [
         'module' => $this->getModuleName(),
-        'project_list' => ProjectTrait::buildList()
+        'project_list' => ProjectTrait::buildProjectList()
       ];
       return $variables;
     }

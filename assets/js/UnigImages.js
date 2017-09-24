@@ -35,42 +35,43 @@
     }
   };
 
-function constructor(context, settings) {
-  loadAllImages();
-}
+  function constructor(context, settings) {
+    loadAllImages();
+  }
 
 
-function showTools(context, settings) {
+  function showTools(context, settings) {
 
-
-  var currentId = $(this).attr('id');
-  $(this).toggleClass("result_hover");
-  console.log('hover - ' + currentId);
-
-}
-
-
-/**
- *
- *
- *
- */
-
-function loadAllImages() {
-
-  // hole alle bilder
-  var all_col = $('.unig-file-edit-col');
-  console.log(all_col);
-
-  all_col.each(function (key, value) {
 
     var currentId = $(this).attr('id');
-    console.log(currentId);
+    $(this).toggleClass("result_hover");
+    console.log('hover - ' + currentId);
 
-  });
+  }
 
 
-} // loadAllImages
+  /**
+   *
+   *
+   *
+   */
+
+  function loadAllImages() {
+
+    // hole alle bilder
+    var $unig_file_set_cover = $('.unig-file-set-cover');
+    console.log($unig_file_set_cover);
+
+    $unig_file_set_cover.each(function (key, value) {
+
+      var nid = $(value).data('unig-cover');
+      console.log(nid);
+
+
+    });
+
+
+  } // loadAllImages
 
 
 })

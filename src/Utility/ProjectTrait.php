@@ -208,44 +208,6 @@
       return $nid_image;
     }
 
-    /**
-     *
-     * get uri from all styles from Cover image
-     *
-     * @param $nid
-     *
-     * @return array
-     */
-    public static function getAlbumList($project_nid) {
-      $variables = [];
-      $node = \Drupal::entityTypeManager()
-        ->getStorage('node')
-        ->load($project_nid);
-
-
-      // Field Event Image
-      if (!empty($node->field_unig_album)) {
-        if (isset($node->field_unig_album->entity)) {
-
-
-          foreach ($node->field_unig_album as $album) {
-
-            if ($album->entity) {
-
-              $nid = $album->entity->id();
-              $label = $album->entity->label();
-
-              // save
-              $variables[] = ['nid' => $nid, 'title' => $label];
-            }
-          }
-        }
-
-      }
-      return $variables;
-
-    }
-
 
     /**
      *
@@ -255,12 +217,12 @@
      *
      * @return array
      */
-    public static function getCoverImage($nid) {
+    public static function getImage($nid) {
       $variables = [];
 
       $node = \Drupal::entityTypeManager()
         ->getStorage('node')
-        ->load($project_nid);
+        ->load($nid);
 
 
       // Field Event Image
@@ -312,20 +274,38 @@
     }
 
     /**
-     * @param $nid_project
+     * @param      $nid_project
+     *
+     * @param null $album_nid
      *
      * @return array
      */
-    public static function getListofFilesInProject($nid_project) {
+    public static function getListofFilesInProject($nid_project, $album_nid = NULL) {
       // bundle : unig_file
       // field: field_unig_project[0]['target_id']
 
 
-      // Get all unig_file_nodes in Project
-      $nids = \Drupal::entityQuery('node')
-        ->condition('type', 'unig_file')
-        ->condition('field_unig_project', $nid_project)
-        ->execute();
+      if ($album_nid != NULL) {
+
+        dpm('Album NID:'.$album_nid);
+
+        $nids = \Drupal::entityQuery('node')
+          ->condition('type', 'unig_file')
+          ->condition('field_unig_project', $nid_project)
+          ->condition('field_unig_album', $album_nid)
+
+          ->execute();
+
+
+      }
+      else {
+        // Get all unig_file_nodes in Project
+        $nids = \Drupal::entityQuery('node')
+          ->condition('type', 'unig_file')
+          ->condition('field_unig_project', $nid_project)
+          ->execute();
+
+      }
 
       // put them in new array
       $list = [];
@@ -336,12 +316,26 @@
       return $list;
     }
 
+    public static function buildProjectList() {
+
+      $nids = self::getAllProjectNids();
+
+      $variables = [];
+
+
+      foreach ($nids as $project_nid) {
+
+        $variables[] = self::buildProject($project_nid);
+      }
+
+      return $variables;
+    }
 
     /**
      * @return array
      *
      */
-    public static function buildList() {
+    public static function buildProject($project_nid) {
 
       // project
       //  - nid
@@ -363,87 +357,255 @@
       //
 
 
-      $project_list = [];
-      $nids = self::getAllProjectNids();
+      $node = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($project_nid);
 
 
-      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-      $entity_list = $node_storage->loadMultiple($nids);
-
-      foreach ($entity_list as $nid => $node) {
-
-        // NID
-        $node_nid = $node->get('nid')->getValue();
-        $nid = $node_nid[0]['value'];
+      // NID
+      $node_nid = $node->get('nid')->getValue();
+      $nid = $node_nid[0]['value'];
 
 
-        // Title
-        $node_title = $node->get('title')->getValue();
-        $title = $node_title[0]['value'];
+      // Title
+      $node_title = $node->get('title')->getValue();
+      $title = $node_title[0]['value'];
 
 
-        // Body
-        $node_body = $node->get('body')->getValue();
-        $body = $node_body[0]['value'];
+      // Body
+      $node_body = $node->get('body')->getValue();
+      $body = $node_body[0]['value'];
 
 
-        // Date
-        $node_date = $node->get('field_unig_date')->getValue();
-        $date = $node_date[0]['value'];
-        $format = 'Y-m-d';
-        $php_date_obj = date_create_from_format($format, $date);
+      // Date
+      $node_date = $node->get('field_unig_date')->getValue();
+      $date = $node_date[0]['value'];
+      $format = 'Y-m-d';
+      $php_date_obj = date_create_from_format($format, $date);
 
-        // Timestamp
-        $timestamp = $php_date_obj->format('U');
+      // Timestamp
+      $timestamp = $php_date_obj->format('U');
 
-        // Year
-        $year = $php_date_obj->format("Y");
+      // Year
+      $year = $php_date_obj->format("Y");
 
-        // Year
-        $year = $php_date_obj->format("Y");
+      // Year
+      $year = $php_date_obj->format("Y");
 
-        // weight
-        // TODO
+      // weight
+      // TODO
 
-        // Cover Node ID
-        $node_cover = $node->get('field_unig_project_cover')->getValue();
-        $cover_id = $node_cover[0]['target_id'];
+      // Cover Node ID
+      $node_cover = $node->get('field_unig_project_cover')->getValue();
+      $cover_id = $node_cover[0]['target_id'];
 
-        if ($cover_id == NULL) {
-          $cover_id = self::setCover($nid);
-        }
+      if ($cover_id == NULL) {
+        $cover_id = self::setCover($nid);
+      }
 
-        // Cover Image
-        $cover_image = self::getCoverImage($cover_id);
+      // Cover Image
+      $cover_image = self::getImage($cover_id);
 
-        // number_of_items
-        $number_of_items = self::countFilesInProject($nid);
-
-
-        // Album List
-        $album_list = self::getAlbumList($nid);
-
-        // Twig-Variables
-        $project = [
-          'nid' => $nid,
-          'title' => $title,
-          'body' => $body,
-          'date' => $date,
-          'timestamp' => $timestamp,
-          'year' => $year,
-          'number_of_items' => $number_of_items,
-          'cover_id' => $cover_id,
-          'cover_image' => $cover_image,
-          'album_list' => $album_list,
-
-        ];
+      // number_of_items
+      $number_of_items = self::countFilesInProject($nid);
 
 
-        $project_list[] = $project;
+      // Album List
+      $album_list = self::buildAlbumList($nid);
+
+      // Twig-Variables
+      $project = [
+        'nid' => $nid,
+        'title' => $title,
+        'body' => $body,
+        'date' => $date,
+        'timestamp' => $timestamp,
+        'year' => $year,
+        'number_of_items' => $number_of_items,
+        'cover_id' => $cover_id,
+        'cover_image' => $cover_image,
+        'album_list' => $album_list,
+
+      ];
+
+
+      return $project;
+    }
+
+
+    /**
+     * @return array
+     *
+     */
+    public static function buildFileList($project_nid, $album_nid = NULL) {
+
+      $file_nids = self::getListofFilesInProject($project_nid, $album_nid);
+
+      foreach ($file_nids as $file_nid) {
+
+        $variables[] = self::buildFile($file_nid);
       }
 
 
-      return $project_list;
+      return $variables;
     }
 
+    /**
+     * @param $file_nid
+     *
+     * @return array
+     *
+     */
+    public static function buildFile($file_nid) {
+
+      // project
+      //  - nid
+      //  - date
+      //  - timestamp
+      //  - title
+      //  - body
+      //  - weight (draggable)
+      //  - album
+      //      - title
+      //      - number_of_items
+      //  - links
+      //    - edit
+      //    - delete
+
+
+      $entity = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($file_nid);
+
+      // NID
+      $nid = $entity->id();
+
+      // Title
+      $title = $entity->label();
+
+      // Body
+      $body = '';
+      if (!empty($entity->body)) {
+        // TODO not tested !
+        $body = $entity->get('body')->getValue();
+      }
+
+      // image
+      $image = self::getImage($file_nid);
+
+      // weight
+      // TODO
+
+
+      // Album List
+      $album_list = self::buildAlbumList($nid);
+
+      // Twig-Variables
+      $file = [
+        'nid' => $nid,
+        'title' => $title,
+        'body' => $body,
+        'album_list' => $album_list,
+        'image' => $image,
+
+
+      ];
+
+
+      return $file;
+    }
+
+    /**
+     *
+     * get uri from all styles from Cover image
+     *
+     * @param $nid
+     *
+     * @return array
+     */
+    public static function buildAlbumList($nid) {
+
+      $album_nids = [];
+      $albums = [];
+
+      $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
+
+      if (!empty($entity->field_unig_album)) {
+        if (isset($entity->field_unig_album->entity)) {
+
+          foreach ($entity->field_unig_album as $album) {
+
+            if ($album->entity) {
+              $album_nids[] = $album->entity->id();
+            }
+          }
+        }
+      }
+
+      if (count($album_nids) > 0) {
+
+
+        // put them in new array
+        foreach ($album_nids as $album_nid) {
+
+          $albums[] = self::buildAlbum($album_nid);
+        }
+      }
+
+
+      return $albums;
+
+    }
+
+
+    /**
+     * @param $album_nid
+     *
+     * @return array
+     *
+     */
+    public static function buildAlbum($album_nid) {
+
+      // project
+      //  - nid
+      //  - date
+      //  - timestamp
+      //  - title
+      //  - body
+      //  - weight (draggable)
+      //  - album
+      //      - title
+      //      - number_of_items
+      //  - links
+      //    - edit
+      //    - delete
+
+
+      $entity = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($album_nid);
+
+      // NID
+      $nid = $entity->id();
+
+      // Title
+      $title = $entity->label();
+
+      // Body
+      $body = '';
+      if (!empty($entity->body)) {
+        // TODO not tested !
+        $body = $entity->get('body')->getValue();
+      }
+
+
+      // Twig-Variables
+      $album = [
+        'nid' => $nid,
+        'title' => $title,
+        'body' => $body,
+      ];
+
+      return $album;
+    }
   }

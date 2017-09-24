@@ -30,10 +30,12 @@ unig.project.list:
 #
 # Admin Page project detail
 #
-unig.project_detail:
-  path: '/unig/admin/projects/{project_nid}'
+unig.project:
+  path: '/unig/project/{project_nid}/{album_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::projectDetail'
+    _controller: '\Drupal\unig\Controller\ProjectController::projectTemplate'
+    project_nid: null
+    album_nid: null
   requirements:
     _permission: 'access unig admin'
 
@@ -91,5 +93,19 @@ unig.sandbox:
   defaults:
     _controller: '\Drupal\unig\Controller\AdminController:sandboxPage'
     _title: 'Sandbox'
+  requirements:
+    _permission: 'access unig admin'
+
+
+
+
+#
+# AJAX Test
+#
+unig.ajax_test:
+  path: '/unig/ajaxtest/{image_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:ajaxtest'
+    _title: 'Ajaxtest'
   requirements:
     _permission: 'access unig admin'

@@ -27,24 +27,29 @@ project
 
 /unig/upload
  #}
+
+{% set unig_upload = path('unig.upload') %}
+
+
 <h1>Universal Gallery - All Projects </h1>
 
 <div class="unig-debug">
     {#    {{ dd(project_list) }}#}
 </div>
 
-
-<div class="unig-toolbar">
-
-    <a type="button" class="button btn btn-default" href="/unig/upload"><i class="fa fa-plus" aria-hidden="true"></i>
-        Neues Projekt</a>
+{% if logged_in %}
 
 
-    {#
-        <a type="button" class="button btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten</a>
-    #}
+    <div class="unig-toolbar">
 
-</div>
+        <a type="button" class="button btn btn-default" href="{{ unig_upload }}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Neues Projekt
+        </a>
+
+    </div>
+
+{% endif %}
 
 <div class="unig-ajax-container">
 
