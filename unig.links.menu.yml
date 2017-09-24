@@ -12,3 +12,10 @@ unig.admin_content:
     description: 'Show all Galleries'
     route_name: unig.projects
     parent: 'system.admin_content'
+
+
+unig.sandbox:
+    title: 'Sandbox'
+    description: 'Testing new Functions'
+    route_name: unig.sandbox
+    parent: 'unig.admin_content'

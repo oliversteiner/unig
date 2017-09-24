@@ -85,13 +85,16 @@ unig.admin.projects.views:
 
 
 
+
+
+
 #
-# Views Files
+# Sandbox
 #
-unig.admin.test:
-  path: '/unig/admin/test'
+unig.sandbox:
+  path: '/unig/sandbox'
   defaults:
-      _form:  '\Drupal\unig\Form\FilesForm'
-      _title: 'Files Admin'
+    _controller: '\Drupal\unig\Controller\AdminController:sandboxPage'
+    _title: 'Sandbox'
   requirements:
-    _permission: 'access upload form'
+    _permission: 'access unig admin'

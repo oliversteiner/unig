@@ -192,4 +192,18 @@ trait ProjectTrait {
     return $number_of_files;
   }
 
+  /**
+   * @param $nid_project
+   *
+   * @return array
+   */
+  public static function getListofFilesInProject($nid_project){
+
+    $nids = array();
+
+    $entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'article']);
+
+    return $nids;
+  }
+
 }
