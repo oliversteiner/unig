@@ -76,16 +76,6 @@ unig.admin.test_config:
   requirements:
     _permission: 'access unig admin'
 
-#
-# Views Files
-#
-unig.admin.files:
-  path: '/unig/admin/files/{project_nid}'
-  defaults:
-      _form:  '\Drupal\unig\Form\FilesForm'
-      _title: 'Files Admin'
-  requirements:
-    _permission: 'access upload form'
 
 #
 # Views Projects
