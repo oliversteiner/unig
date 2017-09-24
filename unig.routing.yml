@@ -5,6 +5,8 @@
 # Admin Page
 #
 
+
+
 unig.admin:
   path: '/unig/admin'
   defaults:
@@ -14,14 +16,16 @@ unig.admin:
     _permission: 'access unig admin'
 
 #
-# Admin Page projects
+# Content > Universal Gallery > List Projects
 #
-unig.projects:
-  path: '/unig/admin/projects'
+unig.project.list:
+  path: '/unig/project-list'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::listAllProjects'
+    _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
   requirements:
     _permission: 'access unig admin'
+
+
 
 #
 # Admin Page project detail
@@ -75,15 +79,6 @@ unig.admin.test_config:
     _controller: '\Drupal\unig\Controller\AdminController::testConfig'
   requirements:
     _permission: 'access unig admin'
-
-
-#
-# Views Projects
-#
-unig.admin.projects.views:
-  path: '/unig/admin/projects-v'
-
-
 
 
 

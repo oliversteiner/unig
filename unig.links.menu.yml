@@ -14,8 +14,19 @@ unig.settings_form:
 unig.admin_content:
     title: 'Universal Gallery'
     description: 'Show all Galleries'
-    route_name: unig.projects
+    route_name: unig.project.list
     parent: 'system.admin_content'
+
+#
+# Content > Universal Gallery > List Projects
+#
+unig.project.list:
+    title:  'List all Galleries'
+    description: 'Show all Galleries'
+    route_name: unig.project.list
+    parent: 'unig.admin_content'
+
+
 
 
 #

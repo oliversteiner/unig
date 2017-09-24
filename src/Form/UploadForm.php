@@ -38,7 +38,7 @@ class UploadForm extends FormBase
     public function __construct()
     {
         $this->config = $this->defaultConfiguration();
-        $this->projectList = $this->getProjectlist();
+        $this->projectList = $this->getProjectlistSelected();
 
     }
 
@@ -99,7 +99,7 @@ class UploadForm extends FormBase
         $form['project'] = [
             '#title' => $this->t('Projekt wählen'),
             '#type' => 'select',
-            '#options' => $this->getProjectlist(),
+            '#options' => $this->getProjectlistSelected(),
             '#default_value' => $this->getDefaultProjectNid(),
           /*  '#ajax' => [
                 'callback' => '::selectNewProject',

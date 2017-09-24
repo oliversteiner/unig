@@ -38,7 +38,7 @@ class FilesForm extends FormBase
     public function __construct()
     {
         $this->config = $this->defaultConfiguration();
-        $this->projectList = $this->getProjectlist();
+        $this->projectList = $this->getProjectlistSelected();
 
     }
 
@@ -84,7 +84,7 @@ class FilesForm extends FormBase
         $form['project'] = [
             '#title' => $this->t('Projekt wählen'),
             '#type' => 'select',
-            '#options' => $this->getProjectlist(),
+            '#options' => $this->getProjectlistSelected(),
             '#default_value' => $this->getDefaultProjectNid(),
         /*    '#ajax' => [
                 'callback' => '::selectNewProject',
@@ -175,7 +175,7 @@ class FilesForm extends FormBase
 
         if (isset($new_project) && !empty($new_project)) {
             $create_new_project = TRUE;
-              $project_nid = $this->createUniGProject($new_project);
+              $project_nid = self::createUniGProject($new_project);
 
             // Titel herausfinden
             $project_title = $new_project;
