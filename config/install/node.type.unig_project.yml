@@ -9,7 +9,7 @@ third_party_settings:
       - main
     parent: 'main:'
 _core:
-  default_config_hash: rQ-c31CmuX0b-z8KBlxvQjo1DjraTobQ-1UG3_2IvJA
+  default_config_hash: MHvZw-Wr8YQzr8TGcPq9NCh5twOpN1a7clpQSvENocY
 name: 'Universal Gallery Project'
 type: unig_project
 description: ''

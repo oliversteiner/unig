@@ -1,10 +1,12 @@
-langcode: de
+angcode: de
 status: true
 dependencies:
   config:
     - field.storage.node.field_unig_project
     - node.type.unig_file
     - node.type.unig_project
+_core:
+  default_config_hash: oyyPE7XafyAJE7WECppaB03UqGAdCsU9TDQ7GwzbRqo
 id: node.unig_file.field_unig_project
 field_name: field_unig_project
 entity_type: node

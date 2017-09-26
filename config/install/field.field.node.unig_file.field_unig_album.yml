@@ -1,28 +1,27 @@
-langcode: de
+langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_unig_preview
+    - field.storage.node.field_unig_album
     - node.type.unig_file
-    - node.type.unig_project
-id: node.unig_project.field_unig_preview
-field_name: field_unig_preview
+    - node.type.universal_gallery_album
+id: node.unig_file.field_unig_album
+field_name: field_unig_album
 entity_type: node
-bundle: unig_project
-label: 'UniG Preview'
+bundle: unig_file
+label: unig_album
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      unig_file: unig_file
+      universal_gallery_album: universal_gallery_album
     sort:
-      field: field_title
-      direction: ASC
+      field: _none
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference
