@@ -46,10 +46,23 @@
      *   Associative array that defines context for a template.
      */
     protected function getProjectListVariables() {
+
       $variables = [
         'module' => $this->getModuleName(),
-        'project_list' => ProjectTrait::buildProjectList()
+        'project_list' => ProjectTrait::buildProjectList(),
       ];
+
+      $user = \Drupal::currentUser();
+
+      $variables['user'] = clone $user;
+      // Remove password and session IDs, since themes should not need nor see them.
+      unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
+
+      $variables['is_admin'] = $user->hasPermission('Administer content');
+      $variables['logged_in'] = $user->isAuthenticated();
+
+
+
       return $variables;
     }
 

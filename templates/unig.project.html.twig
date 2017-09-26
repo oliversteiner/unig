@@ -39,9 +39,9 @@ project
 </div>
 
 <div class="unig-debug">
-{#
-    {{ dd(files) }}
-#}
+    {#
+        {{ dd(files) }}
+    #}
 
 </div>
 
@@ -55,7 +55,7 @@ project
 
     <a type="button" class="button btn btn-default" href="{{ unig_upload }}">
         <i class="fa fa-plus" aria-hidden="true"></i>
-        Neues Projekt
+        Bilder hinzufügen
     </a>
 
 
@@ -64,6 +64,10 @@ project
 <div class="unig-ajax-container">
 
 </div>
+
+{#
+<a class="use-ajax" href="/unig/ajaxtest/123">Ajaxtest</a>
+#}
 
 
 <article>
@@ -91,22 +95,32 @@ project
     {# Album List #}
     <div>
         <ul>
-            <li>
+            <li class="unig-albumlist-all">
                 <a href="/unig/project/{{ project.nid }}">Alle</a>
             </li>
 
             {% for album in project.album_list %}
-                <li>
+                <li class=" unig-albumlist-item">
                     <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
                 </li>
 
             {% endfor %}
+            <li class="unig-albumlist-new-container">
+                <div id="unig-form-new-album-input-messages"> </div>
+
+                <div id="ajax-container-new-album">
+                    <a class="ajax-container-new-album-trigger">Neues Album erstellen</a>
+                    <div id="ajax-container-new-album-container" data-projectnid ="{{ project.nid}}" style="display: none">
+                        {{ drupal_form('Drupal\\unig\\Form\\NewAlbumForm' ) }}
+                    </div>
+                </div>
+            </li>
+
         </ul>
     </div>
 
 </article>
 
-{# Album List #}
 <div>
     <ul>
         {% for file in files %}
@@ -115,16 +129,18 @@ project
 
                 <div>
 
-                    <a class="unig-file-set-cover use-ajax" href="/unig/ajaxtest/{{ file.nid }}" >Als Titelbild festlegen</a>
+                    <a class="unig-file-set-cover use-ajax"
+                       href="/unig/nojs/set_cover/{{ project.nid }}/{{ file.nid }}">Als Titelbild festlegen</a>
 
                     <p>Zu album hinzufügen</p>
                     <ul>
                         {% for album in project.album_list %}
-                        <li>
-                            <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
-                        </li>
+                            <li>
+                                <a class="unig-file-add-album use-ajax"
+                                   href="/unig/nojs/add_album/{{ file.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                            </li>
 
-                    {% endfor %}
+                        {% endfor %}
                     </ul>
                 </div>
             </li>
@@ -132,6 +148,3 @@ project
         {% endfor %}
     </ul>
 </div>
-
-
-<hr>

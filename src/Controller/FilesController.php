@@ -46,7 +46,7 @@ class FilesController extends ControllerBase
     }
 
     /**
-     * @param $project_nid
+     * @param $file_nid
      * @return array
      */
     public function fileDetail($file_nid)

@@ -23,7 +23,7 @@ unig.project.list:
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access content'
 
 
 
@@ -102,10 +102,46 @@ unig.sandbox:
 #
 # AJAX Test
 #
-unig.ajax_test:
+unig.ajax.test:
   path: '/unig/ajaxtest/{image_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:ajaxtest'
     _title: 'Ajaxtest'
+  requirements:
+    _permission: 'access unig admin'
+
+
+
+#
+# AJAX setCover
+#
+unig.ajax.setCover:
+  path: '/unig/ajax/set_cover/{project_nid}/{image_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:ajaxSetCover'
+    _title: 'set Cover Image'
+  requirements:
+    _permission: 'access unig admin'
+
+
+#
+# AJAX setAlbum
+#
+unig.ajax.addAlbum:
+  path: '/unig/ajax/add_album/{file_nid}/{album_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:ajaxAddAlbum'
+    _title: 'add Image to Album'
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# AJAX new Album Form
+#
+unig.ajax.newAlbumForm:
+  path: '/unig/ajax/new_album_form/{project_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:ajaxNewAlbumForm'
+    _title: 'add new Album'
   requirements:
     _permission: 'access unig admin'

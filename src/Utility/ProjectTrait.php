@@ -2,14 +2,9 @@
 
   namespace Drupal\unig\Utility;
 
-  use DateTimeZone;
-  use Drupal\Core\Ajax\AjaxResponse;
-  use Drupal\Core\Ajax\ReplaceCommand;
-  use Drupal\Core\Datetime\Element\Datetime;
-  use Drupal\Core\Form\FormStateInterface;
   use Drupal\image\Entity\ImageStyle;
   use Drupal\node\Entity\Node;
-  use Drupal\unig\Utility\UniGTrait;
+
 
   trait ProjectTrait {
 
@@ -411,7 +406,7 @@
 
 
       // Album List
-      $album_list = self::buildAlbumList($nid);
+      $album_list = AlbumTrait::getAlbumList($nid);
 
       // Twig-Variables
       $project = [
@@ -440,6 +435,7 @@
     public static function buildFileList($project_nid, $album_nid = NULL) {
 
       $file_nids = self::getListofFilesInProject($project_nid, $album_nid);
+      $variables = [];
 
       foreach ($file_nids as $file_nid) {
 
@@ -498,7 +494,7 @@
 
 
       // Album List
-      $album_list = self::buildAlbumList($nid);
+      $album_list = AlbumTrait::getAlbumList($nid);
 
       // Twig-Variables
       $file = [
@@ -515,97 +511,7 @@
       return $file;
     }
 
-    /**
-     *
-     * get uri from all styles from Cover image
-     *
-     * @param $nid
-     *
-     * @return array
-     */
-    public static function buildAlbumList($nid) {
-
-      $album_nids = [];
-      $albums = [];
-
-      $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
-
-      if (!empty($entity->field_unig_album)) {
-        if (isset($entity->field_unig_album->entity)) {
-
-          foreach ($entity->field_unig_album as $album) {
-
-            if ($album->entity) {
-              $album_nids[] = $album->entity->id();
-            }
-          }
-        }
-      }
-
-      if (count($album_nids) > 0) {
 
 
-        // put them in new array
-        foreach ($album_nids as $album_nid) {
 
-          $albums[] = self::buildAlbum($album_nid);
-        }
-      }
-
-
-      return $albums;
-
-    }
-
-
-    /**
-     * @param $album_nid
-     *
-     * @return array
-     *
-     */
-    public static function buildAlbum($album_nid) {
-
-      // project
-      //  - nid
-      //  - date
-      //  - timestamp
-      //  - title
-      //  - body
-      //  - weight (draggable)
-      //  - album
-      //      - title
-      //      - number_of_items
-      //  - links
-      //    - edit
-      //    - delete
-
-
-      $entity = \Drupal::entityTypeManager()
-        ->getStorage('node')
-        ->load($album_nid);
-
-      // NID
-      $nid = $entity->id();
-
-      // Title
-      $title = $entity->label();
-
-      // Body
-      $body = '';
-      if (!empty($entity->body)) {
-        // TODO not tested !
-        $body = $entity->get('body')->getValue();
-      }
-
-
-      // Twig-Variables
-      $album = [
-        'nid' => $nid,
-        'title' => $title,
-        'body' => $body,
-      ];
-
-      return $album;
-    }
   }

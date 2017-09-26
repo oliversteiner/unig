@@ -17,6 +17,7 @@
       // onload
       constructor(context, settings);
 
+
       // Event Handlers
       // mouseover
       $('.unig-file-edit-col.views-col').click(
@@ -31,7 +32,19 @@
           },
           function (context, settings) {
             console.log('aut');
-          })
+          });
+
+
+      // New Album Form
+      $('.ajax-container-new-album-trigger').click(function () {
+
+        var $container = $('#ajax-container-new-album-container');
+        $container.toggle();
+
+        var $formElemProjectNid = $("input[name='project_nid']");
+        var project_nid = $container.data('projectnid');
+        $formElemProjectNid.val(project_nid);
+      })
     }
   };
 

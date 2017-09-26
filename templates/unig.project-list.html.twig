@@ -31,13 +31,15 @@ project
 {% set unig_upload = path('unig.upload') %}
 
 
-<h1>Universal Gallery - All Projects </h1>
 
 <div class="unig-debug">
     {#    {{ dd(project_list) }}#}
 </div>
 
-{% if logged_in %}
+
+
+{% if is_admin %}
+
 
 
     <div class="unig-toolbar">
@@ -62,47 +64,92 @@ project
 {% for project in project_list %}
 
 
-    {% if sort_year != project.year %}
-        <div><h2>{{ project.year }}</h2></div>
+    {% if is_admin %}
+        {# --------------------------------------------- #}
+
+        {% if sort_year != project.year %}
+            <div><h2>{{ project.year }}</h2></div>
+        {% endif %}
+
+
+        <article>
+            <div>{{ project.nid }}</div>
+            <div>{{ project.title }}</div>
+
+            {# Anzahl Bilder #}
+            <div>
+                {% if project.number_of_items == 1 %}
+                    {{ project.number_of_items }} Bild
+                {% elseif project.number_of_items > 1 %}
+                    {{ project.number_of_items }} Bilder
+                {% endif %}
+            </div>
+
+            <div>{{ project.body }}</div>
+            <div> {{ project.date|date("m/d/Y") }}</div>
+
+            <div>
+                <a href="/unig/project/{{ project.nid }}">
+                    <img src="{{ project.cover_image.thumbnail }}" alt="">
+                </a>
+            </div>
+
+            <div>
+                <a href="/unig/lightgallery/project/{{ project.nid }}">
+                    Vorschau
+                </a>
+            </div>
+
+            {# Album List #}
+            <div>
+                <ul>
+                    {% for album in project.album_list %}
+                        <li>
+                            <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                        </li>
+
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </article>
+
+
+    {% else %}
+        {# --------------------------------------------- #}
+
+        {% if sort_year != project.year %}
+            <div><h2>{{ project.year }}</h2></div>
+        {% endif %}
+
+
+        <article>
+            <div>{{ project.title }}</div>
+
+            {# Anzahl Bilder #}
+            <div>
+                {% if project.number_of_items == 1 %}
+                    {{ project.number_of_items }} Bild
+                {% elseif project.number_of_items > 1 %}
+                    {{ project.number_of_items }} Bilder
+                {% endif %}
+            </div>
+
+            <div>{{ project.body }}</div>
+
+            <div>
+                <a href="/unig/lightgallery/project/{{ project.nid }}">
+                    <img src="{{ project.cover_image.thumbnail }}" alt="">
+                </a>
+            </div>
+
+            {# Album List #}
+
+
+        </article>
+
+
     {% endif %}
-
-
-    <article>
-        <div>{{ project.nid }}</div>
-        <div>{{ project.title }}</div>
-
-        {# Anzahl Bilder #}
-        <div>
-            {% if project.number_of_items == 1 %}
-                {{ project.number_of_items }} Bild
-            {% elseif project.number_of_items > 1 %}
-                {{ project.number_of_items }} Bilder
-            {% endif %}
-        </div>
-
-        <div>{{ project.body }}</div>
-        <div> {{ project.date|date("m/d/Y") }}</div>
-
-        <div>
-            <a href="/unig/project/{{ project.nid }}">
-                <img src="{{ project.cover_image.thumbnail }}" alt="">
-            </a>
-        </div>
-
-        {# Album List #}
-        <div>
-            <ul>
-                {% for album in project.album_list %}
-                    <li>
-                        <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
-                    </li>
-
-                {% endfor %}
-            </ul>
-        </div>
-
-    </article>
-
 
     {% set sort_year = project.year %}
 

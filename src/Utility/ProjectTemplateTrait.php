@@ -12,7 +12,6 @@
   trait projectTemplateTrait {
 
 
-
     /**
      * Name of our module.
      *
@@ -30,14 +29,13 @@
      * @return array A render array.
      * A render array.
      */
-    public function projectTemplate($project_nid, $album_nid = null) {
+    public function projectTemplate($project_nid, $album_nid = NULL) {
 
       // Make sure you don't trust the URL to be safe! Always check for exploits.
       if (!is_numeric($project_nid)) {
         // We will just show a standard "access denied" page in this case.
         throw new AccessDeniedHttpException();
       }
-
 
 
       $template_path = $this->getProjectPath();
@@ -59,13 +57,26 @@
      * @return array
      *   Associative array that defines context for a template.
      */
-    protected function getProjectVariables($project_nid, $album_nid = null) {
+    protected function getProjectVariables($project_nid, $album_nid = NULL) {
+
+
       $variables = [
         'module' => $this->getModuleName(),
-        'album'=> ProjectTrait::buildAlbumList($album_nid),
+        'album' => AlbumTrait::getAlbumList($project_nid),
         'project' => ProjectTrait::buildProject($project_nid),
-        'files' => ProjectTrait::buildFileList($project_nid, $album_nid)
+        'files' => ProjectTrait::buildFileList($project_nid, $album_nid),
       ];
+
+      $user = \Drupal::currentUser();
+
+      $variables['user'] = clone $user;
+      // Remove password and session IDs, since themes should not need nor see them.
+      unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
+
+      $variables['is_admin'] = $user->hasPermission('Administer content');
+      $variables['logged_in'] = $user->isAuthenticated();
+
+
       return $variables;
     }
 
