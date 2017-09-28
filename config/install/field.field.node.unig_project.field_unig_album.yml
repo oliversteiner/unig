@@ -1,15 +1,15 @@
-angcode: de
+langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_unig_project
-    - node.type.unig_file
+    - field.storage.node.field_unig_album
     - node.type.unig_project
-id: node.unig_file.field_unig_project
-field_name: field_unig_project
+    - node.type.universal_gallery_album
+id: node.unig_project.field_unig_album
+field_name: field_unig_album
 entity_type: node
-bundle: unig_file
-label: 'uni gallery project'
+bundle: unig_project
+label: unig_album
 description: ''
 required: false
 translatable: false
@@ -19,9 +19,9 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      unig_project: unig_project
+      universal_gallery_album: universal_gallery_album
     sort:
       field: _none
-    auto_create: false
+    auto_create: true
     auto_create_bundle: ''
 field_type: entity_reference

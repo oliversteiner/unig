@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: hd
+label: hd
+effects:
+  f6f1f3ee-0c19-45c2-bba5-a3da53f76a3b:
+    uuid: f6f1f3ee-0c19-45c2-bba5-a3da53f76a3b
+    id: image_scale
+    weight: 1
+    data:
+      width: 1980
+      height: null
+      upscale: false
