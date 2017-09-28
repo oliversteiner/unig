@@ -32,8 +32,12 @@ unig.admin.images:
   css:
     theme:
       assets/css/unig.css: {}
+      assets/css/unig_images.css: {}
+      assets/css/unig_album.css: {}
   js:
     assets/js/UnigImages.js: {}
   dependencies:
     - core/jquery
     - core/drupalSettings
+    - lightgallery/lightgallery
+    - lightgallery/lightgallery.load

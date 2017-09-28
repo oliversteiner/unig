@@ -50,6 +50,11 @@
 
   function constructor(context, settings) {
     loadAllImages();
+
+
+    $("*[id^='lightgallery-']").lightGallery();
+
+
   }
 
 

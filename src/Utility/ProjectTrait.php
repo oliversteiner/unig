@@ -500,6 +500,7 @@
       $file = [
         'nid' => $nid,
         'title' => $title,
+        'label' => $body,
         'body' => $body,
         'album_list' => $album_list,
         'image' => $image,

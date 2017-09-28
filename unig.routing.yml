@@ -39,6 +39,19 @@ unig.project:
   requirements:
     _permission: 'access unig admin'
 
+
+#
+# Show Gallery
+#
+unig.lightgallery:
+  path: '/unig/lightgallery/{project_nid}/{album_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\LightgalleryController::getTemplate'
+    project_nid: null
+    album_nid: null
+  requirements:
+    _permission: 'access content'
+
 #
 # Upload Formular
 #
