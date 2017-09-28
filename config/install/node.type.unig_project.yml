@@ -8,8 +8,6 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
-_core:
-  default_config_hash: MHvZw-Wr8YQzr8TGcPq9NCh5twOpN1a7clpQSvENocY
 name: 'Universal Gallery Project'
 type: unig_project
 description: ''

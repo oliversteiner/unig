@@ -4,8 +4,6 @@ dependencies:
   config:
     - field.storage.node.field_unig_trash
     - node.type.unig_file
-_core:
-  default_config_hash: qGOpMPakAyQgjIQPrnP9X7aLoSY3x0Ud8Q65qoD9C2s
 id: node.unig_file.field_unig_trash
 field_name: field_unig_trash
 entity_type: node

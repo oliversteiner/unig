@@ -3,8 +3,6 @@ status: true
 dependencies:
   module:
     - node
-_core:
-  default_config_hash: NgagJD7LME79fj2Fhndo5gInjiynHXCqYP6QQem4v5k
 id: node.field_unig_trash
 field_name: field_unig_trash
 entity_type: node

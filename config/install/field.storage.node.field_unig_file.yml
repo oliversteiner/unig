@@ -4,8 +4,6 @@ dependencies:
   module:
     - file
     - node
-_core:
-  default_config_hash: c0rLw7W-uEwmhToqZFvGaRiig1muZKK7DfT75nEAYa0
 id: node.field_unig_file
 field_name: field_unig_file
 entity_type: node

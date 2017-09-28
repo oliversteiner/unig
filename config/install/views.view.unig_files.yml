@@ -16,8 +16,6 @@ dependencies:
     - node
     - text
     - user
-_core:
-  default_config_hash: 2QYCZH7Z8v376vpq01caT7mRgYne29H2URVk8O1KSTs
 id: unig_files
 label: 'Universal Gallery Files'
 module: views

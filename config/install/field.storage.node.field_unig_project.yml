@@ -3,8 +3,6 @@ status: true
 dependencies:
   module:
     - node
-_core:
-  default_config_hash: nCQXxah96B6YCGo9m2S-ZK3B8qs9Tfdj2MEO9R2AQYM
 id: node.field_unig_project
 field_name: field_unig_project
 entity_type: node
