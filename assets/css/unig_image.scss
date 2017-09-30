@@ -1,0 +1,49 @@
+@import "colors";
+
+.unig-lightgallery-article {
+}
+
+.unig-lightgallery-title {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.unig-lightgallery-date {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.unig-lightgallery-number-of-items {
+}
+
+
+.unig-gallery img {
+  border: solid 1px $color-80;
+}
+
+ul.unig-gallery li {
+  display: inline-block;
+  margin: 10px;
+  width: 100px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $color-5;
+  padding: 10px;
+  cursor: pointer;
+}
+.unig-gallery li:hover {
+  background-color: $color-20;
+  cursor: pointer;
+}
+
+
+li.unig-file{
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $color-5;
+  padding: 10px;
+  list-style: none;
+
+}

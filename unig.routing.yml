@@ -136,6 +136,16 @@ unig.ajax.setCover:
   requirements:
     _permission: 'access unig admin'
 
+#
+# AJAX deleteFile
+#
+unig.ajax.deleteFile:
+  path: '/unig/ajax/delete_file/{file_nid}/{album_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:ajaxDeleteFile'
+    _title: 'delete File'
+  requirements:
+    _permission: 'access unig admin'
 
 #
 # AJAX setAlbum

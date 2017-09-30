@@ -108,6 +108,31 @@
     /**
      * @return \Drupal\Core\Ajax\AjaxResponse
      */
+    public function ajaxDeleteFile($file_nid, $album_nid=null) {
+
+      $response = new AjaxResponse();
+
+
+      $result = true;
+
+      if($result){
+        $message = "Das Bild wurde gelöscht";
+        $response->addCommand(new ReplaceCommand('li.unig-file-'.$album_nid, ''));
+
+      }
+      else{
+        $message = "Fehler: Das Bild konnte nicht gelöscht werden";
+
+      }
+
+      $response->addCommand(new ReplaceCommand('#ajax-container', '<div id="ajax-container">' . $message . '</div>'));
+      return $response;
+
+    }
+
+    /**
+     * @return \Drupal\Core\Ajax\AjaxResponse
+     */
     public function ajaxNewAlbumForm($project_nid) {
 
       $message = 'new form';

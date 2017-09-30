@@ -53,64 +53,61 @@ project
 
 </div>
 
-<article>
-    <div>{{ project.nid }}</div>
-    <div>{{ project.title }}</div>
+<article class="unig unig-lightgallery-article">
+    <h2  class="unig-lightgallery-title">{{ project.title }}</h2>
+
+
+
+    <p  class="unig-lightgallery-date"> {{ project.date|date("d. m. Y") }}</p>
 
     {# Anzahl Bilder #}
-    <div>
+    <p class="unig-lightgallery-number-of-items">
         {% if project.number_of_items == 1 %}
             {{ project.number_of_items }} Bild
         {% elseif project.number_of_items > 1 %}
             {{ project.number_of_items }} Bilder
         {% endif %}
-    </div>
+    </p>
 
-    <div>{{ project.body }}</div>
-    <div> {{ project.date|date("m/d/Y") }}</div>
+    <p  class="unig-lightgallery-body">{{ project.body }}</p>
 
-    <div>
-        {#
-                    <img src="{{ project.cover_image.thumbnail }}" alt="">
-        #}
-    </div>
 
-    {# Album List #}
-    <div>
-        <ul>
-            <li class="unig-albumlist-all">
-                <a href="/unig/project/{{ project.nid }}">Alle Bilder</a>
-            </li>
+    {#
+        #}{# Album List #}{#
+        <div>
+            <ul>
+                <li class="unig-albumlist-all">
+                    <a href="/unig/project/{{ project.nid }}">Alle Bilder</a>
+                </li>
 
-            {% if album %}
-                {% for album in project.album_list %}
-                    <li class=" unig-albumlist-item">
-                        <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
-                    </li>
+                {% if album %}
+                    {% for album in project.album_list %}
+                        <li class=" unig-albumlist-item">
+                            <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                        </li>
 
-                {% endfor %}
-            {% endif %}
+                    {% endfor %}
+                {% endif %}
 
+            </ul>
+        </div>#}
+
+
+    <div class="lightgallery-wrapper">
+        <ul class="lightgallery unig-gallery" id="lightgallery-{{ id }}">
+            {% for item in files %}
+                <li data-src="{{ item.image.unig_hd }}" style="{{ item.row_style }}" data-sub-html="{{ item.title }}">
+                    {% if item.label is not empty %}
+                        <div class="field-label">
+                            <label>{{ item.field_label }}</label>
+                        </div>
+                    {% endif %}
+                    <div class="field-content">
+                        <img class="img-responsive" src="{{ item.image.unig_thumbnail }}"/>
+                    </div>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 
 </article>
-
-<div class="lightgallery-wrapper">
-    <ul class="lightgallery unig-gallery" id="lightgallery-{{ id }}">
-        {% for item in files %}
-            <li data-src="{{ item.image.large }}" style="{{ item.row_style }}" data-sub-html="{{ item.title }}">
-                {% if item.label is not empty %}
-                    <div class="field-label">
-                        <label>{{ item.field_label }}</label>
-                    </div>
-                {% endif %}
-                <div class="field-content">
-                    <a href="">
-                        <img class="img-responsive" src="{{ item.image.thumbnail }}" />
-                    </a>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-</div>

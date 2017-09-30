@@ -1,43 +1,26 @@
-$color-test: red;
+@import 'colors';
+.unig {
+  a,
+  a:hover,
+  a.link,
+  a.link:hover {
+    border: 0;
+  }
 
-option[role='seperator'] {
-    margin-top: 8px;
-    border-top: 1px solid #666;
-    padding: 0;
+  font-family: Sans-Serif;
+}
+a.unig-button {
+  display: block;
+  width: 90%;
+  padding: 2px 5px;
+  margin: 5px;
+  border: 1px solid $color-20;
+}
+a.unig-button:hover {
+  background-color: $color-50;
 }
 
-@media all {
-    div .plupload_filelist_footer {
-        height: 31px;
-    }
-}
+.unig-file{
+  background-color: $color-10;
 
-.unig-file-edit-col {
-    padding: 5px;
-    margin: 5px;
-    border: solid grey 1px;
-    min-height: 150px;
-}
-
-.unig-file-edit-col:hover {
-    padding: 5px;
-    margin: 5px;
-    border: solid green 2px;
-    min-height: 150px;
-}
-
-
-.unig-image-toolbox{
-    bottom: 0;
-    display: none;
-}
-
-.result_hover{
-    display: block;
-    border: 2px solid green;
-
-}
-
-.ost-test-2{
-    background: lightseagreen;
 }

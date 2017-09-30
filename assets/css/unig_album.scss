@@ -1,3 +1,28 @@
+@import 'colors';
+
+div.unig-album{
+  display: none;
+}
+
 .unig-albumlist-new-container{
 
+}
+
+ul.unig-project-album-list-items{
+
+}
+
+ul.unig-project-album-list-items li{
+  background-color: transparent;
+
+}
+
+.unig-project-album-list {
+  margin-top: 10px;
+
+  &-title {
+    border-bottom: solid 1px $color-10;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+  }
 }

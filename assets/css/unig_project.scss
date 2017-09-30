@@ -1,0 +1,75 @@
+@import 'colors';
+
+.unig-project-year {
+  width: 100%;
+  margin-left: 10px;
+  border-bottom: 1px solid $color-10;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+.unig-project-list-container {
+  display: flex;
+  align-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  & > a {
+    margin: 0;
+    padding: 0;
+  }
+}
+.unig-project-article {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid $color-10;
+}
+.unig-project-nid {
+  display: none;
+}
+.unig-project-title {
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 1.2em;
+}
+.unig-project-date {
+  display: inline-block;
+  margin-right: 20px;
+}
+.unig-project-number-of-items {
+}
+.unig-project-cover {
+  display: block;
+  width: 150px;
+  min-height: 100px;
+
+  img {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    border: 3px solid $color-5;
+  }
+
+  img:hover {
+    border: 3px solid $color-50;
+  }
+
+}
+.unig-project-cover:hover {
+  cursor: pointer;
+}
+div.unig-project-preview a {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: solid 1px $color-20;
+  text-align: center;
+  width: 150px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $color-10;
+    border: solid 1px $color-20;
+  }
+}
