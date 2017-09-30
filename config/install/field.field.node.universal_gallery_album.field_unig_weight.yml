@@ -1,3 +1,4 @@
+uuid: 12cf7416-b753-4613-843a-c88d1784da21
 langcode: en
 status: true
 dependencies:
@@ -8,7 +9,7 @@ id: node.universal_gallery_album.field_unig_weight
 field_name: field_unig_weight
 entity_type: node
 bundle: universal_gallery_album
-label: 'UniG Gewichtung'
+label: 'UniG Album Weight'
 description: ''
 required: false
 translatable: true

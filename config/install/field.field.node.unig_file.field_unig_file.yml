@@ -1,4 +1,5 @@
-langcode: de
+uuid: a66aa05b-6630-4256-b05d-adc5e840b9e7
+langcode: en
 status: true
 dependencies:
   config:
@@ -6,11 +7,13 @@ dependencies:
     - node.type.unig_file
   module:
     - file
+_core:
+  default_config_hash: 0nX6KDnQvUOTsNES-K6M7WseACrGY_kkfn7JsmcRrUg
 id: node.unig_file.field_unig_file
 field_name: field_unig_file
 entity_type: node
 bundle: unig_file
-label: File
+label: 'UniG File'
 description: ''
 required: false
 translatable: false

@@ -1,4 +1,5 @@
-langcode: de
+uuid: ec92b94d-35d0-4c79-966e-ebec6fccc959
+langcode: en
 status: true
 dependencies:
   config:
@@ -6,11 +7,13 @@ dependencies:
     - node.type.unig_file
   module:
     - image
+_core:
+  default_config_hash: nWUnJRLIIbz1Z_F_UkWSkMPazBtDX21sYq7Jrvcfdto
 id: node.unig_file.field_unig_image
 field_name: field_unig_image
 entity_type: node
 bundle: unig_file
-label: 'uni gallery image'
+label: 'UniG Image'
 description: ''
 required: false
 translatable: false

@@ -1,3 +1,4 @@
+uuid: c6ab9d90-4dca-45b0-bf3c-3c90a0bf195d
 langcode: en
 status: true
 dependencies:
@@ -9,7 +10,7 @@ id: node.unig_file.field_unig_album
 field_name: field_unig_album
 entity_type: node
 bundle: unig_file
-label: unig_album
+label: 'Unig Album'
 description: ''
 required: false
 translatable: true

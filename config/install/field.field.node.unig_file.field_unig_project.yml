@@ -1,15 +1,18 @@
-angcode: de
+uuid: b30a3b1e-bfa3-4e81-b673-6e84f8049fd6
+langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_unig_project
     - node.type.unig_file
     - node.type.unig_project
+_core:
+  default_config_hash: oyyPE7XafyAJE7WECppaB03UqGAdCsU9TDQ7GwzbRqo
 id: node.unig_file.field_unig_project
 field_name: field_unig_project
 entity_type: node
 bundle: unig_file
-label: 'uni gallery project'
+label: 'UniG Project'
 description: ''
 required: false
 translatable: false

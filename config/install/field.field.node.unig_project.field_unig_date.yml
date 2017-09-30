@@ -1,3 +1,4 @@
+uuid: 1eef2bcd-853e-4fad-930c-bc5635e01f06
 langcode: en
 status: true
 dependencies:
@@ -10,7 +11,7 @@ id: node.unig_project.field_unig_date
 field_name: field_unig_date
 entity_type: node
 bundle: unig_project
-label: unig_date
+label: 'UniG Date'
 description: ''
 required: false
 translatable: false

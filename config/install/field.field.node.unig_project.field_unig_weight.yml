@@ -1,3 +1,4 @@
+uuid: 7e9a6bd9-6e42-4a6c-8982-ddda6916e51f
 langcode: en
 status: true
 dependencies:
@@ -8,7 +9,7 @@ id: node.unig_project.field_unig_weight
 field_name: field_unig_weight
 entity_type: node
 bundle: unig_project
-label: 'UniG Gewichtung'
+label: 'UniG Weight'
 description: ''
 required: false
 translatable: true

@@ -1,3 +1,4 @@
+uuid: 5cf74b36-bf62-40b5-99d2-3c844e929596
 langcode: en
 status: true
 dependencies:
@@ -9,7 +10,7 @@ id: node.unig_project.field_unig_album
 field_name: field_unig_album
 entity_type: node
 bundle: unig_project
-label: unig_album
+label: 'UniG Album'
 description: ''
 required: false
 translatable: false

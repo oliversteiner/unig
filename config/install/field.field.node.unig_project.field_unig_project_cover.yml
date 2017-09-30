@@ -1,3 +1,4 @@
+uuid: cc1efcee-9b1a-4d5a-a0fb-691b9b3894fb
 langcode: en
 status: true
 dependencies:
@@ -9,7 +10,7 @@ id: node.unig_project.field_unig_project_cover
 field_name: field_unig_project_cover
 entity_type: node
 bundle: unig_project
-label: unig_project_cover
+label: 'UniG Cover'
 description: ''
 required: false
 translatable: false
