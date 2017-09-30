@@ -1,0 +1,15 @@
+uuid: 41f4b869-94a0-4d5e-89a6-a51066119873
+langcode: en
+status: true
+dependencies: {  }
+name: unig_hd
+label: 'UniG HD (1980)'
+effects:
+  962546ae-c6a6-4949-a4a9-734d81419524:
+    uuid: 962546ae-c6a6-4949-a4a9-734d81419524
+    id: image_scale
+    weight: 1
+    data:
+      width: 1980
+      height: null
+      upscale: false
