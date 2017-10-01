@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,cAAc;EACZ,OAAO,EAAE,IAAI;;AAWf,mCAAmC;EACjC,gBAAgB,EAAE,WAAW;;AAI/B,wBAAyB;EACvB,UAAU,EAAE,IAAI;EAEhB,8BAAQ;IACN,aAAa,EAAE,iBAAmB;IAClC,aAAa,EAAE,GAAG;IAClB,cAAc,EAAE,GAAG",
+"sources": ["unig_album.scss"],
+"names": [],
+"file": "unig_album.css"
+}

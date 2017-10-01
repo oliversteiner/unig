@@ -1,0 +1,39 @@
+.unig-lightgallery-title {
+  display: inline-block;
+  margin-right: 20px; }
+
+.unig-lightgallery-date {
+  display: inline-block;
+  margin-right: 20px; }
+
+.unig-img-preview img {
+  border: 1px solid #c2c2c2; }
+
+.unig-img-preview {
+  min-height: 166px;
+  width: 250px; }
+
+ul.unig-gallery li {
+  display: inline-block;
+  margin: 10px;
+  width: 100px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #e9e9e9;
+  padding: 10px;
+  cursor: pointer; }
+
+.unig-gallery li:hover {
+  background-color: #c2c2c2;
+  cursor: pointer; }
+
+li.unig-file {
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #e9e9e9;
+  padding: 10px;
+  list-style: none; }
+
+/*# sourceMappingURL=unig_image.css.map */
