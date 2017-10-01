@@ -7,6 +7,8 @@ dependencies:
     - node.type.universal_gallery_album
   module:
     - text
+_core:
+  default_config_hash: Yep3PMI9XDVHlMkLcS7Zvxf4ykVOfrCdIE25ZdF7CF0
 id: node.universal_gallery_album.body
 field_name: body
 entity_type: node

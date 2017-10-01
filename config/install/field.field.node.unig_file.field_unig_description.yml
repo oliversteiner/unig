@@ -1,0 +1,21 @@
+uuid: d92a84b3-690b-4295-a11a-b162c884b601
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_description
+    - node.type.unig_file
+  module:
+    - text
+id: node.unig_file.field_unig_description
+field_name: field_unig_description
+entity_type: node
+bundle: unig_file
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

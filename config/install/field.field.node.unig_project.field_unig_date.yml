@@ -7,6 +7,8 @@ dependencies:
     - node.type.unig_project
   module:
     - datetime
+_core:
+  default_config_hash: wCBL-tMTnSC7p9Qbv0XiNrCzSAl_aV1pzblWa-_zGNQ
 id: node.unig_project.field_unig_date
 field_name: field_unig_date
 entity_type: node

@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_unig_album
     - node.type.unig_file
     - node.type.universal_gallery_album
+_core:
+  default_config_hash: gISIW-W_pZ-gNlmgVLZMXZGow0kVvbC-ifdOaIYiDC8
 id: node.unig_file.field_unig_album
 field_name: field_unig_album
 entity_type: node

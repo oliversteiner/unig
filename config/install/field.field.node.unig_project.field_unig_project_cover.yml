@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_unig_project_cover
     - node.type.unig_file
     - node.type.unig_project
+_core:
+  default_config_hash: TwmYZ6lz6bOBijBPK6NR8pZf5z51glLbkIfHmmFdePs
 id: node.unig_project.field_unig_project_cover
 field_name: field_unig_project_cover
 entity_type: node
