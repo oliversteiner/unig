@@ -6,6 +6,17 @@
 #
 
 
+#
+# AJAX Test
+#
+unig.ajax.test:
+  path: '/unig/ajax/ajax_test/{nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:ajaxTest'
+    _title: 'Ajaxtest'
+  requirements:
+    _permission: 'access unig admin'
+
 
 unig.admin:
   path: '/unig/admin'
@@ -36,6 +47,17 @@ unig.project:
     _controller: '\Drupal\unig\Controller\ProjectController::projectTemplate'
     project_nid: null
     album_nid: null
+  requirements:
+    _permission: 'access unig admin'
+
+
+#
+# Admin Page project detail
+#
+unig.project.ajax.delete:
+  path: '/unig/ajax/project_delete/{project_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::ajaxProjectDelete'
   requirements:
     _permission: 'access unig admin'
 
@@ -112,17 +134,6 @@ unig.sandbox:
 
 
 
-#
-# AJAX Test
-#
-unig.ajax.test:
-  path: '/unig/ajaxtest/{image_nid}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:ajaxtest'
-    _title: 'Ajaxtest'
-  requirements:
-    _permission: 'access unig admin'
-
 
 
 #
@@ -140,7 +151,7 @@ unig.ajax.setCover:
 # AJAX deleteFile
 #
 unig.ajax.deleteFile:
-  path: '/unig/ajax/delete_file/{file_nid}/{album_nid}'
+  path: '/unig/ajax/delete_file/{file_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:ajaxDeleteFile'
     _title: 'delete File'
@@ -164,7 +175,7 @@ unig.ajax.addAlbum:
 unig.ajax.newAlbumForm:
   path: '/unig/ajax/new_album_form/{project_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:ajaxNewAlbumForm'
+    _controller: '\Drupal\unig\Controller\ProjectController:ajaxAddAlbum'
     _title: 'add new Album'
   requirements:
     _permission: 'access unig admin'

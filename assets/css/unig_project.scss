@@ -1,5 +1,4 @@
 @import 'colors';
-
 .unig-project-year {
   width: 100%;
   margin-left: 10px;
@@ -72,4 +71,15 @@ div.unig-project-preview a {
     background-color: $color-10;
     border: solid 1px $color-20;
   }
+}
+a.unig-button.unig-project-delete-button {
+  border-color: #ff8e93;
+  display: inline-block;
+  width: inherit;
+  color: red;
+
+  &:hover {
+    background-color: #ffbfb8;
+  }
+
 }

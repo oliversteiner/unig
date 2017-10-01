@@ -52,7 +52,7 @@ project
 
     {% endif %}
 
-    <div class="unig-ajax-container">
+    <div class="ajax-container">
 
     </div>
 
@@ -72,7 +72,7 @@ project
                 {% endif %}
 
 
-                <article class="unig unig-project-article">
+                <article class="unig unig-project-article unig-project-{{ project.nid }}" >
                     <div class="unig-project-cover">
                         <a href="/unig/project/{{ project.nid }}">
                             <img src="{{ project.cover_image.unig_thumbnail }}" alt="">
@@ -104,6 +104,11 @@ project
                     <div class="unig-project-date"> {{ project.date|date("d. m. Y") }}</div>
                     <div>{{ project.body }}</div>
 
+                    {#  -----------   Button Löschen  -----------  #}
+                    <a class="unig-button unig-project-delete-button use-ajax"
+                       href="/unig/nojs/project_delete/{{ project.nid }}">
+                        löschen
+                    </a>
 
                     {# Album List #}
                     {% if album_list %}
@@ -125,17 +130,16 @@ project
 
 
             {% else %}
-                {# --------------------------------------------- #}
-
+                {# ------------------- YEAR -------------------------- #}
                 {% if sort_year != project.year %}
                     <div><h2>{{ project.year }}</h2></div>
                 {% endif %}
 
-
+                {# ------------------- File -------------------------- #}
                 <article class="unig">
                     <div>{{ project.title }}</div>
 
-                    {# Anzahl Bilder #}
+                    {# ------------------- Anzahl Bilder ------------------- #}
                     <div>
                         {% if project.number_of_items == 1 %}
                             {{ project.number_of_items }} Bild
@@ -144,15 +148,15 @@ project
                         {% endif %}
                     </div>
 
+                    {# ------------------- body ------------------- #}
                     <div>{{ project.body }}</div>
 
+                    {# ------------------- Tumbnail ------------------- #}
                     <div>
                         <a href="/unig/lightgallery/project/{{ project.nid }}">
                             <img src="{{ project.cover_image.unig_bigger_thumbnail }}" alt="">
                         </a>
                     </div>
-
-                    {# Album List #}
 
 
                 </article>

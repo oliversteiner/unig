@@ -1,13 +1,10 @@
 @import "colors";
-
 .unig-lightgallery-article {
 }
-
 .unig-lightgallery-title {
   display: inline-block;
   margin-right: 20px;
 }
-
 .unig-lightgallery-date {
   display: inline-block;
   margin-right: 20px;
@@ -16,9 +13,14 @@
 .unig-lightgallery-number-of-items {
 }
 
+.unig-img-preview img {
+  border: 1px solid $color-20;
 
-.unig-gallery img {
-  border: solid 1px $color-80;
+}
+
+.unig-img-preview {
+  min-height: 166px;
+  width: 250px;
 }
 
 ul.unig-gallery li {
@@ -35,9 +37,7 @@ ul.unig-gallery li {
   background-color: $color-20;
   cursor: pointer;
 }
-
-
-li.unig-file{
+li.unig-file {
   display: inline-block;
   margin: 10px;
   text-align: center;
@@ -45,5 +45,4 @@ li.unig-file{
   background-color: $color-5;
   padding: 10px;
   list-style: none;
-
 }

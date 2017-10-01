@@ -83,7 +83,7 @@ project
     </div>
 
     <div class="unig-project-body">{{ project.body }}</div>
-    <div class="unig-project-date"> {{ project.date|date("m/d/Y") }}</div>
+    <div class="unig-project-date"> {{ project.date|date("d. m Y") }}</div>
 
     {# Album List #}
     <div class="unig-album">
@@ -119,22 +119,36 @@ project
     <ul>
         {% for file in files %}
             <li class="unig-file unig-file-{{ file.nid }}">
+
+                {#  -----------   Titelbild  -----------  #}
+                <div>
+                    <p class="unig-img-label">{{ file.nid }} - {{ file.title }} </p>
+                </div>
+
+                {#  -----------   Titelbild  -----------  #}
                 <div class="unig-img-preview">
                     <img src="{{ file.image.unig_bigger_thumbnail }}" alt="">
                 </div>
                 <div>
-                    {#  -----------   Titelbild  -----------  #}
+
+                    {#  -----------   Button Titelbild  -----------  #}
                     <a class="unig-button unig-file-set-cover use-ajax"
                        href="/unig/nojs/set_cover/{{ project.nid }}/{{ file.nid }}">
                         als Titelbild festlegen
                     </a>
 
-                    {#  -----------   Löschen  -----------  #}
-                    <a class="unig-button unig-file-delete use-ajax"
-                       href="/unig/nojs/delete_file/{{ project.nid }}/{{ file.nid }}">
-                        Bild löschen
+                    {#  -----------   Button Löschen  -----------  #}
+                    <a class="unig-button unig-file-delete-file use-ajax"
+                       href="/unig/nojs/delete_file/{{ file.nid }}">
+                        löschen
                     </a>
 
+
+                    {#  -----------   Button test  -----------  #}
+                    <a class="unig-button unig-file-delete-file use-ajax"
+                       href="/unig/nojs/ajax_test/{{ file.nid }}">
+                        test
+                    </a>
                     {#  -----------   Album  -----------  #}
 
                     <div class="unig-album">
@@ -146,7 +160,6 @@ project
                                     <a class="unig-file-add-album use-ajax"
                                        href="/unig/nojs/add_album/{{ file.nid }}/{{ album.nid }}">{{ album.title }}</a>
                                 </li>
-
                             {% endfor %}
                         </ul>
                     </div>

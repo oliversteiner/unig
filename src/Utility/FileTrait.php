@@ -3,6 +3,7 @@
 namespace Drupal\unig\Utility;
 
 use Drupal\file\Entity\File;
+use Drupal\node\Entity\Node;
 
 
 trait FileTrait {
@@ -113,6 +114,44 @@ trait FileTrait {
     }
 
     return $node_ids;
+  }
+
+  /**
+   * @param $nid
+   *
+   * @return array
+   * @internal param $values
+   *
+   */
+  public static function deleteFile($nid) {
+    $status = FALSE;
+    $message = $nid;
+
+    if ($nid) {
+      $node = Node::Load($nid);
+
+      // load node
+      if ($node) {
+         $node->delete();
+
+        // Node delete succses
+          $status = TRUE;
+          $message = 'Die Datei mit der ID ' . $nid . ' wurde gelöscht';
+      }
+
+      // no Node found
+      else {
+        $status = FALSE;
+        $message = 'kein File mit der ID ' . $nid . ' gefunden';
+      }
+    }
+
+    // Output
+    $output = [
+      'status' => $status,
+      'message' => $message,
+    ];
+    return $output;
   }
 
 

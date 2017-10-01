@@ -1,3 +1,6 @@
+body {
+  color: #ffdd8a; }
+
 .unig {
   font-family: Sans-Serif; }
   .unig a,
@@ -7,14 +10,15 @@
     border: 0; }
 
 a.unig-button {
+  box-sizing: border-box;
   display: block;
-  width: 90%;
+  width: 250px;
   padding: 2px 5px;
-  margin: 5px;
   border: 1px solid #c2c2c2; }
 
 a.unig-button:hover {
-  background-color: #7e7e7e; }
+  background-color: #7e7e7e;
+  border: 1px solid #c2c2c2; }
 
 .unig-file {
   background-color: #d2d2d2; }
