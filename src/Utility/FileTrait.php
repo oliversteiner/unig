@@ -49,8 +49,6 @@ trait FileTrait {
     // Node Title is filename without file extension
     $node_title = $file_name;
 
-    // Node Body is empty
-    $node_body = '';
 
     // get definition of target entity type
     $entity_def = \Drupal::EntityTypeManager()->getDefinition($entity_type);
@@ -58,7 +56,6 @@ trait FileTrait {
     // load up an array for creation
     $new_node = [
       'title' => $node_title,
-      'body' => $node_body,
       $entity_def->get('entity_keys')['bundle'] => $this->bundle_file,
     ];
 
@@ -132,11 +129,11 @@ trait FileTrait {
 
       // load node
       if ($node) {
-         $node->delete();
+        $node->delete();
 
         // Node delete succses
-          $status = TRUE;
-          $message = 'Die Datei mit der ID ' . $nid . ' wurde gelöscht';
+        $status = TRUE;
+        $message = 'Die Datei mit der ID ' . $nid . ' wurde gelöscht';
       }
 
       // no Node found
