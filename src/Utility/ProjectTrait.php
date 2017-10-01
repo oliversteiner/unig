@@ -29,8 +29,10 @@ trait ProjectTrait {
     $nids = $query->execute();
 
     if (count($nids) == 0) {
-      $nid_default = self::createDefaultUniGProject();
-      $nids[0] = $nid_default;
+      //   $nid_default = self::createDefaultUniGProject();
+      //   $nids[0] = $nid_default;
+
+      $nids = FALSE;
     }
 
 
@@ -47,24 +49,29 @@ trait ProjectTrait {
 
     $nids = self::getAllProjectNids();
 
+    if ($nids) {
 
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-    $entity_list = $node_storage->loadMultiple($nids);
 
-    foreach ($entity_list as $nid => $node) {
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $entity_list = $node_storage->loadMultiple($nids);
 
-      $node_nid = $node->get('nid')->getValue();
-      $node_title = $node->get('title')->getValue();
+      foreach ($entity_list as $nid => $node) {
 
-      $nid = $node_nid[0]['value'];
-      $title = $node_title[0]['value'];
+        $node_nid = $node->get('nid')->getValue();
+        $node_title = $node->get('title')->getValue();
 
-      $select[$nid] = $title;
+        $nid = $node_nid[0]['value'];
+        $title = $node_title[0]['value'];
+
+        $select[$nid] = $title;
+      }
+
+      $select['-'] = '';
     }
+    else {
 
-    $select['-'] = '';
+    }
     $select['neu'] = ' neues Projekt erstellen...';
-
 
     return $select;
   }
@@ -316,10 +323,11 @@ trait ProjectTrait {
 
     $variables = [];
 
+    if ($nids) {
+      foreach ($nids as $project_nid) {
+        $variables[] = self::buildProject($project_nid);
+      }
 
-    foreach ($nids as $project_nid) {
-
-      $variables[] = self::buildProject($project_nid);
     }
 
     return $variables;
@@ -367,7 +375,7 @@ trait ProjectTrait {
 
 
     // Body
-    $node_body = $node->get('body')->getValue();
+/*    $node_body = $node->get('body')->getValue();*/
     $body = $node_body[0]['value'];
 
 
