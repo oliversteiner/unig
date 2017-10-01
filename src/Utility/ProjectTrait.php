@@ -103,7 +103,6 @@ trait ProjectTrait {
 
     $node_title = $title;
     $node_alias = UniGTrait::toAscii($title);
-    $node_body = '';
 
     // get definition of target entity type
     $entity_def = \Drupal::EntityTypeManager()->getDefinition($entity_type);
@@ -111,7 +110,6 @@ trait ProjectTrait {
     //load up an array for creation
     $new_node = [
       'title' => $node_title,
-      'body' => $node_body,
       $entity_def->get('entity_keys')['bundle'] => 'unig_project',
     ];
 
@@ -345,7 +343,7 @@ trait ProjectTrait {
     //  - timestamp
     //  - year
     //  - title
-    //  - body
+
     //  - weight (draggable)
     //  - number_of_items
     //  - album
@@ -373,10 +371,6 @@ trait ProjectTrait {
     $node_title = $node->get('title')->getValue();
     $title = $node_title[0]['value'];
 
-
-    // Body
-/*    $node_body = $node->get('body')->getValue();*/
-    $body = $node_body[0]['value'];
 
 
     // Date
@@ -419,7 +413,6 @@ trait ProjectTrait {
     $project = [
       'nid' => $nid,
       'title' => $title,
-      'body' => $body,
       'date' => $date,
       'timestamp' => $timestamp,
       'year' => $year,
@@ -466,7 +459,7 @@ trait ProjectTrait {
     //  - date
     //  - timestamp
     //  - title
-    //  - body
+    //  - description
     //  - weight (draggable)
     //  - album
     //      - title
@@ -486,13 +479,6 @@ trait ProjectTrait {
     // Title
     $title = $entity->label();
 
-    // Body
-    $body = '';
-    if (!empty($entity->body)) {
-      // TODO not tested !
-      $body = $entity->get('body')->getValue();
-    }
-
     // image
     $image = self::getImage($file_nid);
 
@@ -507,8 +493,6 @@ trait ProjectTrait {
     $file = [
       'nid' => $nid,
       'title' => $title,
-      'label' => $body,
-      'body' => $body,
       'album_list' => $album_list,
       'image' => $image,
 
