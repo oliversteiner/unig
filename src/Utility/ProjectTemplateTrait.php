@@ -77,7 +77,7 @@
      *   Path string.
      */
     protected function getProjectPath() {
-      return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.project.html.twig";
+      return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.project-files.html.twig";
     }
 
   }

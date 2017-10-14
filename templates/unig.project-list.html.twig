@@ -5,28 +5,7 @@
  */
 #}
 
-{#
-project
- - year
- - date
- - year
- - timestamp
- - title
- - body
- - weight (draggable)
- - number_of_items
- - album_list
-     - title
-     - nid
- - links
-   - edit
-   - delete
- - cover_id     (node_id from unig_file)
- - cover_image  (render with twig)
-    -format
 
-/unig/upload
- #}
 {{ attach_library('unig/unig.admin.images') }}
 
 {% set unig_upload = path('unig.upload') %}
@@ -35,7 +14,6 @@ project
 <div class="unig">
 
     <div class="unig-debug">
-        {#    {{ dd(project_list) }}#}
     </div>
 
 
@@ -58,7 +36,6 @@ project
 
     <div class="unig unig-project-list-container">
 
-        {{ project_list }}
         {% set sort_year  = false %}
 
         {% for project in project_list %}

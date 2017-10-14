@@ -356,74 +356,82 @@ trait ProjectTrait {
     //  - cover_image
     //
 
+    $project = [];
 
     $node = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($project_nid);
 
 
-    // NID
-    $node_nid = $node->get('nid')->getValue();
-    $nid = $node_nid[0]['value'];
+    if ($node->get('nid')->getValue()) {
+      // NID
+      $node_nid = $node->get('nid')->getValue();
+      $nid = $node_nid[0]['value'];
 
 
-    // Title
-    $node_title = $node->get('title')->getValue();
-    $title = $node_title[0]['value'];
+      // Title
+      $node_title = $node->get('title')->getValue();
+      $title = $node_title[0]['value'];
 
 
+      // Date
+      $node_date = $node->get('field_unig_date')->getValue();
 
-    // Date
-    $node_date = $node->get('field_unig_date')->getValue();
-    $date = $node_date[0]['value'];
-    $format = 'Y-m-d';
-    $php_date_obj = date_create_from_format($format, $date);
+      if ($node_date) {
+        $date = $node_date[0]['value'];
+        $format = 'Y-m-d';
+        $php_date_obj = date_create_from_format($format, $date);
+      }
+      else {
+        $php_date_obj = date_create();
 
-    // Timestamp
-    $timestamp = $php_date_obj->format('U');
+      }
 
-    // Year
-    $year = $php_date_obj->format("Y");
 
-    // Year
-    $year = $php_date_obj->format("Y");
+      // Timestamp
+      $timestamp = $php_date_obj->format('U');
 
-    // weight
-    // TODO
+      // Year
+      $year = $php_date_obj->format("Y");
 
-    // Cover Node ID
-    $node_cover = $node->get('field_unig_project_cover')->getValue();
-    $cover_id = $node_cover[0]['target_id'];
+      // Date
+      $date = $php_date_obj->format("d. m Y");
 
-    if ($cover_id == NULL) {
-      $cover_id = self::setCover($nid);
+      // weight
+      // TODO
+
+      // Cover Node ID
+      $node_cover = $node->get('field_unig_project_cover')->getValue();
+      $cover_id = $node_cover[0]['target_id'];
+
+      if ($cover_id == NULL) {
+        $cover_id = self::setCover($nid);
+      }
+
+      // Cover Image
+      $cover_image = self::getImage($cover_id);
+
+      // number_of_items
+      $number_of_items = self::countFilesInProject($nid);
+
+
+      // Album List
+      $album_list = AlbumTrait::getAlbumList($nid);
+
+      // Twig-Variables
+      $project = [
+        'nid' => $nid,
+        'title' => $title,
+        'timestamp' => $timestamp,
+        'year' => $year,
+        'number_of_items' => $number_of_items,
+        'cover_id' => $cover_id,
+        'cover_image' => $cover_image,
+        'album_list' => $album_list,
+
+      ];
+
     }
-
-    // Cover Image
-    $cover_image = self::getImage($cover_id);
-
-    // number_of_items
-    $number_of_items = self::countFilesInProject($nid);
-
-
-    // Album List
-    $album_list = AlbumTrait::getAlbumList($nid);
-
-    // Twig-Variables
-    $project = [
-      'nid' => $nid,
-      'title' => $title,
-      'date' => $date,
-      'timestamp' => $timestamp,
-      'year' => $year,
-      'number_of_items' => $number_of_items,
-      'cover_id' => $cover_id,
-      'cover_image' => $cover_image,
-      'album_list' => $album_list,
-
-    ];
-
-
     return $project;
   }
 

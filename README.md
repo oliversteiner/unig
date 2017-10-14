@@ -1,4 +1,8 @@
+#### Version
+beta 1.2
+
 ## Todo
+
 
 ### Einstellungen:
 - Plubload Einstellungen:
