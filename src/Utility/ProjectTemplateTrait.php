@@ -61,10 +61,10 @@
 
 
 
-        $variables['module'] = $this->getModuleName();
-        $variables['album'] = AlbumTrait::getAlbumList($project_nid);
-        $variables['project'] = ProjectTrait::buildProject($project_nid);
-        $variables['files'] = ProjectTrait::buildFileList($project_nid, $album_nid);
+      $variables['module'] = $this->getModuleName();
+      $variables['album'] = AlbumTrait::getAlbumList($project_nid);
+      $variables['project'] = ProjectTrait::buildProject($project_nid);
+      $variables['files'] = ProjectTrait::buildFileList($project_nid, $album_nid);
 
       return $variables;
     }
@@ -77,7 +77,7 @@
      *   Path string.
      */
     protected function getProjectPath() {
-      return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.project.html.twig";
+      return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.project-files.html.twig";
     }
 
   }

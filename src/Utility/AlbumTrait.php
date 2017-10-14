@@ -24,19 +24,12 @@
       // Title
       $title = $entity->label();
 
-      // Body
-      $body = '';
-      if (!empty($entity->body)) {
-        // TODO not tested !
-        $body = $entity->get('body')->getValue();
-      }
 
 
       // Twig-Variables
       $album = [
         'nid' => $nid,
         'title' => $title,
-        'body' => $body,
       ];
 
       return $album;
@@ -101,7 +94,6 @@
       $entity_type = "node";
 
       $node_title = $name;
-      $node_body = '';
 
       // get definition of target entity type
       $entity_def = \Drupal::EntityTypeManager()->getDefinition($entity_type);
@@ -109,7 +101,6 @@
       //load up an array for creation
       $new_node = [
         'title' => $node_title,
-        'body' => $node_body,
         $entity_def->get('entity_keys')['bundle'] => 'unig_album',
       ];
 
