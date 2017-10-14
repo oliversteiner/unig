@@ -5,6 +5,7 @@
  */
 #}
 
+
 {{ attach_library('unig/unig.admin.images') }}
 
 {% set unig_upload = path('unig.upload') %}
@@ -48,63 +49,62 @@
                 {% endif %}
 
 
-                {% if project.nid %}
-                    <article class="unig unig-project-article unig-project-{{ project.nid }}">
-                        <div class="unig-project-cover">
-                            <a href="/unig/project/{{ project.nid }}">
-                                <img src="{{ project.cover_image.unig_thumbnail }}" alt="">
-                            </a>
-                        </div>
-                        <div class="unig-project-preview">
-                            <a href="/unig/lightgallery/{{ project.nid }}">
-                                Vorschau
-                            </a>
-                        </div>
-
-                        <div class="unig-project-nid">{{ project.nid }}</div>
-
-                        <h2 class="unig-project-title">
-                            <a href="/unig/project/{{ project.nid }}">
-                                {{ project.title }}
-                            </a>
-                        </h2>
-
-                        {# Anzahl Bilder #}
-                        <div class="unig-project-number-of-items">
-                            {% if project.number_of_items == 1 %}
-                                {{ project.number_of_items }} Bild
-                            {% elseif project.number_of_items > 1 %}
-                                {{ project.number_of_items }} Bilder
-                            {% endif %}
-                        </div>
-
-                        <div class="unig-project-date"> {{ project.date|date("d. m. Y") }}</div>
-                        <div>{{ project.body }}</div>
-
-                        {#  -----------   Button Löschen  -----------  #}
-                        <a class="unig-button unig-project-delete-button use-ajax"
-                           href="/unig/nojs/project_delete/{{ project.nid }}">
-                            löschen
+                <article class="unig unig-project-article unig-project-{{ project.nid }}" >
+                    <div class="unig-project-cover">
+                        <a href="/unig/project/{{ project.nid }}">
+                            <img src="{{ project.cover_image.unig_thumbnail }}" alt="">
                         </a>
+                    </div>
+                    <div class="unig-project-preview">
+                        <a href="/unig/lightgallery/{{ project.nid }}">
+                            Vorschau
+                        </a>
+                    </div>
 
-                        {# Album List #}
-                        {% if album_list %}
-                            <div class="unig-project-album-list">
-                                <h3 class="unig-project-album-list-title">Alben</h3>
-                                <ul class="unig unig-project-album-list-items">
-                                    {% for album in project.album_list %}
-                                        <li>
-                                            <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
-                                        </li>
+                    <div class="unig-project-nid">{{ project.nid }}</div>
 
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                    <h2 class="unig-project-title">
+                        <a href="/unig/project/{{ project.nid }}">
+                            {{ project.title }}
+                        </a>
+                    </h2>
+
+                    {# Anzahl Bilder #}
+                    <div class="unig-project-number-of-items">
+                        {% if project.number_of_items == 1 %}
+                            {{ project.number_of_items }} Bild
+                        {% elseif project.number_of_items > 1 %}
+                            {{ project.number_of_items }} Bilder
                         {% endif %}
+                    </div>
+
+                    <div class="unig-project-date"> {{ project.date|date("d. m. Y") }}</div>
+                    <div>{{ project.body }}</div>
+
+                    {#  -----------   Button Löschen  -----------  #}
+                    <a class="unig-button unig-project-delete-button use-ajax"
+                       href="/unig/nojs/project_delete/{{ project.nid }}">
+                        löschen
+                    </a>
+
+                    {# Album List #}
+                    {% if album_list %}
+                        <div class="unig-project-album-list">
+                            <h3 class="unig-project-album-list-title">Alben</h3>
+                            <ul class="unig unig-project-album-list-items">
+                                {% for album in project.album_list %}
+                                    <li>
+                                        <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                                    </li>
+
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
 
 
-                    </article>
-                {% endif %}
+                </article>
+
 
             {% else %}
                 {# ------------------- YEAR -------------------------- #}
@@ -113,32 +113,30 @@
                 {% endif %}
 
                 {# ------------------- File -------------------------- #}
-                {% if project.nid %}
-                    <article class="unig">
-                        <div>{{ project.title }}</div>
+                <article class="unig">
+                    <div>{{ project.title }}</div>
 
-                        {# ------------------- Anzahl Bilder ------------------- #}
-                        <div>
-                            {% if project.number_of_items == 1 %}
-                                {{ project.number_of_items }} Bild
-                            {% elseif project.number_of_items > 1 %}
-                                {{ project.number_of_items }} Bilder
-                            {% endif %}
-                        </div>
+                    {# ------------------- Anzahl Bilder ------------------- #}
+                    <div>
+                        {% if project.number_of_items == 1 %}
+                            {{ project.number_of_items }} Bild
+                        {% elseif project.number_of_items > 1 %}
+                            {{ project.number_of_items }} Bilder
+                        {% endif %}
+                    </div>
 
-                        {# ------------------- body ------------------- #}
-                        <div>{{ project.body }}</div>
+                    {# ------------------- body ------------------- #}
+                    <div>{{ project.body }}</div>
 
-                        {# ------------------- Tumbnail ------------------- #}
-                        <div>
-                            <a href="/unig/lightgallery/project/{{ project.nid }}">
-                                <img src="{{ project.cover_image.unig_bigger_thumbnail }}" alt="">
-                            </a>
-                        </div>
+                    {# ------------------- Tumbnail ------------------- #}
+                    <div>
+                        <a href="/unig/lightgallery/project/{{ project.nid }}">
+                            <img src="{{ project.cover_image.unig_bigger_thumbnail }}" alt="">
+                        </a>
+                    </div>
 
 
-                    </article>
-                {% endif %}
+                </article>
 
 
             {% endif %}
