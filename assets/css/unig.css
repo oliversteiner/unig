@@ -106,17 +106,6 @@ a.unig-button-error:hover, a.unig-button-danger:hover,
   border-color: #ffb4aa;
   color: #ffe6e5; }
 
-.front-container {
-  max-width: 900px; }
-
-.unig-galerie-teaser-container {
-  display: flex;
-  flex-wrap: wrap; }
-
-.unig-galerie-teaser {
-  display: inline-flex;
-  padding: 0 20px 20px; }
-
 .unig-row {
   display: flex;
   justify-content: space-between; }
