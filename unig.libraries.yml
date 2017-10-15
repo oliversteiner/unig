@@ -42,3 +42,23 @@ unig.admin.images:
     - core/drupalSettings
     - lightgallery/lightgallery
     - lightgallery/lightgallery.load
+#
+#
+#
+unig.admin.projects:
+  css:
+    theme:
+      assets/css/unig.css: {}
+      assets/css/unig_image.css: {}
+      assets/css/unig_album.css: {}
+      assets/css/unig_project.css: {}
+  js:
+    assets/js/UnigProject.js: {}
+  dependencies:
+    - core/drupalSettings
+    - core/drupal
+    - core/modernizr
+    - core/jquery.once
+    - core/jquery.ui.datepicker
+    - lightgallery/lightgallery
+    - lightgallery/lightgallery.load

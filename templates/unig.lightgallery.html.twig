@@ -53,44 +53,26 @@ project
 
 </div>
 
-<article class="unig unig-lightgallery-article">
-    <h2  class="unig-lightgallery-title">{{ project.title }}</h2>
+<article class="unig unig-lightgallery">
 
+    <div class="unig-lightgallery-title">
+        <h2>{{ project.title }}</h2>
+    </div>
 
-
-    <p  class="unig-lightgallery-date"> {{ project.date|date("d. m. Y") }}</p>
+    <div class="unig-lightgallery-date">
+        <p> {{ project.date|date("d. m. Y") }}</p>
+    </div>
 
     {# Anzahl Bilder #}
-    <p class="unig-lightgallery-number-of-items">
+    <div class="unig-lightgallery-number-of-items">
         {% if project.number_of_items == 1 %}
             {{ project.number_of_items }} Bild
         {% elseif project.number_of_items > 1 %}
             {{ project.number_of_items }} Bilder
         {% endif %}
-    </p>
+    </div>
 
-    <p  class="unig-lightgallery-body">{{ project.body }}</p>
-
-
-    {#
-        #}{# Album List #}{#
-        <div>
-            <ul>
-                <li class="unig-albumlist-all">
-                    <a href="/unig/project/{{ project.nid }}">Alle Bilder</a>
-                </li>
-
-                {% if album %}
-                    {% for album in project.album_list %}
-                        <li class=" unig-albumlist-item">
-                            <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
-                        </li>
-
-                    {% endfor %}
-                {% endif %}
-
-            </ul>
-        </div>#}
+    <div class="unig-lightgallery-body">{{ project.body }}</div>
 
 
     <div class="lightgallery-wrapper">
@@ -103,7 +85,9 @@ project
                         </div>
                     {% endif %}
                     <div class="field-content">
-                        <img class="img-responsive" src="{{ item.image.unig_thumbnail }}"/>
+                        <div class="unig-gallery-preview-wrapper">
+                            <img class="img-responsive" src="{{ item.image.medium }}"/>
+                        </div>
                     </div>
                 </li>
             {% endfor %}

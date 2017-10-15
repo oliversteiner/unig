@@ -1,71 +1,51 @@
 .unig-project-year {
+  position: relative;
   width: 100%;
   margin-left: 10px;
+  margin-top: 20px;
   border-bottom: 1px solid #d2d2d2;
   margin-bottom: 5px;
   padding-bottom: 5px; }
+  .unig-project-year h2 {
+    margin: 0;
+    padding: 0; }
 
 .unig-project-list-container {
   display: flex;
   align-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap; }
   .unig-project-list-container > a {
     margin: 0;
     padding: 0; }
 
-.unig-project-article {
+.unig-project {
   display: inline-block;
   margin: 10px;
-  padding: 10px;
+  padding: 20px;
+  background-color: #f6f6f6;
+  width: 280px;
+  border-radius: 5px;
   border: 1px solid #d2d2d2; }
+  .unig-project .unig-gallery-preview-wrapper {
+    width: 240px;
+    height: 240px;
+    margin: 0 0 10px 0;
+    padding: 10px; }
 
 .unig-project-nid {
-  display: none; }
+  color: #c2c2c2; }
 
 .unig-project-title {
   display: inline-block;
   margin-right: 20px;
   font-size: 1.2em; }
 
-.unig-project-date {
-  display: inline-block;
-  margin-right: 20px; }
+.unig-project-label {
+  margin-top: 5px; }
 
-.unig-project-cover {
-  display: block;
-  width: 150px;
-  min-height: 100px; }
-  .unig-project-cover img {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: auto;
-    border: 3px solid #e9e9e9; }
-  .unig-project-cover img:hover {
-    border: 3px solid #7e7e7e; }
-
-.unig-project-cover:hover {
-  cursor: pointer; }
-
-div.unig-project-preview a {
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: solid 1px #c2c2c2;
-  text-align: center;
-  width: 150px;
-  text-decoration: none; }
-  div.unig-project-preview a:hover {
-    background-color: #d2d2d2;
-    border: solid 1px #c2c2c2; }
-
-a.unig-button.unig-project-delete-button {
-  border-color: #ff8e93;
-  display: inline-block;
-  width: inherit;
-  color: red; }
-  a.unig-button.unig-project-delete-button:hover {
-    background-color: #ffbfb8; }
+.unig-project-toolbar {
+  margin: 10px 0; }
 
 /*# sourceMappingURL=unig_project.css.map */

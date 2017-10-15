@@ -60,8 +60,20 @@
     protected function getProjectVariables($project_nid, $album_nid = NULL) {
 
 
-
       $variables['module'] = $this->getModuleName();
+
+      $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $variables['language'] = $language;
+
+      $user = \Drupal::currentUser();
+      $variables['user'] = clone $user;
+      // Remove password and session IDs, since themes should not need nor see them.
+      unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
+
+      $variables['is_admin'] = $user->hasPermission('Administer content');
+      $variables['logged_in'] = $user->isAuthenticated();
+
+
       $variables['album'] = AlbumTrait::getAlbumList($project_nid);
       $variables['project'] = ProjectTrait::buildProject($project_nid);
       $variables['files'] = ProjectTrait::buildFileList($project_nid, $album_nid);

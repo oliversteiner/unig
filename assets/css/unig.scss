@@ -1,9 +1,6 @@
 @import 'colors';
-
-body{
+body {
 }
-
-
 .unig {
   a,
   a:hover,
@@ -14,23 +11,106 @@ body{
 
   font-family: Sans-Serif;
 }
-
-a.unig-button {
+@mixin unig-button {
   box-sizing: border-box;
-  display: block;
-  width: 250px;
-  padding: 2px 5px;
-  border: 1px solid $color-20;
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
 }
+.unig-button {
+  @include unig-button;
+  color: $color-80;
+  border-color: $color-20;
+  background-color: $color-5;
 
-a.unig-button:hover {
-  background-color: $color-50;
-  border: 1px solid $color-20;
-}
+  &-ok {
+    @include unig-button;
+    color: $color-ok-text;
+    border-color: $color-ok-border;
+    background-color: $color-ok-background;
+  }
 
-.unig-file{
-  background-color: $color-10;
+  &-warning {
+    @include unig-button;
+    color: $color-warning-text;
+    border-color: $color-warning-border;
+    background-color: $color-warning-background;
+  }
+
+  &-error,
+  &-danger {
+    @include unig-button;
+    color: $color-error-text;
+    border-color: $color-error-border;
+    background-color: $color-error-background;
+  }
+
 }
-.front-container{
+.unig-button {
+
+  &:hover {
+    @include unig-button;
+    background-color: $color-50;
+    border-color: $color-20;
+    color: $color-5;
+  }
+
+  &-ok:hover {
+    @include unig-button;
+    background-color: $color-ok-text;
+    border-color: $color-ok-border;
+    color: $color-ok-background;
+  }
+
+  &-warning:hover {
+    @include unig-button;
+    background-color: $color-warning-text;
+    border-color: $color-warning-border;
+    color: $color-warning-background;
+  }
+
+  &-error:hover,
+  &-danger:hover {
+    @include unig-button;
+    background-color: $color-error-text;
+    border-color: $color-error-border;
+    color: $color-error-background;
+  }
+
+}
+.front-container {
   max-width: 900px;
+}
+.unig-galerie-teaser-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.unig-galerie-teaser {
+  display: inline-flex;
+  padding: 0 20px 20px;
+}
+// Layout
+
+.unig-row {
+  display: flex;
+  justify-content: space-between;
+}
+.unig-col {
+}
+.unig-col-left {
+  justify-self: flex-start;
+}
+.unig-col-right {
+  justify-self: flex-end;
+}
+hr.unig {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-top: solid 1px $color-20;
+  margin-top: 10px;
+  padding-top: 10px;
 }

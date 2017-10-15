@@ -49,9 +49,8 @@ trait AdminTemplateTrait
      */
     protected function getAdminVariables()
     {
-        $variables = [
-            'module' => $this->getModuleName(),
-        ];
+        $variables['module'] = $this->getModuleName();
+
         return $variables;
     }
 

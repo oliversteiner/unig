@@ -35,6 +35,9 @@
           '#context' => $this->getProjectListVariables(),
         ],
       ];
+
+      $build['#attached']['drupalSettings']['projects'] = ProjectTrait::buildProjectList();;
+
       return $build;
     }
 
@@ -47,13 +50,13 @@
      */
     protected function getProjectListVariables() {
 
-      $variables = [
-        'module' => $this->getModuleName(),
-        'project_list' => ProjectTrait::buildProjectList(),
-      ];
+      $variables['module'] = $this->getModuleName();
+
+      $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $variables['language'] = $language;
+
 
       $user = \Drupal::currentUser();
-
       $variables['user'] = clone $user;
       // Remove password and session IDs, since themes should not need nor see them.
       unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
@@ -62,9 +65,13 @@
       $variables['logged_in'] = $user->isAuthenticated();
 
 
+      $variables['project_list'] = ProjectTrait::buildProjectList();
+
 
       return $variables;
     }
+
+
 
 
     /**

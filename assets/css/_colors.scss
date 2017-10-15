@@ -1,8 +1,27 @@
+// Black
 $color-90: rgb(17, 17, 17);
 $color-80: rgb(41, 41, 41);
 $color-50: rgb(126, 126, 126);
 $color-20: rgb(194, 194, 194);
 $color-10: rgb(210, 210, 210);
 $color-5: rgb(233, 233, 233);
+$color-2: rgb(246, 246, 246);
 
 $color-debug: rgb(255, 221, 138);
+
+
+
+// OK
+$color-ok-border: #2eb741;
+$color-ok-background: #daffd4;
+$color-ok-text: #185746;
+
+// Warning
+$color-warning-border: #ffd29b;
+$color-warning-background: #fff8cf;
+$color-warning-text: #7f5930;
+
+// Error
+$color-error-border: #ffb4aa;
+$color-error-background: #ffe6e5;
+$color-error-text: #7f2013;

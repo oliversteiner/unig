@@ -1,14 +1,22 @@
 @import 'colors';
 .unig-project-year {
+  position: relative;
   width: 100%;
   margin-left: 10px;
+  margin-top: 20px;
   border-bottom: 1px solid $color-10;
   margin-bottom: 5px;
   padding-bottom: 5px;
+
+  h2{
+    margin: 0;
+    padding: 0;
+  }
 }
 .unig-project-list-container {
   display: flex;
   align-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
 
@@ -17,69 +25,46 @@
     padding: 0;
   }
 }
-.unig-project-article {
+.unig-project {
   display: inline-block;
   margin: 10px;
-  padding: 10px;
+  padding: 20px;
+  background-color: $color-2;
+  width: 280px;
+  border-radius: 5px;
   border: 1px solid $color-10;
+
+  .unig-gallery-preview-wrapper {
+ width: 240px;
+height: 240px;
+    margin: 0 0 10px 0;
+    padding: 10px;
+  }
 }
+
 .unig-project-nid {
-  display: none;
+  color: $color-20;
 }
+
 .unig-project-title {
   display: inline-block;
   margin-right: 20px;
   font-size: 1.2em;
 }
 .unig-project-date {
-  display: inline-block;
-  margin-right: 20px;
+
+
 }
 .unig-project-number-of-items {
 }
-.unig-project-cover {
-  display: block;
-  width: 150px;
-  min-height: 100px;
 
-  img {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: auto;
-    border: 3px solid $color-5;
-  }
-
-  img:hover {
-    border: 3px solid $color-50;
-  }
-
+.unig-project-label {
+  margin-top: 5px;
 }
-.unig-project-cover:hover {
-  cursor: pointer;
+.unig-project-numbers-of-files {
 }
-div.unig-project-preview a {
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: solid 1px $color-20;
-  text-align: center;
-  width: 150px;
-  text-decoration: none;
 
-  &:hover {
-    background-color: $color-10;
-    border: solid 1px $color-20;
-  }
-}
-a.unig-button.unig-project-delete-button {
-  border-color: #ff8e93;
-  display: inline-block;
-  width: inherit;
-  color: red;
 
-  &:hover {
-    background-color: #ffbfb8;
-  }
-
+.unig-project-toolbar{
+  margin: 10px 0;
 }
