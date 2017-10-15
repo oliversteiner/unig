@@ -27,44 +27,22 @@ project
 
  #}
 
-{{ attach_library('unig/unig.admin.images') }}
+{{ attach_library('unig/unig.admin.files') }}
 
 
 {% set unig_projects     = path('unig.project.list') %}
-{% set unig_upload = path('unig.upload') %}
-
-<div class="unig-debug">
-    {#
-        {{ dd(files) }}
-    #}
-</div>
+{% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 
-<div class="unig-toolbar">
+<div class="unig-file-gallery-head">
+    <div><a href="{{ unig_projects }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+            zurück zu Gallerien</a></div>
 
-    <a type="button" class="button btn btn-default" href="{{ unig_projects }}">
-        <i class="fa fa-list" aria-hidden="true"></i>
-        Alle Bildergalerien
-    </a>
-
-</div>
-
-<div class="unig-ajax-container">
-
-</div>
-
-<article class="unig unig-lightgallery">
-
-    <div class="unig-lightgallery-title">
-        <h2>{{ project.title }}</h2>
-    </div>
-
-    <div class="unig-lightgallery-date">
-        <p> {{ project.date|date("d. m. Y") }}</p>
-    </div>
+    <div class="unig-project-date"> {{ datum }}</div>
+    <div><h2 class="unig-project-title">{{ project.title }}</h2></div>
 
     {# Anzahl Bilder #}
-    <div class="unig-lightgallery-number-of-items">
+    <div class="unig-project-number-of-items">
         {% if project.number_of_items == 1 %}
             {{ project.number_of_items }} Bild
         {% elseif project.number_of_items > 1 %}
@@ -72,26 +50,44 @@ project
         {% endif %}
     </div>
 
-    <div class="unig-lightgallery-body">{{ project.body }}</div>
+    <div class="unig-project-body">{{ project.body }}</div>
+
+</div>
+
+<div class="unig">
+    <ul class="unig-gallery" id="lightgallery-{{ project.nid }}">
+
+        {% for file in files %}
 
 
-    <div class="lightgallery-wrapper">
-        <ul class="lightgallery unig-gallery" id="lightgallery-{{ id }}">
-            {% for item in files %}
-                <li data-src="{{ item.image.unig_hd }}" style="{{ item.row_style }}" data-sub-html="{{ item.title }}">
-                    {% if item.label is not empty %}
+            <li class="unig-file-normal unig-file-{{ file.nid }}" id="unig-file-id_{{ file.nid }}">
+
+                {#  -----------   Titelbild  -----------  #}
+                <div class="lightgallery-item"
+                     data-sub-html="{{ file.title }}"
+                     data-src="{{ file.image.unig_hd }}">
+
+                    {% if file.label is not empty %}
                         <div class="field-label">
-                            <label>{{ item.field_label }}</label>
+                            <label>{{ file.field_label }}</label>
                         </div>
                     {% endif %}
                     <div class="field-content">
                         <div class="unig-gallery-preview-wrapper">
-                            <img class="img-responsive" src="{{ item.image.medium }}"/>
+                            <img class="img-responsive" src="{{ file.image.medium }}"/>
                         </div>
                     </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+                </div>
 
-</article>
+
+                {#  -----------   Titel  -----------  #}
+                <div>
+                    <p class="unig-img-label">{{ file.nid }} - {{ file.title }} </p>
+                </div>
+
+
+            </li>
+
+        {% endfor %}
+    </ul>
+</div>

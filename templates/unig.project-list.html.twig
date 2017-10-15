@@ -28,17 +28,17 @@
 
             {# sort #}
 
-            <div type="button" class="button btn btn-default unig-button-sort-activate">
+            <div class="button btn btn-default unig-button-sort-activate">
                 <i class="fa fa-sort" aria-hidden="true"></i>
                 Reihenfolge festlegen
             </div>
 
-            <div type="button" class="button btn btn-success unig-button-sort-save" style="display: none">
+            <div class="button btn btn-success unig-button-sort-save" style="display: none">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Reihenfolge speichern
             </div>
 
-            <div type="button" class="button btn btn-warning unig-button-sort-cancel"  style="display: none">
+            <div class="button btn btn-warning unig-button-sort-cancel" style="display: none">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 Reihenfolge zurücksetzen
             </div>
@@ -54,12 +54,7 @@
         <ul id="" class="unig-project-list-container unig-sortable">
 
             {% set sort_year  = false %}
-
             {% for project in project_list %}
-
-
-
-
                 {% set datum = project.timestamp|format_date(0, "D. d. F Y" ) %}
 
 
@@ -74,26 +69,24 @@
                         {% set class = 'unig-project-private' %}
                     {% else %}
                         {% set class = '' %}
-
                     {% endif %}
 
                     {# sortable list #}
                 <li class="unig-sortable-item" id="unig-sortable-item-id_{{ project.nid }}">
 
                     {# wenn sortable active #}
-                    <div class="unig-sortable-reducer">
+                    <div class="unig-project-reducer unig-sortable-reducer">
 
                     {# show when sortable list is active #}
                     {# -----------  ----------- #}
                     <div class="unig-sortable-reducer-content" style="display: none">
 
 
-
-                        <div class="unig-sortable-number">99</div>
+                        <div class="unig-sortable-number">{{ project.weight }}</div>
 
                         {# Image #}
                         <div class="unig-sortable-cover">
-                                    <img class="" src="{{ project.cover_image.unig_cover }}" alt="">
+                            <img class="" src="{{ project.cover_image.unig_cover }}" alt="">
                         </div>
 
                         {#  Titel  #}
@@ -109,7 +102,6 @@
                     <div class="unig-sortable-reducer-hide">
 
                     <article class="unig unig-project unig-project-{{ project.nid }} {{ class }}">
-
 
 
                         {# ----------- Weight ----------- #}
@@ -159,11 +151,11 @@
                         <div class="unig-project-normal-container" id="unig-project-normal-container-{{ project.nid }}">
 
                             {# ----------- Datum ----------- #}
-                            <div id="unig-project-date-{{ project.nid }}" class="unig-project-date"> {{ datum }}</div>
+                            <div id="unig-project-date-{{ project.nid }}" class="unig-project-list-date"> {{ datum }}</div>
 
 
                             {# ----------- Titel ----------- #}
-                            <h2 id="unig-project-title-{{ project.nid }}" class="unig-project-title">
+                            <h2 id="unig-project-title-{{ project.nid }}" class="unig-project-list-title">
                                 {{ project.title }}
                             </h2>
 
@@ -200,14 +192,16 @@
 
                             {# ----------- Edit hidden ----------- #}
 
-                            <input id="edit-unig-project-nid-{{ project.nid }}" type="hidden" value="{{ project.nid }}"
-                                   name="project_nid" id="edit-unig-project--{{ project.nid }}">
+                            <input id="edit-unig-project-nid-{{ project.nid }}"
+                                   type="hidden" value="{{ project.nid }}"
+                                   name="project_nid">
+
                             <input id="edit-unig-project-weight-{{ project.nid }}" type="hidden"
                                    value="{{ project.weight }}" name="project_weight">
 
 
                             {# ----------- Edit Datum ----------- #}
-                            <div class="unig-project-date">
+                            <div class="unig-project-list-date">
 
                                 <input
                                         id="edit-unig-project-date-{{ project.nid }}"
@@ -225,9 +219,10 @@
 
 
                             {# ----------- Edit Titel ----------- #}
-                            <h2 class="unig-project-title">
+                            <h2 class="unig-edit-project-list-title">
                                 <input
                                         id="edit-unig-project-title-{{ project.nid }}"
+                                        title="Titel"
                                         type="text"
                                         size="30"
                                         value="{{ project.title }}">
@@ -236,24 +231,27 @@
 
                             {# ----------- Edit Description ----------- #}
                             <textarea
-                                    id="edit-unig-project-description-{{ project.nid }}"
-                                    rows="4" cols="30">{{ project.description }}</textarea>
+                                    id="edit-unig-project-list-description-{{ project.nid }}"
+                                    rows="4"
+                                    cols="30"
+                                    title="Beschreibung">{{ project.description }}</textarea>
 
 
                             {# ----------- Edit Privat ----------- #}
-                            <input
-                                    id="edit-unig-project-private-{{ project.nid }}"
-                                    data-drupal-selector="edit-field-unig-private-value"
-                                    aria-describedby="edit-field-unig-private-value--description"
-                                    type="checkbox"
-                                    name="field_unig_private[value]"
-                                    value="{{ project.private }}"
+                            <div>
+                            <input id="edit-unig-project-private-{{ project.nid }}"
+                                   data-drupal-selector="edit-field-unig-private-value"
+                                   aria-describedby="edit-field-unig-private-value--description"
+                                   type="checkbox"
+                                   name="field_unig_private[value]"
+                                   title="Nur Intern"
+                                   value="{{ project.private }}"
                                     {% if project.private %}   checked="checked" {% endif %}
-                                    class="form-checkbox">
+                                   class="form-checkbox">
 
                             <label class="unig-input-label" for="unig_project_privat"> Privates Projekt (nur
                                 Intern)</label>
-
+                            </div>
 
                             {# ----------- Edit Buttons ----------- #}
 
@@ -309,16 +307,17 @@
 
                     </article>
 
+                    </div> {# hide sortable content#}
 
+                    </div> {# sortable reducer#}
                     {# ------------------- End Admin -------------------------- #}
 
                 {% else %}
+
                     {# ----------- YEAR ----------- #}
                     {% if sort_year != project.year %}
                         <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
-
                     {% endif %}
-
 
                     {% if project.private and logged_in == false %}
 
@@ -363,9 +362,7 @@
 
 
                         </article>
-                        </div> {# hide sortable content#}
 
-                        </div> {# sortable reducer#}
 
                         </li>
                     {% endif %}

@@ -1,5 +1,5 @@
 .unig {
-  font-family: Sans-Serif; }
+  font-family: Sans-Serif, serif; }
   .unig a,
   .unig a:hover,
   .unig a.link,
@@ -125,12 +125,10 @@ a.unig-button-error:hover, a.unig-button-danger:hover,
   justify-self: flex-end; }
 
 hr.unig {
-  margin: 0;
-  padding: 0;
   border: none;
   border-top: solid 1px #c2c2c2;
-  margin-top: 10px;
-  padding-top: 10px; }
+  margin: 10px 0 0;
+  padding: 10px 0 0; }
 
 .unig-input-label {
   text-decoration: none;

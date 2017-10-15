@@ -9,7 +9,7 @@ body {
     border: 0;
   }
 
-  font-family: Sans-Serif;
+  font-family: Sans-Serif, serif;
 }
 @mixin unig-button {
   box-sizing: border-box;
@@ -99,12 +99,10 @@ a.unig-button,
   justify-self: flex-end;
 }
 hr.unig {
-  margin: 0;
-  padding: 0;
   border: none;
   border-top: solid 1px $color-20;
-  margin-top: 10px;
-  padding-top: 10px;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
 }
 .unig-input-label {
   text-decoration: none;
