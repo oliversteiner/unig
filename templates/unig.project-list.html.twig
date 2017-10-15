@@ -40,8 +40,9 @@
 
         {% for project in project_list %}
 
-
-            {{ dd(loop.index0) }}
+{#
+            {{ dd(project) }}
+#}
 
             {% set datum = project.timestamp|format_date(0, "D. d. F Y" ) %}
 
@@ -53,8 +54,14 @@
                     <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
                 {% endif %}
 
+                {% if project.private == 1 %}
+                    {% set class = 'unig-project-private' %}
+                {% else %}
+                    {% set class = '' %}
 
-                <article class="unig unig-project unig-project-{{ project.nid }}">
+                {% endif %}
+
+                <article class="unig unig-project unig-project-{{ project.nid }} {{ class }}">
 
                     {# ----------- Cover ----------- #}
                     <div class="unig-project-cover">
@@ -114,20 +121,18 @@
                         {# ----------- Toolbar ----------- #}
                         <div class="unig-project-toolbar">
 
-                            {# Vorschau #}
-                            <a class="unig-button" href="/unig/lightgallery/{{ project.nid }}">
-                                Vorschau
-                            </a>
-
                             {# Bearbeiten #}
                             <div class="unig-button unig-button-open-edit"
-                                 data-unig-project-nid="{{ project.nid }}"
-                            >
+                                 data-unig-project-nid="{{ project.nid }}">
                                 {% trans %}
                                 Edit
                                 {% endtrans %}
                             </div>
 
+                            {# Vorschau #}
+                            <a class="unig-button" href="/unig/lightgallery/{{ project.nid }}">
+                                Vorschau
+                            </a>
                         </div>
 
                     </div>
@@ -136,7 +141,7 @@
 
                     <div class="unig-project-edit-container"
                          id="unig-project-edit-container-{{ project.nid }}"
-                         style= "display: none">
+                         style="display: none">
 
 
                         {# ----------- Edit hidden ----------- #}

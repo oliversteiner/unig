@@ -1,7 +1,6 @@
 .unig-gallery-preview-wrapper {
   position: relative;
   background-color: #d2d2d2;
-  margin: 10px;
   padding: 10px;
   width: 240px;
   height: auto;
@@ -34,8 +33,19 @@ ul.unig-gallery {
   padding: 0; }
 
 ul.unig-gallery li {
-  margin: 0;
+  margin: 10px;
   padding: 0;
   list-style-type: none; }
+
+ul.unig-gallery li.unig-file-edit {
+  margin: 10px;
+  padding: 20px;
+  background-color: #f6f6f6;
+  width: 280px;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2; }
+
+.unig-img-label {
+  margin-top: 10px; }
 
 /*# sourceMappingURL=unig_image.css.map */

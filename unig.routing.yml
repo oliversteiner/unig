@@ -180,3 +180,14 @@ unig.ajax.newAlbumForm:
     _title: 'add new Album'
   requirements:
     _permission: 'access unig admin'
+
+#
+# AJAX updateProject
+#
+unig.ajax.updateProject:
+  path: '/unig/update_project'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:updateProject'
+    _title: 'update Project'
+  requirements:
+    _permission: 'access unig admin'

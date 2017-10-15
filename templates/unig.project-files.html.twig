@@ -68,7 +68,7 @@ project
 #}
 
 
-<article class="unig">
+<article class="unig  unig-lightgallery">
     <div class="unig-project-nid">{{ project.nid }}</div>
     <div class="unig-project-title">{{ project.title }}</div>
 
@@ -82,7 +82,7 @@ project
     </div>
 
     <div class="unig-project-body">{{ project.body }}</div>
-    <div class="unig-project-date"> {{ project.date|date("d. m Y") }}</div>
+    <div class="unig-project-date"> {{ project.date|date("d. m. Y") }}</div>
 
     {# Album List #}
     <div class="unig-album">
@@ -115,19 +115,36 @@ project
 </article>
 
 <div class="unig">
-    <ul>
+    <ul class="unig-gallery" id="lightgallery-{{ project.nid }}">
         {% for file in files %}
-            <li class="unig-file unig-file-{{ file.nid }}">
+
+
+            <li class="unig-file unig-file-edit unig-file-{{ file.nid }}"  data-src="{{ file.image.unig_hd }}">
 
                 {#  -----------   Titelbild  -----------  #}
+                    <div
+                       style="{{ file.row_style }}"
+                       data-sub-html="{{ file.title }}">
+
+                        {% if file.label is not empty %}
+                            <div class="field-label">
+                                <label>{{ file.field_label }}</label>
+                            </div>
+                        {% endif %}
+                        <div class="field-content">
+                            <div class="unig-gallery-preview-wrapper">
+                                <img class="img-responsive" src="{{ file.image.medium }}"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                {#  -----------   Titel  -----------  #}
+
                 <div>
                     <p class="unig-img-label">{{ file.nid }} - {{ file.title }} </p>
                 </div>
 
-                {#  -----------   Titelbild  -----------  #}
-                <div class="unig-gallery-preview-wrapper">
-                    <img class="" src="{{ file.image.unig_bigger_thumbnail }}" alt="">
-                </div>
                 <div>
 
                     {#  -----------   Button Titelbild  -----------  #}
@@ -137,7 +154,7 @@ project
                     </a>
 
                     {#  -----------   Button Löschen  -----------  #}
-                    <a class="unig-button unig-file-delete-file use-ajax"
+                    <a class="unig-button-danger unig-file-delete-file use-ajax"
                        href="/unig/nojs/delete_file/{{ file.nid }}">
                         löschen
                     </a>
@@ -150,7 +167,7 @@ project
                         <ul class="unig-gallery-file-album-list-items">
                             {% for album in project.album_list %}
                                 <li>
-                                    <a class="unig-file-add-album use-ajax"
+                                    <a class="unig-button unig-file-add-album use-ajax"
                                        href="/unig/nojs/add_album/{{ file.nid }}/{{ album.nid }}">{{ album.title }}</a>
                                 </li>
                             {% endfor %}

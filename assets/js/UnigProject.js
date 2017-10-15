@@ -6,9 +6,7 @@
     attach: function (context, drupalSettings) {
 
       // Debug
-      console.log('unigProject');
 
-      console.log(drupalSettings.projects);
 
       // onload
       constructor(context, drupalSettings);
@@ -67,6 +65,8 @@
     var $elem = $(context.target);
     var project_nid = $elem.data('unig-project-nid');
 
+    var $article = $('.unig-project-' + project_nid);
+
     var title = $('#edit-unig-project-title-' + project_nid).val();
     var date = $('#edit-unig-project-date-' + project_nid).val();
     var weight = $('#edit-unig-project-weight-' + project_nid).val();
@@ -83,7 +83,6 @@
     };
 
     // load Inputs
-    console.log(data);
 
 
     $('#unig-project-title-' + project_nid).html(title);
@@ -100,11 +99,31 @@
     var $elem_privat = $('#unig-project-private-' + project_nid);
     if (priv) {
       $elem_privat.html('(privat)');
+      $article.addClass('unig-project-private');
+
+      // change Class
     }
     else {
       $elem_privat.html('');
+      $article.removeClass('unig-project-private');
 
     }
+
+
+    $.ajax({
+      url: Drupal.url('unig/update_project'),
+      type: 'POST',
+      data: {
+        'project_nid': project_nid,
+        'data': data
+      },
+      dataType: 'json',
+      success: function (results) {
+        console.log(results);
+      }
+    });
+
+
 
     toggleEdit(context);
 
@@ -150,6 +169,8 @@
       $priv.prop('checked',false);
 
     }
+
+    toggleEdit(context);
 
 
   }

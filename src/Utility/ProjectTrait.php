@@ -3,6 +3,8 @@
 
   namespace Drupal\unig\Utility;
 
+  use Drupal\Core\Ajax\AjaxResponse;
+  use Drupal\Core\Ajax\AlertCommand;
   use Drupal\image\Entity\ImageStyle;
   use Drupal\node\Entity\Node;
 
@@ -377,16 +379,33 @@
 
         // Body
         $node_description = $node->get('field_unig_description')->getValue();
-        $description = $node_description[0]['value'];
+        if ($node_description) {
+          $description = $node_description[0]['value'];
+        }
+        else {
+          $description = '';
+        }
 
 
         // Weight
         $node_weight = $node->get('field_unig_weight')->getValue();
-        $weight = $node_weight[0]['value'];
+        if ($node_weight) {
+          $weight = $node_weight[0]['value'];
+
+        }
+        else {
+          $weight = 0;
+        }
 
         // Private
         $node_private = $node->get('field_unig_private')->getValue();
-        $private = $node_private[0]['value'];
+        if ($node_private) {
+          $private = $node_private[0]['value'];
+
+        }
+        else {
+          $private = 0;
+        }
 
         // Date
         $node_date = $node->get('field_unig_date')->getValue();
@@ -582,14 +601,17 @@
     }
 
     /**
-     * @param $project_nid
-     * @param $data
      *
      * @return mixed
      *
      *
      */
-    public static function updateProject($project_nid, $data) {
+    public static function updateProject() {
+
+
+      $project_nid = $_POST['project_nid'];
+      $data = $_POST['data'];
+
 
       // Load node
       $entity = \Drupal::entityTypeManager()
@@ -610,13 +632,24 @@
       $entity->field_unig_description[0] = $data['description'];
 
       // private
-      $entity->field_unig_private[0] = $data['private'];
+      if ($data['private'] == TRUE) {
+        $private = 1;
+      }
+      else {
+        $private = 0;
+
+      }
+      $entity->field_unig_private[0] = $private;
+
 
       // Save node
       $entity->save();
 
+      $response = new AjaxResponse();
 
-      return $project_nid;
+      $response->addCommand(new AlertCommand($data));
+
+      return $response;
 
     }
 
