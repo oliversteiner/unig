@@ -15,9 +15,10 @@ a.unig-button,
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 5px;
   color: #292929;
   border-color: #c2c2c2;
-  background-color: #e9e9e9; }
+  background-color: #e1e1e1; }
   a.unig-button-ok,
   .unig-button-ok {
     box-sizing: border-box;
@@ -27,6 +28,7 @@ a.unig-button,
     border-radius: 2px;
     text-decoration: none;
     cursor: pointer;
+    margin-bottom: 5px;
     color: #185746;
     border-color: #2eb741;
     background-color: #daffd4; }
@@ -39,6 +41,7 @@ a.unig-button,
     border-radius: 2px;
     text-decoration: none;
     cursor: pointer;
+    margin-bottom: 5px;
     color: #7f5930;
     border-color: #ffd29b;
     background-color: #fff8cf; }
@@ -52,6 +55,7 @@ a.unig-button,
     border-radius: 2px;
     text-decoration: none;
     cursor: pointer;
+    margin-bottom: 5px;
     color: #7f2013;
     border-color: #ffb4aa;
     background-color: #ffe6e5; }
@@ -65,9 +69,10 @@ a.unig-button:hover,
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 5px;
   background-color: #7e7e7e;
   border-color: #c2c2c2;
-  color: #e9e9e9; }
+  color: #e1e1e1; }
 a.unig-button-ok:hover,
 .unig-button-ok:hover {
   box-sizing: border-box;
@@ -77,6 +82,7 @@ a.unig-button-ok:hover,
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 5px;
   background-color: #185746;
   border-color: #2eb741;
   color: #daffd4; }
@@ -89,6 +95,7 @@ a.unig-button-warning:hover,
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 5px;
   background-color: #7f5930;
   border-color: #ffd29b;
   color: #fff8cf; }
@@ -102,6 +109,7 @@ a.unig-button-error:hover, a.unig-button-danger:hover,
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 5px;
   background-color: #7f2013;
   border-color: #ffb4aa;
   color: #ffe6e5; }
@@ -127,5 +135,59 @@ hr.unig {
 .unig-input-label {
   text-decoration: none;
   font-weight: normal; }
+
+.unig-sortable-placeholder {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  width: 140px;
+  height: 200px;
+  border-radius: 5px;
+  background-color: #d5cfc5;
+  border: 3px dashed #dcdbd4; }
+
+ul.unig-sortable {
+  margin: 0;
+  padding: 0; }
+  ul.unig-sortable li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    cursor: move; }
+
+.unig-sortable-reducer-active {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  background-color: #f6f6f6;
+  width: 140px;
+  height: 200px;
+  border-radius: 5px;
+  border: 1px solid #dcdbd4; }
+  .unig-sortable-reducer-active .unig-sortable-number {
+    position: absolute; }
+  .unig-sortable-reducer-active .unig-sortable-cover img {
+    border: solid 1px #292929;
+    width: 100px;
+    height: 100px; }
+  .unig-sortable-reducer-active .unig-sortable-title {
+    margin: 0;
+    padding: 5px 0 0 0; }
+
+.unig-button .fa {
+  margin-right: 4px; }
+
+.unig-file-button-options i {
+  pointer-events: none; }
+
+.unig-file-button-options {
+  display: inline-block;
+  color: #7e7e7e;
+  padding: 10px 10px 0 0;
+  cursor: pointer;
+  float: left; }
+
+.unig-file-button-options:hover {
+  color: #7f2421; }
 
 /*# sourceMappingURL=unig.css.map */

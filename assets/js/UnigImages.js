@@ -19,20 +19,13 @@
 
 
       // Event Handlers
-      // mouseover
-      $('.unig-file-edit-col.views-col').click(
-          function () {
-            alert('go');
+      $('.unig-file-button-options').click(
+          function (context, settings) {
+            toggleTools(context);
           }
       );
 
-      $('.unig-file-edit-col').hover(
-          function (context, settings) {
-            showTools(context, settings);
-          },
-          function (context, settings) {
-            console.log('aut');
-          });
+
 
 
       // New Album Form
@@ -49,21 +42,29 @@
   };
 
   function constructor(context, settings) {
-    loadAllImages();
 
 
-    $("*[id^='lightgallery-']").lightGallery();
+    $("*[id^='lightgallery-']").lightGallery({
+      selector: '.lightgallery-item'
+    });
 
 
   }
 
 
-  function showTools(context, settings) {
+  function toggleTools(context) {
+
+    var $elem = $(context.target);
+    var file_nid = $elem.data('unig-file-nid');
+
+    var $toolbar = $('#unig-file-toolbar-' + file_nid);
+
+    console.log($elem);
+    $toolbar.toggle();
 
 
-    var currentId = $(this).attr('id');
-    $(this).toggleClass("result_hover");
-    console.log('hover - ' + currentId);
+
+
 
   }
 
@@ -74,22 +75,6 @@
    *
    */
 
-  function loadAllImages() {
-
-    // hole alle bilder
-    var $unig_file_set_cover = $('.unig-file-set-cover');
-    console.log($unig_file_set_cover);
-
-    $unig_file_set_cover.each(function (key, value) {
-
-      var nid = $(value).data('unig-cover');
-      console.log(nid);
-
-
-    });
-
-
-  } // loadAllImages
 
 
 })

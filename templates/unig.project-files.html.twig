@@ -27,12 +27,12 @@ project
 
  #}
 
-{{ attach_library('unig/unig.admin.images') }}
+{{ attach_library('unig/unig.admin.files') }}
 
-<h1>Project</h1>
 
 {% set unig_projects     = path('unig.project.list') %}
 {% set unig_upload = path('unig.upload') %}
+{% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 <div id="ajax-container">
 </div>
@@ -57,6 +57,23 @@ project
         Bilder hinzufügen
     </a>
 
+    {# sort #}
+
+    <div type="button" class="button btn btn-default unig-button-sort-activate">
+        <i class="fa fa-sort" aria-hidden="true"></i>
+        Reihenfolge festlegen
+    </div>
+
+    <div type="button" class="button btn btn-success unig-button-sort-save" style="display: none">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Reihenfolge speichern
+    </div>
+
+    <div type="button" class="button btn btn-warning unig-button-sort-cancel" style="display: none">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        Reihenfolge zurücksetzen
+    </div>
+
 </div>
 
 <div class="unig-ajax-container">
@@ -70,7 +87,8 @@ project
 
 <article class="unig  unig-lightgallery">
     <div class="unig-project-nid">{{ project.nid }}</div>
-    <div class="unig-project-title">{{ project.title }}</div>
+    <div class="unig-project-date"> {{ datum }}</div>
+    <div><h2 class="unig-project-title">{{ project.title }}</h2></div>
 
     {# Anzahl Bilder #}
     <div class="unig-project-number-of-items">
@@ -82,7 +100,6 @@ project
     </div>
 
     <div class="unig-project-body">{{ project.body }}</div>
-    <div class="unig-project-date"> {{ project.date|date("d. m. Y") }}</div>
 
     {# Album List #}
     <div class="unig-album">
@@ -115,66 +132,117 @@ project
 </article>
 
 <div class="unig">
-    <ul class="unig-gallery" id="lightgallery-{{ project.nid }}">
+    <ul class="unig-gallery unig-sortable" id="lightgallery-{{ project.nid }}">
+
         {% for file in files %}
 
 
-            <li class="unig-file unig-file-edit unig-file-{{ file.nid }}"  data-src="{{ file.image.unig_hd }}">
+            <li class="unig-sortable-item  unig-file-edit unig-file-{{ file.nid }}" id="unig-file-id_{{ file.nid }}">
 
-                {#  -----------   Titelbild  -----------  #}
-                    <div
-                       style="{{ file.row_style }}"
-                       data-sub-html="{{ file.title }}">
 
-                        {% if file.label is not empty %}
-                            <div class="field-label">
-                                <label>{{ file.field_label }}</label>
-                            </div>
-                        {% endif %}
-                        <div class="field-content">
-                            <div class="unig-gallery-preview-wrapper">
-                                <img class="img-responsive" src="{{ file.image.medium }}"/>
+                {# wenn sortable active #}
+                <div class="unig-sortable-reducer">
+
+                    {# show when sortable list is active #}
+                    {# -----------  ----------- #}
+                    <div class="unig-sortable-reducer-content" style="display: none">
+
+                        {# ----------- Weight ----------- #}
+                        <div class="unig-file-weight" style="display: block">
+                            {{ file.weight }}
+                        </div>
+
+                        {# Image #}
+                        <div class="unig-sortable-image">
+                            <img class="" src="{{ file.image.medium }}" alt="">
+                        </div>
+
+                        {#  Titel  #}
+                        <h2 class="unig-sortable-title">
+                            {{ file.title }}
+                        </h2>
+
+                    </div>
+                    {# -----------  ----------- #}
+
+                    {# hide when sortable list is active #}
+                    <div class="unig-sortable-reducer-hide">
+
+
+                        {# ----------- Weight ----------- #}
+                        <div class="unig-file-weight" style="display: block">
+                            {{ file.weight }}
+                        </div>
+
+
+                        {#  -----------   Titelbild  -----------  #}
+                        <div
+                                class="lightgallery-item"
+                                data-sub-html="{{ file.title }}"
+                                data-src="{{ file.image.unig_hd }}">
+
+                            {% if file.label is not empty %}
+                                <div class="field-label">
+                                    <label>{{ file.field_label }}</label>
+                                </div>
+                            {% endif %}
+                            <div class="field-content">
+                                <div class="unig-gallery-preview-wrapper">
+                                    <img class="img-responsive" src="{{ file.image.medium }}"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                        {#  -----------   Options button  -----------  #}
+                        <div class="unig-file-button-options" data-unig-file-nid="{{ file.nid }}">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </div>
 
 
-                {#  -----------   Titel  -----------  #}
+                        {#  -----------   Titel  -----------  #}
+                        <div>
+                            <p class="unig-img-label">{{ file.nid }} - {{ file.title }} </p>
+                        </div>
 
-                <div>
-                    <p class="unig-img-label">{{ file.nid }} - {{ file.title }} </p>
-                </div>
 
-                <div>
+                        {#  -----------   Toolbar  -----------  #}
 
-                    {#  -----------   Button Titelbild  -----------  #}
-                    <a class="unig-button unig-file-set-cover use-ajax"
-                       href="/unig/nojs/set_cover/{{ project.nid }}/{{ file.nid }}">
-                        als Titelbild festlegen
-                    </a>
+                        <div class="unig-file-toolbar"  id="unig-file-toolbar-{{ file.nid }}" style="display: none">
 
-                    {#  -----------   Button Löschen  -----------  #}
-                    <a class="unig-button-danger unig-file-delete-file use-ajax"
-                       href="/unig/nojs/delete_file/{{ file.nid }}">
-                        löschen
-                    </a>
+                            {#  -----------   Button Titelbild  -----------  #}
+                            <a class="unig-button unig-file-set-cover use-ajax"
+                               href="/unig/nojs/set_cover/{{ project.nid }}/{{ file.nid }}">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                Titelbild
+                            </a>
 
-                    {#  -----------   Album  -----------  #}
+                            {#  -----------   Button Löschen  -----------  #}
+                            <a class="unig-button-danger unig-file-delete-file use-ajax"
+                               href="/unig/nojs/delete_file/{{ file.nid }}">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                löschen
+                            </a>
 
-                    <div class="unig-album">
-                        <p>Zu album hinzufügen</p>
+                            {#  -----------   Album  -----------  #}
 
-                        <ul class="unig-gallery-file-album-list-items">
-                            {% for album in project.album_list %}
-                                <li>
-                                    <a class="unig-button unig-file-add-album use-ajax"
-                                       href="/unig/nojs/add_album/{{ file.nid }}/{{ album.nid }}">{{ album.title }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                            <div class="unig-album">
+                                <p>Zu album hinzufügen</p>
 
-                </div>
+                                <ul class="unig-gallery-file-album-list-items">
+                                    {% for album in project.album_list %}
+                                        <li>
+                                            <a class="unig-button unig-file-add-album use-ajax"
+                                               href="/unig/nojs/add_album/{{ file.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div> {# hide sortable content#}
+
+                </div> {# sortable reducer#}
             </li>
 
         {% endfor %}

@@ -191,3 +191,15 @@ unig.ajax.updateProject:
     _title: 'update Project'
   requirements:
     _permission: 'access unig admin'
+
+
+#
+# AJAX sortProject
+#
+unig.ajax.sortProject:
+  path: '/unig/sort_project'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:sortProject'
+    _title: 'sort Project'
+  requirements:
+    _permission: 'access unig admin'

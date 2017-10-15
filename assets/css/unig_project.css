@@ -3,7 +3,7 @@
   width: 100%;
   margin-left: 10px;
   margin-top: 20px;
-  border-bottom: 1px solid #d2d2d2;
+  border-bottom: 1px solid #dcdbd4;
   margin-bottom: 5px;
   padding-bottom: 5px; }
   .unig-project-year h2 {
@@ -27,7 +27,7 @@
   background-color: #f6f6f6;
   width: 280px;
   border-radius: 5px;
-  border: 1px solid #d2d2d2; }
+  border: 1px solid #dcdbd4; }
   .unig-project .unig-gallery-preview-wrapper {
     width: 240px;
     height: 240px;
@@ -35,7 +35,12 @@
     padding: 10px; }
 
 .unig-project-private {
-  background-color: #d1d1d2; }
+  background-color: #d6cfc2;
+  border-color: #c6bfb2; }
+  .unig-project-private .unig-gallery-preview-wrapper {
+    background-color: #c6bfb2; }
+  .unig-project-private .unig-gallery-preview-wrapper:hover {
+    background-color: #7f2421; }
 
 .unig-project-nid {
   color: #c2c2c2; }
@@ -50,5 +55,10 @@
 
 .unig-project-toolbar {
   margin: 10px 0; }
+
+.unig-project-weight {
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 2em; }
 
 /*# sourceMappingURL=unig_project.css.map */

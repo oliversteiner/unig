@@ -44,8 +44,16 @@ height: 240px;
 
 
 .unig-project-private{
-  background-color: #d1d1d2;
+  background-color: $color-private;
+  border-color: $color-private-border;
 
+.unig-gallery-preview-wrapper{
+  background-color: $color-private-border;
+}
+
+  .unig-gallery-preview-wrapper:hover{
+    background-color: $color-highlight;
+  }
 }
 
 .unig-project-nid {
@@ -74,3 +82,10 @@ height: 240px;
 .unig-project-toolbar{
   margin: 10px 0;
 }
+.unig-project-weight {
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 2em;
+}
+
+

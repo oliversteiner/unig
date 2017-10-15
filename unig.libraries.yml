@@ -7,7 +7,9 @@ unig.admin:
   dependencies:    # jQuery is not included by default, so we add it as a dependency
     - core/jquery    # We are also going to use jQuery.once so that code doesn't trigger multiple times.
     - core/jquery.once    # drupal and drupalSettings are not included by default either.
-
+#
+#
+#
 unig.upload:
   css:
     theme:
@@ -17,7 +19,9 @@ unig.upload:
   dependencies:
     - core/jquery
     - core/drupalSettings
-
+#
+#
+#
 unig.upload_albumid:
   css:
     theme:
@@ -27,19 +31,26 @@ unig.upload_albumid:
   dependencies:
     - core/jquery
     - core/drupalSettings
-
-unig.admin.images:
+#
+#
+#
+unig.admin.files:
   css:
     theme:
       assets/css/unig.css: {}
-      assets/css/unig_image.css: {}
       assets/css/unig_album.css: {}
       assets/css/unig_project.css: {}
+      assets/css/unig_image.css: {}
+
   js:
     assets/js/UnigImages.js: {}
+    assets/js/UnigSort.js: {}
   dependencies:
-    - core/jquery
     - core/drupalSettings
+    - core/modernizr
+    - core/jquery.once
+    - core/jquery.ui.datepicker
+    - core/jquery.ui.sortable
     - lightgallery/lightgallery
     - lightgallery/lightgallery.load
 #
@@ -54,11 +65,11 @@ unig.admin.projects:
       assets/css/unig_project.css: {}
   js:
     assets/js/UnigProject.js: {}
+    assets/js/UnigSort.js: {}
   dependencies:
     - core/drupalSettings
     - core/drupal
     - core/modernizr
     - core/jquery.once
     - core/jquery.ui.datepicker
-    - lightgallery/lightgallery
-    - lightgallery/lightgallery.load
+    - core/jquery.ui.sortable

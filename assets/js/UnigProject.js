@@ -23,6 +23,7 @@
         toggleEdit(context);
       });
 
+
     }
   };
 
@@ -36,19 +37,21 @@
 
   }
 
+
+
   /**
    *
    *
    * @param context
    */
-  function toggleEdit(context){
+  function toggleEdit(context) {
     var $elem = $(context.target);
     var project_nid = $elem.data('unig-project-nid');
 
-    var $elem = $('#unig-project-edit-container-'+project_nid);
+    var $elem = $('#unig-project-edit-container-' + project_nid);
     $elem.toggle();
 
-    var $elem = $('#unig-project-normal-container-'+project_nid);
+    var $elem = $('#unig-project-normal-container-' + project_nid);
     $elem.toggle();
 
   }
@@ -111,18 +114,17 @@
 
 
     $.ajax({
-      url: Drupal.url('unig/update_project'),
-      type: 'POST',
-      data: {
+      url     : Drupal.url('unig/update_project'),
+      type    : 'POST',
+      data    : {
         'project_nid': project_nid,
-        'data': data
+        'data'       : data
       },
       dataType: 'json',
-      success: function (results) {
+      success : function (results) {
         console.log(results);
       }
     });
-
 
 
     toggleEdit(context);
@@ -136,7 +138,6 @@
    */
 
   function resetProject(context) {
-
 
 
     var $elem = $(context.target);
@@ -163,10 +164,10 @@
 
     // Private
     if (data.private) {
-      $priv.prop('checked',true);
+      $priv.prop('checked', true);
     }
     else {
-      $priv.prop('checked',false);
+      $priv.prop('checked', false);
 
     }
 

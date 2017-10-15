@@ -26,7 +26,7 @@
         ->condition('status', 1)
         ->condition('type', 'unig_project')
         //  ->fieldCondition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
-        //  ->fieldOrderBy('field_date', 'value', 'ASC')
+          ->sort('field_unig_weight.value', 'ASC')
         ->accessCheck(FALSE);
 
       $nids = $query->execute();
@@ -296,6 +296,8 @@
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
           ->condition('field_unig_album', $album_nid)
+          ->sort('field_unig_weight.value', 'ASC')
+
           ->execute();
 
 
@@ -305,6 +307,8 @@
         $nids = \Drupal::entityQuery('node')
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
+          ->sort('field_unig_weight.value', 'ASC')
+
           ->execute();
 
       }
@@ -526,11 +530,19 @@
       // Title
       $title = $entity->label();
 
+      // Weight
+      $node_weight = $entity->get('field_unig_weight')->getValue();
+      if ($node_weight) {
+        $weight = $node_weight[0]['value'];
+
+      }
+      else {
+        $weight = 0;
+      }
+
       // image
       $image = self::getImage($file_nid);
 
-      // weight
-      // TODO
 
 
       // Album List
@@ -542,6 +554,7 @@
         'title' => $title,
         'album_list' => $album_list,
         'image' => $image,
+        'weight' => $weight,
 
 
       ];
@@ -632,7 +645,7 @@
       $entity->field_unig_description[0] = $data['description'];
 
       // private
-      if ($data['private'] == TRUE) {
+      if ($data['private'] === TRUE) {
         $private = 1;
       }
       else {
@@ -648,6 +661,44 @@
       $response = new AjaxResponse();
 
       $response->addCommand(new AlertCommand($data));
+
+      return $response;
+
+    }
+
+
+    public static function sortProject() {
+
+      $data = $_POST['data'];
+
+      $arr_data = explode("&", $data);
+
+
+      $i = 1;
+
+      foreach ($arr_data as $string) {
+
+
+        $nid = str_replace('nid=', '', $string);
+        $sort_list[] = $nid;
+        // Load node
+        $entity = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->load($nid);
+
+        // weight
+        $entity->field_unig_weight[0] = $i;
+
+        // Save node
+        $entity->save();
+        $i++;
+
+      }
+
+
+      $response = new AjaxResponse();
+
+      $response->addCommand(new AlertCommand($sort_list));
 
       return $response;
 
