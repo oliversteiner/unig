@@ -26,7 +26,7 @@
         ->condition('status', 1)
         ->condition('type', 'unig_project')
         //  ->fieldCondition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
-          ->sort('field_unig_weight.value', 'ASC')
+        ->sort('field_unig_weight.value', 'ASC')
         ->accessCheck(FALSE);
 
       $nids = $query->execute();
@@ -297,7 +297,6 @@
           ->condition('field_unig_project', $nid_project)
           ->condition('field_unig_album', $album_nid)
           ->sort('field_unig_weight.value', 'ASC')
-
           ->execute();
 
 
@@ -308,7 +307,6 @@
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
           ->sort('field_unig_weight.value', 'ASC')
-
           ->execute();
 
       }
@@ -544,7 +542,6 @@
       $image = self::getImage($file_nid);
 
 
-
       // Album List
       $album_list = AlbumTrait::getAlbumList($nid);
 
@@ -645,13 +642,14 @@
       $entity->field_unig_description[0] = $data['description'];
 
       // private
-      if ($data['private'] === TRUE) {
+      $int_private = (int) $data['private'];
+      if ($int_private == 1) {
         $private = 1;
       }
       else {
         $private = 0;
-
       }
+
       $entity->field_unig_private[0] = $private;
 
 

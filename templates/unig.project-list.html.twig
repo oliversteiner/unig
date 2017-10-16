@@ -336,11 +336,11 @@
                             </div>
 
                             {# ----------- Datum ----------- #}
-                            <div class="unig-project-date"> {{ datum }}</div>
+                            <div class="unig-project-list-date"> {{ datum }}</div>
 
 
                             {# ----------- Titel ----------- #}
-                            <h2 class="unig-project-title">
+                            <h2 class="unig-project-list-title">
                                 <a href="/unig/project/{{ project.nid }}">
                                     {{ project.title }}
                                 </a>
@@ -348,7 +348,7 @@
 
 
                             {# ----------- Anzahl Bilder ----------- #}
-                            <div class="unig-project-number-of-items">
+                            <div class="unig-project-list-number-of-items">
                                 {% if project.number_of_items == 1 %}
                                     {{ project.number_of_items }} Bild
                                 {% elseif project.number_of_items > 1 %}
@@ -356,13 +356,10 @@
                                 {% endif %}
                             </div>
 
-
                             {# ----------- body ----------- #}
-                            <div>{{ project.body }}</div>
-
+                            <div>{{ project.description }}</div>
 
                         </article>
-
 
                         </li>
                     {% endif %}

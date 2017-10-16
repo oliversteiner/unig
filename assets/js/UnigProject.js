@@ -74,15 +74,19 @@
     var date = $('#edit-unig-project-date-' + project_nid).val();
     var weight = $('#edit-unig-project-weight-' + project_nid).val();
     var description = $('#edit-unig-project-description-' + project_nid).val();
+
     var priv = $('#edit-unig-project-private-' + project_nid).is(':checked');
 
+    console.log(priv);
+
+    console.log(Number(priv));
 
     var data = {
       title      : title,
       date       : date,
       weight     : weight,
       description: description,
-      private    : priv
+      private    : Number(priv)
     };
 
     // load Inputs
