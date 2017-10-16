@@ -52,7 +52,6 @@ unig.admin.files:
     - core/jquery.ui.datepicker
     - core/jquery.ui.sortable
     - lightgallery/lightgallery
-    - lightgallery/lightgallery.load
 #
 #
 #

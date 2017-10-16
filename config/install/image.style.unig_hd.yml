@@ -1,7 +1,9 @@
 uuid: 41f4b869-94a0-4d5e-89a6-a51066119873
-langcode: en
+langcode: de
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: VgAtTrN8UQ0gh3hOi-jfAxmrwa6IXNm0MPFI5b3l4lo
 name: unig_hd
 label: 'UniG HD (1980)'
 effects:

@@ -83,7 +83,7 @@ a.unig-button-ok:hover,
   text-decoration: none;
   cursor: pointer;
   margin-bottom: 5px;
-  background-color: #185746;
+  background-color: #76c875;
   border-color: #2eb741;
   color: #daffd4; }
 a.unig-button-warning:hover,
@@ -96,7 +96,7 @@ a.unig-button-warning:hover,
   text-decoration: none;
   cursor: pointer;
   margin-bottom: 5px;
-  background-color: #7f5930;
+  background-color: #e9cea5;
   border-color: #ffd29b;
   color: #fff8cf; }
 a.unig-button-error:hover, a.unig-button-danger:hover,
@@ -110,7 +110,7 @@ a.unig-button-error:hover, a.unig-button-danger:hover,
   text-decoration: none;
   cursor: pointer;
   margin-bottom: 5px;
-  background-color: #7f2013;
+  background-color: #bf9f9d;
   border-color: #ffb4aa;
   color: #ffe6e5; }
 
@@ -141,8 +141,8 @@ hr.unig {
   width: 140px;
   height: 200px;
   border-radius: 5px;
-  background-color: #d5cfc5;
-  border: 3px dashed #dcdbd4; }
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 3px dashed rgba(0, 0, 0, 0.2); }
 
 ul.unig-sortable {
   margin: 0;
