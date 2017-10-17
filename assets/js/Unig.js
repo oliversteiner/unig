@@ -26,6 +26,11 @@
      */
     function constructor(context, settings) {
 
+
+      if ( $('[type="date"]').prop('type') != 'date' ) {
+        $('[type="date"]').datepicker();
+      }
+
     }
 
 

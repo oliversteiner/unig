@@ -26,4 +26,9 @@ Twig tweak
 
 
 ## Install:
-`composer require drupal/fontawesome`
+```
+composer require drupal/fontawesome
+composer require drupal/lightgallery
+composer require drupal/plupload
+composer require drupal/Plupload_widget
+```
