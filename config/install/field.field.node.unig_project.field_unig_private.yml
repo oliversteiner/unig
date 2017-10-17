@@ -1,0 +1,23 @@
+uuid: a45f44d5-2bec-4622-af8b-5f48a7bd3e28
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_private
+    - node.type.unig_project
+id: node.unig_project.field_unig_private
+field_name: field_unig_private
+entity_type: node
+bundle: unig_project
+label: 'UniG private'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
