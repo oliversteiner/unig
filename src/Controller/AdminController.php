@@ -6,8 +6,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\unig\Utility\AdminTemplateTrait;
 use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\FileTrait;
+use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Utility\ProjectTrait;
-
 /**
  * Controller routines for page example routes.
  */
@@ -59,25 +59,24 @@ class AdminController extends ControllerBase {
     //  $result_2 = ProjectTrait::setCover($nid_project, $nid_image);
     //  $result_3 = ProjectTrait::countFilesInProject($nid_project);
 
-    $result_4 = AlbumTrait::addAlbum($target_nid, $album_nid);
+   // $result_4 = AlbumTrait::addAlbum($target_nid, $album_nid);
 
+    $fid = 93;
+    $iptc_data = new IptcController($fid);
 
-    $result_5 = AlbumTrait::getAlbumList($target_nid);
-    kint($result_5);
+    $keywords = $iptc_data->getKeywords();
+    $keywords = $iptc_data->getPersonNames();
 
-    $target_nid = 48;
-    $result_6 = FileTrait::deleteFile($target_nid);
+    $output[] = 'status: ' . $keywords['status'];
 
-    $output[] = 'status: ' . $result_6['status'];
-    $output[] = 'message: ' . $result_6['message'];
+    dpm($keywords);
 
-    kint($result_6);
+    dpm($keywords);
 
 
     $form['list'] = [
       '#markup' => '<p>Sandbox</p>' .
         '<hr>' .
-        '<div class="unig-sandbox"><pre>' . $result_4 . '</pre></div>' .
         //
         '<div class="unig-sandbox"><pre>' .$output[0]. '</pre></div>' .
         '<div class="unig-sandbox"><pre>' .$output[1]. '</pre></div>' .
