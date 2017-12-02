@@ -297,6 +297,7 @@
           ->condition('field_unig_project', $nid_project)
           ->condition('field_unig_album', $album_nid)
           ->sort('field_unig_weight.value', 'ASC')
+          ->sort('title', 'ASC')
           ->execute();
 
 
@@ -307,6 +308,7 @@
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
           ->sort('field_unig_weight.value', 'ASC')
+          ->sort('title', 'ASC')
           ->execute();
 
       }
