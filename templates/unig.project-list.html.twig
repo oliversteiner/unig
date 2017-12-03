@@ -6,7 +6,7 @@
 #}
 
 
-{{ attach_library('unig/unig.admin.projects') }}
+{{ attach_library('unig/unig.admin.images') }}
 
 {% set unig_upload = path('unig.upload') %}
 
@@ -21,27 +21,11 @@
 
         <div class="unig-toolbar">
 
-            <a type="button" class="unig-button" href="{{ unig_upload }}">
+            <a type="button" class="button btn btn-default" href="{{ unig_upload }}">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Neues Projekt
             </a>
 
-            {# sort #}
-
-            <div class="unig-button unig-button-sort-activate">
-                <i class="fa fa-sort" aria-hidden="true"></i>
-                Reihenfolge festlegen
-            </div>
-
-            <div class="unig-button unig-button-ok unig-button-sort-save" style="display: none">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Reihenfolge speichern
-            </div>
-
-            <div class="unig-button unig-button-warning unig-button-sort-cancel" style="display: none">
-                <i class="fa fa-times" aria-hidden="true"></i>
-                Reihenfolge zurücksetzen
-            </div>
         </div>
 
     {% endif %}
@@ -50,326 +34,116 @@
 
     </div>
 
-    <div class="unig">
-        <ul id="" class="unig-project-list-container unig-sortable">
+    <div class="unig unig-project-list-container">
 
-            {% set sort_year  = false %}
-            {% for project in project_list %}
-                {% set datum = project.timestamp|format_date(0, "D. d. F Y" ) %}
+        {% set sort_year  = false %}
 
+        {% for project in project_list %}
 
-                {# -------------------  Admin -------------------------- #}
-                {% if is_admin %}
-                    {# ----------- YEAR ----------- #}
-                    {% if sort_year != project.year %}
-                        <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
-                    {% endif %}
 
-                    {% if project.private == 1 %}
-                        {% set class = 'unig-project-private' %}
-                    {% else %}
-                        {% set class = '' %}
-                    {% endif %}
+            {% if is_admin %}
+                {# --------------------------------------------- #}
 
-                    {# sortable list #}
-                <li class="unig-sortable-item" id="unig-sortable-item-id_{{ project.nid }}">
-
-                    {# wenn sortable active #}
-                    <div class="unig-project-reducer unig-sortable-reducer">
-
-                    {# show when sortable list is active #}
-                    {# -----------  ----------- #}
-                    <div class="unig-sortable-reducer-content" style="display: none">
-
-
-                        <div class="unig-sortable-number">{{ project.weight }}</div>
-
-                        {# Image #}
-                        <div class="unig-sortable-cover">
-                            <img class="" src="{{ project.cover_image.unig_cover }}" alt="">
-                        </div>
-
-                        {#  Titel  #}
-                        <h2 class="unig-sortable-title">
-                            {{ project.title }}
-                        </h2>
-
-                    </div>
-                    {# -----------  ----------- #}
-
-
-                    {# hide when sortable list is active #}
-                    <div class="unig-sortable-reducer-hide">
-
-                    <article class="unig unig-project unig-project-{{ project.nid }} {{ class }}">
-
-
-                        {# ----------- Weight ----------- #}
-                        <div class="unig-project-weight" style="display: none">
-                            {{ project.weight }}
-                        </div>
-
-                        {# ----------- Cover ----------- #}
-                        <div class="unig-project-cover">
-                            <a href="/unig/project/{{ project.nid }}">
-                                <div class="unig-gallery-preview-wrapper">
-                                    <img class="" src="{{ project.cover_image.unig_cover }}" alt="">
-                                </div>
-
-                            </a>
-                        </div>
-
-                        <div class="unig-row">
-
-                            {# ----------- Anzahl Bilder ----------- #}
-                            <div class="unig-project-number-of-items unig-col-left">
-                                {% if project.number_of_items == 1 %}
-                                    {{ project.number_of_items }} Bild
-                                {% elseif project.number_of_items > 1 %}
-                                    {{ project.number_of_items }} Bilder
-                                {% endif %}
-                            </div>
-
-                            {# ----------- Private ----------- #}
-                            <div id="unig-project-private-{{ project.nid }}"
-                                 class="unig-project-private unig-col">
-                                {% if project.private %}
-                                    (privat)
-                                {% endif %}
-
-                            </div>
-
-                            {# ----------- Nid ----------- #}
-                            <div class="unig-project-nid unig-col-right">{{ project.nid }}</div>
-
-                        </div>
-
-                        {# ----------- Normal ----------- #}
-
-                        <hr class="unig">
-
-                        <div class="unig-project-normal-container" id="unig-project-normal-container-{{ project.nid }}">
-
-                            {# ----------- Datum ----------- #}
-                            <div id="unig-project-date-{{ project.nid }}" class="unig-project-list-date"> {{ datum }}</div>
-
-
-                            {# ----------- Titel ----------- #}
-                            <h2 id="unig-project-title-{{ project.nid }}" class="unig-project-list-title">
-                                {{ project.title }}
-                            </h2>
-
-
-                            {# ----------- description ----------- #}
-                            <div id="unig-project-description-{{ project.nid }}">{{ project.description }}</div>
-
-
-                            {# ----------- Toolbar ----------- #}
-                            <div class="unig-project-toolbar">
-
-                                {# Bearbeiten #}
-                                <div class="unig-button unig-button-open-edit"
-                                     data-unig-project-nid="{{ project.nid }}">
-                                    {% trans %}
-                                    Edit
-                                    {% endtrans %}
-                                </div>
-
-                                {# Vorschau #}
-                                <a class="unig-button" href="/unig/lightgallery/{{ project.nid }}">
-                                    Vorschau
-                                </a>
-                            </div>
-
-                        </div>
-
-                        {# ----------- Edit ----------- #}
-
-                        <div class="unig-project-edit-container"
-                             id="unig-project-edit-container-{{ project.nid }}"
-                             style="display: none">
-
-
-                            {# ----------- Edit hidden ----------- #}
-
-                            <input id="edit-unig-project-nid-{{ project.nid }}"
-                                   type="hidden" value="{{ project.nid }}"
-                                   name="project_nid">
-
-                            <input id="edit-unig-project-weight-{{ project.nid }}" type="hidden"
-                                   value="{{ project.weight }}" name="project_weight">
-
-
-                            {# ----------- Edit Datum ----------- #}
-                            <div class="unig-project-list-date">
-
-                                <input
-                                        id="edit-unig-project-date-{{ project.nid }}"
-                                        data-drupal-selector="edit-field-unig-date-0-value-date"
-                                        title="Datum (z. B. 2017-10-14)"
-                                        type="date"
-                                        min="1900-01-01" max="2050-12-31"
-                                        data-drupal-date-format="Y-m-d"
-                                        data-unig-project-id="{{ project.nid }}"
-                                        name="field_unig_date"
-                                        value="{{ project.date_drupal }}"
-                                        size="12"
-                                        class="form-date">
-                            </div>
-
-
-                            {# ----------- Edit Titel ----------- #}
-                            <h2 class="unig-edit-project-list-title">
-                                <input
-                                        id="edit-unig-project-title-{{ project.nid }}"
-                                        title="Titel"
-                                        type="text"
-                                        size="30"
-                                        value="{{ project.title }}">
-                            </h2>
-
-
-                            {# ----------- Edit Description ----------- #}
-                            <textarea
-                                    id="edit-unig-project-list-description-{{ project.nid }}"
-                                    rows="4"
-                                    cols="30"
-                                    title="Beschreibung">{{ project.description }}</textarea>
-
-
-                            {# ----------- Edit Privat ----------- #}
-                            <div>
-                            <input id="edit-unig-project-private-{{ project.nid }}"
-                                   data-drupal-selector="edit-field-unig-private-value"
-                                   aria-describedby="edit-field-unig-private-value--description"
-                                   type="checkbox"
-                                   name="field_unig_private[value]"
-                                   title="Nur Intern"
-                                   value="{{ project.private }}"
-                                    {% if project.private %}   checked="checked" {% endif %}
-                                   class="form-checkbox">
-
-                            <label class="unig-input-label" for="unig_project_privat"> Privates Projekt (nur
-                                Intern)</label>
-                            </div>
-
-                            {# ----------- Edit Buttons ----------- #}
-
-                            <div class="unig-project-toolbar">
-
-                                {# Bearbeiten #}
-                                <div class="unig-button-ok unig-button-update-project"
-                                     data-unig-project-nid="{{ project.nid }}">
-                                    {% trans %} Save {% endtrans %}
-                                </div>
-
-                                {# Abbrechen #}
-                                <div class="unig-button unig-button-project-cancel"
-                                     data-unig-project-nid="{{ project.nid }}"
-                                     data-unig-project-index="{{ loop.index0 }}"
-
-                                >
-
-                                    {% trans %} Cancel {% endtrans %}
-                                </div>
-                            </div>
-
-                            <hr class="unig">
-
-                            <div class="unig-project-toolbar">
-
-                                {#  -----------   Button Löschen  -----------  #}
-                                <a class="unig-button-danger unig-project-delete-button use-ajax"
-                                   href="/unig/nojs/project_delete/{{ project.nid }}">
-                                    Projekt löschen
-                                </a>
-                            </div>
-
-
-                        </div>
-
-
-                        {#  -----------   Album  -----------  #}
-                        {% if album_list %}
-                            <div class="unig-project-album-list">
-                                <h3 class="unig-project-album-list-title">Alben</h3>
-                                <ul class="unig unig-project-album-list-items">
-                                    {% for album in project.album_list %}
-                                        <li>
-                                            <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
-                                        </li>
-
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-
-
-                    </article>
-
-                    </div> {# hide sortable content#}
-
-                    </div> {# sortable reducer#}
-                    {# ------------------- End Admin -------------------------- #}
-
-                {% else %}
-
-                    {# ----------- YEAR ----------- #}
-                    {% if sort_year != project.year %}
-                        <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
-                    {% endif %}
-
-                    {% if project.private and logged_in == false %}
-
-                    {% else %}
-
-
-                        <article class="unig unig-project">
-
-                            {# ----------- Gallery ----------- #}
-                            <div class="unig-project-preview">
-                                <a href="/unig/lightgallery/{{ project.nid }}">
-                                    <div class="unig-gallery-preview-wrapper">
-                                        <img src="{{ project.cover_image.unig_cover }}" alt="">
-                                    </div>
-                                </a>
-                            </div>
-
-                            {# ----------- Datum ----------- #}
-                            <div class="unig-project-list-date"> {{ datum }}</div>
-
-
-                            {# ----------- Titel ----------- #}
-                            <h2 class="unig-project-list-title">
-                                <a href="/unig/lightgallery/{{ project.nid }}">
-                                    {{ project.title }}
-                                </a>
-                            </h2>
-
-
-                            {# ----------- Anzahl Bilder ----------- #}
-                            <div class="unig-project-list-number-of-items">
-                                {% if project.number_of_items == 1 %}
-                                    {{ project.number_of_items }} Bild
-                                {% elseif project.number_of_items > 1 %}
-                                    {{ project.number_of_items }} Bilder
-                                {% endif %}
-                            </div>
-
-                            {# ----------- body ----------- #}
-                            <div>{{ project.description }}</div>
-
-                        </article>
-
-                        </li>
-                    {% endif %}
-
+                {% if sort_year != project.year %}
+                    <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
                 {% endif %}
 
-                {% set sort_year = project.year %}
 
-            {% endfor %}
+                <article class="unig unig-project-article unig-project-{{ project.nid }}" >
+                    <div class="unig-project-cover">
+                        <a href="/unig/project/{{ project.nid }}">
+                            <img src="{{ project.cover_image.unig_thumbnail }}" alt="">
+                        </a>
+                    </div>
+                    <div class="unig-project-preview">
+                        <a href="/unig/lightgallery/{{ project.nid }}">
+                            Vorschau
+                        </a>
+                    </div>
 
-        </ul>
+                    <div class="unig-project-nid">{{ project.nid }}</div>
+
+                    <h2 class="unig-project-title">
+                        <a href="/unig/project/{{ project.nid }}">
+                            {{ project.title }}
+                        </a>
+                    </h2>
+
+                    {# Anzahl Bilder #}
+                    <div class="unig-project-number-of-items">
+                        {% if project.number_of_items == 1 %}
+                            {{ project.number_of_items }} Bild
+                        {% elseif project.number_of_items > 1 %}
+                            {{ project.number_of_items }} Bilder
+                        {% endif %}
+                    </div>
+
+                    <div class="unig-project-date"> {{ project.date|date("d. m. Y") }}</div>
+                    <div>{{ project.body }}</div>
+
+                    {#  -----------   Button Löschen  -----------  #}
+                    <a class="unig-button unig-project-delete-button use-ajax"
+                       href="/unig/nojs/project_delete/{{ project.nid }}">
+                        löschen
+                    </a>
+
+                    {# Album List #}
+                    {% if album_list %}
+                        <div class="unig-project-album-list">
+                            <h3 class="unig-project-album-list-title">Alben</h3>
+                            <ul class="unig unig-project-album-list-items">
+                                {% for album in project.album_list %}
+                                    <li>
+                                        <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                                    </li>
+
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+
+                </article>
+
+
+            {% else %}
+                {# ------------------- YEAR -------------------------- #}
+                {% if sort_year != project.year %}
+                    <div><h2>{{ project.year }}</h2></div>
+                {% endif %}
+
+                {# ------------------- File -------------------------- #}
+                <article class="unig">
+                    <div>{{ project.title }}</div>
+
+                    {# ------------------- Anzahl Bilder ------------------- #}
+                    <div>
+                        {% if project.number_of_items == 1 %}
+                            {{ project.number_of_items }} Bild
+                        {% elseif project.number_of_items > 1 %}
+                            {{ project.number_of_items }} Bilder
+                        {% endif %}
+                    </div>
+
+                    {# ------------------- body ------------------- #}
+                    <div>{{ project.body }}</div>
+
+                    {# ------------------- Tumbnail ------------------- #}
+                    <div>
+                        <a href="/unig/lightgallery/project/{{ project.nid }}">
+                            <img src="{{ project.cover_image.unig_bigger_thumbnail }}" alt="">
+                        </a>
+                    </div>
+
+
+                </article>
+
+
+            {% endif %}
+
+            {% set sort_year = project.year %}
+
+        {% endfor %}
+
     </div>
 </div>
