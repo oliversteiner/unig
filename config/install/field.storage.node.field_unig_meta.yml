@@ -1,0 +1,19 @@
+uuid: e8d6519c-43bc-434e-94c5-4d55a3d61ede
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_unig_meta
+field_name: field_unig_meta
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node_type
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

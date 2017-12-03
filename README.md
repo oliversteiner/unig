@@ -34,6 +34,7 @@ composer require drupal/fontawesome
 composer require drupal/lightgallery
 composer require drupal/plupload
 composer require drupal/Plupload_widget
+composer require drupal/twig_tweak
 
 drush fa-download
 ```

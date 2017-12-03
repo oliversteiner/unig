@@ -9,7 +9,7 @@ id: node.unig_project.field_unig_private
 field_name: field_unig_private
 entity_type: node
 bundle: unig_project
-label: 'UniG private'
+label: 'UniG Private'
 description: ''
 required: false
 translatable: false
