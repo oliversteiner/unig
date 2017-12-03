@@ -1,4 +1,8 @@
+#### Version
+beta 1.2
+
 ## Todo
+
 
 ### Einstellungen:
 - Plubload Einstellungen:
@@ -22,4 +26,14 @@ Twig tweak
 
 
 ## Install:
-`composer require drupal/fontawesome`
+```
+composer require drupal/devel
+composer require drupal/admin_toolbar
+composer require drupal/admin_toolbar_tools
+composer require drupal/fontawesome
+composer require drupal/lightgallery
+composer require drupal/plupload
+composer require drupal/Plupload_widget
+
+drush fa-download
+```
