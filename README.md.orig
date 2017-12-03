@@ -27,13 +27,19 @@ Twig tweak
 
 ## Install:
 ```
+<<<<<<< HEAD
 composer require drupal/devel
 composer require drupal/admin_toolbar
 composer require drupal/admin_toolbar_tools
+=======
+>>>>>>> master
 composer require drupal/fontawesome
 composer require drupal/lightgallery
 composer require drupal/plupload
 composer require drupal/Plupload_widget
+<<<<<<< HEAD
 
 drush fa-download
+=======
+>>>>>>> master
 ```

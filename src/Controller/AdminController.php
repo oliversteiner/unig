@@ -56,6 +56,8 @@ class AdminController extends ControllerBase {
     $album_nid = 82;
 
 
+
+
     //  $result_2 = ProjectTrait::setCover($nid_project, $nid_image);
     //  $result_3 = ProjectTrait::countFilesInProject($nid_project);
 
