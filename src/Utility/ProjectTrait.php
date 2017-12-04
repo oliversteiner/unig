@@ -7,6 +7,8 @@
   use Drupal\Core\Ajax\AlertCommand;
   use Drupal\image\Entity\ImageStyle;
   use Drupal\node\Entity\Node;
+  use Drupal\taxonomy\Entity\Term;
+  use Drupal\unig\Controller\IptcController;
 
 
   trait ProjectTrait {
@@ -290,7 +292,6 @@
 
       if ($album_nid != NULL) {
 
-        dpm('Album NID:' . $album_nid);
 
         $nids = \Drupal::entityQuery('node')
           ->condition('type', 'unig_file')
@@ -335,6 +336,7 @@
 
       return $variables;
     }
+
 
     /**
      * @return array
@@ -495,6 +497,59 @@
       return $variables;
     }
 
+
+    /**
+     * @param      $project_nid
+     * @param null $album_nid
+     */
+    public static function importKeywordsFromProject($project_nid, $album_nid = NULL) {
+
+      $nids = self::getListofFilesInProject($project_nid, $album_nid);
+
+      foreach ($nids as $nid) {
+
+        self::importKeywordsFromNode($nid);
+      }
+
+
+    }
+
+    public static function importKeywordsFromNode($nid) {
+
+      // File
+      $entity = Node::load($nid);
+      $file_id = $entity->get('field_unig_image')->target_id;
+      $title = $entity->getTitle();
+
+      // IPTC
+      $iptc = new IptcController($file_id);
+      $keywords = $iptc->getKeywordTermIDs();
+      $people = $iptc->getPeopleTermIds();
+
+      // Keywords
+      if (!empty($keywords)) {
+        $value_keywords = [];
+        foreach ($keywords as $keyword) {
+          $value_keywords[] = ['target_id' => $keyword];
+        }
+        $entity->field_unig_keywords = $value_keywords;
+      }
+
+      // People
+      if (!empty($people)) {
+        $value_people = [];
+        foreach ($people as $dude) {
+          $value_people[] = ['target_id' => $dude];
+        }
+        $entity->field_unig_people = $value_people;
+      }
+
+      // Save
+      $entity->save();
+
+    }
+
+
     /**
      * @param $file_nid
      *
@@ -541,7 +596,23 @@
       // image
       $image = self::getImage($file_nid);
 
-
+      // people
+      $node_people = $entity->get('field_unig_people')->getValue();
+      $people = [];
+      if ($node_people) {
+        foreach ($node_people as $term) {
+          $term = Term::load($term['target_id']);
+            $people[] =  $term->getName();
+        }
+      }
+      // keywords
+      $node_keywords = $entity->get('field_unig_keywords')->getValue();
+      if ($node_keywords) {
+        foreach ($node_keywords as $term) {
+          $term = Term::load($term['target_id']);
+            $keywords[] =  $term->getName();
+        }
+      }
       // Album List
       $album_list = AlbumTrait::getAlbumList($nid);
 
@@ -552,8 +623,8 @@
         'album_list' => $album_list,
         'image' => $image,
         'weight' => $weight,
-
-
+        'people' => $people,
+        'keywords' => $keywords
       ];
 
 

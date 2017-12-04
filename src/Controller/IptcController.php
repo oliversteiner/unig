@@ -4,9 +4,11 @@
   namespace Drupal\unig\Controller;
 
 
+  use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
   use Drupal\Core\Controller\ControllerBase;
   use Drupal\Core\Url;
   use Drupal\file\Entity\File;
+  use Drupal\taxonomy\Entity\Term;
 
   class IptcController extends ControllerBase {
 
@@ -20,6 +22,9 @@
 
     protected $data_keywords_without_peoples = [];
 
+    protected $people_tids = [];
+
+    protected $keyword_tids = [];
 
     /**
      * IptcController constructor.
@@ -27,9 +32,17 @@
      * @param $fid
      */
     function __construct($fid) {
+
+
+      // Read File
       $this->fid = $fid;
       $this->_readIptcFromFile();
       $this->_splitKeywordsAndPeople();
+
+      // Save Keywords to DB
+      $this->savePeopleTerms();
+      $this->saveKeywordTerms();
+
       return $fid;
     }
 
@@ -70,10 +83,70 @@
     }
 
 
-    function getkeywordsWithoutPeople() {
+    /**
+     * @return array
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+     */
+    function getKeywordTerms() {
 
-      return $this->data_keywords_without_peoples;
+      $terms = $this->data_keywords_without_peoples;
+      $voc = 'unig_keywords';
 
+      return $this->getTerms($terms, $voc);
+
+    }
+
+    /**
+     * @return array
+     */
+    function getKeywordTermIDs() {
+
+
+      return $this->keyword_tids;
+
+    }
+
+    /**
+     * @return mixed
+     */
+    function getPeopleTermIds() {
+
+      return $this->people_tids;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+     */
+    function getPeopleTerms() {
+
+      $terms = $this->data_people_names;
+      $voc = 'unig_people';
+
+      return $this->getTerms($terms, $voc);
+    }
+
+
+    /**
+     * @param $terms
+     * @param $voc
+     *
+     * @return array
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+     */
+    function getTerms($terms, $voc) {
+
+      dpm($terms);
+
+
+      $output = [];
+
+      foreach ($terms as $term) {
+        $output[] = $this->_getTidByName($term, $voc);
+      }
+
+      dpm($output);
+      return $output;
     }
 
 
@@ -174,6 +247,8 @@
       }
 
       $this->data = $data;
+
+
       $this->data_keywords = $data['keywords'];
 
       return $data;
@@ -191,6 +266,130 @@
 
 
       return $output;
+    }
+
+
+    private function addKeywordToVocabulary() {
+
+
+    }
+
+
+    function loadVocabulary($vid) {
+      $term_data = [];
+      try {
+        $terms = \Drupal::entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->loadTree($vid);
+      } catch (InvalidPluginDefinitionException $e) {
+      }
+      foreach ($terms as $term) {
+        $term_data[] = [
+          "id" => $term->tid,
+          "name" => $term->name,
+        ];
+      }
+
+      return $term_data;
+    }
+
+    function savePeopleTerms() {
+      $vid = 'unig_people';
+      $terms = $this->data_people_names;
+      $tids = $this->saveTerms($vid, $terms);
+      $this->people_tids = $tids;
+      return $tids;
+    }
+
+    function saveKeywordTerms() {
+
+      $vid = 'unig_keywords';
+      $terms = $this->data_keywords_without_peoples;
+      $tids = $this->saveTerms($vid, $terms);
+      $this->keyword_tids = $tids;
+      return $tids;
+
+    }
+
+    /**
+     * @param $vid
+     * @param $new_terms
+     *
+     * @return array // all term ids from File
+     */
+    function saveTerms($vid, $new_terms) {
+      $file_keyword_tids = [];
+      // dpm($new_terms, 'Term from File');
+
+      $voc = $this->loadVocabulary($vid);
+
+      $terms_in_voc = [];
+
+      // reduce Voc to names
+      foreach ($voc as $index => $term) {
+        $terms_in_voc[] = $term['name'];
+      }
+
+
+
+      // if there is new terms
+      foreach ($new_terms as $new_term) {
+
+        if (in_array($new_term, $terms_in_voc)) {
+
+          $position = array_search($new_term, $terms_in_voc);
+          $tid = $voc[$position]['id'];
+          $file_keyword_tids[] = $tid;
+
+        }
+        else {
+          if (!empty($new_term)) {
+
+            // Add new Terms to Voc
+            $term_created = NULL;
+            $term_created = Term::create([
+              'name' => $new_term,
+              'vid' => $vid,
+            ])->save();
+
+            drupal_set_message('new ' . $vid . ': ' . $new_term, TRUE);
+
+            // Add new term to output
+            $tid = $term_created->tid->value;
+            $file_keyword_tids[] = $tid;
+          }
+        }
+      }
+
+      return $file_keyword_tids;
+    }
+
+    /**
+     * Utility: find term by name and vid.
+     *
+     * @param null $name
+     *  Term name
+     * @param null $vid
+     *  Term vid
+     *
+     * @return int
+     *  Term id or 0 if none.
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+     */
+    protected function _getTidByName($name = NULL, $vid = NULL) {
+      $properties = [];
+      if (!empty($name)) {
+        $properties['name'] = $name;
+      }
+      if (!empty($vid)) {
+        $properties['vid'] = $vid;
+      }
+      $terms = \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->loadByProperties($properties);
+      $term = reset($terms);
+
+      return !empty($term) ? $term->id() : 0;
     }
 
   }

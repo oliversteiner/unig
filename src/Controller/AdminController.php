@@ -64,28 +64,27 @@ class AdminController extends ControllerBase {
    // $result_4 = AlbumTrait::addAlbum($target_nid, $album_nid);
 
 //    $fid = 93; // Apollobook
-    $fid = 74; // Z-77
+/*    $fid = 74; // Z-77
 
     $iptc_data = new IptcController($fid);
-
-    $people = $iptc_data->getPeopleNames();
-    $keywords = $iptc_data->getkeywordsWithoutPeople();
-
-    $output[] = 'status: ' . $keywords['status'];
+    $output[0] = $iptc_data->getPeopleTerms();
+    $output[1] = $iptc_data->getKeywordTerms();*/
 
 
+    $project_nid = 101 ;
+    ProjectTrait::importKeywordsFromProject($project_nid);
 
-    print('persons');
-    dpm($people);
 
-    print('keywords');
-    dpm($keywords);
+
+
+
+    $output = [];
 
     $form['list'] = [
       '#markup' => '<p>Sandbox</p>' .
         '<hr>' .
         //
-        '<div class="unig-sandbox"><pre>' .$output[0]. '</pre></div>' .
+       '<div class="unig-sandbox"><pre>' .$output[0]. '</pre></div>' .
         '<div class="unig-sandbox"><pre>' .$output[1]. '</pre></div>' .
         '<hr>',
     ];

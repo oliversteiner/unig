@@ -35,6 +35,7 @@ composer require drupal/lightgallery
 composer require drupal/plupload
 composer require drupal/Plupload_widget
 composer require drupal/twig_tweak
+composer require drupal/taxonomy_manager
 
 drush fa-download
 ```

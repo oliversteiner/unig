@@ -152,6 +152,11 @@ project
                             {{ file.weight }}
                         </div>
 
+                        {# ----------- NODE ID ----------- #}
+                        <div class="unig-file-nid" style="display: block">
+                            {{ file.nid }}
+                        </div>
+
                         {# Image #}
                         <div class="unig-sortable-image">
                             <img class="" src="{{ file.image.medium }}" alt="">
@@ -162,8 +167,9 @@ project
                             {{ file.title }}
                         </p>
 
+
                     </div>
-                    {# -----------  ----------- #}
+
 
                     {# hide when sortable list is active #}
                     <div class="unig-sortable-reducer-hide">
@@ -174,6 +180,10 @@ project
                             {{ file.weight }}
                         </div>
 
+                        {# ----------- NODE ID ----------- #}
+                        <div class="unig-file-nid" style="display: block">
+                            {{ file.nid }}
+                        </div>
 
                         {#  -----------   Titelbild  -----------  #}
                         <div
@@ -201,13 +211,35 @@ project
 
                         {#  -----------   Titel  -----------  #}
                         <div>
-                            <p class="unig-img-label">{{ file.nid }} - {{ file.title }} </p>
+                            <p class="unig-img-label">{{ file.title }} </p>
+
+                            {#  People  #}
+                            {% if file.people is not empty %}
+
+                                <p class="unig-sortable-people">
+                                    {% for  people in file.people %}
+                                        <span class="people">{{ people }}</span>
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+
+                            {#  Keywords  #}
+                            {% if file.keywords is not empty %}
+
+                                <p class="unig-sortable-keywords">
+
+                                    {% for  keyword in file.keywords %}
+                                        <span class="keyword">{{ keyword }}</span>
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+
                         </div>
 
 
                         {#  -----------   Toolbar  -----------  #}
 
-                        <div class="unig-file-toolbar"  id="unig-file-toolbar-{{ file.nid }}" style="display: none">
+                        <div class="unig-file-toolbar" id="unig-file-toolbar-{{ file.nid }}" style="display: none">
 
                             {#  -----------   Button Titelbild  -----------  #}
                             <a class="unig-button unig-file-set-cover use-ajax"
