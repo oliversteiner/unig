@@ -1,4 +1,11 @@
-@import 'colors';
+@import "colors";
+@import "buttons";
+@import "sortable";
+@import "inputs";
+@import "download";
+@import "rating";
+@import "keyword_people";
+
 body {
 }
 .unig {
@@ -11,79 +18,7 @@ body {
 
   font-family: Sans-Serif, serif;
 }
-@mixin unig-button {
-  box-sizing: border-box;
-  display: inline-block;
-  padding: 2px 10px;
-  border: 1px solid;
-  border-radius: 2px;
-  text-decoration: none;
-  cursor: pointer;
-  margin-bottom: 5px;
-}
-a.unig-button,
-.unig-button {
-  @include unig-button;
-  color: $color-80;
-  border-color: $color-20;
-  background-color: $color-5;
 
-  &-ok {
-    @include unig-button;
-    color: $color-ok-text;
-    border-color: $color-ok-border;
-    background-color: $color-ok-background;
-  }
-
-  &-warning {
-    @include unig-button;
-    color: $color-warning-text;
-    border-color: $color-warning-border;
-    background-color: $color-warning-background;
-  }
-
-  &-error,
-  &-danger {
-    @include unig-button;
-    color: $color-error-text;
-    border-color: $color-error-border;
-    background-color: $color-error-background;
-  }
-
-}
-a.unig-button,
-.unig-button {
-
-  &:hover {
-    @include unig-button;
-    background-color: $color-50;
-    border-color: $color-20;
-    color: $color-5;
-  }
-
-  &-ok:hover {
-    @include unig-button;
-    background-color: $color-ok-hover;
-    border-color: $color-ok-border;
-    color: $color-ok-background;
-  }
-
-  &-warning:hover {
-    @include unig-button;
-    background-color: $color-warning-hover;
-    border-color: $color-warning-border;
-    color: $color-warning-background;
-  }
-
-  &-error:hover,
-  &-danger:hover {
-    @include unig-button;
-    background-color: $color-error-hover;
-    border-color: $color-error-border;
-    color: $color-error-background;
-  }
-
-}
 // Layout
 
 .unig-row {
@@ -98,89 +33,10 @@ a.unig-button,
 .unig-col-right {
   justify-self: flex-end;
 }
+
 hr.unig {
   border: none;
   border-top: solid 1px $color-20;
   margin: 10px 0 0;
   padding: 10px 0 0;
-}
-.unig-input-label {
-  text-decoration: none;
-  font-weight: normal;
-}
-// sortable
-
-.unig-sortable-placeholder {
-  display: inline-block;
-  margin: 10px;
-  padding: 20px;
-  width: 140px;
-  height: 200px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 3px dashed rgba(0, 0, 0, 0.2);
-
-}
-
-ul.unig-sortable {
-  margin: 0;
-  padding: 0;
-  li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    cursor: move;
-  }
-}
-// Sortable
-.unig-sortable-reducer-active {
-  display: inline-block;
-  margin: 10px;
-  padding: 20px;
-  background-color: $color-2;
-  width: 140px;
-  height: 200px;
-  border-radius: 5px;
-  border: 1px solid $color-10;
-
-  .unig-sortable-number {
-position: absolute;
-  }
-
-
-  .unig-sortable-cover img {
-    border: solid 1px $color-80;
-    width: 100px;
-    height: 100px;
-  }
-
-  .unig-sortable-title {
-    margin: 0;
-    padding: 5px 0 0 0;
-  }
-}
-
-.unig-button .fa{
-  margin-right: 4px;
-}
-
-// Options / Toolbar
-
-.unig-file-button-options i{
-  pointer-events: none;
-
-}
-
-.unig-file-button-options{
-display: inline-block;
-  color: $color-50;
-  padding: 10px 10px 0 0;
-  cursor: pointer;
-  float: left;
-}
-
-
-.unig-file-button-options:hover{
-  color: $color-highlight;
-
 }

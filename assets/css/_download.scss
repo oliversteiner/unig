@@ -1,0 +1,56 @@
+@import "colors";
+div.unig-file-download-toolbox {
+  padding: 5px 0 0 10px;
+  font-size: 13px;
+  background-color: $color-admin-bg;
+  border-radius: 3px;
+}
+ul.unig-file-download-list {
+  margin: 0;
+  padding: 0;
+}
+//
+//  =====  List  =====
+//
+li.unig-file-download-list-mark,
+li.unig-file-download-list-direct {
+  // border: solid 1px gray;
+  list-style-type: none;
+  margin: 0;
+  padding: 3px 2px;
+  border-bottom: solid 1px $color-10;
+}
+li.unig-file-download-list-mark:hover,
+li.unig-file-download-list-direct:hover {
+  background-color: $color-20;
+  cursor: pointer;
+  border-radius: 3px;
+}
+// Icons
+ul.unig-file-download-list i.fa {
+  margin: 0 3px 0 3px;
+}
+.unig-file-download-list-picto,
+.unig-file-download-list-label,
+.unig-file-download-list-width,
+.unig-file-download-list-size {
+  display: inline-block;
+  // border: silver solid 1px;
+}
+.unig-file-download-list-picto {
+  display: inline-block;
+  margin-right: 10px;
+}
+.unig-file-download-list-label {
+  width: 30px;
+}
+.unig-file-download-list-width {
+  min-width: 50px;
+  text-align: right;
+  margin-right: 10px;
+}
+.unig-file-download-list-size {
+  width: auto;
+}
+.unig-file-download-list-mark-text {
+}

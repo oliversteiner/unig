@@ -1,19 +1,19 @@
 .unig-gallery-preview-wrapper {
   position: relative;
-  background-color: #dcdbd4;
-  padding: 10px;
-  width: 240px;
-  height: auto;
+  background-color: #292929;
   vertical-align: middle;
-  text-align: center; }
+  text-align: center;
+  cursor: zoom-in;
+  border-radius: 3px;
+  margin: 0;
+  padding: 0; }
 
-.unig-gallery-preview-wrapper:hover {
-  background-color: #7f2421;
-  cursor: pointer; }
+ul.unig-gallery li.unig-file-edit.active {
+  border: 2px solid #7f2421; }
 
 .unig-gallery-preview-wrapper img {
-  border: 1px solid #292929;
-  margin: auto; }
+  margin: 0;
+  padding: 0; }
 
 .unig-lightgallery-title {
   display: inline-block;
@@ -32,25 +32,21 @@ ul.unig-gallery {
   margin: 0;
   padding: 0; }
 
-ul.unig-gallery li {
+li.unig-file-item {
   margin: 10px;
   padding: 0;
   list-style-type: none; }
 
 ul.unig-gallery li.unig-file-normal,
 ul.unig-gallery li.unig-file-edit {
-  margin: 10px;
-  padding: 20px;
+  padding: 5px 12px 12px 12px;
   background-color: #f6f6f6;
-  width: 280px;
+  width: 230px;
   border-radius: 5px;
-  border: 1px solid #dcdbd4; }
-
-.unig-img-label {
-  margin-top: 10px; }
+  border: 2px solid #e6e6e6; }
 
 .unig-sortable-placeholder {
-  width: 280px;
+  width: 230px;
   height: 240px; }
 
 .unig-sortable-reducer-active {
@@ -58,7 +54,7 @@ ul.unig-gallery li.unig-file-edit {
   display: inline-block;
   margin: auto;
   padding: 0;
-  background-color: #f6f6f6;
+  background-color: #cccccc;
   width: auto;
   height: auto;
   border-radius: 0;
@@ -68,26 +64,39 @@ ul.unig-gallery li.unig-file-edit {
     margin-left: -15px;
     margin-top: -15px;
     font-size: 1.2em;
-    color: #c2c2c2; }
+    color: #cccccc; }
   .unig-sortable-reducer-active .unig-sortable-image img {
-    border: solid 1px #7e7e7e;
+    border: solid 1px gray;
     margin: 10px; }
   .unig-sortable-reducer-active .unig-sortable-title {
     margin: 0;
     padding: 5px 0 0 0; }
 
-.unig-file-weight {
-  position: absolute;
-  margin-left: -20px;
-  margin-top: -20px;
-  font-size: 1.1em;
-  color: #c2c2c2;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  text-align: center;
-  vertical-align: middle;
-  z-index: 2; }
+.unig-file-head {
+  display: flex;
+  justify-content: space-between; }
+
+.unig-file-head-item {
+  color: #b3b3b3;
+  padding: 2px; }
+
+.unig-file-download-mark {
+  padding: 0 7px;
+  margin-left: -5px;
+  display: inline-block; }
+  .unig-file-download-mark:hover {
+    cursor: pointer;
+    color: #7f1000; }
+  .unig-file-download-mark:active {
+    cursor: pointer;
+    color: #292929; }
+  .unig-file-download-mark.marked {
+    color: #7f1000; }
+
+.unig-file-nid {
+  border-right: 1px solid #cccccc;
+  padding-right: 2px;
+  margin-right: 4px; }
 
 .unig-project-date {
   font-size: 1.2em; }
@@ -99,5 +108,58 @@ h2.unig-project-title {
 
 .unig-file-gallery-head {
   margin-left: 50px; }
+
+.unig-file-middle {
+  display: flex;
+  justify-content: space-between; }
+
+.unig-file-keywords-toolbox-trigger,
+.unig-file-people-toolbox-trigger,
+.unig-file-download-toolbox-trigger,
+.unig-file-options-toolbox-trigger {
+  margin-top: 2px;
+  padding-top: 5px;
+  display: inline-block;
+  color: #b3b3b3;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px; }
+
+.unig-file-keywords-toolbox-trigger.active,
+.unig-file-people-toolbox-trigger.active,
+.unig-file-download-toolbox-trigger.active,
+.unig-file-options-toolbox-trigger.active {
+  color: #292929;
+  background-color: #e6e6e6; }
+
+.unig-file-keywords-toolbox-trigger:hover,
+.unig-file-people-toolbox-trigger:hover,
+.unig-file-download-toolbox-trigger:hover,
+.unig-file-options-toolbox-trigger:hover {
+  color: #7f2421;
+  cursor: pointer; }
+
+.unig-file-keywords-toolbox-trigger:active,
+.unig-file-people-toolbox-trigger:active,
+.unig-file-download-toolbox-trigger:active,
+.unig-file-options-toolbox-trigger:active {
+  color: #292929; }
+
+.unig-file-keywords-toolbox-trigger i,
+.unig-file-people-toolbox-trigger i,
+.unig-file-download-toolbox-trigger i,
+.unig-file-options-toolbox-trigger i {
+  padding: 5px 5px;
+  margin-left: 0; }
+
+.unig-file-title {
+  padding: 5px 10px;
+  margin-left: 0; }
+
+.unig-file-options-toolbox {
+  display: flex;
+  justify-content: space-around;
+  font-size: 13px;
+  background-color: #e6e6e6;
+  padding: 10px 5px 5px 5px; }
 
 /*# sourceMappingURL=unig_image.css.map */

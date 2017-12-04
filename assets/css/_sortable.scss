@@ -1,0 +1,55 @@
+@import 'colors';
+
+
+.unig-sortable-placeholder {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  width: 140px;
+  height: 200px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 3px dashed rgba(0, 0, 0, 0.2);
+
+}
+
+ul.unig-sortable {
+  margin: 0;
+  padding: 0;
+
+}
+
+li.unig-sortable-item {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  cursor: move;
+}
+
+// Sortable
+.unig-sortable-reducer-active {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  background-color: $color-2;
+  width: 140px;
+  height: 200px;
+  border-radius: 5px;
+  border: 1px solid $color-10;
+
+  .unig-sortable-number {
+    position: absolute;
+  }
+
+
+  .unig-sortable-cover img {
+    border: solid 1px $color-80;
+    width: 100px;
+    height: 100px;
+  }
+
+  .unig-sortable-title {
+    margin: 0;
+    padding: 5px 0 0 0;
+  }
+}

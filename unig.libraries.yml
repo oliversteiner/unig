@@ -51,8 +51,7 @@ unig.admin.files:
     - core/jquery.once
     - core/jquery.ui.datepicker
     - core/jquery.ui.sortable
-    - lightgallery/lightgallery
-    - lightgallery/lightgallery_load
+    - unig/unig.lightgallery
 #
 #
 #
@@ -73,3 +72,24 @@ unig.admin.projects:
     - core/jquery.once
     - core/jquery.ui.datepicker
     - core/jquery.ui.sortable
+    - unig/unig.lightgallery
+
+#
+#
+#
+unig.lightgallery:
+  css:
+    theme:
+      /libraries/lightgallery/dist/css/lightgallery.min.css: {}
+      /libraries/lightgallery/dist/css/lg-transitions.min.css: {}
+  js:
+    /libraries/lightgallery/dist/js/lightgallery.min.js: {}
+    /libraries/lightgallery/dist/js/lg-autoplay.min.js: {}
+    /libraries/lightgallery/dist/js/lg-fullscreen.min.js: {}
+    /libraries/lightgallery/dist/js/lg-thumbnail.min.js: {}
+    /libraries/lightgallery/dist/js/lg-video.min.js: {}
+    /libraries/lightgallery/dist/js/lg-zoom.min.js: {}
+    /libraries/lightgallery/dist/js/lg-hash.min.js: {}
+
+  dependencies:
+    - core/jquery

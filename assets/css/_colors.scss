@@ -1,10 +1,15 @@
 // Black
+$color-100: rgb(0, 0, 0);
 $color-90: rgb(17, 17, 17);
 $color-80: rgb(41, 41, 41);
-$color-50: rgb(126, 126, 126);
-$color-30: rgb(171, 171, 171);
-$color-20: rgb(194, 194, 194);
-$color-10: rgb(220, 219, 212);
+$color-70: rgb(77, 77, 77);
+$color-60: rgb(102, 102, 102);
+$color-50: rgb(128, 128, 128);
+$color-40: rgb(179, 179, 179);
+$color-30: rgb(179, 179, 179);
+$color-20: rgb(204, 204, 204);
+$color-15: rgb(217, 217, 217);
+$color-10: rgb(230, 230, 230);
 $color-5: rgb(225, 225, 225);
 $color-2: rgb(246, 246, 246);
 
@@ -32,4 +37,13 @@ $color-error-text: #7f2013;
 $color-private: rgb(214, 207, 194);
 $color-private-border: rgb(198, 191, 178);
 
-$color-highlight: #7f2421;
+$color-highlight: rgb(127, 36, 33);
+
+
+// Admin
+$color-admin-bg: rgb(230, 230, 230); // 15
+$color-admin-text: rgb(41, 41, 41); // 80
+$color-admin-text-on-bg: rgb(230, 230, 230); // 10
+$color-admin-buttons: rgb(179, 179, 179); // 30
+$color-admin-buttons-hover: rgb(127, 36, 33); // red
+$color-admin-buttons-active: rgb(41, 41, 41); // 80

@@ -1,0 +1,32 @@
+@import "colors";
+//
+// =====  Rating  =====
+//
+$color-rating-up: #008000;
+$color-rating-down: #8b0000;
+.unig-image-rating-up,
+.unig-image-rating-down {
+  padding: 2px;
+  display: inline-block;
+}
+.unig-image-rating-up:active,
+.unig-image-rating-down:active {
+  cursor: pointer;
+  color: $color-80;
+}
+.unig-image-rating-up:hover {
+  cursor: pointer;
+  color: $color-rating-up;
+}
+.unig-image-rating-down:hover {
+  cursor: pointer;
+  color: $color-rating-down;
+}
+.unig-image-rating-badge {
+  display: inline-block;
+  cursor: default;
+  padding: 2px;
+}
+span.unig-image-rating-badge.active{
+  color: $color-80;
+}

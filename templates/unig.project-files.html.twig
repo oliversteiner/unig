@@ -59,17 +59,17 @@ project
 
     {# sort #}
 
-    <div type="button" class="button btn btn-default unig-button-sort-activate">
+    <div class="button btn btn-default unig-button-sort-activate">
         <i class="fa fa-sort" aria-hidden="true"></i>
         Reihenfolge festlegen
     </div>
 
-    <div type="button" class="button btn btn-success unig-button-sort-save" style="display: none">
+    <div class="button btn btn-success unig-button-sort-save" style="display: none">
         <i class="fa fa-check" aria-hidden="true"></i>
         Reihenfolge speichern
     </div>
 
-    <div type="button" class="button btn btn-warning unig-button-sort-cancel" style="display: none">
+    <div class="button btn btn-warning unig-button-sort-cancel" style="display: none">
         <i class="fa fa-times" aria-hidden="true"></i>
         Reihenfolge zurücksetzen
     </div>
@@ -136,8 +136,11 @@ project
 
         {% for file in files %}
 
+            {% set rating = 5 %}  {# TODO: Test Value #}
 
-            <li class="unig-sortable-item  unig-file-edit unig-file-{{ file.nid }}" id="unig-file-id_{{ file.nid }}">
+
+            <li class="unig-sortable-item sort-handle unig-file-item unig-file-edit unig-file-{{ file.nid }}"
+                id="unig-file-{{ file.nid }}" data-unig-file-nid="{{ file.nid }}">
 
 
                 {# wenn sortable active #}
@@ -147,15 +150,16 @@ project
                     {# -----------  ----------- #}
                     <div class="unig-sortable-reducer-content" style="display: none">
 
+                        {# ----------- NODE ID ----------- #}
+                        <div class="unig-file-nid" style="display: block">
+                            {{ file.nid }}
+                        </div>
+
                         {# ----------- Weight ----------- #}
                         <div class="unig-file-weight" style="display: block">
                             {{ file.weight }}
                         </div>
 
-                        {# ----------- NODE ID ----------- #}
-                        <div class="unig-file-nid" style="display: block">
-                            {{ file.nid }}
-                        </div>
 
                         {# Image #}
                         <div class="unig-sortable-image">
@@ -171,94 +175,128 @@ project
                     </div>
 
 
-                    {# hide when sortable list is active #}
+                    {#  #}
                     <div class="unig-sortable-reducer-hide">
 
+                        <div class="sort-cursor-inactive">
+                            {# ----------- HEAD ----------- #}
 
-                        {# ----------- Weight ----------- #}
-                        <div class="unig-file-weight" style="display: block">
-                            {{ file.weight }}
-                        </div>
+                            <div class="unig-file-head">
 
-                        {# ----------- NODE ID ----------- #}
-                        <div class="unig-file-nid" style="display: block">
-                            {{ file.nid }}
-                        </div>
-
-                        {#  -----------   Titelbild  -----------  #}
-                        <div
-                                class="lightgallery-item"
-                                data-sub-html="{{ file.title }}"
-                                data-src="{{ file.image.unig_hd }}">
-
-                            {% if file.label is not empty %}
-                                <div class="field-label">
-                                    <label>{{ file.field_label }}</label>
+                                {# ----------- Download Mark ----------- #}
+                                <div class="unig-file-head-item unig-file-download-mark unig-file-download-mark-trigger">
+                                    <i class="fa fa-bookmark" aria-hidden="true"></i>
                                 </div>
-                            {% endif %}
-                            <div class="field-content">
-                                <div class="unig-gallery-preview-wrapper">
-                                    <img class="img-responsive" src="{{ file.image.medium }}"/>
+
+
+                                {# ----------- Rating ----------- #}
+                                <div class="unig-file-head-item unig-image-rating">
+
+                                    {# thumbs-down #}
+                                    <span class="unig-image-rating-down unig-image-rating-down-trigger">
+                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                    </span>
+
+                                    {# badge #}
+                                    <span class="unig-image-rating-badge {% if rating != 0 %} active {% endif %}">{{ rating }}</span>
+
+                                    <input class="unig-image-rating-input" name="file_rating" type="hidden"
+                                           value="{{ rating }}">
+
+                                    {# thumbs-up #}
+                                    <span class="unig-image-rating-up unig-image-rating-up-trigger">
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+                                <div class="unig-file-head-item unig-file-weight">
+
+                                    {# ----------- NODE ID ----------- #}
+                                    <span class="unig-file-nid">
+                                    {{ file.nid }}
+                                </span>
+                                    {# ----------- Weight ----------- #}
+                                    <span class="unig-file-weight">
+                                    {{ file.weight }}
+                                    </span>
                                 </div>
                             </div>
-                        </div>
 
-                        {#  -----------   Options button  -----------  #}
-                        <div class="unig-file-button-options" data-unig-file-nid="{{ file.nid }}">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </div>
+                            {#  -----------   Titelbild  -----------  #}
+                            <div class="lightgallery-item"
+                                 data-sub-html="{{ file.title }}"
+                                 data-src="{{ file.image.unig_hd }}">
 
+                                {% if file.label is not empty %}
+                                    <div class="field-label">
+                                        <label>{{ file.field_label }}</label>
+                                    </div>
+                                {% endif %}
+                                <div class="field-content">
+                                    <div class="unig-gallery-preview-wrapper">
+                                        <img class="img-responsive" src="{{ file.image.medium }}"/>
+                                    </div>
+                                </div>
+                            </div>
 
-                        {#  -----------   Titel  -----------  #}
-                        <div>
-                            <p class="unig-img-label">{{ file.title }} </p>
+                            {#  -----------   MIDDLE  -----------  #}
 
-                            {#  People  #}
-                            {% if file.people is not empty %}
+                            <div class="unig-file-middle">
 
-                                <p class="unig-sortable-people">
-                                    {% for  people in file.people %}
-                                        <span class="people">{{ people }}</span>
-                                    {% endfor %}
-                                </p>
-                            {% endif %}
+                                {#  -----------   Titel  -----------  #}
+                                <div class="unig-file-middle-item unig-file-title">
+                                    {{ file.title }}
+                                </div>
 
-                            {#  Keywords  #}
-                            {% if file.keywords is not empty %}
+                                <div class="unig-file-middle-item">
 
-                                <p class="unig-sortable-keywords">
+                                    {#  -----------   keywords button  -----------  #}
+                                    <span class="unig-file-keywords-toolbox-trigger">
+                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                    </span>
 
-                                    {% for  keyword in file.keywords %}
-                                        <span class="keyword">{{ keyword }}</span>
-                                    {% endfor %}
-                                </p>
-                            {% endif %}
+                                    {#  -----------   people button  -----------  #}
+                                    <span class="unig-file-people-toolbox-trigger">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
 
-                        </div>
+                                    {#  -----------   Download button  -----------  #}
+                                    <span class="unig-file-download-toolbox-trigger">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                    </span>
 
+                                    {#  -----------   Options button  -----------  #}
+                                    <span class="unig-file-options-toolbox-trigger">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
 
-                        {#  -----------   Toolbar  -----------  #}
+                            {#  -----------   Options Toolbox -----------  #}
+                            <div class="unig-file-options-toolbox" style="display: none">
 
-                        <div class="unig-file-toolbar" id="unig-file-toolbar-{{ file.nid }}" style="display: none">
+                                {#  -----------   Button Titelbild  -----------  #}
+                                <span class="unig-file-options-item">
+                                <a class="unig-button unig-file-set-cover use-ajax"
+                                   href="/unig/nojs/set_cover/{{ project.nid }}/{{ file.nid }}">
+                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                    Titelbild
+                                </a>
+                                </span>
+                                {#  -----------   Button Löschen  -----------  #}
+                                <span class="unig-file-options-item">
 
-                            {#  -----------   Button Titelbild  -----------  #}
-                            <a class="unig-button unig-file-set-cover use-ajax"
-                               href="/unig/nojs/set_cover/{{ project.nid }}/{{ file.nid }}">
-                                <i class="fa fa-picture-o" aria-hidden="true"></i>
-                                Titelbild
-                            </a>
+                                <a class="unig-button-danger unig-file-delete-file use-ajax"
+                                   href="/unig/nojs/delete_file/{{ file.nid }}">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    löschen
+                                </a>
+                                    </span>
+                                {#  -----------   Album  -----------  #}
+                            </div>
 
-                            {#  -----------   Button Löschen  -----------  #}
-                            <a class="unig-button-danger unig-file-delete-file use-ajax"
-                               href="/unig/nojs/delete_file/{{ file.nid }}">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                löschen
-                            </a>
-
-                            {#  -----------   Album  -----------  #}
-
-                            <div class="unig-album">
-                                <p>Zu album hinzufügen</p>
+                            <div class="unig-file-album-toolbox" style="display: none">
+                                <p>Zu Album hinzufügen</p>
 
                                 <ul class="unig-gallery-file-album-list-items">
                                     {% for album in project.album_list %}
@@ -271,7 +309,85 @@ project
                             </div>
 
                         </div>
+                        {#  -----------   Download List Toolbox -----------  #}
 
+                        <div class="unig-file-download-toolbox" style="display: none">
+                            <ul class="unig-file-download-list">
+
+                                {# mark #}
+                                <li class="unig-file-download-list-mark unig-file-download-mark-trigger">
+                                        <span class="unig-file-download-list-picto">
+                                        <i class="fa fa-bookmark" aria-hidden="true"></i>
+                                            </span>
+                                    <span class="unig-file-download-list-mark-text">für Download merken</span>
+                                </li>
+
+                                {# SD #}
+                                <li class="unig-file-download-list-direct download-sd">
+                                                                                <span class="unig-file-download-list-picto">
+
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        </span>
+                                    <span class="unig-file-download-list-label">SD</span>
+                                    <span class="unig-file-download-list-width">500&thinsp;px</span>
+                                    <span class="unig-file-download-list-size">ca.&thinsp;300&thinsp;KB</span>
+
+
+                                </li>
+                                {# HD #}
+                                <li class="unig-file-download-list-direct download-hd">
+                                      <span class="unig-file-download-list-picto">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                      </span>
+                                    <span class="unig-file-download-list-label">HD</span>
+                                    <span class="unig-file-download-list-width">1920&thinsp;px</span>
+                                    <span class="unig-file-download-list-size">ca.&thinsp;0.5&thinsp;MB</span>
+
+                                </li>
+                                {# Max #}
+                                <li class="unig-file-download-list-direct download-max">
+                                    <span class="unig-file-download-list-picto">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="unig-file-download-list-label">Max</span>
+                                    <span class="unig-file-download-list-width">4500&thinsp;px</span>
+                                    <span class="unig-file-download-list-size">ca.&thinsp;1,2&thinsp;MB</span>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                        {#  -----------   Keyword and People -----------  #}
+
+                        <div class="unig-file-keywords-toolbox" style="display: none">
+                            {#  Keywords  #}
+                            {% if file.keywords is not empty %}
+
+                                <div class="unig-container-keyword">
+                                    <i class="fa fa-key" aria-hidden="true"></i>
+
+                                    {% for  keyword in file.keywords %}
+                                        <span class="unig-keyword">{{ keyword }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="unig-file-people-toolbox" style="display: none">
+
+                            {#  People  #}
+                            {% if file.people is not empty %}
+
+                                <div class="unig-container-keyword-people">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+
+                                    {% for  people in file.people %}
+                                        <span class="unig-keyword-people">{{ people }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+
+                        </div> {# nonsort #}
                     </div> {# hide sortable content#}
 
                 </div> {# sortable reducer#}

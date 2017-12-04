@@ -7,38 +7,8 @@
 
       // Debug
 
-
       // onload
       constructor(context, drupalSettings);
-
-
-      $('.unig-button-sort-activate').click(function () {
-        sortActivate(context);
-      });
-
-      $('.unig-button-sort-save').click(function () {
-        sortSave(context);
-      });
-
-      $('.unig-button-sort-cancel').click(function () {
-        sortCancel(context);
-      });
-
-      // Sortable
-
-      $(".unig-sortable").sortable({
-        placeholder: "unig-sortable-placeholder",
-        items      : "> li.unig-sortable-item",
-        tolerance: "pointer"
-
-
-      });
-
-      $(".unig-sortable").on("sortactivate", function (event, ui) {
-        sortActivate();
-
-      });
-
 
     }
   };
@@ -49,6 +19,28 @@
    * @param settings
    */
   function constructor(context, drupalSettings) {
+
+
+    $('.unig-button-sort-activate').click(function () {
+      sortActivate(context);
+    });
+
+    $('.unig-button-sort-save').click(function () {
+      sortSave(context);
+    });
+
+    $('.unig-button-sort-cancel').click(function () {
+      sortCancel(context);
+    });
+
+    // Sortable
+
+    $(".unig-sortable").sortable({
+      placeholder: "unig-sortable-placeholder",
+      items      : "> li.unig-sortable-item",
+      tolerance  : "pointer"
+    });
+
 
   }
 
@@ -77,7 +69,7 @@
     $(".unig-button-sort-save").hide();
     $(".unig-button-sort-cancel").hide();
 
-    $(".unig-sortable").sortable( "cancel" );
+    $(".unig-sortable").sortable("cancel");
 
   }
 
@@ -93,7 +85,7 @@
     $(".unig-button-sort-save").hide();
     $(".unig-button-sort-cancel").hide();
 
-    var sorted = $( ".unig-sortable" ).sortable( "serialize" ,{ key:'nid'});
+    var sorted = $(".unig-sortable").sortable("serialize", {key: 'nid'});
 
     console.log(sorted);
 
@@ -101,7 +93,7 @@
       url     : Drupal.url('unig/sort_project'),
       type    : 'POST',
       data    : {
-        'data'       : sorted
+        'data': sorted
       },
       dataType: 'json',
       success : function (results) {
@@ -109,8 +101,6 @@
       }
     });
   }
-
-
 
 
 })(jQuery, Drupal, drupalSettings);

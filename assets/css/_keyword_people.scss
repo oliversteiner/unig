@@ -1,0 +1,22 @@
+@import "colors";
+
+// =====  Keywords  =====
+div.unig-container-keyword,
+div.unig-container-keyword-people {
+  font-size: 13px;
+  line-height: 28px;
+}
+div.unig-container-keyword,
+div.unig-container-keyword-people {
+  border-top: 1px solid $color-10;
+  padding-top: 3px;
+  margin-top: 3px;
+}
+span.unig-keyword,
+span.unig-keyword-people {
+  position: relative;
+  background-color: $color-admin-bg;
+  margin: 5px 1px;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
