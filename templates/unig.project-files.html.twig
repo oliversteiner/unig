@@ -47,31 +47,39 @@ project
 
 <div class="unig-toolbar">
 
-    <a type="button" class="button btn btn-default" href="{{ unig_projects }}">
+    <a type="button" class=" unig-button" href="{{ unig_projects }}">
         <i class="fa fa-list" aria-hidden="true"></i>
         Alle Projekte
     </a>
 
-    <a type="button" class="button btn btn-default" href="{{ unig_upload }}">
+    <a type="button" class="unig-button" href="{{ unig_upload }}">
         <i class="fa fa-plus" aria-hidden="true"></i>
         Bilder hinzufügen
     </a>
 
     {# sort #}
 
-    <div class="button btn btn-default unig-button-sort-activate">
+    <div class=" unig-button unig-button-sort-activate">
         <i class="fa fa-sort" aria-hidden="true"></i>
         Reihenfolge festlegen
     </div>
 
-    <div class="button btn btn-success unig-button-sort-save" style="display: none">
+    <div class="unig-button unig-button-ok unig-button-sort-save" style="display: none">
         <i class="fa fa-check" aria-hidden="true"></i>
         Reihenfolge speichern
     </div>
 
-    <div class="button btn btn-warning unig-button-sort-cancel" style="display: none">
+    <div class="unig-button unig-button-warning unig-button-sort-cancel" style="display: none">
         <i class="fa fa-times" aria-hidden="true"></i>
-        Reihenfolge zurücksetzen
+        Abbrechen
+    </div>
+
+    <div class="unig-button unig-button-keywords-toggle-all">
+        <i class="fa fa-key" aria-hidden="true"></i>
+    </div>
+
+    <div class="unig-button unig-button-people-toggle-all">
+        <i class="fa fa-user" aria-hidden="true"></i>
     </div>
 
 </div>
@@ -245,7 +253,19 @@ project
 
                                 {#  -----------   Titel  -----------  #}
                                 <div class="unig-file-middle-item unig-file-title">
-                                    {{ file.title }}
+                                    {% if user.hasPermission('administer nodes') %}
+
+                                        <a href="/node/{{ file.nid }}/edit?destination=/unig/project/{{ project.nid }}"
+                                           class="use-ajax"
+                                           data-dialog-type="modal"
+                                           data-dialog-options='{"height":"650","width":"50%","max-height":"100%"}'
+                                        >
+                                            {{ file.title }}
+                                        </a>
+                                    {% else %}
+                                        <span>{{ file.title }}</span>
+                                    {% endif %}
+
                                 </div>
 
                                 <div class="unig-file-middle-item">

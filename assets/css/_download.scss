@@ -1,6 +1,7 @@
 @import "colors";
 div.unig-file-download-toolbox {
-  padding: 5px 0 0 10px;
+  padding: 0;
+  margin: 0;
   font-size: 13px;
   background-color: $color-admin-bg;
   border-radius: 3px;
@@ -12,13 +13,19 @@ ul.unig-file-download-list {
 //
 //  =====  List  =====
 //
+li.unig-file-download-list-mark{
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+
+}
+
 li.unig-file-download-list-mark,
 li.unig-file-download-list-direct {
   // border: solid 1px gray;
   list-style-type: none;
   margin: 0;
-  padding: 3px 2px;
-  border-bottom: solid 1px $color-10;
+  padding: 3px 10px;
+  border-bottom: solid 1px $color-5;
 }
 li.unig-file-download-list-mark:hover,
 li.unig-file-download-list-direct:hover {
@@ -54,3 +61,33 @@ ul.unig-file-download-list i.fa {
 }
 .unig-file-download-list-mark-text {
 }
+
+//
+// =====  Mark as Download
+//
+.unig-file-download-mark {
+  padding: 0 7px;
+  margin-left: -5px;
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+    color: $color-admin-buttons-hover;
+  }
+  &:active {
+    cursor: pointer;
+    color: $color-admin-buttons-active;
+  }
+  &.marked {
+    color: $color-admin-marked;
+  }
+}
+.unig-file-download-list-mark.marked{
+  background-color: $color-admin-marked;
+}
+ul.unig-gallery li.unig-file-item.marked{
+  border-color: $color-admin-marked;
+}
+
+
+

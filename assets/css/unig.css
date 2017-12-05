@@ -3,24 +3,27 @@ a.unig-button,
   box-sizing: border-box;
   display: inline-block;
   padding: 2px 10px;
-  border: 1px solid;
-  border-radius: 2px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  margin-right: 10px;
   color: #292929;
   border-color: #cccccc;
   background-color: #e1e1e1; }
-  a.unig-button-ok,
+  a.unig-button-success, a.unig-button-ok,
+  .unig-button-success,
   .unig-button-ok {
     box-sizing: border-box;
     display: inline-block;
     padding: 2px 10px;
-    border: 1px solid;
-    border-radius: 2px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    margin-right: 10px;
     color: #185746;
     border-color: #2eb741;
     background-color: #daffd4; }
@@ -29,11 +32,12 @@ a.unig-button,
     box-sizing: border-box;
     display: inline-block;
     padding: 2px 10px;
-    border: 1px solid;
-    border-radius: 2px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    margin-right: 10px;
     color: #7f5930;
     border-color: #ffd29b;
     background-color: #fff8cf; }
@@ -43,11 +47,12 @@ a.unig-button,
     box-sizing: border-box;
     display: inline-block;
     padding: 2px 10px;
-    border: 1px solid;
-    border-radius: 2px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    margin-right: 10px;
     color: #7f2013;
     border-color: #ffb4aa;
     background-color: #ffe6e5; }
@@ -57,24 +62,27 @@ a.unig-button:hover,
   box-sizing: border-box;
   display: inline-block;
   padding: 2px 10px;
-  border: 1px solid;
-  border-radius: 2px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  margin-right: 10px;
   background-color: gray;
   border-color: #cccccc;
   color: #e1e1e1; }
-a.unig-button-ok:hover,
+a.unig-button-success:hover, a.unig-button-ok:hover,
+.unig-button-success:hover,
 .unig-button-ok:hover {
   box-sizing: border-box;
   display: inline-block;
   padding: 2px 10px;
-  border: 1px solid;
-  border-radius: 2px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  margin-right: 10px;
   background-color: #76c875;
   border-color: #2eb741;
   color: #daffd4; }
@@ -83,11 +91,12 @@ a.unig-button-warning:hover,
   box-sizing: border-box;
   display: inline-block;
   padding: 2px 10px;
-  border: 1px solid;
-  border-radius: 2px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  margin-right: 10px;
   background-color: #e9cea5;
   border-color: #ffd29b;
   color: #fff8cf; }
@@ -97,14 +106,85 @@ a.unig-button-error:hover, a.unig-button-danger:hover,
   box-sizing: border-box;
   display: inline-block;
   padding: 2px 10px;
-  border: 1px solid;
-  border-radius: 2px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  margin-right: 10px;
   background-color: #bf9f9d;
   border-color: #ffb4aa;
   color: #ffe6e5; }
+
+a.unig-button,
+.unig-button {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 4px;
+  margin-right: 10px; }
+  a.unig-button.active,
+  .unig-button.active {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    color: #e6e6e6;
+    border-color: #cccccc;
+    background-color: #292929; }
+  a.unig-button-success.active, a.unig-button-ok.active,
+  .unig-button-success.active,
+  .unig-button-ok.active {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    background-color: #185746;
+    border-color: #2eb741;
+    olor: #daffd4; }
+  a.unig-button-warning.active,
+  .unig-button-warning.active {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    background-color: #7f5930;
+    border-color: #ffd29b;
+    color: #fff8cf; }
+  a.unig-button-error.active, a.unig-button-danger.active,
+  .unig-button-error.active,
+  .unig-button-danger.active {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    background-color: #7f2013;
+    border-color: #ffb4aa;
+    color: #ffe6e5; }
 
 .unig-button .fa {
   margin-right: 4px; }
@@ -165,7 +245,8 @@ li.unig-sortable-item {
   font-weight: normal; }
 
 div.unig-file-download-toolbox {
-  padding: 5px 0 0 10px;
+  padding: 0;
+  margin: 0;
   font-size: 13px;
   background-color: #e6e6e6;
   border-radius: 3px; }
@@ -174,12 +255,16 @@ ul.unig-file-download-list {
   margin: 0;
   padding: 0; }
 
+li.unig-file-download-list-mark {
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px; }
+
 li.unig-file-download-list-mark,
 li.unig-file-download-list-direct {
   list-style-type: none;
   margin: 0;
-  padding: 3px 2px;
-  border-bottom: solid 1px #e6e6e6; }
+  padding: 3px 10px;
+  border-bottom: solid 1px #e1e1e1; }
 
 li.unig-file-download-list-mark:hover,
 li.unig-file-download-list-direct:hover {
@@ -210,6 +295,25 @@ ul.unig-file-download-list i.fa {
 
 .unig-file-download-list-size {
   width: auto; }
+
+.unig-file-download-mark {
+  padding: 0 7px;
+  margin-left: -5px;
+  display: inline-block; }
+  .unig-file-download-mark:hover {
+    cursor: pointer;
+    color: #7f2421; }
+  .unig-file-download-mark:active {
+    cursor: pointer;
+    color: #292929; }
+  .unig-file-download-mark.marked {
+    color: #9ebf31; }
+
+.unig-file-download-list-mark.marked {
+  background-color: #9ebf31; }
+
+ul.unig-gallery li.unig-file-item.marked {
+  border-color: #9ebf31; }
 
 .unig-image-rating-up,
 .unig-image-rating-down {

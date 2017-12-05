@@ -17,11 +17,22 @@
       // onload
       constructor(context, settings);
 
-
-      // Event Handlers
-      $('.unig-file-options-trigger').click(
+      // Toggle all Keywords
+      $('.unig-button-keywords-toggle-all').click(
           function (context, settings) {
-            toggleTools(context);
+
+            toggleAllToolbox('keywords');
+            $(this).toggleClass('active');
+          }
+      );
+
+      // Toggle all People
+      $('.unig-button-people-toggle-all').click(
+          function (context, settings) {
+
+            toggleAllToolbox('people');
+            $(this).toggleClass('active');
+
           }
       );
 
@@ -61,7 +72,6 @@
             var nid = getNodeId(context);
 
             markForDownload(nid);
-            console.log(nid + ': Mark for Download!');
           }
       );
 
@@ -131,7 +141,6 @@
 
   function toggleToolbox(nid, name) {
 
-
     // toggle Div
     var $target = $('#unig-file-' + nid + ' .unig-file-' + name + '-toolbox');
     $target.slideToggle('fast');
@@ -141,47 +150,31 @@
     $button.toggleClass('active');
   }
 
-
-  function toggleDownloadToolbox(nid) {
+  function toggleAllToolbox(name) {
 
     // toggle Div
-    var $target = $('#unig-file-' + nid + ' .unig-file-download-toolbox');
+    var $target = $('.unig-file-' + name + '-toolbox');
     $target.slideToggle('fast');
 
     // toggle Button
-    var $button = $('#unig-file-' + nid + ' .unig-file-download-toolbox-trigger');
+    var $button = $('.unig-file-' + name + '-toolbox-trigger');
     $button.toggleClass('active');
   }
 
-
-  function toggleOptionsToolbox(nid) {
-
-    // toggle Div
-    var $target = $('#unig-file-' + nid + ' .unig-file-options-toolbox');
-    $target.slideToggle('fast');
-
-    // toggle Button
-    var $button = $('#unig-file-' + nid + ' .unig-file-options-toolbox-trigger');
-    $button.toggleClass('active');
-
-  }
-
-  function toggleTools(context) {
-
-    var $elem = $(context.target);
-    var file_nid = $elem.data('unig-file-nid');
-
-    var $toolbar = $('#unig-file-toolbar-' + file_nid);
-
-    console.log($elem);
-    $toolbar.toggle();
-
-  }
 
   function markForDownload(nid) {
 
-    var $target = $('#unig-file-' + nid + '.unig-file-download-mark');
+    var $target = $('#unig-file-' + nid + ' .unig-file-download-mark');
+    var $target_in_list = $('#unig-file-' + nid + ' .unig-file-download-list-mark');
+
+    var $border = $('#unig-file-' + nid);
+
+    console.log('target download marked ', $target);
+
     $target.toggleClass('marked');
+    $border.toggleClass('marked');
+    $target_in_list.toggleClass('marked');
+
   }
 
 

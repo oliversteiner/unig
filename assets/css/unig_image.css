@@ -80,19 +80,6 @@ ul.unig-gallery li.unig-file-edit {
   color: #b3b3b3;
   padding: 2px; }
 
-.unig-file-download-mark {
-  padding: 0 7px;
-  margin-left: -5px;
-  display: inline-block; }
-  .unig-file-download-mark:hover {
-    cursor: pointer;
-    color: #7f1000; }
-  .unig-file-download-mark:active {
-    cursor: pointer;
-    color: #292929; }
-  .unig-file-download-mark.marked {
-    color: #7f1000; }
-
 .unig-file-nid {
   border-right: 1px solid #cccccc;
   padding-right: 2px;
@@ -155,11 +142,17 @@ h2.unig-project-title {
   padding: 5px 10px;
   margin-left: 0; }
 
+.unig-file-title a {
+  color: #292929; }
+
 .unig-file-options-toolbox {
   display: flex;
   justify-content: space-around;
   font-size: 13px;
   background-color: #e6e6e6;
   padding: 10px 5px 5px 5px; }
+
+.div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons {
+  width: 600px; }
 
 /*# sourceMappingURL=unig_image.css.map */

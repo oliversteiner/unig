@@ -1,5 +1,4 @@
 @import "colors";
-$color-mark-as-download: #7f1000;
 
 .unig-lightgallery {
 }
@@ -103,26 +102,7 @@ ul.unig-gallery li.unig-file-edit {
 }
 .unig-file-head-item {
 }
-//
-// =====  Mark as Download
-//
-.unig-file-download-mark {
-  padding: 0 7px;
-  margin-left: -5px;
-  display: inline-block;
 
-  &:hover {
-    cursor: pointer;
-    color: $color-mark-as-download;
-  }
-  &:active {
-    cursor: pointer;
-    color: $color-80;
-  }
-  &.marked {
-    color: $color-mark-as-download;
-  }
-}
 .unig-file-nid {
   border-right: 1px solid $color-20;
   padding-right: 2px;
@@ -195,6 +175,11 @@ h2.unig-project-title {
   padding: 5px 10px;
   margin-left: 0;
 }
+.unig-file-title a{
+  color: $color-80;
+}
+
+
 
 //
 //   Options Toolbox
@@ -209,4 +194,8 @@ h2.unig-project-title {
 }
 .unig-file-options-item{
 
+}
+
+.div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons{
+  width: 600px;
 }

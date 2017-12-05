@@ -5,11 +5,12 @@
   box-sizing: border-box;
   display: inline-block;
   padding: 2px 10px;
-  border: 1px solid;
-  border-radius: 2px;
+  border: 1px solid $color-20;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  margin-right: 10px;
 }
 a.unig-button,
 .unig-button {
@@ -18,6 +19,7 @@ a.unig-button,
   border-color: $color-20;
   background-color: $color-5;
 
+  &-success,
   &-ok {
     @include unig-button;
     color: $color-ok-text;
@@ -51,6 +53,7 @@ a.unig-button,
     color: $color-5;
   }
 
+  &-success:hover,
   &-ok:hover {
     @include unig-button;
     background-color: $color-ok-hover;
@@ -75,6 +78,46 @@ a.unig-button,
 
 }
 
+
+// Active
+a.unig-button,
+.unig-button {
+  @include unig-button;
+
+
+
+  &.active{
+    @include unig-button;
+    color: $color-10;
+    border-color: $color-20;
+    background-color: $color-80;
+  }
+
+  &-success.active,
+  &-ok.active {
+    @include unig-button;
+    background-color: $color-ok-text;
+    border-color: $color-ok-border;
+    olor: $color-ok-background;
+  }
+
+  &-warning.active {
+    @include unig-button;
+    background-color: $color-warning-text;
+    border-color: $color-warning-border;
+    color: $color-warning-background;
+  }
+
+  &-error.active,
+  &-danger.active {
+    @include unig-button;
+
+    background-color: $color-error-text;
+    border-color: $color-error-border;
+    color: $color-error-background;
+  }
+
+}
 
 .unig-button .fa{
   margin-right: 4px;
