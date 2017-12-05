@@ -33,6 +33,13 @@ li.unig-file-download-list-direct:hover {
   cursor: pointer;
   border-radius: 3px;
 }
+li.unig-file-download-list-mark:active,
+li.unig-file-download-list-direct:active {
+  background-color: $color-admin-buttons-active;
+  cursor: pointer;
+  border-radius: 3px;
+  color: $color-admin-text-invert;
+}
 // Icons
 ul.unig-file-download-list i.fa {
   margin: 0 3px 0 3px;
