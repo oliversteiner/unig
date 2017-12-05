@@ -27,6 +27,8 @@
         ->condition('type', 'unig_project')
         //  ->fieldCondition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
         ->sort('field_unig_weight.value', 'ASC')
+        ->sort('created', 'DESC')
+        ->sort('title', 'ASC')
         ->accessCheck(FALSE);
 
       $nids = $query->execute();
