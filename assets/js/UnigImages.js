@@ -21,8 +21,13 @@
       $('.unig-button-keywords-toggle-all').click(
           function (context, settings) {
 
-            toggleAllToolbox('keywords');
-            $(this).toggleClass('active');
+            var $trigger = $(this);
+            if ($trigger.hasClass('active')) {
+              toggleAllToolbox('keywords', 'hide');
+            }
+            else {
+              toggleAllToolbox('keywords', 'show');
+            }
           }
       );
 
@@ -30,11 +35,43 @@
       $('.unig-button-people-toggle-all').click(
           function (context, settings) {
 
-            toggleAllToolbox('people');
-            $(this).toggleClass('active');
+
+            var $trigger = $(this);
+            if ($trigger.hasClass('active')) {
+              toggleAllToolbox('people', 'hide');
+            }
+            else {
+              toggleAllToolbox('people', 'show');
+            }
 
           }
       );
+
+      // Edit - Show all buttons
+      $('.unig-button-files-edit').click(function (context) {
+        toggleEditButtons(context);
+      });
+
+      // Preview - Hide all buttons
+      $('.unig-button-files-preview').click(function (context) {
+        toggleEditButtons(context);
+      });
+
+
+      // Theme - Default
+      $('.unig-button-files-theme-dark').click(function (context) {
+        changeTheme('dark');
+        $('.unig-button-files-theme-dark').toggle();
+        $('.unig-button-files-theme-default').toggle();
+      });
+
+      //  Theme - Dark
+      $('.unig-button-files-theme-default').click(function (context) {
+        changeTheme('default');
+        $('.unig-button-files-theme-dark').toggle();
+        $('.unig-button-files-theme-default').toggle();
+      });
+
 
       // Event Handlers
       $('.unig-gallery-preview-wrapper img').hover(
@@ -44,7 +81,7 @@
       );
 
       // Rating Down
-      $('.unig-image-rating-down-trigger').click(
+      $('.unig-file-rating-down-trigger').click(
           function (context, settings) {
 
             var nid = getNodeId(context);
@@ -55,7 +92,7 @@
       );
 
       // Rating Up
-      $('.unig-image-rating-up-trigger').click(
+      $('.unig-file-rating-up-trigger').click(
           function (context, settings) {
 
             var nid = getNodeId(context);
@@ -150,15 +187,53 @@
     $button.toggleClass('active');
   }
 
-  function toggleAllToolbox(name) {
+  function toggleAllToolbox(name, modus) {
 
     // toggle Div
     var $target = $('.unig-file-' + name + '-toolbox');
-    $target.slideToggle('fast');
-
     // toggle Button
     var $button = $('.unig-file-' + name + '-toolbox-trigger');
-    $button.toggleClass('active');
+    var $button_all = $('.unig-button-' + name + '-toggle-all');
+
+
+    switch (modus) {
+      case 'hide':
+        $button.removeClass('active');
+        $button_all.removeClass('active');
+        $target.slideUp('fast');
+        break;
+      case 'show':
+
+        $button.addClass('active');
+        $button_all.addClass('active');
+        $target.slideDown('fast');
+
+        break;
+
+      default:
+        $button.toggleClass('active');
+        $target.slideToggle('fast');
+        break;
+    }
+
+
+  }
+
+
+  function toggleEditButtons() {
+
+
+    $('.unig-file-download-mark').toggle();
+    $('.unig-file-rating').toggle();
+    $('.unig-file-head-info').toggle();
+    $('.unig-file-middle').toggle();
+
+    $('.unig-button-files-edit').toggle();
+    $('.unig-button-files-preview').toggle();
+    $('.unig-button-sort-toggle').toggle();
+    $('.unig-fieldset-keywords').toggle();
+    $('.unig-button-files-add').toggle();
+
   }
 
 
@@ -168,8 +243,6 @@
     var $target_in_list = $('#unig-file-' + nid + ' .unig-file-download-list-mark');
 
     var $border = $('#unig-file-' + nid);
-
-    console.log('target download marked ', $target);
 
     $target.toggleClass('marked');
     $border.toggleClass('marked');
@@ -187,8 +260,8 @@
 
   function setRating(nid, direction) {
 
-    var $badge = $('#unig-file-' + nid + ' .unig-image-rating-badge');
-    var $input = $('#unig-file-' + nid + ' .unig-image-rating-input');
+    var $badge = $('#unig-file-' + nid + ' .unig-file-rating-badge');
+    var $input = $('#unig-file-' + nid + ' .unig-file-rating-input');
 
     var number = parseInt($input.val());
     console.log('number ', number);
@@ -203,6 +276,26 @@
     }
     $input.val(number_new);
     $badge.html(number_new);
+    if (number_new !== 0) {
+      $badge.addClass('active');
+    }
+    else {
+      $badge.removeClass('active');
+
+    }
+    if (number_new > 0) {
+      $badge.removeClass('negativ');
+      $badge.addClass('positiv');
+
+    }
+    if (number_new < 0) {
+      $badge.addClass('negativ');
+      $badge.removeClass('positiv');
+    }
+    if (number_new === 0) {
+      $badge.removeClass('negativ');
+      $badge.removeClass('positiv');
+    }
 
   }
 
@@ -211,7 +304,23 @@
    *
    *
    */
+  function changeTheme(theme) {
+    const class_prefix = 'unig-theme-';
+    const theme_name = class_prefix + theme;
 
+    const $main = $('main#content');
+    const pattern = /\bunig-theme-\S+/g;
+    // remove other Theme classes
+    var matches = $main.attr('class').match(pattern);
+    $.each(matches, function () {
+      var className = this;
+      $main.removeClass(className.toString());
+    });
+
+
+    // Add new Theme Class
+    $main.addClass(theme_name);
+  }
 
 })
 (jQuery, Drupal, drupalSettings);

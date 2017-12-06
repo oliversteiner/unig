@@ -5,6 +5,7 @@
 @import "download";
 @import "rating";
 @import "keyword_people";
+@import "toolbox";
 
 body {
 }
@@ -39,4 +40,11 @@ hr.unig {
   border-top: solid 1px $color-20;
   margin: 10px 0 0;
   padding: 10px 0 0;
+}
+
+
+// Font:
+.unig-toolbar {
+  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+font-size: 12px;
 }

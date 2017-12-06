@@ -41,6 +41,8 @@ unig.admin.files:
       assets/css/unig_album.css: {}
       assets/css/unig_project.css: {}
       assets/css/unig_image.css: {}
+      assets/css/theme/dark.css: {}
+
 
   js:
     assets/js/UnigImages.js: {}

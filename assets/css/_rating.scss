@@ -1,32 +1,49 @@
-@import "colors";
 //
 // =====  Rating  =====
 //
-$color-rating-up: #008000;
-$color-rating-down: #8b0000;
-.unig-image-rating-up,
-.unig-image-rating-down {
+.unig-file-rating{
+  margin: auto;
+
+}
+
+
+.unig-file-rating-up,
+.unig-file-rating-down {
   padding: 2px;
   display: inline-block;
-}
-.unig-image-rating-up:active,
-.unig-image-rating-down:active {
   cursor: pointer;
-  color: $color-80;
+
 }
-.unig-image-rating-up:hover {
-  cursor: pointer;
-  color: $color-rating-up;
+.unig-file-rating-up{
+padding-right: 7px;
 }
-.unig-image-rating-down:hover {
-  cursor: pointer;
-  color: $color-rating-down;
+.unig-file-rating-down {
+padding-left: 7px;
 }
-.unig-image-rating-badge {
+.unig-file-picto.unig-file-rating-up:hover {
+  color: $color-ok-text;
+}
+.unig-file-picto.unig-file-rating-down:hover {
+  color: $color-error-text;
+}
+.unig-file-rating-badge {
   display: inline-block;
   cursor: default;
   padding: 2px;
 }
-span.unig-image-rating-badge.active{
-  color: $color-80;
+.unig-file-rating-badge.active{
+  color: $color-text;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  padding: 1px 10px;
+}
+
+.unig-file-rating-badge.positiv {
+ color: $color-ok-text;
+}
+.unig-file-rating-badge.negativ {
+  color: $color-error-text;
 }

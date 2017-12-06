@@ -11,6 +11,7 @@
       // onload
       constructor(context, drupalSettings);
 
+      // Buttons
       $('.unig-button-update-project').click(function (context, drupalSettings) {
         updateProject(context, drupalSettings);
       });
@@ -22,6 +23,8 @@
       $('.unig-button-open-edit').click(function (context) {
         toggleEdit(context);
       });
+
+
 
 
     }

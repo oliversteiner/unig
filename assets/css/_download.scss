@@ -1,10 +1,6 @@
-@import "colors";
+/* @import "colors"; */
+
 div.unig-file-download-toolbox {
-  padding: 0;
-  margin: 0;
-  font-size: 13px;
-  background-color: $color-admin-bg;
-  border-radius: 3px;
 }
 ul.unig-file-download-list {
   margin: 0;
@@ -13,33 +9,42 @@ ul.unig-file-download-list {
 //
 //  =====  List  =====
 //
-li.unig-file-download-list-mark{
+li.unig-file-download-list-mark {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
-
 }
-
 li.unig-file-download-list-mark,
 li.unig-file-download-list-direct {
   // border: solid 1px gray;
   list-style-type: none;
   margin: 0;
   padding: 3px 10px;
-  border-bottom: solid 1px $color-5;
+  border-bottom: solid 1px $color-toolbox-stroke;
+  color: $color-admin-text;
+  cursor: pointer;
+  border-radius: 3px;
 }
-li.unig-file-download-list-mark:hover,
+
+
 li.unig-file-download-list-direct:hover {
-  background-color: $color-20;
-  cursor: pointer;
-  border-radius: 3px;
+  background-color: $color-admin-background-hover;
+  color: $color-admin-info-hover;
 }
-li.unig-file-download-list-mark:active,
+
 li.unig-file-download-list-direct:active {
-  background-color: $color-admin-buttons-active;
-  cursor: pointer;
-  border-radius: 3px;
+  background-color: $color-admin-background-active;
   color: $color-admin-text-invert;
 }
+
+li.unig-file-download-list-mark:hover{
+  background-color: $color-admin-marked-hover;
+  color: $color-admin-text-hover;
+}
+li.unig-file-download-list-mark:active {
+  background-color: $color-admin-marked-hover;
+  color: $color-admin-text;
+}
+
 // Icons
 ul.unig-file-download-list i.fa {
   margin: 0 3px 0 3px;
@@ -54,6 +59,7 @@ ul.unig-file-download-list i.fa {
 .unig-file-download-list-picto {
   display: inline-block;
   margin-right: 10px;
+  color: $color-admin-info;
 }
 .unig-file-download-list-label {
   width: 30px;
@@ -68,33 +74,34 @@ ul.unig-file-download-list i.fa {
 }
 .unig-file-download-list-mark-text {
 }
-
 //
 // =====  Mark as Download
 //
-.unig-file-download-mark {
+div.unig-file-download-mark {
+  width: 30px;
   padding: 0 7px;
-  margin-left: -5px;
   display: inline-block;
+  margin-left: -5px;
 
   &:hover {
+    color: $color-admin-marked;
     cursor: pointer;
-    color: $color-admin-buttons-hover;
   }
-  &:active {
-    cursor: pointer;
-    color: $color-admin-buttons-active;
-  }
+
   &.marked {
     color: $color-admin-marked;
   }
+  &.marked:hover {
+    color:  $color-admin-marked-hover;
+  }
 }
-.unig-file-download-list-mark.marked{
+.unig-file-download-list-mark.marked {
   background-color: $color-admin-marked;
 }
-ul.unig-gallery li.unig-file-item.marked{
+ul.unig-gallery li.unig-file-item.marked {
   border-color: $color-admin-marked;
 }
 
-
-
+.unig-file-head-info{
+min-width: 40px;
+}

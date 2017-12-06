@@ -1,8 +1,35 @@
 <?php
 
+  /**
+   *
+   *    Fields:   Unig Project
+   *    __________________________________________
+   *
+   *    body	 (formatted, long, with summary)
+   *
+   *    field_unig_trash          Boolean
+   *
+   *    field_unig_project_cover	Entity reference
+   *
+   *    field_unig_description	  Text (formatted, long)
+   *
+   *    field_unig_weight	        Number (integer)
+   *
+   *    field_unig_meta	          Entity reference
+   *
+   *    field_unig_private	      Boolean
+   *
+   *    field_unig_album	        Entity reference
+   *
+   *    field_unig_date           Date
+   *
+   *
+   */
+
 
   namespace Drupal\unig\Utility;
 
+  use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
   use Drupal\Core\Ajax\AjaxResponse;
   use Drupal\Core\Ajax\AlertCommand;
   use Drupal\image\Entity\ImageStyle;
@@ -25,10 +52,19 @@
     public static function getAllProjectNids() {
 
       $query = \Drupal::entityQuery('node')
+        //
+        // Condition
         ->condition('status', 1)
         ->condition('type', 'unig_project')
         //  ->fieldCondition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
+        //
+        // Order by
         ->sort('field_unig_weight.value', 'ASC')
+        ->sort('field_unig_date', 'DESC')
+        ->sort('created', 'DESC')
+        ->sort('title', 'ASC')
+        //
+        // Access
         ->accessCheck(FALSE);
 
       $nids = $query->execute();
@@ -47,6 +83,7 @@
 
     /**
      * @return array
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
     public function getProjectlistSelected() {
       $select = [];
@@ -225,10 +262,7 @@
     public static function getImage($nid) {
       $variables = [];
 
-      $node = \Drupal::entityTypeManager()
-        ->getStorage('node')
-        ->load($nid);
-
+      $node = Node::load($nid);
 
       // Field Event Image
       if (!empty($node->field_unig_image)) {
@@ -288,37 +322,52 @@
     public static function getListofFilesInProject($nid_project, $album_nid = NULL) {
       // bundle : unig_file
       // field: field_unig_project[0]['target_id']
+     //
+      // sorting alphanumeric correctly
+      // https://stackoverflow.com/questions/8557172/mysql-order-by-sorting-alphanumeric-correctly
 
+      $nids = [];
 
       if ($album_nid != NULL) {
 
 
-        $nids = \Drupal::entityQuery('node')
+        $query = \Drupal::entityQuery('node')
+          //
+          // Condition
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
           ->condition('field_unig_album', $album_nid)
+          //
+          // Order by
           ->sort('field_unig_weight.value', 'ASC')
-          ->execute();
+          ->sort('title', 'ASC') // alphanumeric
+          ->sort('created', 'DESC');
+
+
+        $nids = $query->execute();
 
 
       }
       else {
         // Get all unig_file_nodes in Project
-        $nids = \Drupal::entityQuery('node')
+        $query = \Drupal::entityQuery('node')
+          //
+          // Condition
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
+          //
+          // Order by
           ->sort('field_unig_weight.value', 'ASC')
-          ->execute();
+          //
+          // Access
+          ->accessCheck(FALSE);
+
+        $nids = $query->execute();
 
       }
 
-      // put them in new array
-      $list = [];
-      foreach ($nids as $nid) {
-        $list[] = $nid;
-      }
 
-      return $list;
+      return $nids;
     }
 
     public static function buildProjectList() {
@@ -602,7 +651,7 @@
       if ($node_people) {
         foreach ($node_people as $term) {
           $term = Term::load($term['target_id']);
-            $people[] =  $term->getName();
+          $people[] = $term->getName();
         }
       }
       // keywords
@@ -610,7 +659,7 @@
       if ($node_keywords) {
         foreach ($node_keywords as $term) {
           $term = Term::load($term['target_id']);
-            $keywords[] =  $term->getName();
+          $keywords[] = $term->getName();
         }
       }
       // Album List
@@ -624,7 +673,7 @@
         'image' => $image,
         'weight' => $weight,
         'people' => $people,
-        'keywords' => $keywords
+        'keywords' => $keywords,
       ];
 
 

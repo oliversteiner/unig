@@ -1,0 +1,74 @@
+
+.unig-toolbox-trigger {
+  margin-top: 5px;
+  padding: 3px 10px 2px 10px;
+  display: inline-block;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+}
+.unig-toolbox-trigger.active {
+  background-color: $color-toolbox-background;
+}
+.unig-toolbox {
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  background-color: $color-toolbox-background;
+  border-radius: 3px;
+  border-bottom: solid 1px $color-toolbox-stroke;
+}
+.unig-toolbox-item {
+  cursor: pointer;
+}
+
+
+.unig-toolbox-tag-title-picto {
+  display: inline-block;
+  margin: 5px 1px 1px 10px;
+  padding: 3px 5px;
+}
+
+.unig-toolbox-tag {
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 3px;
+  padding: 3px 6px;
+  border-radius: 4px;
+
+}
+.unig-toolbox-tag {
+  color: $color-toolbox-tag;
+  background-color: $color-toolbox-tag-background;
+  border-color: $color-toolbox-tag-border;
+
+  &:hover {
+    color: $color-toolbox-tag-hover;
+    background-color: $color-toolbox-tag-background-hover;
+    border-color: $color-toolbox-tag-border-hover;
+  }
+  &:active,
+  &.active {
+    color: $color-toolbox-tag-invert;
+    background-color: $color-toolbox-tag-background-invert;
+    border-color: $color-toolbox-tag-border-invert;
+  }
+  &.active:hover {
+    color: $color-toolbox-tag-invert-hover;
+    background-color: $color-toolbox-tag-background-invert-hover;
+    border-color: $color-toolbox-tag-border-invert-hover;
+  }
+}
+
+//
+//   Options Toolbox
+//
+
+.unig-file-options-toolbox {
+  display: flex;
+  justify-content: space-around;
+  font-size: 13px;
+  background-color: $color-toolbox-background;
+  padding: 10px 5px 5px 5px;
+}

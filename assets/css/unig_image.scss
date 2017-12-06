@@ -2,9 +2,9 @@
 
 .unig-lightgallery {
 }
-.unig-gallery-preview-wrapper {
+.unig-image-background {
   position: relative;
-  background-color: $color-80;
+  background-color: $color-image-background;
   vertical-align: middle;
   text-align: center;
   cursor: zoom-in;
@@ -38,73 +38,54 @@ ul.unig-gallery {
   margin: 0;
   padding: 0;
 }
-li.unig-file-item {
+ul.unig-gallery li.unig-file-item {
   margin: 10px;
-  padding: 0;
   list-style-type: none;
-}
-
-ul.unig-gallery li.unig-file-normal,
-ul.unig-gallery li.unig-file-edit {
-  padding: 5px 12px 12px 12px;
-  background-color: $color-2;
+  padding: 5px 12px 4px 12px;
+  background-color: $color-admin-background;
   width: 230px;
   border-radius: 5px;
-  border: 2px solid $color-10;
+  border: 2px solid $color-admin-border;
 }
 
-.unig-sortable-placeholder {
-  width: 230px;
-  height: 240px;
-}
-//
-// =====  Sortable  =====
-//
-.unig-sortable-reducer-active {
-  text-align: center;
-  display: inline-block;
-  margin: auto;
-  padding: 0;
-  background-color: $color-20;
-  width: auto;
-  height: auto;
-  border-radius: 0;
-  border: none;
 
-  .unig-sortable-number {
-    position: absolute;
-    margin-left: -15px;
-    margin-top: -15px;
-    font-size: 1.2em;
-    color: $color-20;
-  }
-
-  .unig-sortable-image img {
-    border: solid 1px $color-50;
-    margin: 10px;
-  }
-
-  .unig-sortable-title {
-    margin: 0;
-    padding: 5px 0 0 0;
-  }
-}
 //
 // =====  File HEAD  =====
 //
+.unig-file-item-text{
+  color: $color-admin-text;
+}
+
+.unig-file-item-info{
+  color: $color-admin-info;
+}
+
+.unig-file-picto{
+color: $color-admin-picto;
+}
+.unig-file-picto:hover{
+  color: $color-admin-picto-hover;
+}
+.unig-file-picto:active{
+  color: $color-admin-picto-active;
+}
+.unig-file-picto.active{
+  color: $color-admin-picto-active;
+}
+.unig-file-picto.active:hover {
+  color: $color-admin-picto-active-hover;
+}
+
 .unig-file-head {
   display: flex;
   justify-content: space-between;
 }
 .unig-file-head-item {
-  color: $color-30;
   padding: 2px;
-}
-.unig-file-head-item {
 }
 
 .unig-file-nid {
-  border-right: 1px solid $color-20;
+  border-right: 1px solid $color-admin-info;
   padding-right: 2px;
   margin-right: 4px;
 }
@@ -131,71 +112,18 @@ h2.unig-project-title {
 }
 .unig-file-middle-item {
 }
-.unig-file-keywords-toolbox-trigger,
-.unig-file-people-toolbox-trigger,
-.unig-file-download-toolbox-trigger,
-.unig-file-options-toolbox-trigger {
-  margin-top: 2px;
-  padding-top: 5px;
-  display: inline-block;
-  color: $color-admin-buttons;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.unig-file-keywords-toolbox-trigger.active,
-.unig-file-people-toolbox-trigger.active,
-.unig-file-download-toolbox-trigger.active,
-.unig-file-options-toolbox-trigger.active {
-  color: $color-80;
-  background-color: $color-admin-bg;
-}
-.unig-file-keywords-toolbox-trigger:hover,
-.unig-file-people-toolbox-trigger:hover,
-.unig-file-download-toolbox-trigger:hover,
-.unig-file-options-toolbox-trigger:hover {
-  color: $color-admin-buttons-hover;
-  cursor: pointer;
-}
-.unig-file-keywords-toolbox-trigger:active,
-.unig-file-people-toolbox-trigger:active,
-.unig-file-download-toolbox-trigger:active,
-.unig-file-options-toolbox-trigger:active {
-  color: $color-admin-buttons-active;
-}
-.unig-file-keywords-toolbox-trigger i,
-.unig-file-people-toolbox-trigger i,
-.unig-file-download-toolbox-trigger i,
-.unig-file-options-toolbox-trigger i {
-  padding: 5px 5px;
-  margin-left: 0;
-}
-
-.unig-file-title{
-//  border: silver 1px solid;
-  padding: 5px 10px;
-  margin-left: 0;
-}
-.unig-file-title a{
-  color: $color-80;
-}
 
 
 
-//
-//   Options Toolbox
-//
 
-.unig-file-options-toolbox{
-  display: flex;
-  justify-content: space-around;
-  font-size: 13px;
-  background-color:  $color-admin-bg;
-  padding: 10px 5px 5px 5px;
-}
-.unig-file-options-item{
-
-}
 
 .div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons{
   width: 600px;
+}
+
+
+.unig-file-title{
+  //  border: silver 1px solid;
+  padding: 5px 10px 2px 10px;
+  text-align: center;
 }

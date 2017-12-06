@@ -1,23 +1,24 @@
-@import 'colors';
+// dont use import color -> it breaks themes
 
 
 @mixin unig-button {
   box-sizing: border-box;
   display: inline-block;
   padding: 2px 10px;
-  border: 1px solid $color-20;
+  border: 1px solid $color-default-border;
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 4px;
-  margin-right: 10px;
+  margin: 2px;
 }
+
+// default
 a.unig-button,
 .unig-button {
   @include unig-button;
-  color: $color-80;
-  border-color: $color-20;
-  background-color: $color-5;
+  color: $color-default-text;
+  border-color: $color-default-border;
+  background-color: $color-default-background;
 
   &-success,
   &-ok {
@@ -43,14 +44,16 @@ a.unig-button,
   }
 
 }
+
+// :hover
 a.unig-button,
 .unig-button {
 
   &:hover {
     @include unig-button;
-    background-color: $color-50;
-    border-color: $color-20;
-    color: $color-5;
+    color: $color-default-text-hover;
+    border-color: $color-default-border-hover;
+    background-color: $color-default-background-hover;
   }
 
   &-success:hover,
@@ -78,19 +81,52 @@ a.unig-button,
 
 }
 
+// :active
+a.unig-button,
+.unig-button {
 
-// Active
+  &:active {
+    @include unig-button;
+    color: $color-default-text-invert;
+    border-color: $color-default-border-invert;
+    background-color: $color-default-background-invert;
+  }
+
+  &-success:active,
+  &-ok:active {
+    @include unig-button;
+    background-color: $color-ok-hover;
+    border-color: $color-ok-border;
+    color: $color-ok-background;
+  }
+
+  &-warning:active {
+    @include unig-button;
+    background-color: $color-warning-hover;
+    border-color: $color-warning-border;
+    color: $color-warning-background;
+  }
+
+  &-error:active,
+  &-danger:active {
+    @include unig-button;
+    background-color: $color-error-hover;
+    border-color: $color-error-border;
+    color: $color-error-background;
+  }
+
+}
+
+// .active
 a.unig-button,
 .unig-button {
   @include unig-button;
 
-
-
   &.active{
     @include unig-button;
-    color: $color-10;
-    border-color: $color-20;
-    background-color: $color-80;
+    color: $color-default-text-invert;
+    border-color: $color-default-border-invert;
+    background-color: $color-default-background-invert;
   }
 
   &-success.active,
@@ -98,7 +134,7 @@ a.unig-button,
     @include unig-button;
     background-color: $color-ok-text;
     border-color: $color-ok-border;
-    olor: $color-ok-background;
+    color: $color-ok-background;
   }
 
   &-warning.active {
@@ -119,26 +155,67 @@ a.unig-button,
 
 }
 
+// .active:over
+a.unig-button,
+.unig-button {
+  @include unig-button;
+
+  &.active:hover{
+    @include unig-button;
+    color: $color-default-text-invert-hover;
+    border-color: $color-default-border-invert-hover;
+    background-color: $color-default-background-invert-hover;
+  }
+
+  &-success.active:hover,
+  &-ok.active:hover {
+    @include unig-button;
+    background-color: $color-ok-text;
+    border-color: $color-ok-border;
+    color: $color-ok-background;
+  }
+
+  &-warning.active:hover {
+    @include unig-button;
+    background-color: $color-warning-text;
+    border-color: $color-warning-border;
+    color: $color-warning-background;
+  }
+
+  &-error.active:hover,
+  &-danger.active:hover {
+    @include unig-button;
+
+    background-color: $color-error-text;
+    border-color: $color-error-border;
+    color: $color-error-background;
+  }
+
+}
+
+// fontawesome
 .unig-button .fa{
   margin-right: 4px;
 }
 
-// Options / Toolbar
-
-.unig-file-button-options i{
-  pointer-events: none;
-
+// unig-toolbar
+.unig-toolbar{
+  border: 1px solid $color-toolbar-border;
+  background: $color-toolbar-background;
+  padding: 10px;
 }
 
-.unig-file-button{
+// Fieldset
+.unig-fieldset{
   display: inline-block;
-  color: $color-50;
-  padding: 10px 10px 0 0;
-  cursor: pointer;
+  padding: 1px;
+  margin: 1px;
+  border-radius: 2px;
+  border: 1px solid $color-fieldset-border;
+  background: $color-fieldset-background;
 }
 
-
-.unig-file-button:hover{
-  color: $color-highlight;
-
+.unig-fieldset.no-border{
+  border: 1px solid transparent;
 }
+

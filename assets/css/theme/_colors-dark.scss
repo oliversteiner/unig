@@ -1,15 +1,15 @@
 /*
 *     THEME
 *     =================
-*     Default
+*     Dark
 *
 */
 
 // General
-$color-background: rgb(255, 255, 255);
-$color-text: rgb(44, 44, 44);
-$color-background-invert: rgb(35, 35, 35);
-$color-text-invert: rgb(230, 230, 230);
+$color-text: rgb(213, 213, 213);
+$color-text-invert: rgb(19, 19, 19);
+$color-background: rgb(19, 19, 19);
+$color-background-invert: rgb(213, 213, 213);
 
 // Grayscale
 $color-100: rgb(0, 0, 0);
@@ -30,20 +30,20 @@ $color-0: rgb(255, 255, 255);
 $color-debug: rgb(255, 221, 138);
 
 // default
-$color-default-border: rgb(204, 204, 204);
-$color-default-border-hover: rgb(147, 147, 147);
+$color-default-border: rgb(16, 16, 16);
+$color-default-border-hover: rgb(70, 47, 97);
 
 $color-default-border-invert: rgba(11, 11, 11, 0.95);
 $color-default-border-invert-hover: rgb(51, 51, 51);
 
-$color-default-background: rgb(231, 231, 231);
-$color-default-background-hover: rgb(199, 199, 199);
+$color-default-background: rgb(45, 45, 45);
+$color-default-background-hover: rgb(70, 47, 97);
 
 $color-default-background-invert: rgb(79, 79, 79);
 $color-default-background-invert-hover: rgb(35, 35, 35);
 
-$color-default-text: rgb(41, 41, 41);
-$color-default-text-hover: rgb(50, 50, 50);
+$color-default-text: rgb(136, 136, 136);
+$color-default-text-hover: rgb(180, 180, 180);
 
 $color-default-text-invert: rgb(204, 204, 204);
 $color-default-text-invert-hover: rgb(204, 204, 204);
@@ -51,7 +51,7 @@ $color-default-text-invert-hover: rgb(204, 204, 204);
 // OK
 $color-ok-border: #2eb741;
 $color-ok-background: #daffd4;
-$color-ok-text: #0f7f34;
+$color-ok-text: #185746;
 $color-ok-hover: #76c875;
 
 // Warning
@@ -64,7 +64,7 @@ $color-warning-text: #7f5930;
 $color-error-border: #ffb4aa;
 $color-error-background: #ffe6e5;
 $color-error-hover: #bf9f9d;
-$color-error-text: #a2132b;
+$color-error-text: #7f2013;
 
 // Spezial
 $color-private: rgb(214, 207, 194);
@@ -72,87 +72,88 @@ $color-private-border: rgb(198, 191, 178);
 
 $color-highlight: rgb(127, 36, 33);
 
-// Image
+// image
+$color-image-background: rgb(17, 17, 17);
 $color-image-border: rgb(0, 0, 0);
-$color-image-background: rgb(33, 33, 33);
 
-// Picto
-$color-admin-picto: rgb(168, 168, 168);
-$color-admin-picto-hover: rgb(170, 92, 252);
-$color-admin-picto-active: rgb(0, 0, 0);
-$color-admin-picto-active-hover: rgb(141, 82, 186);
+//  Picto
+$color-admin-picto: rgb(72, 72, 72);
+$color-admin-picto-hover: rgb(190, 172, 252);
+$color-admin-picto-active: rgba(197, 197, 197, 0.95);
+$color-admin-picto-active-hover: rgb(50, 29, 69);
 
 // Background
-$color-admin-background: rgb(230, 230, 230);
-$color-admin-background-hover: rgb(184, 184, 184);
+$color-admin-background: rgb(34, 34, 34);
+$color-admin-background-hover: rgb(70, 47, 97);
 
 $color-admin-background-active: rgb(151, 151, 151);
 $color-admin-background-active-hover: rgb(119, 119, 119);
 
-$color-admin-background-invert: rgb(81, 81, 81);
-$color-admin-background-invert-hover: rgb(15, 15, 15);
+$color-admin-background-invert: rgb(151, 151, 151);
+$color-admin-background-invert-hover: rgb(119, 119, 119);
 
 // Border
-$color-admin-border: rgb(214, 214, 214);
-$color-admin-border-invert: rgb(23, 23, 23);
+$color-admin-border: rgb(58, 58, 58);
+$color-admin-border-invert: rgb(190, 190, 190);
 
 // Text
-$color-admin-text: rgb(41, 41, 41);
-$color-admin-text-hover: rgb(240, 240, 240);
+$color-admin-text: rgb(184, 184, 184);
+$color-admin-text-hover: rgb(115, 109, 107);
 
 $color-admin-text-active: rgb(74, 68, 66);
 $color-admin-text-active-hover: rgb(115, 109, 107);
 
-$color-admin-text-invert: rgb(230, 230, 230);
-$color-admin-text-invert-hover: rgb(62, 83, 230);
+$color-admin-text-invert: rgb(15, 15, 15);
+$color-admin-text-invert-hover: rgb(32, 32, 32);
 
 // info
-$color-admin-info: rgb(143, 143, 143);
-$color-admin-info-hover: rgb(91, 91, 91);
-$color-admin-info-invert: rgb(168, 168, 168);
-$color-admin-info-invert-hover: rgb(114, 114, 114);
+$color-admin-info: rgb(75, 75, 75);
+$color-admin-info-hover: rgb(233, 233, 233);
+$color-admin-info-invert: rgb(97, 97, 97);
+$color-admin-info-invert-hover: rgb(54, 54, 54);
 
 // fine
-$color-admin-fine: rgb(190, 190, 190);
+$color-admin-fine: rgb(84, 84, 84);
+
 
 // Buttons
-$color-admin-buttons: rgb(179, 179, 179);
-$color-admin-buttons-hover: rgb(127, 36, 33);
+$color-admin-buttons: rgb(0, 0, 0);
+$color-admin-buttons-hover: rgb(15, 127, 28);
 $color-admin-buttons-active: rgb(41, 41, 41);
-$color-admin-buttons-active-hover: rgb(41, 41, 41);
+$color-admin-buttons-active-hover: rgb(41, 9, 12);
 
 // Marked
-$color-admin-marked: rgb(167, 211, 76);
-$color-admin-marked-hover: rgb(87, 145, 59);
+$color-admin-marked: rgb(93, 85, 133);
+$color-admin-marked-hover: rgb(139, 127, 200);
 
 // fieldset
-$color-fieldset-border: rgb(234, 237, 240);
-$color-fieldset-background: rgb(247, 250, 253);
+$color-fieldset-border: rgb(62, 62, 62);
+$color-fieldset-background: rgb(62, 62, 62);
 
 // toolbar
-$color-toolbar-border: rgb(230, 230, 230);
-$color-toolbar-background: rgb(246, 246, 246);
+$color-toolbar-border: rgb(19, 19, 19);
+$color-toolbar-background: rgb(45, 45, 45);
 
 // toolbox
 $color-toolbox-border: rgb(230, 230, 230);
-$color-toolbox-background: rgb(245, 245, 245);
-$color-toolbox-stroke: rgb(227, 226, 226);
+$color-toolbox-background: rgb(54, 54, 54);
+$color-toolbox-stroke: rgb(39, 39, 39);
 $color-toolbox-stroke-invert: rgb(110, 109, 109);
 
 // toolbox-tag
-$color-toolbox-tag: rgb(52, 52, 52);
-$color-toolbox-tag-hover: rgb(255, 254, 254);
+$color-toolbox-tag: rgb(173, 171, 171);
+$color-toolbox-tag-hover: rgb(39, 39, 39);
 
 $color-toolbox-tag-invert: rgb(110, 109, 109);
 $color-toolbox-tag-invert-hover: rgb(52, 52, 52);
 
-$color-toolbox-tag-background: rgb(228, 227, 227);
+$color-toolbox-tag-background: rgba(41, 41, 41, 0.96);
 $color-toolbox-tag-background-hover: rgb(173, 171, 171);
 
 $color-toolbox-tag-background-invert: rgb(255, 255, 255);
 $color-toolbox-tag-background-invert-hover: rgb(255, 255, 255);
 
-$color-toolbox-tag-border: rgb(255, 255, 255);
+$color-toolbox-tag-border: rgb(39, 39, 39);
 $color-toolbox-tag-border-hover: rgb(255, 255, 255);
 
 $color-toolbox-tag-border-invert: rgb(255, 255, 255);
@@ -162,5 +163,5 @@ $color-toolbox-tag-border-hover: rgb(255, 255, 255);
 $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 
 // sort
-$color-sortable-placeholder-background: rgba(0, 0, 0, 0.1);
-$color-sortable-placeholder-border: rgba(0, 0, 0, 0.2);
+$color-sortable-placeholder-background: rgb(19, 19, 19);
+$color-sortable-placeholder-border: rgb(82, 82, 82);

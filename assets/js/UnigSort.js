@@ -20,25 +20,30 @@
    */
   function constructor(context, drupalSettings) {
 
+// Buttons
+    $('.unig-button-sort-toggle').click(function () {
 
-    $('.unig-button-sort-activate').click(function () {
-      sortActivate(context);
+      var $trigger = $(this);
+
+      if ($trigger.hasClass('active')) {
+        sortDeactivate();
+      }
+      else {
+        sortActivate();
+
+      }
     });
 
     $('.unig-button-sort-save').click(function () {
-      sortSave(context);
+      saveSortOrder();
     });
 
     $('.unig-button-sort-cancel').click(function () {
-      sortCancel(context);
+      sortCancel();
     });
 
-    // Sortable
-
-    $(".unig-sortable").sortable({
-      placeholder: "unig-sortable-placeholder",
-      items      : "> li.unig-sortable-item",
-      tolerance  : "pointer"
+    $('.unig-button-sort-alphanumeric').click(function () {
+      resetToAlphanumeric();
     });
 
 
@@ -46,54 +51,86 @@
 
   function sortActivate() {
 
+    $(".unig-sortable").sortable({
+      placeholder: "unig-sortable-placeholder",
+      items      : "> li.unig-sortable-item",
+      tolerance  : "pointer"
+    });
+
+    // Fieldset
+    $(".unig-fieldset-sort").show();
+    $(".unig-fieldset-keywords").hide();
+
+
+    // Buttons
+    $(".unig-button-sort-activate").show();
+    $(".unig-button-files-edit").hide();
+    $(".unig-button-files-preview").hide();
+    $('.unig-button-sort-toggle').addClass('active');
+
+    // Files
     $(".unig-sortable-reducer").addClass('unig-sortable-reducer-active');
     $(".unig-sortable-reducer-content").show();
     $(".unig-sortable-reducer-hide").hide();
 
+
+  }
+
+  function sortDeactivate() {
+
+
+    // Fieldset
+    $(".unig-fieldset-sort").hide();
+    $(".unig-fieldset-keywords").show();
+
+
     // Buttons
     $(".unig-button-sort-activate").hide();
-    $(".unig-button-sort-save").show();
-    $(".unig-button-sort-cancel").show();
+    $(".unig-button-files-edit").show();
+    $(".unig-button-files-preview").show();
+    $('.unig-button-sort-toggle').removeClass('active');
+
+
+    // Files
+    $(".unig-sortable-reducer").removeClass('unig-sortable-reducer-active');
+    $(".unig-sortable-reducer-content").hide();
+    $(".unig-sortable-reducer-hide").show();
+
+    $(".unig-sortable").sortable("disable");
+
 
   }
 
   function sortCancel() {
-
-    $(".unig-sortable-reducer").removeClass('unig-sortable-reducer-active');
-    $(".unig-sortable-reducer-content").hide();
-    $(".unig-sortable-reducer-hide").show();
-
-
-    // Buttons
-    $(".unig-button-sort-activate").show();
-    $(".unig-button-sort-save").hide();
-    $(".unig-button-sort-cancel").hide();
-
     $(".unig-sortable").sortable("cancel");
+    sortDeactivate();
+  }
+
+  function resetToAlphanumeric() {
+    sortDeactivate();
+
+    var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
+    save(data);
+  }
+
+  function saveSortOrder() {
+    sortDeactivate();
+
+    var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
+    save(data);
 
   }
 
-  function sortSave() {
 
-    $(".unig-sortable-reducer").removeClass('unig-sortable-reducer-active');
-    $(".unig-sortable-reducer-content").hide();
-    $(".unig-sortable-reducer-hide").show();
+  function save(data) {
 
-
-    // Buttons
-    $(".unig-button-sort-activate").show();
-    $(".unig-button-sort-save").hide();
-    $(".unig-button-sort-cancel").hide();
-
-    var sorted = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-
-    console.log(sorted);
+    console.log(data);
 
     $.ajax({
       url     : Drupal.url('unig/sort_project'),
       type    : 'POST',
       data    : {
-        'data': sorted
+        'data': data
       },
       dataType: 'json',
       success : function (results) {
