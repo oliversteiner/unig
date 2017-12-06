@@ -196,10 +196,20 @@ unig.ajax.updateProject:
 #
 # AJAX sortProject
 #
-unig.ajax.sortProject:
-  path: '/unig/sort_project'
+unig.ajax.sort.save:
+  path: '/unig/sort/save'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:sortProject'
-    _title: 'sort Project'
+    _controller: '\Drupal\unig\Controller\ProjectController:sortSave'
+    _title: 'Save Sort Order'
+  requirements:
+    _permission: 'access unig admin'
+#
+# AJAX sortProject
+#
+unig.ajax.sort.reset:
+  path: '/unig/sort/reset'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:sortReset'
+    _title: 'Reset sort order'
   requirements:
     _permission: 'access unig admin'

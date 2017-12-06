@@ -735,6 +735,7 @@
      * @return mixed
      *
      *
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
     public static function updateProject() {
 
@@ -785,41 +786,10 @@
     }
 
 
-    public static function sortProject() {
-
-      $data = $_POST['data'];
-
-      $arr_data = explode("&", $data);
 
 
-      $i = 1;
-
-      foreach ($arr_data as $string) {
 
 
-        $nid = str_replace('nid=', '', $string);
-        $sort_list[] = $nid;
-        // Load node
-        $entity = \Drupal::entityTypeManager()
-          ->getStorage('node')
-          ->load($nid);
 
-        // weight
-        $entity->field_unig_weight[0] = $i;
-
-        // Save node
-        $entity->save();
-        $i++;
-
-      }
-
-
-      $response = new AjaxResponse();
-
-      $response->addCommand(new AlertCommand($sort_list));
-
-      return $response;
-
-    }
 
   }

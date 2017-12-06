@@ -43,6 +43,7 @@
     });
 
     $('.unig-button-sort-alphanumeric').click(function () {
+      console.log('click', 'reset to alphabetical');
       resetToAlphanumeric();
     });
 
@@ -109,34 +110,55 @@
   function resetToAlphanumeric() {
     sortDeactivate();
 
+    var name = 'reset';
     var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-    save(data);
+    save(data, name);
+
+
+    // save(data);
   }
 
   function saveSortOrder() {
     sortDeactivate();
 
+    var name = 'save';
     var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-    save(data);
+    save(data, name);
 
   }
 
 
-  function save(data) {
+  function save(data, name) {
 
     console.log(data);
 
+
     $.ajax({
-      url     : Drupal.url('unig/sort_project'),
+      url     : Drupal.url('unig/sort/' + name),
       type    : 'POST',
       data    : {
         'data': data
       },
       dataType: 'json',
       success : function (results) {
-        console.log(results);
+        console.log(results.data);
+        showMessages(results)
       }
     });
+
+    return true;
+  }
+
+  function showMessages(results) {
+
+    var messageContainer = $('.unig-message-container');
+    var type = '';
+
+    if (results) {
+
+
+    }
+
   }
 
 
