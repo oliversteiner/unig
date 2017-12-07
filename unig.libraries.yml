@@ -47,6 +47,8 @@ unig.admin.files:
   js:
     assets/js/UnigImages.js: {}
     assets/js/UnigSort.js: {}
+    assets/js/UnigDownload.js: {}
+
   dependencies:
     - core/drupalSettings
     - core/modernizr
@@ -64,9 +66,12 @@ unig.admin.projects:
       assets/css/unig_image.css: {}
       assets/css/unig_album.css: {}
       assets/css/unig_project.css: {}
+
   js:
     assets/js/UnigProject.js: {}
     assets/js/UnigSort.js: {}
+    assets/js/UnigDownload.js: {}
+
   dependencies:
     - core/drupalSettings
     - core/drupal

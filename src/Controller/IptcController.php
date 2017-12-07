@@ -18,6 +18,11 @@
 
     protected $data_keywords = [];
 
+    protected $data_creation_date = NULL;
+
+
+    protected $data_copyright = NULL;
+
     protected $data_people_names = [];
 
     protected $data_keywords_without_peoples = [];
@@ -204,6 +209,7 @@
         $iptc = iptcparse($info['APP13']);
 
         if (is_array($iptc)) {
+          $data['copyright'] = $iptc["2#116"][0];
 
           $data['caption'] = $iptc["2#120"][0];
           $data['graphic_name'] = $iptc["2#005"][0];
@@ -250,6 +256,8 @@
 
 
       $this->data_keywords = $data['keywords'];
+      $this->data_creation_date= $data['creation_date'];
+      $this->data_copyright = $data['copyright'];
 
       return $data;
     }
@@ -268,11 +276,21 @@
       return $output;
     }
 
-
-    private function addKeywordToVocabulary() {
-
-
+    /**
+     * @return array
+     */
+    public function getDataKeywords() {
+      return $this->data_keywords;
     }
+
+    /**
+     * @return null
+     */
+    public function getDataCopyright() {
+      return $this->data_copyright;
+    }
+
+
 
 
     function loadVocabulary($vid) {
@@ -294,6 +312,7 @@
     }
 
     function savePeopleTerms() {
+
       $vid = 'unig_people';
       $terms = $this->data_people_names;
       $tids = $this->saveTerms($vid, $terms);
@@ -310,6 +329,7 @@
       return $tids;
 
     }
+
 
     /**
      * @param $vid

@@ -148,7 +148,72 @@ project
 </div>
 
 {# Ajax Message #}
-<div class="unig-ajax-container">
+<div class="unig-toolbar unig-toolbar-download-folder" style="display: none">
+
+    <div class="unig-dl-info">
+        <div class="unig-dl-header">Download <span class="unig-dl-number-of">0</span> Bilder</div>
+        <ul class="unig-file-download-list">
+
+            {# SD #}
+            <li class="unig-toolbox-item unig-file-download-list-direct download-sd">
+                                    <span class="unig-file-download-list-picto"><i class="fa fa-download"
+                                                                                   aria-hidden="true"></i></span>
+                <span class="unig-file-download-list-label">SD</span>
+                <span class="unig-file-download-list-width">500&thinsp;px</span>
+                <span class="unig-file-download-list-size"> &thinsp;300&thinsp;KB</span>
+            </li>
+
+            {# HD #}
+            <li class="unig-toolbox-item unig-file-download-list-direct download-hd">
+                                    <span class="unig-file-download-list-picto"><i class="fa fa-download"
+                                                                                   aria-hidden="true"></i></span>
+                <span class="unig-file-download-list-label">HD</span>
+                <span class="unig-file-download-list-width">1920&thinsp;px</span>
+                <span class="unig-file-download-list-size">&thinsp;0.5&thinsp;MB</span>
+            </li>
+
+            {# Max #}
+            <li class="unig-toolbox-item  unig-file-download-list-direct download-max">
+                                    <span class="unig-file-download-list-picto"><i class="fa fa-download"
+                                                                                   aria-hidden="true"></i></span>
+                <span class="unig-file-download-list-label">Max</span>
+                <span class="unig-file-download-list-width">4500&thinsp;px</span>
+                <span class="unig-file-download-list-size">&thinsp;1,2&thinsp;MB</span>
+
+            </li>
+        </ul>
+
+        <div>
+            {# Clean Folder #}
+            <div class="unig-button unig-button-small  unig-button-dl-folder-clean">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                {% trans %} Clean Downloads {% endtrans %}
+            </div>
+
+            {# Close Folder #}
+            <div class="unig-button unig-button-small unig-button-dl-folder-close">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                {% trans %} Close {% endtrans %}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="unig-dl-tumbnails"></div>
+
+</div>
+<div class="unig-toolbar unig-toolbar-download-folder-close" style="display: none">
+    <div class="unig-dl-header">Download <span class="unig-dl-number-of">0</span> Bilder</div>
+
+    {# Close Folder #}
+    <div class="unig-button unig-button-dl-folder-open">
+        <i class="fa fa-open" aria-hidden="true"></i>
+        {% trans %} Show {% endtrans %}
+    </div>
+</div>
+
+{# Ajax Message #}
+<div class="unig-messages-container">
 
 </div>
 
@@ -202,14 +267,21 @@ project
 <div class="unig">
     <ul class="unig-gallery unig-sortable" id="lightgallery-{{ project.nid }}">
 
-        {% for file in files %}
+        <input type="hidden" id="unig-project-nid" value="{{ project.nid }}">
 
-            {% set rating = 0 %}  {# TODO: Test Value #}
+        {% for file in files %}
 
 
             <li class="unig-sortable-item sort-handle unig-file-item unig-file-edit unig-file-{{ file.nid }}"
                 id="unig-file-{{ file.nid }}" data-unig-file-nid="{{ file.nid }}">
 
+                {# HIDDEN INPUTS#}
+
+                <div>
+
+                    <input type="hidden" id="is-marked-{{ file.nid }}" name="is-market-{{ file.nid }}" value="0">
+
+                </div>
 
                 {# MODUS SORT #}
                 <div class="unig-sortable-reducer">
@@ -273,10 +345,10 @@ project
                                     </span>
 
                                     {# badge #}
-                                    <span class="unig-file-item-info unig-file-rating-badge {% if rating != 0 %} active {% endif %}">{{ rating }}</span>
+                                    <span class="unig-file-item-info unig-file-rating-badge {% if file.rating != 0 %} active {% endif %}">{% if file.rating != 0 %} {{ file.rating }} {% endif %}</span>
 
                                     <input class="unig-file-rating-input" name="file_rating" type="hidden"
-                                           value="{{ rating }}">
+                                           value="{{ file.rating }}">
 
                                     {# thumbs-up #}
                                     <span class="unig-file-picto unig-file-rating-up unig-file-rating-up-trigger">

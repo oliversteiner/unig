@@ -141,7 +141,6 @@
       },
       dataType: 'json',
       success : function (results) {
-        console.log(results.data);
         showMessages(results)
       }
     });

@@ -1,6 +1,5 @@
 // dont use import color -> it breaks themes
 
-
 @mixin unig-button {
   box-sizing: border-box;
   display: inline-block;
@@ -11,7 +10,6 @@
   cursor: pointer;
   margin: 2px;
 }
-
 // default
 a.unig-button,
 .unig-button {
@@ -44,7 +42,6 @@ a.unig-button,
   }
 
 }
-
 // :hover
 a.unig-button,
 .unig-button {
@@ -80,7 +77,6 @@ a.unig-button,
   }
 
 }
-
 // :active
 a.unig-button,
 .unig-button {
@@ -116,13 +112,12 @@ a.unig-button,
   }
 
 }
-
 // .active
 a.unig-button,
 .unig-button {
   @include unig-button;
 
-  &.active{
+  &.active {
     @include unig-button;
     color: $color-default-text-invert;
     border-color: $color-default-border-invert;
@@ -147,20 +142,18 @@ a.unig-button,
   &-error.active,
   &-danger.active {
     @include unig-button;
-
     background-color: $color-error-text;
     border-color: $color-error-border;
     color: $color-error-background;
   }
 
 }
-
 // .active:over
 a.unig-button,
 .unig-button {
   @include unig-button;
 
-  &.active:hover{
+  &.active:hover {
     @include unig-button;
     color: $color-default-text-invert-hover;
     border-color: $color-default-border-invert-hover;
@@ -185,28 +178,33 @@ a.unig-button,
   &-error.active:hover,
   &-danger.active:hover {
     @include unig-button;
-
     background-color: $color-error-text;
     border-color: $color-error-border;
     color: $color-error-background;
   }
 
 }
-
 // fontawesome
-.unig-button .fa{
+.unig-button .fa {
   margin-right: 4px;
 }
+// fontawesome
+.unig-button.unig-button-small {
+margin: 2px 5px;
+  padding: 2px 5px;
+  font-size: 0.8em;
+border-radius:2px;
+}
+
 
 // unig-toolbar
-.unig-toolbar{
+.unig-toolbar {
   border: 1px solid $color-toolbar-border;
   background: $color-toolbar-background;
   padding: 10px;
 }
-
 // Fieldset
-.unig-fieldset{
+.unig-fieldset {
   display: inline-block;
   padding: 1px;
   margin: 1px;
@@ -214,8 +212,7 @@ a.unig-button,
   border: 1px solid $color-fieldset-border;
   background: $color-fieldset-background;
 }
-
-.unig-fieldset.no-border{
+.unig-fieldset.no-border {
   border: 1px solid transparent;
 }
 

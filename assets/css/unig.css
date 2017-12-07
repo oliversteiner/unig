@@ -302,6 +302,12 @@ a.unig-button,
 .unig-button .fa {
   margin-right: 4px; }
 
+.unig-button.unig-button-small {
+  margin: 2px 5px;
+  padding: 2px 5px;
+  font-size: 0.8em;
+  border-radius: 2px; }
+
 .unig-toolbar {
   border: 1px solid #e6e6e6;
   background: #f6f6f6;
@@ -446,6 +452,58 @@ ul.unig-gallery li.unig-file-item.marked {
 
 .unig-file-head-info {
   min-width: 40px; }
+
+ul.unig-dl {
+  margin: 0;
+  padding: 0; }
+
+li.unig-dl {
+  padding: 0;
+  display: inline-block;
+  margin: 2px 5px;
+  text-align: center; }
+
+.unig-dl-image {
+  width: 80px;
+  height: 60px;
+  padding: 2px;
+  border: solid 2px black;
+  border-radius: 5px;
+  background-color: #212121;
+  margin: 2px; }
+
+.unig-dl-image img {
+  height: 100%;
+  width: auto; }
+
+.unig-dl-label {
+  font-size: 10px; }
+
+.unig-dl-nid {
+  font-size: 10px; }
+
+.unig-toolbar-download-folder {
+  display: flex;
+  justify-content: flex-start; }
+
+.unig-dl-info > div {
+  display: block;
+  min-width: 180px;
+  margin: 0 10px; }
+
+.unig-dl-number-of {
+  background-color: #e6e6e6;
+  padding: 2px 10px;
+  border-radius: 10px;
+  color: #292929; }
+
+.unig-dl-header {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #d6d6d6; }
+
+.unig-dl-info .unig-file-download-list-width {
+  color: #8f8f8f; }
 
 .unig-file-rating {
   margin: auto; }

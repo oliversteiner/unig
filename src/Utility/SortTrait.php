@@ -10,11 +10,9 @@
 
 
   use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-  use Drupal\Core\Database\TransactionNameNonUniqueException;
   use Drupal\Core\Entity\EntityStorageException;
   use Drupal\node\Entity\Node;
   use Drupal\unig\Controller\OutputController;
-  use Symfony\Component\HttpFoundation\JsonResponse;
 
   trait SortTrait {
 

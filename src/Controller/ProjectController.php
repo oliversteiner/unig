@@ -12,6 +12,7 @@ use Drupal\unig\Utility\FileTrait;
 use Drupal\unig\Utility\ProjectListTemplateTrait;
 use Drupal\unig\Utility\ProjectTemplateTrait;
 use Drupal\unig\Utility\ProjectTrait;
+use Drupal\unig\Utility\RatingTrait;
 use Drupal\unig\Utility\SortTrait;
 
 
@@ -32,6 +33,7 @@ class ProjectController extends ControllerBase {
   use ProjectListTemplateTrait;
   use ProjectTemplateTrait;
   use SortTrait;
+  use RatingTrait;
 
 
   /**

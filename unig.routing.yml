@@ -50,6 +50,17 @@ unig.project:
   requirements:
     _permission: 'access unig admin'
 
+#
+# Admin Page project detail
+#
+unig.ajax.project:
+  path: '/unig/project/json/{project_nid}/{album_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::getJSONfromProjectFiles'
+    project_nid: null
+    album_nid: null
+  requirements:
+    _permission: 'access unig admin'
 
 #
 # Admin Page project detail
@@ -211,5 +222,15 @@ unig.ajax.sort.reset:
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:sortReset'
     _title: 'Reset sort order'
+  requirements:
+    _permission: 'access unig admin'
+#
+#
+#
+unig.ajax.rating.save:
+  path: '/unig/rating/save'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController:ratingSave'
+    _title: 'Rating'
   requirements:
     _permission: 'access unig admin'

@@ -5,21 +5,21 @@
    *    Fields:   Unig Project
    *    __________________________________________
    *
-   *    body	 (formatted, long, with summary)
+   *    body   (formatted, long, with summary)
    *
    *    field_unig_trash          Boolean
    *
-   *    field_unig_project_cover	Entity reference
+   *    field_unig_project_cover  Entity reference
    *
-   *    field_unig_description	  Text (formatted, long)
+   *    field_unig_description    Text (formatted, long)
    *
-   *    field_unig_weight	        Number (integer)
+   *    field_unig_weight          Number (integer)
    *
-   *    field_unig_meta	          Entity reference
+   *    field_unig_meta            Entity reference
    *
-   *    field_unig_private	      Boolean
+   *    field_unig_private        Boolean
    *
-   *    field_unig_album	        Entity reference
+   *    field_unig_album          Entity reference
    *
    *    field_unig_date           Date
    *
@@ -36,6 +36,7 @@
   use Drupal\node\Entity\Node;
   use Drupal\taxonomy\Entity\Term;
   use Drupal\unig\Controller\IptcController;
+  use Symfony\Component\HttpFoundation\JsonResponse;
 
 
   trait ProjectTrait {
@@ -322,7 +323,7 @@
     public static function getListofFilesInProject($nid_project, $album_nid = NULL) {
       // bundle : unig_file
       // field: field_unig_project[0]['target_id']
-     //
+      //
       // sorting alphanumeric correctly
       // https://stackoverflow.com/questions/8557172/mysql-order-by-sorting-alphanumeric-correctly
 
@@ -340,7 +341,7 @@
           //
           // Order by
           ->sort('field_unig_weight.value', 'ASC')
-          ->sort('title', 'ASC') // alphanumeric
+          ->sort('title', 'ASC')// alphanumeric
           ->sort('created', 'DESC');
 
 
@@ -546,6 +547,32 @@
       return $variables;
     }
 
+    public static function getJSONfromProjectFiles($project_nid, $album_nid = NULL) {
+
+      $response = new JsonResponse();
+
+
+      if ($_POST) {
+        $response->setData($_POST);
+
+        if (isset($_POST['project_nid'])) {
+          $project_nid = $_POST['project_nid'];
+        }
+
+      }
+
+      $file_nids = self::getListofFilesInProject($project_nid);
+      $variables = [];
+
+      foreach ($file_nids as $file_nid) {
+
+        $variables[$file_nid] = self::buildFile($file_nid);
+      }
+
+       $response->setData($variables);
+      return $response;
+    }
+
 
     /**
      * @param      $project_nid
@@ -604,6 +631,7 @@
      *
      * @return array
      *
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
     public static function buildFile($file_nid) {
 
@@ -613,6 +641,8 @@
       //  - timestamp
       //  - title
       //  - description
+      //  - copyright
+
       //  - weight (draggable)
       //  - album
       //      - title
@@ -632,14 +662,25 @@
       // Title
       $title = $entity->label();
 
+      // Rating
+      $rating = 0;
+      $node_rating = $entity->get('field_unig_rating')->getValue();
+      if ($node_rating) {
+        $rating = $node_rating[0]['value'];
+      }
+
       // Weight
+      $weight = 0;
       $node_weight = $entity->get('field_unig_weight')->getValue();
       if ($node_weight) {
         $weight = $node_weight[0]['value'];
-
       }
-      else {
-        $weight = 0;
+
+      // Copyright
+      $copyright = 0;
+      $node_copyright = $entity->get('field_unig_copyright')->getValue();
+      if ($node_copyright) {
+        $copyright = $node_copyright[0]['value'];
       }
 
       // image
@@ -672,6 +713,8 @@
         'album_list' => $album_list,
         'image' => $image,
         'weight' => $weight,
+        'rating' => $rating,
+        'copyright' => $copyright,
         'people' => $people,
         'keywords' => $keywords,
       ];
@@ -784,12 +827,6 @@
       return $response;
 
     }
-
-
-
-
-
-
 
 
   }

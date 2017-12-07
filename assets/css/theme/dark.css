@@ -302,6 +302,11 @@ main#content.unig-theme-dark {
       color: #ffe6e5; }
   main#content.unig-theme-dark .unig-button .fa {
     margin-right: 4px; }
+  main#content.unig-theme-dark .unig-button.unig-button-small {
+    margin: 2px 5px;
+    padding: 2px 5px;
+    font-size: 0.8em;
+    border-radius: 2px; }
   main#content.unig-theme-dark .unig-toolbar {
     border: 1px solid #131313;
     background: #2d2d2d;
@@ -379,6 +384,47 @@ main#content.unig-theme-dark {
     border-color: #5d5585; }
   main#content.unig-theme-dark .unig-file-head-info {
     min-width: 40px; }
+  main#content.unig-theme-dark ul.unig-dl {
+    margin: 0;
+    padding: 0; }
+  main#content.unig-theme-dark li.unig-dl {
+    padding: 0;
+    display: inline-block;
+    margin: 2px 5px;
+    text-align: center; }
+  main#content.unig-theme-dark .unig-dl-image {
+    width: 80px;
+    height: 60px;
+    padding: 2px;
+    border: solid 2px black;
+    border-radius: 5px;
+    background-color: #111111;
+    margin: 2px; }
+  main#content.unig-theme-dark .unig-dl-image img {
+    height: 100%;
+    width: auto; }
+  main#content.unig-theme-dark .unig-dl-label {
+    font-size: 10px; }
+  main#content.unig-theme-dark .unig-dl-nid {
+    font-size: 10px; }
+  main#content.unig-theme-dark .unig-toolbar-download-folder {
+    display: flex;
+    justify-content: flex-start; }
+  main#content.unig-theme-dark .unig-dl-info > div {
+    display: block;
+    min-width: 180px;
+    margin: 0 10px; }
+  main#content.unig-theme-dark .unig-dl-number-of {
+    background-color: #222222;
+    padding: 2px 10px;
+    border-radius: 10px;
+    color: #b8b8b8; }
+  main#content.unig-theme-dark .unig-dl-header {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #3a3a3a; }
+  main#content.unig-theme-dark .unig-dl-info .unig-file-download-list-width {
+    color: #4b4b4b; }
   main#content.unig-theme-dark .unig-file-rating {
     margin: auto; }
   main#content.unig-theme-dark .unig-file-rating-up,
