@@ -45,7 +45,8 @@ unig.admin.files:
 
 
   js:
-    assets/js/UnigImages.js: {}
+    assets/js/Unig.js: {}
+    assets/js/UnigAdmin.js: {}
     assets/js/UnigSort.js: {}
     assets/js/UnigDownload.js: {}
 
@@ -68,7 +69,8 @@ unig.admin.projects:
       assets/css/unig_project.css: {}
 
   js:
-    assets/js/UnigProject.js: {}
+    assets/js/Unig.js: {}
+    assets/js/UnigAdmin.js: {}
     assets/js/UnigSort.js: {}
     assets/js/UnigDownload.js: {}
 

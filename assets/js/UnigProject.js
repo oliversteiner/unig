@@ -4,6 +4,7 @@
 
   Drupal.behaviors.unigProjects = {
     attach: function (context, drupalSettings) {
+      console.log('Drupal.behaviors.unigProjects');
 
       // Debug
 

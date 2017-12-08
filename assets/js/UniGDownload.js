@@ -7,377 +7,376 @@
 
   'use strict';
 
-  Drupal.behaviors.unigDownloads = {
+  Drupal.behaviors.unigDownload = {
     attach: function (context, settings) {
-
-      // Debug
-      console.log('downloads');
-
-      Drupal.downloadFolder = [];
-      Drupal.allFiles = [];
-
-
       // onload
-      constructor(context, settings);
-
-      loadAll();
-      loadLocal();
-      refreshGUI();
-
-      /**
-       *
-       * @param context
-       * @param settings
-       */
-      function constructor(context, settings) {
-
-        // Trigger
-
-        // Mark for Download
-        $('.unig-file-download-mark-trigger').click(
-            function (context, settings) {
-
-              var nid = getNodeId(context);
-
-              toggleDownload(nid);
-              safeLocal();
-              openDownloadFolder();
-            }
-        );
+      console.log('Drupal.behaviors.unigDownload ');
 
 
-        // Clean Folder
-        $('.unig-button-dl-folder-clean').click(function (context) {
-          cleanDownloadFolder(context);
-        });
+      this.constructor(context, settings);
+    },
 
-        // Close Folder
-        $('.unig-button-dl-folder-close').click(function (context) {
-          closeDownloadFolder(context);
-        });
+    isFolderActive: false,
+    isFolderMax   : false,
 
+    toggleToolbar:
+        function () {
+          const $target = $('.unig-toolbar-download');
 
-      }
-
-      function toggleDownloadFolder() {
-
-        const $folder = $('.unig-toolbar-download-folder');
-
-        $folder.slideToggle();
-      }
-
-      function openDownloadFolder() {
-
-        const $folder = $('.unig-toolbar-download-folder');
-
-        $folder.slideDown();
-        $folder.removeClass('close');
-        $folder.addClass('open');
-
-      }
-
-
-      function closeDownloadFolder() {
-
-        const $folder = $('.unig-toolbar-download-folder');
-
-        $folder.slideDown();
-        $folder.removeClass('open');
-        $folder.addClass('close');
-
-      }
-
-      function toggleDownload(nid) {
-
-
-        var list = Drupal.downloadFolder;
-        console.log('List ', list);
-        console.log('nid ', nid);
-
-        // Leere Liste
-        if (list === null) {
-          markForDownload(nid);
-        }
-        else {
-          var search = list.indexOf(nid);
-          if (search != -1) {
-            // element found
-            console.log('search ', search);
-
-            unMarkForDownload(nid);
+          if ($target.hasClass('open')) {
+            this.closeToolbar();
           }
           else {
-            markForDownload(nid);
+            this.openToolbar();
           }
-        }
-
-      }
+        },
 
 
-      function markForDownload(nid) {
-        if (nid) {
+    openToolbar:
+        function () {
 
-          console.log('mark', nid);
-          addToDownloadFolder(nid);
+          const $area = $('.unig-toolbar-download');
+          const $trigger = $('.unig-toolbar-download-toggle-trigger');
+
+          $area.slideDown();
+          $area.addClass('open');
+          $trigger.addClass('active')
+        },
+
+
+    closeToolbar:
+        function () {
+
+          const $area = $('.unig-toolbar-download');
+          const $trigger = $('.unig-toolbar-download-toggle-trigger');
+
+          $area.slideUp();
+          $area.removeClass('open');
+          $trigger.removeClass('active')
+
+        },
+
+
+    add:
+        function (nid) {
+          Drupal.behaviors.unig.itemsForDownload.add(nid);
+          Drupal.behaviors.unig.itemsForDownload.save();
+
+        },
+
+
+    remove:
+        function (nid) {
+          Drupal.behaviors.unig.itemsForDownload.remove(nid);
+          Drupal.behaviors.unig.itemsForDownload.save();
+
+        },
+
+
+    toggle:
+        function (nid) {
+
+          var itemsForDownload = Drupal.behaviors.unig.itemsForDownload.get();
+
+          // if first Item in list toggle on
+          if (itemsForDownload === false) {
+            this.add(nid);
+          }
+          else {
+            // search item in itemsForDownload List
+            var is_in_DownloadList = Drupal.behaviors.unig.itemsForDownload.find(nid);
+
+            if (is_in_DownloadList) {
+
+              // if item in list. toggle off
+              this.remove(nid);
+            }
+            else {
+              // if item  not in list. toggle on
+              this.add(nid);
+            }
+          }
+
+        },
+
+    save:
+        function () {
+          Drupal.behaviors.unig.itemsForDownload.save();
+
+        },
+
+    addMark:
+        function (nid) {
+          if (nid) {
+
+            var $target = $('#unig-file-' + nid + ' .unig-file-download-mark');
+            var $target_in_list = $('#unig-file-' + nid + ' .unig-file-download-list-mark');
+            var $border = $('#unig-file-' + nid);
+
+            $target.addClass('marked');
+            $border.addClass('marked');
+            $target_in_list.addClass('marked');
+
+          }
+        },
+
+    removeMark:
+        function (nid) {
+          if (nid) {
+
+            var $target = $('#unig-file-' + nid + ' .unig-file-download-mark');
+            var $target_in_list = $('#unig-file-' + nid + ' .unig-file-download-list-mark');
+            var $border = $('#unig-file-' + nid);
+
+            $target.removeClass('marked');
+            $border.removeClass('marked');
+            $target_in_list.removeClass('marked');
+
+          }
+        },
+
+    toggleMark:
+        function (nid) {
 
           var $target = $('#unig-file-' + nid + ' .unig-file-download-mark');
-          var $target_in_list = $('#unig-file-' + nid + ' .unig-file-download-list-mark');
-          var $border = $('#unig-file-' + nid);
 
-          $target.addClass('marked');
-          $border.addClass('marked');
-          $target_in_list.addClass('marked');
+          if ($target.hasClass('marked')) {
+            // if item in list. toggle off
+            this.removeMark(nid);
+          }
+          else {
+            // if item  not in list. toggle on
+            this.addMark(nid);
+          }
 
-          refreshToolBar();
-        }
-      }
+        },
 
-      function unMarkForDownload(nid) {
-        if (nid) {
+    updateInfo:
+        function () {
 
-          console.log('unMark NID ', nid);
-          removeFromDownloadFolder(nid);
+          // target
+          const $target_number_of = $('.unig-dl-number-of');
+
+          // get Number
+          var number_of_items = Drupal.behaviors.unig.itemsForDownload.count();
+
+          // Append to DOM
+          $target_number_of.html(number_of_items);
+
+          if (number_of_items > 0) {
+            $target_number_of.addClass('badge badge-marked');
+          }
+          else {
+            $target_number_of.removeClass('badge badge-marked');
+
+          }
+        },
 
 
-          var $target = $('#unig-file-' + nid + ' .unig-file-download-mark');
-          var $target_in_list = $('#unig-file-' + nid + ' .unig-file-download-list-mark');
-          var $border = $('#unig-file-' + nid);
+    buildTumbnails:
+        function () {
 
-          $target.removeClass('marked');
-          $border.removeClass('marked');
-          $target_in_list.removeClass('marked');
+          // Target
+          const $area = $('.unig-dl-tumbnails');
 
-          refreshToolBar();
-        }
-      }
+// get Item List
+          var itemsForDownload = Drupal.behaviors.unig.itemsForDownload.get();
+          var itemList = Drupal.behaviors.unig.itemList.get();
+          // console.log('itemList ', itemList);
 
-      /**
-       *
-       *
-       *
-       * @param context
-       */
-      // HACK: This function is already in unig main !
-      function getNodeId(context) {
+          var elem_li = '';
+          if (itemsForDownload) {
+            itemsForDownload.forEach(function (elem) {
 
-        var $elem = $(context.target).parents(".unig-file-item");
-        var nid = $elem.data('unig-file-nid');
-        return nid;
-      }
+              // console.log('itemsForDownload.forEach ', elem);
 
-      /**
-       *
-       *
-       *
-       * @param nid
-       */
-      function addToDownloadFolder(nid) {
+              // check
+              var item = itemList[elem];
 
-        var list = Drupal.downloadFolder;
+              // console.log('item ', item);
 
-        if (list != null) {
-          var result = list.filter(function (e) {
-            return String(e).trim();
+              if (item.title) {
+
+                var label = item.title;
+                var img_src = item.image.thumbnail;
+
+                elem_li += '<li class="unig-dl" id="unig-dl-' + elem + '" data-nid = "' + elem + '">' +
+
+                    '<div class="unig-dl-nid">' + elem + '</div>' +
+                    '<div class="unig-dl-image item-overlay">' +
+                    '<img src="' + img_src + '" />' +
+                    '<div class="item-overlay-canvas top"><span class="item-overlay-text"><i class="fa fa-times" aria-hidden="true"></i>\n</span></div>' +
+                    '</div>' +
+                    '<div class="unig-dl-label">' + label + '</div>' +
+                    '</li>';
+              }
+            });
+          }
+
+          var prefix = '<ul class="unig-dl">';
+          var suffix = '</ul>';
+
+          // Build DOM
+          var html = prefix + elem_li + suffix;
+
+          // Add tumbnail to dom
+          $area.html(html);
+
+          // Add Handler
+          $('ul.unig-dl').on('click', 'li', function () {
+            var nid = $(this).data('nid');
+            Drupal.behaviors.unigDownload.remove(nid);
+            Drupal.behaviors.unigDownload.removeMark(nid);
+            Drupal.behaviors.unigDownload.refreshGUI();
+            Drupal.behaviors.unigDownload.save();
+
           });
-
-          console.log('result ', result);
-        }else{
-          list = [];
-        }
-
-        if (nid) {
-          list.push(nid);
-        }
+        },
 
 
-        Drupal.downloadFolder = list;
+    /**
+     *
+     *
+     *
+     */
+    refreshGUI:
+        function () {
 
-      }
-
-      function refreshToolBar(nid) {
-
-        const $folder = $('.unig-dl-tumbnails');
-        const $number_of = $('.unig-dl-number-of');
-
-
-        var list = Drupal.downloadFolder;
-        var files = Drupal.allFiles;
-
-        console.log('list ', list);
+          if (this.isFolderMax == true) {
+            this.openToolbar();
+          }
+          this.isFolderActive = true;
 
 
-        var elem_li = '';
-        if (list != 0) {
-          list.forEach(function (elem) {
+          // Get Download Item List
+          var itemsForDownload = Drupal.behaviors.unig.itemsForDownload.get();
 
-            console.log('item ', elem);
-            if (elem) {
-
-              var item = files[elem];
-
-              var label = item.title;
-              var img_src = item.image.thumbnail;
-
-
-              elem_li += '<li class="unig-dl" id="unig-dl-' + elem + '">' +
-
-                  '<div class="unig-dl-nid">' + elem + '</div>' +
-
-                  '<div class="unig-dl-image"><img src="' + img_src + '" /></div>' +
-
-                  '<div class="unig-dl-label">' + label + '</div>' +
-
-                  '</li>';
-            }
-          });
-        }
-
-        var prefix = '<ul class="unig-dl">';
-        var suffix = '</ul>';
-
-
-        var html = prefix + elem_li + suffix;
-        var number_of_items = list.length;
-
-        $number_of.html(number_of_items);
-
-        $folder.html();
-        $folder.html(html);
-
-
-      }
-
-      /**
-       *
-       *
-       *
-       * @param nid
-       */
-      function removeFromDownloadFolder(nid) {
-
-
-        var pattern = nid;
-        var index = Drupal.downloadFolder.indexOf(pattern);
-        // Note: browser support for indexOf is limited; it is not supported in
-        // Internet Explorer 7 and 8.
-
-
-        //remove it
-        if (index > -1) {
-          Drupal.downloadFolder.splice(index, 1);
-        }
-      }
-
-      function safeLocal() {
-
-        var download_list = Drupal.downloadFolder;
-
-        download_list = download_list.filter(function(entry) { return /\S/.test(entry); });
-
-        localStorage.setItem("unig", download_list);
-
-      }
-
-      function loadLocal() {
-
-        var list_string = localStorage.getItem("unig");
-
-        if (list_string != null) {
-
-          var list_array = list_string.split(',');
-
-          console.log('localStorage ', list_array);
-
-          if (Object.prototype.toString.call(list_array) === '[object Array]') {
-
-            var list_integer = [];
-
-            list_array = list_array.filter(function(entry) { return /\S/.test(entry); });
-            list_array = list_array.filter(function(entry) { return /\S/.test(entry); });
-
-
-            Drupal.downloadFolder = list_array;
-
+          if (itemsForDownload) {
+            itemsForDownload.forEach(function (elem) {
+              if (elem) {
+                Drupal.behaviors.unigDownload.addMark(elem);
+              }
+            })
           }
 
+          this.buildTumbnails();
+          this.updateInfo();
+        },
+
+    clearDownloadList: function () {
+      Drupal.behaviors.unig.itemsForDownload.destroy();
+      this.removeMarkAll();
+      this.buildTumbnails();
+      this.updateInfo();
+      this.save();
+    },
+
+    /**
+     *
+     *
+     */
+    removeMarkAll: function () {
+
+      var listItem = Drupal.behaviors.unig.itemList.get();
+
+      // console.log('listItem ', listItem);
+
+      if (listItem) {
+
+        for (var key in listItem) {
+
+          this.removeMark(key);
+
+        }
+      }
+    },
+
+
+    /**
+     *
+     * @param context
+     * @param settings
+     */
+    constructor: function (context, settings) {
+
+
+      // promise : wait for data from server
+      Drupal.behaviors.unig.itemList.load().then(function (value) {
+
+        // successCallback
+        var itemsForDownload = Drupal.behaviors.unig.itemsForDownload.load();
+        if (itemsForDownload) {
+
+          var count = Drupal.behaviors.unig.itemsForDownload.count();
+          if (count > 0) {
+            Drupal.behaviors.unigDownload.openToolbar();
+            Drupal.behaviors.unigDownload.refreshGUI();
+          }
         }
 
-      }
+      }, function (reason) {
 
-      function refreshGUI() {
+        // failureCallback
 
-        var download_list = Drupal.downloadFolder;
+      });
 
 
+      // Trigger
 
-        if (download_list != null) {
+      // Mark for Download
+      $('.unig-file-download-mark-trigger').click(
+          function (context, settings) {
 
-          download_list = download_list.filter(function(entry) { return /\S/.test(entry); });
+            // get Node ID
+            var nid = Drupal.behaviors.unig.getNodeId(context);
 
-          openDownloadFolder();
+            // Mark as Download-Item
+            Drupal.behaviors.unigDownload.toggle(nid);
 
-          download_list.forEach(function (elem) {
+            // Mark as Download-Item
+            Drupal.behaviors.unigDownload.toggleMark(nid);
 
-            if (elem) {
-              markForDownload(elem);
-            }
-          })
-        }
-      }
+            // Build Download Area
+            Drupal.behaviors.unigDownload.refreshGUI();
 
-      function cleanDownloadFolder() {
-
-        var download_list = Drupal.downloadFolder;
-
-        download_list.forEach(function (elem) {
-
-          if (elem) {
-            var nid = parseInt(elem);
-            unMarkForDownload(nid);
+            // Save to localStorage
+            Drupal.behaviors.unig.itemsForDownload.save();
 
           }
-        });
+      );
 
-        // delete intern
-        Drupal.downloadFolder = [];
-        safeLocal();
-        refreshToolBar();
+      $('.unig-toolbar-download-toggle-trigger').click(
+          function (context, settings) {
+            Drupal.behaviors.unigDownload.toggleToolbar();
 
-      }
-
-      /**
-       *
-       *
-       * @param project_nid
-       * @param album_nid
-       */
-      function loadAll() {
-        console.log('load All');
-
-        // Route : unig/unig.ajax.project
-        var project_nid = $('#unig-project-nid').val();
-
-        var data = {
-          'project_nid': project_nid,
-          'album_nid'  : 0
-        };
-
-
-        $.ajax({
-          url     : Drupal.url('unig/project/json'),
-          type    : 'POST',
-          data    : data,
-          dataType: 'json',
-          success : function (results) {
-            Drupal.allFiles = results;
           }
-        });
+      );
+
+      // Clean Folder
+      $('.unig-button-download-clear-list-trigger').click(function (context) {
+        Drupal.behaviors.unigDownload.clearDownloadList(context);
+
+        // Build Download Area
+        Drupal.behaviors.unigDownload.refreshGUI();
+
+        // Save to localStorage
+        Drupal.behaviors.unig.itemsForDownload.save();
+      });
 
 
-      }
+      // Close Folder
+      $('.unig-button-toolbar-download-close-trigger').click(function (context) {
 
+        Drupal.behaviors.unigDownload.closeToolbar(context);
+      });
+
+      // Close Folder
+      $('.unig-button-toolbar-download-trigger').click(function (context) {
+
+        Drupal.behaviors.unigDownload.openToolbar(context);
+      });
     }
-  };
+  }
 
 })(jQuery, Drupal, drupalSettings);
 

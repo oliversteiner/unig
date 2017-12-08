@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 *     THEME
 *     =================
@@ -324,6 +325,11 @@ a.unig-button,
 .unig-fieldset.no-border {
   border: 1px solid transparent; }
 
+.unig-button.disabled {
+  pointer-events: none;
+  cursor: no-drop;
+  opacity: 0.5; }
+
 .unig-sortable-placeholder {
   display: inline-block;
   margin: 10px;
@@ -453,6 +459,9 @@ ul.unig-gallery li.unig-file-item.marked {
 .unig-file-head-info {
   min-width: 40px; }
 
+.unig-toolbar-download {
+  display: flex; }
+
 ul.unig-dl {
   margin: 0;
   padding: 0; }
@@ -482,28 +491,35 @@ li.unig-dl {
 .unig-dl-nid {
   font-size: 10px; }
 
-.unig-toolbar-download-folder {
-  display: flex;
-  justify-content: flex-start; }
-
-.unig-dl-info > div {
-  display: block;
-  min-width: 180px;
-  margin: 0 10px; }
-
-.unig-dl-number-of {
-  background-color: #e6e6e6;
-  padding: 2px 10px;
-  border-radius: 10px;
-  color: #292929; }
-
-.unig-dl-header {
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: solid 1px #d6d6d6; }
+.unig-dl-info {
+  width: 220px; }
+  .unig-dl-info-head {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #d6d6d6;
+    font-weight: bold; }
+  .unig-dl-info-footer {
+    margin: 6px 1px; }
 
 .unig-dl-info .unig-file-download-list-width {
   color: #8f8f8f; }
+
+.unig-button-small.unig-button-dl-folder-open i,
+.unig-button-small.unig-button-dl-folder-close i {
+  padding: 2px;
+  font-size: 1.5em;
+  margin: 0; }
+
+.badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background-color: #e6e6e6;
+  color: #515151; }
+
+.badge-marked {
+  background-color: #a7d34c;
+  color: #515151; }
 
 .unig-file-rating {
   margin: auto; }
@@ -604,6 +620,88 @@ li.unig-dl {
   font-size: 13px;
   background-color: whitesmoke;
   padding: 10px 5px 5px 5px; }
+
+/*
+
+https://codepen.io/afinedayproductions/pen/JipKF
+
+when .item-overlay:hover, show overlay.
+overwrite .item-overlay-canvas."position"
+*/
+.item-overlay:hover .item-overlay-canvas.top {
+  top: 0; }
+
+.item-overlay:hover .item-overlay-canvas.right {
+  right: 0;
+  left: 0; }
+
+.item-overlay:hover .item-overlay-canvas.bottom {
+  bottom: 0; }
+
+.item-overlay:hover .item-overlay-canvas.left {
+  left: 0; }
+
+/*
+by default, overlay is visible…
+*/
+.item-overlay-canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  overflow: hidden;
+  text-align: center;
+  /* fix text transition issue for .left and .right but need to overwrite left and right properties in .right */
+  width: 100%;
+  -moz-transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+  -webkit-transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+  transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s; }
+
+/*
+…but this hide it
+*/
+.item-overlay-canvas.top {
+  top: 100%; }
+
+.item-overlay-canvas.right {
+  right: 200%;
+  left: -100%; }
+
+.item-overlay-canvas.bottom {
+  bottom: 100%; }
+
+.item-overlay-canvas.left {
+  left: 100%; }
+
+/* misc. CSS */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+.item-overlay {
+  position: relative;
+  border: 1px solid #333;
+  float: left;
+  margin: 2%;
+  overflow: hidden;
+  width: 100%;
+  max-width: 540px; }
+
+.item-overlay img {
+  max-width: 100%; }
+
+/* end of misc. CSS */
+.item-overlay-text {
+  font-size: 30px;
+  padding-top: auto;
+  padding-bottom: auto;
+  cursor: pointer; }
 
 .unig {
   font-family: Sans-Serif, serif; }

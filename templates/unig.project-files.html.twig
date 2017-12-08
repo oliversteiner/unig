@@ -56,7 +56,7 @@ project
             {% trans %} All Projects {% endtrans %}
         </a>
 
-        <a type="button" class="unig-button unig-button-files-add" href="{{ unig_upload }}">
+        <a type="button" class="unig-button unig-button-files-add" href=" {{ path('unig.upload_albumid', {'project_nid': project.nid}) }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
             {% trans %} Add Files {% endtrans %}
         </a>
@@ -83,6 +83,18 @@ project
         </div>
     </div>
 
+
+    {# Fieldset - Downloads #}
+    <div class="unig-fieldset no-border unig-fieldset-downlods">
+
+
+        <div class="unig-button unig-toolbar-download-toggle-trigger">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <span class="unig-dl-number-of">0</span>
+
+        </div>
+    </div>
+
     {# Fieldset - Modus #}
     <div class="unig-fieldset no-border unig-fieldset-modus">
         {# Bearbeiten #}
@@ -100,34 +112,6 @@ project
         </div>
     </div>
 
-
-    {# Fieldset - Sort #}
-
-    <div class="unig-fieldset  no-border unig-fieldset-sort" style="display: none">
-        <div class="unig-fieldset-head">
-
-            <div class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</div>
-        </div>
-        <div class="unig-fieldset-body">
-
-            <div class="unig-button unig-button-ok unig-button-sort-save">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                {% trans %} Save Order {% endtrans %}
-            </div>
-
-            <div class="unig-button unig-button-warning unig-button-sort-alphanumeric">
-                <i class="fa fa-times" aria-hidden="true"></i>
-
-                {% trans %} reset to alphabetical {% endtrans %}
-            </div>
-
-            <div class="unig-button unig-button-warning unig-button-sort-cancel">
-                <i class="fa fa-times" aria-hidden="true"></i>
-                {% trans %} Cancel {% endtrans %}
-            </div>
-        </div>
-
-    </div>
 
     {# Fieldset - Themes #}
     <div class="unig-fieldset no-border unig-fieldset-themes">
@@ -147,70 +131,86 @@ project
 
 </div>
 
-{# Ajax Message #}
-<div class="unig-toolbar unig-toolbar-download-folder" style="display: none">
+
+{# Fieldset - Sort #}
+
+<div class="unig-toolbar unig-toolbar-sort" style="display: none">
+
+    <span class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</span>
+
+    <div class="unig-button unig-button-ok unig-button-sort-save">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        {% trans %} Save Order {% endtrans %}
+    </div>
+
+    <div class="unig-button unig-button-warning unig-button-sort-alphanumeric">
+        <i class="fa fa-times" aria-hidden="true"></i>
+
+        {% trans %} reset to alphabetical {% endtrans %}
+    </div>
+
+    <div class="unig-button unig-button-warning unig-button-sort-cancel">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        {% trans %} Cancel {% endtrans %}
+    </div>
+
+
+</div>
+
+
+{# Toolbar Download #}
+<div class="unig-toolbar unig-toolbar-download" style="display: none">
 
     <div class="unig-dl-info">
-        <div class="unig-dl-header">Download <span class="unig-dl-number-of">0</span> Bilder</div>
-        <ul class="unig-file-download-list">
+        <div class="unig-dl-info-body">
+            <ul class="unig-file-download-list">
 
-            {# SD #}
-            <li class="unig-toolbox-item unig-file-download-list-direct download-sd">
+                {# SD #}
+                <li class="unig-toolbox-item unig-file-download-list-direct download-sd">
                                     <span class="unig-file-download-list-picto"><i class="fa fa-download"
                                                                                    aria-hidden="true"></i></span>
-                <span class="unig-file-download-list-label">SD</span>
-                <span class="unig-file-download-list-width">500&thinsp;px</span>
-                <span class="unig-file-download-list-size"> &thinsp;300&thinsp;KB</span>
-            </li>
+                    <span class="unig-file-download-list-label">SD</span>
+                    <span class="unig-file-download-list-width">500&thinsp;px</span>
+                    <span class="unig-file-download-list-size"> &thinsp;300&thinsp;KB</span>
+                </li>
 
-            {# HD #}
-            <li class="unig-toolbox-item unig-file-download-list-direct download-hd">
+                {# HD #}
+                <li class="unig-toolbox-item unig-file-download-list-direct download-hd">
                                     <span class="unig-file-download-list-picto"><i class="fa fa-download"
                                                                                    aria-hidden="true"></i></span>
-                <span class="unig-file-download-list-label">HD</span>
-                <span class="unig-file-download-list-width">1920&thinsp;px</span>
-                <span class="unig-file-download-list-size">&thinsp;0.5&thinsp;MB</span>
-            </li>
+                    <span class="unig-file-download-list-label">HD</span>
+                    <span class="unig-file-download-list-width">1920&thinsp;px</span>
+                    <span class="unig-file-download-list-size">&thinsp;0.5&thinsp;MB</span>
+                </li>
 
-            {# Max #}
-            <li class="unig-toolbox-item  unig-file-download-list-direct download-max">
+                {# Max #}
+                <li class="unig-toolbox-item  unig-file-download-list-direct download-max">
                                     <span class="unig-file-download-list-picto"><i class="fa fa-download"
                                                                                    aria-hidden="true"></i></span>
-                <span class="unig-file-download-list-label">Max</span>
-                <span class="unig-file-download-list-width">4500&thinsp;px</span>
-                <span class="unig-file-download-list-size">&thinsp;1,2&thinsp;MB</span>
+                    <span class="unig-file-download-list-label">Max</span>
+                    <span class="unig-file-download-list-width">4500&thinsp;px</span>
+                    <span class="unig-file-download-list-size">&thinsp;1,2&thinsp;MB</span>
 
-            </li>
-        </ul>
-
-        <div>
-            {# Clean Folder #}
-            <div class="unig-button unig-button-small  unig-button-dl-folder-clean">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-                {% trans %} Clean Downloads {% endtrans %}
-            </div>
-
-            {# Close Folder #}
-            <div class="unig-button unig-button-small unig-button-dl-folder-close">
-                <i class="fa fa-close" aria-hidden="true"></i>
-                {% trans %} Close {% endtrans %}
-            </div>
+                </li>
+            </ul>
         </div>
+        <div class="unig-dl-info-footer">
 
+            {# Button Clear Download List  #}
+            <div class="unig-button unig-button-small  unig-button-download-clear-list-trigger">
+                <i class="fa fa-close" aria-hidden="true"></i>
+                {% trans %} Remove All  {% endtrans %}
+            </div>
+
+        </div>
     </div>
 
-    <div class="unig-dl-tumbnails"></div>
-
-</div>
-<div class="unig-toolbar unig-toolbar-download-folder-close" style="display: none">
-    <div class="unig-dl-header">Download <span class="unig-dl-number-of">0</span> Bilder</div>
-
-    {# Close Folder #}
-    <div class="unig-button unig-button-dl-folder-open">
-        <i class="fa fa-open" aria-hidden="true"></i>
-        {% trans %} Show {% endtrans %}
+    <div class="unig-dl-tumbnails">
+        {# Placeholder for Tumbnalils#}
     </div>
+
 </div>
+
 
 {# Ajax Message #}
 <div class="unig-messages-container">

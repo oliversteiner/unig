@@ -7,12 +7,10 @@
 
       'use strict';
 
-      Drupal.behaviors.unig = {
+      Drupal.behaviors.unigAdmin = {
         attach: function (context, settings) {
+          console.log('Drupal.behaviors.unigAdmin');
 
-
-          // Debug
-          console.log('unigImagesBehavior');
 
           // onload
           constructor(context, settings);
@@ -224,6 +222,8 @@
         $('.unig-button-sort-toggle').toggle();
         $('.unig-fieldset-keywords').toggle();
         $('.unig-button-files-add').toggle();
+
+
 
       }
 

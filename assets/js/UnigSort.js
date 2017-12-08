@@ -4,11 +4,11 @@
 
   Drupal.behaviors.unigSort = {
     attach: function (context, drupalSettings) {
-
-      // Debug
+      console.log('Drupal.behaviors.unigSort ');
 
       // onload
       constructor(context, drupalSettings);
+
 
     }
   };
@@ -57,17 +57,19 @@
       items      : "> li.unig-sortable-item",
       tolerance  : "pointer"
     });
+    $(".unig-sortable").sortable("enable");
 
     // Fieldset
-    $(".unig-fieldset-sort").show();
-    $(".unig-fieldset-keywords").hide();
+    $(".unig-toolbar-sort").slideDown();
 
 
     // Buttons
-    $(".unig-button-sort-activate").show();
-    $(".unig-button-files-edit").hide();
-    $(".unig-button-files-preview").hide();
     $('.unig-button-sort-toggle').addClass('active');
+
+    $(".unig-button-files-edit").addClass('disabled');
+    $(".unig-button-files-preview").addClass('disabled');
+    $('.unig-button-keywords-toggle-all').addClass('disabled');
+    $('.unig-button-people-toggle-all').addClass('disabled');
 
     // Files
     $(".unig-sortable-reducer").addClass('unig-sortable-reducer-active');
@@ -81,16 +83,16 @@
 
 
     // Fieldset
-    $(".unig-fieldset-sort").hide();
-    $(".unig-fieldset-keywords").show();
+    $(".unig-toolbar-sort").slideUp();
 
 
     // Buttons
-    $(".unig-button-sort-activate").hide();
-    $(".unig-button-files-edit").show();
-    $(".unig-button-files-preview").show();
     $('.unig-button-sort-toggle').removeClass('active');
 
+    $(".unig-button-files-edit").removeClass('disabled');
+    $(".unig-button-files-preview").removeClass('disabled');
+    $('.unig-button-keywords-toggle-all').removeClass('disabled');
+    $('.unig-button-people-toggle-all').removeClass('disabled');
 
     // Files
     $(".unig-sortable-reducer").removeClass('unig-sortable-reducer-active');

@@ -1,0 +1,87 @@
+/*
+
+https://codepen.io/afinedayproductions/pen/JipKF
+
+when .item-overlay:hover, show overlay.
+overwrite .item-overlay-canvas."position"
+*/
+.item-overlay:hover .item-overlay-canvas.top {
+  top: 0;
+}
+.item-overlay:hover .item-overlay-canvas.right {
+  right: 0;
+  left: 0;
+}
+.item-overlay:hover .item-overlay-canvas.bottom {
+  bottom: 0;
+}
+.item-overlay:hover .item-overlay-canvas.left {
+  left: 0;
+}
+
+/*
+by default, overlay is visible…
+*/
+.item-overlay-canvas {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  overflow: hidden;
+  text-align: center;
+  /* fix text transition issue for .left and .right but need to overwrite left and right properties in .right */
+  width: 100%;
+
+  -moz-transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+  -webkit-transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+  transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+}
+/*
+…but this hide it
+*/
+.item-overlay-canvas.top {
+  top: 100%;
+}
+.item-overlay-canvas.right {
+  right: 200%;
+  left: -100%;
+}
+.item-overlay-canvas.bottom {
+  bottom: 100%;
+}
+.item-overlay-canvas.left {
+  left: 100%;
+}
+
+
+/* misc. CSS */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.item-overlay {
+  position: relative;
+
+  border: 1px solid #333;
+  float: left;
+  margin: 2%;
+  overflow: hidden;
+  width: 100%;
+  max-width: 540px;
+}
+.item-overlay img {
+  max-width: 100%;
+}
+/* end of misc. CSS */
+
+.item-overlay-text{
+  font-size: 30px;
+  padding-top: auto;
+  padding-bottom: auto;
+  cursor: pointer;
+}

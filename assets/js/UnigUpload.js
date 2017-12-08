@@ -7,11 +7,9 @@
 
     'use strict';
 
-    Drupal.behaviors.unigUploadBehavior = {
+    Drupal.behaviors.unigUpload = {
         attach: function (context, settings) {
-
-            // Debug
-             console.log('unigUploadBehavior');
+             console.log('Drupal.behaviors.unig.upload');
 
             // onload
             constructor(context, settings);
