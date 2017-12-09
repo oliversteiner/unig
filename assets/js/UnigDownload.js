@@ -1,8 +1,3 @@
-/**
- * Created by ost on 14.05.17.
- */
-
-
 (function ($, Drupal, drupalSettings) {
 
   'use strict';
@@ -16,14 +11,18 @@
       this.constructor(context, settings);
     },
 
-    isFolderActive: false,
-    isFolderMax   : false,
+    isToolbarOpen: false,
+    $toolbar_area: $('.unig-toolbar-download'),
+    $toolbar_area_trigger: $('.unig-toolbar-download-toggle-trigger'),
+    $toolbar_area_open_trigger: $('.unig-toolbar-download-open-trigger'),
+    $toolbar_area_close_trigger: $('.unig-toolbar-download-close-trigger'),
+
+    $button_clear_list: $('.unig-button-download-clear-list-trigger'),
 
     toggleToolbar:
         function () {
-          const $target = $('.unig-toolbar-download');
 
-          if ($target.hasClass('open')) {
+          if (this.isToolbarOpen) {
             this.closeToolbar();
           }
           else {
@@ -35,24 +34,22 @@
     openToolbar:
         function () {
 
-          const $area = $('.unig-toolbar-download');
-          const $trigger = $('.unig-toolbar-download-toggle-trigger');
+          this.$toolbar_area.slideDown();
+          this.$toolbar_area.addClass('open');
+          this.$toolbar_area_trigger.addClass('active');
+          this.isToolbarOpen = true;
 
-          $area.slideDown();
-          $area.addClass('open');
-          $trigger.addClass('active')
         },
 
 
     closeToolbar:
         function () {
 
-          const $area = $('.unig-toolbar-download');
-          const $trigger = $('.unig-toolbar-download-toggle-trigger');
+          this.$toolbar_area.slideUp();
+          this.$toolbar_area.removeClass('open');
+          this.$toolbar_area_trigger.removeClass('active');
+          this.isToolbarOpen = false;
 
-          $area.slideUp();
-          $area.removeClass('open');
-          $trigger.removeClass('active')
 
         },
 
@@ -353,7 +350,7 @@
       );
 
       // Clean Folder
-      $('.unig-button-download-clear-list-trigger').click(function (context) {
+      this.$button_clear_list.click(function (context) {
         Drupal.behaviors.unigDownload.clearDownloadList(context);
 
         // Build Download Area
@@ -364,16 +361,22 @@
       });
 
 
-      // Close Folder
-      $('.unig-button-toolbar-download-close-trigger').click(function (context) {
+      // Close Toolbar
+      this.$toolbar_area_close_trigger.click(function (context) {
 
         Drupal.behaviors.unigDownload.closeToolbar(context);
       });
 
-      // Close Folder
-      $('.unig-button-toolbar-download-trigger').click(function (context) {
+      // Open Toolbar
+      this.$toolbar_area_open_trigger.click(function (context) {
 
-        Drupal.behaviors.unigDownload.openToolbar(context);
+        Drupal.behaviors.unigDownload.closeToolbar(context);
+      });
+
+      // Toggle Toolbar
+      this.$toolbar_area_trigger.click(function (context) {
+
+        Drupal.behaviors.unigDownload.toggleToolbar(context);
       });
     }
   }

@@ -573,6 +573,41 @@
       return $response;
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
+     */
+    public static function getJSONfromKeywords(){
+      $vid = 'unig_keywords';
+      return self::getJSONfromVocubulary($vid);
+    }
+
+    public static function getJSONfromPeople(){
+      $vid = 'unig_people';
+      return self::getJSONfromVocubulary($vid);
+    }
+
+    public static function getJSONfromVocubulary($vid){
+      $response = new JsonResponse();
+
+      $terms = [];
+      try {
+        $terms = \Drupal::entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->loadTree($vid);
+      } catch (InvalidPluginDefinitionException $e) {
+      }
+      foreach ($terms as $term) {
+        $term_data[] = array(
+          "id" => $term->tid,
+          "name" => $term->name
+        );
+      }
+
+      $response->setData($term_data);
+      return $response;
+    }
+
 
     /**
      * @param      $project_nid

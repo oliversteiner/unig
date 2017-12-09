@@ -29,7 +29,6 @@ project
 
 {{ attach_library('unig/unig.admin.files') }}
 
-tttt
 {% set unig_projects     = path('unig.project.list') %}
 {% set unig_upload = path('unig.upload') %}
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
@@ -56,7 +55,8 @@ tttt
             {% trans %} All Projects {% endtrans %}
         </a>
 
-        <a type="button" class="unig-button unig-button-files-add" href=" {{ path('unig.upload_albumid', {'project_nid': project.nid}) }}">
+        <a type="button" class="unig-button unig-button-files-add"
+           href=" {{ path('unig.upload_albumid', {'project_nid': project.nid}) }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
             {% trans %} Add Files {% endtrans %}
         </a>
@@ -74,11 +74,11 @@ tttt
     {# Fieldset - Keywords #}
     <div class="unig-fieldset no-border unig-fieldset-keywords">
 
-        <div class="unig-button unig-button-keywords-toggle-all">
+        <div class="unig-button unig-button-toolbar-keywords-toggle unig-toolbar-keywords-toggle-trigger">
             <i class="fa fa-key" aria-hidden="true"></i>
         </div>
 
-        <div class="unig-button unig-button-people-toggle-all">
+        <div class="unig-button unig-button-toolbar-people-toggle unig-toolbar-people-toggle-trigger">
             <i class="fa fa-user" aria-hidden="true"></i>
         </div>
     </div>
@@ -88,7 +88,7 @@ tttt
     <div class="unig-fieldset no-border unig-fieldset-downlods">
 
 
-        <div class="unig-button unig-toolbar-download-toggle-trigger">
+        <div class="unig-button unig-toolbar-download-toggle unig-toolbar-download-toggle-trigger">
             <i class="fa fa-download" aria-hidden="true"></i>
             <span class="unig-dl-number-of">0</span>
 
@@ -209,6 +209,60 @@ tttt
         {# Placeholder for Tumbnalils#}
     </div>
 
+</div>
+
+{# Toolbar Keywords #}
+<div class="unig-toolbar unig-toolbar-keywords" style="display: none">
+    <div class="unig-toolbar-head">
+        <div class="unig-toolbar-head-title">
+            <i class="fa fa-key" aria-hidden="true"></i>
+            Keywords
+        </div>
+        <div class="unig-toolbar-head-search">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="text">
+        </div>
+<div class="unig-toolbar-head-space"></div>
+        <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
+            <i class="fa fa-key" aria-hidden="true"></i>
+            Show Keywords on Images
+        </div>
+        <div class="unig-toolbar-head-seperator"></div>
+
+        <div class="unig-button unig-button-small unig-button-keywords-check-all">
+            check all
+        </div>
+
+        <div class="unig-button unig-button-small unig-button-keywords-uncheck-all">
+            uncheck all
+        </div>
+
+    </div>
+    <div class="unig-toolbar-body">
+        <div class="unig-toolbar-keywords-tags-container">
+            {# Placeholder for tags#}
+        </div>
+    </div>
+    <div class="unig-toolbar-footer">
+
+    </div>
+
+</div>
+
+{# Toolbar People#}
+<div class="unig-toolbar unig-toolbar-people" style="display: none">
+
+    <div class="unig-toolbar-head"></div>
+    <div class="unig-toolbar-body">
+        <div class="unig-toolbar-people-tags-container">
+            {# Placeholder for tags#}
+        </div>
+    </div>
+    <div class="unig-toolbar-footer">
+        <div class="unig-button unig-button-people-toggle-all">
+            <i class="fa fa-key" aria-hidden="true"></i>
+        </div>
+    </div>
 </div>
 
 

@@ -43,12 +43,12 @@ unig.admin.files:
       assets/css/unig_image.css: {}
       assets/css/theme/dark.css: {}
 
-
   js:
     assets/js/Unig.js: {}
     assets/js/UnigAdmin.js: {}
     assets/js/UnigSort.js: {}
     assets/js/UnigDownload.js: {}
+    assets/js/UnigKeywords.js: {}
 
   dependencies:
     - core/drupalSettings
@@ -73,6 +73,7 @@ unig.admin.projects:
     assets/js/UnigAdmin.js: {}
     assets/js/UnigSort.js: {}
     assets/js/UnigDownload.js: {}
+    assets/js/UnigKeywords.js: {}
 
   dependencies:
     - core/drupalSettings
