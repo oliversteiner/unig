@@ -27,15 +27,14 @@ project
 
  #}
 
-{{ attach_library('unig/unig.admin.files') }}
+{{ attach_library('unig/unig.lightgallery') }}
 
 
-{% set unig_projects     = path('unig.project.list') %}
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 
 <div class="unig-file-gallery-head">
-    <div><a href="{{ unig_projects }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+    <div><a href="{{ path('unig.project_list') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>
             Alle Bildergalerien anzeigen</a></div>
 
     <div class="unig-project-date"> {{ datum }}</div>

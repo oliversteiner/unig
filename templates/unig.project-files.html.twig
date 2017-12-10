@@ -27,10 +27,8 @@ project
 
  #}
 
-{{ attach_library('unig/unig.admin.files') }}
+{{ attach_library('unig/unig.admin.project') }}
 
-{% set unig_projects     = path('unig.project.list') %}
-{% set unig_upload = path('unig.upload') %}
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 <div id="ajax-container">
@@ -50,13 +48,13 @@ project
 
     <div class="unig-fieldset no-border unig-fieldset-general">
 
-        <a type="button" class=" unig-button unig-button-show-projects" href="{{ unig_projects }}">
+        <a type="button" class=" unig-button unig-button-show-projects" href="{{ path('unig.project_list') }}">
             <i class="fa fa-list" aria-hidden="true"></i>
             {% trans %} All Projects {% endtrans %}
         </a>
 
         <a type="button" class="unig-button unig-button-files-add"
-           href=" {{ path('unig.upload_albumid', {'project_nid': project.nid}) }}">
+           href=" {{ path('unig.upload', {'project_nid': project.nid}) }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
             {% trans %} Add Files {% endtrans %}
         </a>
@@ -117,13 +115,13 @@ project
     <div class="unig-fieldset no-border unig-fieldset-themes">
 
         {# Dark #}
-        <div class="unig-button unig-button-files-theme-dark">
+        <div class="unig-button unig-theme-dark-trigger">
             <i class="fa fa-adjust" aria-hidden="true"></i>
             {% trans %} Dark {% endtrans %}
         </div>
 
         {# Default #}
-        <div class="unig-button unig-button-files-theme-default" style="display: none">
+        <div class="unig-button unig-theme-default-trigger" style="display: none">
             <i class="fa fa-adjust" aria-hidden="true"></i>
             {% trans %} Default {% endtrans %}
         </div>

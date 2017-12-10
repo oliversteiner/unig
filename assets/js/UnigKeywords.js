@@ -57,13 +57,13 @@
 
     add:
         function (id) {
-          Drupal.behaviors.unig.keywordsStorage.add(id);
+          Drupal.behaviors.unigData.keywordsStorage.add(id);
           this.addMark(id);
         },
 
     remove:
         function (id) {
-          Drupal.behaviors.unig.keywordsStorage.remove(id);
+          Drupal.behaviors.unigData.keywordsStorage.remove(id);
           this.removeMark(id)
         },
 
@@ -71,7 +71,7 @@
         function (id) {
           console.log('toggle ', id);
 
-          var keywordsStorage = Drupal.behaviors.unig.keywordsStorage.get();
+          var keywordsStorage = Drupal.behaviors.unigData.keywordsStorage.get();
 
           // if first Item in list toggle on
           if (keywordsStorage === false) {
@@ -79,7 +79,7 @@
           }
           else {
             // search item in keywordsStorage List
-            var is_in_DownloadList = Drupal.behaviors.unig.keywordsStorage.find(id);
+            var is_in_DownloadList = Drupal.behaviors.unigData.keywordsStorage.find(id);
 
             if (is_in_DownloadList) {
 
@@ -96,7 +96,7 @@
 
     save:
         function () {
-          Drupal.behaviors.unig.keywordsStorage.save();
+          Drupal.behaviors.unigData.keywordsStorage.save();
 
         },
 
@@ -146,7 +146,7 @@
           const $target_number_of = $('.unig-keywords-number-of');
 
           // get Number
-          var number_of_items = Drupal.behaviors.unig.keywordsStorage.count();
+          var number_of_items = Drupal.behaviors.unigData.keywordsStorage.count();
 
           // Append to DOM
           $target_number_of.html(number_of_items);
@@ -167,7 +167,7 @@
           const $target_number_of = $('.unig-all-keywords-number-of');
 
           // get Number
-          var number_of_items = Drupal.behaviors.unig.keywordsList.count();
+          var number_of_items =  Drupal.behaviors.unigData.keywordsList.count();
 
           // Append to DOM
           $target_number_of.html(number_of_items);
@@ -188,7 +188,7 @@
           // Target
 
 // get Item List
-          var itemList = Drupal.behaviors.unig.keywordsList.get();
+          var itemList =  Drupal.behaviors.unigData.keywordsList.get();
           console.log('itemList ', itemList);
 
           var elem_li = '';
@@ -255,7 +255,7 @@
 
 
           // Get Download Item List
-          var keywordsStorage = Drupal.behaviors.unig.keywordsStorage.get();
+          var keywordsStorage = Drupal.behaviors.unigData.keywordsStorage.get();
 
           if (keywordsStorage) {
             keywordsStorage.forEach(function (elem) {
@@ -270,7 +270,7 @@
         },
 
     clearDownloadList: function () {
-      Drupal.behaviors.unig.keywordsStorage.destroy();
+      Drupal.behaviors.unigData.keywordsStorage.destroy();
       this.removeMarkAll();
       this.buildTags();
       this.updateInfo();
@@ -283,7 +283,7 @@
     removeAll:
         function () {
 
-          var listItem = Drupal.behaviors.unig.itemList.get();
+          var listItem = Drupal.behaviors.unigData.itemList.get();
 
 
           if (listItem) {
@@ -298,7 +298,7 @@
     addAll:
         function () {
 
-          var listItem = Drupal.behaviors.unig.itemList.get();
+          var listItem = Drupal.behaviors.unigData.itemList.get();
 
 
           if (listItem) {
@@ -317,7 +317,7 @@
     removeMarkAll:
         function () {
 
-      var listItem = Drupal.behaviors.unig.itemList.get();
+      var listItem = Drupal.behaviors.unigData.itemList.get();
 
       // console.log('listItem ', listItem);
 
@@ -333,7 +333,7 @@
     addMarkAll:
         function () {
 
-          var listItem = Drupal.behaviors.unig.itemList.get();
+          var listItem = Drupal.behaviors.unigData.itemList.get();
 
           // console.log('listItem ', listItem);
 
@@ -358,7 +358,7 @@
         minChars  : 2,
         source    : function (term, suggest) {
           term = term.toLowerCase();
-          const choices = Drupal.behaviors.unig.keywordsList.get();
+          const choices =  Drupal.behaviors.unigData.keywordsList.get();
           var matches = [];
           for (var i = 0; i < choices.length; i++) {
             if (~choices[i]['name'].toLowerCase().indexOf(term)) {
@@ -395,16 +395,16 @@
 
 
       // promise : wait for data from server
-      Drupal.behaviors.unig.keywordsList.load().then(function (value) {
+       Drupal.behaviors.unigData.keywordsList.load().then(function (value) {
 
 
         Drupal.behaviors.unigKeywords.searchAutocomplete();
         Drupal.behaviors.unigKeywords.buildTags();
         // successCallback
-        var keywordsStorage = Drupal.behaviors.unig.keywordsStorage.load();
+        var keywordsStorage = Drupal.behaviors.unigData.keywordsStorage.load();
         if (keywordsStorage) {
 
-          var count = Drupal.behaviors.unig.keywordsStorage.count();
+          var count = Drupal.behaviors.unigData.keywordsStorage.count();
           if (count > 0) {
             Drupal.behaviors.unigKeywords.openToolbar();
             Drupal.behaviors.unigKeywords.refreshGUI();

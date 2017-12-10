@@ -27,7 +27,7 @@ class AdminController extends ControllerBase {
   /**
    * @return array
    */
-  public function testConfig() {
+  public function unigConfig() {
 
     // Default settings.
     $config = \Drupal::config('unig.settings');
