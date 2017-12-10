@@ -717,8 +717,8 @@
       $image = self::getImage($file_nid);
 
       // people
-      $node_people = $entity->get('field_unig_people')->getValue();
       $people = [];
+      $node_people = $entity->get('field_unig_people')->getValue();
       if ($node_people) {
         foreach ($node_people as $term) {
           $term = Term::load($term['target_id']);
@@ -726,6 +726,7 @@
         }
       }
       // keywords
+      $keywords = [];
       $node_keywords = $entity->get('field_unig_keywords')->getValue();
       if ($node_keywords) {
         foreach ($node_keywords as $term) {
