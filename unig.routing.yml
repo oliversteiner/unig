@@ -6,17 +6,6 @@
 #
 
 
-#
-# AJAX Test
-#
-unig.ajax.test:
-  path: '/unig/ajax/ajax_test/{nid}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:ajaxTest'
-    _title: 'Ajaxtest'
-  requirements:
-    _permission: 'access unig admin'
-
 
 unig.admin:
   path: '/unig/admin'
@@ -29,8 +18,8 @@ unig.admin:
 #
 # Content > Universal Gallery > List Projects
 #
-unig.project.list:
-  path: '/unig/project-list'
+unig.project_list:
+  path: '/unig'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
   requirements:
@@ -44,7 +33,7 @@ unig.project.list:
 unig.project:
   path: '/unig/project/{project_nid}/{album_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::projectTemplate'
+    _controller: '\Drupal\unig\Controller\ProjectController::project'
     project_nid: null
     album_nid: null
   requirements:
@@ -87,24 +76,14 @@ unig.lightgallery:
 
 
 #
-# Upload Formular
-#
-unig.upload:
-  path: '/unig/upload'
-  defaults:
-      _form:  '\Drupal\unig\Form\UploadForm'
-      _title: 'Bilder hochladen'
-  requirements:
-    _permission: 'access upload form'
-
-#
 # Upload with Args
 #
-unig.upload_albumid:
+unig.upload:
   path: '/unig/upload/{project_nid}'
   defaults:
       _form:  '\Drupal\unig\Form\UploadForm'
       _title: 'Bilder hochladen'
+      project_nid: null
   requirements:
     _permission: 'access upload form'
 
@@ -122,10 +101,10 @@ unig.settings_form:
 #
 # test config
 #
-unig.admin.test_config:
+unig.admin.config:
   path: '/unig/admin/test-config'
   defaults:
-    _controller: '\Drupal\unig\Controller\AdminController::testConfig'
+    _controller: '\Drupal\unig\Controller\AdminController::unigConfig'
   requirements:
     _permission: 'access unig admin'
 
@@ -247,7 +226,7 @@ unig.term.keywords.json:
 #
 #
 #
-unig.term.keywords.json:
+unig.term.people.json:
   path: '/unig/term/people/json'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:getJSONfromPeople'

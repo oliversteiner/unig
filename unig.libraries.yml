@@ -34,7 +34,7 @@ unig.upload_albumid:
 #
 #
 #
-unig.admin.files:
+unig.project:
   css:
     theme:
       assets/css/unig.css: {}
@@ -45,10 +45,11 @@ unig.admin.files:
       assets/third-party/autocomplete/auto-complete.css: {}
 
   js:
-    assets/js/Unig.js: {}
     assets/third-party/autocomplete/auto-complete.min.js: {}
+    assets/js/Unig.js: {}
+    assets/js/UnigData.js: {}
     assets/js/UnigAdmin.js: {}
-    assets/js/UnigSort.js: {}
+    assets/js/UnigSortProject.js: {}
     assets/js/UnigDownload.js: {}
     assets/js/UnigKeywords.js: {}
 
@@ -62,7 +63,36 @@ unig.admin.files:
 #
 #
 #
-unig.admin.projects:
+unig.admin.project:
+  css:
+    theme:
+      assets/css/unig.css: {}
+      assets/css/unig_album.css: {}
+      assets/css/unig_project.css: {}
+      assets/css/unig_image.css: {}
+      assets/css/theme/dark.css: {}
+      assets/third-party/autocomplete/auto-complete.css: {}
+
+  js:
+    assets/third-party/autocomplete/auto-complete.min.js: {}
+    assets/js/Unig.js: {}
+    assets/js/UnigData.js: {}
+    assets/js/UnigAdmin.js: {}
+    assets/js/UnigSortProject.js: {}
+    assets/js/UnigDownload.js: {}
+    assets/js/UnigKeywords.js: {}
+
+  dependencies:
+    - core/drupalSettings
+    - core/modernizr
+    - core/jquery.once
+    - core/jquery.ui.datepicker
+    - core/jquery.ui.sortable
+    - unig/unig.lightgallery
+#
+#
+#
+unig.admin.project_list:
   css:
     theme:
       assets/css/unig.css: {}
@@ -73,9 +103,7 @@ unig.admin.projects:
   js:
     assets/js/Unig.js: {}
     assets/js/UnigAdmin.js: {}
-    assets/js/UnigSort.js: {}
-    assets/js/UnigDownload.js: {}
-    assets/js/UnigKeywords.js: {}
+    assets/js/UnigSortProjectList.js: {}
 
   dependencies:
     - core/drupalSettings
@@ -84,7 +112,6 @@ unig.admin.projects:
     - core/jquery.once
     - core/jquery.ui.datepicker
     - core/jquery.ui.sortable
-    - unig/unig.lightgallery
 
 #
 #
