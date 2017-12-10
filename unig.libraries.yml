@@ -42,9 +42,11 @@ unig.admin.files:
       assets/css/unig_project.css: {}
       assets/css/unig_image.css: {}
       assets/css/theme/dark.css: {}
+      assets/third-party/autocomplete/auto-complete.css: {}
 
   js:
     assets/js/Unig.js: {}
+    assets/third-party/autocomplete/auto-complete.min.js: {}
     assets/js/UnigAdmin.js: {}
     assets/js/UnigSort.js: {}
     assets/js/UnigDownload.js: {}

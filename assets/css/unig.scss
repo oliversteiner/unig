@@ -44,7 +44,9 @@ hr.unig {
   font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px;
 }
-.unig-space { margin-right: 10px;
+.unig-space {
+  display: inline-block;
+  margin-right: 10px;
   padding-left: 10px;
 }
 .unig-seperator.invert,
@@ -57,3 +59,4 @@ hr.unig {
 .unig-seperator.invert {
   border-left: 1px solid $color-seperator-invert;
 }
+

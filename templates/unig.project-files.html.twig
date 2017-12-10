@@ -214,28 +214,26 @@ project
 {# Toolbar Keywords #}
 <div class="unig-toolbar unig-toolbar-keywords" style="display: none">
     <div class="unig-toolbar-head">
+
+        {# title #}
         <div class="unig-toolbar-head-title">
             <i class="fa fa-key" aria-hidden="true"></i>
             Keywords
         </div>
+
+        {# space #}
+        <div class="unig-space"></div>
+
+        {# seperator #}
+        <div class="unig-seperator"></div>
+
+
+        {# search #}
         <div class="unig-toolbar-head-search">
             <i class="fa fa-search" aria-hidden="true"></i>
-            <input type="text">
-        </div>
-<div class="unig-toolbar-head-space"></div>
-        <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
-            <i class="fa fa-key" aria-hidden="true"></i>
-            Show Keywords on Images
-        </div>
-        <div class="unig-toolbar-head-seperator"></div>
-
-        <div class="unig-button unig-button-small unig-button-keywords-check-all">
-            check all
+            <input type="text" name="unig-keywords-autocomplete" placeholder="{% trans %} search {% endtrans %} ">
         </div>
 
-        <div class="unig-button unig-button-small unig-button-keywords-uncheck-all">
-            uncheck all
-        </div>
 
     </div>
     <div class="unig-toolbar-body">
@@ -244,7 +242,10 @@ project
         </div>
     </div>
     <div class="unig-toolbar-footer">
-
+        <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
+            <i class="fa fa-list" aria-hidden="true"></i>
+            Show Keywords on Files
+        </div>
     </div>
 
 </div>
@@ -576,7 +577,7 @@ project
 
                                 {# Items #}
                                 {% for  keyword in file.keywords %}
-                                    <span class="unig-toolbox-tag unig-keyword">{{ keyword }}</span>
+                                    <span class="unig-tag unig-keyword">{{ keyword }}</span>
                                 {% endfor %}
                             {% endif %}
                         </div>
@@ -591,7 +592,7 @@ project
 
                                 {# Items #}
                                 {% for  people in file.people %}
-                                    <span class="unig-toolbox-tag unig-keyword-people">{{ people }}</span>
+                                    <span class="unig-tag unig-keyword-people">{{ people }}</span>
                                 {% endfor %}
                             {% endif %}
 

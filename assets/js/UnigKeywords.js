@@ -11,16 +11,16 @@
       this.constructor(context, settings);
     },
 
-    isToolbarOpen: false,
-    $toolbar_area: $('.unig-toolbar-keywords'),
-    $toolbar_area_trigger: $('.unig-toolbar-keywords-toggle-trigger'),
+    isToolbarOpen              : false,
+    $toolbar_area              : $('.unig-toolbar-keywords'),
+    $toolbar_area_trigger      : $('.unig-toolbar-keywords-toggle-trigger'),
     $toolbar_area_close_trigger: $('.unig-toolbar-keywords-close-trigger'),
-    $toolbar_area_open_trigger: $('.unig-toolbar-keywords-open-trigger'),
+    $toolbar_area_open_trigger : $('.unig-toolbar-keywords-open-trigger'),
 
-    $search_trigger: $('.unig-toolbar-head-search'),
+    search_input   : '#unig-toolbar-head-search input',
     $tags_container: $('.unig-toolbar-keywords-tags-container'),
 
-    $check_all_keywords_trigger: $('unig-button-keywords-check-all'),
+    $check_all_keywords_trigger  : $('unig-button-keywords-check-all'),
     $uncheck_all_keywords_trigger: $('unig-button-keywords-uncheck-all'),
 
     toggleToolbar:
@@ -56,38 +56,39 @@
         },
 
     add:
-        function (nid) {
-          Drupal.behaviors.unig.keywordsStorage.add(nid);
-          Drupal.behaviors.unig.keywordsStorage.save();
+        function (id) {
+          Drupal.behaviors.unig.keywordsStorage.add(id);
+          this.addMark(id);
         },
 
     remove:
-        function (nid) {
-          Drupal.behaviors.unig.keywordsStorage.remove(nid);
-          Drupal.behaviors.unig.keywordsStorage.save();
+        function (id) {
+          Drupal.behaviors.unig.keywordsStorage.remove(id);
+          this.removeMark(id)
         },
 
     toggle:
-        function (nid) {
+        function (id) {
+          console.log('toggle ', id);
 
           var keywordsStorage = Drupal.behaviors.unig.keywordsStorage.get();
 
           // if first Item in list toggle on
           if (keywordsStorage === false) {
-            this.add(nid);
+            this.add(id);
           }
           else {
             // search item in keywordsStorage List
-            var is_in_DownloadList = Drupal.behaviors.unig.keywordsStorage.find(nid);
+            var is_in_DownloadList = Drupal.behaviors.unig.keywordsStorage.find(id);
 
             if (is_in_DownloadList) {
 
               // if item in list. toggle off
-              this.remove(nid);
+              this.remove(id);
             }
             else {
               // if item  not in list. toggle on
-              this.add(nid);
+              this.add(id);
             }
           }
 
@@ -100,47 +101,40 @@
         },
 
     addMark:
-        function (nid) {
-          if (nid) {
+        function (id) {
+          if (id) {
+            console.log('addMark ', id);
 
-            var $target = $('#unig-file-' + nid + ' .unig-keyword-mark');
-            var $target_in_list = $('#unig-file-' + nid + ' .unig-keyword-list-mark');
-            var $border = $('#unig-file-' + nid);
-
-            $target.addClass('marked');
-            $border.addClass('marked');
-            $target_in_list.addClass('marked');
+            var $target = $('#unig-tag-id-' + id);
+            $target.addClass('active');
 
           }
         },
 
     removeMark:
-        function (nid) {
-          if (nid) {
+        function (id) {
+          if (id) {
 
-            var $target = $('#unig-file-' + nid + ' .unig-keyword-mark');
-            var $target_in_list = $('#unig-file-' + nid + ' .unig-keyword-list-mark');
-            var $border = $('#unig-file-' + nid);
+            var $target = $('#unig-tag-id-' + id);
 
-            $target.removeClass('marked');
-            $border.removeClass('marked');
-            $target_in_list.removeClass('marked');
+            $target.removeClass('active');
 
           }
         },
 
     toggleMark:
-        function (nid) {
+        function (id) {
+          console.log('toggleMark ', id);
 
-          var $target = $('#unig-keyword-tag-' + nid);
+          var $target = $('#unig-tag-id-' + id);
 
-          if ($target.hasClass('marked')) {
+          if ($target.hasClass('active')) {
             // if item in list. toggle off
-            this.removeMark(nid);
+            this.removeMark(id);
           }
           else {
             // if item  not in list. toggle on
-            this.addMark(nid);
+            this.addMark(id);
           }
 
         },
@@ -210,32 +204,42 @@
               const id = item.id;
               const label = item.name;
 
-              elem_li = '<li class="unig-keyword-tag ' + additional_class + '" id="unig-keyword-tag-' + id + '" data-tid = "' + id + '">' +
-                  '<div class="unig-keyword-tag-nid">' + id + '</div>' +
-                  '<div class="unig-dl-label">' + label + '</div>' +
+
+              elem_li += '<li class="unig-tag unig-tag-keywords' + additional_class + '" id="unig-tag-id-' + id + '" data-id = "' + id + '">' +
+                  '<span class="unig-keyword-tag-id">' + id + '</span> ' +
+                  '<span class="unig-keyword-tag-label">' + label + '</span>' +
                   '</li>';
 
             });
           }
 
-          var prefix = '<ul class="unig-keywords-tags">';
+          var prefix = '<ul class="unig-tags unig-tags-keywords">';
           var suffix = '</ul>';
 
+          var button_mark_all =  '<div class="unig-tag unig-mark-all-tags unig-keywords-mark-all-tags"><i class="fa fa-circle" aria-hidden="true"></i><span class="unig-tags-title">check all</span></div>';
+
+          var button_un_mark_all = '<div class="unig-tag unig-unmark-all-tags unig-keywords-unmark-all-tags"><i class="fa fa-circle-o" aria-hidden="true"></i><span class="unig-tags-title">uncheck all</span></div>';
+
           // Build DOM
-          var html = prefix + elem_li + suffix;
+          var html = button_mark_all + button_un_mark_all + prefix + elem_li + suffix;
 
           // Add to dom
           this.$tags_container.html(html);
 
           // Add Handler
-          $('ul.unig-keywords-tags').on('click', 'li', function () {
-            var nid = $(this).data('nid');
-            Drupal.behaviors.unigKeywords.toggle(nid);
-            Drupal.behaviors.unigKeywords.toggleMark(nid);
-            Drupal.behaviors.unigKeywords.refreshGUI();
+          $('ul.unig-tags-keywords').on('click', 'li', function () {
+            var id = $(this).data('id');
+            Drupal.behaviors.unigKeywords.toggle(id);
             Drupal.behaviors.unigKeywords.save();
 
           });
+          $('.unig-keywords-mark-all-tags').click(function () {
+            Drupal.behaviors.unigKeywords.addAll();
+          });
+
+          $('.unig-keywords-unmark-all-tags').click(function () {
+            Drupal.behaviors.unigKeywords.removeAll();
+          })
         },
 
 
@@ -272,12 +276,46 @@
       this.updateInfo();
       this.save();
     },
-
     /**
      *
      *
      */
-    removeMarkAll: function () {
+    removeAll:
+        function () {
+
+          var listItem = Drupal.behaviors.unig.itemList.get();
+
+
+          if (listItem) {
+
+            for (var key in listItem) {
+
+              this.remove(key);
+
+            }
+          }
+        },
+    addAll:
+        function () {
+
+          var listItem = Drupal.behaviors.unig.itemList.get();
+
+
+          if (listItem) {
+
+            for (var key in listItem) {
+
+              this.add(key);
+
+            }
+          }
+        },
+    /**
+     *
+     *
+     */
+    removeMarkAll:
+        function () {
 
       var listItem = Drupal.behaviors.unig.itemList.get();
 
@@ -292,7 +330,61 @@
         }
       }
     },
+    addMarkAll:
+        function () {
 
+          var listItem = Drupal.behaviors.unig.itemList.get();
+
+          // console.log('listItem ', listItem);
+
+          if (listItem) {
+
+            for (var key in listItem) {
+
+              this.addMark(key);
+
+            }
+          }
+        },
+    /**
+     *
+     * https://goodies.pixabay.com/javascript/auto-complete
+     *
+     */
+    searchAutocomplete: function () {
+
+      var auto_complete = new autoComplete({
+        selector  : '*[name="unig-keywords-autocomplete"]',
+        minChars  : 2,
+        source    : function (term, suggest) {
+          term = term.toLowerCase();
+          const choices = Drupal.behaviors.unig.keywordsList.get();
+          var matches = [];
+          for (var i = 0; i < choices.length; i++) {
+            if (~choices[i]['name'].toLowerCase().indexOf(term)) {
+              matches.push(choices[i]);
+            }
+          }
+          suggest(matches);
+        },
+        renderItem: function (item, search) {
+          search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+
+          return '<div class="autocomplete-suggestion" data-name="' + item['name'] + '" data-id="' + item['id'] + '" data-val="' + search + '">' + item['name'] + '</div>';
+        },
+
+        onSelect: function (e, term, item) {
+
+          const id = item.getAttribute('data-id');
+          const name = item.getAttribute('data-name');
+          console.log(id + ' - ' + name);
+          Drupal.behaviors.unigKeywords.addMark(id);
+
+        }
+      });
+
+    },
 
     /**
      *
@@ -305,6 +397,8 @@
       // promise : wait for data from server
       Drupal.behaviors.unig.keywordsList.load().then(function (value) {
 
+
+        Drupal.behaviors.unigKeywords.searchAutocomplete();
         Drupal.behaviors.unigKeywords.buildTags();
         // successCallback
         var keywordsStorage = Drupal.behaviors.unig.keywordsStorage.load();
@@ -316,6 +410,7 @@
             Drupal.behaviors.unigKeywords.refreshGUI();
           }
         }
+        Drupal.behaviors.unigKeywords.openToolbar();
 
       }, function (reason) {
 
@@ -341,6 +436,11 @@
         console.log('click');
         Drupal.behaviors.unigKeywords.toggleToolbar(context);
       });
+
+
+      // Autocomplate
+
+
     }
   }
 

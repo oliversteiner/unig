@@ -60,7 +60,6 @@ ul.unig-file-download-list i.fa {
   width: 30px;
 }
 .unig-file-download-list-width {
-  min-width: 50px;
   text-align: right;
   margin-right: 10px;
 }
@@ -107,7 +106,7 @@ ul.unig-gallery li.unig-file-item.marked {
 // =====  Download Toolbar
 //
 
-.unig-toolbar-download{
+.unig-toolbar-download {
   display: flex;
 }
 //
@@ -145,7 +144,6 @@ li.unig-dl {
   font-size: 10px;
 }
 .unig-dl-number-of {
-
 }
 //
 // =====  Download Info

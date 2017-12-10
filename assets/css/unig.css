@@ -15,6 +15,7 @@ a.unig-button,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   color: #292929;
   border-color: #cccccc;
   background-color: #e7e7e7; }
@@ -29,6 +30,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #0f7f34;
     border-color: #2eb741;
     background-color: #daffd4; }
@@ -42,6 +44,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #7f5930;
     border-color: #ffd29b;
     background-color: #fff8cf; }
@@ -56,6 +59,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #a2132b;
     border-color: #ffb4aa;
     background-color: #ffe6e5; }
@@ -70,6 +74,7 @@ a.unig-button:hover,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   color: #323232;
   border-color: #939393;
   background-color: #c7c7c7; }
@@ -84,6 +89,7 @@ a.unig-button-success:hover, a.unig-button-ok:hover,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   background-color: #76c875;
   border-color: #2eb741;
   color: #daffd4; }
@@ -97,6 +103,7 @@ a.unig-button-warning:hover,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   background-color: #e9cea5;
   border-color: #ffd29b;
   color: #fff8cf; }
@@ -111,6 +118,7 @@ a.unig-button-error:hover, a.unig-button-danger:hover,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   background-color: #bf9f9d;
   border-color: #ffb4aa;
   color: #ffe6e5; }
@@ -125,6 +133,7 @@ a.unig-button:active,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   color: #cccccc;
   border-color: rgba(11, 11, 11, 0.95);
   background-color: #4f4f4f; }
@@ -139,6 +148,7 @@ a.unig-button-success:active, a.unig-button-ok:active,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   background-color: #76c875;
   border-color: #2eb741;
   color: #daffd4; }
@@ -152,6 +162,7 @@ a.unig-button-warning:active,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   background-color: #e9cea5;
   border-color: #ffd29b;
   color: #fff8cf; }
@@ -166,6 +177,7 @@ a.unig-button-error:active, a.unig-button-danger:active,
   text-decoration: none;
   cursor: pointer;
   margin: 2px;
+  font-size: 12px;
   background-color: #bf9f9d;
   border-color: #ffb4aa;
   color: #ffe6e5; }
@@ -179,7 +191,8 @@ a.unig-button,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px; }
+  margin: 2px;
+  font-size: 12px; }
   a.unig-button.active,
   .unig-button.active {
     box-sizing: border-box;
@@ -190,6 +203,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #cccccc;
     border-color: rgba(11, 11, 11, 0.95);
     background-color: #4f4f4f; }
@@ -204,6 +218,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #0f7f34;
     border-color: #2eb741;
     color: #daffd4; }
@@ -217,6 +232,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #7f5930;
     border-color: #ffd29b;
     color: #fff8cf; }
@@ -231,6 +247,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #a2132b;
     border-color: #ffb4aa;
     color: #ffe6e5; }
@@ -244,7 +261,8 @@ a.unig-button,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px; }
+  margin: 2px;
+  font-size: 12px; }
   a.unig-button.active:hover,
   .unig-button.active:hover {
     box-sizing: border-box;
@@ -255,6 +273,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #cccccc;
     border-color: #333333;
     background-color: #232323; }
@@ -269,6 +288,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #0f7f34;
     border-color: #2eb741;
     color: #daffd4; }
@@ -282,6 +302,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #7f5930;
     border-color: #ffd29b;
     color: #fff8cf; }
@@ -296,6 +317,7 @@ a.unig-button,
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #a2132b;
     border-color: #ffb4aa;
     color: #ffe6e5; }
@@ -430,7 +452,6 @@ ul.unig-file-download-list i.fa {
   width: 30px; }
 
 .unig-file-download-list-width {
-  min-width: 50px;
   text-align: right;
   margin-right: 10px; }
 
@@ -562,24 +583,30 @@ li.unig-dl {
 .unig-file-rating-badge.negativ {
   color: #a2132b; }
 
+ul.unig-tags-keywords {
+  display: inline-block; }
+
+.unig-keyword-tag-id {
+  display: none; }
+
+.unig-toolbox {
+  background-color: whitesmoke;
+  border-bottom: solid 1px #e3e2e2;
+  border-radius: 3px;
+  font-size: 12px;
+  margin: 0;
+  padding: 0; }
+
 .unig-toolbox-trigger {
-  margin-top: 5px;
-  padding: 3px 10px 2px 10px;
-  display: inline-block;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  cursor: pointer; }
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 5px;
+  padding: 3px 10px 2px 10px; }
 
 .unig-toolbox-trigger.active {
   background-color: whitesmoke; }
-
-.unig-toolbox {
-  padding: 0;
-  margin: 0;
-  font-size: 13px;
-  background-color: whitesmoke;
-  border-radius: 3px;
-  border-bottom: solid 1px #e3e2e2; }
 
 .unig-toolbox-item {
   cursor: pointer; }
@@ -589,37 +616,70 @@ li.unig-dl {
   margin: 5px 1px 1px 10px;
   padding: 3px 5px; }
 
-.unig-toolbox-tag {
-  font-size: 12px;
+.unig-tag {
+  border-radius: 4px;
   cursor: pointer;
   display: inline-block;
+  font-size: 12px;
   margin: 3px;
-  padding: 3px 6px;
-  border-radius: 4px; }
+  padding: 3px 6px; }
 
-.unig-toolbox-tag {
-  color: #343434;
+.unig-tag {
   background-color: #e4e3e3;
-  border-color: white; }
-  .unig-toolbox-tag:hover {
-    color: #fffefe;
+  border-color: white;
+  color: #343434; }
+  .unig-tag:hover {
     background-color: #adabab;
-    border-color: white; }
-  .unig-toolbox-tag:active, .unig-toolbox-tag.active {
-    color: #6e6d6d;
-    background-color: white;
-    border-color: white; }
-  .unig-toolbox-tag.active:hover {
-    color: #343434;
-    background-color: white;
-    border-color: white; }
+    border-color: white;
+    color: #1c1c1c; }
+  .unig-tag:active, .unig-tag.active {
+    background-color: #000827;
+    border-color: #3a3738;
+    color: #d6d4d4; }
+  .unig-tag.active:hover {
+    background-color: #a0a0a0;
+    border-color: white;
+    color: #b8b8b8; }
 
 .unig-file-options-toolbox {
-  display: flex;
-  justify-content: space-around;
-  font-size: 13px;
   background-color: whitesmoke;
+  display: flex;
+  font-size: 12px;
+  justify-content: space-around;
   padding: 10px 5px 5px 5px; }
+
+.unig-toolbar-footer .unig-button,
+.unig-toolbar-body .unig-button,
+.unig-toolbar-head .unig-button {
+  border-radius: 2px;
+  font-size: 0.8em;
+  margin: 2px 5px;
+  padding: 2px 5px; }
+
+.unig-toolbar-head-search {
+  display: inline-block;
+  float: right; }
+
+.unig-toolbar-head-search input {
+  border-radius: 5px;
+  font-size: 10px; }
+
+.unig-toolbar-head-title {
+  border-bottom: solid 1px #e3e2e2;
+  display: inline-block; }
+
+.unig-toolbar-head {
+  border-bottom: 1px solid;
+  margin-bottom: 10px;
+  padding-bottom: 5px; }
+
+.unig-mark-all-tags,
+.unig-unmark-all-tags {
+  border-color: inherit;
+  background-color: inherit; }
+  .unig-mark-all-tags .unig-tags-title,
+  .unig-unmark-all-tags .unig-tags-title {
+    display: none; }
 
 /*
 
@@ -730,5 +790,20 @@ hr.unig {
 .unig-toolbar {
   font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px; }
+
+.unig-space {
+  display: inline-block;
+  margin-right: 10px;
+  padding-left: 10px; }
+
+.unig-seperator.invert,
+.unig-seperator {
+  display: inline-block;
+  margin-right: 10px;
+  padding-left: 10px;
+  border-left: 1px solid #e6e6e6; }
+
+.unig-seperator.invert {
+  border-left: 1px solid #4a4a4a; }
 
 /*# sourceMappingURL=unig.css.map */

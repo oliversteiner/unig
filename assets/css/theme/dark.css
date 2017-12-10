@@ -20,6 +20,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #888888;
     border-color: #101010;
     background-color: #2d2d2d; }
@@ -34,6 +35,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       color: #185746;
       border-color: #2eb741;
       background-color: #daffd4; }
@@ -47,6 +49,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       color: #7f5930;
       border-color: #ffd29b;
       background-color: #fff8cf; }
@@ -61,6 +64,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       color: #7f2013;
       border-color: #ffb4aa;
       background-color: #ffe6e5; }
@@ -74,6 +78,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #b4b4b4;
     border-color: #462f61;
     background-color: #462f61; }
@@ -88,6 +93,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #76c875;
     border-color: #2eb741;
     color: #daffd4; }
@@ -101,6 +107,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #e9cea5;
     border-color: #ffd29b;
     color: #fff8cf; }
@@ -115,6 +122,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #bf9f9d;
     border-color: #ffb4aa;
     color: #ffe6e5; }
@@ -128,6 +136,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     color: #cccccc;
     border-color: rgba(11, 11, 11, 0.95);
     background-color: #4f4f4f; }
@@ -142,6 +151,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #76c875;
     border-color: #2eb741;
     color: #daffd4; }
@@ -155,6 +165,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #e9cea5;
     border-color: #ffd29b;
     color: #fff8cf; }
@@ -169,6 +180,7 @@ main#content.unig-theme-dark {
     text-decoration: none;
     cursor: pointer;
     margin: 2px;
+    font-size: 12px;
     background-color: #bf9f9d;
     border-color: #ffb4aa;
     color: #ffe6e5; }
@@ -181,7 +193,8 @@ main#content.unig-theme-dark {
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px; }
+    margin: 2px;
+    font-size: 12px; }
     main#content.unig-theme-dark a.unig-button.active,
     main#content.unig-theme-dark .unig-button.active {
       box-sizing: border-box;
@@ -192,6 +205,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       color: #cccccc;
       border-color: rgba(11, 11, 11, 0.95);
       background-color: #4f4f4f; }
@@ -206,6 +220,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       background-color: #185746;
       border-color: #2eb741;
       color: #daffd4; }
@@ -219,6 +234,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       background-color: #7f5930;
       border-color: #ffd29b;
       color: #fff8cf; }
@@ -233,6 +249,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       background-color: #7f2013;
       border-color: #ffb4aa;
       color: #ffe6e5; }
@@ -245,7 +262,8 @@ main#content.unig-theme-dark {
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px; }
+    margin: 2px;
+    font-size: 12px; }
     main#content.unig-theme-dark a.unig-button.active:hover,
     main#content.unig-theme-dark .unig-button.active:hover {
       box-sizing: border-box;
@@ -256,6 +274,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       color: #cccccc;
       border-color: #333333;
       background-color: #232323; }
@@ -270,6 +289,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       background-color: #185746;
       border-color: #2eb741;
       color: #daffd4; }
@@ -283,6 +303,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       background-color: #7f5930;
       border-color: #ffd29b;
       color: #fff8cf; }
@@ -297,6 +318,7 @@ main#content.unig-theme-dark {
       text-decoration: none;
       cursor: pointer;
       margin: 2px;
+      font-size: 12px;
       background-color: #7f2013;
       border-color: #ffb4aa;
       color: #ffe6e5; }
@@ -365,7 +387,6 @@ main#content.unig-theme-dark {
   main#content.unig-theme-dark .unig-file-download-list-label {
     width: 30px; }
   main#content.unig-theme-dark .unig-file-download-list-width {
-    min-width: 50px;
     text-align: right;
     margin-right: 10px; }
   main#content.unig-theme-dark .unig-file-download-list-size {
@@ -438,6 +459,10 @@ main#content.unig-theme-dark {
   main#content.unig-theme-dark .badge-marked {
     background-color: #5d5585;
     color: #979797; }
+  main#content.unig-theme-dark ul.unig-tags-keywords {
+    display: inline-block; }
+  main#content.unig-theme-dark .unig-keyword-tag-id {
+    display: none; }
   main#content.unig-theme-dark .unig-file-rating {
     margin: auto; }
   main#content.unig-theme-dark .unig-file-rating-up,
@@ -469,57 +494,84 @@ main#content.unig-theme-dark {
     color: #185746; }
   main#content.unig-theme-dark .unig-file-rating-badge.negativ {
     color: #7f2013; }
+  main#content.unig-theme-dark .unig-toolbox {
+    background-color: #363636;
+    border-bottom: solid 1px #272727;
+    border-radius: 3px;
+    font-size: 12px;
+    margin: 0;
+    padding: 0; }
   main#content.unig-theme-dark .unig-toolbox-trigger {
-    margin-top: 5px;
-    padding: 3px 10px 2px 10px;
-    display: inline-block;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    cursor: pointer; }
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 5px;
+    padding: 3px 10px 2px 10px; }
   main#content.unig-theme-dark .unig-toolbox-trigger.active {
     background-color: #363636; }
-  main#content.unig-theme-dark .unig-toolbox {
-    padding: 0;
-    margin: 0;
-    font-size: 13px;
-    background-color: #363636;
-    border-radius: 3px;
-    border-bottom: solid 1px #272727; }
   main#content.unig-theme-dark .unig-toolbox-item {
     cursor: pointer; }
   main#content.unig-theme-dark .unig-toolbox-tag-title-picto {
     display: inline-block;
     margin: 5px 1px 1px 10px;
     padding: 3px 5px; }
-  main#content.unig-theme-dark .unig-toolbox-tag {
-    font-size: 12px;
+  main#content.unig-theme-dark .unig-tag {
+    border-radius: 4px;
     cursor: pointer;
     display: inline-block;
+    font-size: 12px;
     margin: 3px;
-    padding: 3px 6px;
-    border-radius: 4px; }
-  main#content.unig-theme-dark .unig-toolbox-tag {
-    color: #adabab;
+    padding: 3px 6px; }
+  main#content.unig-theme-dark .unig-tag {
     background-color: rgba(41, 41, 41, 0.96);
-    border-color: #272727; }
-    main#content.unig-theme-dark .unig-toolbox-tag:hover {
-      color: #272727;
-      background-color: #adabab;
-      border-color: white; }
-    main#content.unig-theme-dark .unig-toolbox-tag:active, main#content.unig-theme-dark .unig-toolbox-tag.active {
-      color: #6e6d6d;
+    border-color: #080808;
+    color: #adabab; }
+    main#content.unig-theme-dark .unig-tag:hover {
+      background-color: #838181;
+      border-color: white;
+      color: #272727; }
+    main#content.unig-theme-dark .unig-tag:active, main#content.unig-theme-dark .unig-tag.active {
+      background-color: #636363;
+      border-color: white;
+      color: white; }
+    main#content.unig-theme-dark .unig-tag.active:hover {
       background-color: white;
-      border-color: white; }
-    main#content.unig-theme-dark .unig-toolbox-tag.active:hover {
-      color: #343434;
-      background-color: white;
-      border-color: white; }
+      border-color: white;
+      color: #343434; }
   main#content.unig-theme-dark .unig-file-options-toolbox {
-    display: flex;
-    justify-content: space-around;
-    font-size: 13px;
     background-color: #363636;
+    display: flex;
+    font-size: 12px;
+    justify-content: space-around;
     padding: 10px 5px 5px 5px; }
+  main#content.unig-theme-dark .unig-toolbar-footer .unig-button,
+  main#content.unig-theme-dark .unig-toolbar-body .unig-button,
+  main#content.unig-theme-dark .unig-toolbar-head .unig-button {
+    border-radius: 2px;
+    font-size: 0.8em;
+    margin: 2px 5px;
+    padding: 2px 5px; }
+  main#content.unig-theme-dark .unig-toolbar-head-search {
+    display: inline-block;
+    float: right; }
+  main#content.unig-theme-dark .unig-toolbar-head-search input {
+    border-radius: 5px;
+    font-size: 10px; }
+  main#content.unig-theme-dark .unig-toolbar-head-title {
+    border-bottom: solid 1px #272727;
+    display: inline-block; }
+  main#content.unig-theme-dark .unig-toolbar-head {
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
+    padding-bottom: 5px; }
+  main#content.unig-theme-dark .unig-mark-all-tags,
+  main#content.unig-theme-dark .unig-unmark-all-tags {
+    border-color: inherit;
+    background-color: inherit; }
+    main#content.unig-theme-dark .unig-mark-all-tags .unig-tags-title,
+    main#content.unig-theme-dark .unig-unmark-all-tags .unig-tags-title {
+      display: none; }
   main#content.unig-theme-dark .unig-sortable-placeholder {
     display: inline-block;
     margin: 10px;
