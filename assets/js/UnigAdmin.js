@@ -41,7 +41,7 @@
           const class_prefix = 'unig-theme-';
           const theme_name = class_prefix + theme;
 
-          const $main = $('main#content');
+          const $main = $('#unig-main');
           const pattern = /\bunig-theme-\S+/g;
           // remove other Theme classes
           var matches = $main.attr('class').match(pattern);
