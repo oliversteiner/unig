@@ -78,7 +78,7 @@
       ];
 
       $form['cancel'] = [
-        '#markup' => '<div class="ajax-container-new-album-trigger">' . $this->t('abbrechen') . '</div>',
+        '#markup' => '<div class="ajax-container-new-album-trigger">' . $this->t('Cancel') . '</div>',
       ];
 
 

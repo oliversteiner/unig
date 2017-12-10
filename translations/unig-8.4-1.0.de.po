@@ -1,0 +1,194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: UniG\n"
+"POT-Creation-Date: 2017-12-10 17:02+0100\n"
+"PO-Revision-Date: 2017-12-10 17:02+0100\n"
+"Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
+"Language-Team: oliver@mollo.ch\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: t\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: tests\n"
+"X-Poedit-SearchPathExcluded-2: translations\n"
+
+#: src/Controller/FilesController.php:74
+#: src/Controller/ProjectController.php:54
+msgid "Test Page"
+msgstr "Testseite"
+
+#: src/Controller/IptcController.php:251
+msgid "File does not exist"
+msgstr "Datei existiert nicht"
+
+#: src/Form/FilesForm.php:75
+msgid "Name neues Projekt:"
+msgstr "Name neues Projekt:"
+
+#: src/Form/FilesForm.php:85 src/Form/UploadForm.php:100
+msgid "Projekt wählen"
+msgstr "Projekt wählen"
+
+#: src/Form/FilesForm.php:120 src/Form/UploadForm.php:146
+msgid "Submit"
+msgstr "Abschicken"
+
+#: src/Form/FilesForm.php:149
+msgid "Name new Project"
+msgstr "Name des neuen Projekts"
+
+#: src/Form/FilesForm.php:155 src/Form/UploadForm.php:180
+msgid "No files selected"
+msgstr "Keine Dateien ausgewählt"
+
+#: src/Form/NewAlbumForm.php:75
+msgid "Verifying entry..."
+msgstr "Eintrag wird überprüft..."
+
+#: src/Form/NewAlbumForm.php:81 templates/unig.project-files.html.twig:152
+#: templates/unig.project-list.html.twig:83
+#: templates/unig.project-list.html.twig:316
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/Form/UniGSettingsForm.php:35
+msgid "Default Project"
+msgstr "Standard Pronekt"
+
+#: src/Form/UniGSettingsForm.php:41
+msgid "Allowed file types"
+msgstr "Zulässige Datei-Typen"
+
+#: src/Form/UniGSettingsForm.php:43
+msgid "Allowed file types, no Points, separated by space."
+msgstr "Erlaubte Dateitypen, keine Punkte, durch Leerzeichen getrennt."
+
+#: src/Form/UploadForm.php:83
+msgid "show all projects"
+msgstr "alle Projekte anzeigen"
+
+#: src/Form/UploadForm.php:89
+msgid "Name new project"
+msgstr "Neues Projekt benennen"
+
+#: src/Form/UploadForm.php:117
+msgid "Upload Images / Files"
+msgstr ""
+
+#: src/Form/UploadForm.php:174
+msgid "Type a name for the new project"
+msgstr "Name des neuen Projekts"
+
+#: templates/unig.project-files.html.twig:53
+msgid "All Projects"
+msgstr "All Projects"
+
+#: templates/unig.project-files.html.twig:59
+msgid "Add Files"
+msgstr "Dateien hinzufügen"
+
+#: templates/unig.project-files.html.twig:67
+#: templates/unig.project-files.html.twig:137
+#: templates/unig.project-list.html.twig:38
+#: templates/unig.project-list.html.twig:68
+msgid "Sort order"
+msgstr "Reihenfolge"
+
+#: templates/unig.project-files.html.twig:102
+#: templates/unig.project-list.html.twig:204
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/unig.project-files.html.twig:109
+#: templates/unig.project-list.html.twig:210
+msgid "Preview"
+msgstr "Vorschau"
+
+#: templates/unig.project-files.html.twig:120
+#: templates/unig.project-list.html.twig:50
+msgid "Dark"
+msgstr "Dunkel"
+
+#: templates/unig.project-files.html.twig:126
+#: templates/unig.project-list.html.twig:56
+msgid "Default"
+msgstr "Standard"
+
+#: templates/unig.project-files.html.twig:141
+#: templates/unig.project-list.html.twig:72
+msgid "Save Order"
+msgstr "Reihenfolge speichern"
+
+#: templates/unig.project-files.html.twig:147
+#: templates/unig.project-list.html.twig:78
+msgid "reset to alphabetical"
+msgstr "Auf Alphabetisch zurücksetzen"
+
+#: templates/unig.project-files.html.twig:200
+msgid "Remove All"
+msgstr "Alle entfernen"
+
+#: templates/unig.project-files.html.twig:232
+msgid "search"
+msgstr "suchen"
+
+#: templates/unig.project-list.html.twig:30
+msgid "New Project"
+msgstr "Neues Projekt"
+
+#: templates/unig.project-list.html.twig:233
+msgid "Date"
+msgstr "Datum"
+
+#: templates/unig.project-list.html.twig:250
+msgid "Title"
+msgstr "Titel"
+
+#: templates/unig.project-list.html.twig:262
+msgid "Description"
+msgstr "Beschreibung"
+
+#: templates/unig.project-list.html.twig:273
+msgid "Copyright"
+msgstr "Urheber"
+
+#: templates/unig.project-list.html.twig:307
+msgid "Save"
+msgstr "Sichern"
+
+#: templates/unig.project-list.html.twig:324
+msgid "Delete Project"
+msgstr "Projekt löschen"
+
+#~ msgid "abbrechen"
+#~ msgstr "abbrechen"
+
+#~ msgid "Dateien / Bilder hochladen"
+#~ msgstr "Dateien / Bilder hochladen"
+
+#~ msgid "Submit, #type = submit"
+#~ msgstr "Submit, #type = submit"
+
+#~ msgid "alle Projekte anzeigen"
+#~ msgstr "alle Projekte anzeigen"
+
+#~ msgid "Namen für das neue Projekt eingeben"
+#~ msgstr "Namen für das neue Projekt eingeben"
+
+#~ msgid "Keine Dateien ausgewählt"
+#~ msgstr "Keine Dateien ausgewählt"
+
+#~ msgid "default_project"
+#~ msgstr "default_project"
+
+#~ msgid "Erlaubte Dateitypen"
+#~ msgstr "Erlaubte Dateitypen"
+
+#~ msgid "Gültige dateiendungen. ohne Punkt. Mit Abstand trennen."
+#~ msgstr "Gültige dateiendungen. ohne Punkt. Mit Abstand trennen."

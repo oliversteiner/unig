@@ -118,7 +118,6 @@ class FilesForm extends FormBase
         $form['actions']['submit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Submit'),
-            '#description' => $this->t('Submit, #type = submit'),
 
         ];
 
@@ -147,13 +146,13 @@ class FilesForm extends FormBase
         if ($project === 'neu' && $new_project == '') {
             // Set an error for the form element with a key of "title".
             $form_state->setErrorByName('new_project',
-                $this->t('Namen für das neue Projekt eingeben'));
+                $this->t('Name new Project'));
         }
 
         if (count($file_upload) == 0) {
             // Set an error for the form element with a key of "title".
             $form_state->setErrorByName('file_upload',
-                $this->t('Keine Dateien ausgewählt'));
+                $this->t('No files selected'));
         }
 
     }

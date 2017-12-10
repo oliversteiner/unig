@@ -34,14 +34,13 @@ class UniGSettingsForm extends ConfigFormBase
             '#type' => 'textfield',
             '#title' => $this->t('Default Project'),
             '#default_value' => $config->get('unig.default_project'),
-            '#description' => $this->t('default_project'),
         );
         // Source text field.
         $form['file_validate_extensions'] = array(
             '#type' => 'textfield',
-            '#title' => $this->t('Erlaubte Dateitypen'),
+            '#title' => $this->t('Allowed file types'),
             '#default_value' => $config->get('unig.plupload.file_validate_extensions'),
-            '#description' => $this->t('Gültige dateiendungen. ohne Punkt. Mit Abstand trennen.'),
+            '#description' => $this->t('Allowed file types, no Points, separated by space.'),
         );
 
         return $form;

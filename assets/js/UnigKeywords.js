@@ -410,7 +410,7 @@
             Drupal.behaviors.unigKeywords.refreshGUI();
           }
         }
-        Drupal.behaviors.unigKeywords.openToolbar();
+     //   Drupal.behaviors.unigKeywords.openToolbar();
 
       }, function (reason) {
 

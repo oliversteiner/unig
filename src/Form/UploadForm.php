@@ -80,13 +80,13 @@ class UploadForm extends FormBase
         // link zu allen Projekten/Alben
         $form['go_to_projects'] = [
             '#theme' => '',
-            '#title' => t('alle Projekte anzeigen'),
+            '#title' => t('show all projects'),
         ];
 
         // Textinput "neues Projekt"
         $form['new_project'] = [
             '#type' => 'textfield',
-            '#title' => t('Name neues Projekt:'),
+            '#title' => t('Name new project'),
             '#size' => 60,
             '#maxlength' => 128,
             '#class' => 'form-control',
@@ -114,8 +114,7 @@ class UploadForm extends FormBase
         //  https://www.drupal.org/node/1647890
         $form['file_upload'] = [
             '#type' => 'plupload',
-            '#title' => t('Dateien / Bilder hochladen'),
-            '#description' => t(''),
+            '#title' => t('Upload Images / Files'),
             '#upload_validators' => array(
                 'file_validate_extensions' => array($this->config['file_validate_extensions']),
                 'my_custom_file_validator' => array(''),
@@ -145,8 +144,6 @@ class UploadForm extends FormBase
         $form['actions']['submit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Submit'),
-            '#description' => $this->t('Submit, #type = submit'),
-
         ];
 
 
@@ -174,13 +171,13 @@ class UploadForm extends FormBase
         if ($project === 'neu' && $new_project == '') {
             // Set an error for the form element with a key of "title".
             $form_state->setErrorByName('new_project',
-                $this->t('Namen für das neue Projekt eingeben'));
+                $this->t('Type a name for the new project'));
         }
 
         if (count($file_upload) == 0) {
             // Set an error for the form element with a key of "title".
             $form_state->setErrorByName('file_upload',
-                $this->t('Keine Dateien ausgewählt'));
+                $this->t('No files selected'));
         }
 
     }
