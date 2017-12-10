@@ -7,7 +7,7 @@
 
       'use strict';
 
-      Drupal.behaviors.unigAdmin = {
+      Drupal.behaviors.unigProject = {
         attach: function (context, settings) {
           console.log('Drupal.behaviors.unigAdmin');
 
@@ -46,12 +46,12 @@
           );
 
           // Edit - Show all buttons
-          $('.unig-button-files-edit').click(function (context) {
+          $('.unig-project-edit-trigger').click(function (context) {
             toggleEditButtons(context);
           });
 
           // Preview - Hide all buttons
-          $('.unig-button-files-preview').click(function (context) {
+          $('.unig-project-preview-trigger').click(function (context) {
             toggleEditButtons(context);
           });
 

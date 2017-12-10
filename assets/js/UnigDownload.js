@@ -17,6 +17,7 @@
     $toolbar_area_open_trigger: $('.unig-toolbar-download-open-trigger'),
     $toolbar_area_close_trigger: $('.unig-toolbar-download-close-trigger'),
 
+
     $button_clear_list: $('.unig-button-download-clear-list-trigger'),
 
     toggleToolbar:
@@ -342,12 +343,6 @@
           }
       );
 
-      $('.unig-toolbar-download-toggle-trigger').click(
-          function (context, settings) {
-            Drupal.behaviors.unigDownload.toggleToolbar();
-
-          }
-      );
 
       // Clean Folder
       this.$button_clear_list.click(function (context) {

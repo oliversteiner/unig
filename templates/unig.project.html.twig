@@ -1,44 +1,12 @@
-{#
-/**
- * @file
- *
- */
-#}
-
-{#
-project
- - year
- - date
- - year
- - timestamp
- - title
- - body
- - weight (draggable)
- - number_of_items
- - album_list
-     - title
-     - nid
- - links
-   - edit
-   - delete
- - cover_id     (node_id from unig_file)
- - cover_image  (render with twig)
-    -format
-
- #}
-
 {{ attach_library('unig/unig.admin.project') }}
 
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
-<div id="ajax-container">
-</div>
 
 <div class="unig-debug">
     {#
         {{ dd(files) }}
     #}
-
 </div>
 
 
@@ -48,34 +16,36 @@ project
 
     <div class="unig-fieldset no-border unig-fieldset-general">
 
+        {# All Projects #}
         <a type="button" class=" unig-button unig-button-show-projects" href="{{ path('unig.project_list') }}">
             <i class="fa fa-list" aria-hidden="true"></i>
             {% trans %} All Projects {% endtrans %}
         </a>
 
+        {# Upload #}
         <a type="button" class="unig-button unig-button-files-add"
-           href=" {{ path('unig.upload', {'project_nid': project.nid}) }}">
+           href="{{ path('unig.upload', {'project_nid': project.nid}) }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
             {% trans %} Add Files {% endtrans %}
         </a>
 
 
         {# sort #}
-
         <div class="unig-button unig-button-sort-toggle">
             <i class="fa fa-arrows" aria-hidden="true"></i>
             {% trans %} Sort order {% endtrans %}
-
         </div>
     </div>
 
     {# Fieldset - Keywords #}
     <div class="unig-fieldset no-border unig-fieldset-keywords">
 
+        {# Button Keywords #}
         <div class="unig-button unig-button-toolbar-keywords-toggle unig-toolbar-keywords-toggle-trigger">
             <i class="fa fa-key" aria-hidden="true"></i>
         </div>
 
+        {# Button People #}
         <div class="unig-button unig-button-toolbar-people-toggle unig-toolbar-people-toggle-trigger">
             <i class="fa fa-user" aria-hidden="true"></i>
         </div>
@@ -85,26 +55,24 @@ project
     {# Fieldset - Downloads #}
     <div class="unig-fieldset no-border unig-fieldset-downlods">
 
-
+        {# Button downloads #}
         <div class="unig-button unig-toolbar-download-toggle unig-toolbar-download-toggle-trigger">
             <i class="fa fa-download" aria-hidden="true"></i>
             <span class="unig-dl-number-of">0</span>
-
         </div>
     </div>
 
     {# Fieldset - Modus #}
     <div class="unig-fieldset no-border unig-fieldset-modus">
-        {# Bearbeiten #}
 
-        <div class="unig-button unig-button-files-edit" style="display: none">
+        {# Button Edit #}
+        <div class="unig-button unig-button-files-edit unig-project-edit-trigger" style="display: none">
             <i class="fa fa-pencil" aria-hidden="true"></i>
             {% trans %} Edit {% endtrans %}
         </div>
 
-        {# Vorschau #}
-
-        <div class="unig-button unig-button-files-preview">
+        {# Button Preview #}
+        <div class="unig-button unig-button-files-preview unig-project-preview-trigger">
             <i class="fa fa-image" aria-hidden="true"></i>
             {% trans %} Preview {% endtrans %}
         </div>
@@ -114,13 +82,13 @@ project
     {# Fieldset - Themes #}
     <div class="unig-fieldset no-border unig-fieldset-themes">
 
-        {# Dark #}
+        {# Button Theme Dark #}
         <div class="unig-button unig-button-theme-dark unig-theme-dark-trigger">
             <i class="fa fa-adjust" aria-hidden="true"></i>
             {% trans %} Dark {% endtrans %}
         </div>
 
-        {# Default #}
+        {# Button Theme Default #}
         <div class="unig-button unig-button-theme-default  unig-theme-default-trigger" style="display: none">
             <i class="fa fa-adjust" aria-hidden="true"></i>
             {% trans %} Default {% endtrans %}
@@ -136,17 +104,19 @@ project
 
     <span class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</span>
 
+    {# Button Save Order #}
     <div class="unig-button unig-button-ok unig-button-sort-save">
         <i class="fa fa-check" aria-hidden="true"></i>
         {% trans %} Save Order {% endtrans %}
     </div>
 
+    {# Button reset to alphabetical #}
     <div class="unig-button unig-button-warning unig-button-sort-alphanumeric">
         <i class="fa fa-times" aria-hidden="true"></i>
-
         {% trans %} reset to alphabetical {% endtrans %}
     </div>
 
+    {# Button Cancel #}
     <div class="unig-button unig-button-warning unig-button-sort-cancel">
         <i class="fa fa-times" aria-hidden="true"></i>
         {% trans %} Cancel {% endtrans %}
@@ -225,13 +195,11 @@ project
         {# seperator #}
         <div class="unig-seperator"></div>
 
-
         {# search #}
         <div class="unig-toolbar-head-search">
             <i class="fa fa-search" aria-hidden="true"></i>
             <input type="text" name="unig-keywords-autocomplete" placeholder="{% trans %} search {% endtrans %} ">
         </div>
-
 
     </div>
     <div class="unig-toolbar-body">
@@ -239,6 +207,8 @@ project
             {# Placeholder for tags#}
         </div>
     </div>
+
+    {# Button Show Keywords on Files #}
     <div class="unig-toolbar-footer">
         <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
             <i class="fa fa-list" aria-hidden="true"></i>
