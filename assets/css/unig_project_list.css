@@ -1,0 +1,102 @@
+/*
+*     THEME
+*     =================
+*     Default
+*
+*/
+.unig-project {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  width: 280px;
+  border-radius: 5px;
+  background-color: #e6e6e6;
+  border: 2px solid #d6d6d6; }
+  .unig-project .unig-project-cover {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #e6e6e6;
+    margin: 10px;
+    padding: 10px; }
+  .unig-project .unig-image-background {
+    background-color: #b8b8b8; }
+  .unig-project .unig-image-background:hover {
+    cursor: pointer;
+    background-color: #212121; }
+  .unig-project .unig-image-background img {
+    margin: 10px; }
+
+li.unig-project-list-item {
+  display: inline-flex;
+  align-self: flex-start;
+  list-style: none; }
+
+article.unig-project.private {
+  background-color: #c3ccb9; }
+
+li.unig-project-list-item-year {
+  display: block;
+  list-style: none; }
+
+.unig-project-list .unig-sortable-placeholder {
+  display: inline-flex;
+  align-self: flex-start;
+  width: 300px;
+  height: 300px; }
+
+.unig-project-date,
+.unig-project-title,
+.unig-project-description,
+.unig-project-copyright,
+.unig-project-private {
+  margin: 2px 0;
+  padding: 2px 0; }
+
+.unig-edit-project-date,
+.unig-edit-project-title,
+.unig-edit-project-description,
+.unig-edit-project-copyright,
+.unig-edit-project-private {
+  margin: 2px 0;
+  padding: 2px 0; }
+
+.unig-edit-project-date .title,
+.unig-edit-project-title .title,
+.unig-edit-project-description .title,
+.unig-edit-project-copyright .title,
+.unig-edit-project-private .title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  color: #8f8f8f; }
+
+.unig-project-list-toolbar {
+  border-top: 1px solid #d6d6d6;
+  margin-top: 5px;
+  padding-top: 5px; }
+
+.unig-project-edit-container input,
+.unig-project-edit-container textarea,
+.unig-project-edit-container label {
+  font-size: 12px; }
+
+.unig-edit-project-title {
+  font-size: 14px;
+  font-weight: bold; }
+
+.unig-edit-project-copyright {
+  font-style: italic; }
+
+.unig-project-edit-container textarea {
+  padding: 3px; }
+
+.unig-project-copyright {
+  font-style: italic; }
+
+.unig-edit-project-private input,
+.unig-edit-project-private label {
+  display: inline;
+  margin-right: 4px; }
+
+/*# sourceMappingURL=unig_project_list.css.map */
