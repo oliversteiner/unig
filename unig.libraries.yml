@@ -72,11 +72,11 @@ unig.admin.project:
     assets/third-party/autocomplete/auto-complete.min.js: {}
     assets/js/Unig.js: {}
     assets/js/UnigData.js: {}
-    assets/js/UnigAdmin.js: {}
     assets/js/UnigProject.js: {}
     assets/js/UnigSortProject.js: {}
     assets/js/UnigDownload.js: {}
     assets/js/UnigKeywords.js: {}
+    assets/js/UnigAdmin.js: {}
 
   dependencies:
     - core/drupalSettings
