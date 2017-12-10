@@ -2,165 +2,134 @@
 
   'use strict';
 
-  Drupal.behaviors.unigSort = {
+  Drupal.behaviors.unigSortProjectList = {
     attach: function (context, drupalSettings) {
-      console.log('Drupal.behaviors.unigSort ');
+      console.log('Drupal.behaviors.unigSortProjectList ');
 
       // onload
-      constructor(context, drupalSettings);
+      this.constructor(context, drupalSettings);
+    },
+
+    $sort_toggle_trigger: $('.unig-sort-toggle-trigger'),
 
 
-    }
-  };
-
-  /**
-   *
-   * @param context
-   * @param settings
-   */
-  function constructor(context, drupalSettings) {
+    /**
+     *
+     * @param context
+     * @param settings
+     */
+    constructor: function (context, drupalSettings) {
 
 // Buttons
-    $('.unig-button-sort-toggle').click(function () {
+      this.$sort_toggle_trigger.click(function () {
 
-      var $trigger = $(this);
 
-      if ($trigger.hasClass('active')) {
-        sortDeactivate();
-      }
-      else {
-        sortActivate();
+        if ($('.unig-button-sort-toggle').hasClass('active')) {
+          Drupal.behaviors.unigSortProjectList.sortDeactivate();
+        }
+        else {
+          Drupal.behaviors.unigSortProjectList.sortActivate();
 
-      }
-    });
+        }
+      });
 
-    $('.unig-button-sort-save').click(function () {
-      saveSortOrder();
-    });
+      $('.unig-sort-save-trigger').click(function () {
+        Drupal.behaviors.unigSortProjectList.saveSortOrder();
+      });
 
-    $('.unig-button-sort-cancel').click(function () {
-      sortCancel();
-    });
+      $('.unig-sort-cancel-trigger').click(function () {
+        Drupal.behaviors.unigSortProjectList.sortCancel();
+      });
 
-    $('.unig-button-sort-alphanumeric').click(function () {
-      console.log('click', 'reset to alphabetical');
-      resetToAlphanumeric();
-    });
+      $('.unig-sort-alphanumeric-trigger').click(function () {
+        Drupal.behaviors.unigSortProjectList.resetToAlphanumeric();
+      });
+
+
+    },
+
+    sortActivate: function () {
+
+      $(".unig-sortable").sortable({
+        placeholder: "unig-sortable-placeholder",
+        items      : "> li.unig-sortable-item",
+        tolerance  : "pointer"
+      });
+      $(".unig-sortable").sortable("enable");
+
+      // Fieldset
+      $(".unig-toolbar-sort").slideDown();
+
+
+      // Buttons
+      $('.unig-button-sort-toggle').addClass('active');
+
+
+    },
+
+    sortDeactivate: function () {
+
+
+      // Fieldset
+      $(".unig-toolbar-sort").slideUp();
+
+      // Buttons
+      $('.unig-button-sort-toggle').removeClass('active');
+
+      $(".unig-sortable").sortable("disable");
+
+
+    },
+
+    sortCancel: function () {
+      $(".unig-sortable").sortable("cancel");
+      Drupal.behaviors.unigSortProjectList.sortDeactivate();
+    },
+
+    resetToAlphanumeric: function () {
+      Drupal.behaviors.unigSortProjectList.sortDeactivate();
+
+      var name = 'reset';
+      var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
+      Drupal.behaviors.unigSortProjectList.save(data, name);
+
+
+      // save(data);
+    },
+
+    saveSortOrder: function () {
+      Drupal.behaviors.unigSortProjectList.sortDeactivate();
+
+      var name = 'save';
+      var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
+      Drupal.behaviors.unigSortProjectList.save(data, name);
+
+    },
+
+    save: function (data, name) {
+
+      console.log(data);
+
+
+      $.ajax({
+        url     : Drupal.url('unig/sort/' + name),
+        type    : 'POST',
+        data    : {
+          'data': data
+        },
+        dataType: 'json',
+        success : function (results) {
+          Drupal.behaviors.unig.showMessages(results)
+        }
+      }).then(function (value) {
+        location.reload();
+
+      });
+
+      return true;
+
+    },
 
 
   }
-
-  function sortActivate() {
-
-    $(".unig-sortable").sortable({
-      placeholder: "unig-sortable-placeholder",
-      items      : "> li.unig-sortable-item",
-      tolerance  : "pointer"
-    });
-    $(".unig-sortable").sortable("enable");
-
-    // Fieldset
-    $(".unig-toolbar-sort").slideDown();
-
-
-    // Buttons
-    $('.unig-button-sort-toggle').addClass('active');
-
-    $(".unig-button-files-edit").addClass('disabled');
-    $(".unig-button-files-preview").addClass('disabled');
-    $('.unig-button-keywords-toggle-all').addClass('disabled');
-    $('.unig-button-people-toggle-all').addClass('disabled');
-
-    // Files
-    $(".unig-sortable-reducer").addClass('unig-sortable-reducer-active');
-    $(".unig-sortable-reducer-content").show();
-    $(".unig-sortable-reducer-hide").hide();
-
-
-  }
-
-  function sortDeactivate() {
-
-
-    // Fieldset
-    $(".unig-toolbar-sort").slideUp();
-
-
-    // Buttons
-    $('.unig-button-sort-toggle').removeClass('active');
-
-    $(".unig-button-files-edit").removeClass('disabled');
-    $(".unig-button-files-preview").removeClass('disabled');
-    $('.unig-button-keywords-toggle-all').removeClass('disabled');
-    $('.unig-button-people-toggle-all').removeClass('disabled');
-
-    // Files
-    $(".unig-sortable-reducer").removeClass('unig-sortable-reducer-active');
-    $(".unig-sortable-reducer-content").hide();
-    $(".unig-sortable-reducer-hide").show();
-
-    $(".unig-sortable").sortable("disable");
-
-
-  }
-
-  function sortCancel() {
-    $(".unig-sortable").sortable("cancel");
-    sortDeactivate();
-  }
-
-  function resetToAlphanumeric() {
-    sortDeactivate();
-
-    var name = 'reset';
-    var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-    save(data, name);
-
-
-    // save(data);
-  }
-
-  function saveSortOrder() {
-    sortDeactivate();
-
-    var name = 'save';
-    var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-    save(data, name);
-
-  }
-
-
-  function save(data, name) {
-
-    console.log(data);
-
-
-    $.ajax({
-      url     : Drupal.url('unig/sort/' + name),
-      type    : 'POST',
-      data    : {
-        'data': data
-      },
-      dataType: 'json',
-      success : function (results) {
-        showMessages(results)
-      }
-    });
-
-    return true;
-  }
-
-  function showMessages(results) {
-
-    var messageContainer = $('.unig-message-container');
-    var type = '';
-
-    if (results) {
-
-
-    }
-
-  }
-
-
 })(jQuery, Drupal, drupalSettings);

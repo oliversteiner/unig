@@ -26,20 +26,6 @@
     margin: 0;
     padding: 0; }
 
-.unig-project {
-  display: inline-block;
-  margin: 10px;
-  padding: 20px;
-  background-color: #f6f6f6;
-  width: 280px;
-  border-radius: 5px;
-  border: 1px solid #e6e6e6; }
-  .unig-project .unig-gallery-preview-wrapper {
-    width: 240px;
-    height: 240px;
-    margin: 0 0 10px 0;
-    padding: 10px; }
-
 .unig-project-private {
   background-color: #d6cfc2;
   border-color: #c6bfb2; }

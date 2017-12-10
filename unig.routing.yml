@@ -172,19 +172,21 @@ unig.ajax.newAlbumForm:
     _permission: 'access unig admin'
 
 #
-# AJAX updateProject
+# AJAX saveProject
+# Input: $_POST
 #
-unig.ajax.updateProject:
-  path: '/unig/update_project'
+unig.project.save:
+  path: '/unig/project/save'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:updateProject'
-    _title: 'update Project'
+    _controller: '\Drupal\unig\Controller\ProjectController:saveProject'
+    _title: 'Save Project'
   requirements:
     _permission: 'access unig admin'
 
 
 #
 # AJAX sortProject
+# Input: $_POST
 #
 unig.ajax.sort.save:
   path: '/unig/sort/save'

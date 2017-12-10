@@ -425,40 +425,36 @@
         $node_nid = $node->get('nid')->getValue();
         $nid = $node_nid[0]['value'];
 
-
         // Title
         $node_title = $node->get('title')->getValue();
         $title = $node_title[0]['value'];
 
-
         // Body
+        $description = '';
         $node_description = $node->get('field_unig_description')->getValue();
         if ($node_description) {
           $description = $node_description[0]['value'];
         }
-        else {
-          $description = '';
-        }
-
 
         // Weight
+        $weight = 0;
         $node_weight = $node->get('field_unig_weight')->getValue();
         if ($node_weight) {
           $weight = $node_weight[0]['value'];
-
         }
-        else {
-          $weight = 0;
+
+        // Copyright
+        $copyright = '';
+        $node_copyright = $node->get('field_unig_copyright')->getValue();
+        if ($node_copyright) {
+          $copyright = $node_copyright[0]['value'];
         }
 
         // Private
+        $private = 0;
         $node_private = $node->get('field_unig_private')->getValue();
         if ($node_private) {
           $private = $node_private[0]['value'];
-
-        }
-        else {
-          $private = 0;
         }
 
         // Date
@@ -471,7 +467,6 @@
         }
         else {
           $php_date_obj = date_create();
-
         }
 
 
@@ -486,7 +481,6 @@
 
         // Date
         $date_drupal = $php_date_obj->format("Y-m-d");
-
 
         // Cover Node ID
         $node_cover = $node->get('field_unig_project_cover')->getValue();
@@ -511,6 +505,7 @@
           'nid' => $nid,
           'title' => $title,
           'description' => $description,
+          'copyright' => $copyright,
           'weight' => $weight,
           'private' => $private,
           'timestamp' => $timestamp,
@@ -569,7 +564,7 @@
         $variables[$file_nid] = self::buildFile($file_nid);
       }
 
-       $response->setData($variables);
+      $response->setData($variables);
       return $response;
     }
 
@@ -577,17 +572,17 @@
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      */
-    public static function getJSONfromKeywords(){
+    public static function getJSONfromKeywords() {
       $vid = 'unig_keywords';
       return self::getJSONfromVocubulary($vid);
     }
 
-    public static function getJSONfromPeople(){
+    public static function getJSONfromPeople() {
       $vid = 'unig_people';
       return self::getJSONfromVocubulary($vid);
     }
 
-    public static function getJSONfromVocubulary($vid){
+    public static function getJSONfromVocubulary($vid) {
       $response = new JsonResponse();
 
       $terms = [];
@@ -598,10 +593,10 @@
       } catch (InvalidPluginDefinitionException $e) {
       }
       foreach ($terms as $term) {
-        $term_data[] = array(
+        $term_data[] = [
           "id" => $term->tid,
-          "name" => $term->name
-        );
+          "name" => $term->name,
+        ];
       }
 
       $response->setData($term_data);
@@ -712,7 +707,7 @@
       }
 
       // Copyright
-      $copyright = 0;
+      $copyright = '';
       $node_copyright = $entity->get('field_unig_copyright')->getValue();
       if ($node_copyright) {
         $copyright = $node_copyright[0]['value'];
@@ -814,13 +809,13 @@
      *
      *
      * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+     * @throws \Drupal\Core\Entity\EntityStorageException
      */
-    public static function updateProject() {
+    public static function saveProject() {
 
 
       $project_nid = $_POST['project_nid'];
       $data = $_POST['data'];
-
 
       // Load node
       $entity = \Drupal::entityTypeManager()
@@ -839,6 +834,9 @@
 
       // description
       $entity->field_unig_description[0] = $data['description'];
+
+      // copyright
+      $entity->field_unig_copyright[0] = $data['copyright'];
 
       // private
       $int_private = (int) $data['private'];

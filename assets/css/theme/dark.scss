@@ -10,7 +10,6 @@ main#content.unig-theme-dark {
   @import "../rating";
   @import "../toolbox";
   @import "../sortable";
-
 }
 main#content.unig-theme-dark {
 
@@ -52,5 +51,12 @@ main#content.unig-theme-dark {
   .unig-file-nid {
     border-color: $color-admin-info;
   }
+
+  // ===== Project List
+  .unig-project {
+    background-color: $color-admin-background;
+    border: 2px solid $color-admin-border;
+  }
+
 }
 // main#content

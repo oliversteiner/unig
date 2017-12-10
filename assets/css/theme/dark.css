@@ -501,7 +501,7 @@ main#content.unig-theme-dark {
     font-size: 12px;
     margin: 0;
     padding: 0; }
-  main#content.unig-theme-dark .unig-toolbox-trigger {
+  main#content.unig-theme-dark .unig-toolbox-button {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     cursor: pointer;
@@ -625,5 +625,8 @@ main#content.unig-theme-dark .unig-file-picto:active {
   color: rgba(197, 197, 197, 0.95); }
 main#content.unig-theme-dark .unig-file-nid {
   border-color: #4b4b4b; }
+main#content.unig-theme-dark .unig-project {
+  background-color: #222222;
+  border: 2px solid #3a3a3a; }
 
 /*# sourceMappingURL=dark.css.map */

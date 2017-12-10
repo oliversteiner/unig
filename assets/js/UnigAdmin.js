@@ -17,17 +17,17 @@
 
 
           // Theme - Default
-          $('.unig-button-files-theme-dark').click(function (context) {
+          $('.unig-theme-dark-trigger').click(function (context) {
             changeTheme('dark');
-            $('.unig-button-files-theme-dark').toggle();
-            $('.unig-button-files-theme-default').toggle();
+            $('.unig-button-theme-dark').toggle();
+            $('.unig-button-theme-default').toggle();
           });
 
           //  Theme - Dark
-          $('.unig-button-files-theme-default').click(function (context) {
+          $('.unig-theme-default-trigger').click(function (context) {
             changeTheme('default');
-            $('.unig-button-files-theme-dark').toggle();
-            $('.unig-button-files-theme-default').toggle();
+            $('.unig-button-theme-dark').toggle();
+            $('.unig-button-theme-default').toggle();
           });
 
 

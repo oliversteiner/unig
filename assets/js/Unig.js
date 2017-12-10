@@ -67,7 +67,36 @@
 
           var $elem = $(context.target).parents(".unig-file-item");
           return $elem.data('unig-file-nid');
-        }
+        },
+
+    showMessages: function (results) {
+      console.log(results);
+
+
+      const $messageContainer = $('.unig-message-container');
+
+      const prefix = '<ul class="unig-messages">';
+      const suffix = '</ul>';
+      var elems = '';
+
+      if (results.messages) {
+
+        results.messages.forEach(function (item) {
+          elems += '<li class="message-type-' + item.type + '">' +
+              '<span>item.message</span>' +
+              '<span class="unig-message-close unig-message-close-trigger">' +
+              '<i class="fa fa-times" aria-hidden="true"></i>' +
+              '</span>' +
+              '</li>'
+        });
+
+
+        var html = prefix + elems + suffix;
+
+        $messageContainer.html(html);
+      }
+
+    }
 
   };
 

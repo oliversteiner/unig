@@ -2,9 +2,9 @@
 
   'use strict';
 
-  Drupal.behaviors.unigProjects = {
+  Drupal.behaviors.unigProjectList = {
     attach: function (context, drupalSettings) {
-      console.log('Drupal.behaviors.unigProjects');
+      console.log('Drupal.behaviors.unigProjectList');
 
       // Debug
 
@@ -13,20 +13,17 @@
       constructor(context, drupalSettings);
 
       // Buttons
-      $('.unig-button-update-project').click(function (context, drupalSettings) {
-        updateProject(context, drupalSettings);
+      $('.unig-project-save-trigger').click(function (context, drupalSettings) {
+        saveProject(context, drupalSettings);
       });
 
-      $('.unig-button-project-cancel').click(function (context) {
+      $('.unig-project-cancel-trigger').click(function (context) {
         resetProject(context);
       });
 
-      $('.unig-button-open-edit').click(function (context) {
+      $('.unig-project-edit-trigger').click(function (context) {
         toggleEdit(context);
       });
-
-
-
 
 
     }
@@ -41,7 +38,6 @@
 
 
   }
-
 
 
   /**
@@ -68,7 +64,8 @@
    * @param context
    * @param drupalSettings
    */
-  function updateProject(context, drupalSettings) {
+  function saveProject(context, drupalSettings) {
+
 
     var $elem = $(context.target);
     var project_nid = $elem.data('unig-project-nid');
@@ -79,20 +76,21 @@
     var date = $('#edit-unig-project-date-' + project_nid).val();
     var weight = $('#edit-unig-project-weight-' + project_nid).val();
     var description = $('#edit-unig-project-description-' + project_nid).val();
+    var copyright = $('#edit-unig-project-copyright-' + project_nid).val();
 
     var priv = $('#edit-unig-project-private-' + project_nid).is(':checked');
+    var priv = Number(priv);
 
-    console.log(priv);
-
-    console.log(Number(priv));
 
     var data = {
       title      : title,
       date       : date,
       weight     : weight,
       description: description,
-      private    : Number(priv)
+      private    : priv,
+      copyright  : copyright
     };
+    console.log('saveProject ', data);
 
     // load Inputs
 
@@ -100,6 +98,7 @@
     $('#unig-project-title-' + project_nid).html(title);
     $('#unig-project-weight-' + project_nid).html(weight);
     $('#unig-project-description-' + project_nid).html(description);
+    $('#unig-project-copyright-' + project_nid).html(copyright);
 
     // Date
 //    $.datepicker.setDefaults($.datepicker.regional["de"]);
@@ -123,7 +122,7 @@
 
 
     $.ajax({
-      url     : Drupal.url('unig/update_project'),
+      url     : Drupal.url('unig/project/save'),
       type    : 'POST',
       data    : {
         'project_nid': project_nid,
