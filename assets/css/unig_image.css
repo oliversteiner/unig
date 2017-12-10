@@ -47,6 +47,10 @@ ul.unig-gallery li.unig-file-item {
   border-radius: 5px;
   border: 2px solid #d6d6d6; }
 
+ul.unig-gallery li.unig-file-item:hover {
+  background-color: #b8b8b8;
+  border-color: #414d47; }
+
 .unig-file-item-text {
   color: #292929; }
 

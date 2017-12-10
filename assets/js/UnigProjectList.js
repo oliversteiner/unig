@@ -78,8 +78,8 @@
     var description = $('#edit-unig-project-description-' + project_nid).val();
     var copyright = $('#edit-unig-project-copyright-' + project_nid).val();
 
-    var priv = $('#edit-unig-project-private-' + project_nid).is(':checked');
-    var priv = Number(priv);
+    var priv_status = $('#edit-unig-project-private-' + project_nid).is(':checked');
+    var priv = Number(priv_status);
 
 
     var data = {
@@ -108,15 +108,20 @@
 
     // Private
     var $elem_privat = $('#unig-project-private-' + project_nid);
-    if (priv) {
-      $elem_privat.html('(privat)');
-      $article.addClass('unig-project-private');
 
-      // change Class
+    console.log('privat ', priv_status);
+
+    
+    if (priv_status) {
+
+      $elem_privat.html('(privat)');
+      $('.unig-project-' + project_nid).addClass('private');
+
     }
     else {
       $elem_privat.html('');
-      $article.removeClass('unig-project-private');
+      $('.unig-project-' + project_nid).removeClass('private');
+
 
     }
 

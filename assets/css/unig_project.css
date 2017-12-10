@@ -79,4 +79,11 @@
   width: 140px;
   height: 200px; }
 
+.unig-back-to-list {
+  margin: 0 10px; }
+
+ul.unig-gallery li.unig-file-item:hover {
+  background-color: #e6e6e6;
+  border-color: #414d47; }
+
 /*# sourceMappingURL=unig_project.css.map */

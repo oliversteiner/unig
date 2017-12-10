@@ -5,6 +5,20 @@ https://codepen.io/afinedayproductions/pen/JipKF
 when .item-overlay:hover, show overlay.
 overwrite .item-overlay-canvas."position"
 */
+
+
+
+/* misc. CSS */
+*.item-overlay,
+*.item-overlay-canvas {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
 .item-overlay:hover .item-overlay-canvas.top {
   top: 0;
 }
@@ -52,16 +66,6 @@ by default, overlay is visible…
 }
 .item-overlay-canvas.left {
   left: 100%;
-}
-
-
-/* misc. CSS */
-* {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 .item-overlay {

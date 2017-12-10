@@ -688,6 +688,15 @@ https://codepen.io/afinedayproductions/pen/JipKF
 when .item-overlay:hover, show overlay.
 overwrite .item-overlay-canvas."position"
 */
+/* misc. CSS */
+*.item-overlay,
+*.item-overlay-canvas {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
 .item-overlay:hover .item-overlay-canvas.top {
   top: 0; }
 
@@ -736,14 +745,6 @@ by default, overlay is visible…
 .item-overlay-canvas.left {
   left: 100%; }
 
-/* misc. CSS */
-* {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0; }
-
 .item-overlay {
   position: relative;
   border: 1px solid #333;
@@ -783,7 +784,7 @@ by default, overlay is visible…
 
 hr.unig {
   border: none;
-  border-top: solid 1px #cccccc;
+  border-top: solid 1px #4a4a4a;
   margin: 10px 0 0;
   padding: 10px 0 0; }
 

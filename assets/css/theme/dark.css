@@ -628,5 +628,13 @@ main#content.unig-theme-dark .unig-file-nid {
 main#content.unig-theme-dark .unig-project {
   background-color: #222222;
   border: 2px solid #3a3a3a; }
+main#content.unig-theme-dark li.unig-project-list-item.private article {
+  background-color: #4e4e4e; }
+main#content.unig-theme-dark .unig-project-list-toolbar {
+  border-top: 1px solid #3a3a3a; }
+main#content.unig-theme-dark input, main#content.unig-theme-dark textarea {
+  background-color: #4e4e4e;
+  border: 1px solid #636363;
+  color: #d6d6d6; }
 
 /*# sourceMappingURL=dark.css.map */

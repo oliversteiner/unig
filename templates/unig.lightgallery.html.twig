@@ -27,18 +27,21 @@ project
 
  #}
 
-{{ attach_library('unig/unig.lightgallery') }}
+{{ attach_library('unig/unig.project') }}
 
 
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 
 <div class="unig-file-gallery-head">
-    <div><a href="{{ path('unig.project_list') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>
-            Alle Bildergalerien anzeigen</a></div>
+    <div class="unig-back-to-list">
+        <a href="{{ path('unig.project_list') }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Alle Bildergalerien anzeigen</a>
+    </div>
 
     <div class="unig-project-date"> {{ datum }}</div>
-    <div><h2 class="unig-project-title">{{ project.title }}</h2></div>
+    <h2 class="unig-project-title">{{ project.title }}</h2>
 
     {# Anzahl Bilder #}
     <div class="unig-project-number-of-items">
@@ -59,9 +62,9 @@ project
         {% for file in files %}
 
 
-            <li class="unig-file-item unig-file-normal unig-file-{{ file.nid }}" id="unig-file-id_{{ file.nid }}">
+            <li class="unig-file-item  unig-file-item-id-{{ file.nid }}">
 
-                {#  -----------   Titelbild  -----------  #}
+                {#  -----------   Image  -----------  #}
                 <div class="lightgallery-item"
                      data-sub-html="{{ file.title }}"
                      data-src="{{ file.image.unig_hd }}">
@@ -72,16 +75,26 @@ project
                         </div>
                     {% endif %}
                     <div class="field-content">
-                        <div class="unig-gallery-preview-wrapper">
+                        <div class="unig-image-background">
                             <img class="img-responsive" src="{{ file.image.medium }}"/>
                         </div>
                     </div>
                 </div>
 
+                {#  -----------   Title  -----------  #}
+                <div class="unig-file-title">
+                    {% if user.hasPermission('administer nodes') %}
 
-                {#  -----------   Titel  -----------  #}
-                <div>
-                    <p class="unig-img-label">{{ file.title }} </p>
+                        <a href="/node/{{ file.nid }}/edit?destination=/unig/project/{{ project.nid }}"
+                           class="unig-file-item-text use-ajax"
+                           data-dialog-type="modal"
+                           data-dialog-options='{"height":"650","width":"50%","max-height":"100%"}'
+                        >
+                            {{ file.title }}
+                        </a>
+                    {% else %}
+                        <span>{{ file.title }}</span>
+                    {% endif %}
                 </div>
 
 

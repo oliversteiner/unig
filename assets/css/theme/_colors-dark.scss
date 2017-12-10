@@ -94,6 +94,7 @@ $color-admin-background-invert-hover: rgb(119, 119, 119);
 
 // Border
 $color-admin-border: rgb(58, 58, 58);
+$color-admin-border-hover: rgb(65, 77, 71);
 $color-admin-border-invert: rgb(190, 190, 190);
 
 // Text
@@ -106,15 +107,22 @@ $color-admin-text-active-hover: rgb(115, 109, 107);
 $color-admin-text-invert: rgb(15, 15, 15);
 $color-admin-text-invert-hover: rgb(32, 32, 32);
 
+// Form
+$color-form-text: rgb(214, 214, 214);
+$color-form-background: rgb(78, 78, 78);
+$color-form-border: rgb(99, 99, 99);
+
 // info
 $color-admin-info: rgb(75, 75, 75);
 $color-admin-info-hover: rgb(233, 233, 233);
 $color-admin-info-invert: rgb(97, 97, 97);
 $color-admin-info-invert-hover: rgb(54, 54, 54);
 
+// Intern
+$color-admin-background-private: rgb(78, 78, 78);
+
 // fine
 $color-admin-fine: rgb(84, 84, 84);
-
 
 // Buttons
 $color-admin-buttons: rgb(0, 0, 0);
@@ -165,3 +173,4 @@ $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 // sort
 $color-sortable-placeholder-background: rgb(19, 19, 19);
 $color-sortable-placeholder-border: rgb(82, 82, 82);
+

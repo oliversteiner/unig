@@ -58,5 +58,19 @@ main#content.unig-theme-dark {
     border: 2px solid $color-admin-border;
   }
 
+  li.unig-project-list-item.private article {
+    background-color: $color-admin-background-private;
+  }
+  .unig-project-list-toolbar {
+    border-top: 1px solid $color-admin-border;
+
+  }
+
+  input, textarea{
+    background-color: $color-form-background;
+    border: 1px solid $color-form-border;
+    color: $color-form-text
+  }
+
 }
-// main#content
+

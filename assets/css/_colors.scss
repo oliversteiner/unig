@@ -97,6 +97,7 @@ $color-admin-background-invert-hover: rgb(15, 15, 15);
 
 // Border
 $color-admin-border: rgb(214, 214, 214);
+$color-admin-border-hover: rgb(65, 77, 71);
 $color-admin-border-invert: rgb(23, 23, 23);
 
 // Text
@@ -167,3 +168,6 @@ $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 // sort
 $color-sortable-placeholder-background: rgba(0, 0, 0, 0.1);
 $color-sortable-placeholder-border: rgba(0, 0, 0, 0.2);
+
+// Project-list
+$color-admin-background-private : rgb(195, 204, 185);

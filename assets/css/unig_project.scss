@@ -108,3 +108,14 @@
   height: 200px;
 
 }
+
+.unig-back-to-list{
+  margin: 0 10px;
+}
+
+ul.unig-gallery li.unig-file-item:hover {
+
+  background-color: $color-admin-background;
+  border-color: $color-admin-border-hover;
+
+}

@@ -47,6 +47,13 @@ ul.unig-gallery li.unig-file-item {
   border: 2px solid $color-admin-border;
 }
 
+ul.unig-gallery li.unig-file-item:hover {
+
+  background-color: $color-admin-background-hover;
+  border-color: $color-admin-border-hover;
+
+}
+
 
 //
 // =====  File HEAD  =====
