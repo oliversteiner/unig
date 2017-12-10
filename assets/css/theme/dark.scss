@@ -1,9 +1,9 @@
 @import "colors-dark";
-main#content.unig-theme-dark {
+#unig-main.unig-theme-dark {
   background-color: $color-background;
   color: $color-text;
 }
-main#content.unig-theme-dark {
+#unig-main.unig-theme-dark {
   @import "../buttons";
   @import "../download";
   @import "../keyword_people";
@@ -11,7 +11,7 @@ main#content.unig-theme-dark {
   @import "../toolbox";
   @import "../sortable";
 }
-main#content.unig-theme-dark {
+#unig-main.unig-theme-dark {
 
   .unig-lightgallery {
   }
@@ -63,10 +63,9 @@ main#content.unig-theme-dark {
   }
   .unig-project-list-toolbar {
     border-top: 1px solid $color-admin-border;
-
   }
 
-  input, textarea{
+  input, textarea {
     background-color: $color-form-background;
     border: 1px solid $color-form-border;
     color: $color-form-text
