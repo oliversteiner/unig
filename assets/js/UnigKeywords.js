@@ -23,6 +23,11 @@
     $check_all_keywords_trigger  : $('unig-button-keywords-check-all'),
     $uncheck_all_keywords_trigger: $('unig-button-keywords-uncheck-all'),
 
+    Storage: Drupal.behaviors.unigData.keywordsStorage,
+    List   : Drupal.behaviors.unigData.keywordsList,
+    Visible: [],
+
+
     toggleToolbar:
         function () {
 
@@ -57,74 +62,71 @@
 
     add:
         function (id) {
-          Drupal.behaviors.unigData.keywordsStorage.add(id);
-          this.addMark(id);
+          this.Storage.add(id);
+
+
         },
 
     remove:
         function (id) {
-          Drupal.behaviors.unigData.keywordsStorage.remove(id);
-          this.removeMark(id)
+          this.Storage.remove(id);
         },
 
     toggle:
         function (id) {
-          console.log('toggle ', id);
 
-          var keywordsStorage = Drupal.behaviors.unigData.keywordsStorage.get();
+          var keywordsStorage = this.Storage.get();
 
           // if first Item in list toggle on
           if (keywordsStorage === false) {
             this.add(id);
+
           }
           else {
             // search item in keywordsStorage List
-            var is_in_DownloadList = Drupal.behaviors.unigData.keywordsStorage.find(id);
+            var is_in_DownloadList = this.Storage.find(id);
 
             if (is_in_DownloadList) {
 
               // if item in list. toggle off
               this.remove(id);
+
             }
             else {
               // if item  not in list. toggle on
               this.add(id);
+
             }
           }
 
         },
 
-    save:
-        function () {
-          Drupal.behaviors.unigData.keywordsStorage.save();
-
-        },
 
     addMark:
         function (id) {
-          if (id) {
-            console.log('addMark ', id);
+          console.log('addMark ', id);
 
-            var $target = $('#unig-tag-id-' + id);
-            $target.addClass('active');
+          var $target_toolbar = $('#unig-tag-id-' + id);
+          $target_toolbar.addClass('active');
 
-          }
+          var $target_toolbox = $('.unig-keyword-id-' + id);
+          $target_toolbox.addClass('active');
+
         },
 
     removeMark:
         function (id) {
-          if (id) {
 
-            var $target = $('#unig-tag-id-' + id);
+          var $target = $('#unig-tag-id-' + id);
+          $target.removeClass('active');
 
-            $target.removeClass('active');
+          var $target_toolbox = $('.unig-keyword-id-' + id);
+          $target_toolbox.removeClass('active');
 
-          }
         },
 
-    toggleMark:
+    toggleMark   :
         function (id) {
-          console.log('toggleMark ', id);
 
           var $target = $('#unig-tag-id-' + id);
 
@@ -138,176 +140,22 @@
           }
 
         },
-
-    updateInfo:
-        function () {
-
-          // target
-          const $target_number_of = $('.unig-keywords-number-of');
-
-          // get Number
-          var number_of_items = Drupal.behaviors.unigData.keywordsStorage.count();
-
-          // Append to DOM
-          $target_number_of.html(number_of_items);
-
-          if (number_of_items > 0) {
-            $target_number_of.addClass('badge badge-marked');
-          }
-          else {
-            $target_number_of.removeClass('badge badge-marked');
-
-          }
-        },
-
-    updateInfoAllKeywords:
-        function () {
-
-          // target
-          const $target_number_of = $('.unig-all-keywords-number-of');
-
-          // get Number
-          var number_of_items =  Drupal.behaviors.unigData.keywordsList.count();
-
-          // Append to DOM
-          $target_number_of.html(number_of_items);
-
-          if (number_of_items > 0) {
-            $target_number_of.addClass('badge badge-marked');
-          }
-          else {
-            $target_number_of.removeClass('badge badge-marked');
-
-          }
-        },
-
-
-    buildTags:
-        function () {
-
-          // Target
-
-// get Item List
-          var itemList =  Drupal.behaviors.unigData.keywordsList.get();
-          console.log('itemList ', itemList);
-
-          var elem_li = '';
-          if (itemList) {
-            itemList.forEach(function (item) {
-
-              // console.log('keywordsStorage.forEach ', elem);
-
-              // check
-              var additional_class = '';
-
-              console.log('item ', item);
-              const id = item.id;
-              const label = item.name;
-
-
-              elem_li += '<li class="unig-tag unig-tag-keywords' + additional_class + '" id="unig-tag-id-' + id + '" data-id = "' + id + '">' +
-                  '<span class="unig-keyword-tag-id">' + id + '</span> ' +
-                  '<span class="unig-keyword-tag-label">' + label + '</span>' +
-                  '</li>';
-
-            });
-          }
-
-          var prefix = '<ul class="unig-tags unig-tags-keywords">';
-          var suffix = '</ul>';
-
-          var button_mark_all =  '<div class="unig-tag unig-mark-all-tags unig-keywords-mark-all-tags"><i class="fa fa-circle" aria-hidden="true"></i><span class="unig-tags-title">check all</span></div>';
-
-          var button_un_mark_all = '<div class="unig-tag unig-unmark-all-tags unig-keywords-unmark-all-tags"><i class="fa fa-circle-o" aria-hidden="true"></i><span class="unig-tags-title">uncheck all</span></div>';
-
-          // Build DOM
-          var html = button_mark_all + button_un_mark_all + prefix + elem_li + suffix;
-
-          // Add to dom
-          this.$tags_container.html(html);
-
-          // Add Handler
-          $('ul.unig-tags-keywords').on('click', 'li', function () {
-            var id = $(this).data('id');
-            Drupal.behaviors.unigKeywords.toggle(id);
-            Drupal.behaviors.unigKeywords.save();
-
-          });
-          $('.unig-keywords-mark-all-tags').click(function () {
-            Drupal.behaviors.unigKeywords.addAll();
-          });
-
-          $('.unig-keywords-unmark-all-tags').click(function () {
-            Drupal.behaviors.unigKeywords.removeAll();
-          })
-        },
-
-
-    /**
-     *
-     *
-     *
-     */
-    refreshGUI:
-        function () {
-
-          this.isToolbarOpen = true;
-
-
-          // Get Download Item List
-          var keywordsStorage = Drupal.behaviors.unigData.keywordsStorage.get();
-
-          if (keywordsStorage) {
-            keywordsStorage.forEach(function (elem) {
-              if (elem) {
-                Drupal.behaviors.unigKeywords.addMark(elem);
-              }
-            })
-          }
-
-          this.buildTags();
-          this.updateInfo();
-        },
-
-    clearDownloadList: function () {
-      Drupal.behaviors.unigData.keywordsStorage.destroy();
-      this.removeMarkAll();
-      this.buildTags();
-      this.updateInfo();
-      this.save();
-    },
     /**
      *
      *
      */
-    removeAll:
+    removeAll    :
         function () {
 
-          var listItem = Drupal.behaviors.unigData.itemList.get();
-
-
-          if (listItem) {
-
-            for (var key in listItem) {
-
-              this.remove(key);
-
-            }
-          }
+          var items = this.Storage.destroy();
         },
-    addAll:
+    addAll       :
         function () {
 
-          var listItem = Drupal.behaviors.unigData.itemList.get();
+          var items = this.List.get();
 
-
-          if (listItem) {
-
-            for (var key in listItem) {
-
-              this.add(key);
-
-            }
+          for (var i = 0; i < items.length; i++) {
+            this.add(items[i]['id']);
           }
         },
     /**
@@ -317,35 +165,158 @@
     removeMarkAll:
         function () {
 
-      var listItem = Drupal.behaviors.unigData.itemList.get();
 
-      // console.log('listItem ', listItem);
-
-      if (listItem) {
-
-        for (var key in listItem) {
-
-          this.removeMark(key);
-
-        }
-      }
-    },
-    addMarkAll:
+          $('*[id^=unig-tag-id-]').removeClass('active');
+        },
+    addMarkAll   :
         function () {
 
-          var listItem = Drupal.behaviors.unigData.itemList.get();
+          var items = this.List.get();
 
-          // console.log('listItem ', listItem);
-
-          if (listItem) {
-
-            for (var key in listItem) {
-
-              this.addMark(key);
-
-            }
+          for (var i = 0; i < items.length; i++) {
+            this.addMark(items[i]['id']);
           }
         },
+
+    updateDisplay:
+        function () {
+
+
+          // target
+          const $target_number_of = $('.unig-keywords-display');
+
+          // get Number
+          var number_all_items = this.List.count();
+          var number_chosen_items = this.Storage.count();
+
+
+          var text = '';
+
+          // Append to DOM
+          if (number_all_items > 0) {
+
+            if (number_chosen_items > 0) {
+              text = number_chosen_items + '&thinsp;/&thinsp;' + number_all_items;
+              $target_number_of.html(text);
+              $target_number_of.addClass('badge badge-marked');
+
+            }
+            else {
+              text = number_all_items;
+              $target_number_of.html(text);
+              $target_number_of.removeClass('badge badge-marked');
+            }
+          }
+          else {
+            // remove text
+            $target_number_of.html();
+
+          }
+
+
+        },
+
+
+    buildTags:
+        function () {
+
+          var keywordsList = Drupal.behaviors.unigData.keywordsList.get();
+
+          var elem_li = '';
+          if (keywordsList) {
+            keywordsList.forEach(function (item) {
+
+
+              // check
+              var additional_class = '';
+
+              const id = item.id;
+              const label = item.name;
+
+              elem_li += '<li class="unig-tag unig-tag-keyword unig-keyword-trigger' + additional_class + '" id="unig-tag-id-' + id + '" data-id = "' + id + '">' +
+                  '<span class="unig-keyword-tag-id">' + id + '</span> ' +
+                  '<span class="unig-keyword-tag-label">' + label + '</span>' +
+                  '</li>';
+
+            });
+          }
+
+          var prefix = '<ul class="unig-tags unig-tags-keywords">';
+          var suffix = '</ul><span class="build-done"></span>';
+
+          var button_mark_all = '<div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger"><i class="fa fa-circle" aria-hidden="true"></i><span class="unig-tags-title">check all</span></div>';
+
+          var button_un_mark_all = '<div class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger"><i class="fa fa-circle-o" aria-hidden="true"></i><span class="unig-tags-title">uncheck all</span></div>';
+
+          // Build DOM
+          var html = button_mark_all + button_un_mark_all + prefix + elem_li + suffix;
+
+          // Add to dom
+          this.$tags_container.html(html);
+
+          var scope = Drupal.behaviors.unigKeywords;
+
+
+          $('.unig-keywords-mark-all-tags-trigger').click(function () {
+            scope.addAll();
+            scope.addMarkAll();
+
+          });
+
+          $('.unig-keywords-unmark-all-tags-trigger').click(function () {
+            scope.removeAll();
+            scope.removeMarkAll();
+          });
+
+          // Update GUI
+          $('.build-done').ready(function () {
+
+            // Add Handler
+            $('.unig-keyword-trigger').click(function () {
+
+              var id = $(this).data('id');
+
+              scope.toggle(id);
+              scope.toggleMark(id);
+              scope.updateDisplay();
+              scope.hideFiles();
+            });
+
+
+            scope.reMark();
+            scope.updateDisplay();
+          })
+        },
+
+
+    /**
+     *
+     *
+     *
+     */
+    reMark:
+        function () {
+
+
+          // Get Download Item List
+          var keywordsStorage = this.Storage.get();
+
+
+          if (keywordsStorage) {
+            keywordsStorage.forEach(function (elem) {
+              Drupal.behaviors.unigKeywords.addMark(elem);
+            })
+          }
+
+        },
+
+    clearDownloadList:
+        function () {
+          this.Storage.destroy();
+          this.removeMarkAll();
+          this.buildTags();
+        },
+
     /**
      *
      * https://goodies.pixabay.com/javascript/auto-complete
@@ -358,7 +329,7 @@
         minChars  : 2,
         source    : function (term, suggest) {
           term = term.toLowerCase();
-          const choices =  Drupal.behaviors.unigData.keywordsList.get();
+          const choices = Drupal.behaviors.unigData.keywordsList.get();
           var matches = [];
           for (var i = 0; i < choices.length; i++) {
             if (~choices[i]['name'].toLowerCase().indexOf(term)) {
@@ -378,11 +349,58 @@
 
           const id = item.getAttribute('data-id');
           const name = item.getAttribute('data-name');
-          console.log(id + ' - ' + name);
           Drupal.behaviors.unigKeywords.addMark(id);
 
         }
       });
+
+    },
+
+    hideFiles: function () {
+
+
+        Drupal.behaviors.unigKeywords.Visible = [];
+        var array_id = Drupal.behaviors.unigData.keywordsStorage.get();
+
+
+        // hide all files with this tag
+        var keyword_list = Drupal.behaviors.unigData.FileList.findKeyword(array_id);
+
+        // hide all files not in result_list
+
+        var full_list = Drupal.behaviors.unigData.FileList.get();
+
+        // go through all files
+        for (var index in full_list) {
+
+          var hide = true;
+          // compare each keyword id with ids in "result_list"
+          for (var i = 0; i < keyword_list.length; i++) {
+
+            if (parseInt(keyword_list[i]) === parseInt(index)) {
+              // keyword found !, do not hide file
+              hide = false;
+              $('#unig-file-' + index).fadeIn();
+              Drupal.behaviors.unigKeywords.Visible.push(index);
+
+              break;
+            }
+          }
+          // hide file
+          if (hide) {
+            $('#unig-file-' + index).fadeOut();
+          }
+
+        } // for full_list
+
+      console.log('visible ', Drupal.behaviors.unigKeywords.Visible);
+
+      var html = '';
+      if (Drupal.behaviors.unigKeywords.Visible.length > 0) {
+        html = Drupal.behaviors.unigKeywords.Visible.length + 'von ';
+
+      }
+      $('.number_of_visible').html(html);
 
     },
 
@@ -393,24 +411,29 @@
      */
     constructor: function (context, settings) {
 
+      var Scope = Drupal.behaviors.unigKeywords;
+      var List = Drupal.behaviors.unigData.keywordsList;
+      var Storage = Drupal.behaviors.unigData.keywordsStorage;
+
+      // preload data from localStorage
+      Storage.load();
 
       // promise : wait for data from server
-       Drupal.behaviors.unigData.keywordsList.load().then(function (value) {
+      List.load().then(function () {
 
-
-        Drupal.behaviors.unigKeywords.searchAutocomplete();
-        Drupal.behaviors.unigKeywords.buildTags();
+        Scope.searchAutocomplete();
+        Scope.buildTags();
         // successCallback
-        var keywordsStorage = Drupal.behaviors.unigData.keywordsStorage.load();
-        if (keywordsStorage) {
+        var keywordsStorage = Storage.get();
 
-          var count = Drupal.behaviors.unigData.keywordsStorage.count();
+        if (keywordsStorage) {
+          var count = Storage.count();
           if (count > 0) {
-            Drupal.behaviors.unigKeywords.openToolbar();
-            Drupal.behaviors.unigKeywords.refreshGUI();
+            Scope.openToolbar();
           }
         }
-     //   Drupal.behaviors.unigKeywords.openToolbar();
+        Scope.openToolbar();
+
 
       }, function (reason) {
 
@@ -421,19 +444,16 @@
 
       // Close Toolbar
       this.$toolbar_area_close_trigger.click(function (context) {
-
         Drupal.behaviors.unigKeywords.closeToolbar(context);
       });
 
       // Open Toolbar
       this.$toolbar_area_open_trigger.click(function (context) {
-
         Drupal.behaviors.unigKeywords.closeToolbar(context);
       });
 
       // Toggle Toolbar
       this.$toolbar_area_trigger.click(function (context) {
-        console.log('click');
         Drupal.behaviors.unigKeywords.toggleToolbar(context);
       });
 

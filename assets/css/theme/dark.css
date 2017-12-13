@@ -329,10 +329,6 @@
     padding: 2px 5px;
     font-size: 0.8em;
     border-radius: 2px; }
-  #unig-main.unig-theme-dark .unig-toolbar {
-    border: 1px solid #131313;
-    background: #2d2d2d;
-    padding: 10px; }
   #unig-main.unig-theme-dark .unig-fieldset {
     display: inline-block;
     padding: 1px;

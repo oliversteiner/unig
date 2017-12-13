@@ -30,14 +30,15 @@
 
             var int_array = [];
             var counter = 0;
-            array.forEach(function (item) {
 
-              if (parseInt(item) !== 0) {
-                int_array[counter] = parseInt(item);
-                counter++;
+            for (counter; array.length > counter; counter++) {
+
+              if (parseInt(array[counter]) !== 0) {
+                int_array[counter] = parseInt(array[counter]);
               }
+            }
 
-            });
+
             return int_array;
           }
           else {

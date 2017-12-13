@@ -129,13 +129,22 @@ $color-admin-buttons-active-hover: rgb(41, 41, 41);
 $color-admin-marked: rgb(167, 211, 76);
 $color-admin-marked-hover: rgb(87, 145, 59);
 
-// fieldset
-$color-fieldset-border: rgb(234, 237, 240);
-$color-fieldset-background: rgb(247, 250, 253);
+
+
+
 
 // toolbar
 $color-toolbar-border: rgb(230, 230, 230);
 $color-toolbar-background: rgb(246, 246, 246);
+$color-toolbar-stroke: rgb(227, 226, 226);
+$color-toolbar-stroke-invert: rgb(110, 109, 109);
+
+// fieldset
+$color-fieldset-border: rgb(234, 237, 240);
+$color-fieldset-background: rgb(247, 250, 253);
+$color-fieldset-stroke: rgb(227, 226, 226);
+$color-fieldset-stroke-invert: rgb(110, 109, 109);
+
 
 // toolbox
 $color-toolbox-border: rgb(230, 230, 230);
@@ -171,3 +180,4 @@ $color-sortable-placeholder-border: rgba(0, 0, 0, 0.2);
 
 // Project-list
 $color-admin-background-private : rgb(195, 204, 185);
+

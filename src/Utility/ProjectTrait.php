@@ -721,8 +721,14 @@
       $node_people = $entity->get('field_unig_people')->getValue();
       if ($node_people) {
         foreach ($node_people as $term) {
-          $term = Term::load($term['target_id']);
-          $people[] = $term->getName();
+          $tid = $term['target_id'];
+          $term = Term::load($tid);
+
+          if ($term) {
+            $name = $term->getName();
+            $item = ['id' => $tid, 'name' => $name];
+            $people[] = $item;
+          }
         }
       }
       // keywords
@@ -730,8 +736,16 @@
       $node_keywords = $entity->get('field_unig_keywords')->getValue();
       if ($node_keywords) {
         foreach ($node_keywords as $term) {
-          $term = Term::load($term['target_id']);
-          $keywords[] = $term->getName();
+
+          $tid = $term['target_id'];
+          $term = Term::load($tid);
+
+          if ($term) {
+            $name = $term->getName();
+            $item = ['id' => $tid, 'name' => $name];
+            $keywords[] = $item;
+          }
+
         }
       }
       // Album List

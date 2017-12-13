@@ -57,16 +57,16 @@
 
     add:
         function (nid) {
-          Drupal.behaviors.unigData.itemsForDownload.add(nid);
-          Drupal.behaviors.unigData.itemsForDownload.save();
+          Drupal.behaviors.unigData.FilesForDownload.add(nid);
+          Drupal.behaviors.unigData.FilesForDownload.save();
 
         },
 
 
     remove:
         function (nid) {
-          Drupal.behaviors.unigData.itemsForDownload.remove(nid);
-          Drupal.behaviors.unigData.itemsForDownload.save();
+          Drupal.behaviors.unigData.FilesForDownload.remove(nid);
+          Drupal.behaviors.unigData.FilesForDownload.save();
 
         },
 
@@ -74,7 +74,7 @@
     toggle:
         function (nid) {
 
-          var itemsForDownload = Drupal.behaviors.unigData.itemsForDownload.get();
+          var itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
 
           // if first Item in list toggle on
           if (itemsForDownload === false) {
@@ -82,7 +82,7 @@
           }
           else {
             // search item in itemsForDownload List
-            var is_in_DownloadList = Drupal.behaviors.unigData.itemsForDownload.find(nid);
+            var is_in_DownloadList = Drupal.behaviors.unigData.FilesForDownload.find(nid);
 
             if (is_in_DownloadList) {
 
@@ -99,7 +99,7 @@
 
     save:
         function () {
-          Drupal.behaviors.unigData.itemsForDownload.save();
+          Drupal.behaviors.unigData.FilesForDownload.save();
 
         },
 
@@ -156,7 +156,7 @@
           const $target_number_of = $('.unig-dl-number-of');
 
           // get Number
-          var number_of_items = Drupal.behaviors.unigData.itemsForDownload.count();
+          var number_of_items = Drupal.behaviors.unigData.FilesForDownload.count();
 
           // Append to DOM
           $target_number_of.html(number_of_items);
@@ -178,8 +178,8 @@
           const $area = $('.unig-dl-tumbnails');
 
 // get Item List
-          var itemsForDownload = Drupal.behaviors.unigData.itemsForDownload.get();
-          var itemList = Drupal.behaviors.unigData.itemList.get();
+          var itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
+          var itemList = Drupal.behaviors.unigData.FileList.get();
           // console.log('itemList ', itemList);
 
           var elem_li = '';
@@ -226,7 +226,7 @@
             Drupal.behaviors.unigDownload.remove(nid);
             Drupal.behaviors.unigDownload.removeMark(nid);
             Drupal.behaviors.unigDownload.refreshGUI();
-            Drupal.behaviors.unigDownload.save();
+            Drupal.behaviors.unigDownload.updateInfo();
 
           });
         },
@@ -247,7 +247,7 @@
 
 
           // Get Download Item List
-          var itemsForDownload = Drupal.behaviors.unigData.itemsForDownload.get();
+          var itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
 
           if (itemsForDownload) {
             itemsForDownload.forEach(function (elem) {
@@ -262,7 +262,7 @@
         },
 
     clearDownloadList: function () {
-      Drupal.behaviors.unigData.itemsForDownload.destroy();
+      Drupal.behaviors.unigData.FilesForDownload.destroy();
       this.removeMarkAll();
       this.buildTumbnails();
       this.updateInfo();
@@ -275,7 +275,7 @@
      */
     removeMarkAll: function () {
 
-      var listItem = Drupal.behaviors.unigData.itemList.get();
+      var listItem = Drupal.behaviors.unigData.FileList.get();
 
       // console.log('listItem ', listItem);
 
@@ -299,13 +299,13 @@
 
 
       // promise : wait for data from server
-      Drupal.behaviors.unigData.itemList.load().then(function (value) {
+      Drupal.behaviors.unigData.FileList.load().then(function (value) {
 
         // successCallback
-        var itemsForDownload = Drupal.behaviors.unigData.itemsForDownload.load();
+        var itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.load();
         if (itemsForDownload) {
 
-          var count = Drupal.behaviors.unigData.itemsForDownload.count();
+          var count = Drupal.behaviors.unigData.FilesForDownload.count();
           if (count > 0) {
             Drupal.behaviors.unigDownload.openToolbar();
             Drupal.behaviors.unigDownload.refreshGUI();
@@ -338,7 +338,7 @@
             Drupal.behaviors.unigDownload.refreshGUI();
 
             // Save to localStorage
-            Drupal.behaviors.unigData.itemsForDownload.save();
+            Drupal.behaviors.unigData.FilesForDownload.save();
 
           }
       );
@@ -352,7 +352,7 @@
         Drupal.behaviors.unigDownload.refreshGUI();
 
         // Save to localStorage
-        Drupal.behaviors.unigData.itemsForDownload.save();
+        Drupal.behaviors.unigData.FilesForDownload.save();
       });
 
 

@@ -1,0 +1,35 @@
+// unig-fieldset
+.unig-fieldset {
+  border: 1px solid $color-fieldset-border;
+  background: $color-fieldset-background;
+  padding: 5px;
+
+  .block {
+    display: block;
+
+    border: solid 1px green;
+  }
+}
+.unig-fieldset-header {
+}
+.unig-fieldset-body {
+
+  .block{
+    display: block;
+    width: 100%;
+    border: solid 1px red;
+  }
+}
+.unig-fieldset-footer {
+}
+.unig-fieldset-item {
+
+  &.left {
+  }
+
+  &.center {
+  }
+
+  &.right {
+  }
+}
