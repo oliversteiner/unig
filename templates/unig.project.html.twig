@@ -41,16 +41,11 @@
                     {# Center #}
                     <div class="unig-fieldset-item unig-project-number-of-items">
                         {# Anzahl Bilder #}
+                        <i class="fa fa-image" aria-hidden="true"></i>
 
                         <span class="number_of_visible"></span>
 
-                        {% if project.number_of_items == 1 %}
-                            {{ project.number_of_items }} Bild
-                        {% elseif project.number_of_items > 1 %}
-                            {{ project.number_of_items }} Bilder
-                        {% endif %}
-                        {# Anzahl NID #}
-                        <span class="debug">| ID: {{ project.nid }}</span>
+                            {{ project.number_of_items }}
                     </div>
 
                     {# Right #}

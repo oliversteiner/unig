@@ -266,6 +266,41 @@
 
 
       return results;
+    },
+
+    countKeyword: function (array_id) {
+      var results = [];
+      var list = this.list;
+
+      for (var i = 0; i < array_id.length; i++) {
+
+
+        var id = parseInt(array_id[i]);
+
+        var key;
+        for (key in list) {
+          if (list.hasOwnProperty(key)) {
+
+            var keywords = list[key].keywords;
+
+            for (var index in keywords) {
+
+              var keyword_id = parseInt(keywords[index].id);
+
+              // Keyword-ID in File ?
+              if (keyword_id === id) {
+
+                // add file to Resultlist
+                var nid = parseInt(list[key].nid);
+                results.push(nid);
+              }
+            }
+          }
+        }
+      }
+
+
+      return results;
     }
 
   };

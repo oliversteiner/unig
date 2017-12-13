@@ -685,14 +685,12 @@ ul.unig-tags-keywords {
   border: 1px solid #eaedf0;
   background: #f7fafd;
   padding: 5px; }
-  .unig-fieldset .block {
-    display: block;
-    border: solid 1px green; }
+  .unig-fieldset.block {
+    display: block; }
 
-.unig-fieldset-body .block {
-  display: block;
-  width: 100%;
-  border: solid 1px red; }
+.unig-fieldset-body.block {
+  display: flex;
+  justify-content: space-between; }
 
 /*
 
