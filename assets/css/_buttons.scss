@@ -8,7 +8,6 @@
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
 }
 // default
@@ -191,14 +190,11 @@ a.unig-button,
 }
 // fontawesome
 .unig-button.unig-button-small {
-margin: 2px 5px;
+  margin: 2px 5px;
   padding: 2px 5px;
   font-size: 0.8em;
-border-radius:2px;
+  border-radius: 2px;
 }
-
-
-
 // Fieldset
 .unig-fieldset {
   display: inline-block;
@@ -211,9 +207,20 @@ border-radius:2px;
 .unig-fieldset.no-border {
   border: 1px solid transparent;
 }
-
-.unig-button.disabled{
+.unig-button.disabled {
   pointer-events: none;
   cursor: no-drop;
   opacity: 0.5;
+}
+
+.unig-button-group-item{
+
+}
+.unig-button-group-item.first {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.unig-button-group-item.unig-button.last {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }

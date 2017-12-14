@@ -19,7 +19,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #888888;
     border-color: #101010;
@@ -34,7 +33,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       color: #185746;
       border-color: #2eb741;
@@ -48,7 +46,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       color: #7f5930;
       border-color: #ffd29b;
@@ -63,7 +60,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       color: #7f2013;
       border-color: #ffb4aa;
@@ -77,7 +73,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #b4b4b4;
     border-color: #462f61;
@@ -92,7 +87,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #76c875;
     border-color: #2eb741;
@@ -106,7 +100,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #e9cea5;
     border-color: #ffd29b;
@@ -121,7 +114,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #bf9f9d;
     border-color: #ffb4aa;
@@ -135,7 +127,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #cccccc;
     border-color: rgba(11, 11, 11, 0.95);
@@ -150,7 +141,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #76c875;
     border-color: #2eb741;
@@ -164,7 +154,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #e9cea5;
     border-color: #ffd29b;
@@ -179,7 +168,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #bf9f9d;
     border-color: #ffb4aa;
@@ -193,7 +181,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px; }
     #unig-main.unig-theme-dark a.unig-button.active,
     #unig-main.unig-theme-dark .unig-button.active {
@@ -204,7 +191,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       color: #cccccc;
       border-color: rgba(11, 11, 11, 0.95);
@@ -219,7 +205,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       background-color: #185746;
       border-color: #2eb741;
@@ -233,7 +218,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       background-color: #7f5930;
       border-color: #ffd29b;
@@ -248,7 +232,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       background-color: #7f2013;
       border-color: #ffb4aa;
@@ -262,7 +245,6 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px; }
     #unig-main.unig-theme-dark a.unig-button.active:hover,
     #unig-main.unig-theme-dark .unig-button.active:hover {
@@ -273,7 +255,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       color: #cccccc;
       border-color: #333333;
@@ -288,7 +269,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       background-color: #185746;
       border-color: #2eb741;
@@ -302,7 +282,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       background-color: #7f5930;
       border-color: #ffd29b;
@@ -317,7 +296,6 @@
       border-radius: 5px;
       text-decoration: none;
       cursor: pointer;
-      margin: 2px;
       font-size: 12px;
       background-color: #7f2013;
       border-color: #ffb4aa;
@@ -342,6 +320,12 @@
     pointer-events: none;
     cursor: no-drop;
     opacity: 0.5; }
+  #unig-main.unig-theme-dark .unig-button-group-item.first {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px; }
+  #unig-main.unig-theme-dark .unig-button-group-item.unig-button.last {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; }
   #unig-main.unig-theme-dark ul.unig-file-download-list {
     margin: 0;
     padding: 0; }

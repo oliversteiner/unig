@@ -1,5 +1,5 @@
 #### Version
-beta 1.2
+UniG beta 1.2
 
 ## Todo
 
@@ -36,6 +36,7 @@ composer require drupal/plupload
 composer require drupal/Plupload_widget
 composer require drupal/twig_tweak
 composer require drupal/taxonomy_manager
+composer require drupal/image_effects:~2.0
 
 drush fa-download
 ```

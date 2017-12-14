@@ -61,4 +61,21 @@ hr.unig {
 .unig-seperator.invert {
   border-left: 1px solid $color-seperator-invert;
 }
+// Tests
 
+li.lazyload-test {
+  border: 4px solid green !important;
+}
+.unig-lazyload-placeholder {
+  display: flex;
+  width: 220px;
+  height: 150px;
+  justify-content: center;
+  align-content: center;
+
+  i {
+    display: block;
+    margin: auto;
+    font-size: 30px;
+  }
+}

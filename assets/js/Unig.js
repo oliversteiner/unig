@@ -8,11 +8,24 @@
   'use strict';
 
   Drupal.behaviors.unig = {
+
+    number_files: 0,
+    number_files_in_download_list: 0,
+    number_files_visible: 0,
+
+
+
     attach:
         function (context, settings) {
           // console.log(' Drupal.behaviors.unig');
 
         },
+
+    updateGui:function () {
+
+    },
+
+
 
     removeDuplicates:
         function (arr) {

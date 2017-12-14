@@ -77,6 +77,9 @@ unig.admin.project:
     assets/js/UnigDownload.js: {}
     assets/js/UnigKeywords.js: {}
     assets/js/UnigAdmin.js: {}
+    assets/js/UnigGui.js: {}
+    assets/js/UnigLazyLoad.js: {}
+    assets/js/UnigFiles.js: {}
 
   dependencies:
     - core/drupalSettings

@@ -390,7 +390,7 @@
                 if (parseInt(keyword_list[i]) === parseInt(index)) {
                   // keyword found !, do not hide file
                   hide = false;
-                  $('#unig-file-' + index).fadeIn();
+                  $('#unig-file-' + index).slideUp();
                   Drupal.behaviors.unigKeywords.Visible.push(index);
 
                   break;
@@ -398,7 +398,7 @@
               }
               // hide file
               if (hide) {
-                $('#unig-file-' + index).fadeOut();
+                $('#unig-file-' + index).slideDown();
               }
 
             } // for full_list

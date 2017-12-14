@@ -14,7 +14,6 @@ a.unig-button,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   color: #292929;
   border-color: #cccccc;
@@ -29,7 +28,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #0f7f34;
     border-color: #2eb741;
@@ -43,7 +41,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #7f5930;
     border-color: #ffd29b;
@@ -58,7 +55,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #a2132b;
     border-color: #ffb4aa;
@@ -73,7 +69,6 @@ a.unig-button:hover,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   color: #323232;
   border-color: #939393;
@@ -88,7 +83,6 @@ a.unig-button-success:hover, a.unig-button-ok:hover,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   background-color: #76c875;
   border-color: #2eb741;
@@ -102,7 +96,6 @@ a.unig-button-warning:hover,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   background-color: #e9cea5;
   border-color: #ffd29b;
@@ -117,7 +110,6 @@ a.unig-button-error:hover, a.unig-button-danger:hover,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   background-color: #bf9f9d;
   border-color: #ffb4aa;
@@ -132,7 +124,6 @@ a.unig-button:active,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   color: #cccccc;
   border-color: rgba(11, 11, 11, 0.95);
@@ -147,7 +138,6 @@ a.unig-button-success:active, a.unig-button-ok:active,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   background-color: #76c875;
   border-color: #2eb741;
@@ -161,7 +151,6 @@ a.unig-button-warning:active,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   background-color: #e9cea5;
   border-color: #ffd29b;
@@ -176,7 +165,6 @@ a.unig-button-error:active, a.unig-button-danger:active,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px;
   background-color: #bf9f9d;
   border-color: #ffb4aa;
@@ -191,7 +179,6 @@ a.unig-button,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px; }
   a.unig-button.active,
   .unig-button.active {
@@ -202,7 +189,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #cccccc;
     border-color: rgba(11, 11, 11, 0.95);
@@ -217,7 +203,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #0f7f34;
     border-color: #2eb741;
@@ -231,7 +216,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #7f5930;
     border-color: #ffd29b;
@@ -246,7 +230,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #a2132b;
     border-color: #ffb4aa;
@@ -261,7 +244,6 @@ a.unig-button,
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin: 2px;
   font-size: 12px; }
   a.unig-button.active:hover,
   .unig-button.active:hover {
@@ -272,7 +254,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     color: #cccccc;
     border-color: #333333;
@@ -287,7 +268,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #0f7f34;
     border-color: #2eb741;
@@ -301,7 +281,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #7f5930;
     border-color: #ffd29b;
@@ -316,7 +295,6 @@ a.unig-button,
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    margin: 2px;
     font-size: 12px;
     background-color: #a2132b;
     border-color: #ffb4aa;
@@ -346,6 +324,14 @@ a.unig-button,
   pointer-events: none;
   cursor: no-drop;
   opacity: 0.5; }
+
+.unig-button-group-item.first {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px; }
+
+.unig-button-group-item.unig-button.last {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px; }
 
 .unig-sortable-placeholder {
   display: inline-block;
@@ -817,5 +803,19 @@ hr.unig {
 
 .unig-seperator.invert {
   border-left: 1px solid #4a4a4a; }
+
+li.lazyload-test {
+  border: 4px solid green !important; }
+
+.unig-lazyload-placeholder {
+  display: flex;
+  width: 220px;
+  height: 150px;
+  justify-content: center;
+  align-content: center; }
+  .unig-lazyload-placeholder i {
+    display: block;
+    margin: auto;
+    font-size: 30px; }
 
 /*# sourceMappingURL=unig.css.map */

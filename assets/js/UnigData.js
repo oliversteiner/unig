@@ -10,6 +10,10 @@
     attach:
         function (context, settings) {
           console.log(' Drupal.behaviors.unigData');
+
+          Drupal.behaviors.unigData.FileList.load().then(function (value) {
+            Drupal.behaviors.unigLazyLoad.loadImages();
+          });
         }
   };
 

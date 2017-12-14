@@ -1,6 +1,4 @@
 @import "colors";
-
-
 .unig-image-background {
   position: relative;
   background-color: $color-image-background;
@@ -46,42 +44,34 @@ ul.unig-gallery li.unig-file-item {
   border-radius: 5px;
   border: 2px solid $color-admin-border;
 }
-
 ul.unig-gallery li.unig-file-item:hover {
-
   background-color: $color-admin-background-hover;
   border-color: $color-admin-border-hover;
-
 }
-
-
 //
 // =====  File HEAD  =====
 //
-.unig-file-item-text{
+.unig-file-item-text {
   color: $color-admin-text;
 }
-
-.unig-file-item-info{
+.unig-file-item-info {
   color: $color-admin-info;
 }
-
-.unig-file-picto{
-color: $color-admin-picto;
+.unig-file-picto {
+  color: $color-admin-picto;
 }
-.unig-file-picto:hover{
+.unig-file-picto:hover {
   color: $color-admin-picto-hover;
 }
-.unig-file-picto:active{
+.unig-file-picto:active {
   color: $color-admin-picto-active;
 }
-.unig-file-picto.active{
+.unig-file-picto.active {
   color: $color-admin-picto-active;
 }
 .unig-file-picto.active:hover {
   color: $color-admin-picto-active-hover;
 }
-
 .unig-file-head {
   display: flex;
   justify-content: space-between;
@@ -89,7 +79,6 @@ color: $color-admin-picto;
 .unig-file-head-item {
   padding: 2px;
 }
-
 .unig-file-nid {
   border-right: 1px solid $color-admin-info;
   padding-right: 2px;
@@ -108,8 +97,6 @@ h2.unig-project-title {
 .unig-file-gallery-head {
   margin-left: 50px;
 }
-
-
 // =====  Middle  =====
 
 .unig-file-middle {
@@ -118,18 +105,62 @@ h2.unig-project-title {
 }
 .unig-file-middle-item {
 }
-
-
-
-
-
-.div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons{
+.div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons {
   width: 600px;
 }
-
-
-.unig-file-title{
+.unig-file-title {
   //  border: silver 1px solid;
   padding: 5px 10px 2px 10px;
   text-align: center;
+}
+.unig-button-image-size {
+display: inline-block;
+
+}
+.css-picto-image-wrapper {
+  display: flex;
+justify-content: center;
+  align-content: center;
+  height: 20px;
+  width: 20px;
+  background-color: #0f7f34;
+  font-size: 2px;
+}
+/*
+.css-picto-image {
+
+  &-small {
+    display: inline-flex;
+    justify-self: center;
+    align-self: center;
+    background-color: #0e90d2;
+    width: 7px;
+    height: 5px;
+  }
+  &-normal {
+    display: inline-flex;
+    justify-self: center;
+    align-self: center;
+    background-color: #0e90d2;
+    width: 13px;
+    height: 9px;
+  }
+  &-big {
+    display: inline-flex;
+    justify-self: center;
+    align-self: center;
+    background-color: #0e90d2;
+    width: 17px;
+    height: 14px;
+  }
+}*/
+
+
+.unig-fieldset-image-size{
+  display: inline-flex;
+justify-self: ;
+
+  height: 24px;
+  margin: 0;
+  padding: 0;
 }
