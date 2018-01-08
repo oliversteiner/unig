@@ -671,8 +671,9 @@ ul.unig-tags-keywords {
   border: 1px solid #eaedf0;
   background: #f7fafd;
   padding: 5px; }
-  .unig-fieldset.block {
-    display: block; }
+
+.unig-fieldset.block {
+  display: block; }
 
 .unig-fieldset-body.block {
   display: flex;
@@ -760,6 +761,37 @@ by default, overlay is visible…
   padding-top: auto;
   padding-bottom: auto;
   cursor: pointer; }
+
+li.unig-file-item {
+  margin: 10px;
+  list-style-type: none;
+  padding: 5px 12px 4px 12px;
+  background-color: #e7e7e7;
+  width: 230px;
+  border-radius: 5px;
+  border: 2px solid #cccccc; }
+
+ul.thumbnail-normal li.unig-file-item {
+  width: 230px;
+  background-color: #e7e7e7;
+  border: 2px solid #cccccc; }
+
+ul.thumbnail-small li.unig-file-item {
+  width: 130px;
+  background-color: #e7e7e7;
+  border: 2px solid #cccccc; }
+
+ul.thumbnail-small li.unig-file-item .unig-file-head,
+ul.thumbnail-small li.unig-file-item .unig-file-middle-toolbox {
+  display: none; }
+
+ul.thumbnail-big li.unig-file-item {
+  width: 460px;
+  background-color: #e7e7e7;
+  border: 2px solid #cccccc; }
+
+ul.thumbnail-big li.unig-file-item img {
+  width: 440px; }
 
 .unig {
   font-family: Sans-Serif, serif; }

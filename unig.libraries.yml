@@ -80,6 +80,7 @@ unig.admin.project:
     assets/js/UnigGui.js: {}
     assets/js/UnigLazyLoad.js: {}
     assets/js/UnigFiles.js: {}
+    assets/js/UnigSize.js: {}
 
   dependencies:
     - core/drupalSettings

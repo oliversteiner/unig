@@ -4,185 +4,172 @@
 
 <div id="unig-main" class="unig">
 
+    <div class="unig-header">
 
-    <div class="unig-debug">
-        {#
-            {{ dd(files) }}
-        #}
-    </div>
+        {# Toolbar - Project #}
+        <div class="unig-toolbar unig-toolbar-info" style="display: block">
 
+            {# Header #}
+            <div class="unig-toolbar-header">
+                {# Title #}
+                <div class="unig-toolbar-title"></div>
+            </div>
 
-    {# Toolbar - Project #}
-    <div class="unig-toolbar unig-toolbar-info" style="display: block">
+            {# Body#}
+            <div class="unig-toolbar-body block">
 
-        {# Header #}
-        <div class="unig-toolbar-header">
-            {# Title #}
-            <div class="unig-toolbar-title"></div>
-        </div>
+                {# Fieldset bank #}
+                <div class="unig-fieldset unig-fieldset-project block">
 
-        {# Body#}
-        <div class="unig-toolbar-body block">
-
-            {# Fieldset bank #}
-            <div class="unig-fieldset unig-fieldset-project block">
-
-                {# Header #}
-                <div class="unig-fieldset-header">
-                    <div class="unig-fieldset-title"></div>
-                </div>
-
-                {# Body#}
-                <div class="unig-fieldset-body block">
-
-                    {# Left#}
-                    <div class="unig-fieldset-item"><h2 class="unig-project-title">{{ project.title }}</h2></div>
-
-                    {# Center #}
-                    <div class="unig-fieldset-item unig-project-number-of-items">
-                        {# Anzahl Bilder #}
-                        <i class="fa fa-image" aria-hidden="true"></i>
-
-                        <span class="number_of_visible"></span>
+                    {# Header #}
+                    <div class="unig-fieldset-header">
+                        <div class="unig-fieldset-title"></div>
                     </div>
 
-                    {# Right #}
-                    <div class="unig-fieldset-item unig-project-date"> {{ datum }} </div>
-                </div>
+                    {# Body#}
+                    <div class="unig-fieldset-body block">
 
-                {# Fieldset Footer #}
-                <div class="unig-fieldset-footer"></div>
+                        {# Left#}
+                        <div class="unig-fieldset-item"><h2 class="unig-project-title">{{ project.title }}</h2></div>
 
-            </div> {# / Fieldset #}
-        </div>{# / Toolbar Body #}
+                        {# Center #}
+                        <div class="unig-fieldset-item unig-project-number-of-items">
+                            {# Anzahl Bilder #}
+                            <i class="fa fa-image" aria-hidden="true"></i>
 
-        {# Toolbar Footer #}
-        <div class="unig-toolbar-footer"></div>
-    </div>
+                            <span class="number_of_visible"></span>
+                        </div>
 
-    {# Toolbar - general #}
+                        {# Right #}
+                        <div class="unig-fieldset-item unig-project-date"> {{ datum }} </div>
+                    </div>
 
-    <div class="unig-toolbar unig-toolbar-general">
+                    {# Fieldset Footer #}
+                    <div class="unig-fieldset-footer"></div>
 
-        {# Fieldset - General #}
+                </div> {# / Fieldset #}
+            </div>{# / Toolbar Body #}
 
-        <div class="unig-fieldset no-border unig-fieldset-general">
-
-            {# All Projects #}
-            <a type="button" class=" unig-button unig-button-show-projects" href="{{ path('unig.project_list') }}">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                {% trans %} All Projects {% endtrans %}
-            </a>
-
-            {# Upload #}
-            <a type="button" class="unig-button unig-button-files-add"
-               href="{{ path('unig.upload', {'project_nid': project.nid}) }}">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                {% trans %} Add Files {% endtrans %}
-            </a>
-
-
-            {# sort #}
-            <div class="unig-button unig-button-sort-toggle">
-                <i class="fa fa-arrows" aria-hidden="true"></i>
-                {% trans %} Sort order {% endtrans %}
-            </div>
+            {# Toolbar Footer #}
+            <div class="unig-toolbar-footer"></div>
         </div>
 
-        {# Fieldset - Keywords #}
-        <div class="unig-fieldset no-border unig-fieldset-keywords">
+        {# Toolbar - general #}
+        <div class="unig-toolbar unig-toolbar-general">
 
-            {# Button Keywords #}
-            <div class="unig-button unig-button-toolbar-keywords-toggle unig-toolbar-keywords-toggle-trigger">
-                <i class="fa fa-key" aria-hidden="true"></i>
-                <span class="unig-keywords-display"></span>
-            </div>
+            {# Fieldset - General #}
+            <div class="unig-fieldset no-border unig-fieldset-general">
 
-            {# Button People #}
-            <div class="unig-button unig-button-toolbar-people-toggle unig-toolbar-people-toggle-trigger">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <span class="unig-people-display"></span>
-            </div>
-        </div>
+                {# All Projects #}
+                <a type="button" class=" unig-button unig-button-show-projects" href="{{ path('unig.project_list') }}">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    {% trans %} All Projects {% endtrans %}
+                </a>
 
-
-        {# Fieldset - Downloads #}
-        <div class="unig-fieldset no-border unig-fieldset-downlods">
-
-            {# Button downloads #}
-            <div class="unig-button unig-toolbar-download-toggle unig-toolbar-download-toggle-trigger">
-                <i class="fa fa-download" aria-hidden="true"></i>
-                <span class="unig-dl-number-of">0</span>
-            </div>
-        </div>
-
-        {# Fieldset - Modus #}
-        <div class="unig-fieldset no-border unig-fieldset-modus">
-
-            {# Button Edit #}
-            <div class="unig-button unig-button-files-edit unig-project-edit-trigger" style="display: none">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                {% trans %} Edit {% endtrans %}
-            </div>
-
-            {# Button Preview #}
-            <div class="unig-button unig-button-files-preview unig-project-preview-trigger">
-                <i class="fa fa-image" aria-hidden="true"></i>
-                {% trans %} Preview {% endtrans %}
-            </div>
-        </div>
+                {# Upload #}
+                <a type="button" class="unig-button unig-button-files-add"
+                   href="{{ path('unig.upload', {'project_nid': project.nid}) }}">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    {% trans %} Add Files {% endtrans %}
+                </a>
 
 
-        {# Fieldset - Themes #}
-        <div class="unig-fieldset no-border unig-fieldset-themes">
-
-            {# Button Theme Dark #}
-            <div class="unig-button unig-button-theme-dark unig-theme-dark-trigger">
-                <i class="fa fa-adjust" aria-hidden="true"></i>
-                {% trans %} Dark {% endtrans %}
-            </div>
-
-            {# Button Theme Default #}
-            <div class="unig-button unig-button-theme-default  unig-theme-default-trigger" style="display: none">
-                <i class="fa fa-adjust" aria-hidden="true"></i>
-                {% trans %} Default {% endtrans %}
-            </div>
-        </div>
-
-        {# Fieldset - Image Size #}
-        <div class="unig-fieldset no-border unig-fieldset-image-size">
-
-            {# Button Image Size - Small - 110 px #}
-            <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-small unig-image-size-small-trigger first">
-                <div class="css-picto-image-wrapper">
-                    <span class="css-picto-image-small"></span>
+                {# sort #}
+                <div class="unig-button unig-button-sort-toggle">
+                    <i class="fa fa-arrows" aria-hidden="true"></i>
+                    {% trans %} Sort order {% endtrans %}
                 </div>
             </div>
 
-            {# Button Image Size - Normal - 220 px #}
-            <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-normal unig-image-size-normal-trigger">
-                <div class="css-picto-image-wrapper">
-                    <span class="css-picto-image-normal"></span>
+            {# Fieldset - Keywords #}
+            <div class="unig-fieldset no-border unig-fieldset-keywords">
+
+                {# Button Keywords #}
+                <div class="unig-button unig-button-toolbar-keywords-toggle unig-toolbar-keywords-toggle-trigger">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                    <span class="unig-keywords-display"></span>
+                </div>
+
+                {# Button People #}
+                <div class="unig-button unig-button-toolbar-people-toggle unig-toolbar-people-toggle-trigger">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="unig-people-display"></span>
                 </div>
             </div>
 
+            {# Fieldset - Downloads #}
+            <div class="unig-fieldset no-border unig-fieldset-downlods">
 
-            {# Button Image Size - Big - 440 px #}
-            <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-big unig-image-size-big-trigger last">
-                <div class="css-picto-image-wrapper">
-                    <span class="css-picto-image-big"></span>
+                {# Button downloads #}
+                <div class="unig-button unig-toolbar-download-toggle unig-toolbar-download-toggle-trigger">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <span class="unig-dl-number-of">0</span>
+                </div>
+            </div>
+
+            {# Fieldset - Modus #}
+            <div class="unig-fieldset no-border unig-fieldset-modus">
+
+                {# Button Edit #}
+                <div class="unig-button unig-button-files-edit unig-project-edit-trigger" style="display: none">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    {% trans %} Edit {% endtrans %}
+                </div>
+
+                {# Button Preview #}
+                <div class="unig-button unig-button-files-preview unig-project-preview-trigger">
+                    <i class="fa fa-image" aria-hidden="true"></i>
+                    {% trans %} Preview {% endtrans %}
+                </div>
+            </div>
+
+            {# Fieldset - Themes #}
+            <div class="unig-fieldset no-border unig-fieldset-themes">
+
+                {# Button Theme Dark #}
+                <div class="unig-button unig-button-theme-dark unig-theme-dark-trigger">
+                    <i class="fa fa-adjust" aria-hidden="true"></i>
+                    {% trans %} Dark {% endtrans %}
+                </div>
+
+                {# Button Theme Default #}
+                <div class="unig-button unig-button-theme-default  unig-theme-default-trigger" style="display: none">
+                    <i class="fa fa-adjust" aria-hidden="true"></i>
+                    {% trans %} Default {% endtrans %}
+                </div>
+            </div>
+
+            {# Fieldset - Image Size #}
+            <div class="unig-fieldset no-border unig-fieldset-image-size">
+
+                {# Button Image Size - Small - 110 px #}
+                <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-small unig-image-size-small-trigger first">
+                    <div class="css-picto-image-wrapper">
+                        <span class="css-picto-image-small"></span>
+                    </div>
+                </div>
+
+                {# Button Image Size - Normal - 220 px #}
+                <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-normal unig-image-size-normal-trigger">
+                    <div class="css-picto-image-wrapper">
+                        <span class="css-picto-image-normal"></span>
+                    </div>
+                </div>
+
+                {# Button Image Size - Big - 440 px #}
+                <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-big unig-image-size-big-trigger last">
+                    <div class="css-picto-image-wrapper">
+                        <span class="css-picto-image-big"></span>
+                    </div>
                 </div>
 
             </div>
-
         </div>
 
-
-        {# Fieldset - Sort #}
-
+        {# Toolbar - Sort #}
         <div class="unig-toolbar unig-toolbar-sort" style="display: none">
 
-            <span class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</span>
+            <span class="unig-toolbar-title">{% trans %} Sort order {% endtrans %}</span>
 
             {# Button Save Order #}
             <div class="unig-button unig-button-ok unig-button-sort-save">
@@ -204,7 +191,6 @@
 
 
         </div>
-
 
         {# Toolbar Download #}
         <div class="unig-toolbar unig-toolbar-download" style="display: none">
@@ -323,15 +309,13 @@
             </div>
         </div>
 
-
         {# Ajax Message #}
         <div class="unig-messages-container">
-
         </div>
 
-
-        <article class="unig unig-lightgallery">
-
+    </div>
+    <div class="unig-body">
+        <div class="unig unig-project unig-lightgallery">
 
             <div class="unig-project-body">{{ project.body }}</div>
 
@@ -363,7 +347,7 @@
                 </ul>
             </div>
 
-        </article>
+        </div>
 
         <div class="unig">
             <ul class="unig-gallery unig-sortable" id="lightgallery-{{ project.nid }}">
@@ -659,4 +643,9 @@
                 {% endfor %}
             </ul>
         </div>
+    </div> {# unig-body #}
+    <div class="unig-footer">
+        {# Footer #}
     </div>
+
+</div>

@@ -10,6 +10,7 @@
   @import "../rating";
   @import "../toolbox";
   @import "../sortable";
+  @import "../fieldset";
 }
 #unig-main.unig-theme-dark {
 
@@ -71,5 +72,12 @@
     color: $color-form-text
   }
 
+  .unig-toolbar {
+    border-color: $color-toolbar-border;
+    background: $color-toolbar-background;
+  }
+
 }
+
+
 

@@ -581,6 +581,15 @@
     color: #545454; }
   #unig-main.unig-theme-dark .unig-sortable-title {
     margin: auto; }
+  #unig-main.unig-theme-dark .unig-fieldset {
+    border: 1px solid #3e3e3e;
+    background: #3e3e3e;
+    padding: 5px; }
+  #unig-main.unig-theme-dark .unig-fieldset.block {
+    display: block; }
+  #unig-main.unig-theme-dark .unig-fieldset-body.block {
+    display: flex;
+    justify-content: space-between; }
 
 #unig-main.unig-theme-dark .unig-image-background {
   background-color: #111111; }
@@ -616,5 +625,8 @@
   background-color: #4e4e4e;
   border: 1px solid #636363;
   color: #d6d6d6; }
+#unig-main.unig-theme-dark .unig-toolbar {
+  border-color: #575757;
+  background: #2d2d2d; }
 
 /*# sourceMappingURL=dark.css.map */

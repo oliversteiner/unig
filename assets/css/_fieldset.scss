@@ -3,35 +3,19 @@
   border: 1px solid $color-fieldset-border;
   background: $color-fieldset-background;
   padding: 5px;
-
-  &.block {
-    display: block;
-
-  }
+}
+.unig-fieldset.block {
+  display: block;
 }
 .unig-fieldset-header {
 }
 .unig-fieldset-body {
-
-
 }
 .unig-fieldset-footer {
 }
 .unig-fieldset-item {
-
-  &.left {
-  }
-
-  &.center {
-  }
-
-  &.right {
-  }
 }
-
-
-.unig-fieldset-body.block{
+.unig-fieldset-body.block {
   display: flex;
   justify-content: space-between;
-
 }
