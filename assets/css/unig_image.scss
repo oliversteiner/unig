@@ -131,7 +131,7 @@ justify-content: center;
     width: 7px;
     height: 5px;
   }
-  &-normal {
+  &-medium {
     display: inline-flex;
     justify-self: center;
     align-self: center;
@@ -151,10 +151,17 @@ justify-content: center;
 
 
 .unig-fieldset-image-size{
-  display: inline-flex;
-justify-self: center;
-
-  height: 24px;
-  margin: 0;
-  padding: 0;
 }
+
+
+
+.img-preview-medium-blur{
+  display: block;
+  position: relative;
+  width: 220px;
+}
+.img-preview-small{}
+.img-preview-medium{}
+.img-preview-big{}
+
+

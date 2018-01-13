@@ -320,10 +320,20 @@
     pointer-events: none;
     cursor: no-drop;
     opacity: 0.5; }
-  #unig-main.unig-theme-dark .unig-button-group-item.first {
+  #unig-main.unig-theme-dark .unig-button-group .unig-button {
+    box-sizing: border-box;
+    margin-right: -4px;
+    border-radius: 0; }
+  #unig-main.unig-theme-dark .unig-button-group .unig-button:first-child:hover,
+  #unig-main.unig-theme-dark .unig-button-group .unig-button:first-child:active,
+  #unig-main.unig-theme-dark .unig-button-group .unig-button:first-child {
+    border-radius: 0;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px; }
-  #unig-main.unig-theme-dark .unig-button-group-item.unig-button.last {
+  #unig-main.unig-theme-dark .unig-button-group .unig-button:last-child:hover,
+  #unig-main.unig-theme-dark .unig-button-group .unig-button:last-child:active,
+  #unig-main.unig-theme-dark .unig-button-group .unig-button:last-child {
+    border-radius: 0;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px; }
   #unig-main.unig-theme-dark ul.unig-file-download-list {

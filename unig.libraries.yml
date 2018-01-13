@@ -61,12 +61,14 @@ unig.project:
 unig.admin.project:
   css:
     theme:
+      fontcustom/unig-icons/unig-icons.css: {}
       assets/css/unig.css: {}
       assets/css/unig_album.css: {}
       assets/css/unig_image.css: {}
       assets/css/unig_project.css: {}
       assets/css/theme/dark.css: {}
       assets/third-party/autocomplete/auto-complete.css: {}
+
 
   js:
     assets/third-party/autocomplete/auto-complete.min.js: {}

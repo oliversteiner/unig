@@ -14,6 +14,15 @@ UniG beta 1.2
 Album zu Projekt
 mit Alben/Gruppen als Taxonomy
 
+## Next
+Rewrite as Standalone Library für Crossplatform:
+- JSON API
+- Drupal
+- Wordpress
+- Electron / Ionic App
+
+
+
 ## Requirements
 
 
@@ -22,6 +31,9 @@ mit Alben/Gruppen als Taxonomy
 Font Awesome
 Twig tweak
 
+## Tools
+Pictos to Font generated with:
+https://fontcustom.github.io/fontcustom/
 
 
 

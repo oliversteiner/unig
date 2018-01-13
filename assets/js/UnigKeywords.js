@@ -71,7 +71,10 @@
             function (id) {
               this.Storage.remove(id);
             },
-
+        /**
+         *
+         * @param id
+         */
         toggle:
             function (id) {
 
@@ -101,7 +104,10 @@
 
             },
 
-
+        /**
+         *
+         * @param id
+         */
         addMark:
             function (id) {
               console.log('addMark ', id);
@@ -113,7 +119,10 @@
               $target_toolbox.addClass('active');
 
             },
-
+        /**
+         *
+         * @param id
+         */
         removeMark:
             function (id) {
 

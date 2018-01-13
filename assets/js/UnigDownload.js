@@ -193,7 +193,7 @@
 
               // console.log('item ', item);
 
-              if (item.title) {
+              if (item && item.title) {
 
                 var label = item.title;
                 var img_src = item.image.thumbnail;

@@ -140,30 +140,26 @@
             </div>
 
             {# Fieldset - Image Size #}
-            <div class="unig-fieldset no-border unig-fieldset-image-size">
+            <div class="unig-fieldset no-border unig-fieldset-image-size unig-button-group">
 
                 {# Button Image Size - Small - 110 px #}
-                <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-small unig-image-size-small-trigger first">
-                    <div class="css-picto-image-wrapper">
-                        <span class="css-picto-image-small"></span>
-                    </div>
+                <div class="unig-button unig-button-image-size unig-button-image-size-small unig-image-size-small-trigger ">
+                    <i class=" icon-image-size-small"></i>
                 </div>
 
-                {# Button Image Size - Normal - 220 px #}
-                <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-normal unig-image-size-normal-trigger">
-                    <div class="css-picto-image-wrapper">
-                        <span class="css-picto-image-normal"></span>
-                    </div>
+                {# Button Image Size - Medium - 220 px #}
+                <div class="unig-button unig-button-image-size unig-button-image-size-medium unig-image-size-medium-trigger active">
+                    <span class=" icon-image-size-medium"></span>
                 </div>
 
-                {# Button Image Size - Big - 440 px #}
-                <div class="unig-button unig-button-group-item unig-button-image-size unig-button-image-size-big unig-image-size-big-trigger last">
-                    <div class="css-picto-image-wrapper">
-                        <span class="css-picto-image-big"></span>
-                    </div>
+                {# Button Image Size - Big - 480 px #}
+                <div class="unig-button unig-button-image-size unig-button-image-size-big unig-image-size-big-trigger ">
+                    <span class="icon-image-size-big"></span>
                 </div>
 
             </div>
+
+
         </div>
 
         {# Toolbar - Sort #}
@@ -393,7 +389,7 @@
                                 <div class="unig-sortable-body">
 
                                     {# Image #}
-                                    <div class="unig-image-background unig-lazyload-container">
+                                    <div class="unig-image-background">
                                         <div class="unig-lazyload-placeholder">
                                             <i class="fa fa-image" aria-hidden="true"></i>
                                         </div>
@@ -470,7 +466,7 @@
                                         {% endif %}
                                         <div class="field-content">
                                             <div class="unig-image-background unig-lazyload-container">
-                                                <div class="unig-lazyload-placeholder">
+                                                <div class="unig-lazyload-placeholder" id="unig-lazyload-placeholder-{{ file.nid }}">
                                                     <i class="fa fa-image" aria-hidden="true"></i>
                                                 </div>
                                             </div>
