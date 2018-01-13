@@ -28,16 +28,20 @@
           $('.unig-image-size-small-trigger').click(function () {
 
             Scope.reset();
-            Scope.$target.addClass('thumbnail-small');
+            Scope.$target.addClass('unig-images-small');
             $(Scope.img_small).show();
             Scope.$button_small.addClass('active');
+
+            // hide Elements
+            $('.unig-file-head').hide();
+            $('.unig-file-middle-toolbox').hide();
           });
 
           // change to medium
           $('.unig-image-size-medium-trigger').click(function () {
 
             Scope.reset();
-            Scope.$target.addClass('thumbnail-medium');
+            Scope.$target.addClass('unig-images-medium');
             $(Scope.img_medium).show();
             Scope.$button_medium.addClass('active');
           });
@@ -45,7 +49,7 @@
           $('.unig-image-size-big-trigger').click(function () {
 
             Scope.reset();
-            Scope.$target.addClass('thumbnail-big');
+            Scope.$target.addClass('unig-images-big');
             $(Scope.img_big).show();
             Scope.$button_big.addClass('active');
 
@@ -56,9 +60,10 @@
       console.log('reset ');
 
 
-      this.$target.removeClass('thumbnail-small');
-      this.$target.removeClass('thumbnail-medium');
-      this.$target.removeClass('thumbnail-big');
+      this.$target.removeClass('unig-images-medium-blur');
+      this.$target.removeClass('unig-images-small');
+      this.$target.removeClass('unig-images-medium');
+      this.$target.removeClass('unig-images-big');
 
       // buttons
       this.$button_small.removeClass('active');

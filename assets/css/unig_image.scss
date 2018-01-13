@@ -36,7 +36,6 @@ ul.unig-gallery {
   padding: 0;
 }
 ul.unig-gallery li.unig-file-item {
-
 }
 ul.unig-gallery li.unig-file-item:hover {
   background-color: $color-admin-background-hover;
@@ -108,60 +107,14 @@ h2.unig-project-title {
   text-align: center;
 }
 .unig-button-image-size {
-display: inline-block;
-
+  display: inline-block;
 }
 .css-picto-image-wrapper {
   display: flex;
-justify-content: center;
+  justify-content: center;
   align-content: center;
   height: 20px;
   width: 20px;
   background-color: #0f7f34;
   font-size: 2px;
 }
-/*
-.css-picto-image {
-
-  &-small {
-    display: inline-flex;
-    justify-self: center;
-    align-self: center;
-    background-color: #0e90d2;
-    width: 7px;
-    height: 5px;
-  }
-  &-medium {
-    display: inline-flex;
-    justify-self: center;
-    align-self: center;
-    background-color: #0e90d2;
-    width: 13px;
-    height: 9px;
-  }
-  &-big {
-    display: inline-flex;
-    justify-self: center;
-    align-self: center;
-    background-color: #0e90d2;
-    width: 17px;
-    height: 14px;
-  }
-}*/
-
-
-.unig-fieldset-image-size{
-}
-
-
-
-.img-preview-medium-blur{
-  display: block;
-  position: relative;
-  width: 220px;
-}
-.img-preview-small{}
-.img-preview-medium{}
-.img-preview-big{}
-
-

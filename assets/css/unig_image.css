@@ -109,37 +109,4 @@ h2.unig-project-title {
   background-color: #0f7f34;
   font-size: 2px; }
 
-/*
-.css-picto-image {
-
-  &-small {
-    display: inline-flex;
-    justify-self: center;
-    align-self: center;
-    background-color: #0e90d2;
-    width: 7px;
-    height: 5px;
-  }
-  &-medium {
-    display: inline-flex;
-    justify-self: center;
-    align-self: center;
-    background-color: #0e90d2;
-    width: 13px;
-    height: 9px;
-  }
-  &-big {
-    display: inline-flex;
-    justify-self: center;
-    align-self: center;
-    background-color: #0e90d2;
-    width: 17px;
-    height: 14px;
-  }
-}*/
-.img-preview-medium-blur {
-  display: block;
-  position: relative;
-  width: 220px; }
-
 /*# sourceMappingURL=unig_image.css.map */

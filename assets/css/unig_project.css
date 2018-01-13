@@ -53,25 +53,6 @@
   padding-bottom: 10px;
   font-size: 2em; }
 
-.unig-project-list-container .unig-sortable-reducer-active {
-  display: inline-block;
-  margin: 10px;
-  padding: 20px;
-  background-color: #f6f6f6;
-  width: 140px;
-  height: 200px;
-  border-radius: 5px;
-  border: 1px solid #e6e6e6; }
-  .unig-project-list-container .unig-sortable-reducer-active .unig-sortable-number {
-    position: absolute; }
-  .unig-project-list-container .unig-sortable-reducer-active .unig-sortable-cover img {
-    border: solid 1px #292929;
-    width: 100px;
-    height: 100px; }
-  .unig-project-list-container .unig-sortable-reducer-active .unig-sortable-title {
-    margin: 0;
-    padding: 5px 0 0 0; }
-
 .unig-project-list-container .unig-sortable-placeholder {
   display: inline-block;
   margin: 10px;
