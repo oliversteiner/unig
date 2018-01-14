@@ -128,6 +128,17 @@
               }
           );
 
+
+          // Toggle Meta Info Toolbox
+          $('.unig-file-metainfo-toolbox-trigger').click(
+              function (context, settings) {
+
+                var name = 'metainfo';
+                var nid = getNodeId(context);
+                toggleToolbox(nid, name);
+              }
+          );
+
           // New Album Form
           $('.ajax-container-new-album-trigger').click(function () {
 

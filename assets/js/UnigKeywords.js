@@ -9,6 +9,9 @@
 
 
           this.constructor(context, settings);
+          this.addAll();
+          this.markAllAsActive();
+          this.updateDisplay();
         },
 
         isToolbarOpen              : false,
@@ -108,9 +111,9 @@
          *
          * @param id
          */
-        addMark:
+        markAsActive  :
             function (id) {
-              console.log('addMark ', id);
+              console.log('markAsActive ', id);
 
               var $target_toolbar = $('#unig-tag-id-' + id);
               $target_toolbar.addClass('active');
@@ -123,7 +126,7 @@
          *
          * @param id
          */
-        removeMark:
+        markAsInactive:
             function (id) {
 
               var $target = $('#unig-tag-id-' + id);
@@ -134,18 +137,18 @@
 
             },
 
-        toggleMark   :
+        toggleMark       :
             function (id) {
 
               var $target = $('#unig-tag-id-' + id);
 
               if ($target.hasClass('active')) {
                 // if item in list. toggle off
-                this.removeMark(id);
+                this.markAsInactive(id);
               }
               else {
                 // if item  not in list. toggle on
-                this.addMark(id);
+                this.markAsActive(id);
               }
 
             },
@@ -153,12 +156,16 @@
          *
          *
          */
-        removeAll    :
+        removeAll        :
             function () {
 
               this.Storage.destroy();
             },
-        addAll       :
+        /**
+         *
+         *
+         */
+        addAll           :
             function () {
 
               var items = this.List.get();
@@ -171,22 +178,27 @@
          *
          *
          */
-        removeMarkAll:
+        markAllAsInactive:
             function () {
-
-
               $('*[id^=unig-tag-id-]').removeClass('active');
             },
-        addMarkAll   :
+        /**
+         *
+         *
+         */
+        markAllAsActive  :
             function () {
 
               var items = this.List.get();
 
               for (var i = 0; i < items.length; i++) {
-                this.addMark(items[i]['id']);
+                this.markAsActive(items[i]['id']);
               }
             },
-
+        /**
+         *
+         *
+         */
         updateDisplay:
             function () {
 
@@ -268,7 +280,7 @@
 
               $('.unig-keywords-mark-all-tags-trigger').click(function () {
                 scope.addAll();
-                scope.addMarkAll();
+                scope.markAllAsActive();
                 scope.updateDisplay();
                 scope.updateFiles();
 
@@ -276,7 +288,7 @@
 
               $('.unig-keywords-unmark-all-tags-trigger').click(function () {
                 scope.removeAll();
-                scope.removeMarkAll();
+                scope.markAllAsInactive();
                 scope.updateDisplay();
                 scope.updateFiles();
               });
@@ -317,7 +329,7 @@
 
               if (keywordsStorage) {
                 keywordsStorage.forEach(function (elem) {
-                  Drupal.behaviors.unigKeywords.addMark(elem);
+                  Drupal.behaviors.unigKeywords.markAsActive(elem);
                 })
               }
 
@@ -326,7 +338,7 @@
         clearDownloadList:
             function () {
               this.Storage.destroy();
-              this.removeMarkAll();
+              this.markAllAsInactive();
               this.buildTags();
               this.updateDisplay();
               this.updateFiles();
@@ -366,7 +378,7 @@
               const id = item.getAttribute('data-id');
               const name = item.getAttribute('data-name');
               Scope.add(id);
-              Scope.addMark(id);
+              Scope.markAsActive(id);
               Scope.updateDisplay();
               Scope.updateFiles();
             }

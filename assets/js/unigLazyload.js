@@ -42,7 +42,7 @@
 
         // elem image
         var img_id = 'img-' + id + '-medium-blur';
-        var src = this.FileList[id].image['unig_medium_blur'];
+        var src = this.FileList[id].image['unig_medium_blur'].url;
         var NODE_img = document.createElement("img");
         NODE_img.setAttribute('src', src);
         NODE_img.setAttribute('alt', 'blured preview image');
@@ -141,7 +141,7 @@
 
       // elem
       var name = 'unig_' + mode;
-      var src = this.FileList[id].image[name];
+      var src = this.FileList[id].image[name].url;
       var img_id = 'img-' + id + '-' + mode;
 
       var NODE_img = document.createElement("img");
@@ -205,9 +205,9 @@
         DOM_container_big.setAttribute('style', 'display:none');
 
         // add new Content
+        elems_target_image_container[i].appendChild(DOM_container_medium);
         elems_target_image_container[i].appendChild(DOM_container_medium_blur);
         elems_target_image_container[i].appendChild(DOM_container_small);
-        elems_target_image_container[i].appendChild(DOM_container_medium);
         elems_target_image_container[i].appendChild(DOM_container_big);
 
       }

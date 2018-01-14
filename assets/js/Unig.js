@@ -9,10 +9,10 @@
 
   Drupal.behaviors.unig = {
 
-    number_files: 0,
+    number_files                 : 0,
     number_files_in_download_list: 0,
-    number_files_visible: 0,
-
+    number_files_visible         : 0,
+    projectname: '',
 
 
     attach:
@@ -21,10 +21,9 @@
 
         },
 
-    updateGui:function () {
+    updateGui: function () {
 
     },
-
 
 
     removeDuplicates:
@@ -83,7 +82,7 @@
           return $elem.data('unig-file-nid');
         },
 
-    showMessages: function (results) {
+    showMessages : function (results) {
       console.log(results);
 
 
@@ -110,8 +109,12 @@
         $messageContainer.html(html);
       }
 
+    },
+    humanFileSize: function (size) {
+      // https://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable-string
+      var i = size == 0 ? 0 : Math.floor( Math.log(size) / Math.log(1024) );
+      return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
     }
-
   };
 
 })(jQuery, Drupal, drupalSettings);

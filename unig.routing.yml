@@ -235,3 +235,13 @@ unig.term.people.json:
     _title: 'People'
   requirements:
     _permission: 'access unig admin'
+#
+#
+#
+unig.download.json:
+  path: '/unig/download'
+  defaults:
+    _controller: '\Drupal\unig\Controller\DownloadController:bulkDownload'
+    _title: 'Bulk Download'
+  requirements:
+    _permission: 'access unig admin'

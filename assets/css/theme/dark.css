@@ -336,119 +336,6 @@
     border-radius: 0;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px; }
-  #unig-main.unig-theme-dark ul.unig-file-download-list {
-    margin: 0;
-    padding: 0; }
-  #unig-main.unig-theme-dark li.unig-file-download-list-mark {
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px; }
-  #unig-main.unig-theme-dark li.unig-file-download-list-mark,
-  #unig-main.unig-theme-dark li.unig-file-download-list-direct {
-    list-style-type: none;
-    margin: 0;
-    padding: 3px 10px;
-    border-bottom: solid 1px #272727;
-    color: #b8b8b8;
-    cursor: pointer;
-    border-radius: 3px; }
-  #unig-main.unig-theme-dark li.unig-file-download-list-direct:hover {
-    background-color: #462f61;
-    color: #e9e9e9; }
-  #unig-main.unig-theme-dark li.unig-file-download-list-direct:active {
-    background-color: #979797;
-    color: #0f0f0f; }
-  #unig-main.unig-theme-dark li.unig-file-download-list-mark:hover {
-    background-color: #8b7fc8;
-    color: #736d6b; }
-  #unig-main.unig-theme-dark li.unig-file-download-list-mark:active {
-    background-color: #8b7fc8;
-    color: #b8b8b8; }
-  #unig-main.unig-theme-dark ul.unig-file-download-list i.fa {
-    margin: 0 3px 0 3px; }
-  #unig-main.unig-theme-dark .unig-file-download-list-picto,
-  #unig-main.unig-theme-dark .unig-file-download-list-label,
-  #unig-main.unig-theme-dark .unig-file-download-list-width,
-  #unig-main.unig-theme-dark .unig-file-download-list-size {
-    display: inline-block; }
-  #unig-main.unig-theme-dark .unig-file-download-list-picto {
-    display: inline-block;
-    margin-right: 10px;
-    color: #4b4b4b; }
-  #unig-main.unig-theme-dark .unig-file-download-list-label {
-    width: 30px; }
-  #unig-main.unig-theme-dark .unig-file-download-list-width {
-    text-align: right;
-    margin-right: 10px; }
-  #unig-main.unig-theme-dark .unig-file-download-list-size {
-    width: auto; }
-  #unig-main.unig-theme-dark div.unig-file-download-mark {
-    width: 30px;
-    padding: 0 7px;
-    display: inline-block;
-    margin-left: -5px; }
-    #unig-main.unig-theme-dark div.unig-file-download-mark:hover {
-      color: #5d5585;
-      cursor: pointer; }
-    #unig-main.unig-theme-dark div.unig-file-download-mark.marked {
-      color: #5d5585; }
-    #unig-main.unig-theme-dark div.unig-file-download-mark.marked:hover {
-      color: #8b7fc8; }
-  #unig-main.unig-theme-dark .unig-file-download-list-mark.marked {
-    background-color: #5d5585; }
-  #unig-main.unig-theme-dark ul.unig-gallery li.unig-file-item.marked {
-    border-color: #5d5585; }
-  #unig-main.unig-theme-dark .unig-file-head-info {
-    min-width: 40px; }
-  #unig-main.unig-theme-dark .unig-toolbar-download {
-    display: flex; }
-  #unig-main.unig-theme-dark ul.unig-dl {
-    margin: 0;
-    padding: 0; }
-  #unig-main.unig-theme-dark li.unig-dl {
-    padding: 0;
-    display: inline-block;
-    margin: 2px 5px;
-    text-align: center; }
-  #unig-main.unig-theme-dark .unig-dl-image {
-    width: 80px;
-    height: 60px;
-    padding: 2px;
-    border: solid 2px black;
-    border-radius: 5px;
-    background-color: #111111;
-    margin: 2px; }
-  #unig-main.unig-theme-dark .unig-dl-image img {
-    height: 100%;
-    width: auto; }
-  #unig-main.unig-theme-dark .unig-dl-label {
-    font-size: 10px; }
-  #unig-main.unig-theme-dark .unig-dl-nid {
-    font-size: 10px; }
-  #unig-main.unig-theme-dark .unig-dl-info {
-    width: 220px; }
-    #unig-main.unig-theme-dark .unig-dl-info-head {
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: solid 1px #3a3a3a;
-      font-weight: bold; }
-    #unig-main.unig-theme-dark .unig-dl-info-footer {
-      margin: 6px 1px; }
-  #unig-main.unig-theme-dark .unig-dl-info .unig-file-download-list-width {
-    color: #4b4b4b; }
-  #unig-main.unig-theme-dark .unig-button-small.unig-button-dl-folder-open i,
-  #unig-main.unig-theme-dark .unig-button-small.unig-button-dl-folder-close i {
-    padding: 2px;
-    font-size: 1.5em;
-    margin: 0; }
-  #unig-main.unig-theme-dark .badge {
-    display: inline-block;
-    padding: 1px 7px;
-    border-radius: 10px;
-    background-color: #0f0f0f;
-    color: #979797; }
-  #unig-main.unig-theme-dark .badge-marked {
-    background-color: #5d5585;
-    color: #979797; }
   #unig-main.unig-theme-dark ul.unig-tags-keywords {
     display: inline-block; }
   #unig-main.unig-theme-dark .unig-keyword-tag-id {
@@ -491,6 +378,13 @@
     font-size: 12px;
     margin: 0;
     padding: 0; }
+  #unig-main.unig-theme-dark .unig-toolbox table {
+    background-color: #363636; }
+  #unig-main.unig-theme-dark .unig-toolbox tr td,
+  #unig-main.unig-theme-dark .unig-toolbox tr th {
+    border: 0;
+    background-color: #363636;
+    color: #b8b8b8; }
   #unig-main.unig-theme-dark .unig-toolbox-button {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -597,6 +491,160 @@
   #unig-main.unig-theme-dark .unig-fieldset-body.block {
     display: flex;
     justify-content: space-between; }
+  #unig-main.unig-theme-dark ul.unig-file-download-list {
+    margin: 0;
+    padding: 0; }
+  #unig-main.unig-theme-dark li.unig-file-download-list-mark {
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px; }
+  #unig-main.unig-theme-dark li.unig-file-download-list-mark,
+  #unig-main.unig-theme-dark li.unig-file-download-list-direct {
+    list-style-type: none;
+    margin: 0;
+    padding: 3px 10px;
+    border-bottom: solid 1px #272727;
+    color: #b8b8b8;
+    cursor: pointer;
+    border-radius: 3px; }
+  #unig-main.unig-theme-dark li.unig-file-download-list-direct:hover {
+    background-color: #462f61;
+    color: #e9e9e9; }
+  #unig-main.unig-theme-dark li.unig-file-download-list-direct:active {
+    background-color: #979797;
+    color: #0f0f0f; }
+  #unig-main.unig-theme-dark li.unig-file-download-list-mark:hover {
+    background-color: #8b7fc8;
+    color: #736d6b; }
+  #unig-main.unig-theme-dark li.unig-file-download-list-mark:active {
+    background-color: #8b7fc8;
+    color: #b8b8b8; }
+  #unig-main.unig-theme-dark ul.unig-file-download-list i.fa {
+    margin: 0 3px 0 3px; }
+  #unig-main.unig-theme-dark .unig-file-download-list-picto,
+  #unig-main.unig-theme-dark .unig-file-download-list-label,
+  #unig-main.unig-theme-dark .unig-file-download-list-width,
+  #unig-main.unig-theme-dark .unig-file-download-list-size {
+    display: inline-block; }
+  #unig-main.unig-theme-dark .unig-file-download-list-label {
+    width: 30px; }
+  #unig-main.unig-theme-dark .unig-file-download-list-width {
+    width: 85px;
+    text-align: right;
+    margin-right: 10px; }
+  #unig-main.unig-theme-dark .unig-file-download-list-size {
+    width: 65px;
+    text-align: right; }
+  #unig-main.unig-theme-dark .unig-file-download-list-picto {
+    color: #4b4b4b; }
+  #unig-main.unig-theme-dark div.unig-file-download-mark {
+    width: 30px;
+    padding: 0 7px;
+    display: inline-block;
+    margin-left: -5px; }
+    #unig-main.unig-theme-dark div.unig-file-download-mark:hover {
+      color: #5d5585;
+      cursor: pointer; }
+    #unig-main.unig-theme-dark div.unig-file-download-mark.marked {
+      color: #5d5585; }
+    #unig-main.unig-theme-dark div.unig-file-download-mark.marked:hover {
+      color: #8b7fc8; }
+  #unig-main.unig-theme-dark .unig-file-download-list-mark.marked {
+    background-color: #5d5585; }
+  #unig-main.unig-theme-dark ul.unig-gallery li.unig-file-item.marked {
+    border-color: #5d5585; }
+  #unig-main.unig-theme-dark .unig-file-head-info {
+    min-width: 40px; }
+  #unig-main.unig-theme-dark .unig-toolbar-download {
+    display: flex; }
+  #unig-main.unig-theme-dark ul.unig-dl {
+    margin: 0;
+    padding: 0; }
+  #unig-main.unig-theme-dark li.unig-dl {
+    padding: 0;
+    display: inline-block;
+    margin: 2px 5px;
+    text-align: center;
+    width: 100px;
+    height: auto; }
+  #unig-main.unig-theme-dark li.unig-dl .unig-dl-image {
+    width: 100px;
+    height: 60px;
+    padding: 2px;
+    border: 1px solid #3a3a3a;
+    border-radius: 2px;
+    background-color: #222222;
+    margin: 2px; }
+  #unig-main.unig-theme-dark li.unig-dl .unig-dl-image img {
+    height: 100%;
+    width: auto; }
+  #unig-main.unig-theme-dark li.unig-dl .unig-dl-label {
+    font-size: 10px;
+    clear: both; }
+  #unig-main.unig-theme-dark li.unig-dl .unig-dl-nid {
+    display: none;
+    font-size: 10px; }
+  #unig-main.unig-theme-dark .unig-dl-info {
+    width: 220px; }
+    #unig-main.unig-theme-dark .unig-dl-info-head {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: solid 1px #3a3a3a;
+      font-weight: bold; }
+    #unig-main.unig-theme-dark .unig-dl-info-footer {
+      margin: 6px 1px; }
+  #unig-main.unig-theme-dark table.unig-file-download-table {
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-right: 10px;
+    margin-bottom: 20px; }
+  #unig-main.unig-theme-dark table.unig-file-download-table tr {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid #3a3a3a;
+    cursor: pointer;
+    border-radius: 5px; }
+  #unig-main.unig-theme-dark table.unig-file-download-table tr.active:hover,
+  #unig-main.unig-theme-dark table.unig-file-download-table tr.active {
+    background-color: transparent; }
+  #unig-main.unig-theme-dark table.unig-file-download-table tr.active:hover td,
+  #unig-main.unig-theme-dark table.unig-file-download-table tr.active td {
+    opacity: 0.5;
+    cursor: not-allowed; }
+  #unig-main.unig-theme-dark table.unig-file-download-table tr:hover {
+    background-color: #462f61;
+    border-radius: 5px; }
+  #unig-main.unig-theme-dark table.unig-file-download-table tr:active {
+    background-color: #979797; }
+  #unig-main.unig-theme-dark table.unig-file-download-table td {
+    margin: 0;
+    padding: 5px 6px;
+    border: none; }
+  #unig-main.unig-theme-dark td.unig-file-download-table-label {
+    font-weight: bold;
+    font-size: 1em; }
+  #unig-main.unig-theme-dark td.unig-file-download-table-width {
+    color: #4b4b4b;
+    text-align: right; }
+  #unig-main.unig-theme-dark td.unig-file-download-table-size {
+    text-align: right; }
+  #unig-main.unig-theme-dark .unig-button-small.unig-button-dl-folder-open i,
+  #unig-main.unig-theme-dark .unig-button-small.unig-button-dl-folder-close i {
+    padding: 2px;
+    font-size: 1.5em;
+    margin: 0; }
+  #unig-main.unig-theme-dark .badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 10px;
+    background-color: #0f0f0f;
+    color: #979797; }
+  #unig-main.unig-theme-dark .badge-marked {
+    background-color: #5d5585;
+    color: #979797; }
 
 #unig-main.unig-theme-dark .unig-image-background {
   background-color: #111111; }

@@ -32,9 +32,6 @@
             $(Scope.img_small).show();
             Scope.$button_small.addClass('active');
 
-            // hide Elements
-            $('.unig-file-head').hide();
-            $('.unig-file-middle-toolbox').hide();
           });
 
           // change to medium

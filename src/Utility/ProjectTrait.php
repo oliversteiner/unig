@@ -32,6 +32,7 @@
   use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
   use Drupal\Core\Ajax\AjaxResponse;
   use Drupal\Core\Ajax\AlertCommand;
+  use Drupal\Core\Url;
   use Drupal\image\Entity\ImageStyle;
   use Drupal\node\Entity\Node;
   use Drupal\taxonomy\Entity\Term;
@@ -270,29 +271,58 @@
         if (isset($node->field_unig_image->entity)) {
 
           $list_image_styles = \Drupal::entityQuery('image_style')->execute();
-          $count = 0;
 
           foreach ($node->field_unig_image as $image) {
 
             if ($image->entity) {
 
+              // Original
+
               $path = $image->entity->getFileUri();
+              $url = Url::fromUri($path);
+
+              $filesize = filesize($path);
+              $filesize_formated = format_size($filesize);
+              list($width, $height) = getimagesize($path);
+
+              $variables['original']['url'] = $url;
+              $variables['original']['uri'] = $path;
+              $variables['original']['filesize'] = $filesize;
+              $variables['original']['filesize_formated'] = $filesize_formated;
+              $variables['original']['width'] = $width;
+              $variables['original']['height'] = $height;
+
+              // styles
+
 
               foreach ($list_image_styles as $images_style) {
 
                 $style = ImageStyle::load($images_style);
-                $variables[$count][$images_style] = $style->buildUrl($path);
+                $url = $style->buildUrl($path);
+                $uri = $style->buildUri($path);
+
+                $filesize = filesize($uri);
+                $filesize_formated = format_size($filesize);
+                list($width, $height) = getimagesize($uri);
+
+                $variables[$images_style]['url'] = $url;
+                $variables[$images_style]['uri'] = $uri;
+                $variables[$images_style]['filesize'] = $filesize;
+                $variables[$images_style]['filesize_formated'] = $filesize_formated;
+                $variables[$images_style]['width'] = $width;
+                $variables[$images_style]['height'] = $height;
               }
             }
-            $count++;
           }
         }
 
 
       }
-      return $variables[0];
+      return $variables;
 
     }
+
+
 
     /**
      * @param $nid_project

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: UniG\n"
-"POT-Creation-Date: 2017-12-10 17:02+0100\n"
-"PO-Revision-Date: 2017-12-10 17:02+0100\n"
+"POT-Creation-Date: 2018-01-13 23:33+0100\n"
+"PO-Revision-Date: 2018-01-13 23:35+0100\n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: oliver@mollo.ch\n"
 "Language: de\n"
@@ -51,9 +51,9 @@ msgstr "Keine Dateien ausgewählt"
 msgid "Verifying entry..."
 msgstr "Eintrag wird überprüft..."
 
-#: src/Form/NewAlbumForm.php:81 templates/unig.project-files.html.twig:152
-#: templates/unig.project-list.html.twig:83
+#: src/Form/NewAlbumForm.php:81 templates/unig.project-list.html.twig:83
 #: templates/unig.project-list.html.twig:316
+#: templates/unig.project.html.twig:185
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -79,68 +79,51 @@ msgstr "Neues Projekt benennen"
 
 #: src/Form/UploadForm.php:117
 msgid "Upload Images / Files"
-msgstr ""
+msgstr "Bilder oder Dateien hochladen"
 
 #: src/Form/UploadForm.php:174
 msgid "Type a name for the new project"
 msgstr "Name des neuen Projekts"
 
-#: templates/unig.project-files.html.twig:53
-msgid "All Projects"
-msgstr "All Projects"
-
-#: templates/unig.project-files.html.twig:59
-msgid "Add Files"
-msgstr "Dateien hinzufügen"
-
-#: templates/unig.project-files.html.twig:67
-#: templates/unig.project-files.html.twig:137
-#: templates/unig.project-list.html.twig:38
-#: templates/unig.project-list.html.twig:68
-msgid "Sort order"
-msgstr "Reihenfolge"
-
-#: templates/unig.project-files.html.twig:102
-#: templates/unig.project-list.html.twig:204
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: templates/unig.project-files.html.twig:109
-#: templates/unig.project-list.html.twig:210
-msgid "Preview"
-msgstr "Vorschau"
-
-#: templates/unig.project-files.html.twig:120
-#: templates/unig.project-list.html.twig:50
-msgid "Dark"
-msgstr "Dunkel"
-
-#: templates/unig.project-files.html.twig:126
-#: templates/unig.project-list.html.twig:56
-msgid "Default"
-msgstr "Standard"
-
-#: templates/unig.project-files.html.twig:141
-#: templates/unig.project-list.html.twig:72
-msgid "Save Order"
-msgstr "Reihenfolge speichern"
-
-#: templates/unig.project-files.html.twig:147
-#: templates/unig.project-list.html.twig:78
-msgid "reset to alphabetical"
-msgstr "Auf Alphabetisch zurücksetzen"
-
-#: templates/unig.project-files.html.twig:200
-msgid "Remove All"
-msgstr "Alle entfernen"
-
-#: templates/unig.project-files.html.twig:232
-msgid "search"
-msgstr "suchen"
-
 #: templates/unig.project-list.html.twig:30
 msgid "New Project"
 msgstr "Neues Projekt"
+
+#: templates/unig.project-list.html.twig:38
+#: templates/unig.project-list.html.twig:68 templates/unig.project.html.twig:80
+#: templates/unig.project.html.twig:168
+msgid "Sort order"
+msgstr "Reihenfolge"
+
+#: templates/unig.project-list.html.twig:50
+#: templates/unig.project.html.twig:132
+msgid "Dark"
+msgstr "Dunkel"
+
+#: templates/unig.project-list.html.twig:56
+#: templates/unig.project.html.twig:138
+msgid "Default"
+msgstr "Standard"
+
+#: templates/unig.project-list.html.twig:72
+#: templates/unig.project.html.twig:173
+msgid "Save Order"
+msgstr "Reihenfolge speichern"
+
+#: templates/unig.project-list.html.twig:78
+#: templates/unig.project.html.twig:179
+msgid "reset to alphabetical"
+msgstr "Auf Alphabetisch zurücksetzen"
+
+#: templates/unig.project-list.html.twig:204
+#: templates/unig.project.html.twig:116
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/unig.project-list.html.twig:210
+#: templates/unig.project.html.twig:122
+msgid "Preview"
+msgstr "Vorschau"
 
 #: templates/unig.project-list.html.twig:233
 msgid "Date"
@@ -165,6 +148,38 @@ msgstr "Sichern"
 #: templates/unig.project-list.html.twig:324
 msgid "Delete Project"
 msgstr "Projekt löschen"
+
+#: templates/unig.project.html.twig:66
+msgid "All Projects"
+msgstr "All Projects"
+
+#: templates/unig.project.html.twig:73
+msgid "Add Files"
+msgstr "Dateien hinzufügen"
+
+#: templates/unig.project.html.twig:273
+msgid "Remove All"
+msgstr "Alle entfernen"
+
+#: templates/unig.project.html.twig:281
+msgid "add all  files"
+msgstr "Dateien hinzufügen"
+
+#: templates/unig.project.html.twig:313
+msgid "search"
+msgstr "suchen"
+
+#: templates/unig.project.html.twig:554
+msgid "Size"
+msgstr "Grösse"
+
+#: templates/unig.project.html.twig:560
+msgid "Width"
+msgstr "Breite"
+
+#: templates/unig.project.html.twig:566
+msgid "Height"
+msgstr "Höhe"
 
 #~ msgid "abbrechen"
 #~ msgstr "abbrechen"
