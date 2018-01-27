@@ -530,10 +530,27 @@
         // Album List
         $album_list = AlbumTrait::getAlbumList($nid);
 
+        // url friendly title
+
+
+
+        // Always replace whitespace with the separator.
+        if(\Drupal::hasService('pathauto.alias_cleaner')){
+          $clean_string = \Drupal::service('pathauto.alias_cleaner')->cleanString($title);
+
+        }else{
+          $clean_string = preg_replace('/\s+/', '_', $title);
+
+        }
+
+
+
+
         // Twig-Variables
         $project = [
           'nid' => $nid,
           'title' => $title,
+          'title_url' => $clean_string,
           'description' => $description,
           'copyright' => $copyright,
           'weight' => $weight,
@@ -548,15 +565,21 @@
           'album_list' => $album_list,
 
         ];
+        return $project;
 
       }
-      return $project;
+      else{
+        return [];
+      }
     }
 
 
     /**
-     * @return array
+     * @param      $project_nid
+     * @param null $album_nid
      *
+     * @return array
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
     public static function buildFileList($project_nid, $album_nid = NULL) {
 

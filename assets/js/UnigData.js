@@ -10,12 +10,74 @@
     attach:
         function (context, settings) {
           console.log(' Drupal.behaviors.unigData');
-
+          Drupal.behaviors.unigData.project.load();
           Drupal.behaviors.unigData.FileList.load().then(function (value) {
             Drupal.behaviors.unigLazyLoad.loadImages();
           });
         }
   };
+
+  Drupal.behaviors.unigData.project = {
+
+    route: 'unig/project/info/json',
+    name : '',
+    name_url : '',
+    nid  : 0,
+    data : {},
+
+
+  load: function () {
+
+    var project_nid = $('#unig-project-nid').val();
+    this.nid = project_nid;
+
+    var data = {
+      'project_nid': project_nid
+    };
+
+    return $.ajax({
+      url     : Drupal.url(this.route),
+      type    : 'POST',
+      data    : data,
+      dataType: 'json'
+    })
+        .done(function (result) {
+          console.log('project ', result);
+
+          Drupal.behaviors.unigData.project.set(result);
+        })
+  }
+,
+  set : function (data) {
+    console.log('Project data:', data);
+    this.name = data.title;
+    this.name_url = data.title_url;
+    this.data = data;
+
+  }
+,
+
+  destroy: function () {
+    this.name = '';
+    this.name_url = '';
+    this.nid = 0;
+    this.data = {}
+  }
+,
+
+  getName: function () {
+    return this.name;
+  }
+,
+
+  getId: function () {
+    return this.id;
+  }
+,
+
+
+}
+  ;
 
   /**
    * File-IDs in Download List
@@ -31,9 +93,6 @@
    *     Drupal.behaviors.unigData.FilesForDownload.find, count:
    *     Drupal.behaviors.unigData.FilesForDownload.count}}
    */
-
-
-
   Drupal.behaviors.unigData.FilesForDownload = {
 
     local_storage_name: 'unig.itemsForDownload',
@@ -488,7 +547,7 @@
     }
   };
 
-  Drupal.behaviors.unigData.people = {
+  Drupal.behaviors.unigData.peopleList = {
 
     list : [],
     route: 'unig/term/people/json',

@@ -34,10 +34,13 @@
 
 
       $data = $_POST['data'];
+      $project_nid = $_POST['project_nid'];
       $image_style = '';
       $files = [];
       $size = $data['size'];
       $items = $data['items'];
+
+      $project = ProjectTrait::buildProject($project_nid);
 
 
       switch ($size) {
@@ -71,23 +74,25 @@
 
       } // foreach
 
-      $dest = $GLOBALS['base_url'].'/sites/default/files/zip/';
+      $dest = $GLOBALS['base_url'] . '/sites/default/files/zip/';
       $destination = \Drupal::service('file_system')->realpath('public://zip');
 
       $zip = new \ZipArchive();
-      $zipName = 'images-' . $size . '-' . time() . ".zip";
-      $zip->open($destination .'/'. $zipName, \ZipArchive::CREATE);
+      $zipName = $project['title_url'] . '-' . $size . '-' . time() . ".zip";
+      $zip->open($destination . '/' . $zipName, \ZipArchive::CREATE);
       foreach ($files as $f) {
         $zip->addFromString(basename($f), file_get_contents($f));
       }
       $zip->close();
 
-      $url = $dest.$zipName;
+      $url = $dest . $zipName;
       $output = [
         'status' => TRUE,
         'messages' => 'ok',
         'zip' => $url,
       ];
+
+      sleep(3); // simulating long time zip generation
 
       $response = new JsonResponse();
       $response->setData($output);
@@ -121,5 +126,7 @@
 
       return $response;
     }
+
+
 
   }

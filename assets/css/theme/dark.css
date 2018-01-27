@@ -594,11 +594,9 @@
       margin: 6px 1px; }
   #unig-main.unig-theme-dark table.unig-file-download-table {
     width: 200px;
-    margin: 0;
     padding: 0;
     border: 0;
-    margin-right: 10px;
-    margin-bottom: 20px; }
+    margin: 10px 10px 20px 0; }
   #unig-main.unig-theme-dark table.unig-file-download-table tr {
     background-color: transparent;
     margin: 0;
@@ -640,10 +638,10 @@
     display: inline-block;
     padding: 1px 7px;
     border-radius: 10px;
-    background-color: #0f0f0f;
+    background-color: #464646;
     color: #979797; }
   #unig-main.unig-theme-dark .badge-marked {
-    background-color: #5d5585;
+    background-color: #464646;
     color: #979797; }
 
 #unig-main.unig-theme-dark .unig-image-background {

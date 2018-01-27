@@ -14,6 +14,7 @@
   use Drupal\unig\Utility\ProjectTrait;
   use Drupal\unig\Utility\RatingTrait;
   use Drupal\unig\Utility\SortTrait;
+  use Symfony\Component\HttpFoundation\JsonResponse;
 
 
   /**
@@ -155,6 +156,8 @@
 
 
     /**
+     * @param $project_nid
+     *
      * @return \Drupal\Core\Ajax\AjaxResponse
      */
     public function ajaxNewAlbumForm($project_nid) {
@@ -170,4 +173,28 @@
 
     }
 
+    /**
+     * @param $project_nid
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function ajaxProjectInfo($project_nid) {
+
+      if (isset($_POST['project_nid'])) {
+        $project_nid = $_POST['project_nid'];
+      }
+
+      $response = new JsonResponse();
+      $result = ProjectTrait::buildProject($project_nid);
+
+      if (!empty($result)) {
+        $response->setData($result);
+      }
+      else {
+        $response->setData(0);
+      }
+
+      return $response;
+
+    }
   }

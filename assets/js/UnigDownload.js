@@ -201,25 +201,37 @@
 
       var itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
       var data = {
-        size : size,
-        projectname : size,
-        items: itemsForDownload
+        size       : size,
+        projectname: size,
+        items      : itemsForDownload
       };
       console.log(data);
+
+      // Set Download Message Container to Prozessing
+      Drupal.behaviors.unigDownload.message_download_processing();
+
 
       $.ajax({
         url     : Drupal.url('unig/download/'),
         type    : 'POST',
         data    : {
-          'data': data
+          'data'       : data,
+          'project_nid': Drupal.behaviors.unigData.project.nid
         },
         dataType: 'json',
         success : function (results) {
           console.log(results);
-         if(results.zip) {
+          if (results.zip) {
+
             location.href = results.zip;
+            Drupal.behaviors.unigDownload.message_download_ok(results.zip);
+          }
+          else {
+            Drupal.behaviors.unigDownload.message_download_failed();
           }
         }
+
+
       });
 
 
@@ -227,12 +239,93 @@
 
     },
 
-    bulkDownloadCancel: function () {
+    resetGui: function () {
 
     },
 
-    updateBulkDownloadMessage: function () {
+    bulkDownloadCancel: function () {
 
+      this.$bulk_download_message_container.html();
+      this.$bulk_download_sd.removeClass('active');
+      this.$bulk_download_hd.removeClass('active');
+      this.$bulk_download_max.removeClass('active');
+
+
+    },
+
+    message_box: function (mode) {
+
+      if (mode) {
+        mode = '-' + mode;
+      }
+      else {
+        mode = '';
+      }
+      this.$bulk_download_message_container.html(
+          '<div class="unig-message-box' + mode + '">' +
+          '   <div class="unig-message-box-close-trigger"><i class="fa fa-close" aria-hidden="true"></i></div>' +
+          '   <div class="unig-message-box-body">' +
+          '   </div>' +
+          '</div>'
+      );
+      $('.unig-message-box-close-trigger').click(function () {
+        $('.unig-bulk-download-message-container').slideUp('fast', function () {
+          // remove content from div
+          $(this).html('');
+          // display empty div
+          $(this).show();
+
+        });
+      });
+
+    },
+
+
+    message_download_processing: function () {
+      var mode = '';
+      this.message_box(mode);
+
+      $('.unig-message-box-body').html(
+          '<div class="unig-message-box-picto"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>' +
+          '<span class="sr-only">Loading...</span>' +
+          'Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten.' +
+          '<button onclick="Drupal.behaviors.unigDownload.bulkDownloadCancel()">' +
+          'Download abbrechen</button>'
+      );
+
+
+    },
+
+    message_download_ok: function (url) {
+      var mode = 'success';
+      this.message_box(mode);
+
+      $('.unig-message-box-body').html(
+          '<div class="unig-message-box-picto">' +
+          '<i class="fa fa-check-circle-o color-success"></i>' +
+          '<span class="sr-only">OK</span>' +
+          '</div>' +
+          '<div>Der Download ist bereit.</div>' +
+          '<div>' +
+          'Sollte der Download nicht automatisch starten: ' +
+          '<a href="' + url + '">hier klicken.</a>' +
+          '</div>'
+      );
+
+    },
+
+    message_download_failed: function () {
+      var mode = 'warning';
+      this.message_box(mode);
+
+      $('.unig-message-box-body').html(
+          '<div class="unig-message-box-picto" >' +
+          '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>' +
+          '<span class="sr-only">Error</span>' +
+          '</div>' +
+          '<div>Es ist ein Fehler aufgetreten beim erstellen des Zips.</div>' +
+          '<div>Bitte die Seite neu laden und noch einmal versuchen.</div>'
+      )
     },
 
 
@@ -558,6 +651,9 @@
 
         Drupal.behaviors.unigDownload.bulkDownloadStart('max');
       });
+
+
+
     }
   }
 

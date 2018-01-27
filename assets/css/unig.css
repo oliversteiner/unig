@@ -344,6 +344,61 @@ a.unig-button,
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px; }
 
+.unig-message-box {
+  box-sizing: border-box;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  color: #292929;
+  border-color: #cccccc;
+  background-color: #e7e7e7; }
+  .unig-message-box-success, .unig-message-box-ok {
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    color: #0f7f34;
+    border-color: #2eb741;
+    background-color: #daffd4; }
+  .unig-message-box-warning {
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    color: #7f5930;
+    border-color: #ffd29b;
+    background-color: #fff8cf; }
+  .unig-message-box-error, .unig-message-box-danger {
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    color: #a2132b;
+    border-color: #ffb4aa;
+    background-color: #ffe6e5; }
+
+.unig-message-box-picto {
+  display: flex;
+  justify-content: center;
+  font-size: 2em;
+  margin-bottom: 10px; }
+
+.unig-message-box-close-trigger {
+  float: right;
+  cursor: pointer;
+  margin: -5px 0 0 0;
+  opacity: 0.5; }
+
+.unig-message-box-close-trigger:hover {
+  opacity: 1; }
+
+.unig-message-box-close-trigger:active {
+  color: black; }
+
 .unig-sortable-placeholder {
   display: inline-block;
   margin: 10px;
@@ -451,18 +506,18 @@ div.unig-file-download-mark {
   display: inline-block;
   margin-left: -5px; }
   div.unig-file-download-mark:hover {
-    color: #a7d34c;
+    color: #54692a;
     cursor: pointer; }
   div.unig-file-download-mark.marked {
-    color: #a7d34c; }
+    color: #54692a; }
   div.unig-file-download-mark.marked:hover {
     color: #57913b; }
 
 .unig-file-download-list-mark.marked {
-  background-color: #a7d34c; }
+  background-color: #54692a; }
 
 ul.unig-gallery li.unig-file-item.marked {
-  border-color: #a7d34c; }
+  border-color: #54692a; }
 
 .unig-file-head-info {
   min-width: 40px; }
@@ -515,11 +570,9 @@ li.unig-dl .unig-dl-nid {
 
 table.unig-file-download-table {
   width: 200px;
-  margin: 0;
   padding: 0;
   border: 0;
-  margin-right: 10px;
-  margin-bottom: 20px; }
+  margin: 10px 10px 20px 0; }
 
 table.unig-file-download-table tr {
   background-color: transparent;
@@ -572,11 +625,11 @@ td.unig-file-download-table-size {
   display: inline-block;
   padding: 1px 7px;
   border-radius: 10px;
-  background-color: #e6e6e6;
+  background-color: #c3c3c3;
   color: #515151; }
 
 .badge-marked {
-  background-color: #a7d34c;
+  background-color: #c3c3c3;
   color: #515151; }
 
 .unig-file-rating {
@@ -925,5 +978,14 @@ li.lazyload-test {
     display: block;
     margin: auto;
     font-size: 30px; }
+
+.color-success {
+  color: #0f7f34; }
+
+.color-warning {
+  color: #ffbd57; }
+
+.color-error {
+  color: #a2132b; }
 
 /*# sourceMappingURL=unig.css.map */

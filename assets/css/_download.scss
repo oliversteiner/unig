@@ -170,11 +170,9 @@ li.unig-dl .unig-dl-nid {
 }
 table.unig-file-download-table {
   width: 200px;
-  margin: 0;
   padding: 0;
   border: 0;
-  margin-right: 10px;
-  margin-bottom: 20px;
+  margin: 10px 10px 20px 0;
 }
 table.unig-file-download-table tr {
   background-color: transparent;
@@ -185,11 +183,10 @@ table.unig-file-download-table tr {
   cursor: pointer;
   border-radius: 5px;
 }
-table.unig-file-download-table tr.active:hover ,
+table.unig-file-download-table tr.active:hover,
 table.unig-file-download-table tr.active {
   background-color: transparent;
 }
-
 table.unig-file-download-table tr.active:hover td,
 table.unig-file-download-table tr.active td {
   opacity: 0.5;
@@ -228,13 +225,13 @@ td.unig-file-download-table-size {
   display: inline-block;
   padding: 1px 7px;
   border-radius: 10px;
-  background-color: $color-admin-text-invert;
+  background-color: $color-badge;
   color: $color-admin-background-invert;
 }
 .badge {
 
   &-marked {
-    background-color: $color-admin-marked;
+    background-color: $color-badge-marked;
     color: $color-admin-background-invert;
   }
 }
