@@ -12,6 +12,7 @@
   use Drupal\Core\Controller\ControllerBase;
   use Drupal\Core\Url;
   use Drupal\unig\Utility\ProjectTrait;
+  use FilesystemIterator;
   use Symfony\Component\HttpFoundation\JsonResponse;
   use Symfony\Component\HttpFoundation\Response;
 
@@ -102,13 +103,7 @@
 
     public function downloadZip($files) {
 
-
-      /*      $files = [
-              '/Users/ost/MAMP/drullo/web/sites/default/files/unig/42/Op-17-ost-721.jpg',
-              '/Users/ost/MAMP/drullo/web/sites/default/files/unig/42/Op-17-ost-722.jpg',
-              '/Users/ost/MAMP/drullo/web/sites/default/files/unig/42/Op-17-ost-723.jpg',
-            ];*/
-
+      $this->deleteZips();
 
       $zip = new \ZipArchive();
       $zipName = 'Documents_' . time() . ".zip";
@@ -125,6 +120,19 @@
       $response->headers->set('Content-length', filesize($zipName));
 
       return $response;
+    }
+
+
+    public function deleteZips(){
+
+      $path = $GLOBALS['base_url'] . '/sites/default/files/zip/';
+
+      $fileSystemIterator = new FilesystemIterator($path);
+      $now = time();
+      foreach ($fileSystemIterator as $file) {
+        if ($now - $file->getCTime() >= 60 * 60 * 24 * 2) // 2 days
+          unlink('logs/'.$file->getFilename());
+      }
     }
 
 
