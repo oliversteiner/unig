@@ -126,12 +126,29 @@
      *
      * @return int
      */
-    public function getDefaultProjectNid() {
-      // Aus den Einstellungen das Defaultalbum wählen
-      $default_config = \Drupal::config('unig.settings');
-      $default_project_nid = $default_config->get('unig.default_project');
+    public function getDefaultProjectNid($project_nid = FALSE) {
 
-      return $default_project_nid;
+      if ($project_nid) {
+        return $project_nid;
+      }
+      else {
+        // Aus den Einstellungen das Defaultalbum wählen
+        $default_config = \Drupal::config('unig.settings');
+        $default_project_nid = $default_config->get('unig.default_project');
+
+        if ($default_project_nid != FALSE) {
+
+          kint('2',$default_project_nid);
+          return $default_project_nid;
+
+        }
+        else {
+          $list = ProjectTrait::getAllProjectNids();
+
+          kint('3',$list);
+          return $list[0];
+        }
+      }
     }
 
 
@@ -321,7 +338,6 @@
       return $variables;
 
     }
-
 
 
     /**
@@ -533,12 +549,13 @@
         // url friendly title
 
 
-
         // Always replace whitespace with the separator.
-        if(\Drupal::hasService('pathauto.alias_cleaner')){
-          $clean_string = \Drupal::service('pathauto.alias_cleaner')->cleanString($title);
+        if (\Drupal::hasService('pathauto.alias_cleaner')) {
+          $clean_string = \Drupal::service('pathauto.alias_cleaner')
+            ->cleanString($title);
 
-        }else{
+        }
+        else {
           $clean_string = preg_replace('/\s+/', '_', $title);
 
         }
@@ -570,7 +587,7 @@
         return $project;
 
       }
-      else{
+      else {
         return [];
       }
     }

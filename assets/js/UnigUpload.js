@@ -20,12 +20,6 @@
                 selectChange(context, settings);
             });
 
-            // wenn ein Projekt gewählt ist, den Selector einstellen:
-            // werk einlesen
-            var project_nid = $("input[name=project_nid]").val();
-            // Option wechseln
-            $('#edit-project').val(project_nid);
-
         }
     };
 
