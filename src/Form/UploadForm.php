@@ -58,7 +58,6 @@
      */
     public function buildForm(array $form, FormStateInterface $form_state, $project_nid = NULL) {
 
-      drupal_set_message($project_nid);
 
       if ($_POST['project_nid']) {
         $project_nid = $_POST['project_nid'];
@@ -103,7 +102,7 @@
 
       // Select Element mit Projektliste
       $form['project'] = [
-        '#title' => $this->t('Projekt wählen'),
+        '#title' => $this->t('Choose Project'),
         '#type' => 'select',
         '#options' => $this->getProjectlistSelected(),
         '#default_value' => $this->getDefaultProjectNid($project_nid),

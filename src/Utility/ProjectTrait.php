@@ -138,14 +138,12 @@
 
         if ($default_project_nid != FALSE) {
 
-          kint('2',$default_project_nid);
           return $default_project_nid;
 
         }
         else {
           $list = ProjectTrait::getAllProjectNids();
 
-          kint('3',$list);
           return $list[0];
         }
       }

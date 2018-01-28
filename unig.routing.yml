@@ -93,7 +93,7 @@ unig.upload:
   path: '/unig/upload/{project_nid}'
   defaults:
       _form:  '\Drupal\unig\Form\UploadForm'
-      _title: 'Bilder hochladen'
+      _title: 'Upload'
       project_nid: null
   requirements:
     _permission: 'access upload form'
