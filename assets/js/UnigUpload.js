@@ -26,7 +26,6 @@
             // Option wechseln
             $('#edit-project').val(project_nid);
 
-            console.log(project_nid);
         }
     };
 

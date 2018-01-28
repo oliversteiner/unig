@@ -71,7 +71,6 @@
 
             results.messages.forEach(function (index, item) {
 
-              console.log(' ', item.message);
 
             })
 

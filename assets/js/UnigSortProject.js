@@ -131,7 +131,6 @@
 
   function save(data, name) {
 
-    console.log(data);
 
 
     $.ajax({

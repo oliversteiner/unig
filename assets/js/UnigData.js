@@ -47,14 +47,12 @@
         dataType: 'json'
       })
           .done(function (result) {
-            console.log('project2 ', result);
 
             Drupal.behaviors.unigData.project.set(result);
           })
     }
     ,
     set : function (data) {
-      console.log('Project data:', data);
       this.name = data.title;
       this.name_url = data.title_url;
       this.data = data;
@@ -196,11 +194,9 @@
     find:
         function (nid) {
 
-          console.log('-find in DownloadList- nid: ' + nid);
 
           var search = this.list.indexOf(nid);
 
-          console.log('-find in DownloadList- result: ' + search);
 
           if (search == -1) {
             return false
@@ -406,12 +402,10 @@
         dataType: 'json'
       })
           .done(function (result) {
-            console.log('Keywords: success', result); //  DEVELOP
 
             Drupal.behaviors.unigData.keywordsList.set(result);
           })
           .fail(function (xhr) {
-            console.log('error', xhr);
           });
 
 

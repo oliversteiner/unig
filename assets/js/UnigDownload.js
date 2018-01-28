@@ -204,7 +204,6 @@
         projectname: size,
         items      : itemsForDownload
       };
-      console.log(data);
 
       // Set Download Message Container to Prozessing
       Drupal.behaviors.unigDownload.message_download_processing();
@@ -219,7 +218,6 @@
         },
         dataType: 'json',
         success : function (results) {
-          console.log(results);
           if (results.zip) {
 
             location.href = results.zip;
@@ -523,7 +521,6 @@
           var Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
           var file = itemList[item];
 
-          console.log('file', file);
 
 
           var sd = file.image.unig_big.filesize;
@@ -538,7 +535,6 @@
       }
 
 
-      console.log('Downloadsize', this.downloadsize);
 
 
     },
@@ -657,7 +653,6 @@
 
       $('.unig-file-download-list-direct').click(function () {
         var $target = $(this).find('unig-file-download-list-picto');
-        console.log('', $target);
 
       });
 

@@ -83,7 +83,6 @@
         },
 
     showMessages : function (results) {
-      console.log(results);
 
 
       const $messageContainer = $('.unig-message-container');

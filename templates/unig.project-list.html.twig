@@ -100,6 +100,7 @@
             {% for project in project_list %}
 
 
+
                 {# -------------------  Admin -------------------------- #}
                 {% if is_admin %}
                     {# ----------- YEAR ----------- #}
@@ -131,7 +132,7 @@
                             <div class="unig-project-cover">
                                 <a href="/unig/project/{{ project.nid }}">
                                     <div class="unig-image-background">
-                                        <img class="" src="{{ project.cover_image.unig_cover }}" alt="">
+                                        <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
                                     </div>
 
                                 </a>
@@ -362,6 +363,7 @@
                     {% if project.private and logged_in == false %}
 
                     {% else %}
+
 
                         <li class="unig-project-list-item">
 

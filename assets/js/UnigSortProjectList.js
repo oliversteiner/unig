@@ -108,7 +108,6 @@
 
     save: function (data, name) {
 
-      console.log(data);
 
 
       $.ajax({

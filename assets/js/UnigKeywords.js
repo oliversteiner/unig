@@ -113,7 +113,6 @@
          */
         markAsActive  :
             function (id) {
-              console.log('markAsActive ', id);
 
               var $target_toolbar = $('#unig-tag-id-' + id);
               $target_toolbar.addClass('active');
@@ -440,7 +439,6 @@
           }
 
 
-          console.log('visible ', Drupal.behaviors.unigKeywords.Visible);
 
           var html = '';
           if (Drupal.behaviors.unigKeywords.Visible.length > 0) {

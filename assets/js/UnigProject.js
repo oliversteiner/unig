@@ -71,7 +71,7 @@
                 var nid = getNodeId(context);
                 setRating(nid, 'down');
 
-                console.log(nid + ': Down!');
+               // console.log(nid + ': Down!');
               }
           );
 
@@ -82,7 +82,7 @@
                 var nid = getNodeId(context);
 
                 setRating(nid, 'up');
-                console.log(nid + ': Up!');
+              // console.log(nid + ': Up!');
               }
           );
 
@@ -241,7 +241,7 @@
         var $input = $('#unig-file-' + nid + ' .unig-file-rating-input');
 
         var number = parseInt($input.val());
-        console.log('number ', number);
+        // console.log('number ', number);
 
         var number_new = 0;
         if (direction === 'up') {
@@ -290,7 +290,6 @@
 
       function save(data, route) {
 
-        console.log(data);
 
 
         $.ajax({
@@ -317,7 +316,6 @@
 
           results.messages.forEach(function (index, item) {
 
-            console.log(' ', item.message);
 
           })
 

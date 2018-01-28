@@ -54,7 +54,7 @@
         },
 
     reset: function () {
-      console.log('reset ');
+    //  console.log('reset ');
 
 
       this.$target.removeClass('unig-images-medium-blur');
