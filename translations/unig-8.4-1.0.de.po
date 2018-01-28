@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: UniG\n"
-"POT-Creation-Date: 2018-01-28 15:24+0100\n"
-"PO-Revision-Date: 2018-01-28 15:25+0100\n"
+"POT-Creation-Date: 2018-01-28 15:54+0100\n"
+"PO-Revision-Date: 2018-01-28 15:55+0100\n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: oliver@mollo.ch\n"
 "Language: de\n"
@@ -35,7 +35,7 @@ msgstr "Name des neuen Projekts"
 msgid "Projekt wählen"
 msgstr "Projekt wählen"
 
-#: src/Form/FilesForm.php:120 src/Form/UploadForm.php:147
+#: src/Form/FilesForm.php:120 src/Form/UploadForm.php:146
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -43,7 +43,7 @@ msgstr "Abschicken"
 msgid "Name new Project"
 msgstr "Name des neuen Projekts"
 
-#: src/Form/FilesForm.php:155 src/Form/UploadForm.php:177
+#: src/Form/FilesForm.php:155 src/Form/UploadForm.php:176
 msgid "No files selected"
 msgstr "Keine Dateien ausgewählt"
 
@@ -77,17 +77,37 @@ msgstr "alle Projekte anzeigen"
 msgid "Name new project"
 msgstr "Neues Projekt benennen"
 
-#: src/Form/UploadForm.php:105
+#: src/Form/UploadForm.php:104
 msgid "Choose Project"
 msgstr "Neues Projekt"
 
-#: src/Form/UploadForm.php:118
+#: src/Form/UploadForm.php:117
 msgid "Upload Images / Files"
 msgstr "Bilder oder Dateien hochladen"
 
-#: src/Form/UploadForm.php:171
+#: src/Form/UploadForm.php:170
 msgid "Type a name for the new project"
 msgstr "Name des neuen Projekts"
+
+#: src/Form/UploadForm.php:240
+msgid "Added 1 item to the new project %project."
+msgstr "Ein neues Objekt zum neuen Projekt %project hinzugefügt."
+
+#: src/Form/UploadForm.php:244
+msgid "Added %count items to the new project %project."
+msgstr "%count Objekte zum neuen Projekt %project hinzugefügt."
+
+#: src/Form/UploadForm.php:249
+msgid "Added 1 item to the project %project."
+msgstr "Ein neues Objekt zum Projekt %project hinzugefügt."
+
+#: src/Form/UploadForm.php:253
+msgid "Added %count items to the project %project."
+msgstr "%count Objekte zum Projekt %project hinzugefügt."
+
+#: src/Form/UploadForm.php:258
+msgid "Go to Project: "
+msgstr "Gehe zu Projekt: "
 
 #: templates/unig.project-list.html.twig:30
 msgid "New Project"
@@ -111,7 +131,7 @@ msgstr "Standard"
 #: templates/unig.project-list.html.twig:72
 #: templates/unig.project.html.twig:174
 msgid "Save Order"
-msgstr "Reihenfolge speichern"
+msgstr "Bestellung speichern"
 
 #: templates/unig.project-list.html.twig:78
 #: templates/unig.project.html.twig:180

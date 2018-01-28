@@ -99,7 +99,6 @@
       ];
 
 
-
       // Select Element mit Projektliste
       $form['project'] = [
         '#title' => $this->t('Choose Project'),
@@ -213,16 +212,16 @@
 
       $values['project_nid'] = $project_nid;
       $node_ids = $this->createMultiNode($values);
-      $anzahl = count($node_ids);
+      $count = count($node_ids);
 
       // Nachricht ausrechnen
-      if ($anzahl > 1) {
+      if ($count > 1) {
         // Mehr als ein Bild
         if ($create_new_project) {
           $variante = 'new_many';
         }
         else {
-          $variante = 'con_many';
+          $variante = 'add_many';
         }
       }
       else {
@@ -231,18 +230,34 @@
           $variante = 'new_one';
         }
         else {
-          $variante = 'con_one';
+          $variante = 'add_one';
         }
       }
 
       // Messages:
 
-      $message_new_one = "Es wurde ein Bild in das neue Projekt  \"$project_title\" hinzugefügt";
-      $message_new_many = "Es wurden $anzahl Bilder in das neue Projekt \"$project_title\" hinzugefügt";
-      $message_con_one = "Es wurde ein Bild in das Projekt  \"$project_title\" hinzugefügt";
-      $message_con_many = "Es wurden $anzahl Bilder in das Projekt \"$project_title\" hinzugefügt";
 
-      $message_go_to = "<a href=\"/unig/project/$project_nid\">Die UniG <strong>$project_title</strong> anzeigen</a>";
+      $message_new_one = t('Added 1 item to the new project %project.', [
+        '%project' => $project_title,
+      ]);
+
+      $message_new_many = t('Added %count items to the new project %project.', [
+        '%count' => $count,
+        '%project' => $project_title,
+      ]);
+
+      $message_add_one = t('Added 1 item to the project %project.', [
+        '%project' => $project_title,
+      ]);
+
+      $message_add_many = t('Added %count items to the project %project.', [
+        '%count' => $count,
+        '%project' => $project_title,
+      ]);
+
+      $text = t('Go to Project: ');
+      $message_go_to = "<a href=\"/unig/project/$project_nid\">$text<strong>$project_title</strong> </a>";
+
       $rendered_message = \Drupal\Core\Render\Markup::create($message_go_to);
 
 
@@ -253,11 +268,11 @@
         case 'new_many' :
           $message = $message_new_many;
           break;
-        case 'con_one' :
-          $message = $message_con_one;
+        case 'add_one' :
+          $message = $message_add_one;
           break;
-        case 'con_many' :
-          $message = $message_con_many;
+        case 'add_many' :
+          $message = $message_add_many;
           break;
 
       }
