@@ -13,13 +13,6 @@
 
             // onload
             constructor(context, settings);
-
-            // Event Handlers
-            // Change
-            $('#edit-project').change(function (context, settings) {
-                selectChange(context, settings);
-            });
-
         }
     };
 
@@ -30,6 +23,12 @@
      */
     function constructor(context, settings) {
         selectChange(context, settings);
+
+      // Event Handlers
+      // Change
+      $('#edit-project').change(function (context, settings) {
+        selectChange(context, settings);
+      });
     }
 
     /**
@@ -45,6 +44,7 @@
 
         if (select === 'neu') {
             $('#unig_form_upload_new_project').show();
+            $('#edit-new-project').focus();
         }
         else {
             $('#unig_form_upload_new_project').hide();
