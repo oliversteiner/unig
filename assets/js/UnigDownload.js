@@ -7,7 +7,6 @@
       // onload
       console.log('Drupal.behaviors.unigDownload ');
 
-
       this.constructor(context, settings);
     },
 
@@ -524,8 +523,11 @@
           var Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
           var file = itemList[item];
 
-          var sd = file.image.unig_medium.filesize;
-          var hd = file.image.unig_big.filesize;
+          console.log('file', file);
+
+
+          var sd = file.image.unig_big.filesize;
+          var hd = file.image.unig_hd.filesize;
           var max = file.image.original.filesize;
 
           Downloadsize.sd = Downloadsize.sd + sd;
@@ -652,6 +654,12 @@
         Drupal.behaviors.unigDownload.bulkDownloadStart('max');
       });
 
+
+      $('.unig-file-download-list-direct').click(function () {
+        var $target = $(this).find('unig-file-download-list-picto');
+        console.log('', $target);
+
+      });
 
 
     }

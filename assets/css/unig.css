@@ -2,7 +2,7 @@
 /*
 *     THEME
 *     =================
-*     Default
+*     bright
 *
 */
 a.unig-button,
@@ -434,7 +434,7 @@ ul.unig-images-big .unig-sortable-placeholder {
 /*
 *     THEME
 *     =================
-*     Default
+*     bright
 *
 */
 .unig-input-label {
@@ -886,9 +886,7 @@ li.unig-file-item {
   min-height: 100px;
   margin: 10px;
   border-radius: 5px;
-  padding: 5px 12px 4px 12px;
-  background-color: #e7e7e7;
-  border: 2px solid #cccccc; }
+  padding: 5px 12px 4px 12px; }
 
 ul.unig-images-medium-blur li.unig-file-item {
   width: 240px; }

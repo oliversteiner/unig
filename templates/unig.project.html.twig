@@ -375,6 +375,7 @@
                 {% for file in files %}
 
 
+
                     <li class="unig-sortable-item sort-handle unig-file-item unig-file-edit unig-file-{{ file.nid }}"
                         id="unig-file-{{ file.nid }}" data-unig-file-nid="{{ file.nid }}">
 
@@ -579,33 +580,42 @@
 
                                     {# SD #}
                                     <li class="unig-toolbox-item unig-file-download-list-direct download-sd">
-
-                                        <span class="unig-file-download-list-label">SD</span>
-                                        <span class="unig-file-download-list-width">{{ file.image.unig_medium.width }}
-                                            x {{ file.image.unig_medium.height }}&thinsp;px</span>
-                                        <span class="unig-file-download-list-size">{{ file.image.unig_medium.filesize_formated }}</span>
-                                        <span class="unig-file-download-list-picto">
+                                        <a href="{{ file.image.unig_big.url }}" download>
+                                            <span class="unig-file-download-list-label">SD</span>
+                                            <span class="unig-file-download-list-width">{{ file.image.unig_big.width }}
+                                                x {{ file.image.unig_big.height }}&thinsp;px</span>
+                                            <span class="unig-file-download-list-size">{{ file.image.unig_big.filesize_formated }}</span>
+                                            <span class="unig-file-download-list-picto">
                                         <i class="fa fa-download" aria-hidden="true"></i></span>
+                                        </a>
                                     </li>
 
                                     {# HD #}
                                     <li class="unig-toolbox-item unig-file-download-list-direct download-hd">
-                                        <span class="unig-file-download-list-label">HD</span>
-                                        <span class="unig-file-download-list-width">{{ file.image.unig_hd.width }}
-                                            x {{ file.image.unig_hd.height }}&thinsp;px</span>
-                                        <span class="unig-file-download-list-size">{{ file.image.unig_hd.filesize_formated }}</span>
-                                        <span class="unig-file-download-list-picto">
+                                        <a href="{{ file.image.unig_hd.url }}" download>
+
+                                            <span class="unig-file-download-list-label">HD</span>
+                                            <span class="unig-file-download-list-width">{{ file.image.unig_hd.width }}
+                                                x {{ file.image.unig_hd.height }}&thinsp;px</span>
+                                            <span class="unig-file-download-list-size">{{ file.image.unig_hd.filesize_formated }}</span>
+                                            <span class="unig-file-download-list-picto">
                                         <i class="fa fa-download" aria-hidden="true"></i></span>
+                                        </a>
+
                                     </li>
 
                                     {# Max #}
                                     <li class="unig-toolbox-item  unig-file-download-list-direct download-max">
-                                        <span class="unig-file-download-list-label">Max</span>
-                                        <span class="unig-file-download-list-width">{{ file.image.original.width }}
-                                            x {{ file.image.original.height }}&thinsp;px</span>
-                                        <span class="unig-file-download-list-size">{{ file.image.original.filesize_formated }}</span>
-                                        <span class="unig-file-download-list-picto">
+                                        <a href="{{ file.image.original.url }}" download>
+
+                                            <span class="unig-file-download-list-label">Max</span>
+                                            <span class="unig-file-download-list-width">{{ file.image.original.width }}
+                                                x {{ file.image.original.height }}&thinsp;px</span>
+                                            <span class="unig-file-download-list-size">{{ file.image.original.filesize_formated }}</span>
+                                            <span class="unig-file-download-list-picto">
                                         <i class="fa fa-download" aria-hidden="true"></i></span>
+                                        </a>
+
                                     </li>
                                 </ul>
                             </div>

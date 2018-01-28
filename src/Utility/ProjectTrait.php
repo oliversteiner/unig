@@ -279,7 +279,7 @@
               // Original
 
               $path = $image->entity->getFileUri();
-              $url = Url::fromUri($path);
+              $url = file_create_url($path);
 
               $filesize = filesize($path);
               $filesize_formated = format_size($filesize);
@@ -544,7 +544,7 @@
         }
 
 
-
+        $host = \Drupal::request()->getHost();
 
         // Twig-Variables
         $project = [
@@ -563,6 +563,8 @@
           'cover_id' => $cover_id,
           'cover_image' => $cover_image,
           'album_list' => $album_list,
+          'host' => $host,
+
 
         ];
         return $project;

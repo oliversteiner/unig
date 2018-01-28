@@ -1,7 +1,7 @@
 /*
 *     THEME
 *     =================
-*     Default
+*     bright
 *
 */
 .unig-image-background {
@@ -39,10 +39,12 @@ ul.unig-gallery {
   padding: 0; }
 
 ul.unig-gallery li.unig-file-item {
-  background-color: #e6e6e6; }
+  background-color: #e7e7e7;
+  border: 2px solid transparent; }
 
 ul.unig-gallery li.unig-file-item.marked {
-  background-color: #c1d2bf; }
+  background-color: #c1d2bf;
+  border: 2px solid transparent; }
 
 ul.unig-gallery li.unig-file-item:hover {
   background-color: #b8b8b8;

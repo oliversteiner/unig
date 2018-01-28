@@ -36,11 +36,14 @@ ul.unig-gallery {
   padding: 0;
 }
 ul.unig-gallery li.unig-file-item {
-  background-color: $color-admin-background;
+  background-color: $color-default-background;
+  border: 2px solid transparent;
 }
 
 ul.unig-gallery li.unig-file-item.marked {
   background-color: $color-admin-marked-lite;
+  border: 2px solid transparent;
+
 }
 
 
