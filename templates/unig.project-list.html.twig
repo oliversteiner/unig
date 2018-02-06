@@ -99,6 +99,8 @@
 
             {% for project in project_list %}
 
+                {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
+
 
                 {# -------------------  Admin -------------------------- #}
                 {% if is_admin %}
