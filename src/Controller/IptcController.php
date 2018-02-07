@@ -31,12 +31,14 @@
 
     protected $keyword_tids = [];
 
+    protected $project_nid = NULL;
+
     /**
      * IptcController constructor.
      *
      * @param $fid
      */
-    function __construct($fid) {
+    function __construct($fid, $project_nid = NULL) {
 
 
       // Read File
@@ -141,8 +143,6 @@
      */
     function getTerms($terms, $voc) {
 
-      dpm($terms);
-
 
       $output = [];
 
@@ -150,7 +150,6 @@
         $output[] = $this->_getTidByName($term, $voc);
       }
 
-      dpm($output);
       return $output;
     }
 
@@ -256,7 +255,7 @@
 
 
       $this->data_keywords = $data['keywords'];
-      $this->data_creation_date= $data['creation_date'];
+      $this->data_creation_date = $data['creation_date'];
       $this->data_copyright = $data['copyright'];
 
       return $data;
@@ -291,8 +290,6 @@
     }
 
 
-
-
     function loadVocabulary($vid) {
       $term_data = [];
       try {
@@ -315,7 +312,7 @@
 
       $vid = 'unig_people';
       $terms = $this->data_people_names;
-      $tids = $this->saveTerms($vid, $terms);
+      $tids = $this->saveTerms($vid, $terms, $this->project_nid);
       $this->people_tids = $tids;
       return $tids;
     }
@@ -324,7 +321,7 @@
 
       $vid = 'unig_keywords';
       $terms = $this->data_keywords_without_peoples;
-      $tids = $this->saveTerms($vid, $terms);
+      $tids = $this->saveTerms($vid, $terms, $this->project_nid);
       $this->keyword_tids = $tids;
       return $tids;
 
@@ -337,9 +334,9 @@
      *
      * @return array // all term ids from File
      */
-    function saveTerms($vid, $new_terms) {
+    function saveTerms($vid, $new_terms, $project_nid) {
       $file_keyword_tids = [];
-      // dpm($new_terms, 'Term from File');
+      dpm($new_terms, 'Term from File');
 
       $voc = $this->loadVocabulary($vid);
 
@@ -351,7 +348,6 @@
       }
 
 
-
       // if there is new terms
       foreach ($new_terms as $new_term) {
 
@@ -361,15 +357,29 @@
           $tid = $voc[$position]['id'];
           $file_keyword_tids[] = $tid;
 
+          // load item and search for project id
+
+          // if project id not there add new one
+
+          $term = Term::load($tid);
+
+          // $new_item = ['target_id' => $project_nid];
+          $term->field_projects[] = $project_nid;
+          $term->save();
+
         }
         else {
           if (!empty($new_term)) {
+
+            $new_item = ['target_id' => $project_nid];
+
 
             // Add new Terms to Voc
             $term_created = NULL;
             $term_created = Term::create([
               'name' => $new_term,
               'vid' => $vid,
+              'field_projects' => $new_item,
             ])->save();
 
             drupal_set_message('new ' . $vid . ': ' . $new_term, TRUE);

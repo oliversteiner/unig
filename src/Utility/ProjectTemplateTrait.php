@@ -71,6 +71,7 @@
       unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
 
       $variables['is_admin'] = $user->hasPermission('access unig admin');
+      $variables['access_private_project'] = $user->hasPermission('access private project');
       $variables['logged_in'] = $user->isAuthenticated();
 
 

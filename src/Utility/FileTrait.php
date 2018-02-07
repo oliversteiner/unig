@@ -88,7 +88,7 @@
         }
 
         // IPTC
-        $iptc = new IptcController($file_id);
+        $iptc = new IptcController($file_id, $project_nid);
         $keywords = $iptc->getKeywordTermIDs();
         $people = $iptc->getPeopleTermIds();
 

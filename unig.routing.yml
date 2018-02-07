@@ -230,20 +230,22 @@ unig.ajax.rating.save:
 #
 #
 unig.term.keywords.json:
-  path: '/unig/term/keywords/json'
+  path: '/unig/term/keywords/json/{project_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:getJSONfromKeywords'
+    _controller: '\Drupal\unig\Controller\ProjectController:getJSONfromKeywordsForProject'
     _title: 'Keywords'
+    project_nid: null
   requirements:
     _permission: 'access unig admin'
 #
 #
 #
 unig.term.people.json:
-  path: '/unig/term/people/json'
+  path: '/unig/term/people/json/{project_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:getJSONfromPeople'
     _title: 'People'
+    project_nid: null
   requirements:
     _permission: 'access unig admin'
 #

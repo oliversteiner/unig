@@ -642,9 +642,20 @@
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      */
+    public static function getJSONfromKeywordsForProject($project_nid) {
+      $vid = 'unig_keywords';
+      return self::getJSONfromKeywords($vid);
+    }
+
     public static function getJSONfromKeywords() {
       $vid = 'unig_keywords';
       return self::getJSONfromVocubulary($vid);
+    }
+
+
+    public static function getJSONfromPeopleForProject($project_nid) {
+      $vid = 'unig_people';
+      return self::getJSONfromPeople($vid);
     }
 
     public static function getJSONfromPeople() {

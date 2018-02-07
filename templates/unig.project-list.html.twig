@@ -98,6 +98,7 @@
         <ul class="unig-project-list unig-sortable">
 
             {% for project in project_list %}
+                {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 
 
@@ -360,7 +361,9 @@
 
                     {% endif %}
 
-                    {% if project.private and logged_in == false %}
+                    {% if project.private and access_private_project == false %}
+
+                        {#  Hide private projects #}
 
                     {% else %}
 
