@@ -6,13 +6,16 @@
 */
 .unig-image-background {
   position: relative;
-  background-color: #212121;
   vertical-align: middle;
   text-align: center;
   cursor: zoom-in;
   border-radius: 3px;
   margin: 0;
   padding: 0; }
+
+.lightgallery-item img {
+  margin-left: auto;
+  margin-right: auto; }
 
 ul.unig-gallery li.unig-file-edit.active {
   border: 2px solid #7f2421; }

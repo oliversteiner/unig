@@ -1,9 +1,8 @@
 @import "colors";
 
-
 .unig-image-background {
   position: relative;
-  background-color: $color-image-background;
+  // background-color: $color-image-background;
   vertical-align: middle;
   text-align: center;
   cursor: zoom-in;
@@ -11,23 +10,34 @@
   margin: 0;
   padding: 0;
 }
+
+.lightgallery-item img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 ul.unig-gallery li.unig-file-edit.active {
   border: 2px solid $color-highlight;
 }
+
 .unig-gallery-preview-wrapper img {
   margin: 0;
   padding: 0;
 }
+
 .unig-lightgallery-title {
   display: inline-block;
   margin-right: 20px;
 }
+
 .unig-lightgallery-date {
   display: inline-block;
   margin-right: 20px;
 }
+
 .unig-lightgallery-number-of-items {
 }
+
 ul.unig-gallery {
   display: flex;
   align-content: flex-start;
@@ -37,6 +47,7 @@ ul.unig-gallery {
   margin: 0;
   padding: 0;
 }
+
 ul.unig-gallery li.unig-file-item {
   margin: 10px;
   list-style-type: none;
@@ -48,36 +59,37 @@ ul.unig-gallery li.unig-file-item {
 }
 
 ul.unig-gallery li.unig-file-item:hover {
-
   background-color: $color-admin-background-hover;
   border-color: $color-admin-border-hover;
-
 }
-
 
 //
 // =====  File HEAD  =====
 //
-.unig-file-item-text{
+.unig-file-item-text {
   color: $color-admin-text;
 }
 
-.unig-file-item-info{
+.unig-file-item-info {
   color: $color-admin-info;
 }
 
-.unig-file-picto{
-color: $color-admin-picto;
+.unig-file-picto {
+  color: $color-admin-picto;
 }
-.unig-file-picto:hover{
+
+.unig-file-picto:hover {
   color: $color-admin-picto-hover;
 }
-.unig-file-picto:active{
+
+.unig-file-picto:active {
   color: $color-admin-picto-active;
 }
-.unig-file-picto.active{
+
+.unig-file-picto.active {
   color: $color-admin-picto-active;
 }
+
 .unig-file-picto.active:hover {
   color: $color-admin-picto-active-hover;
 }
@@ -86,6 +98,7 @@ color: $color-admin-picto;
   display: flex;
   justify-content: space-between;
 }
+
 .unig-file-head-item {
   padding: 2px;
 }
@@ -95,20 +108,23 @@ color: $color-admin-picto;
   padding-right: 2px;
   margin-right: 4px;
 }
+
 .unig-file-weight {
 }
+
 .unig-project-date {
   font-size: 1.2em;
 }
+
 h2.unig-project-title {
   margin: 0;
   padding: 0;
   font-size: 1.8em;
 }
+
 .unig-file-gallery-head {
   margin-left: 50px;
 }
-
 
 // =====  Middle  =====
 
@@ -116,19 +132,15 @@ h2.unig-project-title {
   display: flex;
   justify-content: space-between;
 }
+
 .unig-file-middle-item {
 }
 
-
-
-
-
-.div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons{
+.div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons {
   width: 600px;
 }
 
-
-.unig-file-title{
+.unig-file-title {
   //  border: silver 1px solid;
   padding: 5px 10px 2px 10px;
   text-align: center;

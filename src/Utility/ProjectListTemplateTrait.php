@@ -62,6 +62,7 @@
       unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
 
       $variables['is_admin'] = $user->hasPermission('access unig admin');
+      $variables['show_private'] = $user->hasPermission('access unig admin');
       $variables['logged_in'] = $user->isAuthenticated();
 
 
