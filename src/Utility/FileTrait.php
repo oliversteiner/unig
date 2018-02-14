@@ -35,7 +35,7 @@
      * @return int
      * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
-    public function createNodeUniGImage($file_tmp, $project_nid) {
+    public function createNodeUniGImage($file_tmp, $project_nid = null) {
 
       // define entity type and bundle
       $entity_type = "node";

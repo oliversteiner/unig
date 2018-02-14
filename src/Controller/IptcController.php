@@ -40,9 +40,11 @@
      */
     function __construct($fid, $project_nid = NULL) {
 
+      dpm($project_nid);
 
       // Read File
       $this->fid = $fid;
+      $this->project_nid = $project_nid;
       $this->_readIptcFromFile();
       $this->_splitKeywordsAndPeople();
 
@@ -207,6 +209,7 @@
         // IPTC auslesen
         $iptc = iptcparse($info['APP13']);
 
+
         if (is_array($iptc)) {
           $data['copyright'] = $iptc["2#116"][0];
 
@@ -334,9 +337,11 @@
      *
      * @return array // all term ids from File
      */
-    function saveTerms($vid, $new_terms, $project_nid) {
+    function saveTerms($vid, $new_terms) {
+
+      $project_nid = $this->project_nid;
       $file_keyword_tids = [];
-      dpm($new_terms, 'Term from File');
+      dpm($new_terms, 'Terms from File - '.$vid);
 
       $voc = $this->loadVocabulary($vid);
 
@@ -362,6 +367,8 @@
           // if project id not there add new one
 
           $term = Term::load($tid);
+
+          dpm($term, 'term found an loaded - '.$project_nid);
 
           // $new_item = ['target_id' => $project_nid];
           $term->field_projects[] = $project_nid;

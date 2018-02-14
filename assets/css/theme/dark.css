@@ -12,291 +12,291 @@
   /* @import "colors"; */ }
   #unig-main.unig-theme-dark a.unig-button,
   #unig-main.unig-theme-dark .unig-button {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     color: #888888;
     border-color: #101010;
     background-color: #2d2d2d; }
     #unig-main.unig-theme-dark a.unig-button-success, #unig-main.unig-theme-dark a.unig-button-ok,
     #unig-main.unig-theme-dark .unig-button-success,
     #unig-main.unig-theme-dark .unig-button-ok {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       color: #185746;
       border-color: #2eb741;
       background-color: #daffd4; }
     #unig-main.unig-theme-dark a.unig-button-warning,
     #unig-main.unig-theme-dark .unig-button-warning {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       color: #7f5930;
       border-color: #ffd29b;
       background-color: #fff8cf; }
     #unig-main.unig-theme-dark a.unig-button-error, #unig-main.unig-theme-dark a.unig-button-danger,
     #unig-main.unig-theme-dark .unig-button-error,
     #unig-main.unig-theme-dark .unig-button-danger {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       color: #7f2013;
       border-color: #ffb4aa;
       background-color: #ffe6e5; }
   #unig-main.unig-theme-dark a.unig-button:hover,
   #unig-main.unig-theme-dark .unig-button:hover {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     color: #b4b4b4;
     border-color: #462f61;
     background-color: #462f61; }
   #unig-main.unig-theme-dark a.unig-button-success:hover, #unig-main.unig-theme-dark a.unig-button-ok:hover,
   #unig-main.unig-theme-dark .unig-button-success:hover,
   #unig-main.unig-theme-dark .unig-button-ok:hover {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     background-color: #76c875;
     border-color: #2eb741;
     color: #daffd4; }
   #unig-main.unig-theme-dark a.unig-button-warning:hover,
   #unig-main.unig-theme-dark .unig-button-warning:hover {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     background-color: #e9cea5;
     border-color: #ffd29b;
     color: #fff8cf; }
   #unig-main.unig-theme-dark a.unig-button-error:hover, #unig-main.unig-theme-dark a.unig-button-danger:hover,
   #unig-main.unig-theme-dark .unig-button-error:hover,
   #unig-main.unig-theme-dark .unig-button-danger:hover {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     background-color: #bf9f9d;
     border-color: #ffb4aa;
     color: #ffe6e5; }
   #unig-main.unig-theme-dark a.unig-button:active,
   #unig-main.unig-theme-dark .unig-button:active {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     color: #cccccc;
     border-color: rgba(11, 11, 11, 0.95);
     background-color: #4f4f4f; }
   #unig-main.unig-theme-dark a.unig-button-success:active, #unig-main.unig-theme-dark a.unig-button-ok:active,
   #unig-main.unig-theme-dark .unig-button-success:active,
   #unig-main.unig-theme-dark .unig-button-ok:active {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     background-color: #76c875;
     border-color: #2eb741;
     color: #daffd4; }
   #unig-main.unig-theme-dark a.unig-button-warning:active,
   #unig-main.unig-theme-dark .unig-button-warning:active {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     background-color: #e9cea5;
     border-color: #ffd29b;
     color: #fff8cf; }
   #unig-main.unig-theme-dark a.unig-button-error:active, #unig-main.unig-theme-dark a.unig-button-danger:active,
   #unig-main.unig-theme-dark .unig-button-error:active,
   #unig-main.unig-theme-dark .unig-button-danger:active {
-    box-sizing: border-box;
     display: inline-block;
-    padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
+    box-sizing: border-box;
     font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
     background-color: #bf9f9d;
     border-color: #ffb4aa;
     color: #ffe6e5; }
   #unig-main.unig-theme-dark a.unig-button,
   #unig-main.unig-theme-dark .unig-button {
-    box-sizing: border-box;
     display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
     padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
     text-decoration: none;
+    border: 1px solid #101010;
     cursor: pointer;
-    font-size: 12px; }
+    border-radius: 5px; }
     #unig-main.unig-theme-dark a.unig-button.active,
     #unig-main.unig-theme-dark .unig-button.active {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       color: #cccccc;
       border-color: rgba(11, 11, 11, 0.95);
       background-color: #4f4f4f; }
     #unig-main.unig-theme-dark a.unig-button-success.active, #unig-main.unig-theme-dark a.unig-button-ok.active,
     #unig-main.unig-theme-dark .unig-button-success.active,
     #unig-main.unig-theme-dark .unig-button-ok.active {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       background-color: #185746;
       border-color: #2eb741;
       color: #daffd4; }
     #unig-main.unig-theme-dark a.unig-button-warning.active,
     #unig-main.unig-theme-dark .unig-button-warning.active {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       background-color: #7f5930;
       border-color: #ffd29b;
       color: #fff8cf; }
     #unig-main.unig-theme-dark a.unig-button-error.active, #unig-main.unig-theme-dark a.unig-button-danger.active,
     #unig-main.unig-theme-dark .unig-button-error.active,
     #unig-main.unig-theme-dark .unig-button-danger.active {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       background-color: #7f2013;
       border-color: #ffb4aa;
       color: #ffe6e5; }
   #unig-main.unig-theme-dark a.unig-button,
   #unig-main.unig-theme-dark .unig-button {
-    box-sizing: border-box;
     display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
     padding: 2px 10px;
-    border: 1px solid #101010;
-    border-radius: 5px;
     text-decoration: none;
+    border: 1px solid #101010;
     cursor: pointer;
-    font-size: 12px; }
+    border-radius: 5px; }
     #unig-main.unig-theme-dark a.unig-button.active:hover,
     #unig-main.unig-theme-dark .unig-button.active:hover {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       color: #cccccc;
       border-color: #333333;
       background-color: #232323; }
     #unig-main.unig-theme-dark a.unig-button-success.active:hover, #unig-main.unig-theme-dark a.unig-button-ok.active:hover,
     #unig-main.unig-theme-dark .unig-button-success.active:hover,
     #unig-main.unig-theme-dark .unig-button-ok.active:hover {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       background-color: #185746;
       border-color: #2eb741;
       color: #daffd4; }
     #unig-main.unig-theme-dark a.unig-button-warning.active:hover,
     #unig-main.unig-theme-dark .unig-button-warning.active:hover {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       background-color: #7f5930;
       border-color: #ffd29b;
       color: #fff8cf; }
     #unig-main.unig-theme-dark a.unig-button-error.active:hover, #unig-main.unig-theme-dark a.unig-button-danger.active:hover,
     #unig-main.unig-theme-dark .unig-button-error.active:hover,
     #unig-main.unig-theme-dark .unig-button-danger.active:hover {
-      box-sizing: border-box;
       display: inline-block;
-      padding: 2px 10px;
-      border: 1px solid #101010;
-      border-radius: 5px;
-      text-decoration: none;
-      cursor: pointer;
+      box-sizing: border-box;
       font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
       background-color: #7f2013;
       border-color: #ffb4aa;
       color: #ffe6e5; }
@@ -312,13 +312,13 @@
     padding: 1px;
     margin: 1px;
     border-radius: 2px;
-    border: 1px solid #3e3e3e;
+    border: 1px solid;
     background: #3e3e3e; }
   #unig-main.unig-theme-dark .unig-fieldset.no-border {
     border: 1px solid transparent; }
   #unig-main.unig-theme-dark .unig-button.disabled {
-    pointer-events: none;
     cursor: no-drop;
+    pointer-events: none;
     opacity: 0.5; }
   #unig-main.unig-theme-dark .unig-button-group .unig-button {
     box-sizing: border-box;
@@ -327,15 +327,11 @@
   #unig-main.unig-theme-dark .unig-button-group .unig-button:first-child:hover,
   #unig-main.unig-theme-dark .unig-button-group .unig-button:first-child:active,
   #unig-main.unig-theme-dark .unig-button-group .unig-button:first-child {
-    border-radius: 0;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px; }
+    border-radius: 5px 0 0 5px; }
   #unig-main.unig-theme-dark .unig-button-group .unig-button:last-child:hover,
   #unig-main.unig-theme-dark .unig-button-group .unig-button:last-child:active,
   #unig-main.unig-theme-dark .unig-button-group .unig-button:last-child {
-    border-radius: 0;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px; }
+    border-radius: 0 5px 5px 0; }
   #unig-main.unig-theme-dark ul.unig-tags-keywords {
     display: inline-block; }
   #unig-main.unig-theme-dark .unig-keyword-tag-id {
