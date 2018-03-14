@@ -51,7 +51,6 @@ msgstr "Keine Dateien ausgewählt"
 msgid "Verifying entry..."
 msgstr "Eintrag wird überprüft..."
 
-#: src/Form/NewAlbumForm.php:81 templates/unig.project-files.html.twig:152
 #: templates/unig.project-list.html.twig:83
 #: templates/unig.project-list.html.twig:316
 msgid "Cancel"
