@@ -102,6 +102,7 @@
                 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 
+
                 {# -------------------  Admin -------------------------- #}
                 {% if is_admin %}
                     {# ----------- YEAR ----------- #}
@@ -133,7 +134,7 @@
                             <div class="unig-project-cover">
                                 <a href="/unig/project/{{ project.nid }}">
                                     <div class="unig-image-background">
-                                        <img class="" src="{{ project.cover_image.unig_cover }}" alt="">
+                                        <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
                                     </div>
 
                                 </a>
@@ -413,6 +414,7 @@
 
                     {% else %}
 
+
                         <li class="unig-project-list-item">
 
                             <article class="unig unig-project {{ class }}">
@@ -421,7 +423,7 @@
                                 <div class="unig-project-preview">
                                     <a href="/unig/lightgallery/{{ project.nid }}">
                                         <div class="unig-gallery-preview-wrapper">
-                                            <img src="{{ project.cover_image.unig_cover }}" alt="">
+                                            <img src="{{ project.cover_image.unig_cover.url }}" alt="">
                                         </div>
                                     </a>
                                 </div>

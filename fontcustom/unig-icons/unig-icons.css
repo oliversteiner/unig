@@ -1,0 +1,46 @@
+/*
+  Icon Font: unig-icons
+*/
+
+@font-face {
+  font-family: "unig-icons";
+  src: url("./unig-icons.eot");
+  src: url("./unig-icons.eot?#iefix") format("embedded-opentype"),
+       url("./unig-icons.woff2") format("woff2"),
+       url("./unig-icons.woff") format("woff"),
+       url("./unig-icons.ttf") format("truetype"),
+       url("./unig-icons.svg#unig-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "unig-icons";
+    src: url("./unig-icons.svg#unig-icons") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.icon-image-size-big:before,
+.icon-image-size-medium:before,
+.icon-image-size-small:before {
+  display: inline-block;
+  font-family: "unig-icons";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.icon-image-size-big:before { content: "\f100"; }
+.icon-image-size-medium:before { content: "\f101"; }
+.icon-image-size-small:before { content: "\f105"; }

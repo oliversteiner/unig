@@ -90,7 +90,7 @@
       private    : priv,
       copyright  : copyright
     };
-    console.log('saveProject ', data);
+   // console.log('saveProject ', data);
 
     // load Inputs
 
@@ -109,7 +109,7 @@
     // Private
     var $elem_privat = $('#unig-project-private-' + project_nid);
 
-    console.log('privat ', priv_status);
+    // console.log('privat ', priv_status);
 
     
     if (priv_status) {
@@ -135,7 +135,7 @@
       },
       dataType: 'json',
       success : function (results) {
-        console.log(results);
+       // console.log(results);
       }
     });
 

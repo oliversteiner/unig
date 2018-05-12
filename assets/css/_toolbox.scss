@@ -6,6 +6,16 @@
   margin: 0;
   padding: 0;
 }
+.unig-toolbox table {
+  background-color: $color-toolbox-background;
+}
+
+.unig-toolbox tr td,
+.unig-toolbox tr th {
+  border: 0;
+  background-color: $color-toolbox-background;
+  color: $color-admin-text;
+}
 .unig-toolbox-button {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;

@@ -72,7 +72,7 @@ class FilesForm extends FormBase
 
         $form['new_project'] = [
             '#type' => 'textfield',
-            '#title' => t('Name neues Projekt:'),
+            '#title' => t('Name the new Project'),
             '#size' => 60,
             '#maxlength' => 128,
             '#class' => 'form-control',

@@ -29,7 +29,7 @@
 
           //  Theme - Dark
           $('.unig-theme-default-trigger').click(function (context) {
-            Drupal.behaviors.unigAdmin.changeTheme('default');
+            Drupal.behaviors.unigAdmin.changeTheme('bright');
             $('.unig-button-theme-dark').toggle();
             $('.unig-button-theme-default').toggle();
           });
@@ -55,22 +55,9 @@
           $main.addClass(theme_name);
         },
 
-        saveThemeToLocalStorage: function (data, route) {
-
-          console.log(data);
+        saveThemeToLocalStorage: function () {
 
 
-          $.ajax({
-            url     : Drupal.url('unig/' + route),
-            type    : 'POST',
-            data    : {
-              'data': data
-            },
-            dataType: 'json',
-            success : function (results) {
-              Drupal.behaviors.unigAdmin.showMessages(results)
-            }
-          });
 
           return true;
         },
@@ -84,7 +71,6 @@
 
             results.messages.forEach(function (index, item) {
 
-              console.log(' ', item.message);
 
             })
 

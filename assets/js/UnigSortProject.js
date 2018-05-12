@@ -72,9 +72,8 @@
     $('.unig-button-people-toggle-all').addClass('disabled');
 
     // Files
-    $(".unig-sortable-reducer").addClass('unig-sortable-reducer-active');
-    $(".unig-sortable-reducer-content").show();
-    $(".unig-sortable-reducer-hide").hide();
+    $(".unig-sortable-only").show();
+    $(".unig-sortable-hide").hide();
 
 
   }
@@ -95,11 +94,11 @@
     $('.unig-button-people-toggle-all').removeClass('disabled');
 
     // Files
-    $(".unig-sortable-reducer").removeClass('unig-sortable-reducer-active');
-    $(".unig-sortable-reducer-content").hide();
-    $(".unig-sortable-reducer-hide").show();
+    $(".unig-sortable-only").hide();
+    $(".unig-sortable-hide").show();
 
     $(".unig-sortable").sortable("disable");
+
 
 
   }
@@ -132,7 +131,6 @@
 
   function save(data, name) {
 
-    console.log(data);
 
 
     $.ajax({

@@ -13,20 +13,6 @@
 
             // onload
             constructor(context, settings);
-
-            // Event Handlers
-            // Change
-            $('#edit-project').change(function (context, settings) {
-                selectChange(context, settings);
-            });
-
-            // wenn ein Projekt gewählt ist, den Selector einstellen:
-            // werk einlesen
-            var project_nid = $("input[name=project_nid]").val();
-            // Option wechseln
-            $('#edit-project').val(project_nid);
-
-            console.log(project_nid);
         }
     };
 
@@ -37,6 +23,12 @@
      */
     function constructor(context, settings) {
         selectChange(context, settings);
+
+      // Event Handlers
+      // Change
+      $('#edit-project').change(function (context, settings) {
+        selectChange(context, settings);
+      });
     }
 
     /**
@@ -52,6 +44,7 @@
 
         if (select === 'neu') {
             $('#unig_form_upload_new_project').show();
+            $('#edit-new-project').focus();
         }
         else {
             $('#unig_form_upload_new_project').hide();

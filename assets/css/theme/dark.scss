@@ -5,11 +5,12 @@
 }
 #unig-main.unig-theme-dark {
   @import "../buttons";
-  @import "../download";
   @import "../keyword_people";
   @import "../rating";
   @import "../toolbox";
   @import "../sortable";
+  @import "../fieldset";
+  @import "../download";
 }
 #unig-main.unig-theme-dark {
 
@@ -71,5 +72,12 @@
     color: $color-form-text
   }
 
+  .unig-toolbar {
+    border-color: $color-toolbar-border;
+    background: $color-toolbar-background;
+  }
+
 }
+
+
 

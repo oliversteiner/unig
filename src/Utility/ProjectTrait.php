@@ -32,6 +32,7 @@
   use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
   use Drupal\Core\Ajax\AjaxResponse;
   use Drupal\Core\Ajax\AlertCommand;
+  use Drupal\Core\Url;
   use Drupal\image\Entity\ImageStyle;
   use Drupal\node\Entity\Node;
   use Drupal\taxonomy\Entity\Term;
@@ -125,12 +126,27 @@
      *
      * @return int
      */
-    public function getDefaultProjectNid() {
-      // Aus den Einstellungen das Defaultalbum wählen
-      $default_config = \Drupal::config('unig.settings');
-      $default_project_nid = $default_config->get('unig.default_project');
+    public function getDefaultProjectNid($project_nid = FALSE) {
 
-      return $default_project_nid;
+      if ($project_nid) {
+        return $project_nid;
+      }
+      else {
+        // Aus den Einstellungen das Defaultalbum wählen
+        $default_config = \Drupal::config('unig.settings');
+        $default_project_nid = $default_config->get('unig.default_project');
+
+        if ($default_project_nid != FALSE) {
+
+          return $default_project_nid;
+
+        }
+        else {
+          $list = ProjectTrait::getAllProjectNids();
+
+          return $list[0];
+        }
+      }
     }
 
 
@@ -270,29 +286,57 @@
         if (isset($node->field_unig_image->entity)) {
 
           $list_image_styles = \Drupal::entityQuery('image_style')->execute();
-          $count = 0;
 
           foreach ($node->field_unig_image as $image) {
 
             if ($image->entity) {
 
+              // Original
+
               $path = $image->entity->getFileUri();
+              $url = file_create_url($path);
+
+              $filesize = filesize($path);
+              $filesize_formated = format_size($filesize);
+              list($width, $height) = getimagesize($path);
+
+              $variables['original']['url'] = $url;
+              $variables['original']['uri'] = $path;
+              $variables['original']['filesize'] = $filesize;
+              $variables['original']['filesize_formated'] = $filesize_formated;
+              $variables['original']['width'] = $width;
+              $variables['original']['height'] = $height;
+
+              // styles
+
 
               foreach ($list_image_styles as $images_style) {
 
                 $style = ImageStyle::load($images_style);
-                $variables[$count][$images_style] = $style->buildUrl($path);
+                $url = $style->buildUrl($path);
+                $uri = $style->buildUri($path);
+
+                $filesize = filesize($uri);
+                $filesize_formated = format_size($filesize);
+                list($width, $height) = getimagesize($uri);
+
+                $variables[$images_style]['url'] = $url;
+                $variables[$images_style]['uri'] = $uri;
+                $variables[$images_style]['filesize'] = $filesize;
+                $variables[$images_style]['filesize_formated'] = $filesize_formated;
+                $variables[$images_style]['width'] = $width;
+                $variables[$images_style]['height'] = $height;
               }
             }
-            $count++;
           }
         }
 
 
       }
-      return $variables[0];
+      return $variables;
 
     }
+
 
     /**
      * @param $nid_project
@@ -500,10 +544,28 @@
         // Album List
         $album_list = AlbumTrait::getAlbumList($nid);
 
+        // url friendly title
+
+
+        // Always replace whitespace with the separator.
+        if (\Drupal::hasService('pathauto.alias_cleaner')) {
+          $clean_string = \Drupal::service('pathauto.alias_cleaner')
+            ->cleanString($title);
+
+        }
+        else {
+          $clean_string = preg_replace('/\s+/', '_', $title);
+
+        }
+
+
+        $host = \Drupal::request()->getHost();
+
         // Twig-Variables
         $project = [
           'nid' => $nid,
           'title' => $title,
+          'title_url' => $clean_string,
           'description' => $description,
           'copyright' => $copyright,
           'weight' => $weight,
@@ -516,17 +578,25 @@
           'cover_id' => $cover_id,
           'cover_image' => $cover_image,
           'album_list' => $album_list,
+          'host' => $host,
+
 
         ];
+        return $project;
 
       }
-      return $project;
+      else {
+        return [];
+      }
     }
 
 
     /**
-     * @return array
+     * @param      $project_nid
+     * @param null $album_nid
      *
+     * @return array
+     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
     public static function buildFileList($project_nid, $album_nid = NULL) {
 
@@ -721,8 +791,14 @@
       $node_people = $entity->get('field_unig_people')->getValue();
       if ($node_people) {
         foreach ($node_people as $term) {
-          $term = Term::load($term['target_id']);
-          $people[] = $term->getName();
+          $tid = $term['target_id'];
+          $term = Term::load($tid);
+
+          if ($term) {
+            $name = $term->getName();
+            $item = ['id' => $tid, 'name' => $name];
+            $people[] = $item;
+          }
         }
       }
       // keywords
@@ -730,8 +806,16 @@
       $node_keywords = $entity->get('field_unig_keywords')->getValue();
       if ($node_keywords) {
         foreach ($node_keywords as $term) {
-          $term = Term::load($term['target_id']);
-          $keywords[] = $term->getName();
+
+          $tid = $term['target_id'];
+          $term = Term::load($tid);
+
+          if ($term) {
+            $name = $term->getName();
+            $item = ['id' => $tid, 'name' => $name];
+            $keywords[] = $item;
+          }
+
         }
       }
       // Album List

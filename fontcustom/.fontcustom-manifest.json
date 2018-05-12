@@ -1,0 +1,62 @@
+{
+  "checksum": {
+    "previous": "b524cec4178583449d5e1a050fdf29312fd890fde9a2de4999d9b8bf58a3b747",
+    "current": "b524cec4178583449d5e1a050fdf29312fd890fde9a2de4999d9b8bf58a3b747"
+  },
+  "fonts": [
+    "unig-icons/unig-icons.ttf",
+    "unig-icons/unig-icons.svg",
+    "unig-icons/unig-icons.woff",
+    "unig-icons/unig-icons.eot",
+    "unig-icons/unig-icons.woff2"
+  ],
+  "glyphs": {
+    "image-size-big": {
+      "codepoint": 61696,
+      "source": "vectors/image-size-big.svg"
+    },
+    "image-size-medium": {
+      "codepoint": 61697,
+      "source": "vectors/image-size-medium.svg"
+    },
+    "image-size-small": {
+      "codepoint": 61701,
+      "source": "vectors/image-size-small.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": "fontcustom.yml",
+    "copyright": "",
+    "css3": false,
+    "css_selector": ".icon-{{glyph}}",
+    "debug": true,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "unig-icons",
+    "force": true,
+    "input": {
+      "templates": "vectors",
+      "vectors": "vectors"
+    },
+    "no_hash": true,
+    "output": {
+      "css": "unig-icons",
+      "fonts": "unig-icons",
+      "preview": "unig-icons"
+    },
+    "preprocessor_path": null,
+    "quiet": false,
+    "templates": [
+      "css",
+      "preview"
+    ],
+    "vectors": "vectors"
+  },
+  "templates": [
+    "unig-icons/unig-icons.css",
+    "unig-icons/unig-icons-preview.html"
+  ]
+}

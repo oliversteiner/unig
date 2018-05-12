@@ -1,7 +1,7 @@
 /*
 *     THEME
 *     =================
-*     Default
+*     bright
 *
 */
 .unig-image-background {
@@ -42,16 +42,19 @@ ul.unig-gallery {
   padding: 0; }
 
 ul.unig-gallery li.unig-file-item {
-  margin: 10px;
-  list-style-type: none;
-  padding: 5px 12px 4px 12px;
-  background-color: #e6e6e6;
-  width: 230px;
-  border-radius: 5px;
-  border: 2px solid #d6d6d6; }
+  background-color: #e7e7e7;
+  border: 2px solid transparent; }
+
+ul.unig-gallery li.unig-file-item.marked {
+  background-color: #c1d2bf;
+  border: 2px solid transparent; }
 
 ul.unig-gallery li.unig-file-item:hover {
   background-color: #b8b8b8;
+  border-color: #414d47; }
+
+ul.unig-gallery li.unig-file-item:hover.marked {
+  background-color: #c1d2bf;
   border-color: #414d47; }
 
 .unig-file-item-text {
@@ -62,6 +65,9 @@ ul.unig-gallery li.unig-file-item:hover {
 
 .unig-file-picto {
   color: #a8a8a8; }
+
+.marked .unig-file-picto {
+  color: #8fa261; }
 
 .unig-file-picto:hover {
   color: #aa5cfc; }
@@ -108,5 +114,17 @@ h2.unig-project-title {
 .unig-file-title {
   padding: 5px 10px 2px 10px;
   text-align: center; }
+
+.unig-button-image-size {
+  display: inline-block; }
+
+.css-picto-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 20px;
+  width: 20px;
+  background-color: #0f7f34;
+  font-size: 2px; }
 
 /*# sourceMappingURL=unig_image.css.map */

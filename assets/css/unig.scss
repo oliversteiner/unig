@@ -1,12 +1,16 @@
 @import "colors";
 @import "buttons";
+@import "message_box";
 @import "sortable";
 @import "inputs";
 @import "download";
 @import "rating";
 @import "keyword_people";
 @import "toolbox";
+@import "toolbar";
+@import "fieldset";
 @import "item_overlay";
+@import "images_size";
 body {
 }
 .unig {
@@ -59,4 +63,33 @@ hr.unig {
 .unig-seperator.invert {
   border-left: 1px solid $color-seperator-invert;
 }
+// Tests
 
+li.lazyload-test {
+  border: 4px solid green !important;
+}
+.unig-lazyload-placeholder {
+  display: flex;
+  width: 220px;
+  height: 150px;
+  justify-content: center;
+  align-content: center;
+
+  i {
+    display: block;
+    margin: auto;
+    font-size: 30px;
+  }
+}
+
+.color-success{
+  color: $color-success;
+}
+
+.color-warning{
+  color: $color-warning;
+}
+
+.color-error{
+  color: $color-error;
+}

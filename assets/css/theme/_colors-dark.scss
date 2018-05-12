@@ -132,14 +132,23 @@ $color-admin-buttons-active-hover: rgb(41, 9, 12);
 
 // Marked
 $color-admin-marked: rgb(93, 85, 133);
+$color-admin-marked-text: rgb(133, 122, 192);
+$color-admin-marked-lite: rgb(72, 66, 104);
+
 $color-admin-marked-hover: rgb(139, 127, 200);
 
+// badge
+$color-badge: rgb(70, 70, 70);
+$color-badge-marked:  rgb(70, 70, 70);
+
+$color-badge-inverted: rgb(70, 70, 70);
+$color-badge-marked-inverted:  rgb(70, 70, 70);
 // fieldset
 $color-fieldset-border: rgb(62, 62, 62);
 $color-fieldset-background: rgb(62, 62, 62);
 
 // toolbar
-$color-toolbar-border: rgb(19, 19, 19);
+$color-toolbar-border: rgb(87, 87, 87);
 $color-toolbar-background: rgb(45, 45, 45);
 
 // toolbox
@@ -173,4 +182,5 @@ $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 // sort
 $color-sortable-placeholder-background: rgb(19, 19, 19);
 $color-sortable-placeholder-border: rgb(82, 82, 82);
-
+$color-sortable-active-background : rgb(182, 142, 61);
+$color-sortable-active-text : rgb(182, 177, 151);

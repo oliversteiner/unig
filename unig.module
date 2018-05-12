@@ -34,7 +34,7 @@ function unig_page_attachments(array &$attachments) {
  * @{
  * Universal Gallery
  * Each Item (Image, File) is an Node
- * Organized in Projects also as Node
+ * Organized in Projects also as Nodes
  * and Albums(Image) / Groups(Files) as Taxonomy
  *
  *

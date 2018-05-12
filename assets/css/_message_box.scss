@@ -1,0 +1,60 @@
+@mixin unig-message-box {
+  box-sizing: border-box;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid $color-default-border;
+  border-radius: 5px;
+}
+// default
+
+.unig-message-box {
+  @include unig-message-box;
+  color: $color-default-text;
+  border-color: $color-default-border;
+  background-color: $color-default-background;
+
+  &-success,
+  &-ok {
+    @include unig-message-box;
+    color: $color-ok-text;
+    border-color: $color-ok-border;
+    background-color: $color-ok-background;
+  }
+
+  &-warning {
+    @include unig-message-box;
+    color: $color-warning-text;
+    border-color: $color-warning-border;
+    background-color: $color-warning-background;
+  }
+
+  &-error,
+  &-danger {
+    @include unig-message-box;
+    color: $color-error-text;
+    border-color: $color-error-border;
+    background-color: $color-error-background;
+  }
+
+}
+.unig-message-box-picto {
+  display: flex;
+  justify-content: center;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+.unig-message-box-body {
+}
+.unig-message-box-close-trigger {
+  float: right;
+  cursor: pointer;
+  margin: -5px 0 0 0;
+  opacity: 0.5;
+}
+.unig-message-box-close-trigger:hover {
+  opacity: 1;
+}
+.unig-message-box-close-trigger:active {
+  color: black;
+}
+

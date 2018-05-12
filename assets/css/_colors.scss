@@ -1,7 +1,7 @@
 /*
 *     THEME
 *     =================
-*     Default
+*     bright
 *
 */
 
@@ -52,18 +52,24 @@ $color-default-text-invert: rgb(204, 204, 204);
 $color-default-text-invert-hover: rgb(204, 204, 204);
 
 // OK
+$color-success: #0f7f34;
+
 $color-ok-border: #2eb741;
 $color-ok-background: #daffd4;
 $color-ok-text: #0f7f34;
 $color-ok-hover: #76c875;
 
 // Warning
+$color-warning: #ffbd57;
+
 $color-warning-border: #ffd29b;
 $color-warning-background: #fff8cf;
 $color-warning-hover: #e9cea5;
 $color-warning-text: #7f5930;
 
 // Error
+$color-error: #a2132b;
+
 $color-error-border: #ffb4aa;
 $color-error-background: #ffe6e5;
 $color-error-hover: #bf9f9d;
@@ -126,16 +132,34 @@ $color-admin-buttons-active: rgb(41, 41, 41);
 $color-admin-buttons-active-hover: rgb(41, 41, 41);
 
 // Marked
-$color-admin-marked: rgb(167, 211, 76);
+$color-admin-marked: rgb(84, 105, 42);
+$color-admin-marked-text: rgb(143, 162, 97);
+$color-admin-marked-lite: rgb(193, 210, 191);
+
 $color-admin-marked-hover: rgb(87, 145, 59);
 
-// fieldset
-$color-fieldset-border: rgb(234, 237, 240);
-$color-fieldset-background: rgb(247, 250, 253);
+// badge
+$color-badge: rgb(195, 195, 195);
+$color-badge-marked: rgb(195, 195, 195);
+
+$color-badge-inverted: rgb(195, 195, 195);
+$color-badge-marked-inverted: rgb(195, 195, 195);
+
+
+
 
 // toolbar
 $color-toolbar-border: rgb(230, 230, 230);
 $color-toolbar-background: rgb(246, 246, 246);
+$color-toolbar-stroke: rgb(227, 226, 226);
+$color-toolbar-stroke-invert: rgb(110, 109, 109);
+
+// fieldset
+$color-fieldset-border: rgb(234, 237, 240);
+$color-fieldset-background: rgb(247, 250, 253);
+$color-fieldset-stroke: rgb(227, 226, 226);
+$color-fieldset-stroke-invert: rgb(110, 109, 109);
+
 
 // toolbox
 $color-toolbox-border: rgb(230, 230, 230);
@@ -168,6 +192,10 @@ $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 // sort
 $color-sortable-placeholder-background: rgba(0, 0, 0, 0.1);
 $color-sortable-placeholder-border: rgba(0, 0, 0, 0.2);
+$color-sortable-active-background : rgb(158, 154, 151);
+$color-sortable-active-text : rgb(255, 251, 199);
+
 
 // Project-list
 $color-admin-background-private : rgb(195, 204, 185);
+

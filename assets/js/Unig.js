@@ -8,11 +8,23 @@
   'use strict';
 
   Drupal.behaviors.unig = {
+
+    number_files                 : 0,
+    number_files_in_download_list: 0,
+    number_files_visible         : 0,
+    projectname: '',
+
+
     attach:
         function (context, settings) {
           // console.log(' Drupal.behaviors.unig');
 
         },
+
+    updateGui: function () {
+
+    },
+
 
     removeDuplicates:
         function (arr) {
@@ -30,14 +42,15 @@
 
             var int_array = [];
             var counter = 0;
-            array.forEach(function (item) {
 
-              if (parseInt(item) !== 0) {
-                int_array[counter] = parseInt(item);
-                counter++;
+            for (counter; array.length > counter; counter++) {
+
+              if (parseInt(array[counter]) !== 0) {
+                int_array[counter] = parseInt(array[counter]);
               }
+            }
 
-            });
+
             return int_array;
           }
           else {
@@ -69,8 +82,7 @@
           return $elem.data('unig-file-nid');
         },
 
-    showMessages: function (results) {
-      console.log(results);
+    showMessages : function (results) {
 
 
       const $messageContainer = $('.unig-message-container');
@@ -96,8 +108,12 @@
         $messageContainer.html(html);
       }
 
+    },
+    humanFileSize: function (size) {
+      // https://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable-string
+      var i = size == 0 ? 0 : Math.floor( Math.log(size) / Math.log(1024) );
+      return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
     }
-
   };
 
 })(jQuery, Drupal, drupalSettings);

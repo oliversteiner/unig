@@ -8,7 +8,7 @@
   margin-bottom: 5px;
   padding-bottom: 5px;
 
-  h2{
+  h2 {
     margin: 0;
     padding: 0;
   }
@@ -25,44 +25,34 @@
     padding: 0;
   }
 }
-
-
-
-.unig-project-private{
+.unig-project-private {
   background-color: $color-private;
   border-color: $color-private-border;
 
-  .unig-gallery-preview-wrapper{
+  .unig-gallery-preview-wrapper {
     background-color: $color-private-border;
   }
 
-  .unig-gallery-preview-wrapper:hover{
+  .unig-gallery-preview-wrapper:hover {
     background-color: $color-highlight;
   }
 }
-
 .unig-project-nid {
   color: $color-20;
 }
-
 .unig-project-list-title {
   display: inline-block;
   margin-right: 20px;
   font-size: 1.2em;
 }
 .unig-project-list-date {
-
-
 }
 .unig-project-list-number-of-items {
 }
-
 .unig-project-label {
   margin-top: 5px;
 }
-
-
-.unig-project-toolbar{
+.unig-project-toolbar {
   margin: 10px 0;
 }
 .unig-project-weight {
@@ -70,35 +60,7 @@
   padding-bottom: 10px;
   font-size: 2em;
 }
-
-
 // Sortable
-.unig-project-list-container .unig-sortable-reducer-active {
-  display: inline-block;
-  margin: 10px;
-  padding: 20px;
-  background-color: $color-2;
-  width: 140px;
-  height: 200px;
-  border-radius: 5px;
-  border: 1px solid $color-10;
-
-  .unig-sortable-number {
-    position: absolute;
-  }
-
-
-  .unig-sortable-cover img {
-    border: solid 1px $color-80;
-    width: 100px;
-    height: 100px;
-  }
-
-  .unig-sortable-title {
-    margin: 0;
-    padding: 5px 0 0 0;
-  }
-}
 
 .unig-project-list-container .unig-sortable-placeholder {
   display: inline-block;
@@ -106,16 +68,20 @@
   padding: 20px;
   width: 140px;
   height: 200px;
-
 }
-
-.unig-back-to-list{
+.unig-back-to-list {
   margin: 0 10px;
 }
-
 ul.unig-gallery li.unig-file-item:hover {
-
   background-color: $color-admin-background;
   border-color: $color-admin-border-hover;
-
+}
+.unig-project-date {
+  font-size: 12px;
+}
+.unig-project-number-of-items {
+  font-size: 16px;
+}
+.unig-project-number-of-items i {
+  color: $color-admin-info;
 }

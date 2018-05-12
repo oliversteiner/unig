@@ -52,6 +52,17 @@ unig.ajax.project:
     _permission: 'access unig admin'
 
 #
+ # Admin Page project info
+ #
+unig.ajax.project.info:
+  path: '/unig/project/info/json/{project_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::ajaxProjectInfo'
+    project_nid: null
+  requirements:
+    _permission: 'access unig admin'
+
+#
 # Admin Page project detail
 #
 unig.project.ajax.delete:
@@ -82,7 +93,7 @@ unig.upload:
   path: '/unig/upload/{project_nid}'
   defaults:
       _form:  '\Drupal\unig\Form\UploadForm'
-      _title: 'Bilder hochladen'
+      _title: 'Upload'
       project_nid: null
   requirements:
     _permission: 'access upload form'
@@ -233,5 +244,15 @@ unig.term.people.json:
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:getJSONfromPeople'
     _title: 'People'
+  requirements:
+    _permission: 'access unig admin'
+#
+#
+#
+unig.download.json:
+  path: '/unig/download'
+  defaults:
+    _controller: '\Drupal\unig\Controller\DownloadController:bulkDownload'
+    _title: 'Bulk Download'
   requirements:
     _permission: 'access unig admin'
