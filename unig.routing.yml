@@ -119,9 +119,6 @@ unig.admin.config:
   requirements:
     _permission: 'access unig admin'
 
-
-
-
 #
 # Sandbox
 #
@@ -132,11 +129,6 @@ unig.sandbox:
     _title: 'Sandbox'
   requirements:
     _permission: 'access unig admin'
-
-
-
-
-
 
 #
 # AJAX setCover
