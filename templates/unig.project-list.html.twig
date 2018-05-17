@@ -100,6 +100,8 @@
             {% for project in project_list %}
                 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
+                {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
+
 
 
                 {# -------------------  Admin -------------------------- #}
@@ -364,6 +366,54 @@
                     {% if project.private and access_private_project == false %}
 
                         {#  Hide private projects #}
+
+
+
+                    {% elseif project.private and logged_in == true %}
+
+
+                        <li class="unig-project-list-item">
+
+                            <article class="unig unig-project {{ class }}">
+
+                                {# ----------- Gallery ----------- #}
+                                <div class="unig-project-preview">
+                                    <a href="/unig/lightgallery/{{ project.nid }}">
+                                        <div class="unig-gallery-preview-wrapper">
+                                            <img src="{{ project.cover_image.unig_cover }}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
+
+                                {# ----------- Datum ----------- #}
+                                <div class="unig-project-date"> {{ datum }}</div>
+
+
+                                {# ----------- Titel ----------- #}
+                                <h2 class="unig-project-title">
+                                    <a href="{{ path('unig.lightgallery', {'album_nid': 'x', 'project_nid': project.nid}) }}">
+                                        {{ project.title }}
+                                    </a>
+                                </h2>
+
+
+                                {# ----------- Anzahl Bilder ----------- #}
+                                <div class="unig-project-number-of-items">
+                                    {% if project.number_of_items == 1 %}
+                                        {{ project.number_of_items }} Bild
+                                    {% elseif project.number_of_items > 1 %}
+                                        {{ project.number_of_items }} Bilder
+                                    {% endif %}
+                                </div>
+
+                                {# ----------- body ----------- #}
+                                <div class="unig-project-description">{{ project.description }}</div>
+
+                                {# ----------- copyright ----------- #}
+                                <div class="unig-project-copyright">{{ project.copyright }}</div>
+
+                            </article>
+                        </li>
 
                     {% else %}
 

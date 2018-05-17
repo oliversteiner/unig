@@ -10,6 +10,6 @@
   title: Access unig admin
   description: Allow users to access the universal gallery admin site
 
-'access private project':
+'access unig private':
   title: Show Private Projects
   description: Allow users to show privat projects
