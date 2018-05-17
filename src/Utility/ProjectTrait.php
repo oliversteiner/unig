@@ -62,8 +62,8 @@
         //
         // Order by
         ->sort('field_unig_weight.value', 'ASC')
-        ->sort('field_unig_date', 'DESC')
         ->sort('created', 'DESC')
+        ->sort('field_unig_date', 'DESC')
         ->sort('title', 'ASC')
         //
         // Access
