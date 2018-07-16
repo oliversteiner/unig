@@ -312,20 +312,27 @@
 
               foreach ($list_image_styles as $images_style) {
 
+
                 $style = ImageStyle::load($images_style);
                 $url = $style->buildUrl($path);
                 $uri = $style->buildUri($path);
 
-                $filesize = filesize($uri);
-                $filesize_formated = format_size($filesize);
-                list($width, $height) = getimagesize($uri);
 
-                $variables[$images_style]['url'] = $url;
-                $variables[$images_style]['uri'] = $uri;
-                $variables[$images_style]['filesize'] = $filesize;
-                $variables[$images_style]['filesize_formated'] = $filesize_formated;
-                $variables[$images_style]['width'] = $width;
-                $variables[$images_style]['height'] = $height;
+                if(file_exists($uri)){
+
+                    $filesize = filesize($uri);
+                    $filesize_formated = format_size($filesize);
+                    list($width, $height) = getimagesize($uri);
+
+                    $variables[$images_style]['url'] = $url;
+                    $variables[$images_style]['uri'] = $uri;
+                    $variables[$images_style]['filesize'] = $filesize;
+                    $variables[$images_style]['filesize_formated'] = $filesize_formated;
+                    $variables[$images_style]['width'] = $width;
+                    $variables[$images_style]['height'] = $height;
+                }
+
+
               }
             }
           }

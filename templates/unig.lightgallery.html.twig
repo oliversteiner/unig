@@ -6,31 +6,14 @@
 #}
 
 {#
-project
- - year
- - date
- - year
- - timestamp
- - title
- - body
- - weight (draggable)
- - number_of_items
- - album_list
-     - title
-     - nid
- - links
-   - edit
-   - delete
- - cover_id     (node_id from unig_file)
- - cover_image  (render with twig)
-    -format
-
+unig.lightgallery.html.twig
  #}
 
 {{ attach_library('unig/unig.project') }}
 
 
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
+
 
 
 <div class="unig-file-gallery-head">
@@ -62,12 +45,15 @@ project
         {% for file in files %}
 
 
+
+
+
             <li class="unig-file-item  unig-file-item-id-{{ file.nid }}">
 
                 {#  -----------   Image  -----------  #}
                 <div class="lightgallery-item"
                      data-sub-html="{{ file.title }}"
-                     data-src="{{ file.image.unig_hd }}">
+                     data-src="{{ file.image.unig_hd.url }}">
 
                     {% if file.label is not empty %}
                         <div class="field-label">
@@ -76,7 +62,7 @@ project
                     {% endif %}
                     <div class="field-content">
                         <div class="unig-image-background">
-                            <img class="img-responsive" src="{{ file.image.medium }}"/>
+                            <img class="img-responsive" src="{{ file.image.unig_bigger_thumbnail.url }}"/>
                         </div>
                     </div>
                 </div>
