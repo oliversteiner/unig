@@ -1,5 +1,5 @@
 #### Version
-UniG beta 1.2
+UniG beta 1.3
 
 ## Todo
 
@@ -42,7 +42,7 @@ https://fontcustom.github.io/fontcustom/
 composer require drupal/devel
 composer require drupal/admin_toolbar
 composer require drupal/admin_toolbar_tools
-composer require drupal/fontawesome
+composer require 'drupal/fontawesome:^2.4'
 composer require drupal/lightgallery
 composer require drupal/plupload
 composer require drupal/Plupload_widget
@@ -50,5 +50,5 @@ composer require drupal/twig_tweak
 composer require drupal/taxonomy_manager
 composer require drupal/image_effects
 
-drush fa-download
+? drush fa-download
 ```

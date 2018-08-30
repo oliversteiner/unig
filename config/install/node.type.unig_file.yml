@@ -2,16 +2,12 @@ langcode: de
 status: true
 dependencies:
   module:
-    - hide_revision_field
     - menu_ui
 third_party_settings:
   menu_ui:
     available_menus:
       - main
     parent: 'main:'
-  hide_revision_field:
-    hide: false
-    personalizable: false
 name: 'Universal Gallery File'
 type: unig_file
 description: 'Files or Images'

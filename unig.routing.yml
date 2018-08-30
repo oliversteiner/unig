@@ -125,7 +125,7 @@ unig.admin.config:
 unig.sandbox:
   path: '/unig/sandbox'
   defaults:
-    _controller: '\Drupal\unig\Controller\AdminController:sandboxPage'
+    _controller: '\Drupal\unig\Controller\AdminController::sandboxPage'
     _title: 'Sandbox'
   requirements:
     _permission: 'access unig admin'
@@ -136,7 +136,7 @@ unig.sandbox:
 unig.ajax.setCover:
   path: '/unig/ajax/set_cover/{project_nid}/{image_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:ajaxSetCover'
+    _controller: '\Drupal\unig\Controller\ProjectController::ajaxSetCover'
     _title: 'set Cover Image'
   requirements:
     _permission: 'access unig admin'
@@ -147,7 +147,7 @@ unig.ajax.setCover:
 unig.ajax.deleteFile:
   path: '/unig/ajax/delete_file/{file_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:ajaxDeleteFile'
+    _controller: '\Drupal\unig\Controller\ProjectController::ajaxDeleteFile'
     _title: 'delete File'
   requirements:
     _permission: 'access unig admin'
@@ -194,7 +194,7 @@ unig.project.save:
 unig.ajax.sort.save:
   path: '/unig/sort/save'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:sortSave'
+    _controller: '\Drupal\unig\Controller\ProjectController::sortSave'
     _title: 'Save Sort Order'
   requirements:
     _permission: 'access unig admin'
@@ -204,7 +204,7 @@ unig.ajax.sort.save:
 unig.ajax.sort.reset:
   path: '/unig/sort/reset'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:sortReset'
+    _controller: '\Drupal\unig\Controller\ProjectController::sortReset'
     _title: 'Reset sort order'
   requirements:
     _permission: 'access unig admin'
@@ -214,7 +214,7 @@ unig.ajax.sort.reset:
 unig.ajax.rating.save:
   path: '/unig/rating/save'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:ratingSave'
+    _controller: '\Drupal\unig\Controller\ProjectController::ratingSave'
     _title: 'Rating'
   requirements:
     _permission: 'access unig admin'
@@ -224,7 +224,7 @@ unig.ajax.rating.save:
 unig.term.keywords.json:
   path: '/unig/term/keywords/json/{project_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:getJSONfromKeywordsForProject'
+    _controller: '\Drupal\unig\Controller\ProjectController::getJSONfromKeywordsForProject'
     _title: 'Keywords'
     project_nid: null
   requirements:
@@ -235,7 +235,7 @@ unig.term.keywords.json:
 unig.term.people.json:
   path: '/unig/term/people/json/{project_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController:getJSONfromPeople'
+    _controller: '\Drupal\unig\Controller\ProjectController::getJSONfromPeople'
     _title: 'People'
     project_nid: null
   requirements:
@@ -246,7 +246,18 @@ unig.term.people.json:
 unig.download.json:
   path: '/unig/download'
   defaults:
-    _controller: '\Drupal\unig\Controller\DownloadController:bulkDownload'
+    _controller: '\Drupal\unig\Controller\DownloadController::bulkDownload'
     _title: 'Bulk Download'
+  requirements:
+    _permission: 'access unig admin'
+#
+#  ImageStyle
+#
+unig.imagestyles:
+  path: '/unig/imagestyle/{node_ids}'
+  defaults:
+    _form: '\Drupal\unig\Form\StylesForm'
+    _title: 'ImagesStyles'
+    node_ids: null
   requirements:
     _permission: 'access unig admin'

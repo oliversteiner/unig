@@ -2,10 +2,12 @@
 
   namespace Drupal\unig\Form;
 
+  use Drupal\Core\Ajax\AjaxResponse;
+  use Drupal\Core\Ajax\ReplaceCommand;
   use Drupal\Core\Form\FormBase;
   use Drupal\Core\Form\FormStateInterface;
+  use Drupal\node\Entity\Node;
   use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-  use Drupal\Core\Form\ConfigFormBase;
 
 
   use Drupal\unig\Utility\UniGTrait;
@@ -132,6 +134,17 @@
 
       ];
 
+      $form['image_styles_generated'] = [
+        '#type' => 'textfield',
+        '#size' => '60',
+        '#disabled' => TRUE,
+        '#value' => 'Test Image-Styles',
+        '#attributes' => [
+          'id' => ['image-styles-output'],
+        ],
+      ];
+
+
       // Group submit handlers in an actions element with a key of "actions" so
       // that it gets styled correctly, and so that other modules may add actions
       // to the form.
@@ -214,6 +227,7 @@
       $node_ids = $this->createMultiNode($values);
       $count = count($node_ids);
 
+
       // Nachricht ausrechnen
       if ($count > 1) {
         // Mehr als ein Bild
@@ -278,12 +292,19 @@
       }
 
       // Feedback Album und Bilder
-      drupal_set_message($message);
-      drupal_set_message($rendered_message);
+      $this->messenger()->addMessage($message, 'custom');
+      $this->messenger()->addMessage($rendered_message, 'custom');
+
+      $ids = serialize($node_ids);
+      $arr_args = ['node_ids' => $ids];
+      // return 'submitForm';
+      $form_state->setRedirect('unig.imagestyles', $arr_args);
+
 
       return 'submitForm';
-
     }
+
+
 
 
   }

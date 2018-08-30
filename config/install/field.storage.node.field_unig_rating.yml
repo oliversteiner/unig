@@ -1,0 +1,20 @@
+uuid: 4f0f3842-a9c3-4da7-90d8-953d526e6eab
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_unig_rating
+field_name: field_unig_rating
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

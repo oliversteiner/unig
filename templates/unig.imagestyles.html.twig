@@ -1,0 +1,72 @@
+{#
+/**
+ * @file unig.project.html.twig
+ *
+ */
+#}
+
+
+
+
+<div id="unig-main" class="unig">
+
+    <div class="unig-debug">
+    </div>
+
+
+    {% if is_admin %}
+
+        <div class="unig-toolbar">
+
+            {# Fieldset - General #}
+
+            <div class="unig-fieldset no-border unig-fieldset-general">
+
+
+                <a type="button" class="unig-button unig-new-project-trigger"
+                   href=" {{ path('unig.upload',{'project_nid':null}) }}">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    {% trans %} New Project {% endtrans %}
+                </a>
+
+            </div>
+
+
+            {# Fieldset - Themes #}
+            <div class="unig-fieldset no-border unig-fieldset-themes">
+
+                {# Dark #}
+                <div class="unig-button unig-button-theme-dark unig-theme-dark-trigger">
+                    <i class="fa fa-adjust" aria-hidden="true"></i>
+                    {% trans %} Dark {% endtrans %}
+                </div>
+
+                {# Default #}
+                <div class="unig-button unig-button-theme-default  unig-theme-default-trigger" style="display: none">
+                    <i class="fa fa-adjust" aria-hidden="true"></i>
+                    {% trans %} Default {% endtrans %}
+                </div>
+            </div>
+
+
+        </div>
+
+
+    {% endif %}
+
+    <div class="ajax-container">
+
+    </div>
+
+    <div id="image-styles-output">
+
+    </div>
+
+    <div class="unig-message-container">
+Bitte Warten, die Vorschaubilder werden erstellt
+    </div>
+    <div class="unig">
+        <ul class="">
+        </ul>
+    </div>
+</div>

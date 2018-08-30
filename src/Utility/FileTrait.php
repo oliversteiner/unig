@@ -2,8 +2,11 @@
 
   namespace Drupal\unig\Utility;
 
+  use Drupal\Core\Ajax\AjaxResponse;
+  use Drupal\Core\Ajax\ReplaceCommand;
   use Drupal\Core\Entity\EntityStorageException;
   use Drupal\file\Entity\File;
+  use Drupal\media\Entity\Media;
   use Drupal\node\Entity\Node;
   use Drupal\unig\Controller\IptcController;
 
@@ -35,7 +38,7 @@
      * @return int
      * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
-    public function createNodeUniGImage($file_tmp, $project_nid = null) {
+    public function createNodeUniGImage($file_tmp, $project_nid = NULL) {
 
       // define entity type and bundle
       $entity_type = "node";
@@ -85,6 +88,8 @@
           $new_post->field_unig_image->setValue([
             'target_id' => $file_id,
           ]);
+
+
         }
 
         // IPTC
@@ -121,11 +126,22 @@
 
       try {
         $new_post->save();
+
+       //   $image_uri = $node_id->field_unig_image->entity->getFileUri();
+       //   $this->createImageStyles($image_uri);
+
+
+
       } catch (EntityStorageException $e) {
       }
 
       // hole die neu erstellte ID
       $new_node_id = $new_post->id();
+
+
+
+
+
 
 
       return $new_node_id;
@@ -245,5 +261,45 @@
       return $file_id;
     }
 
+
+    function createImageStyles($image_uri) {
+
+      // generate Styles for Images
+
+      $styles = \Drupal::entityTypeManager()
+        ->getStorage('image_style')
+        ->loadMultiple();
+
+
+      dpm($image_uri);
+
+
+      /** @var \Drupal\image\Entity\ImageStyle $style */
+      foreach ($styles as $style) {
+        $destination = $style->buildUri($image_uri);
+        $style->createDerivative($image_uri, $destination);
+      }
+
+/*      $renderer = \Drupal::service('renderer');
+      $response = new AjaxResponse();
+      $response->addCommand(new ReplaceCommand('#image-styles-output', $renderer->render($elem)));
+      return $response;*/
+
+      $elem = [
+        '#type' => 'textfield',
+        '#size' => '60',
+        '#disabled' => TRUE,
+        '#value' => $image_uri,
+        '#attributes' => [
+          'id' => ['image-styles-output'],
+        ],
+      ];
+      $renderer = \Drupal::service('renderer');
+      $response = new AjaxResponse();
+      $response->addCommand(new ReplaceCommand('#image-styles-output', $renderer->render($elem)));
+      return $response;
+
+
+    }
 
   }
