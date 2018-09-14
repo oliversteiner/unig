@@ -43,7 +43,7 @@
             foreach ($node_ids as $node_id) {
               $node = Node::load($node_id);
               $image_uri = $node->field_unig_image->entity->getFileUri();
-              $this->createImageStyles($image_uri);
+              $this->createAllImageStyles($image_uri);
 
             }*/
 
@@ -88,7 +88,7 @@
           '#template' => $template,
           '#context' => $this->getImageStylesVariables(),
           '#ajax' => [
-            'callback' => '::createImageStyles',
+            'callback' => '::createAllImageStyles',
             'event' => 'ready',
             'wrapper' => 'image-styles-output',
             'progress' => array(

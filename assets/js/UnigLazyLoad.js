@@ -1,141 +1,89 @@
-(function($, Drupal, drupalSettings) {
-    'use strict';
+/* eslint-disable prettier/prettier */
+(function ($, Drupal) {
+
 
     Drupal.behaviors.unigLazyLoad = {
-        FileList: {},
         numberOfFiles: 0,
 
-        attach: function(context, settings) {
-            console.log(' Drupal.behaviors.unigLazyLoad');
+        attach() {
+            console.log('Drupal.behaviors.unigLazyLoad');
+
         },
 
         /**
          *
          */
-        loadImages: function() {
-            // Get Filelist
-            this.FileList = Drupal.behaviors.unigData.FileList.get();
-            this.numberOfFiles = Drupal.behaviors.unigData.FileList.count();
+        loadImages(fileList) {
+            // Get fileList
+            this.numberOfFiles = fileList.length;
 
-            console.log('this.FileList', this.FileList);
+            console.log('fileList', fileList);
 
-            this.buildImgContainer();
-            this.loadImagesBlur();
+            this.buildImgContainer(fileList);
         },
+
 
         /**
          *
          */
-        loadImagesBlur: function() {
-            var i = 0;
-            for (var id in this.FileList) {
-                // targets
-                var DOM_target = document.getElementById('img-preview-' + id + '-medium-blur');
-                var DOM_target_placeholder = document.getElementById(
-                    'unig-lazyload-placeholder-' + id
-                );
+        loadImagesSmall(fileList) {
+            const mode = 'small';
 
-                // elem image
-
-                if(this.FileList[id].image['unig_medium_blur']){
-
-                    var img_id = 'img-' + id + '-medium-blur';
-                    var src = this.FileList[id].image['unig_medium_blur'].url;
-                    var NODE_img = document.createElement('img');
-                    NODE_img.setAttribute('src', src);
-                    NODE_img.setAttribute('alt', 'blured preview image');
-                    NODE_img.setAttribute('id', img_id);
-
-                    // add to DOM
-                    DOM_target.append(NODE_img);
-
-                    // if image loaded, remove preview and add blured version
-                    DOM_target_placeholder.setAttribute('style', 'display:none');
-                    DOM_target.setAttribute('style', 'display:block');
-
+            Object.keys(fileList).forEach((id) => {
+                if (fileList && fileList.hasOwnProperty(id)) {
+                    this.addImage(fileList, id, mode);
                 }
+            });
 
+            Drupal.behaviors.unigLazyLoad.loadImagesBig(fileList);
 
+        }
+        ,
 
-                // check if all or the 10th image is loaded, then start loading
-                // "medium" Images
-                if (i >= this.numberOfFiles - 1) {
-                    document.getElementById(img_id).onload = function() {
-                        Drupal.behaviors.unigLazyLoad.loadImagesMedium();
-                    };
+        /**
+         *
+         */
+        loadImagesMedium(fileList) {
+            const mode = 'medium';
+
+            Object.keys(fileList).forEach((id) => {
+                if (fileList && fileList.hasOwnProperty(id)) {
+                    this.addImage(fileList, id, mode);
                 }
+            });
+            Drupal.behaviors.unigLazyLoad.loadImagesSmall(fileList);
 
-                i++;
-            }
-        },
 
-        /**
-         *
-         */
-        loadImagesSmall: function() {
-            var i = 0;
-
-            for (var id in this.FileList) {
-                var mode = 'small';
-                this.addImage(id, mode);
-                i++;
-            }
-
-            // check if last img is loaded an then load next files
-            var img_id = 'img-' + id + '-' + mode;
-            if (i >= this.numberOfFiles - 1) {
-                document.getElementById(img_id).onload = function() {
-                    Drupal.behaviors.unigLazyLoad.loadImagesBig();
-                };
-            }
-        },
+        }
+        ,
 
         /**
          *
          */
-        loadImagesMedium: function() {
-            var i = 0;
-            for (var id in this.FileList) {
-                var mode = 'medium';
-                this.addImage(id, mode);
-                i++;
-            }
+        loadImagesBig(fileList) {
+            const mode = 'big';
 
-            // check if last img is loaded an then load next files
-            var img_id = 'img-' + id + '-' + mode;
-            if (i >= this.numberOfFiles - 1) {
-                document.getElementById(img_id).onload = function() {
-                    Drupal.behaviors.unigLazyLoad.loadImagesSmall();
-                };
-            }
-        },
+            Object.keys(fileList).forEach((id) => {
+                if (fileList && fileList.hasOwnProperty(id)) {
+                    this.addImage(fileList, id, mode);
+                }
+            });
+        }
+        ,
 
         /**
          *
          */
-        loadImagesBig: function() {
-            for (var id in this.FileList) {
-                var mode = 'big';
-                this.addImage(id, mode);
-            }
-        },
-
-        /**
-         *
-         */
-        addImage: function(id, mode) {
+        addImage(fileList, id, mode) {
             // target
-            var mode_css = mode.replace('_', '-');
-            var selector = '#unig-file-' + id + ' .img-preview-' + mode_css;
-            var ELEM_target = $(selector);
+            const ModeCss = mode.replace('_', '-');
+
 
             // elem
-            var name = 'unig_medium';
+            let name = '';
+            let display = false;
 
             switch (mode) {
-                case 'blur':
-                    name = 'unig_medium_blur';
-                    break;
 
                 case 'small':
                     name = 'unig_thumbnail';
@@ -143,83 +91,123 @@
 
                 case 'medium':
                     name = 'unig_medium';
+                    display = true;
                     break;
 
                 case 'big':
                     name = 'unig_large';
                     break;
+
+                default :
+                    name = 'unig_medium';
+                    break;
             }
 
             console.log('Style: ', name);
 
-            if (this.FileList[id].image[name]) {
-                var src = this.FileList[id].image[name].url;
-                var img_id = 'img-' + id + '-' + mode;
+            if (fileList[id].image[name]) {
+                const src = fileList[id].image[name].url;
+                const ImgId = `img-${id}-${mode}`;
 
-                var NODE_img = document.createElement('img');
-                NODE_img.setAttribute('src', src);
-                NODE_img.setAttribute('alt', mode_css);
-                NODE_img.setAttribute('id', img_id);
 
-                ELEM_target.append(NODE_img);
+                const NODEImg = document.createElement('img');
+                NODEImg.setAttribute('src', src);
+                NODEImg.setAttribute('alt', ModeCss);
+                NODEImg.setAttribute('id', ImgId);
 
-                if (mode === 'medium') {
-                    var selector_blur = '#unig-file-' + id + ' .img-preview-medium-blur';
-                    $(selector_blur).hide();
-                    ELEM_target.show();
+
+                const DomTarget = document.querySelector(`#unig-file-${id} .img-preview-${ModeCss}`);
+                DomTarget.append(NODEImg);
+
+                if (display) {
+                    DomTarget.setAttribute('style', 'block')
                 }
-            } else {
-                console.warn('imagestyle not found: ' + name);
             }
-        },
+            else {
+                console.warn('addImage Error', fileList[id]);
+
+
+                document.querySelector(`#unig-file-${id} .unig-lazyload-placeholder`).setAttribute('style', 'display:none');
+
+                const DomElemNoPreview = document.createElement('div');
+                DomElemNoPreview.setAttribute('class', 'no-preview');
+                DomElemNoPreview.setAttribute('id', `no-preview-${id}`);
+                DomElemNoPreview.textContent = `Kein Vorschaubild: ${mode}`;
+
+                const DomTarget = document.querySelector(`#unig-file-${id} .unig-lazyload-container`);
+
+                DomTarget.append(DomElemNoPreview);
+
+
+            }
+        }
+        ,
 
         /**
          *
          */
-        buildImgContainer: function() {
-            var elems_target_image_container = document.querySelectorAll(
-                'div.unig-lazyload-container'
-            );
+        buildImgContainer(fileList) {
 
-            var image_ids = [];
-            var index = 0;
-            for (var id in this.FileList) {
-                image_ids[index] = id;
-                index++;
+            console.log('--- buildImgContainer', fileList);
+
+
+            if (fileList) {
+
+
+                const ElemsTargetImageContainer = document.querySelectorAll(
+                    'div.unig-lazyload-container'
+                );
+
+                const ImageIds = [];
+
+
+                Object.keys(fileList).forEach((id, index) => {
+
+
+                        console.log(id);
+
+                        if (fileList && fileList.hasOwnProperty(id, index)) {
+                            ImageIds[index] = id;
+                        }
+                    }
+                );
+
+                for (let i = 0; i < ElemsTargetImageContainer.length; ++i) {
+                    // elem
+                    const DOMContainerSmall = document.createElement('div');
+                    const DOMContainerMedium = document.createElement('div');
+                    const DOMContainerBig = document.createElement('div');
+
+                    // css class
+                    DOMContainerSmall.setAttribute('class', 'img-preview-small');
+                    DOMContainerMedium.setAttribute('class', 'img-preview-medium');
+                    DOMContainerBig.setAttribute('class', 'img-preview-big');
+
+                    // ID
+                    const id = ImageIds[i];
+
+                    DOMContainerSmall.setAttribute('id', `img-preview-${id}-small`);
+                    DOMContainerMedium.setAttribute('id', `img-preview-${id}-medium `);
+                    DOMContainerBig.setAttribute('id', `img-preview-${id}-big`);
+
+                    // hide element
+                    DOMContainerSmall.setAttribute('style', 'display:none');
+                    DOMContainerMedium.setAttribute('style', 'display:none');
+                    DOMContainerBig.setAttribute('style', 'display:none');
+
+                    // add new Content
+                    ElemsTargetImageContainer[i].appendChild(DOMContainerMedium);
+                    ElemsTargetImageContainer[i].appendChild(DOMContainerSmall);
+                    ElemsTargetImageContainer[i].appendChild(DOMContainerBig);
+                }
+            }
+            else {
+                console.warn('no list');
             }
 
-            for (var i = 0; i < elems_target_image_container.length; ++i) {
-                // elem
-                var DOM_container_medium_blur = document.createElement('div');
-                var DOM_container_small = document.createElement('div');
-                var DOM_container_medium = document.createElement('div');
-                var DOM_container_big = document.createElement('div');
+            this.loadImagesMedium(fileList);
 
-                // css class
-                DOM_container_medium_blur.setAttribute('class', 'img-preview-medium-blur');
-                DOM_container_small.setAttribute('class', 'img-preview-small');
-                DOM_container_medium.setAttribute('class', 'img-preview-medium');
-                DOM_container_big.setAttribute('class', 'img-preview-big');
 
-                // ID
-                var id = image_ids[i];
-
-                DOM_container_medium_blur.setAttribute('id', 'img-preview-' + id + '-medium-blur');
-                DOM_container_small.setAttribute('id', 'img-preview-' + id + '-small');
-                DOM_container_medium.setAttribute('id', 'img-preview-' + id + '-medium ');
-                DOM_container_big.setAttribute('id', 'img-preview-' + id + '-big');
-
-                // hide element
-                DOM_container_small.setAttribute('style', 'display:none');
-                DOM_container_medium.setAttribute('style', 'display:none');
-                DOM_container_big.setAttribute('style', 'display:none');
-
-                // add new Content
-                elems_target_image_container[i].appendChild(DOM_container_medium);
-                elems_target_image_container[i].appendChild(DOM_container_medium_blur);
-                elems_target_image_container[i].appendChild(DOM_container_small);
-                elems_target_image_container[i].appendChild(DOM_container_big);
-            }
         }
     };
-})(jQuery, Drupal, drupalSettings);
+})(jQuery, Drupal);

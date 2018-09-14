@@ -18,26 +18,27 @@
     // define Extensions to be used als imagefield
     private $ext_image = ['jpg', 'jpeg', 'gif', 'png', 'svg'];
 
-    /**
-     * createNodeUniGImage
-     *
-     * Node Fields:
-     *      - field_unig_project: Entity
-     *      - field_unig_image : Image
-     *
-     *  Inputs Plupload:
-     *      - tmppath   => string(45)
-     * "temporary://o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
-     *      - tmpname   => string(33) "o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
-     *      - name      => string(22) "451415562631785265.jpg"
-     *      - status    => string(4) "done"
-     *
-     * @param $file_tmp
-     * @param $project_nid
-     *
-     * @return int
-     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-     */
+      /**
+       * createNodeUniGImage
+       *
+       * Node Fields:
+       *      - field_unig_project: Entity
+       *      - field_unig_image : Image
+       *
+       *  Inputs Plupload:
+       *      - tmppath   => string(45)
+       * "temporary://o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
+       *      - tmpname   => string(33) "o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
+       *      - name      => string(22) "451415562631785265.jpg"
+       *      - status    => string(4) "done"
+       *
+       * @param $file_tmp
+       * @param $project_nid
+       *
+       * @return int
+       * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+       * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+       */
     public function createNodeUniGImage($file_tmp, $project_nid = NULL) {
 
       // define entity type and bundle
@@ -127,24 +128,15 @@
       try {
         $new_post->save();
 
-       //   $image_uri = $node_id->field_unig_image->entity->getFileUri();
-       //   $this->createImageStyles($image_uri);
-
-
-
       } catch (EntityStorageException $e) {
+
       }
 
       // hole die neu erstellte ID
-      $new_node_id = $new_post->id();
+      $image_uri = $new_post->field_unig_image->entity->getFileUri();
+      $this->createAllImageStyles($image_uri);
 
-
-
-
-
-
-
-      return $new_node_id;
+      return $new_post->id();
     }
 
 
@@ -213,7 +205,6 @@
      * @return int
      */
     public function getFileId($file_temp, $project_nid) {
-      $file_id = 0;
 
       // Plupload
       // ---------------------------------
@@ -223,9 +214,7 @@
       // [status] => 'done')
 
       $tmppath = $file_temp['tmppath'];
-      $tmpname = $file_temp['tmpname'];
       $name = $file_temp['name'];
-      $status = $file_temp['status'];
 
       $path_prefix_unig = '';
       $path_destination = 'public://';
@@ -254,15 +243,36 @@
         'uri' => $uri,
       ]);
 
-      $file->save();
+      try {
+        $file->save();
+      } catch (EntityStorageException $e) {
+        // TODO
+      }
 
       $file_id = $file->id();
-
       return $file_id;
     }
 
 
-    function createImageStyles($image_uri) {
+    function createPreviewImageStyle($image_uri) {
+
+      // generate Styles for Images
+
+      $style = \Drupal::entityTypeManager()
+        ->getStorage('image_style')
+        ->load('thumbnail');
+      $destination = $style->buildUri($image_uri);
+
+      if (!file_exists($destination)) {
+        $style->createDerivative($image_uri, $destination);
+      }
+
+      $url = $style->buildUrl($image_uri);
+
+      return $url;
+    }
+
+    function createAllImageStyles($image_uri) {
 
       // generate Styles for Images
 
@@ -277,29 +287,11 @@
       /** @var \Drupal\image\Entity\ImageStyle $style */
       foreach ($styles as $style) {
         $destination = $style->buildUri($image_uri);
-        $style->createDerivative($image_uri, $destination);
+
+        if (!file_exists($destination)) {
+          $style->createDerivative($image_uri, $destination);
+        }
       }
-
-/*      $renderer = \Drupal::service('renderer');
-      $response = new AjaxResponse();
-      $response->addCommand(new ReplaceCommand('#image-styles-output', $renderer->render($elem)));
-      return $response;*/
-
-      $elem = [
-        '#type' => 'textfield',
-        '#size' => '60',
-        '#disabled' => TRUE,
-        '#value' => $image_uri,
-        '#attributes' => [
-          'id' => ['image-styles-output'],
-        ],
-      ];
-      $renderer = \Drupal::service('renderer');
-      $response = new AjaxResponse();
-      $response->addCommand(new ReplaceCommand('#image-styles-output', $renderer->render($elem)));
-      return $response;
-
-
     }
 
   }

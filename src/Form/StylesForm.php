@@ -78,7 +78,7 @@
           'id' => ['image-styles-output'],
         ],
         '#ajax' => [
-          'callback' => '::createImageStyles',
+          'callback' => '::createAllImageStyles',
           'event' => 'ready',
           'wrapper' => 'image-styles-output',
           'progress' => array(
