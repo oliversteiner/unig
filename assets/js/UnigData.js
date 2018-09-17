@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier,no-restricted-syntax,prefer-destructuring */
+/* eslint-disable prettier/prettier,no-restricted-syntax,prefer-destructuring,no-console */
 /**
  * Created by ost on 14.05.17.
  */
@@ -8,29 +8,31 @@
     Drupal.behaviors.unigData = {
         attach(context, settings) {
 
-
-            if (!settings.unigCounter) {
+            $('#unig-main', context).once('unigData2').each( () => {
                 console.log('Drupal.behaviors.unigData');
 
-                // fire just once
-                drupalSettings.unigCounter = 1;
-                Drupal.behaviors.unigData.project.load().then(
-                    result => {
-                        const nid = result.nid;
-                        Drupal.behaviors.unigData.FileList.load(nid).then(
-                            data => {
-                                console.log(data);
-                                Drupal.behaviors.unigLazyLoad.loadImages(data);
+                    if (!settings.unigCounter) {
+
+                        // fire just once
+                        drupalSettings.unigCounter = 1;
+                        Drupal.behaviors.unigData.project.load().then(
+                            result => {
+                                const nid = result.nid;
+                                Drupal.behaviors.unigData.FileList.load(nid).then(
+                                    data => {
+                                        Drupal.behaviors.unigLazyLoad.loadImages(data);
+                                    }
+                                );
+
                             }
                         );
+                    } else {
+                        settings.unigCounter++;
 
                     }
-                );
-            } else {
-                settings.unigCounter++;
-
-            }
-            console.warn(settings.unigCounter);
+                    console.warn(settings.unigCounter);
+                }
+            )
         }
     };
 
@@ -84,7 +86,7 @@
     /**
      * File-IDs in Download List
      *
-     * @type {{local_storage_name: string, list: Array, add:
+     * @type {{localStorageName: string, list: Array, add:
      *     Drupal.behaviors.unigData.FilesForDownload.add, remove:
      *     Drupal.behaviors.unigData.FilesForDownload.remove, destroy:
      *     Drupal.behaviors.unigData.FilesForDownload.destroy, clean:
@@ -96,15 +98,15 @@
      *     Drupal.behaviors.unigData.FilesForDownload.count}}
      */
     Drupal.behaviors.unigData.FilesForDownload = {
-        local_storage_name: 'unig.itemsForDownload.',
+        localStorageName: 'unig.itemsForDownload.',
         list: [],
 
         add(nid) {
             // console.log('UnigDownloadList - add()', nid);
 
-            const int_nid = parseInt(nid, 10);
-            if (int_nid) {
-                this.list.push(int_nid);
+            const intNid = parseInt(nid, 10);
+            if (intNid) {
+                this.list.push(intNid);
             }
 
             // console.log('list ', this.list);
@@ -142,33 +144,34 @@
          * save to localStorage
          */
         save() {
-            const storagename = `${this.local_storage_name +
+            const storageName = `${this.localStorageName +
             Drupal.behaviors.unigData.project.hostname}.${
                 Drupal.behaviors.unigData.project.nid
                 }`;
 
-            localStorage.setItem(storagename, this.list);
+            localStorage.setItem(storageName, this.list);
         },
 
         /**
          * load from localStorage
          */
         load() {
-            const storagename = `${this.local_storage_name +
+            const storagename = `${this.localStorageName +
             Drupal.behaviors.unigData.project.hostname}.${
                 Drupal.behaviors.unigData.project.nid
                 }`;
-            const local_string = localStorage.getItem(storagename);
+            const localString = localStorage.getItem(storagename);
 
-            if (local_string != null) {
-                this.list = local_string.split(',');
+            if (localString != null) {
+                this.list = localString.split(',');
                 this.clean();
             }
             return true;
         },
 
         /**
-         * returns array or false
+         *
+         * @return {*}
          */
         get() {
             // console.log('get this.count ', this.count());
@@ -182,7 +185,7 @@
         find(nid) {
             const search = this.list.indexOf(nid);
 
-            return search != -1;
+            return search !== -1;
 
         },
 
@@ -276,8 +279,8 @@
          * @return {number}
          */
         count() {
-            let size = 0,
-                key;
+            let size = 0;
+            let key;
             for (key in this.list) {
                 if (this.list.hasOwnProperty(key)) {
                     size++;
@@ -305,13 +308,16 @@
                         const keywords = list[key].keywords;
 
                         for (const index in keywords) {
-                            const KeywordId = parseInt(keywords[index].id, 10);
+                            if (keywords.hasOwnProperty(id)) {
 
-                            // Keyword-ID in File ?
-                            if (KeywordId === id) {
-                                // add file to Resultlist
-                                const nid = parseInt(list[key].nid, 10);
-                                results.push(nid);
+                                const KeywordId = parseInt(keywords[index].id, 10);
+
+                                // Keyword-ID in File ?
+                                if (KeywordId === id) {
+                                    // add file to Resultlist
+                                    const nid = parseInt(list[key].nid, 10);
+                                    results.push(nid);
+                                }
                             }
                         }
                     }
@@ -321,26 +327,30 @@
             return results;
         },
 
-        countKeyword(array_id) {
+        countKeyword(arrID) {
             const results = [];
             const list = this.list;
 
-            for (let i = 0; i < array_id.length; i++) {
-                const id = parseInt(array_id[i]);
+            for (let i = 0; i < arrID.length; i++) {
+                const id = parseInt(arrID[i], 10);
 
                 let key;
                 for (key in list) {
                     if (list.hasOwnProperty(key)) {
                         const keywords = list[key].keywords;
 
-                        for (const index in keywords) {
-                            const keyword_id = parseInt(keywords[index].id, 10);
 
-                            // Keyword-ID in File ?
-                            if (keyword_id === id) {
-                                // add file to Resultlist
-                                const nid = parseInt(list[key].nid, 10);
-                                results.push(nid);
+                        for (const index in keywords) {
+                            if (keywords.hasOwnProperty(id)) {
+
+                                const keywordID = parseInt(keywords[index].id, 10);
+
+                                // Keyword-ID in File ?
+                                if (keywordID === id) {
+                                    // add file to Resultlist
+                                    const nid = parseInt(list[key].nid, 10);
+                                    results.push(nid);
+                                }
                             }
                         }
                     }
@@ -378,6 +388,7 @@
                     Drupal.behaviors.unigData.keywordsList.set(result);
                 })
                 .fail(xhr => {
+                    console.log(xhr);
                 });
         },
 
@@ -418,7 +429,7 @@
     };
 
     Drupal.behaviors.unigData.keywordsStorage = {
-        local_storage_name: 'unig.keywords.',
+        localStorageName: 'unig.keywords.',
 
         list: [],
 
@@ -454,27 +465,27 @@
          */
         save() {
             const cleanlist = Drupal.behaviors.unig.cleanArray(this.list);
-            const local_storage_name = `${this.local_storage_name +
+            const localStorageName = `${this.localStorageName +
             Drupal.behaviors.unigData.project.hostname}.${
                 Drupal.behaviors.unigData.project.nid
                 }`;
 
-            localStorage.setItem(local_storage_name, cleanlist);
+            localStorage.setItem(localStorageName, cleanlist);
         },
 
         /**
          * load from localStorage
          */
         load() {
-            const local_storage_name = `${this.local_storage_name +
+            const localStorageName = `${this.localStorageName +
             Drupal.behaviors.unigData.project.hostname}.${
                 Drupal.behaviors.unigData.project.nid
                 }`;
 
-            const local_string = localStorage.getItem(local_storage_name);
+            const localString = localStorage.getItem(localStorageName);
 
-            if (local_string != null) {
-                const list = local_string.split(',');
+            if (localString != null) {
+                const list = localString.split(',');
                 this.list = Drupal.behaviors.unig.cleanArray(list);
             }
 
@@ -552,8 +563,8 @@
          * @return {number}
          */
         count() {
-            let size = 0,
-                key;
+            let size = 0;
+            let key;
             for (key in this) {
                 if (this.hasOwnProperty(key)) {
                     size++;
@@ -564,14 +575,14 @@
     };
 
     Drupal.behaviors.unigData.peopleStorage = {
-        local_storage_name: 'unig.people.',
+        localStorageName: 'unig.people.',
 
         list: [],
 
         add(nid) {
-            const int_nid = parseInt(nid, 10);
-            if (int_nid) {
-                this.list.push(int_nid);
+            const intNid = parseInt(nid, 10);
+            if (intNid) {
+                this.list.push(intNid);
             }
         },
 
@@ -604,27 +615,27 @@
          * save to localStorage
          */
         save() {
-            const local_storage_name = `${this.local_storage_name +
+            const localStorageName = `${this.localStorageName +
             Drupal.behaviors.unigData.project.hostname}.${
                 Drupal.behaviors.unigData.project.nid
                 }`;
 
-            localStorage.setItem(local_storage_name, this.list);
+            localStorage.setItem(localStorageName, this.list);
         },
 
         /**
          * load from localStorage
          */
         load() {
-            const local_storage_name = `${this.local_storage_name +
+            const localStorageName = `${this.localStorageName +
             Drupal.behaviors.unigData.project.hostname}.${
                 Drupal.behaviors.unigData.project.nid
                 }`;
 
-            const local_string = localStorage.getItem(local_storage_name);
+            const localString = localStorage.getItem(localStorageName);
 
-            if (local_string != null) {
-                this.list = local_string.split(',');
+            if (localString != null) {
+                this.list = localString.split(',');
                 this.clean();
             }
             return true;
@@ -643,7 +654,7 @@
         find(nid) {
             const search = this.list.indexOf(nid);
 
-            if (search == -1) {
+            if (search === -1) {
                 return false;
             }
             return true;

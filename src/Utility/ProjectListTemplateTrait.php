@@ -1,14 +1,14 @@
 <?php
 
-  namespace Drupal\unig\Utility;
+namespace Drupal\unig\Utility;
 
-  /**
-   *
-   * @see \Drupal\Core\Render\Element\InlineTemplate
-   * @see https://www.drupal.org/developing/api/8/localization
-   */
-  trait projectListTemplateTrait {
-
+/**
+ *
+ * @see \Drupal\Core\Render\Element\InlineTemplate
+ * @see https://www.drupal.org/developing/api/8/localization
+ */
+trait projectListTemplateTrait
+{
 
 
     /**
@@ -25,20 +25,22 @@
      * @return array
      *   A render array.
      */
-    public function projectListTemplate() {
-      $template_path = $this->getProjectListPath();
-      $template = file_get_contents($template_path);
-      $build = [
-        'description' => [
-          '#type' => 'inline_template',
-          '#template' => $template,
-          '#context' => $this->getProjectListVariables(),
-        ],
-      ];
+    public function projectListTemplate()
+    {
+        $template_path = $this->getProjectListPath();
+        $template = file_get_contents($template_path);
+        $build = [
+            'description' => [
+                '#type' => 'inline_template',
+                '#template' => $template,
+                '#context' => $this->getProjectListVariables(),
+            ],
+        ];
 
-      $build['#attached']['drupalSettings']['projects'] = ProjectTrait::buildProjectList();;
+        $build['#attached']['drupalSettings']['projects'] = ProjectTrait::buildProjectList();
+        $build['#attached']['library'] = 'unig/unig.admin.project_list';
 
-      return $build;
+        return $build;
     }
 
 
@@ -48,31 +50,30 @@
      * @return array
      *   Associative array that defines context for a template.
      */
-    protected function getProjectListVariables() {
+    protected function getProjectListVariables()
+    {
 
-      $variables['module'] = $this->getModuleName();
+        $variables['module'] = $this->getModuleName();
 
-      $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
-      $variables['language'] = $language;
-
-
-      $user = \Drupal::currentUser();
-      $variables['user'] = clone $user;
-      // Remove password and session IDs, since themes should not need nor see them.
-      unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
-
-      $variables['is_admin'] = $user->hasPermission('access unig admin');
-      $variables['show_private'] = $user->hasPermission('access unig admin');
-      $variables['logged_in'] = $user->isAuthenticated();
+        $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+        $variables['language'] = $language;
 
 
-      $variables['project_list'] = ProjectTrait::buildProjectList();
+        $user = \Drupal::currentUser();
+        $variables['user'] = clone $user;
+        // Remove password and session IDs, since themes should not need nor see them.
+        unset($variables['user']->pass, $variables['user']->sid, $variables['user']->ssid);
+
+        $variables['is_admin'] = $user->hasPermission('access unig admin');
+        $variables['show_private'] = $user->hasPermission('access unig admin');
+        $variables['logged_in'] = $user->isAuthenticated();
 
 
-      return $variables;
+        $variables['project_list'] = ProjectTrait::buildProjectList();
+
+
+        return $variables;
     }
-
-
 
 
     /**
@@ -81,8 +82,9 @@
      * @return string
      *   Path string.
      */
-    protected function getProjectListPath() {
-      return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.project-list.html.twig";
+    protected function getProjectListPath()
+    {
+        return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.project-list.html.twig";
     }
 
-  }
+}

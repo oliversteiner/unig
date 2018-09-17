@@ -1,10 +1,4 @@
 <?php
-  /**
-   * Created by PhpStorm.
-   * User: ost
-   * Date: 14.01.18
-   * Time: 00:26
-   */
 
   namespace Drupal\unig\Controller;
 

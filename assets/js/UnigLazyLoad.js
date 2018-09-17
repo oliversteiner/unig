@@ -1,9 +1,10 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable prettier/prettier,valid-jsdoc,no-console */
 (function ($, Drupal) {
 
 
     Drupal.behaviors.unigLazyLoad = {
         numberOfFiles: 0,
+        nodeIDsWithNoPreviews :[],
 
         attach() {
             console.log('Drupal.behaviors.unigLazyLoad');
@@ -12,6 +13,7 @@
 
         /**
          *
+         * @param fileList
          */
         loadImages(fileList) {
             // Get fileList
@@ -25,6 +27,7 @@
 
         /**
          *
+         * @param fileList
          */
         loadImagesSmall(fileList) {
             const mode = 'small';
@@ -42,6 +45,7 @@
 
         /**
          *
+         * @param fileList
          */
         loadImagesMedium(fileList) {
             const mode = 'medium';
@@ -59,6 +63,7 @@
 
         /**
          *
+         * @param fileList
          */
         loadImagesBig(fileList) {
             const mode = 'big';
@@ -73,50 +78,53 @@
 
         /**
          *
+         * @param fileList
+         * @param id
+         * @param mode
          */
         addImage(fileList, id, mode) {
             // target
-            const ModeCss = mode.replace('_', '-');
+            document.querySelector(`#unig-file-${id} .unig-lazyload-placeholder`).setAttribute('style', 'display:none');
 
 
             // elem
-            let name = '';
+            let styleName = '';
             let display = false;
 
             switch (mode) {
 
                 case 'small':
-                    name = 'unig_thumbnail';
+                    styleName = 'unig_thumbnail';
                     break;
 
                 case 'medium':
-                    name = 'unig_medium';
+                    styleName = 'unig_medium';
                     display = true;
                     break;
 
                 case 'big':
-                    name = 'unig_large';
+                    styleName = 'unig_hd';
                     break;
 
                 default :
-                    name = 'unig_medium';
+                    styleName = 'unig_medium';
                     break;
             }
 
-            console.log('Style: ', name);
+            console.log('Style: ', styleName);
 
-            if (fileList[id].image[name]) {
-                const src = fileList[id].image[name].url;
-                const ImgId = `img-${id}-${mode}`;
+            if (fileList[id].image[styleName]) {
+                const src = fileList[id].image[styleName].url;
+                const imgID = `img-${id}-${mode}`;
 
 
                 const NODEImg = document.createElement('img');
                 NODEImg.setAttribute('src', src);
-                NODEImg.setAttribute('alt', ModeCss);
-                NODEImg.setAttribute('id', ImgId);
+                NODEImg.setAttribute('alt', mode);
+                NODEImg.setAttribute('id', imgID);
 
 
-                const DomTarget = document.querySelector(`#unig-file-${id} .img-preview-${ModeCss}`);
+                const DomTarget = document.querySelector(`#unig-file-${id} .img-preview-${mode}`);
                 DomTarget.append(NODEImg);
 
                 if (display) {
@@ -125,13 +133,10 @@
             }
             else {
                 console.warn('addImage Error', fileList[id]);
-
-
-                document.querySelector(`#unig-file-${id} .unig-lazyload-placeholder`).setAttribute('style', 'display:none');
-
+                Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews.push(id);
                 const DomElemNoPreview = document.createElement('div');
-                DomElemNoPreview.setAttribute('class', 'no-preview');
-                DomElemNoPreview.setAttribute('id', `no-preview-${id}`);
+                DomElemNoPreview.setAttribute('class', `no-preview-${mode}`);
+                DomElemNoPreview.setAttribute('id', `no-preview-${mode}-${id}`);
                 DomElemNoPreview.textContent = `Kein Vorschaubild: ${mode}`;
 
                 const DomTarget = document.querySelector(`#unig-file-${id} .unig-lazyload-container`);
@@ -166,7 +171,7 @@
 
                         console.log(id);
 
-                        if (fileList && fileList.hasOwnProperty(id, index)) {
+                        if (fileList && fileList.hasOwnProperty(id)) {
                             ImageIds[index] = id;
                         }
                     }

@@ -1,7 +1,7 @@
 @import "colors";
+
 .unig-image-background {
   position: relative;
-  background-color: $color-image-background;
   vertical-align: middle;
   text-align: center;
   cursor: zoom-in;
@@ -9,23 +9,29 @@
   margin: 0;
   padding: 0;
 }
+
 ul.unig-gallery li.unig-file-edit.active {
   border: 2px solid $color-highlight;
 }
+
 .unig-gallery-preview-wrapper img {
   margin: 0;
   padding: 0;
 }
+
 .unig-lightgallery-title {
   display: inline-block;
   margin-right: 20px;
 }
+
 .unig-lightgallery-date {
   display: inline-block;
   margin-right: 20px;
 }
+
 .unig-lightgallery-number-of-items {
 }
+
 ul.unig-gallery {
   display: flex;
   align-content: flex-start;
@@ -35,6 +41,7 @@ ul.unig-gallery {
   margin: 0;
   padding: 0;
 }
+
 ul.unig-gallery li.unig-file-item {
   background-color: $color-default-background;
   border: 2px solid transparent;
@@ -46,11 +53,11 @@ ul.unig-gallery li.unig-file-item.marked {
 
 }
 
-
 ul.unig-gallery li.unig-file-item:hover {
   background-color: $color-admin-background-hover;
   border-color: $color-admin-border-hover;
 }
+
 ul.unig-gallery li.unig-file-item:hover.marked {
   background-color: $color-admin-marked-lite;
   border-color: $color-admin-border-hover;
@@ -62,73 +69,91 @@ ul.unig-gallery li.unig-file-item:hover.marked {
 .unig-file-item-text {
   color: $color-admin-text;
 }
+
 .unig-file-item-info {
   color: $color-admin-info;
 }
+
 .unig-file-picto {
   color: $color-admin-picto;
 }
 
-.marked .unig-file-picto{
+.marked .unig-file-picto {
   color: $color-admin-marked-text;
 }
 
 .unig-file-picto:hover {
   color: $color-admin-picto-hover;
 }
+
 .unig-file-picto:active {
   color: $color-admin-picto-active;
 }
+
 .unig-file-picto.active {
   color: $color-admin-picto-active;
 }
+
 .unig-file-picto.active:hover {
   color: $color-admin-picto-active-hover;
 }
+
 .unig-file-head {
   display: flex;
   justify-content: space-between;
 }
+
 .unig-file-head-item {
   padding: 2px;
 }
+
 .unig-file-nid {
   border-right: 1px solid $color-admin-info;
   padding-right: 2px;
   margin-right: 4px;
 }
+
 .unig-file-weight {
 }
+
 .unig-project-date {
   font-size: 1.2em;
 }
+
 h2.unig-project-title {
   margin: 0;
   padding: 0;
   font-size: 1.8em;
 }
+
 .unig-file-gallery-head {
   margin-left: 50px;
 }
+
 // =====  Middle  =====
 
 .unig-file-middle {
   display: flex;
   justify-content: space-between;
 }
+
 .unig-file-middle-item {
 }
+
 .div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons {
   width: 600px;
 }
+
 .unig-file-title {
   //  border: silver 1px solid;
   padding: 5px 10px 2px 10px;
   text-align: center;
 }
+
 .unig-button-image-size {
   display: inline-block;
 }
+
 .css-picto-image-wrapper {
   display: flex;
   justify-content: center;
@@ -137,4 +162,12 @@ h2.unig-project-title {
   width: 20px;
   background-color: #0f7f34;
   font-size: 2px;
+}
+
+
+.no-preview-medium,
+.no-preview-small,
+.no-preview-big {
+  padding-top: 10px;
+  color: #676767;
 }

@@ -16,7 +16,7 @@ function unig_views_pre_render(ViewExecutable $view) {
 //  drupal_set_message($view->storage->id());
 
     if (isset($view) && ($view->storage->id() === 'unig_files')) {
-        $view->element['#attached']['library'][] = 'unig/unig.admin.images';
+   //     $view->element['#attached']['library'][] = 'unig/unig.admin.images';
     }
 }
 
@@ -24,6 +24,11 @@ function unig_page_attachments(array &$attachments) {
  //   $attachments['#attached']['library'][] = 'unig/unig.upload';
 }
 
+function unig_page_bottom(array &$page_bottom) {
+    $page_bottom['unig'] = [
+        '#markup' => 'This is the bottom.',
+    ];
+}
 
 
 

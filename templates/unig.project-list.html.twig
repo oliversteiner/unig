@@ -1,12 +1,9 @@
 {#
 /**
- * @file unig.project.html.twig
+ * @file unig.project-list.html.twig
  *
  */
 #}
-
-
-{{ attach_library('unig/unig.admin.project_list') }}
 
 
 <div id="unig-main" class="unig">
@@ -135,7 +132,14 @@
                             <div class="unig-project-cover">
                                 <a href="/unig/project/{{ project.nid }}">
                                     <div class="unig-image-background">
-                                        <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                        {% if project.cover_image.unig_cover.url %}
+
+                                            <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                        {% else %}
+                                            <div><i class="far fa-image"></i></div>
+                                            <div class="cover-description">Noch kein Titelbild gewählt</div>
+                                        {% endif %}
+
                                     </div>
 
                                 </a>

@@ -51,9 +51,9 @@ unig.ajax.project:
   requirements:
     _permission: 'access unig admin'
 
-#
- # Admin Page project info
- #
+  #
+  # Admin Page project info
+  #
 unig.ajax.project.info:
   path: '/unig/project/info/json/{project_nid}'
   defaults:
@@ -92,9 +92,9 @@ unig.lightgallery:
 unig.upload:
   path: '/unig/upload/{project_nid}'
   defaults:
-      _form:  '\Drupal\unig\Form\UploadForm'
-      _title: 'Upload'
-      project_nid: null
+    _form:  '\Drupal\unig\Form\UploadForm'
+    _title: 'Upload'
+    project_nid: null
   requirements:
     _permission: 'access upload form'
 
@@ -254,9 +254,9 @@ unig.download.json:
 #  ImageStyle
 #
 unig.imagestyles:
-  path: '/unig/imagestyle/{node_ids}'
+  path: '/unig/imagestyles/{node_ids}'
   defaults:
-    _form: '\Drupal\unig\Form\StylesForm'
+    _controller: '\Drupal\unig\Controller\ImageStylesController::createImageStyles'
     _title: 'ImagesStyles'
     node_ids: null
   requirements:

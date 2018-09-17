@@ -19,7 +19,15 @@
     background-color: #e6e6e6;
     margin: 10px; }
   .unig-project .unig-image-background {
-    background-color: #b8b8b8; }
+    box-sizing: border-box;
+    background-color: #b8b8b8;
+    color: gray;
+    min-width: 220px;
+    min-height: 220px;
+    text-align: center;
+    padding-top: 30%; }
+    .unig-project .unig-image-background i, .unig-project .unig-image-background svg {
+      font-size: 40px; }
   .unig-project .unig-image-background:hover {
     cursor: pointer;
     background-color: #212121; }
@@ -97,5 +105,10 @@ li.unig-project-list-item-year {
 .unig-edit-project-private label {
   display: inline;
   margin-right: 4px; }
+
+.cover-description {
+  display: block;
+  margin-top: 10px;
+  font-size: 15px; }
 
 /*# sourceMappingURL=unig_project_list.css.map */

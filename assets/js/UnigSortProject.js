@@ -1,164 +1,115 @@
-(function ($, Drupal, drupalSettings) {
-
-  'use strict';
-
-  Drupal.behaviors.unigSort = {
-    attach: function (context, drupalSettings) {
-      console.log('Drupal.behaviors.unigSort ');
-
-      // onload
-      constructor(context, drupalSettings);
-
-
-    }
-  };
-
-  /**
-   *
-   * @param context
-   * @param settings
-   */
-  function constructor(context, drupalSettings) {
-
-// Buttons
-    $('.unig-button-sort-toggle').click(function () {
-
-      var $trigger = $(this);
-
-      if ($trigger.hasClass('active')) {
-        sortDeactivate();
-      }
-      else {
-        sortActivate();
-
-      }
-    });
-
-    $('.unig-button-sort-save').click(function () {
-      saveSortOrder();
-    });
-
-    $('.unig-button-sort-cancel').click(function () {
-      sortCancel();
-    });
-
-    $('.unig-button-sort-alphanumeric').click(function () {
-      console.log('click', 'reset to alphabetical');
-      resetToAlphanumeric();
-    });
-
-
-  }
-
-  function sortActivate() {
-
-    $(".unig-sortable").sortable({
-      placeholder: "unig-sortable-placeholder",
-      items      : "> li.unig-sortable-item",
-      tolerance  : "pointer"
-    });
-    $(".unig-sortable").sortable("enable");
-
-    // Fieldset
-    $(".unig-toolbar-sort").slideDown();
-
-
-    // Buttons
-    $('.unig-button-sort-toggle').addClass('active');
-
-    $(".unig-button-files-edit").addClass('disabled');
-    $(".unig-button-files-preview").addClass('disabled');
-    $('.unig-button-keywords-toggle-all').addClass('disabled');
-    $('.unig-button-people-toggle-all').addClass('disabled');
-
-    // Files
-    $(".unig-sortable-only").show();
-    $(".unig-sortable-hide").hide();
-
-
-  }
-
-  function sortDeactivate() {
-
-
-    // Fieldset
-    $(".unig-toolbar-sort").slideUp();
-
-
-    // Buttons
-    $('.unig-button-sort-toggle').removeClass('active');
-
-    $(".unig-button-files-edit").removeClass('disabled');
-    $(".unig-button-files-preview").removeClass('disabled');
-    $('.unig-button-keywords-toggle-all').removeClass('disabled');
-    $('.unig-button-people-toggle-all').removeClass('disabled');
-
-    // Files
-    $(".unig-sortable-only").hide();
-    $(".unig-sortable-hide").show();
-
-    $(".unig-sortable").sortable("disable");
-
-
-
-  }
-
-  function sortCancel() {
-    $(".unig-sortable").sortable("cancel");
-    sortDeactivate();
-  }
-
-  function resetToAlphanumeric() {
-    sortDeactivate();
-
-    var name = 'reset';
-    var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-    save(data, name);
-
-
-    // save(data);
-  }
-
-  function saveSortOrder() {
-    sortDeactivate();
-
-    var name = 'save';
-    var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-    save(data, name);
-
-  }
-
-
+(function($, Drupal, drupalSettings) {
   function save(data, name) {
-
-
-
     $.ajax({
-      url     : Drupal.url('unig/sort/' + name),
-      type    : 'POST',
-      data    : {
-        'data': data
+      url: Drupal.url(`unig/sort/${name}`),
+      type: "POST",
+      data: {
+        data
       },
-      dataType: 'json',
-      success : function (results) {
-        showMessages(results)
+      dataType: "json",
+      success: results => {
+        Drupal.behaviors.unig.showMessages(results);
       }
     });
 
     return true;
   }
 
-  function showMessages(results) {
+  function sortActivate(context) {
+    $(".unig-sortable", context).sortable({
+      placeholder: "unig-sortable-placeholder",
+      items: "> li.unig-sortable-item",
+      tolerance: "pointer"
+    });
 
-    var messageContainer = $('.unig-message-container');
-    var type = '';
+    $(".unig-sortable", context).sortable("enable");
 
-    if (results) {
+    // Fieldset
+    $(".unig-toolbar-sort", context).slideDown();
 
+    // Buttons
+    $(".unig-button-sort-toggle", context).addClass("active");
 
-    }
+    $(".unig-button-files-edit", context).addClass("disabled");
+    $(".unig-button-files-preview", context).addClass("disabled");
+    $(".unig-button-keywords-toggle-all", context).addClass("disabled");
+    $(".unig-button-people-toggle-all", context).addClass("disabled");
 
+    // Files
+    $(".unig-sortable-only").show();
+    $(".unig-sortable-hide").hide();
   }
 
+  function sortDeactivate(context) {
+    // Fieldset
+    $(".unig-toolbar-sort", context).slideUp();
 
+    // Buttons
+    $(".unig-button-sort-toggle", context).removeClass("active");
+
+    $(".unig-button-files-edit", context).removeClass("disabled");
+    $(".unig-button-files-preview", context).removeClass("disabled");
+    $(".unig-button-keywords-toggle-all", context).removeClass("disabled");
+    $(".unig-button-people-toggle-all", context).removeClass("disabled");
+
+    // Files
+    $(".unig-sortable-only", context).hide();
+    $(".unig-sortable-hide", context).show();
+
+    $(".unig-sortable", context).sortable("disable");
+  }
+
+  function sortCancel(context) {
+    $(".unig-sortable", context).sortable("cancel");
+
+    sortDeactivate(context);
+  }
+
+  function resetToAlphanumeric(context) {
+    sortDeactivate(context);
+
+    const name = "reset";
+    const data = $(".unig-sortable", context).sortable("serialize", {
+      key: "nid"
+    });
+
+    save(data, name);
+  }
+
+  function saveSortOrder(context) {
+    sortDeactivate(context);
+
+    const name = "save";
+    const data = $(".unig-sortable", context).sortable("serialize", {
+      key: "nid"
+    });
+    save(data, name);
+  }
+
+  Drupal.behaviors.unigSort = {
+    attach(context) {
+      // Buttons
+      $(".unig-button-sort-toggle", context).click(() => {
+        const $trigger = $(this);
+
+        if ($trigger.hasClass("active")) {
+          sortDeactivate();
+        } else {
+          sortActivate(context);
+        }
+      });
+
+      $(".unig-button-sort-save", context).click(() => {
+        saveSortOrder(context);
+      });
+
+      $(".unig-button-sort-cancel", context).click(() => {
+        sortCancel(context);
+      });
+
+      $(".unig-button-sort-alphanumeric", context).click(() => {
+        resetToAlphanumeric(context);
+      });
+    }
+  };
 })(jQuery, Drupal, drupalSettings);

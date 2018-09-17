@@ -1,4 +1,5 @@
 @import 'colors';
+
 .unig-project {
   display: inline-block;
   margin: 10px;
@@ -17,7 +18,18 @@
   }
 
   .unig-image-background {
+    box-sizing: border-box;
     background-color: $color-admin-background-hover;
+    color: gray;
+    min-width: 220px;
+    min-height: 220px;
+    text-align: center;
+    padding-top: 30%;
+
+    i, svg{
+      font-size: 40px;
+    }
+
   }
   .unig-image-background:hover {
     cursor: pointer;
@@ -28,18 +40,22 @@
     margin: 10px;
   }
 }
+
 li.unig-project-list-item {
   display: inline-flex;
   align-self: flex-start;
   list-style: none;
 }
+
 article.unig-project.private {
   background-color: $color-admin-background-private;
 }
+
 li.unig-project-list-item-year {
   display: block;
   list-style: none;
 }
+
 // Sortable
 
 .unig-project-list .unig-sortable-placeholder {
@@ -48,6 +64,7 @@ li.unig-project-list-item-year {
   width: 300px;
   height: 300px;
 }
+
 // Normal
 
 .unig-project-date,
@@ -58,6 +75,7 @@ li.unig-project-list-item-year {
   margin: 2px 0;
   padding: 2px 0;
 }
+
 // Edit
 
 .unig-edit-project-date,
@@ -68,6 +86,7 @@ li.unig-project-list-item-year {
   margin: 2px 0;
   padding: 2px 0;
 }
+
 .unig-edit-project-date .title,
 .unig-edit-project-title .title,
 .unig-edit-project-description .title,
@@ -78,31 +97,45 @@ li.unig-project-list-item-year {
   font-size: 12px;
   color: $color-admin-info;
 }
+
 .unig-project-list-toolbar {
   border-top: 1px solid $color-admin-border;
   margin-top: 5px;
   padding-top: 5px;
 }
+
 .unig-project-edit-container input,
 .unig-project-edit-container textarea,
 .unig-project-edit-container label {
   font-size: 12px;
 }
+
 .unig-edit-project-title {
   font-size: 14px;
   font-weight: bold;
 }
+
 .unig-edit-project-copyright {
   font-style: italic;
 }
+
 .unig-project-edit-container textarea {
   padding: 3px;
 }
+
 .unig-project-copyright {
   font-style: italic;
 }
+
 .unig-edit-project-private input,
 .unig-edit-project-private label {
   display: inline;
   margin-right: 4px;
+}
+
+.cover-description{
+  display: block;
+  margin-top: 10px;
+  font-size: 15px;
+
 }
