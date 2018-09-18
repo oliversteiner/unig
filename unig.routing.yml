@@ -254,10 +254,11 @@ unig.download.json:
 #  ImageStyle
 #
 unig.imagestyles:
-  path: '/unig/imagestyles/{node_ids}'
+  path: '/unig/imagestyles/{node_ids}/{style_name}'
   defaults:
     _controller: '\Drupal\unig\Controller\ImageStylesController::createImageStyles'
     _title: 'ImagesStyles'
     node_ids: null
+    style_name: false
   requirements:
     _permission: 'access unig admin'
