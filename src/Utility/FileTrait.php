@@ -131,11 +131,11 @@ trait FileTrait
         }
 
         // hole die neu erstellte ID
-        $image_uri = $new_post->field_unig_image->entity->getFileUri();
-        $this->createStyle($image_uri, 'thumbnail');
-        $this->createStyle($image_uri, 'unig_medium');
+        $new_id = $new_post->id();
+       // $this->createStyle($new_id, 'thumbnail');
+       // $this->createStyle($new_id, 'unig_medium');
 
-        return $new_post->id();
+        return $new_id;
     }
 
 
@@ -255,7 +255,7 @@ trait FileTrait
 
     function createStyle($image_uri, $style_name)
     {
-        return CreateImageStylesTrait::createImageStyles($image_uri, $style_name);
+         CreateImageStylesTrait::createImageStyles($image_uri, $style_name);
     }
 
 

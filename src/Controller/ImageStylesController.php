@@ -14,6 +14,7 @@ class ImageStylesController extends ControllerBase
 
     function createImageStyles($node_ids)
     {
+        dpm($node_ids);
         $output = new OutputController();
 
         if (is_array($node_ids)) {
@@ -33,15 +34,18 @@ class ImageStylesController extends ControllerBase
 
         } else {
             $entity = Node::load($node_ids);
-            $file_id = $entity->get('field_unig_image')->target_id;
 
-            // load the file object from some file id
-            $file_object = File::load($file_id);
-            $file_uri = $file_object->getFileUri();
-            $uri_list = CreateImageStylesTrait::createImageStyles($file_uri);
-            $output->setNid($node_ids);
-            $output->setTid($file_id);
-            $output->setStatus(true);
+            if($entity){
+                $file_id = $entity->get('field_unig_image')->target_id;
+
+                // load the file object from some file id
+                $file_object = File::load($file_id);
+                $file_uri = $file_object->getFileUri();
+                $uri_list = CreateImageStylesTrait::createImageStyles($file_uri);
+                $output->setNid($node_ids);
+                $output->setTid($file_id);
+                $output->setStatus(true);
+            }
 
         }
 

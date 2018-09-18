@@ -48,10 +48,9 @@ trait projectTemplateTrait
                 '#type' => 'inline_template',
                 '#template' => $template,
                 '#context' => $this->getProjectVariables($project_nid, $album_nid),
-                '#post_render' => $this->testPostRender(),
             ],
         ];
-        $build['#attached']['library'] = 'unig/unig.admin.project';
+       // $build['#attached']['library'] = 'unig/unig.admin.project';
 
         return $build;
     }
@@ -99,13 +98,6 @@ trait projectTemplateTrait
     protected function getProjectPath()
     {
         return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.project.html.twig";
-    }
-
-    function testPostRender()
-    {
-        dpm('Test Post Render');
-
-
     }
 
 }

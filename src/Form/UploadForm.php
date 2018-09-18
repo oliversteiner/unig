@@ -134,16 +134,6 @@
 
       ];
 
-      $form['image_styles_generated'] = [
-        '#type' => 'textfield',
-        '#size' => '60',
-        '#disabled' => TRUE,
-        '#value' => 'Test Image-Styles',
-        '#attributes' => [
-          'id' => ['image-styles-output'],
-        ],
-      ];
-
 
       // Group submit handlers in an actions element with a key of "actions" so
       // that it gets styled correctly, and so that other modules may add actions
@@ -269,11 +259,6 @@
         '%project' => $project_title,
       ]);
 
-      $text = t('Go to Project: ');
-      $message_go_to = "<a href=\"/unig/project/$project_nid\">$text<strong>$project_title</strong> </a>";
-
-      $rendered_message = \Drupal\Core\Render\Markup::create($message_go_to);
-
 
       switch ($variante) {
         case 'new_one' :
@@ -293,12 +278,9 @@
 
       // Feedback Album und Bilder
       $this->messenger()->addMessage($message, 'custom');
-      $this->messenger()->addMessage($rendered_message, 'custom');
 
-      $ids = serialize($node_ids);
-      $arr_args = ['node_ids' => $ids];
-      // return 'submitForm';
-      $form_state->setRedirect('unig.imagestyles', $arr_args);
+      $arr_args = ['project_nid' => $project_nid];
+      $form_state->setRedirect('unig.project', $arr_args);
 
 
       return 'submitForm';
