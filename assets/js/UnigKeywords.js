@@ -286,7 +286,7 @@
      */
     searchAutocomplete() {
       const Scope = Drupal.behaviors.unigKeywords;
-      const autoComplete = new autoComplete({
+      const UnigAutoComplete = new autoComplete({
         selector: '*[name="unig-keywords-autocomplete"]',
         minChars: 2,
         source(term, suggest) {

@@ -201,7 +201,6 @@
     route: "unig/project/json",
 
     load(projectNid) {
-      console.warn("unigData.FileList NID:", projectNid);
 
       // Route : unig/unig.ajax.project
 
@@ -210,7 +209,7 @@
       }
 
       if (!projectNid) {
-        console.warn("No Project NID set");
+
       } else {
         const data = {
           project_nid: projectNid,
@@ -224,7 +223,6 @@
           dataType: "json"
         })
           .done(result => {
-            //  console.log('FileList ', result);
 
             Drupal.behaviors.unigData.FileList.set(result);
           })

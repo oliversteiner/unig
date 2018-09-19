@@ -5,12 +5,14 @@
    *
    * @param context
    */
-  function toggleEdit(context) {
-    const $elem = $(context.target);
+  function toggleEdit(context, event) {
+
+    const $elem = $(event.target);
     const projectNid = $elem.data("unig-project-nid");
 
-    $(`#unig-project-edit-container-${projectNid}`, context).toggle();
-    $(`#unig-project-normal-container-${projectNid}`, context).toggle();
+
+    $(`#unig-project-edit-container-${projectNid}`).toggle();
+    $(`#unig-project-normal-container-${projectNid}`).toggle();
   }
 
   /**
@@ -18,8 +20,8 @@
    *
    * @param context
    */
-  function saveProject(context) {
-    const $elem = $(context.target);
+  function saveProject(context, event) {
+    const $elem = $(event.target);
     const projectNid = $elem.data("unig-project-nid");
 
     const title = $(`#edit-unig-project-title-${projectNid}`, context).val();
@@ -87,7 +89,7 @@
       }
     });
 
-    toggleEdit(context);
+    toggleEdit(context, event);
   }
 
   /**
@@ -96,8 +98,8 @@
    * @param context
    */
 
-  function resetProject(context) {
-    const $elem = $(context.target);
+  function resetProject(context, event) {
+    const $elem = $(event.target);
     const projectNid = $elem.data("unig-project-nid", context);
     const index = $elem.data("unig-project-index", context);
 
@@ -128,7 +130,7 @@
       $priv.prop("checked", false);
     }
 
-    toggleEdit(context);
+    toggleEdit(context, event);
   }
 
   Drupal.behaviors.unigProjectList = {
@@ -136,16 +138,16 @@
       console.log("Drupal.behaviors.unigProjectList");
 
       // Buttons
-      $(".unig-project-save-trigger").click(() => {
-        saveProject(context, settings);
+      $(".unig-project-save-trigger", context).click((event) => {
+        saveProject(context, event);
       });
 
-      $(".unig-project-cancel-trigger").click(() => {
-        resetProject(context);
+      $(".unig-project-cancel-trigger", context).click((event) => {
+        resetProject(context, event);
       });
 
-      $(".unig-project-edit-trigger").click(() => {
-        toggleEdit(context);
+      $(".unig-project-edit-trigger", context).click((event) => {
+        toggleEdit(context, event);
       });
     }
   };
