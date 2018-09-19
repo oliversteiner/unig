@@ -235,6 +235,11 @@
                         this.toggleToolbox(nid, name);
                     });
 
+                    // Close Message Generate Images
+                    $('.unig-messages-generate-images-close-trigger', context).click(() => {
+                       $('.unig-messages-generate-images').hide();
+                    });
+
                     // New Album Form
                     $('.ajax-container-new-album-trigger', context).click(() => {
                         const $container = $('#ajax-container-new-album-container');

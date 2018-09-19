@@ -1,4 +1,5 @@
 @import 'colors';
+
 .unig-project-year {
   position: relative;
   width: 100%;
@@ -13,6 +14,7 @@
     padding: 0;
   }
 }
+
 .unig-project-list-container {
   display: flex;
   align-content: flex-start;
@@ -25,6 +27,7 @@
     padding: 0;
   }
 }
+
 .unig-project-private {
   background-color: $color-private;
   border-color: $color-private-border;
@@ -37,29 +40,37 @@
     background-color: $color-highlight;
   }
 }
+
 .unig-project-nid {
   color: $color-20;
 }
+
 .unig-project-list-title {
   display: inline-block;
   margin-right: 20px;
   font-size: 1.2em;
 }
+
 .unig-project-list-date {
 }
+
 .unig-project-list-number-of-items {
 }
+
 .unig-project-label {
   margin-top: 5px;
 }
+
 .unig-project-toolbar {
   margin: 10px 0;
 }
+
 .unig-project-weight {
   text-align: center;
   padding-bottom: 10px;
   font-size: 2em;
 }
+
 // Sortable
 
 .unig-project-list-container .unig-sortable-placeholder {
@@ -69,20 +80,84 @@
   width: 140px;
   height: 200px;
 }
+
 .unig-back-to-list {
   margin: 0 10px;
 }
+
 ul.unig-gallery li.unig-file-item:hover {
   background-color: $color-admin-background;
   border-color: $color-admin-border-hover;
 }
+
 .unig-project-date {
   font-size: 12px;
 }
+
 .unig-project-number-of-items {
   font-size: 16px;
 }
+
 .unig-project-number-of-items i {
   color: $color-admin-info;
 }
 
+// Ajax Messages Generate Images
+
+.unig-messages-generate-images {
+  padding: 10px;
+  border: 1px solid $color-default-border;
+  margin: 5px;
+  border-radius: 4px;
+}
+
+.unig-generate-images-currend-process-text {
+  i, svg {
+    margin-right: 5px;
+    color: $color-50;
+  }
+}
+
+.unig-preview-image-number-of-images {
+}
+
+.unig-preview-image-counter {
+}
+
+.unig-preview-image-process {
+  margin-left: 10px;
+}
+
+.unig-preview-image-process-work {
+  color: $color-working ;
+}
+
+.unig-preview-image-process-done {
+  color: $color-success;
+}
+
+.unig-generate-images-current-process-name {
+  margin-left: 10px;
+  font-style: italic;
+
+}
+
+.unig-generate-images-current-process-size {
+  margin-left: 10px;
+  font-style: italic;
+
+}
+
+.unig-messages-generate-images-close-trigger {
+  float: right;
+  margin-right: 10px;
+  color: $color-50;
+
+  &:hover {
+    cursor: pointer;
+    color: $color-100;
+  }
+  &:active{
+    color: $color-40;
+  }
+}

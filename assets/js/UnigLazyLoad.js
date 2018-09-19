@@ -3,73 +3,77 @@
   Drupal.behaviors.unigLazyLoad = {
     numberOfFiles: 0,
     nodeIDsWithNoPreviews: [],
-    counter: 0,
+    imagesCounter: 0,
     attach() {
       console.log("Drupal.behaviors.unigLazyLoad");
     },
     replaceImage(nid, result) {
-
       const styleNames = ["unig_thumbnail", "unig_medium", "unig_hd"];
       let mode = "";
-      const display = false;
 
       if (result.data) {
         styleNames.forEach(styleName => {
+          if (result.data.hasOwnProperty(styleName)) {
 
+            // set current process image name in message block
+            document.querySelector(
+              ".unig-generate-images-current-process-name"
+            ).textContent = result.title;
 
-          // Processinfo
-            document.querySelector('.generate_images_currend_process_name').innerHTML = result.title;
-            document.querySelector('.generate_images_currend_process_size').innerHTML = `(${styleName})`;
+            // set current process image style name in message block
+            document.querySelector(
+              ".unig-generate-images-current-process-size"
+            ).textContent = `(${styleName})`;
 
+            switch (styleName) {
+              case "unig_thumbnail":
+                mode = "small";
+                break;
 
-          switch (styleName) {
-            case "unig_thumbnail":
-              mode = "small";
-              break;
+              case "unig_medium":
+                mode = "medium";
+                break;
 
-            case "unig_medium":
-              mode = "medium";
-              break;
+              case "unig_hd":
+                mode = "big";
+                break;
 
-            case "unig_hd":
-              mode = "big";
-              break;
+              default:
+                mode = "medium";
+                break;
+            }
+            console.log("mode:", mode);
 
-            default:
-              mode = "medium";
-              break;
-          }
-          console.log("mode:", mode);
+            const srcCache = result.data[styleName];
 
-          const srcCache = result.data[styleName];
+            const n = srcCache.indexOf("?");
+            const src = srcCache.substring(0, n !== -1 ? n : srcCache.length);
 
-          const n = srcCache.indexOf("?");
-          const src = srcCache.substring(0, n !== -1 ? n : srcCache.length);
+            const imgId = `img-${nid}-${styleName}`;
 
-          const imgId = `img-${nid}-${styleName}`;
+            const NODEImg = document.createElement("img");
+            NODEImg.setAttribute("src", src);
+            NODEImg.setAttribute("alt", mode);
+            NODEImg.setAttribute("id", imgId);
 
-          const NODEImg = document.createElement("img");
-          NODEImg.setAttribute("src", src);
-          NODEImg.setAttribute("alt", mode);
-          NODEImg.setAttribute("id", imgId);
+            console.log(`#unig-file-${nid} .img-preview-${mode}`);
 
-          console.log(`#unig-file-${nid} .img-preview-${mode}`);
+            const DomTarget = document.querySelector(
+              `#unig-file-${nid} .img-preview-${mode}`
+            );
+            DomTarget.innerHTML = "";
+            DomTarget.appendChild(NODEImg);
 
-          const DomTarget = document.querySelector(
-            `#unig-file-${nid} .img-preview-${mode}`
-          );
-          DomTarget.innerHTML = "";
-          DomTarget.appendChild(NODEImg);
+            const DomTargetPreview = document.querySelector(
+              `#no-preview-${mode}-${nid}`
+            );
+            if (DomTargetPreview) {
+              DomTargetPreview.parentElement.removeChild(DomTargetPreview);
+            }
 
-          const DomTargetPreview = document.querySelector(
-            `#no-preview-${mode}-${nid}`
-          );
-          if (DomTargetPreview) {
-            DomTargetPreview.parentElement.removeChild(DomTargetPreview);
-          }
-
-          if (mode === "medium") {
-            DomTarget.setAttribute("style", "block");
+            if (mode === "medium") {
+              DomTarget.setAttribute("style", "block");
+            }
           }
         });
 
@@ -144,31 +148,25 @@
      * @param context
      */
     generatePreviewImages(context) {
+      const test = false;
       const nids = Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews;
 
       console.log("generatePreviewImages", nids);
 
-      const count = nids.length;
+      const numberOfImages = nids.length;
 
-      Drupal.behaviors.unigLazyLoad.counter = 1;
-      if (nids && count > 0) {
-        $(".unig-messages-container", context).html(
-          `<div>
-    Fehlende Vorschaubilder entdeckt. Erstelle Vorschaubilder
-    <span class="preview_image_counter">1</span> von ${count}
-    <span class="generate_images_spinner">
-        <i class="fas fa-spin fa-spinner"></i>
-    </span>
+      Drupal.behaviors.unigLazyLoad.imagesCounter = 1;
+      if (nids && numberOfImages > 0) {
+        // show message block
+        document
+          .querySelector(".unig-messages-generate-images")
+          .setAttribute("style", "display:block");
 
-        <span class="generate_images_currend_process">
-            <span class="generate_images_currend_process_name"></span>
-            <span class="generate_images_currend_process_size"></span>
-    </span>
-    
-</div>`
-        );
+        // add number of images to message block
+        document.querySelector(
+          ".unig-preview-image-number-of-images"
+        ).textContent = numberOfImages.toString();
 
-        const test = false;
         if (test === true) {
           console.log("---------- generate Preview Test Mode -----------");
 
@@ -202,53 +200,88 @@
               }
 
               // Update Counter Number in Message Block
-              $(".preview_image_counter", context).text(
-                Drupal.behaviors.unigLazyLoad.counter
-              );
+              document.querySelector(
+                ".unig-preview-image-counter"
+              ).textContent = Drupal.behaviors.unigLazyLoad.imagesCounter.toString();
 
               // Update Counter
-              Drupal.behaviors.unigLazyLoad.counter += 1;
+              Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
               console.log(index);
 
-              // remove Spinner if last elem of nids-list
-              if (index === count - 1) {
-                document.querySelector(".generate_images_spinner").innerHTML =
-                  '<span class="generate-images-done">fertig!</span>';
+              // after last elem in list
+              if (index === numberOfImages - 1) {
+                this.generatePreviewImagesDone();
               }
             }, index * 500);
           });
 
           console.log("---------- End Test Mode -----------");
         } else {
+          //  First generate medium Previews
           nids.forEach(nid => {
             // add spinner
             this.spinnerPlaceholder(nid, context);
 
             $.ajax({
-              url: Drupal.url(`unig/imagestyles/${nid}`),
+              url: Drupal.url(`unig/imagestyles/${nid}/unig_medium`),
               type: "get",
               dataType: "json",
               success(results) {
                 Drupal.behaviors.unigLazyLoad.replaceImage(nid, results);
-
-                // Update Counter Number in Message Block
-                $(".preview_image_counter", context).text(
-                  Drupal.behaviors.unigLazyLoad.counter
-                );
-
-                // Update Counter
-                Drupal.behaviors.unigLazyLoad.counter += 1;
-
-                // remove Spinner if last Elem of nids-list
-                if (Drupal.behaviors.unigLazyLoad.counter === count - 1) {
-                  document.querySelector(".generate_images_spinner").innerHTML =
-                    '<span class="generate-images-done">fertig!</span>';
-                }
               }
             });
           });
+
+          //  wate 2 seconds and generate all other styles
+          setTimeout(() => {
+            nids.forEach(nid => {
+              $.ajax({
+                url: Drupal.url(`unig/imagestyles/${nid}`),
+                type: "get",
+                dataType: "json",
+                success(results) {
+                  Drupal.behaviors.unigLazyLoad.replaceImage(nid, results);
+
+                  // Update Counter Number in Message Block
+                  document.querySelector(
+                    ".unig-preview-image-counter"
+                  ).textContent = Drupal.behaviors.unigLazyLoad.imagesCounter.toString();
+
+                  // Update Counter
+                  Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
+
+                  // after last elem in list
+                  if (Drupal.behaviors.unigLazyLoad.imagesCounter === numberOfImages - 1) {
+                      Drupal.behaviors.unigLazyLoad.generatePreviewImagesDone();
+                  }
+                }
+              });
+            });
+          }, 10000);
         } // end else Test
       }
+    },
+
+    generatePreviewImagesDone() {
+      // show: process done
+      document
+        .querySelector(".unig-preview-image-process-done")
+        .setAttribute("style", "display:inline-block");
+
+      // hide: Process Work
+      document
+        .querySelector(".unig-preview-image-process-work")
+        .setAttribute("style", "display:none");
+
+      // hide: current-process-name
+      document
+        .querySelector(".unig-generate-images-current-process-name")
+        .setAttribute("style", "display:none");
+
+      // hide: current-process-size
+      document
+        .querySelector(".unig-generate-images-current-process-size")
+        .setAttribute("style", "display:none");
     },
     /**
      *

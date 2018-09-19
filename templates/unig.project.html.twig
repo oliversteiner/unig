@@ -264,6 +264,7 @@
                     {# Ajax Message #}
                     <div class="unig-bulk-download-message-container">
 
+
                     </div>
                 </div>
 
@@ -336,8 +337,36 @@
             </div>
         </div>
 
-        {# Ajax Message #}
+        {# --------------- Ajax Message  --------------- #}
         <div class="unig-messages-container">
+
+
+            {# --------------- Ajax Messages Generate Images  --------------- #}
+            <div class="unig-messages-generate-images" style="display: none">
+                {# Text #}
+                <span class="unig-generate-images-currend-process-text">
+                    <i class="fa fa-info-circle"></i>
+                    {% trans %} Generate preview images: {% endtrans %}
+                    <span class="unig-preview-image-counter">0</span>
+                    {% trans %} of {% endtrans %}
+                    <span class="unig-preview-image-number-of-images">0</span>.
+                </span>
+
+                {# Process Indicator #}
+                <span class="unig-preview-image-process">
+                    <span class="unig-preview-image-process-work"><i class="fas fa-spinner fa-spin"></i></span>
+                    <span class="unig-preview-image-process-done" style="display: none"><i class="fas fa-check"></i></span>
+                </span>
+
+                {# Current Image in Work Name#}
+                <span class="unig-generate-images-current-process-name">Name</span>
+
+                {# Current Image in Work Size#}
+                <span class="unig-generate-images-current-process-size">Size</span>
+
+                <span class="unig-messages-generate-images-close-trigger"> <i class="fa fa-times"></i></span>
+
+            </div>
         </div>
 
     </div>

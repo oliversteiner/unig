@@ -76,4 +76,41 @@ ul.unig-gallery li.unig-file-item:hover {
 .unig-project-number-of-items i {
   color: #8f8f8f; }
 
+.unig-messages-generate-images {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  margin: 5px;
+  border-radius: 4px; }
+
+.unig-generate-images-currend-process-text i, .unig-generate-images-currend-process-text svg {
+  margin-right: 5px;
+  color: gray; }
+
+.unig-preview-image-process {
+  margin-left: 10px; }
+
+.unig-preview-image-process-work {
+  color: #7f5930; }
+
+.unig-preview-image-process-done {
+  color: #0f7f34; }
+
+.unig-generate-images-current-process-name {
+  margin-left: 10px;
+  font-style: italic; }
+
+.unig-generate-images-current-process-size {
+  margin-left: 10px;
+  font-style: italic; }
+
+.unig-messages-generate-images-close-trigger {
+  float: right;
+  margin-right: 10px;
+  color: gray; }
+  .unig-messages-generate-images-close-trigger:hover {
+    cursor: pointer;
+    color: black; }
+  .unig-messages-generate-images-close-trigger:active {
+    color: #b3b3b3; }
+
 /*# sourceMappingURL=unig_project.css.map */
