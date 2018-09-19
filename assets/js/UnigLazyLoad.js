@@ -5,7 +5,7 @@
     nodeIDsWithNoPreviews: [],
     imagesCounter: 0,
     attach() {
-      console.log("Drupal.behaviors.unigLazyLoad");
+     // console.log("Drupal.behaviors.unigLazyLoad");
     },
     replaceImage(nid, result) {
       const styleNames = ["unig_thumbnail", "unig_medium", "unig_hd"];
@@ -14,17 +14,6 @@
       if (result.data) {
         styleNames.forEach(styleName => {
           if (result.data.hasOwnProperty(styleName)) {
-
-            // set current process image name in message block
-            document.querySelector(
-              ".unig-generate-images-current-process-name"
-            ).textContent = result.title;
-
-            // set current process image style name in message block
-            document.querySelector(
-              ".unig-generate-images-current-process-size"
-            ).textContent = `(${styleName})`;
-
             switch (styleName) {
               case "unig_thumbnail":
                 mode = "small";
@@ -42,7 +31,16 @@
                 mode = "medium";
                 break;
             }
-            console.log("mode:", mode);
+
+            // set current process image name in message block
+            document.querySelector(
+              ".unig-generate-images-current-process-name"
+            ).textContent = result.title;
+
+            // set current process image style name in message block
+            document.querySelector(
+              ".unig-generate-images-current-process-size"
+            ).textContent = `(${mode})`;
 
             const srcCache = result.data[styleName];
 
@@ -56,7 +54,6 @@
             NODEImg.setAttribute("alt", mode);
             NODEImg.setAttribute("id", imgId);
 
-            console.log(`#unig-file-${nid} .img-preview-${mode}`);
 
             const DomTarget = document.querySelector(
               `#unig-file-${nid} .img-preview-${mode}`
@@ -78,10 +75,13 @@
         });
 
         //   lightgallery
-        const DomLightgallery = document.querySelector(
-          `#unig-lightgallery-placeholder-${nid}`
-        );
-        DomLightgallery.setAttribute("data-src", result.data.unig_hd);
+
+        if (result.data.hasOwnProperty("unig_hd")) {
+          const DomLightgallery = document.querySelector(
+            `#unig-lightgallery-placeholder-${nid}`
+          );
+          DomLightgallery.setAttribute("data-src", result.data.unig_hd);
+        }
 
         // Dom-Elem Spinner
         const DomTargetPreviewSpinner = document.querySelector(
@@ -103,45 +103,39 @@
      * @param context
      */
     spinnerPlaceholder(id, context) {
-      console.log("spinnerPlaceholder", id);
-      $("#unig-main", context)
-        .once(`preview-${id}`)
-        .each(() => {
-          const ElemSpinner = document.createElement("div");
-          ElemSpinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-          ElemSpinner.setAttribute("id", `no-preview-spinner-${id}`);
-          ElemSpinner.setAttribute("class", `no-preview-spinner`);
 
-          const DomTarget = document.querySelector(
-            `#unig-file-${id} .unig-lazyload-container`
-          );
-          DomTarget.append(ElemSpinner);
+      const ElemSpinner = document.createElement("div");
+      ElemSpinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      ElemSpinner.setAttribute("id", `no-preview-spinner-${id}`);
+      ElemSpinner.setAttribute("class", `no-preview-spinner`);
 
-          const DomTargetPreviewSmall = document.querySelector(
-            `#no-preview-small-${id}`
-          );
-          if (DomTargetPreviewSmall) {
-            DomTargetPreviewSmall.parentElement.removeChild(
-              DomTargetPreviewSmall
-            );
-          }
+      const DomTarget = document.querySelector(
+        `#unig-file-${id} .unig-lazyload-container`
+      );
+      DomTarget.append(ElemSpinner);
 
-          const DomTargetPreviewMedium = document.querySelector(
-            `#no-preview-medium-${id}`
-          );
-          if (DomTargetPreviewMedium) {
-            DomTargetPreviewMedium.parentElement.removeChild(
-              DomTargetPreviewMedium
-            );
-          }
+      const DomTargetPreviewSmall = document.querySelector(
+        `#no-preview-small-${id}`
+      );
+      if (DomTargetPreviewSmall) {
+        DomTargetPreviewSmall.parentElement.removeChild(DomTargetPreviewSmall);
+      }
 
-          const DomTargetPreviewBig = document.querySelector(
-            `#no-preview-big-${id}`
-          );
-          if (DomTargetPreviewBig) {
-            DomTargetPreviewBig.parentElement.removeChild(DomTargetPreviewBig);
-          }
-        });
+      const DomTargetPreviewMedium = document.querySelector(
+        `#no-preview-medium-${id}`
+      );
+      if (DomTargetPreviewMedium) {
+        DomTargetPreviewMedium.parentElement.removeChild(
+          DomTargetPreviewMedium
+        );
+      }
+
+      const DomTargetPreviewBig = document.querySelector(
+        `#no-preview-big-${id}`
+      );
+      if (DomTargetPreviewBig) {
+        DomTargetPreviewBig.parentElement.removeChild(DomTargetPreviewBig);
+      }
     },
     /**
      *
@@ -151,7 +145,6 @@
       const test = false;
       const nids = Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews;
 
-      console.log("generatePreviewImages", nids);
 
       const numberOfImages = nids.length;
 
@@ -168,7 +161,7 @@
         ).textContent = numberOfImages.toString();
 
         if (test === true) {
-          console.log("---------- generate Preview Test Mode -----------");
+         // console.log("---------- generate Preview Test Mode -----------");
 
           // Add Spinner to Image Placeholder
           nids.forEach(nid => {
@@ -206,7 +199,6 @@
 
               // Update Counter
               Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
-              console.log(index);
 
               // after last elem in list
               if (index === numberOfImages - 1) {
@@ -215,32 +207,44 @@
             }, index * 500);
           });
 
-          console.log("---------- End Test Mode -----------");
+        //  console.log("---------- End Test Mode -----------");
         } else {
           //  First generate medium Previews
-          nids.forEach(nid => {
+
+            nids.forEach(nid => {
             // add spinner
             this.spinnerPlaceholder(nid, context);
 
-            $.ajax({
-              url: Drupal.url(`unig/imagestyles/${nid}/unig_medium`),
-              type: "get",
-              dataType: "json",
-              success(results) {
-                Drupal.behaviors.unigLazyLoad.replaceImage(nid, results);
+            const url = `/unig/imagestyles/${nid}/unig_medium`;
+
+            fetch(url, {
+              method: "GET", // or 'PUT'
+              headers: {
+                "Content-Type": "application/json"
               }
-            });
+            })
+              .then(res => res.json())
+              .then(response =>
+                Drupal.behaviors.unigLazyLoad.replaceImage(nid, response)
+              )
+              .catch(error => console.error("Error:", error));
           });
 
-          //  wate 2 seconds and generate all other styles
+          //  waite 2 seconds and generate all other styles
           setTimeout(() => {
+
             nids.forEach(nid => {
-              $.ajax({
-                url: Drupal.url(`unig/imagestyles/${nid}`),
-                type: "get",
-                dataType: "json",
-                success(results) {
-                  Drupal.behaviors.unigLazyLoad.replaceImage(nid, results);
+              const url = `/unig/imagestyles/${nid}`;
+
+              fetch(url, {
+                method: "GET", // or 'PUT'
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+                .then(res => res.json())
+                .then(response => {
+                  Drupal.behaviors.unigLazyLoad.replaceImage(nid, response);
 
                   // Update Counter Number in Message Block
                   document.querySelector(
@@ -251,11 +255,14 @@
                   Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
 
                   // after last elem in list
-                  if (Drupal.behaviors.unigLazyLoad.imagesCounter === numberOfImages - 1) {
-                      Drupal.behaviors.unigLazyLoad.generatePreviewImagesDone();
+                  if (
+                    Drupal.behaviors.unigLazyLoad.imagesCounter ===
+                    numberOfImages - 1
+                  ) {
+                    Drupal.behaviors.unigLazyLoad.generatePreviewImagesDone();
                   }
-                }
-              });
+                })
+                .catch(error => console.error("Error:", error));
             });
           }, 10000);
         } // end else Test
@@ -291,9 +298,6 @@
       // Get fileList
 
       this.numberOfFiles = fileList.length;
-
-      console.log("fileList", fileList);
-
       this.buildImgContainer(fileList);
     },
     /**
@@ -316,10 +320,6 @@
      * @param fileList
      */
     loadImagesMedium(fileList) {
-      console.error(
-        "nodeIDsWithNoPreviews",
-        Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews.length
-      );
 
       if (Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews.length === 0) {
         const mode = "medium";
@@ -380,7 +380,6 @@
           break;
       }
 
-      console.log("Style: ", styleName);
 
       if (fileList[id].image[styleName]) {
         const src = fileList[id].image[styleName].url;
@@ -422,7 +421,6 @@
      *
      */
     buildImgContainer(fileList) {
-      console.log("--- buildImgContainer", fileList);
 
       Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews = [];
 
@@ -434,7 +432,6 @@
         const ImageIds = [];
 
         Object.keys(fileList).forEach((id, index) => {
-          console.log(id);
 
           if (fileList && fileList.hasOwnProperty(id)) {
             ImageIds[index] = id;
@@ -475,8 +472,6 @@
         setTimeout(() => {
           this.generatePreviewImages();
         }, 500);
-      } else {
-        console.warn("no list");
       }
     }
   };
