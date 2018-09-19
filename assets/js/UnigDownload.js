@@ -458,26 +458,28 @@
      */
     constructor(context, settings) {
       // promise : wait for data from server
-      Drupal.behaviors.unigData.FileList.load().then(
-        () => {
-          // successCallback
-          const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.load();
-          if (itemsForDownload) {
-            const count = Drupal.behaviors.unigData.FilesForDownload.count();
-            if (count > 0) {
-              // After Success
-              Drupal.behaviors.unigDownload.openToolbar();
-              Drupal.behaviors.unigDownload.calculateDownloadsize();
-              Drupal.behaviors.unigDownload.refreshGUI();
-              Drupal.behaviors.unigDownload.updateInfo();
-            }
-          }
-        },
-        reason => {
-          // failureCallback
-        }
-      );
 
+      if (Drupal.behaviors.unigData.FileList.load()) {
+        Drupal.behaviors.unigData.FileList.load().then(
+          () => {
+            // successCallback
+            const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.load();
+            if (itemsForDownload) {
+              const count = Drupal.behaviors.unigData.FilesForDownload.count();
+              if (count > 0) {
+                // After Success
+                Drupal.behaviors.unigDownload.openToolbar();
+                Drupal.behaviors.unigDownload.calculateDownloadsize();
+                Drupal.behaviors.unigDownload.refreshGUI();
+                Drupal.behaviors.unigDownload.updateInfo();
+              }
+            }
+          },
+          reason => {
+            // failureCallback
+          }
+        );
+      }
       // Trigger
 
       // Mark for Download
