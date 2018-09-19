@@ -56,8 +56,8 @@
     },
 
     getNodeId(event) {
-        const $elem = $(event.target).parents(".unig-file-item");
-        const nid = $elem.data("unig-file-nid");
+      const $elem = $(event.target).parents(".unig-file-item");
+      const nid = $elem.data("unig-file-nid");
       return nid;
     },
 
@@ -129,6 +129,68 @@
       this.save(data, route);
     },
 
+    setProjectCover(projectNid, imageNid) {
+
+      // get DOM Elems
+      const processElem = document.querySelector(
+        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-process`
+      );
+
+      const isCoverElem = document.querySelector(
+        `.unig-image-is-cover-container-${imageNid} .unig-image-is-cover`
+      );
+
+      const buttonElem = document.querySelector(
+        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-button`
+      );
+
+      // activate Process Spinner
+      processElem.classList.add("active");
+
+      const url = `/unig/set_cover/${projectNid}/${imageNid}`;
+
+          fetch(url)
+              .then(response => response.json())
+              .then(myJson => {
+                  // Set message to ajac container
+                  const newElem = document.createElement("div");
+                  newElem.innerHTML = myJson[0].data;
+
+                  const oldElem = document.querySelector(myJson[0].selector);
+                  const parentElem = oldElem.parentNode;
+                  parentElem.replaceChild(newElem, oldElem);
+
+                  // deactivate all active covers
+                  const allActiveCoverElems = document.querySelectorAll(
+                      ".unig-image-is-cover.active"
+                  );
+
+                  // activate all buttons
+                  const allbuttonElems = document.querySelectorAll(
+                      ".unig-set-project-cover-button"
+                  );
+
+                  allActiveCoverElems.forEach(elem => {
+                      elem.classList.remove("active");
+                  });
+
+                  allbuttonElems.forEach(elem => {
+                      elem.classList.add("active");
+                  });
+
+                  isCoverElem.classList.add("active");
+                  processElem.classList.remove("active");
+
+                  // deactivate this Button
+                  buttonElem.classList.remove("active");
+              });
+
+    },
+
+    clearAjaxMessageBox() {
+      document.getElementsByClassName("unig-ajax-container").innerHtml = "";
+    },
+
     attach(context, settings) {
       // onload
       $("*[id^='lightgallery-']").lightGallery({
@@ -154,8 +216,6 @@
           this.toggleAllToolbox("people", "show");
         }
       });
-
-
 
       // Event Handlers
       $(".unig-gallery-preview-wrapper img", context).hover(() => {
@@ -206,6 +266,16 @@
         const name = "options";
         const nid = this.getNodeId(event);
         this.toggleToolbox(nid, name);
+      });
+
+      // Set Coverimage to current project
+      $(".unig-set-project-cover-trigger", context).click(event => {
+        // clear ajax message box
+        this.clearAjaxMessageBox();
+        const imageNid = this.getNodeId(event);
+        const projectNid = Drupal.behaviors.unigData.project.nid;
+        this.setProjectCover(projectNid, imageNid);
+        // the actual function go via drupal <a href ... >  and "use-ajax"
       });
 
       // Toggle Meta Info Toolbox

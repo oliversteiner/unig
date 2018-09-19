@@ -36,7 +36,7 @@
                             {# Anzahl Bilder #}
                             <i class="fa fa-image" aria-hidden="true"></i>
 
-                            <span class="number_of_visible"></span>
+                            <span class="number_of_visible">{{ project.number_of_items }}</span>
                         </div>
 
                         {# Right #}
@@ -339,6 +339,7 @@
         </div>
 
         {# --------------- Ajax Message  --------------- #}
+        <div class="unig-ajax-container"></div>
         <div class="unig-messages-container">
 
 
@@ -356,7 +357,8 @@
                 {# Process Indicator #}
                 <span class="unig-preview-image-process">
                     <span class="unig-preview-image-process-work"><i class="fas fa-spinner fa-spin"></i></span>
-                    <span class="unig-preview-image-process-done" style="display: none"><i class="fas fa-check"></i></span>
+                    <span class="unig-preview-image-process-done" style="display: none"><i
+                                class="fas fa-check"></i></span>
                 </span>
 
                 {# Current Image in Work Name#}
@@ -407,7 +409,7 @@
         </div>
 
         <div class="unig">
-            <ul class="unig-gallery unig-sortable unig-images-medium-blur" id="lightgallery-{{ project.nid }}">
+            <ul class="unig-gallery unig-sortable unig-images-medium" id="lightgallery-{{ project.nid }}">
 
                 <input type="hidden" id="unig-project-nid" value="{{ project.nid }}">
 
@@ -489,6 +491,7 @@
                                     </div>
                                 {% endif %}
                                 <div class="field-content">
+
                                     <div class="unig-image-background unig-lazyload-container">
                                         <div class="unig-lazyload-placeholder"
                                              id="unig-lazyload-placeholder-{{ file.nid }}">
@@ -496,6 +499,21 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            {#  -----------   Project Cover  -----------  #}
+                            <div class="unig-image-is-cover-container unig-image-is-cover-container-{{ file.nid }}">
+
+
+                                    <div class="unig-image-is-cover {% if project.cover_id == file.nid %}active{% endif %} ">Titelbild</div>
+
+                                    <div role="button" class="unig-set-project-cover-button unig-set-project-cover-trigger {% if project.cover_id != file.nid %}active{% endif %} ">
+                                        <div class="unig-set-project-cover-message">
+                                            als Titelbild festlegen
+                                        </div>
+                                    </div>
+
+                                <div class="unig-set-project-cover-process"><i class="fa fa-spinner fa-spin"></i></div>
                             </div>
 
                             {#  -----------   Title  -----------  #}
@@ -551,11 +569,10 @@
 
                                 {#  -----------   Button Titelbild  -----------  #}
                                 <span class="unig-file-options-item">
-                                <a class="unig-button unig-file-set-cover use-ajax"
-                                   href="/unig/nojs/set_cover/{{ project.nid }}/{{ file.nid }}">
+                                <div class="unig-button unig-file-set-cover unig-set-project-cover-trigger" role="button">
                                     <i class="fa fa-picture-o" aria-hidden="true"></i>
                                     Titelbild
-                                </a>
+                                </div>
                                 </span>
                                 {#  -----------   Button Löschen  -----------  #}
                                 <span class="unig-file-options-item">

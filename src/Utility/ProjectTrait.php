@@ -32,6 +32,7 @@ namespace Drupal\unig\Utility;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\AlertCommand;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Url;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\node\Entity\Node;
@@ -264,9 +265,15 @@ trait ProjectTrait
 
         // Load and Save Project
         $node->field_unig_project_cover = ['target_id' => $nid_cover,];
-        $node->save();
+        try {
+            $node->save();
+            return $nid_image;
 
-        return $nid_image;
+        } catch (EntityStorageException $e) {
+
+            return "ERROR: cover image adding failed";
+        }
+
     }
 
 

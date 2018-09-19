@@ -69,7 +69,8 @@
             }
 
             if (mode === "medium") {
-              DomTarget.setAttribute("style", "block");
+                DomTarget.setAttribute("style", "block");
+                DomTarget.classList.add("fade-in");
             }
           }
         });
@@ -396,7 +397,8 @@
         DomTarget.append(NODEImg);
 
         if (display) {
-          DomTarget.setAttribute("style", "block");
+            DomTarget.setAttribute("style", "block");
+            DomTarget.classList.add('fade-in');
         }
       } else {
         // check if id is already in arry

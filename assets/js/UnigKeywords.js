@@ -396,10 +396,10 @@
           if (keywordsStorage) {
             const count = Storage.count();
             if (count > 0) {
-              Scope.openToolbar();
+              //  Scope.openToolbar();
             }
           }
-          Scope.openToolbar();
+          //  Scope.openToolbar();
         },
         reason => {
           // failureCallback

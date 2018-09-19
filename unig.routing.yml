@@ -133,11 +133,13 @@ unig.sandbox:
 #
 # AJAX setCover
 #
-unig.ajax.setCover:
-  path: '/unig/ajax/set_cover/{project_nid}/{image_nid}'
+unig.setCover:
+  path: '/unig/set_cover/{project_nid}/{image_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::ajaxSetCover'
     _title: 'set Cover Image'
+    project_nid: null
+    image_nid: null
   requirements:
     _permission: 'access unig admin'
 

@@ -1,4 +1,4 @@
-@import 'colors';
+@import "colors";
 
 .unig-project-year {
   position: relative;
@@ -103,7 +103,7 @@ ul.unig-gallery li.unig-file-item:hover {
 }
 
 // Ajax Messages Generate Images
-
+.unig-ajax-container-elem,
 .unig-messages-generate-images {
   padding: 10px;
   border: 1px solid $color-default-border;
@@ -112,7 +112,8 @@ ul.unig-gallery li.unig-file-item:hover {
 }
 
 .unig-generate-images-currend-process-text {
-  i, svg {
+  i,
+  svg {
     margin-right: 5px;
     color: $color-50;
   }
@@ -129,7 +130,7 @@ ul.unig-gallery li.unig-file-item:hover {
 }
 
 .unig-preview-image-process-work {
-  color: $color-working ;
+  color: $color-working;
 }
 
 .unig-preview-image-process-done {
@@ -139,13 +140,11 @@ ul.unig-gallery li.unig-file-item:hover {
 .unig-generate-images-current-process-name {
   margin-left: 10px;
   font-style: italic;
-
 }
 
 .unig-generate-images-current-process-size {
   margin-left: 10px;
   font-style: italic;
-
 }
 
 .unig-messages-generate-images-close-trigger {
@@ -157,7 +156,111 @@ ul.unig-gallery li.unig-file-item:hover {
     cursor: pointer;
     color: $color-100;
   }
-  &:active{
+  &:active {
     color: $color-40;
   }
+}
+
+.unig-fa-check {
+  color: $color-success;
+  margin-right: 5px;
+}
+
+.unig-image-is-cover-container {
+  margin-top: -36px;
+  position: absolute;
+  height: 30px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.unig-image-is-cover,
+.unig-set-project-cover-button,
+.unig-set-project-cover-process{
+  display: none;
+  position: absolute;
+  color: white;
+  text-align: center;
+  font-size: 0.8em;
+  height: 30px;
+}
+
+
+
+.unig-image-is-cover.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.unig-set-project-cover-button {
+  display: none;
+}
+
+.unig-set-project-cover-button.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;  opacity: 0;
+}
+
+.unig-set-project-cover-button.active:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.unig-set-project-cover-process.active {
+  display: flex;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+
+.unig-images-small {
+
+  .unig-image-is-cover-container {
+    width: 150px;
+
+  }
+
+  .unig-image-is-cover,
+  .unig-set-project-cover-button,
+  .unig-set-project-cover-process{
+    width: 150px;
+  }
+
+}
+
+
+.unig-images-medium {
+
+  .unig-image-is-cover-container {
+    width: 220px;
+
+  }
+
+  .unig-image-is-cover,
+  .unig-set-project-cover-button,
+  .unig-set-project-cover-process{
+    width: 220px;
+  }
+
+}
+
+
+.unig-images-big {
+
+  .unig-image-is-cover-container {
+    width: 460px;
+
+  }
+
+  .unig-image-is-cover,
+  .unig-set-project-cover-button,
+  .unig-set-project-cover-process{
+    width: 460px;
+  }
+
 }
