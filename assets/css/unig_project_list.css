@@ -24,9 +24,9 @@
     color: gray;
     min-width: 220px;
     min-height: 220px;
-    text-align: center;
-    padding-top: 30%; }
+    text-align: center; }
     .unig-project .unig-image-background i, .unig-project .unig-image-background svg {
+      margin-top: 50px;
       font-size: 40px; }
   .unig-project .unig-image-background:hover {
     cursor: pointer;

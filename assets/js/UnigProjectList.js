@@ -5,12 +5,7 @@
    *
    * @param context
    */
-  function toggleEdit(context, event) {
-
-    const $elem = $(event.target);
-    const projectNid = $elem.data("unig-project-nid");
-
-
+  function toggleEdit(projectNid) {
     $(`#unig-project-edit-container-${projectNid}`).toggle();
     $(`#unig-project-normal-container-${projectNid}`).toggle();
   }
@@ -20,26 +15,16 @@
    *
    * @param context
    */
-  function saveProject(context, event) {
-    const $elem = $(event.target);
-    const projectNid = $elem.data("unig-project-nid");
+  function saveProject(projectNid) {
+    const title = $(`#edit-unig-project-title-${projectNid}`).val();
+    const date = $(`#edit-unig-project-date-${projectNid}`).val();
+    const weight = $(`#edit-unig-project-weight-${projectNid}`).val();
+    const description = $(`#edit-unig-project-description-${projectNid}`).val();
+    const copyright = $(`#edit-unig-project-copyright-${projectNid}`).val();
 
-    const title = $(`#edit-unig-project-title-${projectNid}`, context).val();
-    const date = $(`#edit-unig-project-date-${projectNid}`, context).val();
-    const weight = $(`#edit-unig-project-weight-${projectNid}`, context).val();
-    const description = $(
-      `#edit-unig-project-description-${projectNid}`,
-      context
-    ).val();
-    const copyright = $(
-      `#edit-unig-project-copyright-${projectNid}`,
-      context
-    ).val();
-
-    const privStatus = $(
-      `#edit-unig-project-private-${projectNid}`,
-      context
-    ).is(":checked");
+    const privStatus = $(`#edit-unig-project-private-${projectNid}`).is(
+      ":checked"
+    );
     const priv = Number(privStatus);
 
     const data = {
@@ -52,10 +37,10 @@
     };
 
     // load Inputs
-    $(`#unig-project-title-${projectNid}`, context).html(title);
-    $(`#unig-project-weight-${projectNid}`, context).html(weight);
-    $(`#unig-project-description-${projectNid}`, context).html(description);
-    $(`#unig-project-copyright-${projectNid}`, context).html(copyright);
+    $(`#unig-project-title-${projectNid}`).html(title);
+    $(`#unig-project-weight-${projectNid}`).html(weight);
+    $(`#unig-project-description-${projectNid}`).html(description);
+    $(`#unig-project-copyright-${projectNid}`).html(copyright);
 
     // Date
     //    $.datepicker.setDefaults($.datepicker.regional["de"]);
@@ -64,16 +49,16 @@
     $(`#unig-project-date-${projectNid}`).html(formatedDate);
 
     // Private
-    const $elemPrivat = $(`#unig-project-private-${projectNid}`, context);
+    const $elemPrivat = $(`#unig-project-private-${projectNid}`);
 
     // console.log('privat ', privStatus);
 
     if (privStatus) {
       $elemPrivat.html("(privat)");
-      $(`.unig-project-${projectNid}`, context).addClass("private");
+      $(`.unig-project-${projectNid}`).addClass("private");
     } else {
       $elemPrivat.html("");
-      $(`.unig-project-${projectNid}`, context).removeClass("private");
+      $(`.unig-project-${projectNid}`).removeClass("private");
     }
 
     $.ajax({
@@ -89,7 +74,7 @@
       }
     });
 
-    toggleEdit(context, event);
+    toggleEdit(projectNid);
   }
 
   /**
@@ -98,21 +83,14 @@
    * @param context
    */
 
-  function resetProject(context, event) {
-    const $elem = $(event.target);
-    const projectNid = $elem.data("unig-project-nid", context);
-    const index = $elem.data("unig-project-index", context);
+  function resetProject(projectNid, projectIndex) {
+    const data = drupalSettings.projects[projectIndex];
 
-    const data = drupalSettings.projects[index];
-
-    const $title = $(`#edit-unig-project-title-${projectNid}`, context);
-    const $date = $(`#edit-unig-project-date-${projectNid}`, context);
-    const $weight = $(`#edit-unig-project-weight-${projectNid}`, context);
-    const $description = $(
-      `#edit-unig-project-description-${projectNid}`,
-      context
-    );
-    const $priv = $(`#edit-unig-project-private-${projectNid}`, context);
+    const $title = $(`#edit-unig-project-title-${projectNid}`);
+    const $date = $(`#edit-unig-project-date-${projectNid}`);
+    const $weight = $(`#edit-unig-project-weight-${projectNid}`);
+    const $description = $(`#edit-unig-project-description-${projectNid}`);
+    const $priv = $(`#edit-unig-project-private-${projectNid}`);
 
     // Title
     $title.val(data.title);
@@ -130,7 +108,7 @@
       $priv.prop("checked", false);
     }
 
-    toggleEdit(context, event);
+    toggleEdit(projectNid);
   }
 
   Drupal.behaviors.unigProjectList = {
@@ -138,16 +116,24 @@
       console.log("Drupal.behaviors.unigProjectList");
 
       // Buttons
-      $(".unig-project-save-trigger", context).click((event) => {
-        saveProject(context, event);
+      $(".unig-project-save-trigger", context).click(event => {
+        const $elem = $(event.target);
+        const projectNid = $elem.data("unig-project-nid");
+        saveProject(projectNid);
       });
 
-      $(".unig-project-cancel-trigger", context).click((event) => {
-        resetProject(context, event);
+      $(".unig-project-cancel-trigger", context).click(event => {
+        const $elem = $(event.target);
+        const projectNid = $elem.data("unig-project-nid");
+        const projectIndex = $elem.data("unig-project-index");
+
+        resetProject(projectNid, projectIndex);
       });
 
-      $(".unig-project-edit-trigger", context).click((event) => {
-        toggleEdit(context, event);
+      $(".unig-project-edit-trigger", context).click(event => {
+        const $elem = $(event.target);
+        const projectNid = $elem.data("unig-project-nid");
+        toggleEdit(projectNid);
       });
     }
   };
