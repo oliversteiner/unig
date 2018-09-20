@@ -72,7 +72,7 @@ class FilesForm extends FormBase
 
         $form['new_project'] = [
             '#type' => 'textfield',
-            '#title' => t('Name the new Project'),
+            '#title' => t('project name'),
             '#size' => 60,
             '#maxlength' => 128,
             '#class' => 'form-control',
@@ -82,7 +82,7 @@ class FilesForm extends FormBase
         ];
 
         $form['project'] = [
-            '#title' => $this->t('Projekt wählen'),
+            '#title' => $this->t('Chose project'),
             '#type' => 'select',
             '#options' => $this->getProjectlistSelected(),
             '#default_value' => $this->getDefaultProjectNid(),

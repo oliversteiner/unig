@@ -52,11 +52,11 @@ function unig_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'unig.upload':
       // Help text for the simple page registered for this path.
-      return t('Sorry, No help-page jet.');
+      return t('');
 
     case 'help.page.unig':
       // Help text for the admin section, using the module name in the path.
-        return t('Sorry, No help-page jet.');
+        return t('');
   }
 }
 

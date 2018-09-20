@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: UniG\n"
-"POT-Creation-Date: 2018-09-20 13:30+0200\n"
-"PO-Revision-Date: 2018-09-20 13:33+0200\n"
+"POT-Creation-Date: 2018-09-20 13:53+0200\n"
+"PO-Revision-Date: 2018-09-20 13:55+0200\n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: oliver@mollo.ch\n"
 "Language: de\n"
@@ -28,11 +28,11 @@ msgid "File does not exist"
 msgstr "Datei existiert nicht"
 
 #: src/Form/FilesForm.php:75
-msgid "Name the new Project"
-msgstr "Name des neuen Projekts"
+msgid "project name"
+msgstr "Projektnamen"
 
 #: src/Form/FilesForm.php:85
-msgid "Projekt wählen"
+msgid "Chose project"
 msgstr "Projekt wählen"
 
 #: src/Form/FilesForm.php:120 src/Form/StylesForm.php:103
@@ -95,7 +95,7 @@ msgstr "Neues Projekt benennen"
 
 #: src/Form/UploadForm.php:106
 msgid "Choose Project"
-msgstr "Neues Projekt"
+msgstr "Projekt wählen"
 
 #: src/Form/UploadForm.php:119
 msgid "Upload Images / Files"
@@ -150,7 +150,7 @@ msgstr "Nach Datum sortieren"
 #: templates/unig.project-list.html.twig:82
 #: templates/unig.project.html.twig:185
 msgid "Save Order"
-msgstr "Bestellung speichern"
+msgstr "Sortierfolge sichern"
 
 #: templates/unig.project-list.html.twig:149
 msgid "No cover picture selected yet"
@@ -246,6 +246,12 @@ msgstr "Breite"
 #: templates/unig.project.html.twig:612
 msgid "Height"
 msgstr "Höhe"
+
+#~ msgid "Name the new Project"
+#~ msgstr "Name des neuen Projekts"
+
+#~ msgid "Projekt wählen"
+#~ msgstr "Projekt wählen"
 
 #~ msgid "Go to Project: "
 #~ msgstr "Gehe zu Projekt: "
