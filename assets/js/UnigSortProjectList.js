@@ -83,7 +83,7 @@
           Drupal.behaviors.unig.showMessages(results);
         }
       }).then(value => {
-        //  location.reload();
+          location.reload();
       });
 
       return true;
