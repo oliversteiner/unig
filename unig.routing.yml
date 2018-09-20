@@ -210,6 +210,18 @@ unig.ajax.sort.reset:
     _title: 'Reset sort order'
   requirements:
     _permission: 'access unig admin'
+
+#
+# AJAX sortProject
+#
+unig.sort.mode:
+  path: '/unig/sort/mode'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::sortMode'
+    _title: 'Reset sort order'
+  requirements:
+    _permission: 'access unig admin'
+
 #
 #
 #

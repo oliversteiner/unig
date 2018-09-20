@@ -1,134 +1,127 @@
-(function ($, Drupal, drupalSettings) {
-
-  'use strict';
-
+/* eslint-disable prettier/prettier,no-console */
+(function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigSortProjectList = {
-    attach: function (context, drupalSettings) {
-      console.log('Drupal.behaviors.unigSortProjectList ');
+    attach(context, drupalSettings) {
+      console.log("Drupal.behaviors.unigSortProjectList ");
 
       // onload
       this.constructor(context, drupalSettings);
     },
 
-    $sort_toggle_trigger: $('.unig-sort-toggle-trigger'),
-
+    $sort_toggle_trigger: $(".unig-sort-list-toggle-trigger"),
 
     /**
      *
      * @param context
      * @param settings
      */
-    constructor: function (context, drupalSettings) {
-
-// Buttons
-      this.$sort_toggle_trigger.click(function () {
-
-
-        if ($('.unig-button-sort-toggle').hasClass('active')) {
+    constructor(context, settings) {
+      // Buttons
+      this.$sort_toggle_trigger.click(() => {
+        if ($(".unig-button-sort-list-toggle").hasClass("active")) {
           Drupal.behaviors.unigSortProjectList.sortDeactivate();
-        }
-        else {
+        } else {
           Drupal.behaviors.unigSortProjectList.sortActivate();
-
         }
       });
 
-      $('.unig-sort-save-trigger').click(function () {
+      $(".unig-sort-list-save-trigger", context).click(() => {
         Drupal.behaviors.unigSortProjectList.saveSortOrder();
       });
 
-      $('.unig-sort-cancel-trigger').click(function () {
+      $(".unig-sort-list-cancel-trigger", context).click(() => {
         Drupal.behaviors.unigSortProjectList.sortCancel();
       });
 
-      $('.unig-sort-alphanumeric-trigger').click(function () {
+      $(".unig-sort-list-alphanumeric-trigger", context).click(() => {
         Drupal.behaviors.unigSortProjectList.resetToAlphanumeric();
       });
 
-
+      $(".unig-sort-list-date-trigger", context).click(() => {
+        Drupal.behaviors.unigSortProjectList.resetToDate();
+      });
     },
 
-    sortActivate: function () {
-
+    sortActivate() {
       $(".unig-sortable").sortable({
         placeholder: "unig-sortable-placeholder",
-        items      : "> li.unig-sortable-item",
-        tolerance  : "pointer"
+        items: "> li.unig-sortable-item",
+        tolerance: "pointer"
       });
       $(".unig-sortable").sortable("enable");
 
       // Fieldset
       $(".unig-toolbar-sort").slideDown();
 
-
       // Buttons
-      $('.unig-button-sort-toggle').addClass('active');
-
-
+      $(".unig-button-sort-toggle").addClass("active");
     },
 
-    sortDeactivate: function () {
-
-
+    sortDeactivate() {
       // Fieldset
       $(".unig-toolbar-sort").slideUp();
 
       // Buttons
-      $('.unig-button-sort-toggle').removeClass('active');
+      $(".unig-button-sort-toggle").removeClass("active");
 
       $(".unig-sortable").sortable("disable");
-
-
     },
 
-    sortCancel: function () {
+    sortCancel() {
       $(".unig-sortable").sortable("cancel");
       Drupal.behaviors.unigSortProjectList.sortDeactivate();
     },
 
-    resetToAlphanumeric: function () {
+    resetToDate() {
       Drupal.behaviors.unigSortProjectList.sortDeactivate();
 
-      var name = 'reset';
-      var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-      Drupal.behaviors.unigSortProjectList.save(data, name);
+      const mode = "date";
+      const nids = $(".unig-sortable")
+        .sortable("serialize", { key: "nid" })
+        .toString();
+      const data = `${nids}&mode=${mode}`;
+      const url = "mode";
 
-
-      // save(data);
+      Drupal.behaviors.unigSortProjectList.save(data, url);
     },
 
-    saveSortOrder: function () {
+    resetToAlphanumeric() {
       Drupal.behaviors.unigSortProjectList.sortDeactivate();
 
-      var name = 'save';
-      var data = $(".unig-sortable").sortable("serialize", {key: 'nid'});
-      Drupal.behaviors.unigSortProjectList.save(data, name);
+      const mode = "alphanumeric";
+      const nids = $(".unig-sortable")
+        .sortable("serialize", { key: "nid" })
+        .toString();
+        const data = `${nids}&mode=${mode}`;
+        const url = "mode";
 
+        Drupal.behaviors.unigSortProjectList.save(data, url);
     },
 
-    save: function (data, name) {
+    saveSortOrder() {
+      Drupal.behaviors.unigSortProjectList.sortDeactivate();
 
+      const name = "save";
+      const data = $(".unig-sortable").sortable("serialize", { key: "nid" });
+      Drupal.behaviors.unigSortProjectList.save(data, name);
+    },
 
-
+    save(data, name) {
       $.ajax({
-        url     : Drupal.url('unig/sort/' + name),
-        type    : 'POST',
-        data    : {
-          'data': data
+        url: Drupal.url(`unig/sort/${name}`),
+        type: "POST",
+        data: {
+          data
         },
-        dataType: 'json',
-        success : function (results) {
-          Drupal.behaviors.unig.showMessages(results)
+        dataType: "json",
+        success(results) {
+          Drupal.behaviors.unig.showMessages(results);
         }
-      }).then(function (value) {
-        location.reload();
-
+      }).then(value => {
+      //  location.reload();
       });
 
       return true;
-
-    },
-
-
-  }
+    }
+  };
 })(jQuery, Drupal, drupalSettings);

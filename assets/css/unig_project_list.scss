@@ -13,7 +13,6 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    background-color: $color-admin-background;
     margin: 10px;
   }
 
@@ -41,9 +40,13 @@
   }
 }
 
+ul.unig-project-list{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
 li.unig-project-list-item {
-  display: inline-flex;
-  align-self: flex-start;
   list-style: none;
 }
 
@@ -53,7 +56,11 @@ article.unig-project.private {
 
 li.unig-project-list-item-year {
   display: block;
-  list-style: none;
+  width: 100%;
+
+}
+.unig-project-year {
+  border-bottom: 1px solid gray;
 }
 
 // Sortable

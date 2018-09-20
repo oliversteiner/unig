@@ -16,7 +16,6 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    background-color: #e6e6e6;
     margin: 10px; }
   .unig-project .unig-image-background {
     box-sizing: border-box;
@@ -34,9 +33,12 @@
   .unig-project .unig-image-background img {
     margin: 10px; }
 
+ul.unig-project-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap; }
+
 li.unig-project-list-item {
-  display: inline-flex;
-  align-self: flex-start;
   list-style: none; }
 
 article.unig-project.private {
@@ -44,7 +46,10 @@ article.unig-project.private {
 
 li.unig-project-list-item-year {
   display: block;
-  list-style: none; }
+  width: 100%; }
+
+.unig-project-year {
+  border-bottom: 1px solid gray; }
 
 .unig-project-list .unig-sortable-placeholder {
   display: inline-flex;

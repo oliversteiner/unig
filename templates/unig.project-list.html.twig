@@ -30,7 +30,7 @@
 
                 {# sort #}
 
-                <div class="unig-button unig-sort-toggle-trigger">
+                <div class="unig-button unig-sort-list-toggle-trigger">
                     <i class="fa fa-sort" aria-hidden="true"></i>
                     {% trans %} Sort order {% endtrans %}
 
@@ -64,18 +64,22 @@
 
             <span class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</span>
 
-            <div class="unig-button unig-button-ok unig-button-sort-save unig-sort-save-trigger">
+            <div class="unig-button unig-button-ok unig-button-sort-list-save unig-sort-list-save-trigger">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 {% trans %} Save Order {% endtrans %}
             </div>
 
-            <div class="unig-button unig-button-warning unig-button-sort-alphanumeric unig-sort-alphanumeric-trigger ">
-                <i class="fa fa-times" aria-hidden="true"></i>
-
+            <div class="unig-button unig-button unig-button-sort-list-alphanumeric unig-sort-list-alphanumeric-trigger ">
+                <i class="fas fa-sort-alpha-down"></i>
                 {% trans %} reset to alphabetical {% endtrans %}
             </div>
 
-            <div class="unig-button unig-button-warning unig-button-sort-cancel unig-sort-cancel-trigger">
+            <div class="unig-button unig-button unig-button-sort-list-date unig-sort-list-date-trigger ">
+                <i class="far fa-calendar-alt"></i>
+                {% trans %} reset to date {% endtrans %}
+            </div>
+
+            <div class="unig-button unig-button-warning unig-button-sort-list-cancel unig-sort-list-cancel-trigger">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 {% trans %} Cancel {% endtrans %}
             </div>
@@ -105,7 +109,7 @@
                 {% if is_admin %}
                     {# ----------- YEAR ----------- #}
                     {% if sort_year != project.year %}
-                        <li class="unig-project-list-item-year">
+                        <li class="unig-project-list-item unig-project-list-item-year">
                             <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
                         </li>
                     {% endif %}
