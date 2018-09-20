@@ -44,30 +44,7 @@ li.unig-file-download-list-mark:active {
 ul.unig-file-download-list i.fa {
   margin: 0 3px 0 3px;
 }
-.unig-file-download-list-picto,
-.unig-file-download-list-label,
-.unig-file-download-list-width,
-.unig-file-download-list-size {
-  display: inline-block;
-  // border: silver solid 1px;
-}
-.unig-file-download-list-label {
-  width: 30px;
-}
-.unig-file-download-list-width {
-  width: 85px;
-  text-align: right;
-  margin-right: 10px;
-}
-.unig-file-download-list-size {
-  width: 65px;
-  text-align: right;
-}
-.unig-file-download-list-picto {
-  color: $color-admin-info;
-}
-.unig-file-download-list-mark-text {
-}
+
 //
 // =====  Mark as Download
 //
@@ -164,7 +141,6 @@ li.unig-dl .unig-dl-nid {
   &-footer {
     margin: 6px 1px;
   }
-
 }
 table.unig-file-download-table {
   width: 200px;
@@ -208,10 +184,10 @@ td.unig-file-download-table-label {
 }
 td.unig-file-download-table-width {
   color: $color-admin-info;
-  text-align: right
+  text-align: right;
 }
 td.unig-file-download-table-size {
-  text-align: right
+  text-align: right;
 }
 .unig-button-small.unig-button-dl-folder-open i,
 .unig-button-small.unig-button-dl-folder-close i {
@@ -227,9 +203,45 @@ td.unig-file-download-table-size {
   color: $color-admin-background-invert;
 }
 .badge {
-
   &-marked {
     background-color: $color-badge-marked;
     color: $color-admin-background-invert;
   }
+}
+
+a:link {
+  color: $color-100;
+}
+
+
+.unig-file-download-list-label,
+.unig-file-download-list-width,
+.unig-file-download-list-size,
+.unig-file-download-list-picto,
+.unig-file-download-list-mark-text{
+  display: table-cell;
+  margin: 0;
+  padding: 0;
+}
+
+.unig-file-download-list-label {
+  width: 25px;
+}
+.unig-file-download-list-width {
+  text-align: right;
+  width: 85px;
+}
+.unig-file-download-list-size {
+  text-align: right;
+  width: 70px;
+}
+.unig-file-download-list-picto {
+  color: $color-admin-info;
+  text-align: right;
+  width: 20px;
+}
+.unig-file-download-list-mark-text{
+  width:150px;
+  padding-left: 10px;
+
 }

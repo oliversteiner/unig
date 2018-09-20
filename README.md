@@ -1,13 +1,11 @@
 #### Version
-UniG beta 1.3
+UniG 1.5.1
 
 ## Todo
 
 
 ### Einstellungen:
-- Plubload Einstellungen:
-    - erlaubte Dateiendungen : OK
-- Standartalbum : OK
+
 
 
 ## Ideen

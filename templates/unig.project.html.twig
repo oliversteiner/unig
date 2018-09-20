@@ -56,6 +56,8 @@
         {# Toolbar - general #}
         <div class="unig-toolbar unig-toolbar-general">
 
+
+
             {# Fieldset - General #}
             <div class="unig-fieldset no-border unig-fieldset-general">
 
@@ -642,11 +644,11 @@
 
                                     {# SD #}
                                     <li class="unig-toolbox-item unig-file-download-list-direct download-sd">
-                                        <a href="{{ file.image.unig_big.url }}" download>
+                                        <a href="{{ file.image.large.url }}" download>
                                             <span class="unig-file-download-list-label">SD</span>
-                                            <span class="unig-file-download-list-width">{{ file.image.unig_big.width }}
-                                                x {{ file.image.unig_big.height }}&thinsp;px</span>
-                                            <span class="unig-file-download-list-size">{{ file.image.unig_big.filesize_formated }}</span>
+                                            <span class="unig-file-download-list-width">{{ file.image.large.width }}
+                                                x {{ file.image.large.height }}</span>
+                                            <span class="unig-file-download-list-size">{{ file.image.large.filesize_formated }}</span>
                                             <span class="unig-file-download-list-picto">
                                         <i class="fa fa-download" aria-hidden="true"></i></span>
                                         </a>
@@ -658,7 +660,7 @@
 
                                             <span class="unig-file-download-list-label">HD</span>
                                             <span class="unig-file-download-list-width">{{ file.image.unig_hd.width }}
-                                                x {{ file.image.unig_hd.height }}&thinsp;px</span>
+                                                x {{ file.image.unig_hd.height }}</span>
                                             <span class="unig-file-download-list-size">{{ file.image.unig_hd.filesize_formated }}</span>
                                             <span class="unig-file-download-list-picto">
                                         <i class="fa fa-download" aria-hidden="true"></i></span>
@@ -670,9 +672,9 @@
                                     <li class="unig-toolbox-item  unig-file-download-list-direct download-max">
                                         <a href="{{ file.image.original.url }}" download>
 
-                                            <span class="unig-file-download-list-label">Max</span>
+                                            <span class="unig-file-download-list-label">XL</span>
                                             <span class="unig-file-download-list-width">{{ file.image.original.width }}
-                                                x {{ file.image.original.height }}&thinsp;px</span>
+                                                x {{ file.image.original.height }}</span>
                                             <span class="unig-file-download-list-size">{{ file.image.original.filesize_formated }}</span>
                                             <span class="unig-file-download-list-picto">
                                         <i class="fa fa-download" aria-hidden="true"></i></span>

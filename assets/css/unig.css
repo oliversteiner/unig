@@ -512,27 +512,6 @@ li.unig-file-download-list-mark:active {
 ul.unig-file-download-list i.fa {
   margin: 0 3px 0 3px; }
 
-.unig-file-download-list-picto,
-.unig-file-download-list-label,
-.unig-file-download-list-width,
-.unig-file-download-list-size {
-  display: inline-block; }
-
-.unig-file-download-list-label {
-  width: 30px; }
-
-.unig-file-download-list-width {
-  width: 85px;
-  text-align: right;
-  margin-right: 10px; }
-
-.unig-file-download-list-size {
-  width: 65px;
-  text-align: right; }
-
-.unig-file-download-list-picto {
-  color: #8f8f8f; }
-
 div.unig-file-download-mark {
   width: 30px;
   padding: 0 7px;
@@ -661,6 +640,38 @@ td.unig-file-download-table-size {
 .badge-marked {
   background-color: #c3c3c3;
   color: #515151; }
+
+a:link {
+  color: black; }
+
+.unig-file-download-list-label,
+.unig-file-download-list-width,
+.unig-file-download-list-size,
+.unig-file-download-list-picto,
+.unig-file-download-list-mark-text {
+  display: table-cell;
+  margin: 0;
+  padding: 0; }
+
+.unig-file-download-list-label {
+  width: 25px; }
+
+.unig-file-download-list-width {
+  text-align: right;
+  width: 85px; }
+
+.unig-file-download-list-size {
+  text-align: right;
+  width: 70px; }
+
+.unig-file-download-list-picto {
+  color: #8f8f8f;
+  text-align: right;
+  width: 20px; }
+
+.unig-file-download-list-mark-text {
+  width: 150px;
+  padding-left: 10px; }
 
 .unig-file-rating {
   margin: auto; }

@@ -538,22 +538,6 @@
     color: #b8b8b8; }
   #unig-main.unig-theme-dark ul.unig-file-download-list i.fa {
     margin: 0 3px 0 3px; }
-  #unig-main.unig-theme-dark .unig-file-download-list-picto,
-  #unig-main.unig-theme-dark .unig-file-download-list-label,
-  #unig-main.unig-theme-dark .unig-file-download-list-width,
-  #unig-main.unig-theme-dark .unig-file-download-list-size {
-    display: inline-block; }
-  #unig-main.unig-theme-dark .unig-file-download-list-label {
-    width: 30px; }
-  #unig-main.unig-theme-dark .unig-file-download-list-width {
-    width: 85px;
-    text-align: right;
-    margin-right: 10px; }
-  #unig-main.unig-theme-dark .unig-file-download-list-size {
-    width: 65px;
-    text-align: right; }
-  #unig-main.unig-theme-dark .unig-file-download-list-picto {
-    color: #4b4b4b; }
   #unig-main.unig-theme-dark div.unig-file-download-mark {
     width: 30px;
     padding: 0 7px;
@@ -659,6 +643,31 @@
   #unig-main.unig-theme-dark .badge-marked {
     background-color: #464646;
     color: #979797; }
+  #unig-main.unig-theme-dark a:link {
+    color: black; }
+  #unig-main.unig-theme-dark .unig-file-download-list-label,
+  #unig-main.unig-theme-dark .unig-file-download-list-width,
+  #unig-main.unig-theme-dark .unig-file-download-list-size,
+  #unig-main.unig-theme-dark .unig-file-download-list-picto,
+  #unig-main.unig-theme-dark .unig-file-download-list-mark-text {
+    display: table-cell;
+    margin: 0;
+    padding: 0; }
+  #unig-main.unig-theme-dark .unig-file-download-list-label {
+    width: 25px; }
+  #unig-main.unig-theme-dark .unig-file-download-list-width {
+    text-align: right;
+    width: 85px; }
+  #unig-main.unig-theme-dark .unig-file-download-list-size {
+    text-align: right;
+    width: 70px; }
+  #unig-main.unig-theme-dark .unig-file-download-list-picto {
+    color: #4b4b4b;
+    text-align: right;
+    width: 20px; }
+  #unig-main.unig-theme-dark .unig-file-download-list-mark-text {
+    width: 150px;
+    padding-left: 10px; }
 
 #unig-main.unig-theme-dark .unig-image-background {
   background-color: #111111; }
