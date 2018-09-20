@@ -190,17 +190,29 @@ a.unig-button,
 
 }
 
-// fontawesome
-.unig-button .fa {
+// fontawesome Icons
+.unig-button i,
+.unig-button svg {
   margin-right: 4px;
 }
 
-// fontawesome
+
+
+
 .unig-button.unig-button-small {
   margin: 2px 5px;
   padding: 2px 5px;
   font-size: 0.8em;
   border-radius: 2px;
+}
+
+.unig-button.unig-button-icon {
+  border: none;
+
+  i, svg {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 // Fieldset
@@ -241,3 +253,17 @@ a.unig-button,
   border-radius: 0 5px 5px 0;
 }
 
+.private {
+
+  .unig-button {
+    background-color: $color-admin-private;
+  }
+
+  .unig-button:hover {
+    background-color: $color-admin-private-hover;
+  }
+
+  .unig-button:active {
+    background-color: $color-admin-private-active;
+  }
+}

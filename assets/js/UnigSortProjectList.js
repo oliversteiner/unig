@@ -1,52 +1,17 @@
 /* eslint-disable prettier/prettier,no-console */
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigSortProjectList = {
-    attach(context, drupalSettings) {
-      console.log("Drupal.behaviors.unigSortProjectList ");
-
-      // onload
-      this.constructor(context, drupalSettings);
-    },
-
-    $sort_toggle_trigger: $(".unig-sort-list-toggle-trigger"),
-
-    /**
-     *
-     * @param context
-     * @param settings
-     */
-    constructor(context, settings) {
-      // Buttons
-      this.$sort_toggle_trigger.click(() => {
-        if ($(".unig-button-sort-list-toggle").hasClass("active")) {
-          Drupal.behaviors.unigSortProjectList.sortDeactivate();
-        } else {
-          Drupal.behaviors.unigSortProjectList.sortActivate();
-        }
-      });
-
-      $(".unig-sort-list-save-trigger", context).click(() => {
-        Drupal.behaviors.unigSortProjectList.saveSortOrder();
-      });
-
-      $(".unig-sort-list-cancel-trigger", context).click(() => {
-        Drupal.behaviors.unigSortProjectList.sortCancel();
-      });
-
-      $(".unig-sort-list-alphanumeric-trigger", context).click(() => {
-        Drupal.behaviors.unigSortProjectList.resetToAlphanumeric();
-      });
-
-      $(".unig-sort-list-date-trigger", context).click(() => {
-        Drupal.behaviors.unigSortProjectList.resetToDate();
-      });
-    },
-
-    sortActivate() {
-      $(".unig-sortable").sortable({
+    sortActivate(context) {
+      $(".unig-sortable", context).sortable({
         placeholder: "unig-sortable-placeholder",
         items: "> li.unig-sortable-item",
-        tolerance: "pointer"
+        tolerance: "pointer",
+        change: (event, ui) => {
+          console.log("sortable: change", event);
+
+          $(".unig-button-sort-list-save", context).show();
+          $(".unig-button-sort-list-cancel", context).show();
+        }
       });
       $(".unig-sortable").sortable("enable");
 
@@ -72,7 +37,7 @@
       Drupal.behaviors.unigSortProjectList.sortDeactivate();
     },
 
-    resetToDate() {
+    sortByDate() {
       Drupal.behaviors.unigSortProjectList.sortDeactivate();
 
       const mode = "date";
@@ -85,17 +50,17 @@
       Drupal.behaviors.unigSortProjectList.save(data, url);
     },
 
-    resetToAlphanumeric() {
+    sortAlphanumeric() {
       Drupal.behaviors.unigSortProjectList.sortDeactivate();
 
       const mode = "alphanumeric";
       const nids = $(".unig-sortable")
         .sortable("serialize", { key: "nid" })
         .toString();
-        const data = `${nids}&mode=${mode}`;
-        const url = "mode";
+      const data = `${nids}&mode=${mode}`;
+      const url = "mode";
 
-        Drupal.behaviors.unigSortProjectList.save(data, url);
+      Drupal.behaviors.unigSortProjectList.save(data, url);
     },
 
     saveSortOrder() {
@@ -118,10 +83,37 @@
           Drupal.behaviors.unig.showMessages(results);
         }
       }).then(value => {
-      //  location.reload();
+        //  location.reload();
       });
 
       return true;
+    },
+
+    attach(context, settings) {
+      // Buttons
+      $(".unig-sort-list-toggle-trigger", context).click(() => {
+        if ($(".unig-button-sort-list-toggle").hasClass("active")) {
+          Drupal.behaviors.unigSortProjectList.sortDeactivate();
+        } else {
+          Drupal.behaviors.unigSortProjectList.sortActivate(context);
+        }
+      });
+
+      $(".unig-sort-list-save-trigger", context).click(() => {
+        Drupal.behaviors.unigSortProjectList.saveSortOrder();
+      });
+
+      $(".unig-sort-list-cancel-trigger", context).click(() => {
+        Drupal.behaviors.unigSortProjectList.sortCancel();
+      });
+
+      $(".unig-sort-list-alphanumeric-trigger", context).click(() => {
+        Drupal.behaviors.unigSortProjectList.sortAlphanumeric();
+      });
+
+      $(".unig-sort-list-date-trigger", context).click(() => {
+        Drupal.behaviors.unigSortProjectList.sortByDate();
+      });
     }
   };
 })(jQuery, Drupal, drupalSettings);

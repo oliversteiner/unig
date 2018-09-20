@@ -88,7 +88,7 @@ $color-image-border: rgb(0, 0, 0);
 $color-image-background: rgb(33, 33, 33);
 
 // Picto
-$color-admin-picto: rgb(168, 168, 168);
+$color-admin-picto: rgb(211, 210, 210);
 $color-admin-picto-hover: rgb(170, 92, 252);
 $color-admin-picto-active: rgb(0, 0, 0);
 $color-admin-picto-active-hover: rgb(141, 82, 186);
@@ -151,6 +151,7 @@ $color-badge-marked-inverted: rgb(195, 195, 195);
 
 
 // toolbar
+$color-toolbar-title: rgb(191, 191, 191);
 $color-toolbar-border: rgb(230, 230, 230);
 $color-toolbar-background: rgb(246, 246, 246);
 $color-toolbar-stroke: rgb(227, 226, 226);
@@ -194,10 +195,12 @@ $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 // sort
 $color-sortable-placeholder-background: rgba(0, 0, 0, 0.1);
 $color-sortable-placeholder-border: rgba(0, 0, 0, 0.2);
-$color-sortable-active-background : rgb(158, 154, 151);
+$color-sortable-active-background : rgba(0, 0, 0, 0.80);
 $color-sortable-active-text : rgb(255, 251, 199);
 
 
-// Project-list
-$color-admin-background-private : rgb(195, 204, 185);
+// Private
+$color-admin-private : rgb(195, 204, 185);
+$color-admin-private-hover : rgb(153, 160, 145);
+$color-admin-private-active : rgb(123, 129, 117);
 

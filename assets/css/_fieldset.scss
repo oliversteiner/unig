@@ -19,3 +19,23 @@
   display: flex;
   justify-content: space-between;
 }
+
+.unig-fieldset-title {
+  margin-right: 20px;
+  color: $color-toolbar-title;
+}
+
+.unig-fieldset-title-top {
+  padding-bottom: 9px;
+  display: block;
+}
+
+// Sort
+.unig-toolbar-sort {
+  .unig-button {
+    margin-right: 5px;
+  }
+  .unig-button-ok {
+    margin-left: 10px;
+  }
+}

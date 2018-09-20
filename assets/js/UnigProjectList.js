@@ -111,6 +111,14 @@
     toggleEdit(projectNid);
   }
 
+  function getProjectId(event) {
+    const $elem = $(event.target).parents(".unig-project-list-item");
+    console.log("getProjectId", $elem);
+
+    const nid = $elem.data("unig-project-nid");
+    return nid;
+  }
+
   Drupal.behaviors.unigProjectList = {
     attach(context, settings) {
       console.log("Drupal.behaviors.unigProjectList");
@@ -130,7 +138,41 @@
         resetProject(projectNid, projectIndex);
       });
 
-      $(".unig-project-edit-trigger", context).click(event => {
+      document.querySelectorAll(".unig-project-edit-trigger",context).forEach(edit =>
+        edit.addEventListener(
+          "click",
+          event => {
+            const projectNid = getProjectId(event);
+            console.log("click", projectNid);
+
+            toggleEdit(projectNid);
+          },
+          false
+        )
+      );
+
+      document
+        .querySelectorAll(".unig-project-normal-container",context)
+        .forEach(edit =>
+          edit.addEventListener(
+            "dblclick",
+            event => {
+              const projectNid = getProjectId(event);
+              console.log("dblclick", projectNid);
+
+              toggleEdit(projectNid);
+            },
+            false
+          )
+        );
+
+      $(".unig-project-normal-container", context).dblclick(event => {
+        const $elem = $(event.target);
+        const projectNid = $elem.data("unig-project-nid");
+        toggleEdit(projectNid);
+      });
+
+      $(".unig-project-title", context).dblclick(event => {
         const $elem = $(event.target);
         const projectNid = $elem.data("unig-project-nid");
         toggleEdit(projectNid);

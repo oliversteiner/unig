@@ -152,6 +152,7 @@ $color-toolbar-border: rgb(87, 87, 87);
 $color-toolbar-background: rgb(45, 45, 45);
 
 // toolbox
+$color-toolbar-title:rgb(110, 109, 109);
 $color-toolbox-border: rgb(230, 230, 230);
 $color-toolbox-background: rgb(54, 54, 54);
 $color-toolbox-stroke: rgb(39, 39, 39);
@@ -184,3 +185,8 @@ $color-sortable-placeholder-background: rgb(19, 19, 19);
 $color-sortable-placeholder-border: rgb(82, 82, 82);
 $color-sortable-active-background : rgb(182, 142, 61);
 $color-sortable-active-text : rgb(182, 177, 151);
+
+// Private
+$color-admin-private : rgb(195, 204, 185);
+$color-admin-private-hover : rgb(153, 160, 145);
+$color-admin-private-active : rgb(123, 129, 117);

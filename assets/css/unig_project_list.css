@@ -6,26 +6,27 @@
 */
 .unig-project {
   display: inline-block;
-  margin: 10px;
-  padding: 20px;
-  width: 280px;
   border-radius: 5px;
   background-color: #e6e6e6;
-  border: 2px solid #d6d6d6; }
+  margin: 15px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 0; }
   .unig-project .unig-project-cover {
     display: flex;
     justify-content: center;
-    align-content: center;
-    margin: 10px; }
+    align-content: center; }
   .unig-project .unig-image-background {
     box-sizing: border-box;
     background-color: #b8b8b8;
     color: gray;
-    min-width: 220px;
-    min-height: 220px;
+    width: 240px;
+    height: 240px;
     text-align: center; }
-    .unig-project .unig-image-background i, .unig-project .unig-image-background svg {
-      margin-top: 50px;
+    .unig-project .unig-image-background i,
+    .unig-project .unig-image-background svg {
+      margin-top: 80px;
       font-size: 40px; }
   .unig-project .unig-image-background:hover {
     cursor: pointer;
@@ -49,7 +50,7 @@ li.unig-project-list-item-year {
   width: 100%; }
 
 .unig-project-year {
-  border-bottom: 1px solid gray; }
+  border-bottom: 1px solid #d6d6d6; }
 
 .unig-project-list .unig-sortable-placeholder {
   display: inline-flex;
@@ -88,6 +89,9 @@ li.unig-project-list-item-year {
   margin-top: 5px;
   padding-top: 5px; }
 
+.unig-project-list-toolbar-last {
+  margin-bottom: 10px; }
+
 .unig-project-edit-container input,
 .unig-project-edit-container textarea,
 .unig-project-edit-container label {
@@ -115,5 +119,40 @@ li.unig-project-list-item-year {
   display: block;
   margin-top: 10px;
   font-size: 15px; }
+
+.unig-button.unig-button-project-edit {
+  color: #b3b3b3; }
+
+.unig-button.unig-button-project-edit:hover {
+  color: black;
+  background-color: transparent; }
+
+.unig-button.unig-button-project-edit:active {
+  color: #d9d9d9;
+  background-color: transparent; }
+
+.unig-project-number-of-items {
+  padding-top: 3px;
+  font-size: 12px; }
+
+.unig-project-info-container {
+  padding: 5px 2px 0 2px; }
+
+.unig-project-normal-container {
+  padding: 0 2px; }
+
+hr.unig.unig-project-list {
+  border-color: #d6d6d6;
+  margin: 5px 0 0;
+  padding: 5px 0 0; }
+
+.unig-button-project-edit-close {
+  float: right;
+  margin-right: 5px; }
+
+.unig-project input,
+.unig-project textarea {
+  border: none;
+  background-color: #f3f3f3; }
 
 /*# sourceMappingURL=unig_project_list.css.map */

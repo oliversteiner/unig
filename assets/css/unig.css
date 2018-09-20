@@ -323,7 +323,8 @@ a.unig-button,
     border-color: #ffb4aa;
     color: #ffe6e5; }
 
-.unig-button .fa {
+.unig-button i,
+.unig-button svg {
   margin-right: 4px; }
 
 .unig-button.unig-button-small {
@@ -331,6 +332,12 @@ a.unig-button,
   padding: 2px 5px;
   font-size: 0.8em;
   border-radius: 2px; }
+
+.unig-button.unig-button-icon {
+  border: none; }
+  .unig-button.unig-button-icon i, .unig-button.unig-button-icon svg {
+    margin: 0;
+    padding: 0; }
 
 .unig-fieldset {
   display: inline-block;
@@ -362,6 +369,13 @@ a.unig-button,
 .unig-button-group .unig-button:last-child:active,
 .unig-button-group .unig-button:last-child {
   border-radius: 0 5px 5px 0; }
+
+.private .unig-button {
+  background-color: #c3ccb9; }
+.private .unig-button:hover {
+  background-color: #99a091; }
+.private .unig-button:active {
+  background-color: #7b8175; }
 
 .unig-message-box {
   box-sizing: border-box;
@@ -435,7 +449,7 @@ a.unig-button,
   display: flex;
   justify-content: center;
   cursor: move;
-  background-color: #9e9a97;
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fffbc7; }
 
 ul.unig-images-small .unig-sortable-placeholder {
@@ -537,9 +551,6 @@ div.unig-file-download-mark {
 
 ul.unig-gallery li.unig-file-item.marked {
   border-color: #54692a; }
-
-.unig-file-head-info {
-  min-width: 40px; }
 
 .unig-toolbar-download {
   display: flex; }
@@ -815,6 +826,19 @@ ul.unig-tags-keywords {
 .unig-fieldset-body.block {
   display: flex;
   justify-content: space-between; }
+
+.unig-fieldset-title {
+  margin-right: 20px;
+  color: #bfbfbf; }
+
+.unig-fieldset-title-top {
+  padding-bottom: 9px;
+  display: block; }
+
+.unig-toolbar-sort .unig-button {
+  margin-right: 5px; }
+.unig-toolbar-sort .unig-button-ok {
+  margin-left: 10px; }
 
 /*
 

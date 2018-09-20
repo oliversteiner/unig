@@ -107,13 +107,22 @@ ul.unig-gallery li.unig-file-item:hover.marked {
   padding: 2px;
 }
 
-.unig-file-nid {
-  border-right: 1px solid $color-admin-info;
+.unig-file-item-info{
+  text-align: center;
   padding-right: 2px;
   margin-right: 4px;
+
+}
+.unig-file-nid {
+  border-right: 1px solid $color-admin-info;
 }
 
 .unig-file-weight {
+  border-right: 1px solid $color-admin-info;
+}
+
+.unig-file-index {
+
 }
 
 .unig-project-date {
@@ -160,7 +169,6 @@ h2.unig-project-title {
   align-content: center;
   height: 20px;
   width: 20px;
-  background-color: #0f7f34;
   font-size: 2px;
 }
 

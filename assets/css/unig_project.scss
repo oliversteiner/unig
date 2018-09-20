@@ -65,12 +65,6 @@
   margin: 10px 0;
 }
 
-.unig-project-weight {
-  text-align: center;
-  padding-bottom: 10px;
-  font-size: 2em;
-}
-
 // Sortable
 
 .unig-project-list-container .unig-sortable-placeholder {
@@ -182,6 +176,7 @@ ul.unig-gallery li.unig-file-item:hover {
   color: white;
   text-align: center;
   font-size: 0.8em;
+  letter-spacing: 0.05em;
   height: 30px;
 }
 

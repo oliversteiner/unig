@@ -469,12 +469,17 @@
                                 <div class="unig-file-head-item unig-file-head-info">
 
                                     {# ----------- NODE ID ----------- #}
-                                    <span class="unig-file-item-info unig-file-nid">
+                                    <span class="unig-file-item-info unig-file-nid" style="display: none">
                                     {{ file.nid }}
-                                </span>
+                                    </span>
                                     {# ----------- Weight ----------- #}
-                                    <span class="unig-file-item-info unig-file-weight">
+                                    <span class="unig-file-item-info unig-file-weight" style="display: none">
                                     {{ file.weight }}
+                                    </span>
+
+                                    {# ----------- Index Number ----------- #}
+                                    <span class="unig-file-item-info unig-file-index">
+                                    {{ loop.index}}
                                     </span>
                                 </div>
                             </div>

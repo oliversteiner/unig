@@ -468,7 +468,7 @@
               const count = Drupal.behaviors.unigData.FilesForDownload.count();
               if (count > 0) {
                 // After Success
-                Drupal.behaviors.unigDownload.openToolbar();
+               //  Drupal.behaviors.unigDownload.openToolbar();
                 Drupal.behaviors.unigDownload.calculateDownloadsize();
                 Drupal.behaviors.unigDownload.refreshGUI();
                 Drupal.behaviors.unigDownload.updateInfo();
