@@ -28,7 +28,7 @@
   }
 }
 
-.unig-project-private {
+.unig-project-private-status.private  .unig-project-private{
   background-color: $color-private;
   border-color: $color-private-border;
 
@@ -39,10 +39,6 @@
   .unig-gallery-preview-wrapper:hover {
     background-color: $color-highlight;
   }
-}
-
-.unig-project-nid {
-  color: $color-20;
 }
 
 .unig-project-list-title {
@@ -86,6 +82,7 @@ ul.unig-gallery li.unig-file-item:hover {
 
 .unig-project-date {
   font-size: 12px;
+  margin-right: 50px;
 }
 
 .unig-project-number-of-items {
@@ -170,7 +167,7 @@ ul.unig-gallery li.unig-file-item:hover {
 
 .unig-image-is-cover,
 .unig-set-project-cover-button,
-.unig-set-project-cover-process{
+.unig-set-project-cover-process {
   display: none;
   position: absolute;
   color: white;
@@ -179,8 +176,6 @@ ul.unig-gallery li.unig-file-item:hover {
   letter-spacing: 0.05em;
   height: 30px;
 }
-
-
 
 .unig-image-is-cover.active {
   display: flex;
@@ -196,7 +191,8 @@ ul.unig-gallery li.unig-file-item:hover {
 .unig-set-project-cover-button.active {
   display: flex;
   justify-content: center;
-  align-items: center;  opacity: 0;
+  align-items: center;
+  opacity: 0;
 }
 
 .unig-set-project-cover-button.active:hover {
@@ -212,50 +208,139 @@ ul.unig-gallery li.unig-file-item:hover {
   align-items: center;
 }
 
-
 .unig-images-small {
-
   .unig-image-is-cover-container {
     width: 150px;
-
   }
 
   .unig-image-is-cover,
   .unig-set-project-cover-button,
-  .unig-set-project-cover-process{
+  .unig-set-project-cover-process {
     width: 150px;
   }
-
 }
-
 
 .unig-images-medium {
-
   .unig-image-is-cover-container {
     width: 220px;
-
   }
 
   .unig-image-is-cover,
   .unig-set-project-cover-button,
-  .unig-set-project-cover-process{
+  .unig-set-project-cover-process {
     width: 220px;
   }
+}
 
+.unig-images-big {
+  .unig-image-is-cover-container {
+    width: 460px;
+  }
+
+  .unig-image-is-cover,
+  .unig-set-project-cover-button,
+  .unig-set-project-cover-process {
+    width: 460px;
+  }
+}
+
+.unig-project .unig-button-project-edit {
+  background-color: transparent;
+  margin-left: 10px;
+  top: -5px;
+}
+
+.unig-project .unig-project-title {
+  display: inline-block;
+}
+
+.unig-project area.unig-project-title {
+  width: 210px;
+}
+
+.unig-project-title-trigger {
+  cursor: pointer;
+}
+
+.unig-button-project-edit-wrapper {
+  display: inline-block;
+}
+
+.unig-project label {
+  display: inline-block;
+  min-width: 70px;
+  vertical-align: top;
 }
 
 
-.unig-images-big {
 
-  .unig-image-is-cover-container {
-    width: 460px;
+.unig-edit-project-col-1,
+.unig-edit-project-col-2 {
+  border-right: 1px solid $color-admin-border;
+  margin-right: 10px;
+}
 
+.edit-unig-project-private-label {
+  display: inline;
+  margin-left: 3px;
+}
+
+.unig-toolbar-info-edit {
+}
+
+.unig-project .unig-edit-project-title,
+.unig-project .unig-edit-project-date,
+.unig-project .unig-edit-project-copyright {
+  margin-bottom: 10px;
+
+  label {
+    margin-top: 4px;
+  }
+}
+
+.unig-fieldset-item .unig-project-description,
+.unig-fieldset-item .unig-edit-project-copyright {
+  color: $color-admin-info;
+}
+
+
+
+.unig-project-container-delete {
+  margin-top: 50px;
+
+}
+
+.unig-project-delete-confirm-message {
+  padding: 10px 0;
+  i,
+  svg {
+    color: $color-warning;
+    margin-right: 4px;
+  }
+}
+.unig-project-private{
+  padding: 5px 20px;
+  margin: 0;
+  border-radius: 10px;
+  color: $color-0;
+}
+
+.unig-button-project-delete{
+  color: $color-error-text;
+  border-color: transparent;
+  background-color: transparent;
+
+  &:hover{
+    background-color: $color-error-hover;
+    border-color: $color-error-border;
+    color: $color-error-background;
   }
 
-  .unig-image-is-cover,
-  .unig-set-project-cover-button,
-  .unig-set-project-cover-process{
-    width: 460px;
+
+  &:active{
+    background-color: $color-error-hover;
+    border-color: $color-error-border;
+    color: $color-error-background;
   }
 
 }

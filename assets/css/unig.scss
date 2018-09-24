@@ -35,6 +35,17 @@ body {
   justify-content: space-between;
 }
 
+.unig-row-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.unig-row-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
 .unig-col {
 }
 
@@ -112,4 +123,8 @@ li.lazyload-test {
 
 .unig_form_upload_project{
 
+}
+
+.unig-edit-project-col{
+padding-right: 20px;
 }

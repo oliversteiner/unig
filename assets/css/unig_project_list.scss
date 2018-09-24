@@ -1,6 +1,6 @@
 @import "colors";
 
-.unig-project {
+.unig-project-container {
   display: inline-block;
   border-radius: 5px;
   background-color: $color-admin-background;
@@ -50,7 +50,7 @@ li.unig-project-list-item {
   list-style: none;
 }
 
-article.unig-project.private {
+.unig-project-private-status.private {
   background-color: $color-admin-private;
 }
 
@@ -111,20 +111,14 @@ li.unig-project-list-item-year {
   padding-top: 5px;
 }
 
-.unig-project-list-toolbar-last{
+.unig-project-list-toolbar-last {
   margin-bottom: 10px;
-
 }
 
 .unig-project-edit-container input,
 .unig-project-edit-container textarea,
 .unig-project-edit-container label {
   font-size: 12px;
-}
-
-.unig-edit-project-title {
-  font-size: 14px;
-  font-weight: bold;
 }
 
 .unig-edit-project-copyright {
@@ -155,7 +149,6 @@ li.unig-project-list-item-year {
   color: $color-40;
 }
 
-
 .unig-button.unig-button-project-edit:hover {
   color: $color-100;
   background-color: transparent;
@@ -175,9 +168,8 @@ li.unig-project-list-item-year {
   padding: 5px 2px 0 2px;
 }
 
-.unig-project-normal-container{
-  padding: 0 2px ;
-
+.unig-project-normal-container {
+  padding: 0 2px;
 }
 
 hr.unig.unig-project-list {
@@ -186,14 +178,31 @@ hr.unig.unig-project-list {
   padding: 5px 0 0;
 }
 
-
-.unig-button-project-edit-close{
+.unig-button-project-edit-close {
   float: right;
   margin-right: 5px;
 }
 
-.unig-project input,
-.unig-project textarea{
+.unig-project-list-item input,
+.unig-project-list-item textarea {
   border: none;
   background-color: #f3f3f3;
+}
+
+.unig-project-list-item .unig-project-title,
+.uunig-project-list-item h2.unig-project-title {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.unig-button-project-delete {
+}
+
+.unig-project-delete-confirm-message {
+  padding: 10px 0;
+  i,
+  svg {
+    color: $color-warning;
+    margin-right: 4px;
+  }
 }

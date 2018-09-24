@@ -26,16 +26,13 @@
     margin: 0;
     padding: 0; }
 
-.unig-project-private {
+.unig-project-private-status.private .unig-project-private {
   background-color: #d6cfc2;
   border-color: #c6bfb2; }
-  .unig-project-private .unig-gallery-preview-wrapper {
+  .unig-project-private-status.private .unig-project-private .unig-gallery-preview-wrapper {
     background-color: #c6bfb2; }
-  .unig-project-private .unig-gallery-preview-wrapper:hover {
+  .unig-project-private-status.private .unig-project-private .unig-gallery-preview-wrapper:hover {
     background-color: #7f2421; }
-
-.unig-project-nid {
-  color: #cccccc; }
 
 .unig-project-list-title {
   display: inline-block;
@@ -63,7 +60,8 @@ ul.unig-gallery li.unig-file-item:hover {
   border-color: #414d47; }
 
 .unig-project-date {
-  font-size: 12px; }
+  font-size: 12px;
+  margin-right: 50px; }
 
 .unig-project-number-of-items {
   font-size: 16px; }
@@ -178,5 +176,78 @@ ul.unig-gallery li.unig-file-item:hover {
 .unig-images-big .unig-set-project-cover-button,
 .unig-images-big .unig-set-project-cover-process {
   width: 460px; }
+
+.unig-project .unig-button-project-edit {
+  background-color: transparent;
+  margin-left: 10px;
+  top: -5px; }
+
+.unig-project .unig-project-title {
+  display: inline-block; }
+
+.unig-project area.unig-project-title {
+  width: 210px; }
+
+.unig-project-title-trigger {
+  cursor: pointer; }
+
+.unig-button-project-edit-wrapper {
+  display: inline-block; }
+
+.unig-project label {
+  display: inline-block;
+  min-width: 70px;
+  vertical-align: top; }
+
+.unig-edit-project-col-1,
+.unig-edit-project-col-2 {
+  border-right: 1px solid #d6d6d6;
+  margin-right: 10px; }
+
+.edit-unig-project-private-label {
+  display: inline;
+  margin-left: 3px; }
+
+.unig-project .unig-edit-project-title,
+.unig-project .unig-edit-project-date,
+.unig-project .unig-edit-project-copyright {
+  margin-bottom: 10px; }
+  .unig-project .unig-edit-project-title label,
+  .unig-project .unig-edit-project-date label,
+  .unig-project .unig-edit-project-copyright label {
+    margin-top: 4px; }
+
+.unig-fieldset-item .unig-project-description,
+.unig-fieldset-item .unig-edit-project-copyright {
+  color: #8f8f8f; }
+
+.unig-project-container-delete {
+  margin-top: 50px; }
+
+.unig-project-delete-confirm-message {
+  padding: 10px 0; }
+  .unig-project-delete-confirm-message i,
+  .unig-project-delete-confirm-message svg {
+    color: #ffbd57;
+    margin-right: 4px; }
+
+.unig-project-private {
+  padding: 5px 20px;
+  margin: 0;
+  border-radius: 10px;
+  color: white; }
+
+.unig-button-project-delete {
+  color: #a2132b;
+  border-color: transparent;
+  background-color: transparent; }
+  .unig-button-project-delete:hover {
+    background-color: #bf9f9d;
+    border-color: #ffb4aa;
+    color: #ffe6e5; }
+  .unig-button-project-delete:active {
+    background-color: #bf9f9d;
+    border-color: #ffb4aa;
+    color: #ffe6e5; }
 
 /*# sourceMappingURL=unig_project.css.map */

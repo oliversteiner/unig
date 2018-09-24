@@ -38,6 +38,7 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\unig\Controller\IptcController;
+use Drupal\unig\Controller\OutputController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
@@ -975,12 +976,18 @@ trait ProjectTrait
         // Save node
         $entity->save();
 
+        /*
         $response = new AjaxResponse();
+                $response->addCommand(new AlertCommand($data));
+                return $response;
+        */
 
-        $response->addCommand(new AlertCommand($data));
+        $output = new OutputController();
 
-        return $response;
-
+        // Output
+        $output->setStatus(true);
+        $output->setData($data);
+        return $output->json();
     }
 
 

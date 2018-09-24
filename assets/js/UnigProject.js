@@ -86,6 +86,8 @@
       return true;
     },
 
+
+
     setRating(nid, direction) {
       const $badge = $(`#unig-file-${nid} .unig-file-rating-badge`);
       const $input = $(`#unig-file-${nid} .unig-file-rating-input`);
@@ -128,6 +130,8 @@
 
       this.save(data, route);
     },
+
+
 
     setProjectCover(projectNid, imageNid) {
 

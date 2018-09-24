@@ -4,7 +4,7 @@
 *     bright
 *
 */
-.unig-project {
+.unig-project-container {
   display: inline-block;
   border-radius: 5px;
   background-color: #e6e6e6;
@@ -13,25 +13,25 @@
   padding-right: 20px;
   padding-left: 20px;
   padding-bottom: 0; }
-  .unig-project .unig-project-cover {
+  .unig-project-container .unig-project-cover {
     display: flex;
     justify-content: center;
     align-content: center; }
-  .unig-project .unig-image-background {
+  .unig-project-container .unig-image-background {
     box-sizing: border-box;
     background-color: #b8b8b8;
     color: gray;
     width: 240px;
     height: 240px;
     text-align: center; }
-    .unig-project .unig-image-background i,
-    .unig-project .unig-image-background svg {
+    .unig-project-container .unig-image-background i,
+    .unig-project-container .unig-image-background svg {
       margin-top: 80px;
       font-size: 40px; }
-  .unig-project .unig-image-background:hover {
+  .unig-project-container .unig-image-background:hover {
     cursor: pointer;
     background-color: #212121; }
-  .unig-project .unig-image-background img {
+  .unig-project-container .unig-image-background img {
     margin: 10px; }
 
 ul.unig-project-list {
@@ -42,7 +42,7 @@ ul.unig-project-list {
 li.unig-project-list-item {
   list-style: none; }
 
-article.unig-project.private {
+.unig-project-private-status.private {
   background-color: #c3ccb9; }
 
 li.unig-project-list-item-year {
@@ -97,10 +97,6 @@ li.unig-project-list-item-year {
 .unig-project-edit-container label {
   font-size: 12px; }
 
-.unig-edit-project-title {
-  font-size: 14px;
-  font-weight: bold; }
-
 .unig-edit-project-copyright {
   font-style: italic; }
 
@@ -150,9 +146,21 @@ hr.unig.unig-project-list {
   float: right;
   margin-right: 5px; }
 
-.unig-project input,
-.unig-project textarea {
+.unig-project-list-item input,
+.unig-project-list-item textarea {
   border: none;
   background-color: #f3f3f3; }
+
+.unig-project-list-item .unig-project-title,
+.uunig-project-list-item h2.unig-project-title {
+  font-size: 1.3em;
+  font-weight: bold; }
+
+.unig-project-delete-confirm-message {
+  padding: 10px 0; }
+  .unig-project-delete-confirm-message i,
+  .unig-project-delete-confirm-message svg {
+    color: #ffbd57;
+    margin-right: 4px; }
 
 /*# sourceMappingURL=unig_project_list.css.map */
