@@ -38,7 +38,15 @@ trait projectListTemplateTrait
         ];
 
         $build['#attached']['drupalSettings']['projects'] = ProjectTrait::buildProjectList();
-        $build['#attached']['library'] = 'unig/unig.admin.project_list';
+
+        if(\Drupal::currentUser()->hasPermission('access unig admin')){
+            $build['#attached']['library'] = 'unig/unig.admin.project_list';
+
+        }else{
+              $build['#attached']['library'] = 'unig/unig.project_list';
+
+        }
+
 
         return $build;
     }

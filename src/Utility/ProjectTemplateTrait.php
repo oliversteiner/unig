@@ -50,7 +50,12 @@ trait projectTemplateTrait
                 '#context' => $this->getProjectVariables($project_nid, $album_nid),
             ],
         ];
-       // $build['#attached']['library'] = 'unig/unig.admin.project';
+
+        if(\Drupal::currentUser()->hasPermission('access unig admin')){
+            $build['#attached']['library'] = 'unig/unig.admin.project';
+        }else{
+            $build['#attached']['library'] = 'unig/unig.project';
+        }
 
         return $build;
     }

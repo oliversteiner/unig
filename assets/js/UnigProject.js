@@ -1,7 +1,5 @@
 /* eslint-disable prettier/prettier,no-console */
-/**
- * Created by ost on 14.05.17.
- */
+
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProject = {
@@ -201,92 +199,96 @@
         selector: ".lightgallery-item"
       });
 
+      const scope = this;
+
+      $('#unig-main', context).once('unigProjectList4634b47').each(() => {
+
       // Toggle all Keywords
       $(".unig-button-keywords-toggle-all", context).click(() => {
-        const $trigger = $(this);
+        const $trigger = $(scope);
         if ($trigger.hasClass("active")) {
-          this.toggleAllToolbox("keywords", "hide");
+          scope.toggleAllToolbox("keywords", "hide");
         } else {
-          this.toggleAllToolbox("keywords", "show");
+          scope.toggleAllToolbox("keywords", "show");
         }
       });
 
       // Toggle all People
       $(".unig-button-people-toggle-all", context).click(() => {
-        const $trigger = $(this);
+        const $trigger = $(scope);
         if ($trigger.hasClass("active")) {
-          this.toggleAllToolbox("people", "hide");
+          scope.toggleAllToolbox("people", "hide");
         } else {
-          this.toggleAllToolbox("people", "show");
+          scope.toggleAllToolbox("people", "show");
         }
       });
 
       // Event Handlers
       $(".unig-gallery-preview-wrapper img", context).hover(() => {
-        $(this)
+        $(scope)
           .parents(".unig-file-edit")
           .toggleClass("active");
       });
 
       // Rating Down
       $(".unig-file-rating-down-trigger", context).click(event => {
-        const nid = this.getNodeId(event);
-        this.setRating(nid, "down");
+        const nid = scope.getNodeId(event);
+        scope.setRating(nid, "down");
 
         console.log(`${nid}: Down!`);
       });
 
       // Rating Up
       $(".unig-file-rating-up-trigger", context).click(event => {
-        const nid = this.getNodeId(event);
+        const nid = scope.getNodeId(event);
 
-        this.setRating(nid, "up");
+        scope.setRating(nid, "up");
         // console.log(nid + ': Up!');
       });
 
       // Toggle Keywords Toolbox
       $(".unig-file-keywords-toolbox-trigger", context).click(event => {
         const name = "keywords";
-        const nid = this.getNodeId(event);
-        this.toggleToolbox(nid, name);
+        const nid = scope.getNodeId(event);
+        scope.toggleToolbox(nid, name);
       });
 
       // Toggle People Toolbox
       $(".unig-file-people-toolbox-trigger", context).click(event => {
         const name = "people";
-        const nid = this.getNodeId(event);
-        this.toggleToolbox(nid, name);
+        const nid = scope.getNodeId(event);
+        scope.toggleToolbox(nid, name);
       });
 
       // Toggle Download Toolbox
       $(".unig-file-download-toolbox-trigger", context).click(event => {
         const name = "download";
-        const nid = this.getNodeId(event);
-        this.toggleToolbox(nid, name);
+        const nid = scope.getNodeId(event);
+        scope.toggleToolbox(nid, name);
       });
 
       // Toggle Options Toolbox
       $(".unig-file-options-toolbox-trigger", context).click(event => {
         const name = "options";
-        const nid = this.getNodeId(event);
-        this.toggleToolbox(nid, name);
+        const nid = scope.getNodeId(event);
+        scope.toggleToolbox(nid, name);
       });
 
       // Set Coverimage to current project
       $(".unig-set-project-cover-trigger", context).click(event => {
         // clear ajax message box
-        this.clearAjaxMessageBox();
-        const imageNid = this.getNodeId(event);
+        scope.clearAjaxMessageBox();
+        const imageNid = scope.getNodeId(event);
         const projectNid = Drupal.behaviors.unigData.project.nid;
-        this.setProjectCover(projectNid, imageNid);
+        scope.setProjectCover(projectNid, imageNid);
         // the actual function go via drupal <a href ... >  and "use-ajax"
       });
 
       // Toggle Meta Info Toolbox
       $(".unig-file-metainfo-toolbox-trigger", context).click(event => {
         const name = "metainfo";
-        const nid = this.getNodeId(event);
-        this.toggleToolbox(nid, name);
+        const nid = scope.getNodeId(event);
+        scope.toggleToolbox(nid, name);
       });
 
       // Close Message Generate Images
@@ -307,6 +309,8 @@
       $(".unig-generate-preview-images-trigger", context).click(() => {
         Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
       });
+        }
+      )
     }
   };
 })(jQuery, Drupal, drupalSettings);

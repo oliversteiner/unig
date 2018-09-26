@@ -245,94 +245,101 @@
     attach(context, settings) {
       console.log("Drupal.behaviors.unigProjectList");
 
-      //  Save Trigger
-      document
-        .querySelectorAll(".unig-project-save-trigger", context)
-        .forEach(elem =>
-          elem.addEventListener(
-            "click",
-            event => {
-              const projectNid = this.getProjectNid(event);
-              this.saveProject(projectNid);
-            },
-            false
-          )
-        );
+      const scope = this;
 
-      //  Cancel Trigger
-      document
-        .querySelectorAll(".unig-project-cancel-trigger", context)
-        .forEach(elem =>
-          elem.addEventListener(
-            "click",
-            event => {
-              const projectNid = this.getProjectNid(event);
-              this.resetProject(projectNid);
-            },
-            false
-          )
-        );
+      $('#unig-main', context).once('unigProjectList4634b47').each(() => {
 
-      //  Edit Trigger
-      document
-        .querySelectorAll(".unig-project-edit-trigger", context)
-        .forEach(elem =>
-          elem.addEventListener(
-            "click",
-            event => {
-              const projectNid = this.getProjectNid(event);
-              console.log("click", projectNid);
 
-              this.toggleEditProject(projectNid);
-            },
-            false
-          )
-        );
+          //  Save Trigger
+          document
+            .querySelectorAll(".unig-project-save-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const projectNid = scope.getProjectNid(event);
+                  scope.saveProject(projectNid);
+                },
+                false
+              )
+            );
 
-      //  Delete Project Trigger
-      document
-        .querySelectorAll(".unig-project-delete-trigger", context)
-        .forEach(elem =>
-          elem.addEventListener(
-            "click",
-            event => {
-              const projectNid = this.getProjectNid(event);
+          //  Cancel Trigger
+          document
+            .querySelectorAll(".unig-project-cancel-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const projectNid = scope.getProjectNid(event);
+                  scope.resetProject(projectNid);
+                },
+                false
+              )
+            );
 
-              this.confirmDeleteProject(projectNid);
-            },
-            false
-          )
-        );
+          //  Edit Trigger
+          document
+            .querySelectorAll(".unig-project-edit-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const projectNid = scope.getProjectNid(event);
+                  console.log("click", projectNid);
 
-      //  Cancel Delete Project Trigger
-      document
-        .querySelectorAll(".unig-project-delete-cancel-trigger", context)
-        .forEach(elem =>
-          elem.addEventListener(
-            "click",
-            event => {
-              const projectNid = this.getProjectNid(event);
-              this.cancelDeleteProject(projectNid);
-            },
-            false
-          )
-        );
+                  scope.toggleEditProject(projectNid);
+                },
+                false
+              )
+            );
 
-      // Open Edit Dialog on dubleclick
-      document
-        .querySelectorAll(".unig-project-title-trigger", context)
-        .forEach(edit =>
-          edit.addEventListener(
-            "dblclick",
-            event => {
-              const projectNid = this.getProjectNid(event);
-              console.log("dblclick", event);
+          //  Delete Project Trigger
+          document
+            .querySelectorAll(".unig-project-delete-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const projectNid = scope.getProjectNid(event);
 
-              this.toggleEditProject(projectNid);
-            },
-            false
-          )
-        );
+                  scope.confirmDeleteProject(projectNid);
+                },
+                false
+              )
+            );
+
+          //  Cancel Delete Project Trigger
+          document
+            .querySelectorAll(".unig-project-delete-cancel-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const projectNid = scope.getProjectNid(event);
+                  scope.cancelDeleteProject(projectNid);
+                },
+                false
+              )
+            );
+
+          // Open Edit Dialog on dubleclick
+          document
+            .querySelectorAll(".unig-project-title-trigger", context)
+            .forEach(edit =>
+              edit.addEventListener(
+                "dblclick",
+                event => {
+                  const projectNid = scope.getProjectNid(event);
+                  console.log("dblclick", event);
+
+                  scope.toggleEditProject(projectNid);
+                },
+                false
+              )
+            );
+        }
+      )
     }
   };
 })(jQuery, Drupal, drupalSettings);

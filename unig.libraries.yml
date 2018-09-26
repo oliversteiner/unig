@@ -1,3 +1,24 @@
+unig.project_list:
+  css:
+    theme:
+      assets/css/unig_gallery.css: {}
+#
+#
+#
+unig.project:
+  css:
+    theme:
+      assets/css/unig_gallery.css: {}
+  js:
+    assets/js/UnigGallery.js: {}
+  dependencies:
+  - core/drupalSettings
+  - core/drupal
+  - core/jquery
+  - unig/unig.lightgallery
+#
+#
+#
 unig.admin:
   css:
     theme:
@@ -32,31 +53,6 @@ unig.upload_albumid:
 #
 #
 #
-unig.project:
-  css:
-    theme:
-      assets/css/unig.css: {}
-      assets/css/unig_image.css: {}
-      assets/css/unig_project.css: {}
-      assets/css/unig_project_lightgallery.css: {}
-      assets/css/theme/dark.css: {}
-
-  js:
-    assets/js/Unig.js: {}
-    assets/js/UnigProject.js: {}
-    assets/js/UnigProjectList.js: {}
-
-  dependencies:
-    - core/drupalSettings
-    - core/modernizr
-    - core/jquery.once
-    - unig/unig.lightgallery
-#
-#
-#
-#
-#
-#
 unig.admin.project:
   css:
     theme:
@@ -70,7 +66,7 @@ unig.admin.project:
 
 
   js:
-    assets/third-party/autocomplete/auto-complete.min.js: {}
+   # assets/third-party/autocomplete/auto-complete.min.js: {}
     assets/js/Unig.js: {}
     assets/js/UnigData.js: {}
     assets/js/UnigProject.js: {}
@@ -128,6 +124,6 @@ unig.lightgallery:
     /libraries/lightgallery/dist/js/lg-video.min.js: {}
     /libraries/lightgallery/dist/js/lg-zoom.min.js: {}
     /libraries/lightgallery/dist/js/lg-hash.min.js: {}
-
   dependencies:
-  - core/jquery.once
+    - core/jquery
+    - core/jquery.once

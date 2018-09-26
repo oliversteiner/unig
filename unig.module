@@ -21,7 +21,7 @@ function unig_views_pre_render(ViewExecutable $view) {
 }
 
 function unig_page_attachments(array &$attachments) {
-    $attachments['#attached']['library'][] = 'unig/unig.admin.project';
+    $attachments['#attached']['library'][] = 'unig/unig';
 }
 
 

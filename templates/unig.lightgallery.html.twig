@@ -12,40 +12,70 @@ unig.lightgallery.html.twig
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 
-
 <div class="unig-file-gallery-head">
-    <div class="unig-back-to-list">
-        <a href="{{ path('unig.project_list') }}">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            Alle Bildergalerien anzeigen</a>
+    <div class="unig-gallery-header-left">
+
+        <div class="unig-back-to-list">
+            <a href="{{ path('unig.project_list') }}">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                {% trans %} Show all Galeries {% endtrans %}
+
+            </a>
+        </div>
+
+
     </div>
 
-    <div class="unig-project-date"> {{ datum }}</div>
-    <h2 class="unig-project-title">{{ project.title }}</h2>
+    <div class="unig-gallery-header-middle">
+        <h2 class="unig-project-title">{{ project.title }}</h2>
+        <div class="unig-project-date"> {{ datum }}</div>
+        <div class="unig-project-description">{{ project.description }}</div>
 
-    {# Anzahl Bilder #}
-    <div class="unig-project-number-of-items">
-        {% if project.number_of_items == 1 %}
-            {{ project.number_of_items }} Bild
-        {% elseif project.number_of_items > 1 %}
-            {{ project.number_of_items }} Bilder
-        {% endif %}
     </div>
+    <div class="unig-gallery-header-right">
 
-    <div class="unig-project-body">{{ project.body }}</div>
+        {# Number of Items #}
+        <div class="unig-project-number-of-items">
+            {% if project.number_of_items == 1 %}
+                {{ project.number_of_items }} Bild
+            {% elseif project.number_of_items > 1 %}
+                {{ project.number_of_items }} Bilder
+            {% endif %}
+        </div>
+
+        {# copyright #}
+        <div class="unig-project-copyright">{{ project.copyright }}</div>
+
+        {#  Buttons #}
+        <div class="unig-gallery-toolbar">
+            <div role="button"
+                 class="unig-gallery-toolbar-item unig-gallery-button unig-gallery-image-name-trigger unig-gallery-button-image-name">
+                <div class="unig-gallery-image-name-label-show">{% trans %} Show image names {% endtrans %} </div>
+                <div class="unig-gallery-image-name-label-hide"
+                     style="display: none">{% trans %} Hide image names {% endtrans %} </div>
+            </div>
+
+            <div role="button"
+                 class="unig-gallery-toolbar-item unig-gallery-button unig-gallery-image-index-trigger unig-gallery-button-image-index">
+                <div class="unig-gallery-image-index-label-show">{% trans %} Show index numbers {% endtrans %} </div>
+                <div class="unig-gallery-image-index-label-hide"
+                     style="display: none">{% trans %} Hide index numbers {% endtrans %} </div>
+            </div>
+        </div>
+    </div>
 
 </div>
+
 
 <div class="unig">
     <ul class="unig-gallery" id="lightgallery-{{ project.nid }}">
 
         {% for file in files %}
 
-
-
-
-
             <li class="unig-file-item  unig-file-item-id-{{ file.nid }}">
+
+                <div class="unig-file-index" style="display:none;">{{ loop.index }}</div>
+
 
                 {#  -----------   Image  -----------  #}
                 <div class="lightgallery-item"
@@ -64,22 +94,11 @@ unig.lightgallery.html.twig
                     </div>
                 </div>
 
-                {#  -----------   Title  -----------  #}
-                <div class="unig-file-title">
-                    {% if user.hasPermission('administer nodes') %}
+                {#  -----------   Name  -----------  #}
+                <div class="unig-file-name" style="display: none">
 
-                        <a href="/node/{{ file.nid }}/edit?destination=/unig/project/{{ project.nid }}"
-                           class="unig-file-item-text use-ajax"
-                           data-dialog-type="modal"
-                           data-dialog-options='{"height":"650","width":"50%","max-height":"100%"}'
-                        >
-                            {{ file.title }}
-                        </a>
-                    {% else %}
-{#
-                        <span>{{ file.title }}</span>
-#}
-                    {% endif %}
+                    {{ file.title }}
+
                 </div>
 
 

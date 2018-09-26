@@ -267,7 +267,7 @@
                                     {# ----------- Edit Titel ----------- #}
                                     <div class="unig-edit-project-title">
                                         {#
-                                                                            <div class="title">{% trans %} Title {% endtrans %} </div>
+                                        <div class="title">{% trans %} Title {% endtrans %} </div>
                                         #}
                                         <textarea
                                                 class="unig-project-title"
@@ -281,7 +281,7 @@
                                     {# ----------- Edit Datum ----------- #}
                                     <div class="unig-edit-project-date">
                                         {#
-                                                                            <div class="title">{% trans %} Date {% endtrans %} </div>
+                                          <div class="title">{% trans %} Date {% endtrans %} </div>
                                         #}
                                         <input
                                                 id="edit-unig-project-date-{{ project.nid }}"
@@ -454,11 +454,19 @@
 
                             <article class="unig unig-project {{ class }}">
 
-                                {# ----------- Gallery ----------- #}
-                                <div class="unig-project-preview">
+                                {# ----------- Cover ----------- #}
+                                <div class="unig-project-cover">
                                     <a href="/unig/lightgallery/{{ project.nid }}">
-                                        <div class="unig-gallery-preview-wrapper">
-                                            <img src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                        <div class="unig-project-image-background">
+                                            {% if project.cover_image.unig_cover.url %}
+                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                            {% else %}
+                                                <div><i class="far fa-image"></i></div>
+                                                <div class="cover-description">
+                                                    <span>{% trans %} No cover picture selected yet {% endtrans %}</span>
+                                                </div>
+                                            {% endif %}
+
                                         </div>
                                     </a>
                                 </div>
@@ -508,11 +516,19 @@
 
                             <article class="unig unig-project {{ class }}">
 
-                                {# ----------- Gallery ----------- #}
-                                <div class="unig-project-preview">
+                                {# ----------- Cover ----------- #}
+                                <div class="unig-project-cover">
                                     <a href="/unig/lightgallery/{{ project.nid }}">
-                                        <div class="unig-gallery-preview-wrapper">
-                                            <img src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                        <div class="unig-project-image-background">
+                                            {% if project.cover_image.unig_cover.url %}
+                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                            {% else %}
+                                                <div><i class="far fa-image"></i></div>
+                                                <div class="cover-description">
+                                                    <span>{% trans %} No cover picture selected yet {% endtrans %}</span>
+                                                </div>
+                                            {% endif %}
+
                                         </div>
                                     </a>
                                 </div>

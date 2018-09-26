@@ -1,0 +1,180 @@
+ul.unig-gallery {
+  display: flex;
+  align-content: flex-start;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+ul.unig-gallery li.unig-file-item {
+}
+
+ul.unig-gallery li.unig-file-item:hover {
+}
+
+// default
+// =====================
+li.unig-file-item {
+  list-style-type: none;
+  min-width: 100px;
+  min-height: 100px;
+  margin: 15px;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid silver;
+}
+
+li.unig-file-item:hover {
+  background: silver;
+  cursor: zoom-in;
+}
+
+li.unig-file-item img {
+  border: 1px solid silver;
+}
+
+.unig-back-to-list {
+  margin-bottom: 5px;
+}
+
+.unig-file-gallery-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+h2.unig-project-title {
+  margin-top: 0;
+}
+
+.unig-gallery-header-middle {
+  text-align: center;
+  width: 500px;
+}
+
+.unig-project-description {
+  margin: 20px;
+}
+
+.unig-gallery-header-right {
+  margin-right: 50px;
+}
+
+.unig-project-copyright {
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.unig-file-index {
+  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial,
+    Helvetica, sans-serif;
+  padding: 0 0 5px 5px;
+}
+
+.unig-file-title {
+  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial,
+    Helvetica, sans-serif;
+  font-size: 0.9em;
+}
+
+.unig-gallery-toolbar {
+  margin-top: 5px;
+}
+
+.unig-gallery-toolbar-item {
+  margin-bottom: 5px;
+}
+
+.unig-gallery-button {
+  font-size: 0.7em;
+  color: #9f9f9f;
+  border: 1px #dfdfdf solid;
+  border-radius: 5px;
+  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial,
+    Helvetica, sans-serif;
+  margin-bottom: 5px;
+  padding: 2px 8px 2px 8px;
+
+  &:hover {
+    color: black;
+    background: silver;
+    cursor: pointer;
+  }
+
+  &:active {
+    color: #c8c8c8;
+    background: #313131;
+  }
+  &.active {
+    background: #d4d4d4;
+    color: #434343;
+  }
+
+  &.active:hover {
+    color: #c8c8c8;
+    background: #313131;
+  }
+}
+
+ul.unig-project-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+li.unig-project-list-item {
+  list-style: none;
+}
+
+li.unig-project-list-item article {
+  display: block;
+  border: 1px silver solid;
+  width: 240px;
+  padding: 18px;
+  margin: 0 19px 40px 0;
+}
+
+.unig-project-cover {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.unig-project-image-background {
+  display: block;
+  box-sizing: border-box;
+  background-color: #d4d4d4;
+  color: gray;
+  width: 240px;
+  height: 240px;
+  text-align: center;
+  padding-top: 10px;
+  margin-bottom: 10px;
+
+  i,
+  svg {
+    margin-top: 80px;
+    font-size: 40px;
+  }
+}
+
+.unig-project-image-background:hover {
+  cursor: pointer;
+  background-color: #303030;
+}
+
+
+li.unig-project-list-item-year {
+  display: block;
+  width: 100%;
+}
+
+.unig-project-cover a,
+.unig-project-cover a:hover{
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  border: none;
+}
