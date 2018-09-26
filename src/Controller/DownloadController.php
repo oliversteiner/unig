@@ -47,7 +47,7 @@
           $image_style = 'unig_hd';
           break;
 
-        case 'max':
+        case 'xl':
           $image_style = 'original';
           break;
       }

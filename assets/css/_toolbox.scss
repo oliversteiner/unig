@@ -6,15 +6,50 @@
   margin: 0;
   padding: 0;
 }
+
+
 .unig-toolbox table {
   background-color: $color-toolbox-background;
-}
 
-.unig-toolbox tr td,
-.unig-toolbox tr th {
-  border: 0;
-  background-color: $color-toolbox-background;
-  color: $color-admin-text;
+
+  tr td,
+  tr th{
+    background: transparent;
+    border: 0;
+    color: $color-toolbox-text;
+  }
+
+  tr th {
+    color: $color-toolbox-label;
+  }
+
+
+  tr{
+    background: $color-toolbox-background;
+  }
+
+  // row hover
+  tr[role="button"]:hover{
+    border-radius: 5px;
+    background-color: $color-toolbox-hover;
+    cursor: pointer;
+  }
+
+  // row active
+  tr:active {
+    background: $color-toolbox-active;
+  }
+
+  // row has class "active"
+  tr.active:hover,
+  tr.active {
+    background-color: $color-toolbox-hover;
+  }
+  tr.active:hover td,
+  tr.active td {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 .unig-toolbox-button {
   border-top-left-radius: 5px;
@@ -109,6 +144,4 @@
   .unig-tags-title {
     display: none;
   }
-
 }
-

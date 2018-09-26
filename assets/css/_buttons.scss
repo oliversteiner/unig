@@ -12,8 +12,8 @@
 }
 
 // default
-a.unig-button,
-.unig-button {
+.unig a.unig-button,
+.unig .unig-button {
   @include unig-button;
   color: $color-default-text;
   border-color: $color-default-border;

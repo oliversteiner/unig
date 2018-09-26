@@ -78,8 +78,8 @@
   100% {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg); } }
-a.unig-button,
-.unig-button {
+.unig a.unig-button,
+.unig .unig-button {
   display: inline-block;
   box-sizing: border-box;
   font-size: 12px;
@@ -91,9 +91,9 @@ a.unig-button,
   color: #292929;
   border-color: #cccccc;
   background-color: #e7e7e7; }
-  a.unig-button-success, a.unig-button-ok,
-  .unig-button-success,
-  .unig-button-ok {
+  .unig a.unig-button-success, .unig a.unig-button-ok,
+  .unig .unig-button-success,
+  .unig .unig-button-ok {
     display: inline-block;
     box-sizing: border-box;
     font-size: 12px;
@@ -105,8 +105,8 @@ a.unig-button,
     color: #0f7f34;
     border-color: #2eb741;
     background-color: #daffd4; }
-  a.unig-button-warning,
-  .unig-button-warning {
+  .unig a.unig-button-warning,
+  .unig .unig-button-warning {
     display: inline-block;
     box-sizing: border-box;
     font-size: 12px;
@@ -118,9 +118,9 @@ a.unig-button,
     color: #7f5930;
     border-color: #ffd29b;
     background-color: #fff8cf; }
-  a.unig-button-error, a.unig-button-danger,
-  .unig-button-error,
-  .unig-button-danger {
+  .unig a.unig-button-error, .unig a.unig-button-danger,
+  .unig .unig-button-error,
+  .unig .unig-button-danger {
     display: inline-block;
     box-sizing: border-box;
     font-size: 12px;
@@ -525,42 +525,11 @@ ul.unig-images-big .unig-sortable-placeholder {
   font-weight: normal; }
 
 /* @import "colors"; */
-ul.unig-file-download-list {
-  margin: 0;
-  padding: 0; }
+.unig-file-download-list-mark.marked {
+  background-color: #504e69; }
 
-li.unig-file-download-list-mark {
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px; }
-
-li.unig-file-download-list-mark,
-li.unig-file-download-list-direct {
-  list-style-type: none;
-  margin: 0;
-  padding: 3px 10px;
-  border-bottom: solid 1px #e3e2e2;
-  color: #292929;
-  cursor: pointer;
-  border-radius: 3px; }
-
-li.unig-file-download-list-direct:hover {
-  background-color: #b8b8b8;
-  color: #5b5b5b; }
-
-li.unig-file-download-list-direct:active {
-  background-color: #979797;
-  color: #e6e6e6; }
-
-li.unig-file-download-list-mark:hover {
-  background-color: #57913b;
-  color: #f0f0f0; }
-
-li.unig-file-download-list-mark:active {
-  background-color: #57913b;
-  color: #292929; }
-
-ul.unig-file-download-list i.fa {
-  margin: 0 3px 0 3px; }
+ul.unig-gallery li.unig-file-item.marked {
+  border-color: #504e69; }
 
 div.unig-file-download-mark {
   width: 30px;
@@ -568,18 +537,12 @@ div.unig-file-download-mark {
   display: inline-block;
   margin-left: -5px; }
   div.unig-file-download-mark:hover {
-    color: #54692a;
+    color: #504e69;
     cursor: pointer; }
   div.unig-file-download-mark.marked {
-    color: #54692a; }
+    color: #504e69; }
   div.unig-file-download-mark.marked:hover {
-    color: #57913b; }
-
-.unig-file-download-list-mark.marked {
-  background-color: #54692a; }
-
-ul.unig-gallery li.unig-file-item.marked {
-  border-color: #54692a; }
+    color: #494691; }
 
 .unig-toolbar-download {
   display: flex; }
@@ -627,41 +590,11 @@ li.unig-dl .unig-dl-nid {
   .unig-dl-info-footer {
     margin: 6px 1px; }
 
-table.unig-file-download-table {
+table.unig-bulk-download-table {
   width: 200px;
   padding: 0;
   border: 0;
   margin: 10px 10px 20px 0; }
-
-table.unig-file-download-table tr {
-  background-color: transparent;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid #d6d6d6;
-  cursor: pointer;
-  border-radius: 5px; }
-
-table.unig-file-download-table tr.active:hover,
-table.unig-file-download-table tr.active {
-  background-color: transparent; }
-
-table.unig-file-download-table tr.active:hover td,
-table.unig-file-download-table tr.active td {
-  opacity: 0.5;
-  cursor: not-allowed; }
-
-table.unig-file-download-table tr:hover {
-  background-color: #b8b8b8;
-  border-radius: 5px; }
-
-table.unig-file-download-table tr:active {
-  background-color: #979797; }
-
-table.unig-file-download-table td {
-  margin: 0;
-  padding: 5px 6px;
-  border: none; }
 
 td.unig-file-download-table-label {
   font-weight: bold;
@@ -690,38 +623,6 @@ td.unig-file-download-table-size {
 .badge-marked {
   background-color: #c3c3c3;
   color: #515151; }
-
-a:link {
-  color: black; }
-
-.unig-file-download-list-label,
-.unig-file-download-list-width,
-.unig-file-download-list-size,
-.unig-file-download-list-picto,
-.unig-file-download-list-mark-text {
-  display: table-cell;
-  margin: 0;
-  padding: 0; }
-
-.unig-file-download-list-label {
-  width: 25px; }
-
-.unig-file-download-list-width {
-  text-align: right;
-  width: 85px; }
-
-.unig-file-download-list-size {
-  text-align: right;
-  width: 70px; }
-
-.unig-file-download-list-picto {
-  color: #8f8f8f;
-  text-align: right;
-  width: 20px; }
-
-.unig-file-download-list-mark-text {
-  width: 150px;
-  padding-left: 10px; }
 
 .unig-file-rating {
   margin: auto; }
@@ -780,12 +681,28 @@ ul.unig-tags-keywords {
 
 .unig-toolbox table {
   background-color: whitesmoke; }
-
-.unig-toolbox tr td,
-.unig-toolbox tr th {
-  border: 0;
-  background-color: whitesmoke;
-  color: #292929; }
+  .unig-toolbox table tr td,
+  .unig-toolbox table tr th {
+    background: transparent;
+    border: 0;
+    color: #292929; }
+  .unig-toolbox table tr th {
+    color: #444444; }
+  .unig-toolbox table tr {
+    background: whitesmoke; }
+  .unig-toolbox table tr[role="button"]:hover {
+    border-radius: 5px;
+    background-color: #c1c1c1;
+    cursor: pointer; }
+  .unig-toolbox table tr:active {
+    background: #c2def9; }
+  .unig-toolbox table tr.active:hover,
+  .unig-toolbox table tr.active {
+    background-color: #c1c1c1; }
+  .unig-toolbox table tr.active:hover td,
+  .unig-toolbox table tr.active td {
+    opacity: 0.5;
+    cursor: not-allowed; }
 
 .unig-toolbox-button {
   border-top-left-radius: 5px;

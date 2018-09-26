@@ -13,11 +13,13 @@
   @import "../download";
 }
 #unig-main.unig-theme-dark {
-
   .unig-lightgallery {
   }
   .unig-image-background {
     background-color: $color-image-background;
+  }
+  ul.unig-gallery {
+    background-color: $color-default-background-file-list;
   }
   ul.unig-gallery li.unig-file-edit.active {
     border: 2px solid $color-highlight;
@@ -66,10 +68,11 @@
     border-top: 1px solid $color-admin-border;
   }
 
-  input, textarea {
+  input,
+  textarea {
     background-color: $color-form-background;
     border: 1px solid $color-form-border;
-    color: $color-form-text
+    color: $color-form-text;
   }
 
   .unig-toolbar {
@@ -77,7 +80,32 @@
     background: $color-toolbar-background;
   }
 
+
+  // default
+   a.unig-button,
+   .unig-button {
+    color: $color-default-text;
+    border-color: $color-default-border;
+    background-color: $color-default-background;
+
+    &-success,
+    &-ok {
+      color: $color-ok-text;
+      border-color: $color-ok-border;
+      background-color: $color-ok-background;
+    }
+
+    &-warning {
+      color: $color-warning-text;
+      border-color: $color-warning-border;
+      background-color: $color-warning-background;
+    }
+
+    &-error,
+    &-danger {
+      color: $color-error-text;
+      border-color: $color-error-border;
+      background-color: $color-error-background;
+    }
+  }
 }
-
-
-

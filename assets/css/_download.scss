@@ -1,53 +1,15 @@
 /* @import "colors"; */
 
-div.unig-file-download-toolbox {
-}
-ul.unig-file-download-list {
-  margin: 0;
-  padding: 0;
-}
-//
-//  =====  List  =====
-//
-li.unig-file-download-list-mark {
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-}
-li.unig-file-download-list-mark,
-li.unig-file-download-list-direct {
-  // border: solid 1px gray;
-  list-style-type: none;
-  margin: 0;
-  padding: 3px 10px;
-  border-bottom: solid 1px $color-toolbox-stroke;
-  color: $color-admin-text;
-  cursor: pointer;
-  border-radius: 3px;
-}
-li.unig-file-download-list-direct:hover {
-  background-color: $color-admin-background-hover;
-  color: $color-admin-info-hover;
-}
-li.unig-file-download-list-direct:active {
-  background-color: $color-admin-background-active;
-  color: $color-admin-text-invert;
-}
-li.unig-file-download-list-mark:hover {
-  background-color: $color-admin-marked-hover;
-  color: $color-admin-text-hover;
-}
-li.unig-file-download-list-mark:active {
-  background-color: $color-admin-marked-hover;
-  color: $color-admin-text;
-}
-// Icons
-ul.unig-file-download-list i.fa {
-  margin: 0 3px 0 3px;
-}
-
 //
 // =====  Mark as Download
 //
+.unig-file-download-list-mark.marked {
+  background-color: $color-admin-marked;
+}
+ul.unig-gallery li.unig-file-item.marked {
+  border-color: $color-admin-marked;
+}
+
 div.unig-file-download-mark {
   width: 30px;
   padding: 0 7px;
@@ -66,16 +28,6 @@ div.unig-file-download-mark {
     color: $color-admin-marked-hover;
   }
 }
-.unig-file-download-list-mark.marked {
-  background-color: $color-admin-marked;
-}
-ul.unig-gallery li.unig-file-item.marked {
-  border-color: $color-admin-marked;
-}
-
-//
-// =====  Toolbar
-//
 
 //
 // =====  Download Toolbar
@@ -84,9 +36,13 @@ ul.unig-gallery li.unig-file-item.marked {
 .unig-toolbar-download {
   display: flex;
 }
+
 //
-// =====  Download Tumbnails
+// =====  Download Thumbnails
 //
+
+
+
 
 ul.unig-dl {
   margin: 0;
@@ -142,42 +98,14 @@ li.unig-dl .unig-dl-nid {
     margin: 6px 1px;
   }
 }
-table.unig-file-download-table {
+table.unig-bulk-download-table {
   width: 200px;
   padding: 0;
   border: 0;
   margin: 10px 10px 20px 0;
 }
-table.unig-file-download-table tr {
-  background-color: transparent;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid $color-admin-border;
-  cursor: pointer;
-  border-radius: 5px;
-}
-table.unig-file-download-table tr.active:hover,
-table.unig-file-download-table tr.active {
-  background-color: transparent;
-}
-table.unig-file-download-table tr.active:hover td,
-table.unig-file-download-table tr.active td {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-table.unig-file-download-table tr:hover {
-  background-color: $color-admin-background-hover;
-  border-radius: 5px;
-}
-table.unig-file-download-table tr:active {
-  background-color: $color-admin-background-active;
-}
-table.unig-file-download-table td {
-  margin: 0;
-  padding: 5px 6px;
-  border: none;
-}
+
+
 td.unig-file-download-table-label {
   font-weight: bold;
   font-size: 1em;
@@ -207,41 +135,4 @@ td.unig-file-download-table-size {
     background-color: $color-badge-marked;
     color: $color-admin-background-invert;
   }
-}
-
-a:link {
-  color: $color-100;
-}
-
-
-.unig-file-download-list-label,
-.unig-file-download-list-width,
-.unig-file-download-list-size,
-.unig-file-download-list-picto,
-.unig-file-download-list-mark-text{
-  display: table-cell;
-  margin: 0;
-  padding: 0;
-}
-
-.unig-file-download-list-label {
-  width: 25px;
-}
-.unig-file-download-list-width {
-  text-align: right;
-  width: 85px;
-}
-.unig-file-download-list-size {
-  text-align: right;
-  width: 70px;
-}
-.unig-file-download-list-picto {
-  color: $color-admin-info;
-  text-align: right;
-  width: 20px;
-}
-.unig-file-download-list-mark-text{
-  width:150px;
-  padding-left: 10px;
-
 }

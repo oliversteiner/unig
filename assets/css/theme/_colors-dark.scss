@@ -7,6 +7,7 @@
 
 // General
 $color-text: rgb(213, 213, 213);
+$color-label: rgb(175, 175, 175);
 $color-text-invert: rgb(19, 19, 19);
 $color-background: rgb(19, 19, 19);
 $color-background-invert: rgb(213, 213, 213);
@@ -38,6 +39,7 @@ $color-default-border-invert-hover: rgb(51, 51, 51);
 
 $color-default-background: rgb(45, 45, 45);
 $color-default-background-hover: rgb(70, 47, 97);
+$color-default-background-file-list: rgb(45, 45, 45);
 
 $color-default-background-invert: rgb(79, 79, 79);
 $color-default-background-invert-hover: rgb(35, 35, 35);
@@ -47,6 +49,7 @@ $color-default-text-hover: rgb(180, 180, 180);
 
 $color-default-text-invert: rgb(204, 204, 204);
 $color-default-text-invert-hover: rgb(204, 204, 204);
+
 
 // OK
 $color-ok-border: #2eb741;
@@ -99,6 +102,7 @@ $color-admin-border-invert: rgb(190, 190, 190);
 
 // Text
 $color-admin-text: rgb(184, 184, 184);
+$color-admin-label: rgb(165, 165, 165);
 $color-admin-text-hover: rgb(115, 109, 107);
 
 $color-admin-text-active: rgb(74, 68, 66);
@@ -152,8 +156,12 @@ $color-toolbar-border: rgb(87, 87, 87);
 $color-toolbar-background: rgb(45, 45, 45);
 
 // toolbox
+$color-toolbox-text: $color-admin-text;
+$color-toolbox-label: $color-admin-label;
 $color-toolbar-title:rgb(110, 109, 109);
 $color-toolbox-border: rgb(230, 230, 230);
+$color-toolbox-hover: rgb(249, 249, 249);
+$color-toolbox-active: rgb(198, 203, 249);
 $color-toolbox-background: rgb(54, 54, 54);
 $color-toolbox-stroke: rgb(39, 39, 39);
 $color-toolbox-stroke-invert: rgb(110, 109, 109);

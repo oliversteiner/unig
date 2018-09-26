@@ -53,10 +53,11 @@
             return clean_array;
         },
 
-        getNodeId(context) {
-            const $elem = $(context.target).parents('.unig-file-item');
-            return $elem.data('unig-file-nid');
-        },
+      getNodeId(event) {
+        const $elem = $(event.target).parents(".unig-file-item");
+        const nid = $elem.data("unig-file-nid");
+        return nid;
+      },
 
         showMessages(results) {
             const $messageContainer = $('.unig-message-container');

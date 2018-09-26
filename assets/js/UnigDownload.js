@@ -13,7 +13,7 @@
 
     $toolbar_sd: $(".unig-file-download-table-size-sd"),
     $toolbar_hd: $(".unig-file-download-table-size-hd"),
-    $toolbar_max: $(".unig-file-download-table-size-max"),
+    $toolbar_xl: $(".unig-file-download-table-size-xl"),
 
     $bulkDownloadMessageContainer: $(".unig-bulk-download-message-container"),
 
@@ -89,36 +89,41 @@
 
     addMark(nid) {
       if (nid) {
-        const $target = $(`#unig-file-${nid} .unig-file-download-mark`);
-        const $targetInList = $(
-          `#unig-file-${nid} .unig-file-download-list-mark`
-        );
-        const $border = $(`#unig-file-${nid}`);
+        // Mark Elem
+        const elemTarget = document.querySelector(`#unig-file-${nid}`);
+        elemTarget.classList.add("marked");
 
-        $target.addClass("marked");
-        $border.addClass("marked");
-        $targetInList.addClass("marked");
+        // Button "add to download list"
+        elemTarget
+          .querySelector(`.unig-file-download-mark-add`)
+          .setAttribute("style", "display:none");
+        elemTarget
+          .querySelector(`.unig-file-download-mark-remove`)
+          .setAttribute("style", "display:block");
       }
     },
 
     removeMark(nid) {
-      if (nid) {
-        const $target = $(`#unig-file-${nid} .unig-file-download-mark`);
-        const $targetInList = $(
-          `#unig-file-${nid} .unig-file-download-list-mark`
-        );
-        const $border = $(`#unig-file-${nid}`);
 
-        $target.removeClass("marked");
-        $border.removeClass("marked");
-        $targetInList.removeClass("marked");
+      if (nid) {
+        // Mark Elem
+        const elemTarget = document.querySelector(`#unig-file-${nid}`);
+        elemTarget.classList.remove("marked");
+
+        // Button "remove from download list"
+        elemTarget
+          .querySelector(`.unig-file-download-mark-add`)
+          .setAttribute("style", "display:block");
+        elemTarget
+          .querySelector(`.unig-file-download-mark-remove`)
+          .setAttribute("style", "display:none");
       }
     },
 
     toggleMark(nid) {
-      const $target = $(`#unig-file-${nid} .unig-file-download-mark`);
+      const elemTarget = document.querySelector(`#unig-file-${nid}`);
 
-      if ($target.hasClass("marked")) {
+      if (elemTarget.classList.contains("marked")) {
         // if item in list. toggle off
         this.removeMark(nid);
       } else {
@@ -149,11 +154,11 @@
 
       const sd = Drupal.behaviors.unig.humanFileSize(this.downloadsize.sd);
       const hd = Drupal.behaviors.unig.humanFileSize(this.downloadsize.hd);
-      const max = Drupal.behaviors.unig.humanFileSize(this.downloadsize.max);
+      const xl = Drupal.behaviors.unig.humanFileSize(this.downloadsize.xl);
 
       this.$toolbar_sd.html(sd);
       this.$toolbar_hd.html(hd);
-      this.$toolbar_max.html(max);
+      this.$toolbar_xl.html(xl);
     },
 
     bulkDownloadStart(size) {
@@ -198,12 +203,12 @@
     bulkDownloadCancel() {
       const $bulkDownloadSd = $(".unig-bulk-download-sd-trigger");
       const $bulkDownloadHd = $(".unig-bulk-download-hd-trigger");
-      const $bulkDownloadMax = $(".unig-bulk-download-max-trigger");
+      const $bulkDownloadxl = $(".unig-bulk-download-xl-trigger");
 
       this.$bulkDownloadMessageContainer.html();
       $bulkDownloadSd.removeClass("active");
       $bulkDownloadHd.removeClass("active");
-      $bulkDownloadMax.removeClass("active");
+      $bulkDownloadxl.removeClass("active");
     },
 
     message_box(mode) {
@@ -335,7 +340,7 @@
      *
      */
     refreshGUI() {
-      if (this.isFolderMax == true) {
+      if (this.isFolderxl == true) {
         this.openToolbar();
       }
       this.isFolderActive = true;
@@ -432,21 +437,25 @@
       this.downloadsize = {
         sd: 0,
         hd: 0,
-        max: 0
+        xl: 0
       };
 
       if (itemsForDownload) {
         itemsForDownload.forEach(item => {
           const Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
           const file = itemList[item];
-
-          const sd = file.image.unig_big.filesize;
-          const hd = file.image.unig_hd.filesize;
-          const max = file.image.original.filesize;
-
-          Downloadsize.sd += sd;
-          Downloadsize.hd += hd;
-          Downloadsize.max += max;
+          if (file.image.large) {
+            const sd = file.image.large.filesize;
+            Downloadsize.sd += sd;
+          }
+          if (file.image.unig_hd) {
+            const hd = file.image.unig_hd.filesize;
+            Downloadsize.hd += hd;
+          }
+          if (file.image.original) {
+            const xl = file.image.original.filesize;
+            Downloadsize.xl += xl;
+          }
         });
       }
     },
@@ -468,7 +477,7 @@
               const count = Drupal.behaviors.unigData.FilesForDownload.count();
               if (count > 0) {
                 // After Success
-               //  Drupal.behaviors.unigDownload.openToolbar();
+                //  Drupal.behaviors.unigDownload.openToolbar();
                 Drupal.behaviors.unigDownload.calculateDownloadsize();
                 Drupal.behaviors.unigDownload.refreshGUI();
                 Drupal.behaviors.unigDownload.updateInfo();
@@ -490,19 +499,19 @@
         const nid = Drupal.behaviors.unig.getNodeId(event);
 
         // Add to Download-List
-        Scope.toggle(nid);
+        //  Scope.toggle(nid);
 
         // Mark as Download-Item
         Scope.toggleMark(nid);
 
         // Update Infos
-        Scope.calculateDownloadsize();
+        //  Scope.calculateDownloadsize();
 
         // Build Download Area
-        Scope.refreshGUI();
+        //  Scope.refreshGUI();
 
         // Save to localStorage
-        Drupal.behaviors.unigData.FilesForDownload.save();
+        //  Drupal.behaviors.unigData.FilesForDownload.save();
       });
 
       // Add All Files to Download
@@ -541,8 +550,8 @@
         Drupal.behaviors.unigDownload.bulkDownloadStart("hd");
       });
 
-      $(".unig-bulk-download-max-trigger", context).click(() => {
-        Drupal.behaviors.unigDownload.bulkDownloadStart("max");
+      $(".unig-bulk-download-xl-trigger", context).click(() => {
+        Drupal.behaviors.unigDownload.bulkDownloadStart("xl");
       });
 
       $(".unig-file-download-list-direct").click(function() {
