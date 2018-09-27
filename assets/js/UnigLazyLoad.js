@@ -201,7 +201,7 @@
               // Update Counter
               Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
 
-              // after last elem in list
+
               if (index === numberOfImages - 1) {
                 this.generatePreviewImagesDone();
               }
@@ -254,18 +254,21 @@
 
                   // Update Counter
                   Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
+                  // after last elem in list
+
+
 
                   // after last elem in list
                   if (
                     Drupal.behaviors.unigLazyLoad.imagesCounter ===
-                    numberOfImages - 1
+                    numberOfImages
                   ) {
                     Drupal.behaviors.unigLazyLoad.generatePreviewImagesDone();
                   }
                 })
                 .catch(error => console.error("Error:", error));
             });
-          }, 10000);
+          }, 5000);
         } // end else Test
       }
     },
