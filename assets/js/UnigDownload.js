@@ -170,7 +170,7 @@
       const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
       const data = {
         size,
-        projectname: size,
+        projectName: size,
         items: itemsForDownload
       };
 

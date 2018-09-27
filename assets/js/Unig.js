@@ -1,14 +1,11 @@
 /* eslint-disable prettier/prettier */
-/**
- * Created by ost on 14.05.17.
- */
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unig = {
     number_files: 0,
     number_files_in_download_list: 0,
     number_files_visible: 0,
-    projectname: "",
+    projectName: "",
 
     attach(context, settings) {
       // console.log(' Drupal.behaviors.unig');
@@ -16,6 +13,10 @@
         .once("unig9043twjrdfhjg")
         .each(() => {
           const scope = this;
+
+          // Message box
+          this.checkMessagebox();
+
           // Message Close Trigger
           document
             .querySelectorAll(".unig-message-close-trigger", context)
@@ -24,9 +25,6 @@
                 scope.closeMessage(event);
               });
             });
-
-          // Message box
-          scope.checkMessagebox();
         });
     },
 
@@ -39,13 +37,14 @@
 
       // Callback function to execute when mutations are observed
       const callback = mutationsList => {
-        for (const mutation of mutationsList) {
-          if (mutation.type === "childList") {
-            if (targetNode.childElementCount === 0) {
-              targetNode.classList.remove("active");
-            } else {
-              targetNode.classList.add("active");
-            }
+        // Check for changes
+        if (mutationsList[0].type === "childList") {
+          if (targetNode.childElementCount === 0) {
+            // add Class "active"
+            targetNode.classList.remove("active");
+          } else {
+            // Remove Class "active"
+            targetNode.classList.add("active");
           }
         }
       };
@@ -61,35 +60,38 @@
     },
 
     closeMessage(event) {
-      console.log("event", event.target);
-
+      // Target
       const elem = event.target.parentElement;
 
+      // Effect
       elem.classList.add("slide-out-blurred-top");
+
+      // remove Node
       setTimeout(() => {
         elem.parentNode.removeChild(elem);
       }, 500);
     },
+
     updateGui() {},
 
     removeDuplicates(arr) {
-      return arr.filter((elem, index, self) => index == self.indexOf(elem));
+      return arr.filter((elem, index, self) => index === self.indexOf(elem));
     },
 
     changeArrayItemToInt(array) {
       // console.log('changeArrayItemToInt ', array);
 
       if (Object.prototype.toString.call(array) === "[object Array]") {
-        const int_array = [];
+        const intArray = [];
         let counter = 0;
 
         for (counter; array.length > counter; counter++) {
-          if (parseInt(array[counter]) !== 0) {
-            int_array[counter] = parseInt(array[counter]);
+          if (parseInt(array[counter], 10) !== 0) {
+            intArray[counter] = parseInt(array[counter], 10);
           }
         }
 
-        return int_array;
+        return intArray;
       }
       // console.log('in not Array ');
 
@@ -99,13 +101,13 @@
     cleanArray(array) {
       // console.log('cleanArray:input ', array);
 
-      const int_array = this.changeArrayItemToInt(array);
-      const no_dublicates_array = this.removeDuplicates(int_array);
-      const clean_array = this.changeArrayItemToInt(no_dublicates_array);
+      const intArray = this.changeArrayItemToInt(array);
+      const NoDublicatesArray = this.removeDuplicates(intArray);
+      const CleanArray = this.changeArrayItemToInt(NoDublicatesArray);
 
       // console.log('clean_array ', clean_array);
 
-      return clean_array;
+      return CleanArray;
     },
 
     getNodeId(event) {
@@ -115,13 +117,9 @@
     },
 
     showMessages(messages) {
-      const messagesContainer = document.querySelectorAll(
-        ".unig-messages-container"
-      );
+      const messagesList = document.querySelectorAll(".unig-messages");
 
-      const prefix = '<ul class="unig-messages">';
-      const suffix = "</ul>";
-      let elems = "";
+      let content = "";
       let icon = "";
 
       if (messages.length > 0) {
@@ -147,27 +145,49 @@
               break;
           }
 
-          elems +=
-            `<li class="unig-message-type-${type}">` +
+          content +=
             `<span class="unig-message-icon">${icon}</span>` +
             `<span class="unig-message-text">${message}</span>` +
-            `<span  role="button"  class="unig-button-icon-info unig-message-button-close unig-message-close-trigger">` +
-            `<i class="fa fa-times" aria-hidden="true"></i>` +
-            `</span>` +
-            `</li>`;
-        });
+            `<span  role="button"  class="">` +
+            `` +
+            `</span>`;
 
-        const html = prefix + elems + suffix;
+          // li
+          const messageElem = document.createElement("li");
+          messageElem.classList.add(`unig-message-type-${type}`);
+          messageElem.innerHTML = content;
 
-        messagesContainer.forEach(elem => {
-          elem.innerHTML = html;
+          // close button
+          const closeButton = document.createElement("span");
+          closeButton.classList.add(
+            "unig-button-icon-info",
+            "unig-message-button-close",
+            "unig-message-close-trigger"
+          );
+          closeButton.setAttribute("role", "button");
+          closeButton.innerHTML =
+            '<i class="fa fa-times" aria-hidden="true"></i>';
+          closeButton.addEventListener("click", event => {
+            this.closeMessage(event);
+          });
+          // add button to li
+          messageElem.appendChild(closeButton);
+
+          // Add new Node to List
+          messagesList.forEach(elem => {
+            console.log("messagesContainer", messagesList);
+
+            elem.appendChild(messageElem);
+          });
         });
       }
     },
     humanFileSize(size) {
       // https://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable-string
-      const i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
-      return `${(size / Math.pow(1024, i)).toFixed(2) * 1} ${
+      const i = size === 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
+      //      return `${(size / Math.pow(1024, i)).toFixed(2) * 1} ${
+
+      return `${(size / 1024 ** i).toFixed(2) * 1} ${
         ["B", "kB", "MB", "GB", "TB"][i]
       }`;
     }
