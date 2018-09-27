@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: UniG\n"
-"POT-Creation-Date: 2018-09-27 15:53+0200\n"
-"PO-Revision-Date: 2018-09-27 15:56+0200\n"
+"POT-Creation-Date: 2018-09-27 17:16+0200\n"
+"PO-Revision-Date: 2018-09-27 17:17+0200\n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: oliver@mollo.ch\n"
 "Language: de\n"
@@ -52,7 +52,7 @@ msgid "Verifying entry..."
 msgstr "Eintrag wird überprüft..."
 
 #: src/Form/NewAlbumForm.php:81 templates/unig.project-list.html.twig:88
-#: templates/unig.project-list.html.twig:352
+#: templates/unig.project-list.html.twig:351
 #: templates/unig.project.html.twig:267 templates/unig.project.html.twig:486
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -173,18 +173,18 @@ msgid "Save Order"
 msgstr "Sortierfolge sichern"
 
 #: templates/unig.project-list.html.twig:155
-#: templates/unig.project-list.html.twig:465
-#: templates/unig.project-list.html.twig:527
+#: templates/unig.project-list.html.twig:464
+#: templates/unig.project-list.html.twig:526
 msgid "No cover picture selected yet"
 msgstr "Noch kein Titelbild ausgewählt"
 
 #: templates/unig.project-list.html.twig:172
-#: templates/unig.project-list.html.twig:490
+#: templates/unig.project-list.html.twig:489
 msgid "Image"
 msgstr "Bild"
 
 #: templates/unig.project-list.html.twig:177
-#: templates/unig.project-list.html.twig:496
+#: templates/unig.project-list.html.twig:495
 msgid "Images"
 msgstr "Bilder"
 
@@ -193,42 +193,42 @@ msgstr "Bilder"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: templates/unig.project-list.html.twig:276
+#: templates/unig.project-list.html.twig:275
 #: templates/unig.project.html.twig:167
 msgid "Title"
 msgstr "Titel"
 
-#: templates/unig.project-list.html.twig:303
+#: templates/unig.project-list.html.twig:302
 #: templates/unig.project.html.twig:179
 msgid "Description"
 msgstr "Beschreibung"
 
-#: templates/unig.project-list.html.twig:314
+#: templates/unig.project-list.html.twig:313
 #: templates/unig.project.html.twig:211
 msgid "Copyright"
 msgstr "Urheber"
 
-#: templates/unig.project-list.html.twig:347
+#: templates/unig.project-list.html.twig:346
 #: templates/unig.project.html.twig:258
 msgid "Save"
 msgstr "Sichern"
 
-#: templates/unig.project-list.html.twig:372
+#: templates/unig.project-list.html.twig:371
 #: templates/unig.project.html.twig:289
 msgid "Delete Project"
 msgstr "Projekt löschen"
 
-#: templates/unig.project-list.html.twig:383
+#: templates/unig.project-list.html.twig:382
 #: templates/unig.project.html.twig:300
 msgid "Delete this project and all its images?"
 msgstr "Dieses Projekt und alle seine Bilder löschen?"
 
-#: templates/unig.project-list.html.twig:394
+#: templates/unig.project-list.html.twig:393
 #: templates/unig.project.html.twig:311
 msgid "No, Cancel"
 msgstr "Nein, Abbrechen"
 
-#: templates/unig.project-list.html.twig:403
+#: templates/unig.project-list.html.twig:402
 #: templates/unig.project.html.twig:320
 msgid "Yes, Delete Project"
 msgstr "Ja, Projekt löschen"
