@@ -98,7 +98,7 @@ trait ProjectTrait
 
         $nids = self::getAllProjectNids();
 
-        $select['neu'] = ' neues Projekt erstellen...';
+        $select['neu'] = t('Create new project...');
 
         if ($nids) {
 
@@ -242,22 +242,22 @@ trait ProjectTrait
      * @param      $nid_project
      * @param null $nid_image
      *
-     * @return integer
+     * @return OutputController
      */
     public static function setCover($nid_project, $nid_image = NULL)
     {
-
+        $output = new OutputController();
 
         // Wenn nicht:
         // Projekt öffnen und nachschauen ob schon ein Vorschaubild gesetzt ist
         $node = Node::load($nid_project);
-
+        $title = $node->getTitle();
 
         if ($nid_image) {
             $nid_cover = $nid_image;
         } else {
             // Wenn noch kein Vorschaubild gesetzt ist, das erste Bild aus dem Projekt nehmen und einsetzen.
-            $cover = $node->field_unig_project_cover->target_id;
+            $cover = $node->get('field_unig_project_cover')->target_id;
             if ($cover == NULL) {
                 $list_images = self::getListofFilesInProject($nid_project);
                 $nid_cover = $list_images[0];
@@ -268,13 +268,18 @@ trait ProjectTrait
         $node->field_unig_project_cover = ['target_id' => $nid_cover,];
         try {
             $node->save();
-            return $nid_image;
+            $output->setStatus(true);
+            $output->setTitle($title);
+            $output->setMessages(t('New cover picture set for project '), 'success');
+
 
         } catch (EntityStorageException $e) {
-
-            return "ERROR: cover image adding failed";
+            $output->setStatus(true);
+            $output->setTitle($node->getTitle());
+            $output->setMessages(t("ERROR: cover image adding failed. Project: "), 'error');
         }
 
+        return $output;
     }
 
 

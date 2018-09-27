@@ -8,16 +8,23 @@
     attach(context, settings) {
       console.log("Drupal.behaviors.unigData");
 
-      if (!drupalSettings.unigDataOnce) {
-        drupalSettings.unigDataOnce = true;
 
-        Drupal.behaviors.unigData.project.load().then(result => {
-          const nid = result.nid;
-          Drupal.behaviors.unigData.FileList.load(nid).then(data => {
-            Drupal.behaviors.unigLazyLoad.loadImages(data);
+      const scope = this;
+
+      $('#unig-main', context).once('unigData').each(() => {
+
+
+        if (!drupalSettings.unigDataOnce) {
+          drupalSettings.unigDataOnce = true;
+
+          Drupal.behaviors.unigData.project.load().then(result => {
+            const nid = result.nid;
+            Drupal.behaviors.unigData.FileList.load(nid).then(data => {
+              Drupal.behaviors.unigLazyLoad.loadImages(data);
+            });
           });
-        });
-      }
+        }
+      })
     }
   };
 

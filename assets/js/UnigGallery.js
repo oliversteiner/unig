@@ -4,25 +4,31 @@
     statusNames: false,
     statusIndex: false,
 
-    // Names
+    // ----- Names
+    // Button
     elemButtonNames: document.querySelector(".unig-gallery-button-image-name"),
 
+    // Show
     elemLabelShowNames: document.querySelector(
       ".unig-gallery-image-name-label-show"
     ),
 
-    elemLabelShowNames: document.querySelector(
-      ".unig-gallery-image-name-label-show"
-    ),
+    // Hide
     elemLabelHideNames: document.querySelector(
       ".unig-gallery-image-name-label-hide"
     ),
 
-    // Index
+    // ------ Index
+
+    // Button
     elemButtonIndex: document.querySelector(".unig-gallery-button-image-index"),
+
+    // Show
     elemLabelShowIndex: document.querySelector(
       ".unig-gallery-image-index-label-show"
     ),
+
+    // Hide
     elemLabelHideIndex: document.querySelector(
       ".unig-gallery-image-index-label-hide"
     ),

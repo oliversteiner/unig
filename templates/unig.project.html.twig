@@ -6,38 +6,38 @@
 
 
         <div class="animate-container-{{ project.nid }}">
-        {# Toolbar - Project - Normal #}
-        <div class="unig-project-{{ project.nid }} unig-toolbar unig-toolbar-info unig-project-normal-container-{{ project.nid }} unig-project-private-status {% if project.private %} private {% endif %}"
-             style="display: block">
+            {# Toolbar - Project - Normal #}
+            <div class="unig-project-{{ project.nid }} unig-toolbar unig-toolbar-info unig-project-normal-container-{{ project.nid }} unig-project-private-status {% if project.private %} private {% endif %}"
+                 style="display: block">
 
-            {# Header #}
-            <div class="unig-toolbar-header">
-                {# Title #}
-                <div class="unig-toolbar-title"></div>
-            </div>
+                {# Header #}
+                <div class="unig-toolbar-header">
+                    {# Title #}
+                    <div class="unig-toolbar-title"></div>
+                </div>
 
-            {# Body#}
-            <div class="unig-toolbar-body block">
+                {# Body#}
+                <div class="unig-toolbar-body block">
 
-                {# Fieldset bank #}
-                <div class="unig-fieldset unig-fieldset-project block">
+                    {# Fieldset bank #}
+                    <div class="unig-fieldset unig-fieldset-project block">
 
-                    {# Header #}
-                    <div class="unig-fieldset-header">
-                        <div class="unig-fieldset-title"></div>
-                    </div>
+                        {# Header #}
+                        <div class="unig-fieldset-header">
+                            <div class="unig-fieldset-title"></div>
+                        </div>
 
-                    {# Body#}
-                    <div class="unig-fieldset-body block">
+                        {# Body#}
+                        <div class="unig-fieldset-body block">
 
-                        {# Left#}
-                        <div class="unig-fieldset-item">
-                            <h2 class="unig-project-title unig-project-title-trigger unig-project-title-{{ project.nid }}">{{ project.title }}</h2>
+                            {# Left#}
+                            <div class="unig-fieldset-item">
+                                <h2 class="unig-project-title unig-project-title-trigger unig-project-title-{{ project.nid }}">{{ project.title }}</h2>
 
-                            {# ----------- Bearbeiten ----------- #}
-                            <div class="unig-button-project-edit-wrapper">
+                                {# ----------- Bearbeiten ----------- #}
+                                <div class="unig-button-project-edit-wrapper">
                             <span role="button"
-                                  class="unig-button unig-button-icon
+                                  class="unig-button-icon-info
                                   unig-button-project-edit
                                   unig-button-project-edit-open
                                   unig-button-project-edit-open-{{ project.nid }}
@@ -46,294 +46,295 @@
                                     <i class="fa fa-edit"></i>
                                 </span>
                             </span>
+                                </div>
                             </div>
+
+                            {# Private #}
+                            <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   (Privat) {% endif %} </div>
+
+                            {# Description #}
+                            <div class="unig-fieldset-item unig-project-description unig-project-description-{{ project.nid }} ">
+                                {{ project.description }}
+                            </div>
+
+                            {# Center #}
+                            <div class="unig-fieldset-item unig-project-number-of-items">
+                                {# Anzahl Bilder #}
+                                <i class="fa fa-image" aria-hidden="true"></i>
+
+                                <span class="number_of_visible">{{ project.number_of_items }}</span>
+                            </div>
+
+                            <div class="unig-fieldset-item unig-project-copyright unig-project-copyright-{{ project.nid }} ">
+                                {{ project.copyright }}
+                            </div>
+
+                            {# Right #}
+                            <div class="unig-fieldset-item unig-project-date unig-project-date-{{ project.nid }}"> {{ datum }} </div>
                         </div>
 
-                        {# Private #}
-                        <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   (Privat) {% endif %} </div>
+                        {# Fieldset Footer #}
+                        <div class="unig-fieldset-footer"></div>
 
-                        {# Description #}
-                        <div class="unig-fieldset-item unig-project-description unig-project-description-{{ project.nid }} ">
-                            {{ project.description }}
-                        </div>
+                    </div> {# / Fieldset #}
+                </div>{# / Toolbar Body #}
 
-                        {# Center #}
-                        <div class="unig-fieldset-item unig-project-number-of-items">
-                            {# Anzahl Bilder #}
-                            <i class="fa fa-image" aria-hidden="true"></i>
-
-                            <span class="number_of_visible">{{ project.number_of_items }}</span>
-                        </div>
-
-                        <div class="unig-fieldset-item unig-project-copyright unig-project-copyright-{{ project.nid }} ">
-                            {{ project.copyright }}
-                        </div>
-
-                        {# Right #}
-                        <div class="unig-fieldset-item unig-project-date unig-project-date-{{ project.nid }}"> {{ datum }} </div>
-                    </div>
-
-                    {# Fieldset Footer #}
-                    <div class="unig-fieldset-footer"></div>
-
-                </div> {# / Fieldset #}
-            </div>{# / Toolbar Body #}
-
-            {# Toolbar Footer #}
-            <div class="unig-toolbar-footer"></div>
-        </div>
-
-
-        {# Toolbar - Project - Edit #}
-        <div class="unig-toolbar unig-toolbar-info unig-toolbar-info-edit unig-project-edit-container-{{ project.nid }}"
-             style="display: none">
-
-            {# Header #}
-            <div class="unig-toolbar-header">
-                {# Title #}
-                <div class="unig-toolbar-title"></div>
+                {# Toolbar Footer #}
+                <div class="unig-toolbar-footer"></div>
             </div>
 
-            {# Body#}
-            <div class="unig-toolbar-body block">
 
-                {# Fieldset bank #}
-                <div class="unig-fieldset unig-fieldset-project block">
+            {# Toolbar - Project - Edit #}
+            <div class="unig-toolbar unig-toolbar-info unig-toolbar-info-edit unig-project-edit-container-{{ project.nid }}"
+                 style="display: none">
 
-                    {# Header #}
-                    <div class="unig-fieldset-header">
-                        <div class="unig-fieldset-title"></div>
-                    </div>
+                {# Header #}
+                <div class="unig-toolbar-header">
+                    {# Title #}
+                    <div class="unig-toolbar-title"></div>
+                </div>
 
-                    {# Body#}
-                    <div class="unig-fieldset-body block">
+                {# Body#}
+                <div class="unig-toolbar-body block">
 
-                        {# Left#}
-                        <div class="unig-fieldset-item">
-                            {# ----------- Title ----------- #}
-                            <h2 class="unig-project-title unig-project-title-{{ project.nid }} unig-project-title-trigger">{{ project.title }}</h2>
+                    {# Fieldset bank #}
+                    <div class="unig-fieldset unig-fieldset-project block">
 
-                            {# ----------- Cancel Button ----------- #}
-                            <div class="unig-button-project-edit-wrapper">
-                                <div role="button"
-                                     class="unig-button unig-button-icon
+                        {# Header #}
+                        <div class="unig-fieldset-header">
+                            <div class="unig-fieldset-title"></div>
+                        </div>
+
+                        {# Body#}
+                        <div class="unig-fieldset-body block">
+
+                            {# Left#}
+                            <div class="unig-fieldset-item">
+                                {# ----------- Title ----------- #}
+                                <h2 class="unig-project-title unig-project-title-{{ project.nid }} unig-project-title-trigger">{{ project.title }}</h2>
+
+                                {# ----------- Cancel Button ----------- #}
+                                <div class="unig-button-project-edit-wrapper">
+                                    <div role="button"
+                                         class="unig-button unig-button-icon
                                      unig-button-project-edit
                                      unig-button-project-edit-close
                                      unig-button-project-edit-close-{{ project.nid }}
                                      unig-project-edit-trigger">
-                                    <div class="close">
-                                        <i class="fa fa-times"></i>
+                                        <div class="close">
+                                            <i class="fa fa-times"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {# Private #}
-                        <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   (Privat) {% endif %} </div>
+                            {# Private #}
+                            <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   (Privat) {% endif %} </div>
 
-                        {# Description #}
-                        <div class="unig-fieldset-item unig-project-description unig-project-description-{{ project.nid }} ">
-                            {{ project.description }}
-                        </div>
-
-                        {# Center #}
-                        <div class="unig-fieldset-item unig-project-number-of-items">
-
-                            {# Anzahl Bilder #}
-                            <i class="fa fa-image" aria-hidden="true"></i>
-                            <span class="number_of_visible">{{ project.number_of_items }}</span>
-                        </div>
-
-                        <div class="unig-fieldset-item unig-project-copyright unig-project-copyright-{{ project.nid }} ">
-                            {{ project.copyright }}
-                        </div>
-
-                        {# Right #}
-                        <div class="unig-fieldset-item unig-project-date unig-project-date-{{ project.nid }} "> {{ datum }} </div>
-                    </div>
-
-                    {# Fieldset Footer #}
-                    <div class="unig-fieldset-footer">
-
-                        <hr class="unig unig-project-list">
-
-                        <div class="unig-row unig-row-start">
-                            <div class="unig-edit-project-col unig-edit-project-col-1">
-                                {# ----------- Edit Titel ----------- #}
-                                <div class="unig-edit-project-title">
-                                    <label for="edit-unig-project-title-{{ project.nid }}">{% trans %} Title {% endtrans %} </label>
-
-                                    <input
-                                            id="edit-unig-project-title-{{ project.nid }}"
-                                            title="Titel"
-                                            type="text"
-                                            size="28"
-                                            value="{{ project.title }}">
-                                </div>
-
-                                {# ----------- Edit Description ----------- #}
-                                <div class="unig-edit-project-description">
-                                    <label for="edit-unig-project-description-{{ project.nid }}">{% trans %} Description {% endtrans %} </label>
-
-                                    <textarea
-                                            id="edit-unig-project-description-{{ project.nid }}"
-                                            rows="4"
-                                            cols="28"
-                                            title="Beschreibung">{{ project.description }}</textarea>
-                                </div>
-
+                            {# Description #}
+                            <div class="unig-fieldset-item unig-project-description unig-project-description-{{ project.nid }} ">
+                                {{ project.description }}
                             </div>
-                            <div class="unig-edit-project-col unig-edit-project-col-2">
 
-                                {# ----------- Edit Datum ----------- #}
-                                <div class="unig-edit-project-date">
-                                    <label for="edit-unig-project-date-{{ project.nid }}">{% trans %} Date {% endtrans %} </label>
-                                    <input
-                                            id="edit-unig-project-date-{{ project.nid }}"
-                                            data-drupal-selector="edit-field-unig-date-0-value-date"
-                                            title="Datum (z. B. 2017-10-14)"
-                                            type="date"
-                                            min="1900-01-01" max="2050-12-31"
-                                            data-drupal-date-format="Y-m-d"
-                                            data-unig-project-id="{{ project.nid }}"
-                                            name="field_unig_date"
-                                            value="{{ project.date_drupal }}"
-                                            size="12"
-                                            class="form-date">
-                                </div>
+                            {# Center #}
+                            <div class="unig-fieldset-item unig-project-number-of-items">
 
-
-                                {# ----------- Edit Copyright ----------- #}
-                                <div class="unig-edit-project-copyright">
-                                    <label for="edit-unig-project-copyright-{{ project.nid }}">{% trans %} Copyright {% endtrans %} </label>
-
-                                    <input
-                                            id="edit-unig-project-copyright-{{ project.nid }}"
-                                            title="Copyright"
-                                            placeholder="Copyright"
-                                            type="text"
-                                            size="28"
-                                            value="{{ project.copyright }}">
-                                </div>
-
-                                {# ----------- Edit Privat ----------- #}
-                                <div class="unig-edit-project-private">
-                                    <input id="edit-unig-project-private-{{ project.nid }}"
-                                           data-drupal-selector="edit-field-unig-private-value"
-                                           aria-describedby="edit-field-unig-private-value--description"
-                                           type="checkbox"
-                                           name="field_unig_private[value]"
-                                           title="Nur Intern"
-                                           value="{{ project.private }}"
-                                            {% if project.private %}   checked="checked" {% endif %}
-                                           class="form-checkbox unig-project-private-checkbox">
-
-                                    <label class="unig-input-label edit-unig-project-private-label"
-                                           for="edit-unig-project-private-{{ project.nid }}">
-                                        Privates Projekt (nur Intern)</label>
-                                </div>
-
+                                {# Anzahl Bilder #}
+                                <i class="fa fa-image" aria-hidden="true"></i>
+                                <span class="number_of_visible">{{ project.number_of_items }}</span>
                             </div>
-                            <div class="unig-edit-project-col unig-edit-project-col-3">
 
-                                {# ----------- Edit hidden nid ----------- #}
-                                <input id="edit-unig-project-nid-{{ project.nid }}"
-                                       type="hidden" value="{{ project.nid }}"
-                                       name="project_nid">
+                            <div class="unig-fieldset-item unig-project-copyright unig-project-copyright-{{ project.nid }} ">
+                                {{ project.copyright }}
+                            </div>
 
-                                {# ----------- Edit hidden weight ----------- #}
-                                <input id="edit-unig-project-weight-{{ project.nid }}" type="hidden"
-                                       value="{{ project.weight }}" name="project_weight">
+                            {# Right #}
+                            <div class="unig-fieldset-item unig-project-date unig-project-date-{{ project.nid }} "> {{ datum }} </div>
+                        </div>
 
+                        {# Fieldset Footer #}
+                        <div class="unig-fieldset-footer">
 
-                                {# ----------- Edit Toolbar ----------- #}
-                                <div class="unig-project-list-toolbar">
+                            <hr class="unig unig-project-list">
 
-                                    {# Bearbeiten #}
-                                    <div class="unig-button-ok unig-project-save-trigger"
-                                         data-unig-project-nid="{{ project.nid }}">
-                                        {% trans %} Save {% endtrans %}
+                            <div class="unig-row unig-row-start">
+                                <div class="unig-edit-project-col unig-edit-project-col-1">
+                                    {# ----------- Edit Titel ----------- #}
+                                    <div class="unig-edit-project-title">
+                                        <label for="edit-unig-project-title-{{ project.nid }}">{% trans %} Title {% endtrans %} </label>
+
+                                        <input
+                                                id="edit-unig-project-title-{{ project.nid }}"
+                                                title="Titel"
+                                                type="text"
+                                                size="28"
+                                                value="{{ project.title }}">
                                     </div>
 
-                                    {# Abbrechen #}
-                                    <div class="unig-button unig-project-cancel-trigger"
-                                         data-unig-project-nid="{{ project.nid }}"
-                                         data-unig-project-index="{{ loop.index0 }}"
-                                    >
+                                    {# ----------- Edit Description ----------- #}
+                                    <div class="unig-edit-project-description">
+                                        <label for="edit-unig-project-description-{{ project.nid }}">{% trans %} Description {% endtrans %} </label>
 
-                                        {% trans %} Cancel {% endtrans %}
-                                    </div>
-
-                                    {# Process Indicator #}
-                                    <div class="unig-project-process-saving unig-project-process-saving-{{ project.nid }}"
-                                         style="display: none">
-                                        <i class="fa fa-spinner fa-spin"> {% trans %}  {% endtrans %}</i> saving
-                                        project...
+                                        <textarea
+                                                id="edit-unig-project-description-{{ project.nid }}"
+                                                rows="4"
+                                                cols="28"
+                                                title="Beschreibung">{{ project.description }}</textarea>
                                     </div>
 
                                 </div>
+                                <div class="unig-edit-project-col unig-edit-project-col-2">
 
-                                <div class="unig-project-list-toolbar unig-project-list-toolbar-last">
+                                    {# ----------- Edit Datum ----------- #}
+                                    <div class="unig-edit-project-date">
+                                        <label for="edit-unig-project-date-{{ project.nid }}">{% trans %} Date {% endtrans %} </label>
+                                        <input
+                                                id="edit-unig-project-date-{{ project.nid }}"
+                                                data-drupal-selector="edit-field-unig-date-0-value-date"
+                                                title="Datum (z. B. 2017-10-14)"
+                                                type="date"
+                                                min="1900-01-01" max="2050-12-31"
+                                                data-drupal-date-format="Y-m-d"
+                                                data-unig-project-id="{{ project.nid }}"
+                                                name="field_unig_date"
+                                                value="{{ project.date_drupal }}"
+                                                size="12"
+                                                class="form-date">
+                                    </div>
 
 
-                                    {#  Button Delete #}
-                                    <div class="unig-row-end unig-project-container-delete">
-                                        <div role="button"
-                                             class="unig-button
+                                    {# ----------- Edit Copyright ----------- #}
+                                    <div class="unig-edit-project-copyright">
+                                        <label for="edit-unig-project-copyright-{{ project.nid }}">{% trans %} Copyright {% endtrans %} </label>
+
+                                        <input
+                                                id="edit-unig-project-copyright-{{ project.nid }}"
+                                                title="Copyright"
+                                                placeholder="Copyright"
+                                                type="text"
+                                                size="28"
+                                                value="{{ project.copyright }}">
+                                    </div>
+
+                                    {# ----------- Edit Privat ----------- #}
+                                    <div class="unig-edit-project-private">
+                                        <input id="edit-unig-project-private-{{ project.nid }}"
+                                               data-drupal-selector="edit-field-unig-private-value"
+                                               aria-describedby="edit-field-unig-private-value--description"
+                                               type="checkbox"
+                                               name="field_unig_private[value]"
+                                               title="Nur Intern"
+                                               value="{{ project.private }}"
+                                                {% if project.private %}   checked="checked" {% endif %}
+                                               class="form-checkbox unig-project-private-checkbox">
+
+                                        <label class="unig-input-label edit-unig-project-private-label"
+                                               for="edit-unig-project-private-{{ project.nid }}">
+                                            Privates Projekt (nur Intern)</label>
+                                    </div>
+
+                                </div>
+                                <div class="unig-edit-project-col unig-edit-project-col-3">
+
+                                    {# ----------- Edit hidden nid ----------- #}
+                                    <input id="edit-unig-project-nid-{{ project.nid }}"
+                                           type="hidden" value="{{ project.nid }}"
+                                           name="project_nid">
+
+                                    {# ----------- Edit hidden weight ----------- #}
+                                    <input id="edit-unig-project-weight-{{ project.nid }}" type="hidden"
+                                           value="{{ project.weight }}" name="project_weight">
+
+
+                                    {# ----------- Edit Toolbar ----------- #}
+                                    <div class="unig-project-list-toolbar">
+
+                                        {# Bearbeiten #}
+                                        <div class="unig-button-ok unig-project-save-trigger"
+                                             data-unig-project-nid="{{ project.nid }}">
+                                            {% trans %} Save {% endtrans %}
+                                        </div>
+
+                                        {# Abbrechen #}
+                                        <div class="unig-button unig-project-cancel-trigger"
+                                             data-unig-project-nid="{{ project.nid }}"
+                                             data-unig-project-index="{{ loop.index0 }}"
+                                        >
+
+                                            {% trans %} Cancel {% endtrans %}
+                                        </div>
+
+                                        {# Process Indicator #}
+                                        <div class="unig-project-process-saving unig-project-process-saving-{{ project.nid }}"
+                                             style="display: none">
+                                            <i class="fa fa-spinner fa-spin"> {% trans %}  {% endtrans %}</i> saving
+                                            project...
+                                        </div>
+
+                                    </div>
+
+                                    <div class="unig-project-list-toolbar unig-project-list-toolbar-last">
+
+
+                                        {#  Button Delete #}
+                                        <div class="unig-row-end unig-project-container-delete">
+                                            <div role="button"
+                                                 class="unig-button
                                              unig-button-project-delete
                                              unig-button-project-delete-{{ project.nid }}
                                              unig-project-delete-trigger">
-                                            {% trans %} Delete Project {% endtrans %}
+                                                {% trans %} Delete Project {% endtrans %}
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {#  ----------- Confirm Project  -----------  #}
-                                    <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.nid }}"
-                                         style="display: none">
+                                        {#  ----------- Confirm Project  -----------  #}
+                                        <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.nid }}"
+                                             style="display: none">
 
-                                        {# Message#}
-                                        <div class="unig-project-delete-confirm-message">
-                                            <i class="fa fa-warning"></i>
-                                            {% trans %} Delete this project and all its images? {% endtrans %} </div>
+                                            {# Message#}
+                                            <div class="unig-project-delete-confirm-message">
+                                                <i class="fa fa-warning"></i>
+                                                {% trans %} Delete this project and all its images? {% endtrans %}
+                                            </div>
 
-                                        {# Buttons #}
-                                        <div class="unig-row">
-                                            {# Button Cancel#}
-                                            <div role="button"
-                                                 class="unig-button
+                                            {# Buttons #}
+                                            <div class="unig-row">
+                                                {# Button Cancel#}
+                                                <div role="button"
+                                                     class="unig-button
                                                   unig-button-project-delete-cancel
                                                   unig-button-project-delete-cancel-{{ project.nid }}
                                                   unig-project-delete-cancel-trigger">
-                                                {% trans %}No, Cancel{% endtrans %}
-                                            </div>
+                                                    {% trans %}No, Cancel{% endtrans %}
+                                                </div>
 
-                                            {# Button Delete#}
-                                            <a role="button"
-                                               class="use-ajax unig-button unig-button-danger
+                                                {# Button Delete#}
+                                                <a role="button"
+                                                   class="use-ajax unig-button unig-button-danger
                                                unig-button-project-delete-yes
                                                unig-button-project-delete-yes-{{ project.nid }}"
-                                               href="{{ path('unig.project.ajax.delete', {'project_nid': project.nid}) }}">
-                                                {% trans %}Yes, Delete Project{% endtrans %}
-                                            </a>
+                                                   href="{{ path('unig.project.ajax.delete', {'project_nid': project.nid}) }}">
+                                                    {% trans %}Yes, Delete Project{% endtrans %}
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
 
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
+
                         </div>
 
+                    </div> {# / Fieldset #}
+                </div>{# / Toolbar Body #}
 
-                    </div>
-
-                </div> {# / Fieldset #}
-            </div>{# / Toolbar Body #}
-
-            {# Toolbar Footer #}
-            <div class="unig-toolbar-footer"></div>
-        </div>
+                {# Toolbar Footer #}
+                <div class="unig-toolbar-footer"></div>
+            </div>
 
         </div>
 
@@ -510,44 +511,47 @@
                         </div>
                     </div>
                     <div class="unig-toolbox">
-                    <table class="unig-bulk-download-table">
+                        <table class="unig-bulk-download-table">
 
-                        {# SD #}
-                        <tr role="button" class="unig-bulk-download-sd-trigger">
-                            <td class="unig-file-download-table-label">SD</td>
-                            <td class="unig-file-download-table-width">440&thinsp;px</td>
-                            <td class="unig-file-download-table-size">
-                                <span class="unig-file-download-table-size-sd">0 MB</span>
-                            </td>
-                            <td class="unig-file-download-table-icon"><i class="fa fa-download" aria-hidden="true"></i>
-                            </td>
+                            {# SD #}
+                            <tr role="button" class="unig-bulk-download-sd-trigger">
+                                <td class="unig-file-download-table-label">SD</td>
+                                <td class="unig-file-download-table-width">440&thinsp;px</td>
+                                <td class="unig-file-download-table-size">
+                                    <span class="unig-file-download-table-size-sd">0 MB</span>
+                                </td>
+                                <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                                                             aria-hidden="true"></i>
+                                </td>
 
-                        </tr>
+                            </tr>
 
-                        {# HD #}
-                        <tr  role="button" class="unig-bulk-download-hd-trigger">
-                            <td class="unig-file-download-table-label">HD</td>
-                            <td class="unig-file-download-table-width">1920&thinsp;px</td>
-                            <td class="unig-file-download-table-size">
-                                <span class="unig-file-download-table-size-hd">0 MB</span>
-                            </td>
-                            <td class="unig-file-download-table-icon"><i class="fa fa-download" aria-hidden="true"></i>
-                            </td>
+                            {# HD #}
+                            <tr role="button" class="unig-bulk-download-hd-trigger">
+                                <td class="unig-file-download-table-label">HD</td>
+                                <td class="unig-file-download-table-width">1920&thinsp;px</td>
+                                <td class="unig-file-download-table-size">
+                                    <span class="unig-file-download-table-size-hd">0 MB</span>
+                                </td>
+                                <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                                                             aria-hidden="true"></i>
+                                </td>
 
-                        </tr>
+                            </tr>
 
-                        {# Max #}
-                        <tr  role="button" class="unig-bulk-download-max-trigger">
-                            <td class="unig-file-download-table-label">Max</td>
-                            <td class="unig-file-download-table-width">4500&thinsp;px</td>
-                            <td class="unig-file-download-table-size">
-                                <span class="unig-file-download-table-size-max">0 MB</span>
-                            </td>
-                            <td class="unig-file-download-table-icon"><i class="fa fa-download" aria-hidden="true"></i>
-                            </td>
+                            {# Max #}
+                            <tr role="button" class="unig-bulk-download-max-trigger">
+                                <td class="unig-file-download-table-label">Max</td>
+                                <td class="unig-file-download-table-width">4500&thinsp;px</td>
+                                <td class="unig-file-download-table-size">
+                                    <span class="unig-file-download-table-size-max">0 MB</span>
+                                </td>
+                                <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                                                             aria-hidden="true"></i>
+                                </td>
 
-                        </tr>
-                    </table>
+                            </tr>
+                        </table>
                     </div>
                     {# Ajax Message #}
                     <div class="unig-bulk-download-message-container">
@@ -626,37 +630,73 @@
         </div>
 
         {# --------------- Ajax Message  --------------- #}
-        <div class="unig-ajax-container"></div>
         <div class="unig-messages-container">
 
+            <ul class="unig-messages">
+                {# succsess#}
+                <li class="unig-message-type-success">
+                    <span class="unig-message-icon"><i class="fas fa-check"></i></span>
+                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
+                    <span class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </li>
 
-            {# --------------- Ajax Messages Generate Images  --------------- #}
-            <div class="unig-messages-generate-images" style="display: none">
-                {# Text #}
-                <span class="unig-generate-images-currend-process-text">
+                {# info #}
+                <li class="unig-message-type-info">
+                    <span class="unig-message-icon"><i class="fas fa-info-circle"></i></span>
+                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
+                    <span role="button" class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </li>
+
+                {# status #}
+                <li class="unig-message-type-status">
+                    <span class="unig-message-icon"></span>
+                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
+                    <span role="button"  class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </li>
+
+                {# warning #}
+                <li class="unig-message-type-warning">
+                    <span class="unig-message-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
+                    <span role="button"  class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </li>
+
+                {# error #}
+                <li class="unig-message-type-error">
+                    <span class="unig-message-icon"><i class="fas fa-exclamation-circle"></i></span>
+                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
+                    <span role="button"  class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </li>
+
+            </ul>
+        </div>
+
+        {# --------------- Ajax Messages Generate Images  --------------- #}
+        <div class="unig-messages-generate-images" style="display: none">
+            {# Text #}
+            <span class="unig-generate-images-currend-process-text">
                     <i class="fa fa-info-circle"></i>
-                    {% trans %} Generate preview images: {% endtrans %}
-                    <span class="unig-preview-image-counter">0</span>
-                    {% trans %} of {% endtrans %}
-                    <span class="unig-preview-image-number-of-images">0</span>.
+                {% trans %} Generate preview images: {% endtrans %}
+                <span class="unig-preview-image-counter">0</span>
+                {% trans %} of {% endtrans %}
+                <span class="unig-preview-image-number-of-images">0</span>.
                 </span>
 
-                {# Process Indicator #}
-                <span class="unig-preview-image-process">
+            {# Process Indicator #}
+            <span class="unig-preview-image-process">
                     <span class="unig-preview-image-process-work"><i class="fas fa-spinner fa-spin"></i></span>
                     <span class="unig-preview-image-process-done" style="display: none"><i
                                 class="fas fa-check"></i></span>
                 </span>
 
-                {# Current Image in Work Name#}
-                <span class="unig-generate-images-current-process-name">Name</span>
+            {# Current Image in Work Name#}
+            <span class="unig-generate-images-current-process-name">Name</span>
 
-                {# Current Image in Work Size#}
-                <span class="unig-generate-images-current-process-size">Size</span>
+            {# Current Image in Work Size#}
+            <span class="unig-generate-images-current-process-size">Size</span>
 
-                <span class="unig-messages-generate-images-close-trigger"> <i class="fa fa-times"></i></span>
+            <span class="unig-messages-generate-images-close-trigger"> <i class="fa fa-times"></i></span>
 
-            </div>
         </div>
 
     </div>
@@ -925,54 +965,66 @@
 
                             <div class="unig-toolbox  unig-file-download-toolbox" style="display: none">
 
-                            <table class="unig-file-download-table">
+                                <table class="unig-file-download-table">
 
-                                {# add to download list #}
-                                <tr  role="button" class="unig-file-download-mark-trigger">
-                                    <td class="unig-file-download-table-label"> <i class="fa fa-bookmark" aria-hidden="true"></i></td>
-                                    <td class="unig-file-download-table-text" colspan="3">
-                                        <span class="unig-file-download-mark-add">{% trans %} add to download list{% endtrans %}</span>
-                                        <span class="unig-file-download-mark-remove" style="display: none">{% trans %} remove from download list{% endtrans %}</span>
+                                    {# add to download list #}
+                                    <tr role="button" class="unig-file-download-mark-trigger">
+                                        <td class="unig-file-download-table-label"><i class="fa fa-bookmark"
+                                                                                      aria-hidden="true"></i></td>
+                                        <td class="unig-file-download-table-text" colspan="3">
+                                            <span class="unig-file-download-mark-add">{% trans %} Add to download list{% endtrans %}</span>
+                                            <span class="unig-file-download-mark-remove"
+                                                  style="display: none">{% trans %} Remove from download list{% endtrans %}</span>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
-                                {# SD #}
-                                <tr  role="button" class="unig-file-download-large-trigger" data-unig-file-url="{{ file.image.large.url }}">
-                                    <td class="unig-file-download-table-label">SD</td>
-                                    <td class="unig-file-download-table-width">{{ file.image.large.width }}&thinsp;px</td>
-                                    <td class="unig-file-download-table-size">
-                                        <span class="unig-file-download-table-size-sd">{{ file.image.large.filesize_formated }}</span>
-                                    </td>
-                                    <td class="unig-file-download-table-icon"><i class="fa fa-download" aria-hidden="true"></i>
-                                    </td>
+                                    {# SD #}
+                                    <tr role="button" class="unig-file-download-large-trigger"
+                                        data-unig-file-url="{{ file.image.large.url }}">
+                                        <td class="unig-file-download-table-label">SD</td>
+                                        <td class="unig-file-download-table-width">{{ file.image.large.width }}&thinsp;px</td>
+                                        <td class="unig-file-download-table-size">
+                                            <span class="unig-file-download-table-size-sd">{{ file.image.large.filesize_formated }}</span>
+                                        </td>
+                                        <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                                                                     aria-hidden="true"></i>
+                                        </td>
 
-                                </tr>
+                                    </tr>
 
-                                {# HD #}
-                                <tr  role="button" class="unig-file-download-unig_hd-trigger" data-unig-file-url="{{ file.image.unig_hd.url }}">
-                                    <td class="unig-file-download-table-label">HD</td>
-                                    <td class="unig-file-download-table-width">{{ file.image.unig_hd.width }}&thinsp;px</td>
-                                    <td class="unig-file-download-table-size">
-                                        <span class="unig-file-download-table-size-hd">{{ file.image.unig_hd.filesize_formated }}</span>
-                                    </td>
-                                    <td class="unig-file-download-table-icon"><i class="fa fa-download" aria-hidden="true"></i>
-                                    </td>
+                                    {# HD #}
+                                    <tr role="button" class="unig-file-download-unig_hd-trigger"
+                                        data-unig-file-url="{{ file.image.unig_hd.url }}">
+                                        <td class="unig-file-download-table-label">HD</td>
+                                        <td class="unig-file-download-table-width">
+                                            {{ file.image.unig_hd.width }}&thinsp;px
+                                        </td>
+                                        <td class="unig-file-download-table-size">
+                                            <span class="unig-file-download-table-size-hd">{{ file.image.unig_hd.filesize_formated }}</span>
+                                        </td>
+                                        <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                                                                     aria-hidden="true"></i>
+                                        </td>
 
-                                </tr>
+                                    </tr>
 
-                                {# XL #}
-                                <tr  role="button" class="unig-file-download-xl-trigger" data-unig-file-url="{{ file.image.original.url }}">
-                                    <td class="unig-file-download-table-label">XL</td>
-                                    <td class="unig-file-download-table-width">{{ file.image.original.width }}&thinsp;px</td>
-                                    <td class="unig-file-download-table-size">
-                                        <span class="unig-file-download-table-size-max">{{ file.image.original.filesize_formated }}</span>
-                                    </td>
-                                    <td class="unig-file-download-table-icon"><i class="fa fa-download" aria-hidden="true"></i>
-                                    </td>
+                                    {# XL #}
+                                    <tr role="button" class="unig-file-download-xl-trigger"
+                                        data-unig-file-url="{{ file.image.original.url }}">
+                                        <td class="unig-file-download-table-label">XL</td>
+                                        <td class="unig-file-download-table-width">
+                                            {{ file.image.original.width }}&thinsp;px
+                                        </td>
+                                        <td class="unig-file-download-table-size">
+                                            <span class="unig-file-download-table-size-max">{{ file.image.original.filesize_formated }}</span>
+                                        </td>
+                                        <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                                                                     aria-hidden="true"></i>
+                                        </td>
 
-                                </tr>
-                            </table>
+                                    </tr>
+                                </table>
                             </div>
 
 

@@ -28,7 +28,7 @@ class OutputController extends ControllerBase
 
     protected $title = '';
 
-    protected $type = 'status';  // status, warning, error
+    protected $type = 'status';  // status, info, success, warning, error
 
     protected $messages = []; // ($message = NULL, $type = 'status', $repeat = FALSE)
 
@@ -54,6 +54,7 @@ class OutputController extends ControllerBase
 
     /**
      * @param bool $status
+     *  status, info, warning, error
      */
     public function setStatus($status)
     {
@@ -113,7 +114,7 @@ class OutputController extends ControllerBase
      * $output->setMessage($message = NULL, $type = 'status', $repeat = FALSE)
      *
      * @param null $message
-     * @param string $type
+     * @param string $type    status, info, warning, error
      * @param bool $repeat
      */
     public function setMessages($message = NULL, $type = 'status', $repeat = FALSE)
@@ -123,7 +124,7 @@ class OutputController extends ControllerBase
             $new_message = [$message, $type];
             $this->messages[] = $new_message;
         } else {
-            $this->messages = FALSE;
+            $this->messages = [];
             $new_message = [$message, $type];
             $this->messages[0] = $new_message;
         }
@@ -137,7 +138,15 @@ class OutputController extends ControllerBase
         return $this->messages;
     }
 
+    public function getMessage($row = 0)
+    {
+        return $this->messages[$row ][0];
+    }
 
+    public function getMessageTyp($row = 0)
+    {
+        return $this->messages[$row][1];
+    }
     /**
      * @return array
      */

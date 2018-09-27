@@ -308,11 +308,212 @@
     padding: 2px 5px;
     font-size: 0.8em;
     border-radius: 2px; }
-  #unig-main.unig-theme-dark .unig-button.unig-button-icon {
-    border: none; }
-    #unig-main.unig-theme-dark .unig-button.unig-button-icon i, #unig-main.unig-theme-dark .unig-button.unig-button-icon svg {
+  #unig-main.unig-theme-dark .unig a.unig-button-icon,
+  #unig-main.unig-theme-dark .unig .unig-button-icon {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #888888;
+    border-color: transparent;
+    background-color: transparent; }
+    #unig-main.unig-theme-dark .unig a.unig-button-icon i, #unig-main.unig-theme-dark .unig a.unig-button-icon svg,
+    #unig-main.unig-theme-dark .unig .unig-button-icon i,
+    #unig-main.unig-theme-dark .unig .unig-button-icon svg {
       margin: 0;
       padding: 0; }
+    #unig-main.unig-theme-dark .unig a.unig-button-icon-info,
+    #unig-main.unig-theme-dark .unig .unig-button-icon-info {
+      display: inline-block;
+      box-sizing: border-box;
+      font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #4b4b4b;
+      border-color: transparent;
+      background-color: transparent; }
+    #unig-main.unig-theme-dark .unig a.unig-button-icon-success, #unig-main.unig-theme-dark .unig a.unig-button-icon-ok,
+    #unig-main.unig-theme-dark .unig .unig-button-icon-success,
+    #unig-main.unig-theme-dark .unig .unig-button-icon-ok {
+      display: inline-block;
+      box-sizing: border-box;
+      font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #185746;
+      border-color: transparent;
+      background-color: transparent; }
+    #unig-main.unig-theme-dark .unig a.unig-button-icon-warning,
+    #unig-main.unig-theme-dark .unig .unig-button-icon-warning {
+      display: inline-block;
+      box-sizing: border-box;
+      font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #7f5930;
+      border-color: transparent;
+      background-color: transparent; }
+    #unig-main.unig-theme-dark .unig a.unig-button-icon-error, #unig-main.unig-theme-dark .unig a.unig-button-icon-danger,
+    #unig-main.unig-theme-dark .unig .unig-button-icon-error,
+    #unig-main.unig-theme-dark .unig .unig-button-icon-danger {
+      display: inline-block;
+      box-sizing: border-box;
+      font-size: 12px;
+      padding: 2px 10px;
+      text-decoration: none;
+      border: 1px solid #101010;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #7f2013;
+      border-color: transparent;
+      background-color: transparent; }
+  #unig-main.unig-theme-dark a.unig-button-icon:hover,
+  #unig-main.unig-theme-dark .unig-button-icon:hover {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #b4b4b4;
+    border-color: transparent;
+    background-color: transparent; }
+  #unig-main.unig-theme-dark a.unig-button-icon-info:hover,
+  #unig-main.unig-theme-dark .unig-button-icon-info:hover {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #b8b8b8;
+    border-color: transparent;
+    background-color: transparent; }
+  #unig-main.unig-theme-dark a.unig-button-icon-success:hover, #unig-main.unig-theme-dark a.unig-button-icon-ok:hover,
+  #unig-main.unig-theme-dark .unig-button-icon-success:hover,
+  #unig-main.unig-theme-dark .unig-button-icon-ok:hover {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #daffd4; }
+  #unig-main.unig-theme-dark a.unig-button-icon-warning:hover,
+  #unig-main.unig-theme-dark .unig-button-icon-warning:hover {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff8cf; }
+  #unig-main.unig-theme-dark a.unig-button-icon-error:hover, #unig-main.unig-theme-dark a.unig-button-icon-danger:hover,
+  #unig-main.unig-theme-dark .unig-button-icon-error:hover,
+  #unig-main.unig-theme-dark .unig-button-icon-danger:hover {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #ffe6e5; }
+  #unig-main.unig-theme-dark a.unig-button-icon:active,
+  #unig-main.unig-theme-dark .unig-button-icon:active {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #4a4442;
+    border-color: transparent;
+    background-color: #979797; }
+  #unig-main.unig-theme-dark a.unig-button-icon-info:active,
+  #unig-main.unig-theme-dark .unig-button-icon-info:active {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #4a4442;
+    border-color: transparent;
+    background-color: #979797; }
+  #unig-main.unig-theme-dark a.unig-button-icon-success:active, #unig-main.unig-theme-dark a.unig-button-icon-ok:active,
+  #unig-main.unig-theme-dark .unig-button-icon-success:active,
+  #unig-main.unig-theme-dark .unig-button-icon-ok:active {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #daffd4; }
+  #unig-main.unig-theme-dark a.unig-button-icon-warning:active,
+  #unig-main.unig-theme-dark .unig-button-icon-warning:active {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff8cf; }
+  #unig-main.unig-theme-dark a.unig-button-icon-error:active, #unig-main.unig-theme-dark a.unig-button-icon-danger:active,
+  #unig-main.unig-theme-dark .unig-button-icon-error:active,
+  #unig-main.unig-theme-dark .unig-button-icon-danger:active {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-decoration: none;
+    border: 1px solid #101010;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #ffe6e5; }
   #unig-main.unig-theme-dark .unig-fieldset {
     display: inline-block;
     padding: 1px;
@@ -344,6 +545,11 @@
     background-color: #99a091; }
   #unig-main.unig-theme-dark .private .unig-button:active {
     background-color: #7b8175; }
+  #unig-main.unig-theme-dark .unig-button > *,
+  #unig-main.unig-theme-dark a.unig-button > *,
+  #unig-main.unig-theme-dark .unig-button-icon > *,
+  #unig-main.unig-theme-dark .unig-button-icon-info > * {
+    pointer-events: none; }
   #unig-main.unig-theme-dark ul.unig-tags-keywords {
     display: inline-block; }
   #unig-main.unig-theme-dark .unig-keyword-tag-id {

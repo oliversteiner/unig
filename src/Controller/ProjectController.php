@@ -78,18 +78,9 @@ class ProjectController extends ControllerBase
     public function ajaxSetCover($project_nid, $image_nid)
     {
 
-        $cover_id = ProjectTrait::setCover($project_nid, $image_nid);
+        $data = ProjectTrait::setCover($project_nid, $image_nid);
 
-        $message = 'Neues Titelbild gesetzt';
-
-        $response = new AjaxResponse();
-        $response->addCommand(new ReplaceCommand('.unig-ajax-container', '<div class="unig-ajax-container">
-    <div class="unig-ajax-container-elem fade-in">
-        <i class="fa fa-check unig-fa-check"></i>
-        <span>' . $message . '</span>
-    </div>
-</div>'));
-        return $response;
+        return $data->json();
 
     }
 
@@ -100,7 +91,6 @@ class ProjectController extends ControllerBase
     public function ajaxAddAlbum($file_nid, $album_nid)
     {
 
-        dpm('ajax_setCover: ' . $file_nid, $album_nid);
 
         $album_name = AlbumTrait::getAlbum($album_nid)->title;
 

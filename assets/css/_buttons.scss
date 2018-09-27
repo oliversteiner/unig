@@ -206,14 +206,141 @@ a.unig-button,
   border-radius: 2px;
 }
 
-.unig-button.unig-button-icon {
-  border: none;
+
+// Button only icon
+
+
+
+// default
+.unig a.unig-button-icon,
+.unig .unig-button-icon {
+  @include unig-button;
+  color: $color-default-text;
+  border-color: transparent;
+  background-color: transparent;
 
   i, svg {
     margin: 0;
     padding: 0;
   }
+
+  &-info {
+    @include unig-button;
+    color: $color-admin-info;
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  &-success,
+  &-ok {
+    @include unig-button;
+    color: $color-ok-text;
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  &-warning {
+    @include unig-button;
+    color: $color-warning-text;
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  &-error,
+  &-danger {
+    @include unig-button;
+    color: $color-error-text;
+    border-color: transparent;
+    background-color: transparent;
+  }
+
 }
+
+// :hover
+a.unig-button-icon,
+.unig-button-icon {
+
+  &:hover {
+    @include unig-button;
+    color: $color-default-text-hover;
+    border-color: transparent;
+    background-color: transparent;
+  }
+  &-info:hover {
+    @include unig-button;
+    color: $color-admin-text;
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  &-success:hover,
+  &-ok:hover {
+    @include unig-button;
+    background-color: transparent;
+    border-color: transparent;
+    color: $color-ok-background;
+  }
+
+  &-warning:hover {
+    @include unig-button;
+    background-color: transparent;
+    border-color: transparent;
+    color: $color-warning-background;
+  }
+
+  &-error:hover,
+  &-danger:hover {
+    @include unig-button;
+    background-color: transparent;
+    border-color: transparent;
+    color: $color-error-background;
+  }
+
+}
+
+// :active
+a.unig-button-icon,
+.unig-button-icon {
+
+  &:active {
+    @include unig-button;
+    color: $color-admin-text-active;
+    border-color: transparent;
+    background-color: $color-admin-background-active;
+  }
+
+  &-info:active {
+    @include unig-button;
+    color: $color-admin-text-active;
+    border-color: transparent;
+    background-color: $color-admin-background-active;
+  }
+  &-success:active,
+  &-ok:active {
+    @include unig-button;
+    background-color: transparent;
+    border-color: transparent;
+    color: $color-ok-background;
+  }
+
+  &-warning:active {
+    @include unig-button;
+    background-color: transparent;
+    border-color: transparent;
+    color: $color-warning-background;
+  }
+
+  &-error:active,
+  &-danger:active {
+    @include unig-button;
+    background-color: transparent;
+    border-color: transparent;
+    color: $color-error-background;
+  }
+
+}
+
+
 
 // Fieldset
 .unig-fieldset {
@@ -266,4 +393,12 @@ a.unig-button,
   .unig-button:active {
     background-color: $color-admin-private-active;
   }
+}
+
+// https://css-tricks.com/slightly-careful-sub-elements-clickable-things/
+.unig-button > *,
+a.unig-button > *,
+.unig-button-icon > *,
+.unig-button-icon-info > *{
+  pointer-events: none;
 }

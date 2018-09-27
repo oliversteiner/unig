@@ -59,25 +59,18 @@
       return nid;
     },
 
-    showMessages(results) {
-      const messageContainer = $(".unig-messages-container");
-      const type = "";
 
-      if (results) {
-        results.messages.forEach((index, item) => {});
-      }
-    },
 
     save(data, route) {
       $.ajax({
         url: Drupal.url(`unig/${route}`),
         type: "POST",
         data: {
-          data: data
+          data
         },
         dataType: "json",
         success(results) {
-          this.showMessages(results);
+          Drupal.behaviors.unig.showMessages(results);
         }
       });
 
@@ -153,14 +146,11 @@
 
           fetch(url)
               .then(response => response.json())
-              .then(myJson => {
-                  // Set message to ajac container
-                  const newElem = document.createElement("div");
-                  newElem.innerHTML = myJson[0].data;
+              .then(json => {
 
-                  const oldElem = document.querySelector(myJson[0].selector);
-                  const parentElem = oldElem.parentNode;
-                  parentElem.replaceChild(newElem, oldElem);
+                  // Set message to ajac container
+console.log('setProjectCover', json);
+Drupal.behaviors.unig.showMessages(json.messages);
 
                   // deactivate all active covers
                   const allActiveCoverElems = document.querySelectorAll(
