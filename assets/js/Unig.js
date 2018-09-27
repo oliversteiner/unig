@@ -147,10 +147,7 @@
 
           content +=
             `<span class="unig-message-icon">${icon}</span>` +
-            `<span class="unig-message-text">${message}</span>` +
-            `<span  role="button"  class="">` +
-            `` +
-            `</span>`;
+            `<span class="unig-message-text">${message}</span>`;
 
           // li
           const messageElem = document.createElement("li");
@@ -175,8 +172,6 @@
 
           // Add new Node to List
           messagesList.forEach(elem => {
-            console.log("messagesContainer", messagesList);
-
             elem.appendChild(messageElem);
           });
         });
