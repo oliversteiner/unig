@@ -59,6 +59,11 @@
       return nid;
     },
 
+    getProjectNid(){
+        return drupalSettings.unig.project.project.nid;
+
+    },
+
 
 
     save(data, route) {
@@ -299,6 +304,89 @@ Drupal.behaviors.unig.showMessages(json.messages);
       $(".unig-generate-preview-images-trigger", context).click(() => {
         Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
       });
+
+          const projectNid = scope.getProjectNid(event);
+
+
+          //  Edit Trigger
+          document
+            .querySelectorAll(".unig-project-edit-trigger")
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                () => {
+                  Drupal.behaviors.unigProjectList.toggleEditProject(projectNid);
+                },
+                false
+              )
+            );
+
+          //  Save Trigger
+          document
+            .querySelectorAll(".unig-project-save-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                () => {
+                  Drupal.behaviors.unigProjectList.saveProject(projectNid);
+                },
+                false
+              )
+            );
+
+          //  Cancel Trigger
+          document
+            .querySelectorAll(".unig-project-cancel-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                () => {
+                  Drupal.behaviors.unigProjectList.resetProject(projectNid);
+                },
+                false
+              )
+            );
+
+
+
+          //  Delete Project Trigger
+          document
+            .querySelectorAll(".unig-project-delete-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                () => {
+                  Drupal.behaviors.unigProjectList.confirmDeleteProject(projectNid);
+                },
+                false
+              )
+            );
+
+          //  Cancel Delete Project Trigger
+          document
+            .querySelectorAll(".unig-project-delete-cancel-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                () => {
+                  Drupal.behaviors.unigProjectList.cancelDeleteProject(projectNid);
+                },
+                false
+              )
+            );
+
+          // Open Edit Dialog on dubleclick
+          document
+            .querySelectorAll(".unig-project-title-trigger", context)
+            .forEach(edit =>
+              edit.addEventListener(
+                "dblclick",
+                () => {
+                  Drupal.behaviors.unigProjectList.toggleEditProject(projectNid);
+                },
+                false
+              )
+            );
         }
       )
     }

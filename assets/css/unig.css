@@ -1169,7 +1169,8 @@ ul.unig-messages li {
 
 .unig-row {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  flex-wrap: wrap; }
 
 .unig-row-start {
   display: flex;

@@ -221,6 +221,10 @@ ul.unig-gallery li.unig-file-item:hover {
 .unig-fieldset-item .unig-edit-project-copyright {
   color: #8f8f8f; }
 
+.unig-project-description {
+  max-width: 500px;
+  margin: 0 20px; }
+
 .unig-project-container-delete {
   margin-top: 50px; }
 

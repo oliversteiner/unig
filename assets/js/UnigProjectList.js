@@ -280,7 +280,7 @@
 
           //  Edit Trigger
           document
-            .querySelectorAll(".unig-project-edit-trigger", context)
+            .querySelectorAll(".unig-project-edit-trigger")
             .forEach(elem =>
               elem.addEventListener(
                 "click",

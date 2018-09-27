@@ -25,6 +25,7 @@
                         {# Header #}
                         <div class="unig-fieldset-header">
                             <div class="unig-fieldset-title"></div>
+
                         </div>
 
                         {# Body#}
@@ -32,10 +33,11 @@
 
                             {# Left#}
                             <div class="unig-fieldset-item">
-                                <h2 class="unig-project-title unig-project-title-trigger unig-project-title-{{ project.nid }}">{{ project.title }}</h2>
+                                <div>
+                                    <h2 class="unig-project-title unig-project-title-trigger unig-project-title-{{ project.nid }}">{{ project.title }}</h2>
 
-                                {# ----------- Bearbeiten ----------- #}
-                                <div class="unig-button-project-edit-wrapper">
+                                    {# ----------- Bearbeiten ----------- #}
+                                    <div class="unig-button-project-edit-wrapper">
                             <span role="button"
                                   class="unig-button-icon-info
                                   unig-button-project-edit
@@ -46,31 +48,34 @@
                                     <i class="fa fa-edit"></i>
                                 </span>
                             </span>
+                                    </div>
+
                                 </div>
                             </div>
 
                             {# Private #}
-                            <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   (Privat) {% endif %} </div>
+                            <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   Private {% endif %} </div>
 
                             {# Description #}
-                            <div class="unig-fieldset-item unig-project-description unig-project-description-{{ project.nid }} ">
-                                {{ project.description }}
-                            </div>
-
-                            {# Center #}
-                            <div class="unig-fieldset-item unig-project-number-of-items">
+                            <div class="unig-fieldset-item ">
                                 {# Anzahl Bilder #}
-                                <i class="fa fa-image" aria-hidden="true"></i>
-
-                                <span class="number_of_visible">{{ project.number_of_items }}</span>
+                                <div class="unig-project-number-of-items">
+                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                    <span class="number_of_visible">{{ project.number_of_items }}</span>
+                                </div>
+                                <div class="unig-project-description unig-project-description-{{ project.nid }} ">
+                                    {{ project.description }}
+                                </div>
                             </div>
 
-                            <div class="unig-fieldset-item unig-project-copyright unig-project-copyright-{{ project.nid }} ">
-                                {{ project.copyright }}
-                            </div>
 
                             {# Right #}
-                            <div class="unig-fieldset-item unig-project-date unig-project-date-{{ project.nid }}"> {{ datum }} </div>
+                            <div class="unig-fieldset-item">
+                                <div class="unig-project-date unig-project-date-{{ project.nid }}"> {{ datum }} </div>
+                                <div class="unig-project-copyright unig-project-copyright-{{ project.nid }} ">
+                                    {{ project.copyright }}
+                                </div>
+                            </div>
                         </div>
 
                         {# Fieldset Footer #}
@@ -110,46 +115,44 @@
 
                             {# Left#}
                             <div class="unig-fieldset-item">
-                                {# ----------- Title ----------- #}
-                                <h2 class="unig-project-title unig-project-title-{{ project.nid }} unig-project-title-trigger">{{ project.title }}</h2>
+                                <div>
+                                    {# ----------- Title ----------- #}
+                                    <h2 class="unig-project-title unig-project-title-{{ project.nid }} unig-project-title-trigger">{{ project.title }}</h2>
 
-                                {# ----------- Cancel Button ----------- #}
-                                <div class="unig-button-project-edit-wrapper">
-                                    <div role="button"
-                                         class="unig-button unig-button-icon
+                                    {# ---------- Cancel Button ----------- #}
+                                    <div class="unig-button-project-edit-wrapper">
+                                        <div role="button"
+                                             class="unig-button unig-button-icon
                                      unig-button-project-edit
                                      unig-button-project-edit-close
                                      unig-button-project-edit-close-{{ project.nid }}
                                      unig-project-edit-trigger">
-                                        <div class="close">
-                                            <i class="fa fa-times"></i>
+                                            <div class="close">
+                                                <i class="fa fa-times"></i>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
                             {# Private #}
-                            <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   (Privat) {% endif %} </div>
+                            <div class="unig-fieldset-item">
 
-                            {# Description #}
-                            <div class="unig-fieldset-item unig-project-description unig-project-description-{{ project.nid }} ">
-                                {{ project.description }}
+                                <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   (Privat) {% endif %} </div>
                             </div>
 
-                            {# Center #}
-                            <div class="unig-fieldset-item unig-project-number-of-items">
-
-                                {# Anzahl Bilder #}
-                                <i class="fa fa-image" aria-hidden="true"></i>
-                                <span class="number_of_visible">{{ project.number_of_items }}</span>
+                            {# Anzahl Bilder #}
+                            <div class="unig-fieldset-item">
+                                <div class="unig-project-number-of-items">
+                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                    <span class="number_of_visible">{{ project.number_of_items }}</span>
+                                </div>
                             </div>
+                            <div class="unig-fieldset-item">
 
-                            <div class="unig-fieldset-item unig-project-copyright unig-project-copyright-{{ project.nid }} ">
-                                {{ project.copyright }}
+
                             </div>
-
-                            {# Right #}
-                            <div class="unig-fieldset-item unig-project-date unig-project-date-{{ project.nid }} "> {{ datum }} </div>
                         </div>
 
                         {# Fieldset Footer #}
@@ -346,7 +349,8 @@
             <div class="unig-fieldset no-border unig-fieldset-general">
 
                 {# All Projects #}
-                <a type="button" class=" unig-button unig-button-show-projects" href="{{ path('unig.project_list') }}">
+                <a type="button" class=" unig-button unig-button-show-projects"
+                   href="{{ path('unig.project_list') }}">
                     <i class="fa fa-list" aria-hidden="true"></i>
                     {% trans %} All Projects {% endtrans %}
                 </a>
@@ -418,7 +422,8 @@
                 </div>
 
                 {# Button Theme Default #}
-                <div class="unig-button unig-button-theme-default  unig-theme-default-trigger" style="display: none">
+                <div class="unig-button unig-button-theme-default  unig-theme-default-trigger"
+                     style="display: none">
                     <i class="fa fa-adjust" aria-hidden="true"></i>
                     {% trans %} Bright {% endtrans %}
                 </div>
@@ -633,40 +638,6 @@
         <div class="unig-messages-container">
 
             <ul class="unig-messages">
-                {# succsess#}
-                <li class="unig-message-type-success">
-                    <span class="unig-message-icon"><i class="fas fa-check"></i></span>
-                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
-                    <span class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
-                </li>
-
-                {# info #}
-                <li class="unig-message-type-info">
-                    <span class="unig-message-icon"><i class="fas fa-info-circle"></i></span>
-                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
-                    <span role="button" class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
-                </li>
-
-                {# status #}
-                <li class="unig-message-type-status">
-                    <span class="unig-message-icon"></span>
-                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
-                    <span role="button"  class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
-                </li>
-
-                {# warning #}
-                <li class="unig-message-type-warning">
-                    <span class="unig-message-icon"><i class="fas fa-exclamation-triangle"></i></span>
-                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
-                    <span role="button"  class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
-                </li>
-
-                {# error #}
-                <li class="unig-message-type-error">
-                    <span class="unig-message-icon"><i class="fas fa-exclamation-circle"></i></span>
-                    <span class="unig-message-text">Hinter den Sieben Hügeln leben 7 Zwerge.</span>
-                    <span role="button"  class="unig-button-icon-info unig-message-button-close unig-message-close-trigger"><i class="fa fa-times" aria-hidden="true"></i></span>
-                </li>
 
             </ul>
         </div>
@@ -848,7 +819,8 @@
                                     </div>
                                 </div>
 
-                                <div class="unig-set-project-cover-process"><i class="fa fa-spinner fa-spin"></i></div>
+                                <div class="unig-set-project-cover-process"><i class="fa fa-spinner fa-spin"></i>
+                                </div>
                             </div>
 
                             {#  -----------   Title  -----------  #}
@@ -983,7 +955,9 @@
                                     <tr role="button" class="unig-file-download-large-trigger"
                                         data-unig-file-url="{{ file.image.large.url }}">
                                         <td class="unig-file-download-table-label">SD</td>
-                                        <td class="unig-file-download-table-width">{{ file.image.large.width }}&thinsp;px</td>
+                                        <td class="unig-file-download-table-width">
+                                            {{ file.image.large.width }}&thinsp;px
+                                        </td>
                                         <td class="unig-file-download-table-size">
                                             <span class="unig-file-download-table-size-sd">{{ file.image.large.filesize_formated }}</span>
                                         </td>

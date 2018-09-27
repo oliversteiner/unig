@@ -51,6 +51,10 @@ trait projectTemplateTrait
             ],
         ];
 
+        // Project Variables for JS
+        $build['#attached']['drupalSettings']['unig']['project'] = $this->getProjectVariables($project_nid, $album_nid);
+
+        // Adding JS Library depends of admin or not
         if(\Drupal::currentUser()->hasPermission('access unig admin')){
             $build['#attached']['library'] = 'unig/unig.admin.project';
         }else{

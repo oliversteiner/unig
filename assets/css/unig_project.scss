@@ -303,7 +303,10 @@ ul.unig-gallery li.unig-file-item:hover {
   color: $color-admin-info;
 }
 
-
+.unig-project-description{
+  max-width: 500px;
+  margin: 0 20px;
+}
 
 .unig-project-container-delete {
   margin-top: 50px;

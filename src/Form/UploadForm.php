@@ -277,7 +277,7 @@
       }
 
       // Feedback Album und Bilder
-      $this->messenger()->addMessage($message, 'custom');
+     // $this->messenger()->addMessage($message, 'custom');
 
       $arr_args = ['project_nid' => $project_nid];
       $form_state->setRedirect('unig.project', $arr_args);

@@ -273,14 +273,14 @@ trait ProjectTrait
             $output->setStatus(true);
             $output->setTitle($title);
             $output->setTid($cover_tid);
-            $output->setMessages(t('New cover picture set for project '), 'success');
+            $output->setMessages(t('New cover picture set for project '.$title), 'success');
 
 
         } catch (EntityStorageException $e) {
             $output->setStatus(true);
             $output->setTitle($node->getTitle());
             $output->setTid(0);
-            $output->setMessages(t("ERROR: cover image adding failed. Project: "), 'error');
+            $output->setMessages(t("ERROR: cover image adding failed. Project: ".$title), 'error');
         }
 
         return $output;

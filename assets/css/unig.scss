@@ -33,6 +33,7 @@ body {
 .unig-row {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .unig-row-start {
