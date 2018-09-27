@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ost
- * Date: 06.12.17
- * Time: 16:58
- */
+
 
 namespace Drupal\unig\Controller;
 
@@ -111,10 +106,10 @@ class OutputController extends ControllerBase
 
 
     /**
-     * $output->setMessage($message = NULL, $type = 'status', $repeat = FALSE)
+     *
      *
      * @param null $message
-     * @param string $type    status, info, warning, error
+     * @param string $type
      * @param bool $repeat
      */
     public function setMessages($message = NULL, $type = 'status', $repeat = FALSE)
@@ -138,15 +133,24 @@ class OutputController extends ControllerBase
         return $this->messages;
     }
 
+    /**
+     * @param int $row
+     * @return mixed
+     */
     public function getMessage($row = 0)
     {
-        return $this->messages[$row ][0];
+        return $this->messages[$row][0];
     }
 
-    public function getMessageTyp($row = 0)
+    /**
+     * @param int $row
+     * @return mixed
+     */
+    public function getMessageType($row = 0)
     {
         return $this->messages[$row][1];
     }
+
     /**
      * @return array
      */
@@ -181,6 +185,9 @@ class OutputController extends ControllerBase
         $this->mode = $mode;
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function json()
     {
 

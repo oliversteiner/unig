@@ -268,14 +268,18 @@ trait ProjectTrait
         $node->field_unig_project_cover = ['target_id' => $nid_cover,];
         try {
             $node->save();
+            $cover_tid = $node->get('field_unig_project_cover')->target_id;
+
             $output->setStatus(true);
             $output->setTitle($title);
+            $output->setTid($cover_tid);
             $output->setMessages(t('New cover picture set for project '), 'success');
 
 
         } catch (EntityStorageException $e) {
             $output->setStatus(true);
             $output->setTitle($node->getTitle());
+            $output->setTid(0);
             $output->setMessages(t("ERROR: cover image adding failed. Project: "), 'error');
         }
 
@@ -297,64 +301,67 @@ trait ProjectTrait
 
         $node = Node::load($nid);
 
-        // Field Event Image
-        if (!empty($node->field_unig_image)) {
-            if (isset($node->field_unig_image->entity)) {
+        if ($node) {
 
-                $list_image_styles = \Drupal::entityQuery('image_style')->execute();
+            // Field Event Image
+            if (!empty($node->field_unig_image)) {
+                if (isset($node->field_unig_image->entity)) {
 
-                foreach ($node->field_unig_image as $image) {
+                    $list_image_styles = \Drupal::entityQuery('image_style')->execute();
 
-                    if ($image->entity) {
+                    foreach ($node->field_unig_image as $image) {
 
-                        // Original
+                        if ($image->entity) {
 
-                        $path = $image->entity->getFileUri();
-                        $url = file_create_url($path);
+                            // Original
 
-                        $filesize = filesize($path);
-                        $filesize_formated = format_size($filesize);
-                        list($width, $height) = getimagesize($path);
+                            $path = $image->entity->getFileUri();
+                            $url = file_create_url($path);
 
-                        $variables['original']['url'] = $url;
-                        $variables['original']['uri'] = $path;
-                        $variables['original']['filesize'] = $filesize;
-                        $variables['original']['filesize_formated'] = $filesize_formated;
-                        $variables['original']['width'] = $width;
-                        $variables['original']['height'] = $height;
+                            $filesize = filesize($path);
+                            $filesize_formated = format_size($filesize);
+                            list($width, $height) = getimagesize($path);
 
-                        // styles
+                            $variables['original']['url'] = $url;
+                            $variables['original']['uri'] = $path;
+                            $variables['original']['filesize'] = $filesize;
+                            $variables['original']['filesize_formated'] = $filesize_formated;
+                            $variables['original']['width'] = $width;
+                            $variables['original']['height'] = $height;
 
-
-                        foreach ($list_image_styles as $images_style) {
-
-
-                            $style = ImageStyle::load($images_style);
-                            $url = $style->buildUrl($path);
-                            $uri = $style->buildUri($path);
+                            // styles
 
 
-                            if (file_exists($uri)) {
+                            foreach ($list_image_styles as $images_style) {
 
-                                $filesize = filesize($uri);
-                                $filesize_formated = format_size($filesize);
-                                list($width, $height) = getimagesize($uri);
 
-                                $variables[$images_style]['url'] = $url;
-                                $variables[$images_style]['uri'] = $uri;
-                                $variables[$images_style]['filesize'] = $filesize;
-                                $variables[$images_style]['filesize_formated'] = $filesize_formated;
-                                $variables[$images_style]['width'] = $width;
-                                $variables[$images_style]['height'] = $height;
+                                $style = ImageStyle::load($images_style);
+                                $url = $style->buildUrl($path);
+                                $uri = $style->buildUri($path);
+
+
+                                if (file_exists($uri)) {
+
+                                    $filesize = filesize($uri);
+                                    $filesize_formated = format_size($filesize);
+                                    list($width, $height) = getimagesize($uri);
+
+                                    $variables[$images_style]['url'] = $url;
+                                    $variables[$images_style]['uri'] = $uri;
+                                    $variables[$images_style]['filesize'] = $filesize;
+                                    $variables[$images_style]['filesize_formated'] = $filesize_formated;
+                                    $variables[$images_style]['width'] = $width;
+                                    $variables[$images_style]['height'] = $height;
+                                }
+
+
                             }
-
-
                         }
                     }
                 }
+
+
             }
-
-
         }
         return $variables;
 
@@ -489,7 +496,7 @@ trait ProjectTrait
             ->load($project_nid);
 
 
-        if ($node->get('nid')->getValue()) {
+        if ($node && $node->get('nid')->getValue()) {
             // NID
             $node_nid = $node->get('nid')->getValue();
             $nid = $node_nid[0]['value'];
@@ -555,7 +562,8 @@ trait ProjectTrait
             $cover_id = $node_cover[0]['target_id'];
 
             if ($cover_id == NULL) {
-                $cover_id = self::setCover($nid);
+                $output = self::setCover($nid);
+                $cover_id = $output->getTid();
             }
 
             // Cover Image
@@ -605,11 +613,14 @@ trait ProjectTrait
 
 
             ];
-            return $project;
 
         } else {
-            return [];
+
+            $project = [
+                'nid' => 0];
         }
+        return $project;
+
     }
 
 
