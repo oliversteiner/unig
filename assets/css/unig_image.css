@@ -5,9 +5,9 @@
 *
 */
 .unig-image-background {
-  position: relative;
-  vertical-align: middle;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
   cursor: zoom-in;
   border-radius: 3px;
   margin: 0;
@@ -95,6 +95,11 @@ ul.unig-gallery li.unig-file-item:hover.marked {
 
 .unig-file-weight {
   border-right: 1px solid #8f8f8f; }
+
+.unig-file-name {
+  display: block;
+  padding: 2px 9px;
+  font-family: sans-serif; }
 
 .unig-project-date {
   font-size: 1.2em; }

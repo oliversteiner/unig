@@ -145,19 +145,21 @@
                             {# ----------- Cover ----------- #}
                             <div class="unig-project-cover">
                                 <a href="/unig/project/{{ project.nid }}">
-                                    <div class="unig-image-background">
+                                    <div class="unig-project-cover-background">
                                         {% if project.cover_image.unig_cover.url %}
-
-                                            <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                            <div class="unig-project-cover-image">
+                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                            </div>
                                         {% else %}
-                                            <div><i class="far fa-image"></i></div>
-                                            <div class="cover-description">
+                                        <div class="unig-project-cover-image-placeholder">
+
+                                        <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+                                            <div class="unig-project-cover-text">
                                                 <span>{% trans %} No cover picture selected yet {% endtrans %}</span>
                                             </div>
+                                        </div>
                                         {% endif %}
-
                                     </div>
-
                                 </a>
                             </div>
 
@@ -455,54 +457,63 @@
                                 {# ----------- Cover ----------- #}
                                 <div class="unig-project-cover">
                                     <a href="/unig/lightgallery/{{ project.nid }}">
-                                        <div class="unig-project-image-background">
+                                        <div class="unig-project-cover-background">
+
                                             {% if project.cover_image.unig_cover.url %}
-                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                            <div class="unig-project-cover-image">
+                                            <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                            </div>
                                             {% else %}
-                                                <div><i class="far fa-image"></i></div>
-                                                <div class="cover-description">
+                                            <div class="unig-project-cover-image-placeholder">
+
+                                            <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+                                                <div class="unig-project-cover-text">
                                                     <span>{% trans %} No cover picture selected yet {% endtrans %}</span>
                                                 </div>
+                                            </div>
                                             {% endif %}
-
                                         </div>
                                     </a>
                                 </div>
 
-                                {# ----------- Datum ----------- #}
-                                <div class="unig-project-date"> {{ datum }}</div>
+                                {# ----------- Text ----------- #}
+
+                                <div class="unig-project-text">
+                                    {# ----------- Datum ----------- #}
+                                    <div class="unig-project-date"> {{ datum }}</div>
 
 
-                                {# ----------- Titel ----------- #}
-                                <h2 class="unig-project-title">
-                                    <a href="{{ path('unig.lightgallery', {'album_nid': 'x', 'project_nid': project.nid}) }}">
-                                        {{ project.title }}
-                                    </a>
-                                </h2>
+                                    {# ----------- Titel ----------- #}
+                                    <h2 class="unig-project-title">
+                                        <a href="{{ path('unig.lightgallery', {'album_nid': 'x', 'project_nid': project.nid}) }}">
+                                            {{ project.title }}
+                                        </a>
+                                    </h2>
 
 
-                                {# ----------- Anzahl Bilder ----------- #}
-                                <div class="unig-project-number-of-items">
-                                    {% if project.number_of_items == 1 %}
-                                        {{ project.number_of_items }}
+                                    {# ----------- Anzahl Bilder ----------- #}
+                                    <div class="unig-project-number-of-items">
+                                        {% if project.number_of_items == 1 %}
+                                            {{ project.number_of_items }}
 
-                                        {% trans %} Image {% endtrans %}
-
-
-                                    {% elseif project.number_of_items > 1 %}
-                                        {{ project.number_of_items }}
-
-                                        {% trans %} Images {% endtrans %}
+                                            {% trans %} Image {% endtrans %}
 
 
-                                    {% endif %}
+                                        {% elseif project.number_of_items > 1 %}
+                                            {{ project.number_of_items }}
+
+                                            {% trans %} Images {% endtrans %}
+
+
+                                        {% endif %}
+                                    </div>
+
+                                    {# ----------- body ----------- #}
+                                    <div class="unig-project-description">{{ project.description }}</div>
+
+                                    {# ----------- copyright ----------- #}
+                                    <div class="unig-project-copyright">{{ project.copyright }}</div>
                                 </div>
-
-                                {# ----------- body ----------- #}
-                                <div class="unig-project-description">{{ project.description }}</div>
-
-                                {# ----------- copyright ----------- #}
-                                <div class="unig-project-copyright">{{ project.copyright }}</div>
 
                             </article>
                         </li>
@@ -514,50 +525,57 @@
 
                             <article class="unig unig-project {{ class }}">
 
+
                                 {# ----------- Cover ----------- #}
                                 <div class="unig-project-cover">
                                     <a href="/unig/lightgallery/{{ project.nid }}">
-                                        <div class="unig-project-image-background">
+                                        <div class="unig-project-cover-background">
                                             {% if project.cover_image.unig_cover.url %}
-                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                                <div class="unig-project-cover-image">
+                                                    <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                                </div>
                                             {% else %}
-                                                <div><i class="far fa-image"></i></div>
-                                                <div class="cover-description">
+                                                <div class="unig-project-cover-image-placeholder">
+                                                <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+                                                <div class="unig-project-cover-text">
                                                     <span>{% trans %} No cover picture selected yet {% endtrans %}</span>
                                                 </div>
+                                                </div>
                                             {% endif %}
-
                                         </div>
                                     </a>
                                 </div>
+                                {# ----------- Text ----------- #}
 
-                                {# ----------- Datum ----------- #}
-                                <div class="unig-project-date"> {{ datum }}</div>
+                                <div class="unig-project-text">
 
-
-                                {# ----------- Titel ----------- #}
-                                <h2 class="unig-project-title">
-                                    <a href="{{ path('unig.lightgallery', {'album_nid': 'x', 'project_nid': project.nid}) }}">
-                                        {{ project.title }}
-                                    </a>
-                                </h2>
+                                    {# ----------- Datum ----------- #}
+                                    <div class="unig-project-date"> {{ datum }}</div>
 
 
-                                {# ----------- Anzahl Bilder ----------- #}
-                                <div class="unig-project-number-of-items">
-                                    {% if project.number_of_items == 1 %}
-                                        {{ project.number_of_items }} Bild
-                                    {% elseif project.number_of_items > 1 %}
-                                        {{ project.number_of_items }} Bilder
-                                    {% endif %}
+                                    {# ----------- Titel ----------- #}
+                                    <h2 class="unig-project-title">
+                                        <a href="{{ path('unig.lightgallery', {'album_nid': 'x', 'project_nid': project.nid}) }}">
+                                            {{ project.title }}
+                                        </a>
+                                    </h2>
+
+
+                                    {# ----------- Anzahl Bilder ----------- #}
+                                    <div class="unig-project-number-of-items">
+                                        {% if project.number_of_items == 1 %}
+                                            {{ project.number_of_items }} Bild
+                                        {% elseif project.number_of_items > 1 %}
+                                            {{ project.number_of_items }} Bilder
+                                        {% endif %}
+                                    </div>
+
+                                    {# ----------- body ----------- #}
+                                    <div class="unig-project-description">{{ project.description }}</div>
+
+                                    {# ----------- copyright ----------- #}
+                                    <div class="unig-project-copyright">{{ project.copyright }}</div>
                                 </div>
-
-                                {# ----------- body ----------- #}
-                                <div class="unig-project-description">{{ project.description }}</div>
-
-                                {# ----------- copyright ----------- #}
-                                <div class="unig-project-copyright">{{ project.copyright }}</div>
-
                             </article>
                         </li>
                     {% endif %}

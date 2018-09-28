@@ -14,14 +14,25 @@ li.unig-file-item {
   margin: 15px;
   border-radius: 5px;
   padding: 5px;
-  border: 1px solid silver; }
-
-li.unig-file-item:hover {
-  background: silver;
-  cursor: zoom-in; }
+  cursor: zoom-in;
+  color: #7a7a7a;
+  background-color: #transparent;
+  border: 1px solid rgba(215, 215, 215, 0); }
+  li.unig-file-item:hover {
+    color: #ededed;
+    background-color: #b3b3b3;
+    border-color: rgba(122, 122, 122, 0); }
+  li.unig-file-item:active {
+    color: #ffffff;
+    background-color: #565656;
+    border-color: rgba(122, 122, 122, 0); }
 
 li.unig-file-item img {
-  border: 1px solid silver; }
+  border: 1px solid rgba(215, 215, 215, 0); }
+  li.unig-file-item img:hover {
+    border-color: rgba(122, 122, 122, 0); }
+  li.unig-file-item img:active {
+    border-color: rgba(122, 122, 122, 0); }
 
 .unig-back-to-list {
   margin-bottom: 5px; }
@@ -49,11 +60,16 @@ h2.unig-project-title {
   margin-bottom: 5px; }
 
 .unig-file-index {
-  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
   padding: 0 0 5px 5px; }
 
+.unig-file-name {
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 0.9em;
+  padding: 8px 8px 0 8px; }
+
 .unig-file-title {
-  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
   font-size: 0.9em; }
 
 .unig-gallery-toolbar {
@@ -62,27 +78,40 @@ h2.unig-project-title {
 .unig-gallery-toolbar-item {
   margin-bottom: 5px; }
 
+.unig-image-background {
+  display: flex;
+  align-content: flex-start;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0; }
+
 .unig-gallery-button {
   font-size: 0.7em;
   color: #9f9f9f;
-  border: 1px #dfdfdf solid;
+  background: transparent;
+  border: 1px solid transparent;
   border-radius: 5px;
-  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
   margin-bottom: 5px;
-  padding: 2px 8px 2px 8px; }
+  padding: 2px 8px 2px 8px;
+  cursor: pointer; }
   .unig-gallery-button:hover {
-    color: black;
-    background: silver;
-    cursor: pointer; }
+    color: #4d4d4d;
+    background-color: #e4e4e4;
+    border-color: transparent; }
   .unig-gallery-button:active {
     color: #c8c8c8;
-    background: #313131; }
+    background-color: #313131;
+    border-color: #dfdfdf; }
   .unig-gallery-button.active {
-    background: #d4d4d4;
-    color: #434343; }
+    color: #434343;
+    background-color: #d4d4d4;
+    border-color: #dfdfdf; }
   .unig-gallery-button.active:hover {
     color: #c8c8c8;
-    background: #313131; }
+    background-color: #313131;
+    border-color: #313131; }
 
 ul.unig-project-list {
   display: flex;
@@ -94,44 +123,56 @@ li.unig-project-list-item {
 
 li.unig-project-list-item article {
   display: block;
+  box-sizing: border-box;
   border: 1px silver solid;
   width: 240px;
-  padding: 18px;
   margin: 0 19px 40px 0; }
 
 .unig-project-cover {
   display: flex;
   justify-content: center;
-  align-content: center; }
+  align-content: center;
+  text-align: center;
+  margin-bottom: 10px; }
 
-.unig-project-image-background {
-  display: block;
-  box-sizing: border-box;
-  background-color: #d4d4d4;
-  color: gray;
+.unig-project-cover-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #7a7a7a;
+  background-color: #9f9f9f;
+  border: 1px solid transparent;
   width: 240px;
   height: 240px;
-  text-align: center;
-  padding-top: 10px;
-  margin-bottom: 10px; }
-  .unig-project-image-background i,
-  .unig-project-image-background svg {
-    margin-top: 80px;
-    font-size: 40px; }
+  cursor: pointer; }
+  .unig-project-cover-background:hover {
+    color: #959595;
+    background-color: #575757;
+    border-color: transparent; }
+  .unig-project-cover-background:active {
+    color: #808080;
+    background-color: #000000;
+    border-color: transparent; }
 
-.unig-project-image-background:hover {
-  cursor: pointer;
-  background-color: #303030; }
+.unig-project-cover-icon {
+  font-size: 3.5em; }
+
+.unig-project-cover-text {
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif; }
 
 li.unig-project-list-item-year {
   display: block;
   width: 100%; }
 
 .unig-project-cover a,
-.unig-project-cover a:hover {
+.unig-project-cover a:hover,
+.unig-project-cover a:active {
   padding: 0;
   margin: 0;
   text-decoration: none;
   border: none; }
+
+.unig-project-text {
+  padding: 5px 15px; }
 
 /*# sourceMappingURL=unig_gallery.css.map */
