@@ -45,7 +45,7 @@
                                   unig-button-project-edit-open-{{ project.nid }}
                                   unig-project-edit-trigger">
                                 <span class="open">
-                                    <i class="fa fa-edit"></i>
+                                    <i class="fas fa-edit"></i>
                                 </span>
                             </span>
                                     </div>
@@ -60,7 +60,7 @@
                             <div class="unig-fieldset-item ">
                                 {# Anzahl Bilder #}
                                 <div class="unig-project-number-of-items">
-                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                    <i class="fas fa-image" aria-hidden="true"></i>
                                     <span class="number_of_visible">{{ project.number_of_items }}</span>
                                 </div>
                                 <div class="unig-project-description unig-project-description-{{ project.nid }} ">
@@ -128,7 +128,7 @@
                                      unig-button-project-edit-close-{{ project.nid }}
                                      unig-project-edit-trigger">
                                             <div class="close">
-                                                <i class="fa fa-times"></i>
+                                                <i class="fas fa-times"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +145,7 @@
                             {# Anzahl Bilder #}
                             <div class="unig-fieldset-item">
                                 <div class="unig-project-number-of-items">
-                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                    <i class="fas fa-image" aria-hidden="true"></i>
                                     <span class="number_of_visible">{{ project.number_of_items }}</span>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@
                                         {# Process Indicator #}
                                         <div class="unig-project-process-saving unig-project-process-saving-{{ project.nid }}"
                                              style="display: none">
-                                            <i class="fa fa-spinner fa-spin"> {% trans %}  {% endtrans %}</i> saving
+                                            <i class="fas fa-spinner fa-spin"> {% trans %}  {% endtrans %}</i> saving
                                             project...
                                         </div>
 
@@ -296,7 +296,7 @@
 
                                             {# Message#}
                                             <div class="unig-project-delete-confirm-message">
-                                                <i class="fa fa-warning"></i>
+                                                <i class="fas fa-warning"></i>
                                                 {% trans %} Delete this project and all its images? {% endtrans %}
                                             </div>
 
@@ -351,21 +351,21 @@
                 {# All Projects #}
                 <a type="button" class=" unig-button unig-button-show-projects"
                    href="{{ path('unig.project_list') }}">
-                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <i class="fas fa-list" aria-hidden="true"></i>
                     {% trans %} All Projects {% endtrans %}
                 </a>
 
                 {# Upload #}
                 <a type="button" class="unig-button unig-button-files-add"
                    href="{{ path('unig.upload', {'project_nid': project.nid}) }}">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <i class="fas fa-plus" aria-hidden="true"></i>
                     {% trans %} Add Files {% endtrans %}
                 </a>
 
 
                 {# sort #}
                 <div class="unig-button unig-button-sort-toggle">
-                    <i class="fa fa-sort" aria-hidden="true"></i>
+                    <i class="fas fa-sort" aria-hidden="true"></i>
                     {% trans %} Sort order {% endtrans %}
                 </div>
             </div>
@@ -375,13 +375,13 @@
 
                 {# Button Keywords #}
                 <div class="unig-button unig-button-toolbar-keywords-toggle unig-toolbar-keywords-toggle-trigger">
-                    <i class="fa fa-key" aria-hidden="true"></i>
+                    <i class="fas fa-key" aria-hidden="true"></i>
                     <span class="unig-keywords-display"></span>
                 </div>
 
                 {# Button People #}
                 <div class="unig-button unig-button-toolbar-people-toggle unig-toolbar-people-toggle-trigger">
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <i class="fas fa-user" aria-hidden="true"></i>
                     <span class="unig-people-display"></span>
                 </div>
             </div>
@@ -391,7 +391,7 @@
 
                 {# Button downloads #}
                 <div class="unig-button unig-toolbar-download-toggle unig-toolbar-download-toggle-trigger">
-                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <i class="fas fa-download" aria-hidden="true"></i>
                     <span class="unig-dl-number-of">0</span>
                 </div>
             </div>
@@ -401,13 +401,14 @@
 
                 {# Button Edit #}
                 <div class="unig-button unig-button-files-edit unig-project-edit-trigger" style="display: none">
-                    <i class="fa fa-edit" aria-hidden="true"></i>
+                    <i class="fas fa-edit" aria-hidden="true"></i>
                     {% trans %} Edit {% endtrans %}
                 </div>
 
                 {# Button Preview #}
-                <a role="button" class="unig-button unig-button-files-preview" href="/unig/lightgallery/{{ project.nid }}">
-                    <i class="fa fa-image" aria-hidden="true"></i>
+                <a role="button" class="unig-button unig-button-files-preview"
+                   href="/unig/lightgallery/{{ project.nid }}">
+                    <i class="fas fa-image" aria-hidden="true"></i>
                     {% trans %} Preview {% endtrans %}
                 </a>
             </div>
@@ -417,14 +418,14 @@
 
                 {# Button Theme Dark #}
                 <div class="unig-button unig-button-theme-dark unig-theme-dark-trigger">
-                    <i class="fa fa-adjust" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                     {% trans %} Dark {% endtrans %}
                 </div>
 
                 {# Button Theme Default #}
                 <div class="unig-button unig-button-theme-default  unig-theme-default-trigger"
                      style="display: none">
-                    <i class="fa fa-adjust" aria-hidden="true"></i>
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
                     {% trans %} Bright {% endtrans %}
                 </div>
             </div>
@@ -470,19 +471,19 @@
 
             {# Button Save Order #}
             <div class="unig-button unig-button-ok unig-button-sort-save">
-                <i class="fa fa-check" aria-hidden="true"></i>
+                <i class="fas fa-check" aria-hidden="true"></i>
                 {% trans %} Save Order {% endtrans %}
             </div>
 
             {# Button reset to alphabetical #}
             <div class="unig-button unig-button-warning unig-button-sort-alphanumeric">
-                <i class="fa fa-times" aria-hidden="true"></i>
+                <i class="fas fa-times" aria-hidden="true"></i>
                 {% trans %} reset to alphabetical {% endtrans %}
             </div>
 
             {# Button Cancel #}
             <div class="unig-button unig-button-warning unig-button-sort-cancel">
-                <i class="fa fa-times" aria-hidden="true"></i>
+                <i class="fas fa-times" aria-hidden="true"></i>
                 {% trans %} Cancel {% endtrans %}
             </div>
 
@@ -503,7 +504,7 @@
 
                         {# Button Clear Download List  #}
                         <div class="unig-button unig-button-small  unig-button-download-add-all-to-list-trigger">
-                            <i class="fa fa-th" aria-hidden="true"></i>
+                            <i class="fas fa-th" aria-hidden="true"></i>
                             <span class="number_of_visible"></span>
 
                             {% trans %} add all files {% endtrans %}
@@ -511,7 +512,7 @@
 
                         {# Button Clear Download List  #}
                         <div class="unig-button unig-button-small  unig-button-download-clear-list-trigger">
-                            <i class="fa fa-close" aria-hidden="true"></i>
+                            <i class="fas fa-close" aria-hidden="true"></i>
                             {% trans %} Remove All  {% endtrans %}
                         </div>
                     </div>
@@ -525,7 +526,7 @@
                                 <td class="unig-file-download-table-size">
                                     <span class="unig-file-download-table-size-sd">0 MB</span>
                                 </td>
-                                <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                              aria-hidden="true"></i>
                                 </td>
 
@@ -538,7 +539,7 @@
                                 <td class="unig-file-download-table-size">
                                     <span class="unig-file-download-table-size-hd">0 MB</span>
                                 </td>
-                                <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                              aria-hidden="true"></i>
                                 </td>
 
@@ -551,7 +552,7 @@
                                 <td class="unig-file-download-table-size">
                                     <span class="unig-file-download-table-size-max">0 MB</span>
                                 </td>
-                                <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                              aria-hidden="true"></i>
                                 </td>
 
@@ -584,7 +585,7 @@
 
                 {# title #}
                 <div class="unig-toolbar-head-title">
-                    <i class="fa fa-key" aria-hidden="true"></i>
+                    <i class="fas fa-key" aria-hidden="true"></i>
                     Keywords
                 </div>
 
@@ -596,7 +597,7 @@
 
                 {# search #}
                 <div class="unig-toolbar-head-search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fas fa-search" aria-hidden="true"></i>
                     <input type="text" name="unig-keywords-autocomplete"
                            placeholder="{% trans %} search {% endtrans %}">
                 </div>
@@ -611,7 +612,7 @@
             {# Button Show Keywords on Files #}
             <div class="unig-toolbar-footer">
                 <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
-                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <i class="fas fa-list" aria-hidden="true"></i>
                     Show Keywords on Files
                 </div>
             </div>
@@ -629,7 +630,7 @@
             </div>
             <div class="unig-toolbar-footer">
                 <div class="unig-button unig-button-people-toggle-all">
-                    <i class="fa fa-key" aria-hidden="true"></i>
+                    <i class="fas fa-key" aria-hidden="true"></i>
                 </div>
             </div>
         </div>
@@ -644,7 +645,7 @@
         <div class="unig-messages-generate-images" style="display: none">
             {# Text #}
             <span class="unig-generate-images-currend-process-text">
-                    <i class="fa fa-info-circle"></i>
+                    <i class="fas fa-info-circle"></i>
                 {% trans %} Generate preview images: {% endtrans %}
                 <span class="unig-preview-image-counter">0</span>
                 {% trans %} of {% endtrans %}
@@ -664,7 +665,7 @@
             {# Current Image in Work Size#}
             <span class="unig-generate-images-current-process-size">Size</span>
 
-            <span class="unig-messages-generate-images-close-trigger"> <i class="fa fa-times"></i></span>
+            <span class="unig-messages-generate-images-close-trigger"> <i class="fas fa-times"></i></span>
 
         </div>
 
@@ -738,7 +739,7 @@
 
                                 {# ----------- Download Mark ----------- #}
                                 <div class="unig-file-picto unig-file-head-item unig-file-download-mark unig-file-download-mark-trigger">
-                                    <i class="fa fa-bookmark" aria-hidden="true"></i>
+                                    <i class="fas fa-bookmark" aria-hidden="true"></i>
                                 </div>
 
                                 {# ----------- Rating ----------- #}
@@ -746,7 +747,7 @@
 
                                     {# thumbs-down #}
                                     <span class="unig-file-picto unig-file-rating-down unig-file-rating-down-trigger">
-                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                        <i class="fas fa-thumbs-down" aria-hidden="true"></i>
                                     </span>
 
                                     {# badge #}
@@ -757,7 +758,7 @@
 
                                     {# thumbs-up #}
                                     <span class="unig-file-picto unig-file-rating-up unig-file-rating-up-trigger">
-                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        <i class="fas fa-thumbs-up" aria-hidden="true"></i>
                                     </span>
                                 </div>
 
@@ -796,7 +797,7 @@
                                     <div class="unig-image-background unig-lazyload-container">
                                         <div class="unig-lazyload-placeholder"
                                              id="unig-lazyload-placeholder-{{ file.nid }}">
-                                            <i class="fa fa-image" aria-hidden="true"></i>
+                                            <i class="fas fa-image" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -817,7 +818,7 @@
                                     </div>
                                 </div>
 
-                                <div class="unig-set-project-cover-process"><i class="fa fa-spinner fa-spin"></i>
+                                <div class="unig-set-project-cover-process"><i class="fas fa-spinner fa-spin"></i>
                                 </div>
                             </div>
 
@@ -844,27 +845,27 @@
 
                                     {#  -----------   keywords button  -----------  #}
                                     <span class="unig-toolbox-button unig-file-picto unig-file-keywords-toolbox-trigger">
-                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                        <i class="fas fa-key" aria-hidden="true"></i>
                                     </span>
 
                                     {#  -----------   people button  -----------  #}
                                     <span class="unig-toolbox-button unig-file-picto unig-file-people-toolbox-trigger">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <i class="fas fa-user" aria-hidden="true"></i>
                                     </span>
 
                                     {#  -----------   Download button  -----------  #}
                                     <span class="unig-toolbox-button unig-file-picto  unig-file-download-toolbox-trigger">
-                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        <i class="fas fa-download" aria-hidden="true"></i>
                                     </span>
 
                                     {#  -----------   Options button  -----------  #}
                                     <span class="unig-toolbox-button unig-file-picto unig-file-options-toolbox-trigger">
-                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                        <i class="fas fa-cog" aria-hidden="true"></i>
                                     </span>
 
                                     {#  -----------   Meta Info button  -----------  #}
                                     <span class="unig-toolbox-button unig-file-picto unig-file-metainfo-toolbox-trigger">
-                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        <i class="fas fa-info-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -939,7 +940,7 @@
 
                                     {# add to download list #}
                                     <tr role="button" class="unig-file-download-mark-trigger">
-                                        <td class="unig-file-download-table-label"><i class="fa fa-bookmark"
+                                        <td class="unig-file-download-table-label"><i class="fas fa-bookmark"
                                                                                       aria-hidden="true"></i></td>
                                         <td class="unig-file-download-table-text" colspan="3">
                                             <span class="unig-file-download-mark-add">{% trans %} Add to download list{% endtrans %}</span>
@@ -959,7 +960,7 @@
                                         <td class="unig-file-download-table-size">
                                             <span class="unig-file-download-table-size-sd">{{ file.image.large.filesize_formated }}</span>
                                         </td>
-                                        <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                        <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                                      aria-hidden="true"></i>
                                         </td>
 
@@ -975,7 +976,7 @@
                                         <td class="unig-file-download-table-size">
                                             <span class="unig-file-download-table-size-hd">{{ file.image.unig_hd.filesize_formated }}</span>
                                         </td>
-                                        <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                        <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                                      aria-hidden="true"></i>
                                         </td>
 
@@ -991,7 +992,7 @@
                                         <td class="unig-file-download-table-size">
                                             <span class="unig-file-download-table-size-max">{{ file.image.original.filesize_formated }}</span>
                                         </td>
-                                        <td class="unig-file-download-table-icon"><i class="fa fa-download"
+                                        <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                                      aria-hidden="true"></i>
                                         </td>
 
@@ -1008,7 +1009,7 @@
 
                                     {# Title #}
                                     <span class="unig-toolbox-tag-title-picto">
-                                    <i class="fa fa-key" aria-hidden="true"></i></span>
+                                    <i class="fas fa-key" aria-hidden="true"></i></span>
 
                                     {# Items #}
                                     {% for  keyword in file.keywords %}
@@ -1026,7 +1027,7 @@
 
                                     {# Title #}
                                     <span class="unig-toolbox-tag-title-picto">
-                                    <i class="fa fa-user" aria-hidden="true"></i></span>
+                                    <i class="fas fa-user" aria-hidden="true"></i></span>
 
                                     {# Items #}
                                     {% for  people in file.people %}
