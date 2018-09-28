@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: UniG\n"
-"POT-Creation-Date: 2018-09-28 15:55+0200\n"
-"PO-Revision-Date: 2018-09-28 15:57+0200\n"
+"POT-Creation-Date: 2018-09-28 16:02+0200\n"
+"PO-Revision-Date: 2018-09-28 16:03+0200\n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: oliver@mollo.ch\n"
 "Language: de\n"
@@ -16,18 +16,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: tests\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
-
-#: assets/js/UnigDownload.js:239
-msgid "A zip-archive with the pictures will be created. Please wait."
-msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
-
-#: assets/js/UnigDownload.js:241
-msgid "Cancel download"
-msgstr "Download abbrechen"
-
-#: assets/js/UnigDownload.js:242
-msgid "Loading..."
-msgstr "Lade..."
 
 #: src/Controller/FilesController.php:74
 #: src/Controller/ProjectController.php:58
@@ -64,8 +52,8 @@ msgstr "Eintrag wird überprüft..."
 
 #: src/Form/NewAlbumForm.php:81 templates/unig.project-list.html.twig:88
 #: templates/unig.project-list.html.twig:358
-#: templates/unig.project.html.twig:267 templates/unig.project.html.twig:478
-#: templates/unig.project.html.twig:489
+#: templates/unig.project.html.twig:269 templates/unig.project.html.twig:480
+#: templates/unig.project.html.twig:491
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -155,12 +143,12 @@ msgstr "Neues Projekt"
 
 #: templates/unig.project-list.html.twig:35
 #: templates/unig.project-list.html.twig:66
-#: templates/unig.project.html.twig:368 templates/unig.project.html.twig:461
+#: templates/unig.project.html.twig:370 templates/unig.project.html.twig:463
 msgid "Sort order"
 msgstr "Reihenfolge"
 
 #: templates/unig.project-list.html.twig:47
-#: templates/unig.project.html.twig:421
+#: templates/unig.project.html.twig:423
 msgid "Dark"
 msgstr "Dunkel"
 
@@ -177,7 +165,7 @@ msgid "Sort by date"
 msgstr "Nach Datum sortieren"
 
 #: templates/unig.project-list.html.twig:82
-#: templates/unig.project.html.twig:466
+#: templates/unig.project.html.twig:468
 msgid "Save Order"
 msgstr "Sortierfolge sichern"
 
@@ -198,7 +186,7 @@ msgid "Images"
 msgstr "Bilder"
 
 #: templates/unig.project-list.html.twig:189
-#: templates/unig.project.html.twig:411
+#: templates/unig.project.html.twig:413
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -218,27 +206,27 @@ msgid "Copyright"
 msgstr "Urheber"
 
 #: templates/unig.project-list.html.twig:353
-#: templates/unig.project.html.twig:258
+#: templates/unig.project.html.twig:260
 msgid "Save"
 msgstr "Sichern"
 
 #: templates/unig.project-list.html.twig:378
-#: templates/unig.project.html.twig:289
+#: templates/unig.project.html.twig:291
 msgid "Delete Project"
 msgstr "Projekt löschen"
 
 #: templates/unig.project-list.html.twig:389
-#: templates/unig.project.html.twig:299
+#: templates/unig.project.html.twig:301
 msgid "Delete this project and all its images?"
 msgstr "Dieses Projekt und alle seine Bilder löschen?"
 
 #: templates/unig.project-list.html.twig:400
-#: templates/unig.project.html.twig:310
+#: templates/unig.project.html.twig:312
 msgid "No, Cancel"
 msgstr "Nein, Abbrechen"
 
 #: templates/unig.project-list.html.twig:409
-#: templates/unig.project.html.twig:319
+#: templates/unig.project.html.twig:321
 msgid "Yes, Delete Project"
 msgstr "Ja, Projekt löschen"
 
@@ -246,74 +234,87 @@ msgstr "Ja, Projekt löschen"
 msgid "Date"
 msgstr "Datum"
 
-#: templates/unig.project.html.twig:354
+#: templates/unig.project.html.twig:236
+msgid "Private Project"
+msgstr "Privates Projekt"
+
+#: templates/unig.project.html.twig:356
 msgid "All Projects"
 msgstr "Alle Projekte"
 
-#: templates/unig.project.html.twig:361
+#: templates/unig.project.html.twig:363
 msgid "Add Files"
 msgstr "Dateien hinzufügen"
 
-#: templates/unig.project.html.twig:404
+#: templates/unig.project.html.twig:406
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: templates/unig.project.html.twig:428
+#: templates/unig.project.html.twig:430
 msgid "Bright"
 msgstr "Hell"
 
-#: templates/unig.project.html.twig:472
+#: templates/unig.project.html.twig:474
 msgid "Reset to alphabetical"
 msgstr "Auf Alphabetisch zurücksetzen"
 
-#: templates/unig.project.html.twig:501
+#: templates/unig.project.html.twig:503
 msgid "Add all files"
 msgstr "Alle Dateien hinzufügen"
 
-#: templates/unig.project.html.twig:507
+#: templates/unig.project.html.twig:509
 msgid "Remove All"
 msgstr "Alle entfernen"
 
-#: templates/unig.project.html.twig:593
+#: templates/unig.project.html.twig:595
 msgid "search"
 msgstr "suchen"
 
-#: templates/unig.project.html.twig:640
+#: templates/unig.project.html.twig:642
 msgid "Generate preview images:"
 msgstr "Vorschau Bilder generieren:"
 
-#: templates/unig.project.html.twig:642
+#: templates/unig.project.html.twig:644
 msgid "of"
 msgstr "von"
 
-#: templates/unig.project.html.twig:686
+#: templates/unig.project.html.twig:688
 msgid "Create new album"
 msgstr "Neues Album erstellen"
 
-#: templates/unig.project.html.twig:802 templates/unig.project.html.twig:874
+#: templates/unig.project.html.twig:804 templates/unig.project.html.twig:876
 msgid "Cover Picture"
 msgstr "Titelbild"
 
-#: templates/unig.project.html.twig:808
+#: templates/unig.project.html.twig:810
 msgid "Set as cover picture"
 msgstr "Als Titelbild nutzen"
 
-#: templates/unig.project.html.twig:895
+#: templates/unig.project.html.twig:897
 msgid "Size"
 msgstr "Grösse"
 
-#: templates/unig.project.html.twig:901
+#: templates/unig.project.html.twig:903
 msgid "Width"
 msgstr "Breite"
 
-#: templates/unig.project.html.twig:907
+#: templates/unig.project.html.twig:909
 msgid "Height"
 msgstr "Höhe"
 
-#: templates/unig.project.html.twig:941
+#: templates/unig.project.html.twig:943
 msgid "Add to download list"
 msgstr "Zur Download Liste hinzufügen"
 
-#: templates/unig.project.html.twig:943
+#: templates/unig.project.html.twig:945
 msgid "Remove from download list"
 msgstr "Von der Download Liste entfernen"
+
+#~ msgid "A zip-archive with the pictures will be created. Please wait."
+#~ msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
+
+#~ msgid "Cancel download"
+#~ msgstr "Download abbrechen"
+
+#~ msgid "Loading..."
+#~ msgstr "Lade..."

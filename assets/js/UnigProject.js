@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier,no-console */
 
-
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProject = {
     toggleToolbox(nid, name) {
@@ -59,12 +58,9 @@
       return nid;
     },
 
-    getProjectNid(){
-        return drupalSettings.unig.project.project.nid;
-
+    getProjectNid() {
+      return drupalSettings.unig.project.project.nid;
     },
-
-
 
     save(data, route) {
       $.ajax({
@@ -81,8 +77,6 @@
 
       return true;
     },
-
-
 
     setRating(nid, direction) {
       const $badge = $(`#unig-file-${nid} .unig-file-rating-badge`);
@@ -127,10 +121,7 @@
       this.save(data, route);
     },
 
-
-
     setProjectCover(projectNid, imageNid) {
-
       // get DOM Elems
       const processElem = document.querySelector(
         `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-process`
@@ -149,39 +140,36 @@
 
       const url = `/unig/set_cover/${projectNid}/${imageNid}`;
 
-          fetch(url)
-              .then(response => response.json())
-              .then(json => {
+      fetch(url)
+        .then(response => response.json())
+        .then(json => {
+          // Set message to ajax container
+          Drupal.behaviors.unig.showMessages(json.messages);
 
-                  // Set message to ajac container
-console.log('setProjectCover', json);
-Drupal.behaviors.unig.showMessages(json.messages);
+          // deactivate all active covers
+          const allActiveCoverElems = document.querySelectorAll(
+            ".unig-image-is-cover.active"
+          );
 
-                  // deactivate all active covers
-                  const allActiveCoverElems = document.querySelectorAll(
-                      ".unig-image-is-cover.active"
-                  );
+          // activate all buttons
+          const allbuttonElems = document.querySelectorAll(
+            ".unig-set-project-cover-button"
+          );
 
-                  // activate all buttons
-                  const allbuttonElems = document.querySelectorAll(
-                      ".unig-set-project-cover-button"
-                  );
+          allActiveCoverElems.forEach(elem => {
+            elem.classList.remove("active");
+          });
 
-                  allActiveCoverElems.forEach(elem => {
-                      elem.classList.remove("active");
-                  });
+          allbuttonElems.forEach(elem => {
+            elem.classList.add("active");
+          });
 
-                  allbuttonElems.forEach(elem => {
-                      elem.classList.add("active");
-                  });
+          isCoverElem.classList.add("active");
+          processElem.classList.remove("active");
 
-                  isCoverElem.classList.add("active");
-                  processElem.classList.remove("active");
-
-                  // deactivate this Button
-                  buttonElem.classList.remove("active");
-              });
-
+          // deactivate this Button
+          buttonElem.classList.remove("active");
+        });
     },
 
     clearAjaxMessageBox() {
@@ -196,117 +184,119 @@ Drupal.behaviors.unig.showMessages(json.messages);
 
       const scope = this;
 
-      $('#unig-main', context).once('unigProjectList4634b47').each(() => {
+      $("#unig-main", context)
+        .once("unigProjectList4634b47")
+        .each(() => {
+          // Toggle all Keywords
+          $(".unig-button-keywords-toggle-all", context).click(() => {
+            const $trigger = $(scope);
+            if ($trigger.hasClass("active")) {
+              scope.toggleAllToolbox("keywords", "hide");
+            } else {
+              scope.toggleAllToolbox("keywords", "show");
+            }
+          });
 
-      // Toggle all Keywords
-      $(".unig-button-keywords-toggle-all", context).click(() => {
-        const $trigger = $(scope);
-        if ($trigger.hasClass("active")) {
-          scope.toggleAllToolbox("keywords", "hide");
-        } else {
-          scope.toggleAllToolbox("keywords", "show");
-        }
-      });
+          // Toggle all People
+          $(".unig-button-people-toggle-all", context).click(() => {
+            const $trigger = $(scope);
+            if ($trigger.hasClass("active")) {
+              scope.toggleAllToolbox("people", "hide");
+            } else {
+              scope.toggleAllToolbox("people", "show");
+            }
+          });
 
-      // Toggle all People
-      $(".unig-button-people-toggle-all", context).click(() => {
-        const $trigger = $(scope);
-        if ($trigger.hasClass("active")) {
-          scope.toggleAllToolbox("people", "hide");
-        } else {
-          scope.toggleAllToolbox("people", "show");
-        }
-      });
+          // Event Handlers
+          $(".unig-gallery-preview-wrapper img", context).hover(() => {
+            $(scope)
+              .parents(".unig-file-edit")
+              .toggleClass("active");
+          });
 
-      // Event Handlers
-      $(".unig-gallery-preview-wrapper img", context).hover(() => {
-        $(scope)
-          .parents(".unig-file-edit")
-          .toggleClass("active");
-      });
+          // Rating Down
+          $(".unig-file-rating-down-trigger", context).click(event => {
+            const nid = scope.getNodeId(event);
+            scope.setRating(nid, "down");
 
-      // Rating Down
-      $(".unig-file-rating-down-trigger", context).click(event => {
-        const nid = scope.getNodeId(event);
-        scope.setRating(nid, "down");
+            console.log(`${nid}: Down!`);
+          });
 
-        console.log(`${nid}: Down!`);
-      });
+          // Rating Up
+          $(".unig-file-rating-up-trigger", context).click(event => {
+            const nid = scope.getNodeId(event);
 
-      // Rating Up
-      $(".unig-file-rating-up-trigger", context).click(event => {
-        const nid = scope.getNodeId(event);
+            scope.setRating(nid, "up");
+            // console.log(nid + ': Up!');
+          });
 
-        scope.setRating(nid, "up");
-        // console.log(nid + ': Up!');
-      });
+          // Toggle Keywords Toolbox
+          $(".unig-file-keywords-toolbox-trigger", context).click(event => {
+            const name = "keywords";
+            const nid = scope.getNodeId(event);
+            scope.toggleToolbox(nid, name);
+          });
 
-      // Toggle Keywords Toolbox
-      $(".unig-file-keywords-toolbox-trigger", context).click(event => {
-        const name = "keywords";
-        const nid = scope.getNodeId(event);
-        scope.toggleToolbox(nid, name);
-      });
+          // Toggle People Toolbox
+          $(".unig-file-people-toolbox-trigger", context).click(event => {
+            const name = "people";
+            const nid = scope.getNodeId(event);
+            scope.toggleToolbox(nid, name);
+          });
 
-      // Toggle People Toolbox
-      $(".unig-file-people-toolbox-trigger", context).click(event => {
-        const name = "people";
-        const nid = scope.getNodeId(event);
-        scope.toggleToolbox(nid, name);
-      });
+          // Toggle Download Toolbox
+          $(".unig-file-download-toolbox-trigger", context).click(event => {
+            const name = "download";
+            const nid = scope.getNodeId(event);
+            scope.toggleToolbox(nid, name);
+          });
 
-      // Toggle Download Toolbox
-      $(".unig-file-download-toolbox-trigger", context).click(event => {
-        const name = "download";
-        const nid = scope.getNodeId(event);
-        scope.toggleToolbox(nid, name);
-      });
+          // Toggle Options Toolbox
+          $(".unig-file-options-toolbox-trigger", context).click(event => {
+            const name = "options";
+            const nid = scope.getNodeId(event);
+            scope.toggleToolbox(nid, name);
+          });
 
-      // Toggle Options Toolbox
-      $(".unig-file-options-toolbox-trigger", context).click(event => {
-        const name = "options";
-        const nid = scope.getNodeId(event);
-        scope.toggleToolbox(nid, name);
-      });
+          // Set Coverimage to current project
+          $(".unig-set-project-cover-trigger", context).click(event => {
+            // clear ajax message box
+            scope.clearAjaxMessageBox();
+            const imageNid = scope.getNodeId(event);
+            const projectNid = Drupal.behaviors.unigData.project.nid;
+            scope.setProjectCover(projectNid, imageNid);
+            // the actual function go via drupal <a href ... >  and "use-ajax"
+          });
 
-      // Set Coverimage to current project
-      $(".unig-set-project-cover-trigger", context).click(event => {
-        // clear ajax message box
-        scope.clearAjaxMessageBox();
-        const imageNid = scope.getNodeId(event);
-        const projectNid = Drupal.behaviors.unigData.project.nid;
-        scope.setProjectCover(projectNid, imageNid);
-        // the actual function go via drupal <a href ... >  and "use-ajax"
-      });
+          // Toggle Meta Info Toolbox
+          $(".unig-file-metainfo-toolbox-trigger", context).click(event => {
+            const name = "metainfo";
+            const nid = scope.getNodeId(event);
+            scope.toggleToolbox(nid, name);
+          });
 
-      // Toggle Meta Info Toolbox
-      $(".unig-file-metainfo-toolbox-trigger", context).click(event => {
-        const name = "metainfo";
-        const nid = scope.getNodeId(event);
-        scope.toggleToolbox(nid, name);
-      });
+          // Close Message Generate Images
+          $(".unig-messages-generate-images-close-trigger", context).click(
+            () => {
+              $(".unig-messages-generate-images").hide();
+            }
+          );
 
-      // Close Message Generate Images
-      $(".unig-messages-generate-images-close-trigger", context).click(() => {
-        $(".unig-messages-generate-images").hide();
-      });
+          // New Album Form
+          $(".ajax-container-new-album-trigger", context).click(() => {
+            const $container = $("#ajax-container-new-album-container");
+            $container.toggle();
 
-      // New Album Form
-      $(".ajax-container-new-album-trigger", context).click(() => {
-        const $container = $("#ajax-container-new-album-container");
-        $container.toggle();
+            const $formElemProjectNid = $("input[name='projectNid']");
+            const projectNid = $container.data("projectnid");
+            $formElemProjectNid.val(projectNid);
+          });
 
-        const $formElemProjectNid = $("input[name='projectNid']");
-        const projectNid = $container.data("projectnid");
-        $formElemProjectNid.val(projectNid);
-      });
+          $(".unig-generate-preview-images-trigger", context).click(() => {
+            Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
+          });
 
-      $(".unig-generate-preview-images-trigger", context).click(() => {
-        Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
-      });
-
-          const projectNid = scope.getProjectNid(event);
-
+          const projectNid = scope.getProjectNid();
 
           //  Edit Trigger
           document
@@ -315,7 +305,9 @@ Drupal.behaviors.unig.showMessages(json.messages);
               elem.addEventListener(
                 "click",
                 () => {
-                  Drupal.behaviors.unigProjectList.toggleEditProject(projectNid);
+                  Drupal.behaviors.unigProjectList.toggleEditProject(
+                    projectNid
+                  );
                 },
                 false
               )
@@ -347,8 +339,6 @@ Drupal.behaviors.unig.showMessages(json.messages);
               )
             );
 
-
-
           //  Delete Project Trigger
           document
             .querySelectorAll(".unig-project-delete-trigger", context)
@@ -356,7 +346,9 @@ Drupal.behaviors.unig.showMessages(json.messages);
               elem.addEventListener(
                 "click",
                 () => {
-                  Drupal.behaviors.unigProjectList.confirmDeleteProject(projectNid);
+                  Drupal.behaviors.unigProjectList.confirmDeleteProject(
+                    projectNid
+                  );
                 },
                 false
               )
@@ -369,7 +361,9 @@ Drupal.behaviors.unig.showMessages(json.messages);
               elem.addEventListener(
                 "click",
                 () => {
-                  Drupal.behaviors.unigProjectList.cancelDeleteProject(projectNid);
+                  Drupal.behaviors.unigProjectList.cancelDeleteProject(
+                    projectNid
+                  );
                 },
                 false
               )
@@ -382,13 +376,14 @@ Drupal.behaviors.unig.showMessages(json.messages);
               edit.addEventListener(
                 "dblclick",
                 () => {
-                  Drupal.behaviors.unigProjectList.toggleEditProject(projectNid);
+                  Drupal.behaviors.unigProjectList.toggleEditProject(
+                    projectNid
+                  );
                 },
                 false
               )
             );
-        }
-      )
+        });
     }
   };
 })(jQuery, Drupal, drupalSettings);
