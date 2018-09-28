@@ -12,20 +12,11 @@ unig.project:
   js:
     assets/js/UnigGallery.js: {}
   dependencies:
-  - core/drupalSettings
-  - core/drupal
-  - core/jquery
-  - unig/unig.lightgallery
-#
-#
-#
-unig.admin:
-  css:
-    theme:
-      assets/css/unig.css: {}
-  js:
-    assets/js/Unig.js: {}
-  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/jquery.once
+    - unig/unig.lightgallery
 #
 #
 #
@@ -36,7 +27,6 @@ unig.upload:
   js:
     assets/js/UnigUpload.js: {}
   dependencies:
-    - core/jquery.once
     - core/drupalSettings
 #
 #
@@ -48,7 +38,6 @@ unig.upload_albumid:
   js:
     assets/js/UnigUpload.js: {}
   dependencies:
-  - core/jquery.once
     - core/drupalSettings
 #
 #
@@ -62,11 +51,7 @@ unig.admin.project:
       assets/css/unig_image.css: {}
       assets/css/unig_project.css: {}
       assets/css/theme/dark.css: {}
-      assets/third-party/autocomplete/auto-complete.css: {}
-
-
   js:
-   # assets/third-party/autocomplete/auto-complete.min.js: {}
     assets/js/Unig.js: {}
     assets/js/UnigData.js: {}
     assets/js/UnigProject.js: {}
@@ -78,10 +63,15 @@ unig.admin.project:
     assets/js/UnigFiles.js: {}
     assets/js/UnigSize.js: {}
     assets/js/UnigLazyLoad.js: {}
-
   dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/jquery.once
     - core/jquery.ui.datepicker
     - core/jquery.ui.sortable
+    - unig/unig.lightgallery
+    - unig/unig.autocomplete
     - unig/unig.lightgallery
 #
 #
@@ -93,7 +83,6 @@ unig.admin.project_list:
       assets/css/unig_project_list.css: {}
       assets/css/theme/dark.css: {}
 
-
   js:
     assets/js/Unig.js: {}
     assets/js/UnigAdmin.js: {}
@@ -101,9 +90,9 @@ unig.admin.project_list:
     assets/js/UnigSortProjectList.js: {}
 
   dependencies:
-    - core/drupalSettings
     - core/drupal
-    - core/modernizr
+    - core/drupalSettings
+    - core/jquery
     - core/jquery.once
     - core/jquery.ui.datepicker
     - core/jquery.ui.sortable
@@ -127,3 +116,12 @@ unig.lightgallery:
   dependencies:
     - core/jquery
     - core/jquery.once
+#
+#
+#
+unig.autocomplete:
+  css:
+    theme:
+      assets/third-party/autocomplete/auto-complete.css: {}
+  js:
+    assets/third-party/autocomplete/auto-complete.min.js: {}
