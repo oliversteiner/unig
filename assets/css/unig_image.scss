@@ -1,7 +1,7 @@
 @import "colors";
 
 .unig-image-background {
-display: flex;
+  display: flex;
   justify-content: center;
   align-content: flex-start;
   cursor: zoom-in;
@@ -32,7 +32,6 @@ ul.unig-gallery li.unig-file-edit.active {
 .unig-lightgallery-number-of-items {
 }
 
-
 ul.unig-gallery {
   display: flex;
   align-content: flex-start;
@@ -52,7 +51,6 @@ ul.unig-gallery li.unig-file-item {
 ul.unig-gallery li.unig-file-item.marked {
   background-color: $color-admin-marked-lite;
   border: 2px solid transparent;
-
 }
 
 ul.unig-gallery li.unig-file-item:hover {
@@ -109,11 +107,10 @@ ul.unig-gallery li.unig-file-item:hover.marked {
   padding: 2px;
 }
 
-.unig-file-item-info{
+.unig-file-item-info {
   text-align: center;
   padding-right: 2px;
   margin-right: 4px;
-
 }
 .unig-file-nid {
   border-right: 1px solid $color-admin-info;
@@ -122,7 +119,6 @@ ul.unig-gallery li.unig-file-item:hover.marked {
 .unig-file-weight {
   border-right: 1px solid $color-admin-info;
 }
-
 
 .unig-file-name {
   display: block;
@@ -176,7 +172,6 @@ h2.unig-project-title {
   width: 20px;
   font-size: 2px;
 }
-
 
 .no-preview-medium,
 .no-preview-small,

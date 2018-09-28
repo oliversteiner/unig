@@ -815,7 +815,7 @@
     color: #979797; }
 
 #unig-main.unig-theme-dark .unig-image-background {
-  background-color: #111111; }
+  background-color: #transparent; }
 #unig-main.unig-theme-dark ul.unig-gallery {
   background-color: #2d2d2d; }
 #unig-main.unig-theme-dark ul.unig-gallery li.unig-file-edit.active {

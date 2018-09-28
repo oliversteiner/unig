@@ -198,3 +198,35 @@ $color-sortable-active-text : rgb(182, 177, 151);
 $color-admin-private : rgb(195, 204, 185);
 $color-admin-private-hover : rgb(153, 160, 145);
 $color-admin-private-active : rgb(123, 129, 117);
+
+// Color Cover
+// -- Default
+$color-cover-text: #7a7a7a;
+$color-cover-background: #9f9f9f;
+$color-cover-border: transparent;
+
+// -- :hover
+$color-cover-text-hover: #959595;
+$color-cover-background-hover: #575757;
+$color-cover-border-hover: transparent;
+
+// -- :active
+$color-cover-text-active: #808080;
+$color-cover-background-active: #000000;
+$color-cover-border-active: transparent;
+
+// Color Image
+// -- Default
+$color-image-text: #7a7a7a;
+$color-image-background: #transparent;
+$color-image-border: rgba(215, 215, 215, 0);
+
+// -- :hover
+$color-image-text-hover: #ededed;
+$color-image-background-hover: #b3b3b3;
+$color-image-border-hover: rgba(122, 122, 122, 0);
+
+// -- :active
+$color-image-text-active: #ffffff;
+$color-image-background-active: #565656;
+$color-image-border-active: rgba(122, 122, 122, 0);
