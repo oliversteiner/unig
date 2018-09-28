@@ -13,19 +13,41 @@
 @import "images_size";
 @import "messages";
 
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
 body {
 }
 
 .unig {
+  font-family: "Lato", "Lucida Grande", "Source Sans Pro", "Lucida Sans Unicode",
+    Tahoma, Verdana, Arial, Helvetica, sans-serif;
+
+  a,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  ul,
+  ol,
+  table {
+    font-size: 14px;
+  }
+}
+
+.unig {
+  h1 {
+    font-size: 16px;
+  }
+  h2 {
+    font-size: 15px;
+  }
   a,
   a:hover,
   a.link,
   a.link:hover {
-    border: 0;
+    text-decoration: none;
   }
-
-  font-family: Sans-Serif, serif;
 }
 
 // Layout
@@ -46,7 +68,6 @@ body {
   justify-content: flex-end;
 }
 
-
 .unig-col {
 }
 
@@ -65,10 +86,7 @@ hr.unig {
   padding: 10px 0 0;
 }
 
-// Font:
 .unig-toolbar {
-  font-family: "Lato Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
-  font-size: 12px;
 }
 
 .unig-space {
@@ -103,7 +121,6 @@ li.lazyload-test {
   font-size: 3em;
   padding-top: 20%;
   color: silver;
-
 }
 
 .color-success {
@@ -121,11 +138,9 @@ li.lazyload-test {
 .test {
 }
 
-
-.unig_form_upload_project{
-
+.unig_form_upload_project {
 }
 
-.unig-edit-project-col{
-padding-right: 20px;
+.unig-edit-project-col {
+  padding-right: 20px;
 }

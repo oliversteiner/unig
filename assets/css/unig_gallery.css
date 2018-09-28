@@ -175,4 +175,10 @@ li.unig-project-list-item-year {
 .unig-project-text {
   padding: 5px 15px; }
 
+h1.unig-project-title {
+  display: inline-block; }
+
+a.unig-button-edit-project {
+  margin: 5px; }
+
 /*# sourceMappingURL=unig_gallery.css.map */

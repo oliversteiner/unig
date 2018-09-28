@@ -70,12 +70,10 @@ li.unig-dl .unig-dl-image img {
   width: auto;
 }
 li.unig-dl .unig-dl-label {
-  font-size: 10px;
   clear: both;
 }
 li.unig-dl .unig-dl-nid {
   display: none;
-  font-size: 10px;
 }
 //
 // =====  Download Info
@@ -108,7 +106,6 @@ table.unig-bulk-download-table {
 
 td.unig-file-download-table-label {
   font-weight: bold;
-  font-size: 1em;
 }
 td.unig-file-download-table-width {
   color: $color-admin-info;

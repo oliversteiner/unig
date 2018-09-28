@@ -406,10 +406,10 @@
                 </div>
 
                 {# Button Preview #}
-                <div class="unig-button unig-button-files-preview unig-project-preview-trigger">
+                <a role="button" class="unig-button unig-button-files-preview" href="/unig/lightgallery/{{ project.nid }}">
                     <i class="fa fa-image" aria-hidden="true"></i>
                     {% trans %} Preview {% endtrans %}
-                </div>
+                </a>
             </div>
 
             {# Fieldset - Themes #}
@@ -546,7 +546,7 @@
 
                             {# Max #}
                             <tr role="button" class="unig-bulk-download-max-trigger">
-                                <td class="unig-file-download-table-label">Max</td>
+                                <td class="unig-file-download-table-label">XL</td>
                                 <td class="unig-file-download-table-width">4500&thinsp;px</td>
                                 <td class="unig-file-download-table-size">
                                     <span class="unig-file-download-table-size-max">0 MB</span>
@@ -876,7 +876,7 @@
                                 <span class="unig-file-options-item">
                                 <div class="unig-button unig-file-set-cover unig-set-project-cover-trigger"
                                      role="button">
-                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                    <i class="fas fa-image" aria-hidden="true"></i>
                                     Titelbild
                                 </div>
                                 </span>
@@ -885,7 +885,7 @@
 
                                 <a class="unig-button-danger unig-file-delete-file use-ajax"
                                    href="/unig/nojs/delete_file/{{ file.nid }}">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
                                     löschen
                                 </a>
                                     </span>

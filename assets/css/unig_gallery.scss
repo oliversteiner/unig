@@ -3,7 +3,7 @@
 
 // Font
 $font-sans-serif: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma,
-  Verdana, Arial, Helvetica, sans-serif;
+Verdana, Arial, Helvetica, sans-serif;
 
 // Color Cover
 // -- Default
@@ -303,4 +303,12 @@ li.unig-project-list-item-year {
 
 .unig-project-text {
   padding: 5px 15px;
+}
+
+h1.unig-project-title {
+  display: inline-block;
+}
+
+a.unig-button-edit-project {
+  margin: 5px;
 }

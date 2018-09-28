@@ -1,14 +1,22 @@
-.unig-toolbox {
+
+.unig .unig-toolbox td,
+.unig .unig-toolbox th,
+.unig .unig-toolbox p,
+.unig .unig-toolbox li
+{
+  font-size: 0.9em;
+}
+.unig .unig-toolbox {
   background-color: $color-toolbox-background;
   border-bottom: solid 1px $color-toolbox-stroke;
   border-radius: 3px;
-  font-size: 12px;
+  font-size: 0.9em;
   margin: 0;
   padding: 0;
 }
 
 
-.unig-toolbox table {
+.unig .unig-toolbox table {
   background-color: $color-toolbox-background;
 
 
@@ -17,6 +25,7 @@
     background: transparent;
     border: 0;
     color: $color-toolbox-text;
+
   }
 
   tr th {
@@ -74,7 +83,7 @@
   border-radius: 4px;
   cursor: pointer;
   display: inline-block;
-  font-size: 12px;
+  font-size: 0.9em;
   margin: 3px;
   padding: 3px 6px;
 }
@@ -107,7 +116,6 @@
 .unig-file-options-toolbox {
   background-color: $color-toolbox-background;
   display: flex;
-  font-size: 12px;
   justify-content: space-around;
   padding: 10px 5px 5px 5px;
 }
@@ -125,7 +133,6 @@
 }
 .unig-toolbar-head-search input {
   border-radius: 5px;
-  font-size: 10px;
 }
 .unig-toolbar-head-title {
   border-bottom: solid 1px $color-toolbox-stroke;

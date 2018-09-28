@@ -19,7 +19,6 @@ unig.lightgallery.html.twig
             <a href="{{ path('unig.project_list') }}">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 {% trans %} Show all Galeries {% endtrans %}
-
             </a>
         </div>
 
@@ -27,9 +26,16 @@ unig.lightgallery.html.twig
     </div>
 
     <div class="unig-gallery-header-middle">
-        <h2 class="unig-project-title">{{ project.title }}</h2>
-        <div class="unig-project-date"> {{ datum }}</div>
-        <div class="unig-project-description">{{ project.description }}</div>
+        <div><h1 class="unig-project-title">{{ project.title }}</h1>
+        {# ----------- open Edit ----------- #}
+        <a role="button"
+             class="unig-button-edit-project unig-button-edit-project-trigger"
+        href="/unig/project/{{ project.nid }}">
+            <i class="fa fa-edit"></i>
+        </a>
+    </div>
+        <p class="unig-project-date"> {{ datum }}</p>
+        <p class="unig-project-description">{{ project.description }}</p>
 
     </div>
     <div class="unig-gallery-header-right">
