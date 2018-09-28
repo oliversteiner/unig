@@ -86,7 +86,7 @@
       // link zu allen Projekten/Alben
       $form['go_to_projects'] = [
         '#theme' => '',
-        '#title' => t('show all projects'),
+        '#title' => t('Show all projects'),
       ];
 
       // Textinput "neues Projekt"

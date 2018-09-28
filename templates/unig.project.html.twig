@@ -58,7 +58,7 @@
 
                             {# Description #}
                             <div class="unig-fieldset-item ">
-                                {# Anzahl Bilder #}
+                                {# Number of Items #}
                                 <div class="unig-project-number-of-items">
                                     <i class="fas fa-image" aria-hidden="true"></i>
                                     <span class="number_of_visible">{{ project.number_of_items }}</span>
@@ -142,7 +142,7 @@
                                 <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   Private {% endif %} </div>
                             </div>
 
-                            {# Anzahl Bilder #}
+                            {# Number of Items #}
                             <div class="unig-fieldset-item">
                                 <div class="unig-project-number-of-items">
                                     <i class="fas fa-image" aria-hidden="true"></i>
@@ -270,8 +270,8 @@
                                         {# Process Indicator #}
                                         <div class="unig-project-process-saving unig-project-process-saving-{{ project.nid }}"
                                              style="display: none">
-                                            <i class="fas fa-spinner fa-spin"> {% trans %}  {% endtrans %}</i> saving
-                                            project...
+                                            <i class="fas fa-spinner fa-spin"> {% trans %}  {% endtrans %}</i>
+                                            Saving project...
                                         </div>
 
                                     </div>
@@ -296,7 +296,6 @@
 
                                             {# Message#}
                                             <div class="unig-project-delete-confirm-message">
-                                                <i class="fas fa-warning"></i>
                                                 {% trans %} Delete this project and all its images? {% endtrans %}
                                             </div>
 
@@ -308,7 +307,7 @@
                                                   unig-button-project-delete-cancel
                                                   unig-button-project-delete-cancel-{{ project.nid }}
                                                   unig-project-delete-cancel-trigger">
-                                                    {% trans %}No, Cancel{% endtrans %}
+                                                    {% trans %} No, Cancel {% endtrans %}
                                                 </div>
 
                                                 {# Button Delete#}
@@ -317,7 +316,7 @@
                                                unig-button-project-delete-yes
                                                unig-button-project-delete-yes-{{ project.nid }}"
                                                    href="{{ path('unig.project.ajax.delete', {'project_nid': project.nid}) }}">
-                                                    {% trans %}Yes, Delete Project{% endtrans %}
+                                                    {% trans %} Yes, Delete Project {% endtrans %}
                                                 </a>
                                             </div>
                                         </div>
@@ -452,14 +451,6 @@
 
             {# Fieldset - generate #}
             <div class="unig-fieldset no-border unig-fieldset-image-size unig-button-group">
-
-                {# Button generate Preview Images px #}
-                {#
-                          <div class="unig-button  unig-generate-preview-images-trigger" role="button">
-                              {% trans %} Generate preview images {% endtrans %}
-                          </div>
-
-          #}
             </div>
 
         </div>
@@ -478,7 +469,7 @@
             {# Button reset to alphabetical #}
             <div class="unig-button unig-button-warning unig-button-sort-alphanumeric">
                 <i class="fas fa-times" aria-hidden="true"></i>
-                {% trans %} reset to alphabetical {% endtrans %}
+                {% trans %} Reset to alphabetical {% endtrans %}
             </div>
 
             {# Button Cancel #}
@@ -495,7 +486,7 @@
 
             <div>
                 <div class="unig-dl-info-head">
-                    Bilder für Download: <span class="unig-dl-number-of">0</span>
+                    {% trans %} Cancel {% endtrans %} <span class="unig-dl-number-of">0</span>
 
                 </div>
                 <div class="unig-dl-info-body">
@@ -507,7 +498,7 @@
                             <i class="fas fa-th" aria-hidden="true"></i>
                             <span class="number_of_visible"></span>
 
-                            {% trans %} add all files {% endtrans %}
+                            {% trans %} Add all files {% endtrans %}
                         </div>
 
                         {# Button Clear Download List  #}
@@ -526,8 +517,8 @@
                                 <td class="unig-file-download-table-size">
                                     <span class="unig-file-download-table-size-sd">0 MB</span>
                                 </td>
-                                <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                             aria-hidden="true"></i>
+                                <td class="unig-file-download-table-icon">
+                                    <i class="fas fa-download" aria-hidden="true"></i>
                                 </td>
 
                             </tr>
@@ -539,8 +530,8 @@
                                 <td class="unig-file-download-table-size">
                                     <span class="unig-file-download-table-size-hd">0 MB</span>
                                 </td>
-                                <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                             aria-hidden="true"></i>
+                                <td class="unig-file-download-table-icon">
+                                    <i class="fas fa-download" aria-hidden="true"></i>
                                 </td>
 
                             </tr>
@@ -692,7 +683,9 @@
                         <div id="unig-form-new-album-input-messages"></div>
 
                         <div id="ajax-container-new-album">
-                            <a class="ajax-container-new-album-trigger">Neues Album erstellen</a>
+                            <a class="ajax-container-new-album-trigger">{% trans %} Create new album {% endtrans %}
+
+                            </a>
                             <div id="ajax-container-new-album-container" data-projectnid="{{ project.nid }}"
                                  style="display: none">
                                 {{ drupal_form('Drupal\\unig\\Form\\NewAlbumForm' ) }}
@@ -712,12 +705,10 @@
 
                 {% for file in files %}
 
-
-
                     <li class="unig-sortable-item sort-handle unig-file-item unig-file-edit unig-file-{{ file.nid }}"
                         id="unig-file-{{ file.nid }}" data-unig-file-nid="{{ file.nid }}">
 
-                        {# HIDDEN INPUTS#}
+                        {# hidden inputs #}
                         <div>
                             <input type="hidden" id="is-marked-{{ file.nid }}" name="is-market-{{ file.nid }}"
                                    value="0">
@@ -808,13 +799,15 @@
 
 
                                 <div class="unig-image-is-cover {% if project.cover_id == file.nid %}active{% endif %} ">
-                                    Titelbild
+                                    {% trans %} Cover Picture {% endtrans %}
                                 </div>
 
                                 <div role="button"
                                      class="unig-set-project-cover-button unig-set-project-cover-trigger {% if project.cover_id != file.nid %}active{% endif %} ">
                                     <div class="unig-set-project-cover-message">
-                                        als Titelbild festlegen
+                                        {% trans %}  Set as cover picture {% endtrans %}
+
+
                                     </div>
                                 </div>
 
@@ -878,7 +871,9 @@
                                 <div class="unig-button unig-file-set-cover unig-set-project-cover-trigger"
                                      role="button">
                                     <i class="fas fa-image" aria-hidden="true"></i>
-                                    Titelbild
+                                    {% trans %} Cover Picture {% endtrans %}
+
+
                                 </div>
                                 </span>
                                 {#  -----------   Button Löschen  -----------  #}
@@ -887,7 +882,7 @@
                                 <a class="unig-button-danger unig-file-delete-file use-ajax"
                                    href="/unig/nojs/delete_file/{{ file.nid }}">
                                     <i class="fas fa-trash" aria-hidden="true"></i>
-                                    löschen
+                                    Delete File
                                 </a>
                                     </span>
                                 {#  -----------   Album  -----------  #}

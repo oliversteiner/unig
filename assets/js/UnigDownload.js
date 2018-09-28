@@ -104,7 +104,6 @@
     },
 
     removeMark(nid) {
-
       if (nid) {
         // Mark Elem
         const elemTarget = document.querySelector(`#unig-file-${nid}`);
@@ -235,15 +234,19 @@
     },
 
     message_download_processing() {
+      // translate
+      const textZip = Drupal.t(
+        "A zip-archive with the pictures will be created. Please wait."
+      );
+      const textCancel = Drupal.t("Cancel download");
+      const textLoading = Drupal.t("Loading...");
+
       const mode = "";
       this.message_box(mode);
 
       $(".unig-message-box-body").html(
-        '<div class="unig-message-box-picto"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>' +
-          '<span class="sr-only">Loading...</span>' +
-          "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten." +
-          '<button onclick="Drupal.behaviors.unigDownload.bulkDownloadCancel()">' +
-          "Download abbrechen</button>"
+        `<div class="unig-message-box-picto"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>` +
+          `<span class="sr-only">${textLoading}</span>${textZip}<button onclick="Drupal.behaviors.unigDownload.bulkDownloadCancel()">${textCancel}</button>`
       );
     },
 
