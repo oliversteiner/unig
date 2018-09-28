@@ -874,14 +874,14 @@ ul.unig-tags-keywords {
 
 .unig .unig-toolbox {
   background-color: whitesmoke;
-  border-bottom: solid 1px #e3e2e2;
   border-radius: 3px;
   font-size: 0.9em;
-  margin: 0;
-  padding: 0; }
+  margin: 5px 0;
+  padding: 5px; }
 
 .unig .unig-toolbox table {
-  background-color: whitesmoke; }
+  background-color: whitesmoke;
+  border-spacing: 0; }
   .unig .unig-toolbox table tr td,
   .unig .unig-toolbox table tr th {
     background: transparent;
@@ -890,7 +890,8 @@ ul.unig-tags-keywords {
   .unig .unig-toolbox table tr th {
     color: #444444; }
   .unig .unig-toolbox table tr {
-    background: whitesmoke; }
+    background: whitesmoke;
+    border-bottom: solid 1px #e3e2e2; }
   .unig .unig-toolbox table tr[role="button"]:hover {
     border-radius: 5px;
     background-color: #c1c1c1;
@@ -1183,6 +1184,14 @@ ul.unig-messages li {
 .unig a.link,
 .unig a.link:hover {
   text-decoration: none; }
+
+.unig table {
+  margin: 0;
+  padding: 5px; }
+
+.unig td,
+.unig th {
+  padding: 5px 7px; }
 
 .unig-row {
   display: flex;

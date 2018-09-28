@@ -592,13 +592,13 @@
     font-size: 0.9em; }
   #unig-main.unig-theme-dark .unig .unig-toolbox {
     background-color: #363636;
-    border-bottom: solid 1px #272727;
     border-radius: 3px;
     font-size: 0.9em;
-    margin: 0;
-    padding: 0; }
+    margin: 5px 0;
+    padding: 5px; }
   #unig-main.unig-theme-dark .unig .unig-toolbox table {
-    background-color: #363636; }
+    background-color: #363636;
+    border-spacing: 0; }
     #unig-main.unig-theme-dark .unig .unig-toolbox table tr td,
     #unig-main.unig-theme-dark .unig .unig-toolbox table tr th {
       background: transparent;
@@ -607,7 +607,8 @@
     #unig-main.unig-theme-dark .unig .unig-toolbox table tr th {
       color: #a5a5a5; }
     #unig-main.unig-theme-dark .unig .unig-toolbox table tr {
-      background: #363636; }
+      background: #363636;
+      border-bottom: solid 1px #272727; }
     #unig-main.unig-theme-dark .unig .unig-toolbox table tr[role="button"]:hover {
       border-radius: 5px;
       background-color: #f9f9f9;

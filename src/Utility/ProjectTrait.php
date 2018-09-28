@@ -248,24 +248,17 @@ trait ProjectTrait
     {
         $output = new OutputController();
 
-        // Wenn nicht:
-        // Projekt öffnen und nachschauen ob schon ein Vorschaubild gesetzt ist
         $node = Node::load($nid_project);
         $title = $node->getTitle();
 
         if ($nid_image) {
             $nid_cover = $nid_image;
-        } else {
-            // Wenn noch kein Vorschaubild gesetzt ist, das erste Bild aus dem Projekt nehmen und einsetzen.
-            $cover = $node->get('field_unig_project_cover')->target_id;
-            if ($cover == NULL) {
-                $list_images = self::getListofFilesInProject($nid_project);
-                $nid_cover = $list_images[0];
-            }
+            $node->get('field_unig_project_cover')->target_id = $nid_cover;
         }
 
+
         // Load and Save Project
-        $node->field_unig_project_cover = ['target_id' => $nid_cover,];
+
         try {
             $node->save();
             $cover_tid = $node->get('field_unig_project_cover')->target_id;
@@ -559,9 +552,11 @@ trait ProjectTrait
 
             // Cover Node ID
             $node_cover = $node->get('field_unig_project_cover')->getValue();
-            $cover_id = $node_cover[0]['target_id'];
 
-            if ($cover_id == NULL) {
+            if($node_cover[0] &&  $node_cover[0]['target_id']){
+                $cover_id = $node_cover[0]['target_id'];
+
+            }else{
                 $output = self::setCover($nid);
                 $cover_id = $output->getTid();
             }

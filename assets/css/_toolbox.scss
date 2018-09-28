@@ -8,17 +8,16 @@
 }
 .unig .unig-toolbox {
   background-color: $color-toolbox-background;
-  border-bottom: solid 1px $color-toolbox-stroke;
   border-radius: 3px;
   font-size: 0.9em;
-  margin: 0;
-  padding: 0;
+  margin: 5px 0;
+  padding: 5px;
 }
 
 
 .unig .unig-toolbox table {
   background-color: $color-toolbox-background;
-
+  border-spacing: 0;
 
   tr td,
   tr th{
@@ -35,6 +34,8 @@
 
   tr{
     background: $color-toolbox-background;
+    border-bottom: solid 1px $color-toolbox-stroke;
+
   }
 
   // row hover
