@@ -183,9 +183,9 @@
                                         {# ----------- Private ----------- #}
 
                                         {% if project.private %}
-                                            {% set title_private =  "Dieses Projekt ist oeffentlich" %}
+                                            {% set title_private =  "Dieses Projekt ist privat" %}
                                         {% else %}
-                                            {% set title_private = "Dieses Projekt ist privat" %}
+                                            {% set title_private = "Dieses Projekt ist öffentlich" %}
                                         {% endif %}
 
                                         <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
@@ -197,8 +197,6 @@
                                             <span class="unig-project-public" {% if  project.private %} style="display: none" {% endif %}>
                                                 <i class="fas fa-lock-open"></i>
                                             </span>
-
-
 
                                         </div>
 

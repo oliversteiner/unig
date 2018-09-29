@@ -3,18 +3,18 @@
   Drupal.behaviors.unigProjectList = {
     projectEditOpen: false,
 
-    confirmDeleteProject(projectNid) {
+    confirmDeleteProject() {
       // Show Confirm Dialog
       document
-        .querySelector(`.unig-project-delete-confirm-${projectNid}`)
+        .querySelector(`.unig-project-delete-confirm`)
         .setAttribute("style", "display:block");
 
     },
 
-    cancelDeleteProject(projectNid) {
+    cancelDeleteProject() {
       // Hide Confirm Dialog
       document
-        .querySelector(`.unig-project-delete-confirm-${projectNid}`)
+        .querySelector(`.unig-project-delete-confirm`)
         .setAttribute("style", "display:none");
 
     },

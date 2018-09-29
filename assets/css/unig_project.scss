@@ -28,18 +28,7 @@
   }
 }
 
-.unig-project-private-status.private .unig-project-private {
-  background-color: $color-private;
-  border-color: $color-private-border;
 
-  .unig-gallery-preview-wrapper {
-    background-color: $color-private-border;
-  }
-
-  .unig-gallery-preview-wrapper:hover {
-    background-color: $color-highlight;
-  }
-}
 
 .unig-project-list-title {
   display: inline-block;
@@ -278,10 +267,6 @@ ul.unig-gallery li.unig-file-item:hover {
   margin-right: 10px;
 }
 
-.edit-unig-project-private-label {
-  display: inline;
-  margin-left: 3px;
-}
 
 .unig-toolbar-info-edit {
 }
@@ -320,12 +305,7 @@ ul.unig-gallery li.unig-file-item:hover {
   }
 }
 
-.unig-project-private {
-  padding: 5px 20px;
-  margin: 0;
-  border-radius: 10px;
-  color: $color-0;
-}
+
 
 .unig-button-project-delete {
   color: $color-error-text;
@@ -372,4 +352,13 @@ ul.unig-gallery li.unig-file-item:hover {
 
 .unig-process-error {
   color: $color-error;
+}
+
+.unig-project-private-status.private .unig-fieldset-project{
+border-top: solid 5px $color-admin-private;
+  padding-top: 10px;
+}
+
+.unig-project-private-status.private .unig-project-public-private{
+  color: $color-admin-private-active;
 }

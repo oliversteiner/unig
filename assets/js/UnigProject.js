@@ -203,6 +203,14 @@
       Drupal.behaviors.unigAdmin.edit(nid, "description", "file");
     },
 
+    /**
+     *
+     * @param nid
+     */
+    togglePrivat(nid) {
+      Drupal.behaviors.unigAdmin.togglePrivat(nid);
+    },
+
     attach(context, settings) {
       // onload
       $("*[id^='lightgallery-']").lightGallery({
@@ -323,48 +331,10 @@
             Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
           });
 
+
+
           const projectNid = scope.getProjectNid();
 
-          //  Edit Trigger
-          document
-            .querySelectorAll(".unig-project-edit-trigger")
-            .forEach(elem =>
-              elem.addEventListener(
-                "click",
-                () => {
-                  Drupal.behaviors.unigProjectList.toggleEditProject(
-                    projectNid
-                  );
-                },
-                false
-              )
-            );
-
-          //  Save Trigger
-          document
-            .querySelectorAll(".unig-project-save-trigger", context)
-            .forEach(elem =>
-              elem.addEventListener(
-                "click",
-                () => {
-                  Drupal.behaviors.unigProjectList.saveProject(projectNid);
-                },
-                false
-              )
-            );
-
-          //  Cancel Trigger
-          document
-            .querySelectorAll(".unig-project-cancel-trigger", context)
-            .forEach(elem =>
-              elem.addEventListener(
-                "click",
-                () => {
-                  Drupal.behaviors.unigProjectList.resetProject(projectNid);
-                },
-                false
-              )
-            );
 
           //  Delete Project Trigger
           document
@@ -372,7 +342,9 @@
             .forEach(elem =>
               elem.addEventListener(
                 "click",
-                () => {
+                (event) => {
+                  console.log('delete', event );
+
                   Drupal.behaviors.unigProjectList.confirmDeleteProject(
                     projectNid
                   );
@@ -396,22 +368,9 @@
               )
             );
 
-          // Open Edit Dialog on dubleclick
-          document
-            .querySelectorAll(".unig-project-title-trigger", context)
-            .forEach(edit =>
-              edit.addEventListener(
-                "dblclick",
-                () => {
-                  Drupal.behaviors.unigProjectList.toggleEditProject(
-                    projectNid
-                  );
-                },
-                false
-              )
-            );
 
-          // Edit File Title
+
+          // Edit Trigger
           document
             .querySelectorAll(".unig-edit-trigger", context)
             .forEach(elem =>
@@ -424,6 +383,19 @@
               )
             );
 
+          //  Private Project Trigger
+          document
+            .querySelectorAll(".unig-project-private-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const nid = scope.getProjectNid(event);
+                  scope.togglePrivat(nid);
+                },
+                false
+              )
+            );
         });
     }
   };
