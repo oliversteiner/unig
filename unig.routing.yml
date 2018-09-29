@@ -188,6 +188,17 @@ unig.project.save:
   requirements:
     _permission: 'access unig admin'
 
+#
+# AJAX saveFile
+# Input: $_POST
+#
+unig.file.save:
+  path: '/unig/file/save'
+  defaults:
+    _controller: '\Drupal\unig\Controller\FilesController:saveFile'
+    _title: 'Save File'
+  requirements:
+    _permission: 'access unig admin'
 
 #
 # AJAX sortProject

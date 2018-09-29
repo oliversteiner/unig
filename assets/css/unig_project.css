@@ -254,4 +254,22 @@ ul.unig-gallery li.unig-file-item:hover {
     border-color: #ffb4aa;
     color: #ffe6e5; }
 
+.unig-file-description,
+.unig-file-description textarea,
+.unig-file-title-edit input {
+  text-align: center; }
+
+.unig-file-description .unig-input-placeholder {
+  font-size: 0.7em;
+  color: #8f8f8f; }
+
+.unig-file-process-spinner {
+  color: gray; }
+
+.unig-file-process-success {
+  color: #0f7f34; }
+
+.unig-file-process-error {
+  color: #a2132b; }
+
 /*# sourceMappingURL=unig_project.css.map */

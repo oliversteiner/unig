@@ -235,7 +235,7 @@
                                                for="edit-unig-project-private-{{ project.nid }}">
                                             {% trans %}  Private Project {% endtrans %}
 
-                                            </label>
+                                        </label>
                                     </div>
 
                                 </div>
@@ -759,7 +759,7 @@
                                 <div class="unig-file-head-item unig-file-head-info">
 
                                     {# ----------- NODE ID ----------- #}
-                                    <span class="unig-file-item-info unig-file-nid" style="display: none">
+                                    <span class="unig-file-item-info unig-file-nid" style="display: block">
                                     {{ file.nid }}
                                     </span>
                                     {# ----------- Weight ----------- #}
@@ -817,21 +817,63 @@
                                 </div>
                             </div>
 
-                            {#  -----------   Title  -----------  #}
-                            <div class="unig-file-title">
-                                {% if user.hasPermission('administer nodes') %}
 
-                                    <a href="/node/{{ file.nid }}/edit?destination=/unig/project/{{ project.nid }}"
-                                       class="unig-file-item-text use-ajax"
-                                       data-dialog-type="modal"
-                                       data-dialog-options='{"height":"650","width":"50%","max-height":"100%"}'
-                                    >
+                            {#  -----------   Title 1  -----------  #}
+                            <div class="unig-file-title">
+
+                                {# ----------- Edit File Default ----------- #}
+
+                                <div class="unig-file-title-default  unig-file-title-trigger unig-file-title-default-{{ file.nid }}">
+
+                                    {# All File Titles #}
+                                    <div class="unig-default-box unig-file-title-all unig-file-title-content">
                                         {{ file.title }}
-                                    </a>
-                                {% else %}
-                                    <span>{{ file.title }}</span>
-                                {% endif %}
+                                    </div>
+                                </div>
+
+                                {# ----------- Edit File Titel ----------- #}
+                                <div class="unig-file-edit unig-file-title-edit unig-file-title-edit-{{ file.nid }}"
+                                     style="display: none">
+
+                                    <input
+                                            id="unig-file-title-edit-input-{{ file.nid }}"
+                                            class="unig-file-title-edit"
+                                            title="Title"
+                                            type="text"
+                                            size="26"
+                                            value="{{ file.title }}">
+                                </div>
                             </div>
+
+
+                            {#  -----------   Description  -----------  #}
+                            <div class="unig-file-description">
+
+                                {# ----------- defalut File Description ----------- #}
+                                <div class="unig-default-box-textarea  unig-file-description-default  unig-file-description-content unig-file-description-trigger  unig-file-description-default-{{ file.nid }}">
+
+
+                                    {% if not file.description %}
+                                        <span class="unig-input-placeholder">{% trans %} Beschreibung hinzufügen {% endtrans %} </span>
+                                   {% else %}
+                                       {{ file.description }}
+                                    {% endif %}
+
+                                </div>
+
+                                {# ----------- Edit File Description ----------- #}
+                                <div class="unig-file-edit unig-file-description-edit unig-file-description-edit-{{ file.nid }}"
+                                     style="display: none">
+
+                                <textarea
+                                        id="unig-file-description-edit-input-{{ file.nid }}"
+                                        class="unig-file-description-edit"
+                                        rows="4"
+                                        cols="26"
+                                        title="Description">{{ file.description }}</textarea>
+                                </div>
+                            </div>
+
 
                             {#  -----------   MIDDLE  -----------  #}
                             <div class="unig-file-middle unig-sortable-hide">
@@ -861,6 +903,14 @@
                                     {#  -----------   Meta Info button  -----------  #}
                                     <span class="unig-toolbox-button unig-file-picto unig-file-metainfo-toolbox-trigger">
                                         <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+
+
+                                    {#  -----------   Prozess Indicator -----------  #}
+                                    <span class="unig-toolbox-icon unig-file-picto">
+                                       <span class="unig-file-process-spinner" style="display: none"> <i class="fas fa-spinner fa-spin" aria-hidden="true"></i></span>
+                                       <span class="unig-file-process-success" style="display: none"> <i class="fas fa-check" aria-hidden="true"></i></span>
+                                       <span class="unig-file-process-error" style="display: none"> <i class="fas fa-exclamation-triangle" aria-hidden="true"></i></span>
                                     </span>
                                 </div>
                             </div>
@@ -893,6 +943,9 @@
                             {#  -----------   Toolbox Meta Info  -----------  #}
                             <div class="unig-toolbox  unig-file-metainfo-toolbox" style="display: none">
                                 <table>
+                                    <tr>
+                                        <th colspan="2">{{ file.image.original.name }}</th>
+                                    </tr>
                                     <tr>
                                         <th>{% trans %} Size {% endtrans %}
 

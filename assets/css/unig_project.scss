@@ -28,7 +28,7 @@
   }
 }
 
-.unig-project-private-status.private  .unig-project-private{
+.unig-project-private-status.private .unig-project-private {
   background-color: $color-private;
   border-color: $color-private-border;
 
@@ -272,8 +272,6 @@ ul.unig-gallery li.unig-file-item:hover {
   vertical-align: top;
 }
 
-
-
 .unig-edit-project-col-1,
 .unig-edit-project-col-2 {
   border-right: 1px solid $color-admin-border;
@@ -303,7 +301,7 @@ ul.unig-gallery li.unig-file-item:hover {
   color: $color-admin-info;
 }
 
-.unig-project-description{
+.unig-project-description {
   max-width: 500px;
   margin: 0 20px;
 }
@@ -321,29 +319,49 @@ ul.unig-gallery li.unig-file-item:hover {
     margin-right: 4px;
   }
 }
-.unig-project-private{
+
+.unig-project-private {
   padding: 5px 20px;
   margin: 0;
   border-radius: 10px;
   color: $color-0;
 }
 
-.unig-button-project-delete{
+.unig-button-project-delete {
   color: $color-error-text;
   border-color: transparent;
   background-color: transparent;
 
-  &:hover{
+  &:hover {
     background-color: $color-error-hover;
     border-color: $color-error-border;
     color: $color-error-background;
   }
 
-
-  &:active{
+  &:active {
     background-color: $color-error-hover;
     border-color: $color-error-border;
     color: $color-error-background;
   }
 
+}
+.unig-file-description,
+.unig-file-description textarea,
+.unig-file-title-edit input{
+  text-align: center;
+}
+
+.unig-file-description .unig-input-placeholder{
+  font-size: 0.7em;
+  color: $color-admin-info;
+}
+
+.unig-file-process-spinner{
+  color:$color-50;
+}
+.unig-file-process-success{
+  color: $color-success;
+}
+.unig-file-process-error{
+  color: $color-error;
 }

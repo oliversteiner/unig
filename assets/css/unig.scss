@@ -15,12 +15,14 @@
 
 @import url("https://fonts.googleapis.com/css?family=Lato");
 
+$font-unig: "Lato", "Lucida Grande", "Source Sans Pro", "Lucida Sans Unicode",
+Tahoma, Verdana, Arial, Helvetica, sans-serif;
+
 body {
 }
 
 .unig {
-  font-family: "Lato", "Lucida Grande", "Source Sans Pro", "Lucida Sans Unicode",
-    Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-family: $font-unig;
 
   a,
   p,
@@ -34,6 +36,10 @@ body {
     font-size: 14px;
   }
 }
+
+
+// Title and Link
+// ========================
 
 .unig {
   h1 {
@@ -49,6 +55,40 @@ body {
     text-decoration: none;
   }
 }
+
+
+// Input
+// ========================
+
+.unig-edit-box,
+.unig input,
+.unig input[type=text],
+.unig textarea {
+  border: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 3px;
+  font-family: $font-unig;
+  font-size: 14px;
+}
+.unig *:focus {
+  outline: none;
+}
+.unig-default-box{
+  padding: 1px;
+}
+.unig-default-box-textarea{
+  padding: 3px;
+
+}
+.unig-input-placeholder{
+  color: $color-50;
+}
+
+
+// Table
+// ========================
+
 .unig table{
   margin: 0;
   padding: 5px;
@@ -58,6 +98,9 @@ body {
   padding: 5px 7px;
 }
 
+.unig-info{
+color: $color-50;
+}
 // Layout
 
 .unig-row {

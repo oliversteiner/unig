@@ -309,6 +309,7 @@ trait ProjectTrait
                             // Original
 
                             $path = $image->entity->getFileUri();
+                            $name = $image->entity->getFilename();
                             $url = file_create_url($path);
 
                             $filesize = filesize($path);
@@ -321,6 +322,7 @@ trait ProjectTrait
                             $variables['original']['filesize_formated'] = $filesize_formated;
                             $variables['original']['width'] = $width;
                             $variables['original']['height'] = $height;
+                            $variables['original']['name'] = $name;
 
                             // styles
 
@@ -811,6 +813,24 @@ trait ProjectTrait
         // Title
         $title = $entity->label();
 
+        // Title Generated
+        $title_generated = $entity->get('field_unig_title_generated')->getValue();
+        if ($title_generated) {
+            $title_generated = $title_generated[0]['value'];
+        }else{
+            $title_generated = 1;
+        }
+
+        // Description
+        $description= $entity->get('field_unig_description')->getValue();
+
+        if ($description) {
+            $description = $description[0]['value'];
+        }
+
+        // comments
+        $comments = 'comments';
+
         // Rating
         $rating = 0;
         $node_rating = $entity->get('field_unig_rating')->getValue();
@@ -834,6 +854,7 @@ trait ProjectTrait
 
         // image
         $image = self::getImage($file_nid);
+        $image_name = $image['original']['name'];
 
         // people
         $people = [];
@@ -874,13 +895,17 @@ trait ProjectTrait
         $file = [
             'nid' => $nid,
             'title' => $title,
+            'description' => $description,
             'album_list' => $album_list,
             'image' => $image,
+            'file_name' => $image_name,
+            'comments' => $comments,
             'weight' => $weight,
             'rating' => $rating,
             'copyright' => $copyright,
             'people' => $people,
             'keywords' => $keywords,
+            'title_generated' => $title_generated,
         ];
 
 

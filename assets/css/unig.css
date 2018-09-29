@@ -906,6 +906,7 @@ ul.unig-tags-keywords {
     opacity: 0.5;
     cursor: not-allowed; }
 
+.unig-toolbox-icon,
 .unig-toolbox-button {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -1185,6 +1186,29 @@ ul.unig-messages li {
 .unig a.link:hover {
   text-decoration: none; }
 
+.unig-edit-box,
+.unig input,
+.unig input[type=text],
+.unig textarea {
+  border: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 3px;
+  font-family: "Lato", "Lucida Grande", "Source Sans Pro", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px; }
+
+.unig *:focus {
+  outline: none; }
+
+.unig-default-box {
+  padding: 1px; }
+
+.unig-default-box-textarea {
+  padding: 3px; }
+
+.unig-input-placeholder {
+  color: gray; }
+
 .unig table {
   margin: 0;
   padding: 5px; }
@@ -1192,6 +1216,9 @@ ul.unig-messages li {
 .unig td,
 .unig th {
   padding: 5px 7px; }
+
+.unig-info {
+  color: gray; }
 
 .unig-row {
   display: flex;

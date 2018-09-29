@@ -622,6 +622,7 @@
     #unig-main.unig-theme-dark .unig .unig-toolbox table tr.active td {
       opacity: 0.5;
       cursor: not-allowed; }
+  #unig-main.unig-theme-dark .unig-toolbox-icon,
   #unig-main.unig-theme-dark .unig-toolbox-button {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;

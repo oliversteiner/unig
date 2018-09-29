@@ -3,6 +3,8 @@
 namespace Drupal\unig\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\node\Entity\Node;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Drupal\unig\Utility\AdminTemplateTrait;
@@ -16,6 +18,7 @@ class FilesController extends ControllerBase
 {
     use ProjectTrait;
     use FileTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -25,15 +28,15 @@ class FilesController extends ControllerBase
     }
 
 
-  /**
-   * @return array
-   */
-  public function selectNewProject()
-  {
-    return array(
-      '#markup' => '<p>selectNewProject</p>',
-    );
-  }
+    /**
+     * @return array
+     */
+    public function selectNewProject()
+    {
+        return array(
+            '#markup' => '<p>selectNewProject</p>',
+        );
+    }
 
     /**
      * @return array
@@ -52,17 +55,15 @@ class FilesController extends ControllerBase
     public function fileDetail($file_nid)
     {
         // Make sure you don't trust the URL to be safe! Always check for exploits.
-        if (!is_numeric($file_nid) ) {
+        if (!is_numeric($file_nid)) {
             // We will just show a standard "access denied" page in this case.
             throw new AccessDeniedHttpException();
         }
 
         return array(
-            '#markup' => '<p>File: '.$file_nid.'</p>',
+            '#markup' => '<p>File: ' . $file_nid . '</p>',
         );
     }
-
-
 
 
     /**
@@ -74,5 +75,8 @@ class FilesController extends ControllerBase
             '#markup' => '<p>' . $this->t('Test Page') . '</p>',
         );
     }
+
+
+
 
 }

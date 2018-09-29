@@ -176,6 +176,135 @@
       document.getElementsByClassName("unig-ajax-container").innerHtml = "";
     },
 
+    editFile(nid, field) {
+      console.log(`Edit File ${field}`, nid);
+
+      // Elems
+      const elemDefault = document.querySelector(
+        `.unig-file-${field}-default-${nid}`
+      );
+      const elemEdit = document.querySelector(
+        `.unig-file-${field}-edit-${nid}`
+      );
+      const elemInput = document.getElementById(
+        `unig-file-${field}-edit-input-${nid}`
+      );
+
+      // change Display to Edit
+      elemDefault.setAttribute("style", "display:none");
+      elemEdit.setAttribute("style", "display:block");
+
+      // set Focus on input
+      elemInput.focus();
+      elemInput.select();
+
+      // listen to blur
+      elemInput.addEventListener("blur", () => {
+        // change Display to Default
+        elemEdit.setAttribute("style", "display:none");
+        elemDefault.setAttribute("style", "display:block");
+
+        // Save Changes
+        this.safeFile(nid, field);
+      });
+    },
+    /**
+     *
+     *
+     * @param nid
+     * @param field
+     * @param input
+     * @param original
+     * @return {Promise<boolean | never>}
+     */
+    safeFile(nid, field) {
+      // Spinner
+      const elemSpinner = document.querySelector(
+        `.unig-file-${nid} .unig-file-process-spinner`
+      );
+
+      // Success
+      const elemSuccess = document.querySelector(
+        `.unig-file-${nid} .unig-file-process-success`
+      );
+
+      // Error
+      const elemError = document.querySelector(
+        `.unig-file-${nid} .unig-file-process-error`
+      );
+
+      // Original
+      const elemOriginal = document.querySelector(
+        `.unig-file-${nid} .unig-file-${field}-content`
+      );
+
+      // Input
+      const elemInput = document.getElementById(
+        `unig-file-${field}-edit-input-${nid}`
+      );
+
+      // Trim Text
+      const textOriginal = elemOriginal.textContent.trim();
+      const textInput = elemInput.value.trim();
+
+      // compare input and original
+      if (textOriginal === textInput) {
+      } else {
+        // copy new Input to Original
+        elemOriginal.innerText = textInput;
+
+        // start Process Spinner
+        elemSuccess.setAttribute("style", "display:none");
+        elemSpinner.setAttribute("style", "display:block");
+
+        const value = Drupal.checkPlain(textInput);
+        const data = {
+          nid,
+          field,
+          value
+        };
+        const url = `/unig/file/save`;
+
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => response.json())
+          .then(response => {
+            if (response.status) {
+
+              elemSpinner.setAttribute("style", "display:none");
+              elemSuccess.setAttribute("style", "display:block");
+
+            } else {
+              elemSpinner.setAttribute("style", "display:none");
+              elemError.setAttribute("style", "display:block");
+
+              Drupal.behaviors.unig.setMessage(response.messages, "warning");
+
+              return response.toString();
+            }
+          })
+          .catch(error => {
+            elemSpinner.setAttribute("style", "display:none");
+            elemError.setAttribute("style", "display:block");
+
+            Drupal.behaviors.unig.setMessage('Save to server faild.', "error");
+          });
+      }
+    },
+
+    editFileTitle(nid) {
+      this.editFile(nid, "title");
+    },
+
+    editFileDescription(nid) {
+      this.editFile(nid, "description");
+    },
+
     attach(context, settings) {
       // onload
       $("*[id^='lightgallery-']").lightGallery({
@@ -379,6 +508,36 @@
                   Drupal.behaviors.unigProjectList.toggleEditProject(
                     projectNid
                   );
+                },
+                false
+              )
+            );
+
+          // Edit File Title
+          document
+            .querySelectorAll(".unig-file-title-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const nid = scope.getNodeId(event);
+
+                  scope.editFileTitle(nid);
+                },
+                false
+              )
+            );
+
+          // Edit File Description
+          document
+            .querySelectorAll(".unig-file-description-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  const nid = scope.getNodeId(event);
+
+                  scope.editFileDescription(nid);
                 },
                 false
               )

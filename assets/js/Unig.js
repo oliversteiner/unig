@@ -1,16 +1,17 @@
 /* eslint-disable prettier/prettier */
 
-(function($, Drupal, drupalSettings) {
+(function ($, Drupal, drupalSettings) {
   Drupal.behaviors.unig = {
     number_files: 0,
     number_files_in_download_list: 0,
     number_files_visible: 0,
-    projectName: "",
+    projectName: '',
+    messages: [],
 
     attach(context, settings) {
       // console.log(' Drupal.behaviors.unig');
-      $("#unig-main", context)
-        .once("unig9043twjrdfhjg")
+      $('#unig-main', context)
+        .once('unig9043twjrdfhjg')
         .each(() => {
           const scope = this;
 
@@ -19,9 +20,9 @@
 
           // Message Close Trigger
           document
-            .querySelectorAll(".unig-message-close-trigger", context)
+            .querySelectorAll('.unig-message-close-trigger', context)
             .forEach(elem => {
-              elem.addEventListener("click", event => {
+              elem.addEventListener('click', event => {
                 scope.closeMessage(event);
               });
             });
@@ -30,21 +31,21 @@
 
     checkMessagebox() {
       // Select the node that will be observed for mutations
-      const targetNode = document.querySelector(".unig-messages");
+      const targetNode = document.querySelector('.unig-messages');
 
       // Options for the observer (which mutations to observe)
-      const config = { childList: true };
+      const config = {childList: true};
 
       // Callback function to execute when mutations are observed
       const callback = mutationsList => {
         // Check for changes
-        if (mutationsList[0].type === "childList") {
+        if (mutationsList[0].type === 'childList') {
           if (targetNode.childElementCount === 0) {
             // add Class "active"
-            targetNode.classList.remove("active");
+            targetNode.classList.remove('active');
           } else {
             // Remove Class "active"
-            targetNode.classList.add("active");
+            targetNode.classList.add('active');
           }
         }
       };
@@ -64,15 +65,16 @@
       const elem = event.target.parentElement;
 
       // Effect
-      elem.classList.add("slide-out-blurred-top");
+      elem.classList.add('slide-out-blurred-top');
 
       // remove Node
       setTimeout(() => {
         elem.parentNode.removeChild(elem);
-      }, 500);
+      }, 400);
     },
 
-    updateGui() {},
+    updateGui() {
+    },
 
     removeDuplicates(arr) {
       return arr.filter((elem, index, self) => index === self.indexOf(elem));
@@ -81,7 +83,7 @@
     changeArrayItemToInt(array) {
       // console.log('changeArrayItemToInt ', array);
 
-      if (Object.prototype.toString.call(array) === "[object Array]") {
+      if (Object.prototype.toString.call(array) === '[object Array]') {
         const intArray = [];
         let counter = 0;
 
@@ -111,16 +113,26 @@
     },
 
     getNodeId(event) {
-      const $elem = $(event.target).parents(".unig-file-item");
-      const nid = $elem.data("unig-file-nid");
+      const $elem = $(event.target).parents('.unig-file-item');
+      const nid = $elem.data('unig-file-nid');
       return nid;
     },
 
-    showMessages(messages) {
-      const messagesList = document.querySelectorAll(".unig-messages");
 
-      let content = "";
-      let icon = "";
+    setMessage(text, type) {
+
+      const message = [text, type];
+      Drupal.behaviors.unig.messages.push(message);
+
+      this.showMessages(Drupal.behaviors.unig.messages)
+    },
+
+
+    showMessages(messages) {
+      const messagesList = document.querySelectorAll('.unig-messages');
+
+      let content = '';
+      let icon = '';
 
       if (messages.length > 0) {
         messages.forEach(item => {
@@ -128,20 +140,20 @@
           const message = item[0];
 
           switch (item[1]) {
-            case "info":
+            case 'info':
               icon = '<i class="fas fa-info-circle"></i>';
               break;
-            case "success":
+            case 'success':
               icon = '<i class="fas fa-check"></i>';
               break;
-            case "warning":
+            case 'warning':
               icon = '<i class="fas fa-exclamation-triangle"></i>';
               break;
-            case "error":
+            case 'error':
               icon = '<i class="fas fa-exclamation-circle"></i>';
               break;
             default:
-              icon = "";
+              icon = '';
               break;
           }
 
@@ -150,21 +162,21 @@
             `<span class="unig-message-text">${message}</span>`;
 
           // li
-          const messageElem = document.createElement("li");
+          const messageElem = document.createElement('li');
           messageElem.classList.add(`unig-message-type-${type}`);
           messageElem.innerHTML = content;
 
           // close button
-          const closeButton = document.createElement("span");
+          const closeButton = document.createElement('span');
           closeButton.classList.add(
-            "unig-button-icon-info",
-            "unig-message-button-close",
-            "unig-message-close-trigger"
+            'unig-button-icon-info',
+            'unig-message-button-close',
+            'unig-message-close-trigger'
           );
-          closeButton.setAttribute("role", "button");
+          closeButton.setAttribute('role', 'button');
           closeButton.innerHTML =
             '<i class="fa fa-times" aria-hidden="true"></i>';
-          closeButton.addEventListener("click", event => {
+          closeButton.addEventListener('click', event => {
             this.closeMessage(event);
           });
           // add button to li
@@ -183,8 +195,8 @@
       //      return `${(size / Math.pow(1024, i)).toFixed(2) * 1} ${
 
       return `${(size / 1024 ** i).toFixed(2) * 1} ${
-        ["B", "kB", "MB", "GB", "TB"][i]
-      }`;
+        ['B', 'kB', 'MB', 'GB', 'TB'][i]
+        }`;
     }
   };
 })(jQuery, Drupal, drupalSettings);

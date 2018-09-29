@@ -152,16 +152,32 @@ h2.unig-project-title {
 }
 
 .unig-file-name {
-  font-family: $font-sans-serif;
-  font-size: 0.9em;
-  padding: 8px 8px 0 8px;
-}
+   font-family: $font-sans-serif;
+   font-size: 0.9em;
+   padding: 8px 8px 0 8px;
+ }
+
+
+
+
 
 .unig-file-title {
+  padding: 8px 8px 0 8px;
+
   font-family: $font-sans-serif;
   font-size: 0.9em;
+  text-align: center;
 }
 
+.unig-file-description {
+  font-family: $font-sans-serif;
+  font-size: 0.8em;
+  padding: 8px 8px 0 8px;
+  width: 230px;
+  text-align: center;
+
+
+}
 .unig-gallery-toolbar {
   margin-top: 5px;
 }

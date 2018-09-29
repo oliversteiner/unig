@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityStorageException;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use Drupal\unig\Controller\IptcController;
+use Drupal\unig\Controller\OutputController;
 
 trait FileTrait
 {
@@ -66,12 +67,19 @@ trait FileTrait
             $entity_def->get('entity_keys')['bundle'] => $this->bundle_file,
         ];
 
+
+
         // Init new node
         $new_post = \Drupal::EntityTypeManager()
             ->getStorage($entity_type)
             ->create($new_node);
 
         //
+
+        // Set true for generated Title
+        if (!empty($new_post->field_unig_title_generated)) {
+            $new_post->field_unig_title_generated->setValue(1);
+        }
 
         if (!empty($new_post->field_unig_project)) {
             $new_post->field_unig_project->setValue([
@@ -82,14 +90,11 @@ trait FileTrait
         // check file if Image or File:
         if (in_array($file_ext, $this->ext_image)) {
 
-
             // if Image save to Imagefield
             if (!empty($new_post->field_unig_image)) {
                 $new_post->field_unig_image->setValue([
                     'target_id' => $file_id,
                 ]);
-
-
             }
 
             // IPTC
@@ -258,7 +263,55 @@ trait FileTrait
          CreateImageStylesTrait::createImageStyles($image_uri, $style_name);
     }
 
+    /**
+     *
+     * @return mixed
+     *
+     *
+     */
+    public static function saveFile()
+    {
+        $output = new OutputController();
 
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $nid = $data['nid'];
+        $field = $data['field'];
+        $value = $data['value'];
+
+        // Load node
+        $node = Node::load($nid);
+
+
+        if ($field === "title") {
+            $node->setTitle($value);
+            $node->set('field_unig_title_generated', 0);
+
+        } else {
+            // description
+            $node->set('field_unig_' . $field, $value);
+
+        }
+
+        // Save node
+        try {
+            $node->save();
+
+            $output->setStatus(true);
+            $output->setData([$field, $value]);
+            $output->setNid($nid);
+        } catch (EntityStorageException $e) {
+            $output->setStatus(false);
+            $output->setMessages([$e, 'error']);
+            $output->setData([$nid,$field, $value]);
+
+        }
+
+
+        // Output
+
+        return $output->json();
+    }
 
 
 }
