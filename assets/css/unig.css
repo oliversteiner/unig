@@ -668,11 +668,11 @@ a.unig-button-icon-error:active, a.unig-button-icon-danger:active,
   border-radius: 0 5px 5px 0; }
 
 .private .unig-button {
-  background-color: #c3ccb9; }
+  background-color: #6a7fc4; }
 .private .unig-button:hover {
-  background-color: #99a091; }
+  background-color: #323188; }
 .private .unig-button:active {
-  background-color: #7b8175; }
+  background-color: #1d4281; }
 
 .unig-button > *,
 a.unig-button > *,

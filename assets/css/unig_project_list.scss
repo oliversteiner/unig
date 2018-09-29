@@ -92,9 +92,6 @@ li.unig-project-list-item-year {
 
 
 
-.unig-project-private-status.private {
-  background-color: $color-admin-private;
-}
 
 li.unig-project-list-item-year {
   display: block;
@@ -247,4 +244,25 @@ hr.unig.unig-project-list {
     color: $color-warning;
     margin-right: 4px;
   }
+}
+
+.unig-project-public-private span{
+  margin: 0;
+  padding: 0;
+}
+
+
+.unig-project-container.private .unig-project-cover-background{
+  background-color: $color-admin-private;
+  color: $color-admin-private-active;
+
+}
+.unig-project-container.private .unig-project-cover-background:hover{
+  background-color: $color-admin-private-hover;
+  color: $color-admin-private;
+
+}
+
+.unig-project-container.private .unig-project-public-private{
+  color: $color-admin-private-active;
 }

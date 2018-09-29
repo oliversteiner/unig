@@ -190,11 +190,15 @@
 
                                         <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
                                              title="{{ title_private }}">
-                                            <div class="unig-project-public" {% if  project.private %} style="display: none" {% endif %}>
-                                                <i class="fas fa-lock-open"></i></div>
-                                            <div class="unig-project-private" {% if not project.private %} style="display: none" {% endif %}>
+                                            <span class="unig-project-private" {% if not project.private %} style="display: none" {% endif %}>
+                                                <i class="fas fa-lock"></i>
+                                            </span>
 
-                                                <i class="fas fa-lock"></i></div>
+                                            <span class="unig-project-public" {% if  project.private %} style="display: none" {% endif %}>
+                                                <i class="fas fa-lock-open"></i>
+                                            </span>
+
+
 
                                         </div>
 

@@ -9,22 +9,14 @@
         .querySelector(`.unig-project-delete-confirm-${projectNid}`)
         .setAttribute("style", "display:block");
 
-      // Hide Delete Button
-      document
-        .querySelector(`.unig-button-project-delete-${projectNid}`)
-        .setAttribute("style", "display:none");
     },
 
     cancelDeleteProject(projectNid) {
-      // Show Confirm Dialog
+      // Hide Confirm Dialog
       document
         .querySelector(`.unig-project-delete-confirm-${projectNid}`)
         .setAttribute("style", "display:none");
 
-      // Hide Delete Button
-      document
-        .querySelector(`.unig-button-project-delete-${projectNid}`)
-        .setAttribute("style", "display:block");
     },
 
     /**
