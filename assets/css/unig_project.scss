@@ -345,23 +345,31 @@ ul.unig-gallery li.unig-file-item:hover {
   }
 
 }
+
 .unig-file-description,
 .unig-file-description textarea,
-.unig-file-title-edit input{
+.unig-file-title-edit input {
   text-align: center;
 }
 
-.unig-file-description .unig-input-placeholder{
+.unig-file-description {
+  max-width: 220px;
+  color: $color-50;
+}
+
+.unig-file-description .unig-input-placeholder {
   font-size: 0.7em;
   color: $color-admin-info;
 }
 
-.unig-file-process-spinner{
-  color:$color-50;
+.unig-file-process-spinner {
+  color: $color-50;
 }
-.unig-file-process-success{
+
+.unig-file-process-success {
   color: $color-success;
 }
-.unig-file-process-error{
+
+.unig-file-process-error {
   color: $color-error;
 }

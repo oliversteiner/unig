@@ -116,9 +116,6 @@ h2.unig-project-title {
   display: flex;
   justify-content: space-between; }
 
-.div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-buttons {
-  width: 600px; }
-
 .unig-file-title {
   padding: 5px 10px 2px 10px;
   text-align: center; }
