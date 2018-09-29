@@ -53,6 +53,7 @@ unig.admin.project:
       assets/css/theme/dark.css: {}
   js:
     assets/js/Unig.js: {}
+    assets/js/UnigMessage.js: {}
     assets/js/UnigData.js: {}
     assets/js/UnigProject.js: {}
     assets/js/UnigProjectList.js: {}
@@ -85,6 +86,7 @@ unig.admin.project_list:
 
   js:
     assets/js/Unig.js: {}
+    assets/js/UnigMessage.js: {}
     assets/js/UnigAdmin.js: {}
     assets/js/UnigProjectList.js: {}
     assets/js/UnigSortProjectList.js: {}
