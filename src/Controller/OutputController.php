@@ -151,23 +151,6 @@ class OutputController extends ControllerBase
         return $this->messages[$row][1];
     }
 
-    /**
-     * @return array
-     */
-    public function debug()
-    {
-
-        $output = [
-            'status' => $this->status,
-            'mode' => $this->mode,
-            'nid' => $this->nid,
-            'tid' => $this->tid,
-            'title' => $this->title,
-            'messages' => $this->messages,
-        ];
-
-        return $output;
-    }
 
     /**
      * @return string
@@ -183,6 +166,22 @@ class OutputController extends ControllerBase
     public function setMode($mode)
     {
         $this->mode = $mode;
+    }
+
+    /**
+     * @return null
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param null $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
     }
 
     /**
@@ -207,18 +206,23 @@ class OutputController extends ControllerBase
     }
 
     /**
-     * @return null
+     * @return array
      */
-    public function getData()
+    public function debug()
     {
-        return $this->data;
+
+        $output = [
+            'status' => $this->status,
+            'mode' => $this->mode,
+            'nid' => $this->nid,
+            'tid' => $this->tid,
+            'title' => $this->title,
+            'messages' => $this->messages,
+            'data' => $this->data,
+        ];
+
+        return $output;
     }
 
-    /**
-     * @param null $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
+
 }

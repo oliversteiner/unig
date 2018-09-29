@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: UniG\n"
-"POT-Creation-Date: 2018-09-28 16:02+0200\n"
-"PO-Revision-Date: 2018-09-28 16:03+0200\n"
+"POT-Creation-Date: 2018-09-29 10:44+0200\n"
+"PO-Revision-Date: 2018-09-29 10:44+0200\n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: oliver@mollo.ch\n"
 "Language: de\n"
@@ -17,7 +17,23 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: tests\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: src/Controller/FilesController.php:74
+#: assets/js/UnigDownload.js:239
+msgid "A zip-archive with the pictures will be created. Please wait."
+msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
+
+#: assets/js/UnigDownload.js:241
+msgid "Cancel download"
+msgstr "Download abbrechen"
+
+#: assets/js/UnigDownload.js:242
+msgid "Loading..."
+msgstr "Lade..."
+
+#: assets/js/UnigProject.js:283 templates/unig.project.html.twig:857
+msgid "Add description"
+msgstr "Beschreibung hinzufügen"
+
+#: src/Controller/FilesController.php:75
 #: src/Controller/ProjectController.php:58
 msgid "Test Page"
 msgstr "Testseite"
@@ -282,7 +298,7 @@ msgstr "von"
 msgid "Create new album"
 msgstr "Neues Album erstellen"
 
-#: templates/unig.project.html.twig:804 templates/unig.project.html.twig:876
+#: templates/unig.project.html.twig:804 templates/unig.project.html.twig:926
 msgid "Cover Picture"
 msgstr "Titelbild"
 
@@ -290,31 +306,22 @@ msgstr "Titelbild"
 msgid "Set as cover picture"
 msgstr "Als Titelbild nutzen"
 
-#: templates/unig.project.html.twig:897
+#: templates/unig.project.html.twig:950
 msgid "Size"
 msgstr "Grösse"
 
-#: templates/unig.project.html.twig:903
+#: templates/unig.project.html.twig:956
 msgid "Width"
 msgstr "Breite"
 
-#: templates/unig.project.html.twig:909
+#: templates/unig.project.html.twig:962
 msgid "Height"
 msgstr "Höhe"
 
-#: templates/unig.project.html.twig:943
+#: templates/unig.project.html.twig:996
 msgid "Add to download list"
 msgstr "Zur Download Liste hinzufügen"
 
-#: templates/unig.project.html.twig:945
+#: templates/unig.project.html.twig:998
 msgid "Remove from download list"
 msgstr "Von der Download Liste entfernen"
-
-#~ msgid "A zip-archive with the pictures will be created. Please wait."
-#~ msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
-
-#~ msgid "Cancel download"
-#~ msgstr "Download abbrechen"
-
-#~ msgid "Loading..."
-#~ msgstr "Lade..."

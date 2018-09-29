@@ -263,55 +263,7 @@ trait FileTrait
          CreateImageStylesTrait::createImageStyles($image_uri, $style_name);
     }
 
-    /**
-     *
-     * @return mixed
-     *
-     *
-     */
-    public static function saveFile()
-    {
-        $output = new OutputController();
 
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        $nid = $data['nid'];
-        $field = $data['field'];
-        $value = $data['value'];
-
-        // Load node
-        $node = Node::load($nid);
-
-
-        if ($field === "title") {
-            $node->setTitle($value);
-            $node->set('field_unig_title_generated', 0);
-
-        } else {
-            // description
-            $node->set('field_unig_' . $field, $value);
-
-        }
-
-        // Save node
-        try {
-            $node->save();
-
-            $output->setStatus(true);
-            $output->setData([$field, $value]);
-            $output->setNid($nid);
-        } catch (EntityStorageException $e) {
-            $output->setStatus(false);
-            $output->setMessages([$e, 'error']);
-            $output->setData([$nid,$field, $value]);
-
-        }
-
-
-        // Output
-
-        return $output->json();
-    }
 
 
 }

@@ -3,18 +3,13 @@
 namespace Drupal\unig\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\node\Entity\Node;
 use Drupal\unig\Utility\AdminTemplateTrait;
-use Drupal\unig\Utility\AlbumTrait;
-use Drupal\unig\Utility\FileTrait;
-use Drupal\unig\Controller\IptcController;
-use Drupal\unig\Utility\ProjectTrait;
-/**
- * Controller routines for page example routes.
- */
+
+
 class AdminController extends ControllerBase {
 
-  use ProjectTrait;
-  use FileTrait;
   use AdminTemplateTrait;
 
   /**
@@ -41,58 +36,55 @@ class AdminController extends ControllerBase {
     ];
   }
 
-  /**
-   * @return array
-   */
-  public function sandboxPage() {
 
-    $nid_project = 43;
-    //  $result_1 = ProjectTrait::getListofFilesInProject($nid_project);
+    /**
+     *
+     * @return mixed
+     *
+     * @throws \Drupal\Core\Entity\EntityStorageException
+     */
+    public static function save()
+    {
+        $output = new OutputController();
 
+        $data = json_decode(file_get_contents('php://input'), true);
 
-    // Test setPrevewImage
+        $nid = $data['nid'];
+        $field = $data['field'];
+        $value = $data['value'];
+        $mode = $data['mode'];
 
-    $target_nid = 43;
-    $album_nid = 82;
-
-
-
-
-    //  $result_2 = ProjectTrait::setCover($nid_project, $nid_image);
-    //  $result_3 = ProjectTrait::countFilesInProject($nid_project);
-
-   // $result_4 = AlbumTrait::addAlbum($target_nid, $album_nid);
-
-//    $fid = 93; // Apollobook
-/*    $fid = 74; // Z-77
-
-    $iptc_data = new IptcController($fid);
-    $output[0] = $iptc_data->getPeopleTerms();
-    $output[1] = $iptc_data->getKeywordTerms();*/
+        // Load node
+        $node = Node::load($nid);
 
 
-    $project_nid = 101 ;
-    ProjectTrait::importKeywordsFromProject($project_nid);
+        if ($field === "title") {
+            $node->setTitle($value);
+            $node->set('field_unig_title_generated', 0);
 
+        } else {
+            // description
+            $node->set('field_unig_' . $field, $value);
 
+        }
 
+        // Save node
+        try {
+            $node->save();
 
+            $output->setStatus(true);
+            $output->setData([$field, $value]);
+            $output->setNid($nid);
+        } catch (EntityStorageException $e) {
+            $output->setStatus(false);
+            $output->setMessages([$e, 'error']);
+            $output->setData([$nid,$field, $value]);
+        }
 
-    $output = [];
+        // Output
 
-    $form['list'] = [
-      '#markup' => '<p>Sandbox</p>' .
-        '<hr>' .
-        //
-       '<div class="unig-sandbox"><pre>' .$output[0]. '</pre></div>' .
-        '<div class="unig-sandbox"><pre>' .$output[1]. '</pre></div>' .
-        '<hr>',
-    ];
-
-
-    return $form;
-  }
-
+        return $output->json();
+    }
 
 
 }
