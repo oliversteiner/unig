@@ -148,7 +148,6 @@ li.unig-project-list-item-year {
 }
 
 .unig-project-list-toolbar {
-  border-top: 1px solid $color-admin-border;
   margin-top: 5px;
   padding-top: 5px;
 }
@@ -232,8 +231,9 @@ hr.unig.unig-project-list {
 }
 
 .unig-project-list-item .unig-project-title,
-.uunig-project-list-item h2.unig-project-title {
-  font-size: 1.3em;
+.unig-project-list-item h2.unig-project-title,
+.unig-project-list-item .unig-project-title input{
+  font-size: 1.2em;
   font-weight: bold;
 }
 

@@ -1200,6 +1200,9 @@ ul.unig-messages li {
 .unig *:focus {
   outline: none; }
 
+.unig-edit-content * {
+  pointer-events: none; }
+
 .unig-default-box {
   padding: 1px; }
 

@@ -119,16 +119,6 @@ unig.admin.config:
   requirements:
     _permission: 'access unig admin'
 
-#
-# Sandbox
-#
-unig.sandbox:
-  path: '/unig/sandbox'
-  defaults:
-    _controller: '\Drupal\unig\Controller\AdminController::sandboxPage'
-    _title: 'Sandbox'
-  requirements:
-    _permission: 'access unig admin'
 
 #
 # AJAX setCover

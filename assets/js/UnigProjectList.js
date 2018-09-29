@@ -3,14 +3,6 @@
   Drupal.behaviors.unigProjectList = {
     projectEditOpen: false,
 
-    toggleEditProject(projectNid) {
-      if (this.projectEditOpen) {
-        this.closeProjectEdit(projectNid);
-      } else {
-        this.openProjectEdit(projectNid);
-      }
-    },
-
     confirmDeleteProject(projectNid) {
       // Show Confirm Dialog
       document
@@ -34,266 +26,59 @@
         .querySelector(`.unig-button-project-delete-${projectNid}`)
         .setAttribute("style", "display:block");
     },
-    /**
-     *
-     *
-     * @param context
-     */
-    saveProject(projectNid) {
-      const elemProcessIndicator = document.querySelector(
-        `.unig-project-process-saving-${projectNid}`
-      );
-
-      // start Process Indicator
-      elemProcessIndicator.setAttribute("style", "display:inline-block");
-
-      const title = $(`#edit-unig-project-title-${projectNid}`).val();
-      const date = $(`#edit-unig-project-date-${projectNid}`).val();
-      const weight = $(`#edit-unig-project-weight-${projectNid}`).val();
-      const description = $(
-        `#edit-unig-project-description-${projectNid}`
-      ).val();
-      const copyright = $(`#edit-unig-project-copyright-${projectNid}`).val();
-
-      const privStatus = $(`#edit-unig-project-private-${projectNid}`).is(
-        ":checked"
-      );
-      const priv = Number(privStatus);
-
-      const data = {
-        title,
-        date,
-        weight,
-        description,
-        private: priv,
-        copyright
-      };
-
-      // console.log('privat ', privStatus);
-
-      $.ajax({
-        url: Drupal.url("unig/project/save"),
-        type: "POST",
-        data: {
-          project_nid: projectNid,
-          data
-        },
-        dataType: "json",
-        success(results) {
-          console.log(results);
-
-          // Private
-          const $elemPrivat = $(`#unig-project-private-${projectNid}`);
-
-          // Title
-          document
-            .querySelectorAll(`.unig-project-title-${projectNid}`)
-            .forEach(elem => {
-              elem.textContent = results.data.title;
-            });
-
-          // Weight
-          document
-            .querySelectorAll(`.unig-project-weight-${projectNid}`)
-            .forEach(elem => {
-              elem.textContent = results.data.weight;
-            });
-
-          // Description
-          document
-            .querySelectorAll(`.unig-project-description-${projectNid}`)
-            .forEach(elem => {
-              elem.textContent = results.data.description;
-            });
-
-          // Copyright
-          document
-            .querySelectorAll(`.unig-project-copyright-${projectNid}`)
-            .forEach(elem => {
-              elem.textContent = results.data.copyright;
-            });
-
-          // Date
-          const formatedDate = $.datepicker.formatDate(
-            "d. MM yy",
-            new Date(results.data.date)
-          );
-
-          document
-            .querySelectorAll(`.unig-project-date-${projectNid}`)
-            .forEach(elem => {
-              elem.textContent = formatedDate;
-            });
-
-          // Private
-
-          const elemsText = document.querySelectorAll(
-            `.unig-project-private-${projectNid}`
-          );
-          const elemsContainer = document.querySelectorAll(
-            `.unig-project-${projectNid}.unig-project-private-status`
-          );
-
-          // WTF JS!
-          if (results.data.private === "0") {
-            elemsText.forEach(elem => {
-              elem.textContent = "";
-            });
-
-            elemsContainer.forEach(elem => {
-              elem.classList.remove("private");
-            });
-          } else {
-            elemsText.forEach(elem => {
-              elem.textContent = "(Privat)";
-            });
-
-            elemsContainer.forEach(elem => {
-              elem.classList.add("private");
-            });
-          }
-
-          // END Process
-          elemProcessIndicator.setAttribute("style", "display:none");
-
-          // Close Editor
-          Drupal.behaviors.unigProjectList.closeProjectEdit(projectNid);
-        }
-      });
-    },
 
     /**
      *
      *
-     * @param context
+     * @param event
      */
-
-    resetProject(projectNid) {
-      this.toggleEditProject(projectNid);
-    },
-
     getProjectNid(event) {
       const $elem = $(event.target).parents(".unig-project-nid");
-      console.log("getProjectNid", $elem);
-
-      const nid = $elem.data("unig-project-nid");
-      return nid;
+      return $elem.data("unig-project-nid");
     },
 
-    openProjectEdit(projectNid) {
-      console.log("openProjectEdit", projectNid);
-
-
-// Buttons
-      document
-        .querySelector(`.unig-button-project-edit-open-${projectNid}`)
-        .setAttribute("style", "display:none");
-
-      document
-        .querySelector(`.unig-button-project-edit-close-${projectNid}`)
-        .setAttribute("style", "display:block");
-
-
-// Seiten
-      const wrapper = document.querySelector(`.animate-container-${projectNid}`);
-      const front =   document.querySelector(`.unig-project-normal-container-${projectNid}`);
-      const back =   document.querySelector(`.unig-project-edit-container-${projectNid}`);
-
-
-      // Front
-      front.setAttribute("style", "display:none");
-
-      // Back
-      back.setAttribute("style", "display:block");
-
-      // wrapper
-      wrapper.classList.add('fast-fade-in');
-
-      this.projectEditOpen = true;
+    /**
+     *
+     * @param nid
+     */
+    togglePrivat(nid) {
+      Drupal.behaviors.unigAdmin.togglePrivat(nid);
     },
 
-    closeProjectEdit(projectNid) {
-      console.log("closeProjectEdit", projectNid);
-// Buttons
-      document
-        .querySelector(`.unig-button-project-edit-open-${projectNid}`)
-        .setAttribute("style", "display:block");
+    /**
+     *
+     * @param event
+     */
+    edit(event) {
+      // Elem
+      const elemTarget = event.target.parentNode;
 
-      document
-        .querySelector(`.unig-button-project-edit-close-${projectNid}`)
-        .setAttribute("style", "display:none");
+      // Data
+      const nid = elemTarget.dataset.unigNid;
+      const field = elemTarget.dataset.unigField;
+      const mode = elemTarget.dataset.unigMode;
 
+      // Test
+      console.log("elemTarget", elemTarget);
+      console.log("nid", nid);
+      console.log("field", field);
+      console.log("mode", mode);
 
-// Seiten
-      const wrapper = document.querySelector(`.animate-container-${projectNid}`);
-      const front =   document.querySelector(`.unig-project-normal-container-${projectNid}`);
-      const back =   document.querySelector(`.unig-project-edit-container-${projectNid}`);
-
-
-      // Front
-      front.setAttribute("style", "display:block");
-
-      // Back
-      back.setAttribute("style", "display:none");
-
-      // wrapper
-      wrapper.classList.remove('fast-fade-in');
-
-      this.projectEditOpen = false;
+      Drupal.behaviors.unigAdmin.edit(nid, field, mode);
     },
-
+    /**
+     *
+     * @param context
+     * @param settings
+     */
     attach(context, settings) {
       console.log("Drupal.behaviors.unigProjectList");
 
       const scope = this;
 
-      $('#unig-main', context).once('unigProjectList4634b47').each(() => {
-
-
-          //  Save Trigger
-          document
-            .querySelectorAll(".unig-project-save-trigger", context)
-            .forEach(elem =>
-              elem.addEventListener(
-                "click",
-                event => {
-                  const projectNid = scope.getProjectNid(event);
-                  scope.saveProject(projectNid);
-                },
-                false
-              )
-            );
-
-          //  Cancel Trigger
-          document
-            .querySelectorAll(".unig-project-cancel-trigger", context)
-            .forEach(elem =>
-              elem.addEventListener(
-                "click",
-                event => {
-                  const projectNid = scope.getProjectNid(event);
-                  scope.resetProject(projectNid);
-                },
-                false
-              )
-            );
-
-          //  Edit Trigger
-          document
-            .querySelectorAll(".unig-project-edit-trigger")
-            .forEach(elem =>
-              elem.addEventListener(
-                "click",
-                event => {
-                  const projectNid = scope.getProjectNid(event);
-                  console.log("click", projectNid);
-
-                  scope.toggleEditProject(projectNid);
-                },
-                false
-              )
-            );
-
+      $("#unig-main", context)
+        .once("unigProjectList4634b47")
+        .each(() => {
           //  Delete Project Trigger
           document
             .querySelectorAll(".unig-project-delete-trigger", context)
@@ -301,9 +86,9 @@
               elem.addEventListener(
                 "click",
                 event => {
-                  const projectNid = scope.getProjectNid(event);
+                  const nid = scope.getProjectNid(event);
 
-                  scope.confirmDeleteProject(projectNid);
+                  scope.confirmDeleteProject(nid);
                 },
                 false
               )
@@ -316,30 +101,40 @@
               elem.addEventListener(
                 "click",
                 event => {
-                  const projectNid = scope.getProjectNid(event);
-                  scope.cancelDeleteProject(projectNid);
+                  const nid = scope.getProjectNid(event);
+                  scope.cancelDeleteProject(nid);
                 },
                 false
               )
             );
 
-          // Open Edit Dialog on dubleclick
+          //  Private Project Trigger
           document
-            .querySelectorAll(".unig-project-title-trigger", context)
-            .forEach(edit =>
-              edit.addEventListener(
-                "dblclick",
+            .querySelectorAll(".unig-project-private-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
                 event => {
-                  const projectNid = scope.getProjectNid(event);
-                  console.log("dblclick", event);
-
-                  scope.toggleEditProject(projectNid);
+                  const nid = scope.getProjectNid(event);
+                  scope.togglePrivat(nid);
                 },
                 false
               )
             );
-        }
-      )
+
+          // Edit File Title
+          document
+            .querySelectorAll(".unig-edit-trigger", context)
+            .forEach(elem =>
+              elem.addEventListener(
+                "click",
+                event => {
+                  scope.edit(event);
+                },
+                false
+              )
+            );
+        });
     }
   };
 })(jQuery, Drupal, drupalSettings);

@@ -348,7 +348,7 @@ ul.unig-gallery li.unig-file-item:hover {
 
 .unig-file-description,
 .unig-file-description textarea,
-.unig-file-title-edit input {
+.unig-file-title input {
   text-align: center;
 }
 
@@ -362,14 +362,14 @@ ul.unig-gallery li.unig-file-item:hover {
   color: $color-admin-info;
 }
 
-.unig-file-process-spinner {
+.unig-process-spinner {
   color: $color-50;
 }
 
-.unig-file-process-success {
+.unig-process-success {
   color: $color-success;
 }
 
-.unig-file-process-error {
+.unig-process-error {
   color: $color-error;
 }

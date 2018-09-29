@@ -38,12 +38,3 @@ unig.new_project:
     route_name: unig.upload
     parent: 'unig.admin_content'
 
-
-#
-# Content > Universal Gallery > Sandbox
-#
-unig.sandbox:
-    title: 'Sandbox'
-    description: 'Testing new Functions'
-    route_name: unig.sandbox
-    parent: 'unig.admin_content'

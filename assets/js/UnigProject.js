@@ -424,20 +424,6 @@
               )
             );
 
-          // Edit File Description
-          document
-            .querySelectorAll(".unig-file-description-trigger", context)
-            .forEach(elem =>
-              elem.addEventListener(
-                "click",
-                event => {
-                  const nid = scope.getNodeId(event);
-
-                  scope.editFileDescription(nid);
-                },
-                false
-              )
-            );
         });
     }
   };
