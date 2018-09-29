@@ -47,19 +47,20 @@
     edit(nid, field, mode) {
       console.log(`Edit - ${mode} - ${field}`, nid);
 
+      const elemRootClassName = `unig-${mode}-${field}-${nid}`;
       // Elems
-      const elemDefault = document.querySelector(
-        `.unig-${mode}-${field}-default-${nid}`
+      const elemTrigger = document.querySelector(
+        `.${elemRootClassName} .unig-edit-trigger`
       );
       const elemEdit = document.querySelector(
-        `.unig-${mode}-${field}-edit-${nid}`
+        `.${elemRootClassName} .unig-edit-input`
       );
       const elemInput = document.getElementById(
-        `unig-${mode}-${field}-edit-input-${nid}`
+        `${elemRootClassName}-input`
       );
 
       // change Display to Edit
-      elemDefault.setAttribute("style", "display:none");
+      elemTrigger.setAttribute("style", "display:none");
       elemEdit.setAttribute("style", "display:block");
 
       // set Focus on input
@@ -70,7 +71,7 @@
       elemInput.addEventListener("blur", () => {
         // change Display to Default
         elemEdit.setAttribute("style", "display:none");
-        elemDefault.setAttribute("style", "display:block");
+        elemTrigger.setAttribute("style", "display:block");
 
         // Save Changes
         this.safe(nid, field, mode);
@@ -86,6 +87,9 @@
      * @return {Promise<boolean | never>}
      */
     safe(nid, field, mode) {
+
+      const elemRootClassName = `unig-${mode}-${field}-${nid}`;
+
       // Spinner
       const elemSpinner = document.querySelector(
         `.unig-${mode}-${nid} .unig-file-process-spinner`
@@ -103,12 +107,12 @@
 
       // Original
       const elemOriginal = document.querySelector(
-        `.unig-${mode}-${nid} .unig-file-${field}-content`
+        `.${elemRootClassName} .unig-edit-content`
       );
 
       // Input
       const elemInput = document.getElementById(
-        `unig-${mode}-${field}-edit-input-${nid}`
+        `${elemRootClassName}-input`
       );
 
       // Trim Text
@@ -116,8 +120,7 @@
       const textInput = elemInput.value.trim();
 
       // compare input and original
-      if (textOriginal === textInput) {
-      } else {
+      if (textOriginal !== textInput) {
         // copy new Input to Original
         elemOriginal.innerText = textInput;
 

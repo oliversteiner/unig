@@ -25,7 +25,6 @@
                         {# Header #}
                         <div class="unig-fieldset-header">
                             <div class="unig-fieldset-title"></div>
-
                         </div>
 
                         {# Body#}
@@ -34,39 +33,34 @@
                             {# Left#}
                             <div class="unig-fieldset-item">
                                 <div>
-                                    <h2 class="unig-project-title unig-project-title-trigger unig-project-title-{{ project.nid }}">{{ project.title }}</h2>
-
-                                    {# ----------- Bearbeiten ----------- #}
-                                    <div class="unig-button-project-edit-wrapper">
-                            <span role="button"
-                                  class="unig-button-icon-info
-                                  unig-button-project-edit
-                                  unig-button-project-edit-open
-                                  unig-button-project-edit-open-{{ project.nid }}
-                                  unig-project-edit-trigger">
-                                <span class="open">
-                                    <i class="fas fa-edit"></i>
-                                </span>
-                            </span>
+                                    {# Title #}
+                                    <div class="unig-edit-trigger"
+                                         data-unig-nid="{{ project.nid }}"
+                                         data-unig-field="title"
+                                         data-unig-mode="project"
+                                    >
+                                        <h2 class="unig-project-title  unig-project-title-{{ project.nid }}">{{ project.title }}</h2>
                                     </div>
+
+
+                                    {# Description #}
+                                    <div class="unig-fieldset-item ">
+                                        {# Number of Items #}
+                                        <div class="unig-project-number-of-items">
+                                            <i class="fas fa-image" aria-hidden="true"></i>
+                                            <span class="number_of_visible">{{ project.number_of_items }}</span>
+                                        </div>
+                                        <div class="unig-project-description unig-project-description-{{ project.nid }} ">
+                                            {{ project.description }}
+                                        </div>
+                                    </div>
+
 
                                 </div>
                             </div>
 
                             {# Private #}
                             <div class="unig-project-private unig-project-private-{{ project.nid }}">{% if project.private %}   private {% endif %} </div>
-
-                            {# Description #}
-                            <div class="unig-fieldset-item ">
-                                {# Number of Items #}
-                                <div class="unig-project-number-of-items">
-                                    <i class="fas fa-image" aria-hidden="true"></i>
-                                    <span class="number_of_visible">{{ project.number_of_items }}</span>
-                                </div>
-                                <div class="unig-project-description unig-project-description-{{ project.nid }} ">
-                                    {{ project.description }}
-                                </div>
-                            </div>
 
 
                             {# Right #}
@@ -821,28 +815,32 @@
                             {#  -----------   Title 1  -----------  #}
                             <div class="unig-file-title">
 
-                                {# ----------- Edit File Default ----------- #}
 
-                                <div class="unig-file-title-default  unig-file-title-trigger unig-file-title-default-{{ file.nid }}">
+                                <div class="unig-file-title-{{ file.nid }}">
 
-                                    {# All File Titles #}
-                                    <div class="unig-default-box unig-file-title-all unig-file-title-content">
-                                        {{ file.title }}
+                                    <div class="unig-edit-trigger" data-unig-nid="{{ file.nid }}"
+                                         data-unig-field="title"
+                                         data-unig-mode="file">
+                                        {# ----------- Edit File Default ----------- #}
+
+                                        {# All File Titles #}
+                                        <div class="unig-edit-content unig-default-box unig-file-title-all ">
+                                            {{ file.title }}
+                                        </div>
+                                    </div>
+
+                                    {# ----------- Edit File Titel ----------- #}
+                                    <div class="unig-edit-input" style="display: none">
+
+                                        <input
+                                                id="unig-file-title-{{ file.nid }}-input"
+                                                title="Title"
+                                                type="text"
+                                                size="26"
+                                                value="{{ file.title }}">
                                     </div>
                                 </div>
 
-                                {# ----------- Edit File Titel ----------- #}
-                                <div class="unig-file-edit unig-file-title-edit unig-file-title-edit-{{ file.nid }}"
-                                     style="display: none">
-
-                                    <input
-                                            id="unig-file-title-edit-input-{{ file.nid }}"
-                                            class="unig-file-title-edit"
-                                            title="Title"
-                                            type="text"
-                                            size="26"
-                                            value="{{ file.title }}">
-                                </div>
                             </div>
 
 
@@ -850,13 +848,20 @@
                             <div class="unig-file-description">
 
                                 {# ----------- defalut File Description ----------- #}
-                                <div class="unig-default-box-textarea  unig-file-description-default  unig-file-description-content unig-file-description-trigger  unig-file-description-default-{{ file.nid }}">
+                                <div class="unig-edit-trigger unig-default-box-textarea
+                                unig-file-description-default
+                                unig-file-description-content
+                                unig-file-description-default-{{ file.nid }}"
+                                     data-unig-nid="{{ file.nid }}"
+                                     data-unig-field="description"
+                                     data-unig-mode="file"
+                                >
 
 
                                     {% if not file.description %}
                                         <span class="unig-input-placeholder">{% trans %} Add description {% endtrans %} </span>
-                                   {% else %}
-                                       {{ file.description }}
+                                    {% else %}
+                                        {{ file.description }}
                                     {% endif %}
 
                                 </div>
@@ -908,9 +913,12 @@
 
                                     {#  -----------   Prozess Indicator -----------  #}
                                     <span class="unig-toolbox-icon unig-file-picto">
-                                       <span class="unig-file-process-spinner" style="display: none"> <i class="fas fa-spinner fa-spin" aria-hidden="true"></i></span>
-                                       <span class="unig-file-process-success" style="display: none"> <i class="fas fa-check" aria-hidden="true"></i></span>
-                                       <span class="unig-file-process-error" style="display: none"> <i class="fas fa-exclamation-triangle" aria-hidden="true"></i></span>
+                                       <span class="unig-file-process-spinner" style="display: none"> <i
+                                                   class="fas fa-spinner fa-spin" aria-hidden="true"></i></span>
+                                       <span class="unig-file-process-success" style="display: none"> <i
+                                                   class="fas fa-check" aria-hidden="true"></i></span>
+                                       <span class="unig-file-process-error" style="display: none"> <i
+                                                   class="fas fa-exclamation-triangle" aria-hidden="true"></i></span>
                                     </span>
                                 </div>
                             </div>

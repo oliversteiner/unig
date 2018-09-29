@@ -58,6 +58,25 @@
       return nid;
     },
 
+    edit(event) {
+
+      // Elem
+      const elemTarget = event.target.parentNode;
+
+      // Data
+      const nid = elemTarget.dataset.unigNid;
+      const field = elemTarget.dataset.unigField;
+      const mode = elemTarget.dataset.unigMode;
+
+      // Test
+      console.log('elemTarget',elemTarget );
+      console.log('nid',nid );
+      console.log('field',field );
+      console.log('mode',mode );
+
+      Drupal.behaviors.unigAdmin.edit(nid, field, mode);
+    },
+
     getProjectNid() {
       return drupalSettings.unig.project.project.nid;
     },
@@ -175,8 +194,6 @@
     clearAjaxMessageBox() {
       document.getElementsByClassName("unig-ajax-container").innerHtml = "";
     },
-
-
 
     editFileTitle(nid) {
       Drupal.behaviors.unigAdmin.edit(nid, "title", "file");
@@ -396,14 +413,12 @@
 
           // Edit File Title
           document
-            .querySelectorAll(".unig-file-title-trigger", context)
+            .querySelectorAll(".unig-edit-trigger", context)
             .forEach(elem =>
               elem.addEventListener(
                 "click",
                 event => {
-                  const nid = scope.getNodeId(event);
-
-                  scope.editFileTitle(nid);
+                  scope.edit(event);
                 },
                 false
               )
