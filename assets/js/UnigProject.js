@@ -283,7 +283,7 @@
                 const text = Drupal.t('Beschreibung hinzufügen');
                 elemOriginal.innerHTML = `<span class="unig-input-placeholder">${text}</span>`;
               }
-
+9
             } else {
               elemSpinner.setAttribute("style", "display:none");
               elemError.setAttribute("style", "display:block");
