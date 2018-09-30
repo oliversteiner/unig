@@ -135,7 +135,7 @@
                                 class="unig-project-container unig-project-private-status unig-project-{{ project.nid }} {{ class }} {% if project.private %} private {% endif %}">
                             {# ----------- Nid ----------- #}
 
-                            <div class="unig-project-nid unig-col-right">{{ project.nid }}</div>
+                            <div class="unig-project-nid unig-col-right" style="display: none">{{ project.nid }}</div>
 
 
                             {# ----------- Weight ----------- #}
@@ -168,7 +168,7 @@
                                 <div class="unig-project-info-container">
                                     <div class="unig-row">
 
-                                        {# ----------- Anzahl Bilder ----------- #}
+                                        {# ----------- Number of items ----------- #}
                                         <div class="unig-project-number-of-items unig-col-left">
                                             <i class="fas fa-images"></i> {{ project.number_of_items }}
                                         </div>
@@ -365,8 +365,6 @@
                                         </div>
 
 
-
-
                                         {#  ----------- Delete Project  -----------  #}
                                         <div class="unig-project-list-toolbar">
 
@@ -427,6 +425,7 @@
                     </li>
 
                     {# ------------------- End Admin -------------------------- #}
+                    {# -------------------------------------------------------- #}
 
                 {% else %}
 
@@ -438,146 +437,130 @@
 
                     {% endif %}
 
-                    {% if project.private and access_private_project == false %}
 
-                        {#  Hide private projects #}
+                    <li class="unig-project-list-item">
 
-
-
-                    {% elseif project.private and logged_in == true %}
+                        <article
+                                class="unig-project-container unig-project-private-status unig-project-{{ project.nid }} {{ class }} {% if project.private %} private {% endif %}">
 
 
-                        <li class="unig-project-list-item">
+                            {# ----------- Cover ----------- #}
+                            <div class="unig-project-cover">
+                                <a href="/unig/lightgallery/{{ project.nid }}">
+                                    <div class="unig-project-cover-background">
+                                        {% if project.cover_image.unig_cover.url %}
+                                            <div class="unig-project-cover-image">
+                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                            </div>
+                                        {% else %}
+                                            <div class="unig-project-cover-image-placeholder">
 
-                            <article class="unig unig-project {{ class }}">
-
-                                {# ----------- Cover ----------- #}
-                                <div class="unig-project-cover">
-                                    <a href="/unig/lightgallery/{{ project.nid }}">
-                                        <div class="unig-project-cover-background">
-
-                                            {% if project.cover_image.unig_cover.url %}
-                                                <div class="unig-project-cover-image">
-                                                    <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                                <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+                                                <div class="unig-project-cover-text">
+                                                    <span>{% trans %} No cover picture selected {% endtrans %}</span>
                                                 </div>
-                                            {% else %}
-                                                <div class="unig-project-cover-image-placeholder">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="unig-project-text">
 
-                                                    <div class="unig-project-cover-icon"><i class="far fa-image"></i>
-                                                    </div>
-                                                    <div class="unig-project-cover-text">
-                                                        <span>{% trans %} No cover picture selected yet {% endtrans %}</span>
-                                                    </div>
-                                                </div>
-                                            {% endif %}
+                                <div class="unig-project-info-container">
+                                    <div class="unig-row">
+
+                                        {# ----------- Number of items ----------- #}
+                                        <div class="unig-project-number-of-items unig-col-left">
+                                            <i class="fas fa-images"></i> {{ project.number_of_items }}
                                         </div>
-                                    </a>
+
+
+                                        {# ----------- Private ----------- #}
+
+                                        {% if project.private %}
+                                            {% set title_private =  "Dieses Projekt ist privat" %}
+                                        {% else %}
+                                            {% set title_private = "Dieses Projekt ist öffentlich" %}
+                                        {% endif %}
+
+                                        <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
+                                             title="{{ title_private }}">
+                                            <span class="unig-project-private" {% if not project.private %} style="display: none" {% endif %}>
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+
+                                            <span class="unig-project-public" {% if  project.private %} style="display: none" {% endif %}>
+                                                <i class="fas fa-lock-open"></i>
+                                            </span>
+
+                                        </div>
+
+
+                                    </div>
                                 </div>
 
-                                {# ----------- Text ----------- #}
+                                {# ----------- Display ----------- #}
 
-                                <div class="unig-project-text">
-                                    {# ----------- Datum ----------- #}
-                                    <div class="unig-project-date"> {{ datum }}</div>
+                                <hr class="unig unig-project-list">
 
+                                {#  -----------   Title  -----------  #}
+                                <div class="unig-project-title">
 
-                                    {# ----------- Titel ----------- #}
-                                    <h2 class="unig-project-title">
-                                        <a href="{{ path('unig.lightgallery', {'album_nid': 'x', 'project_nid': project.nid}) }}">
-                                            {{ project.title }}
-                                        </a>
+                                    {# -----------  Content ----------- #}
+                                    <h2 class="unig-project-title unig-edit-content unig-default-box ">
+                                        {{ project.title }}
                                     </h2>
 
-
-                                    {# ----------- Anzahl Bilder ----------- #}
-                                    <div class="unig-project-number-of-items">
-                                        {% if project.number_of_items == 1 %}
-                                            {{ project.number_of_items }}
-
-                                            {% trans %} Image {% endtrans %}
+                                </div>
 
 
-                                        {% elseif project.number_of_items > 1 %}
-                                            {{ project.number_of_items }}
+                                {#  -----------   Date  -----------  #}
+                                <div class="unig-project-date">
 
-                                            {% trans %} Images {% endtrans %}
+                                    {# -----------  Content ----------- #}
+                                    <div class="unig-project-date unig-edit-content unig-default-box ">
+                                        {{ project.date }}
+                                    </div>
+
+                                </div>
 
 
+                                {#  -----------   Description  -----------  #}
+                                <div class="unig-project-description">
+
+
+                                    {# -----------  Content ----------- #}
+                                    <div class="unig-edit-content unig-default-box-textarea">
+
+                                        {% if not project.description %}
+                                            <span class="unig-input-placeholder"> {% trans %} Add description {% endtrans %} </span>
+                                        {% else %}
+                                            {{ project.description }}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+
+                                {#  -----------   Copyright  -----------  #}
+                                <div class="unig-project-copyright">
+
+
+                                    {# -----------  Content ----------- #}
+                                    <div class="unig-project-copyright unig-edit-content unig-default-box ">
+                                        {% if not project.copyright %}
+                                            <span class="unig-input-placeholder"> {% trans %} Add copyright {% endtrans %} </span>
+                                        {% else %}
+                                            {{ project.copyright }}
                                         {% endif %}
                                     </div>
 
-                                    {# ----------- body ----------- #}
-                                    <div class="unig-project-description">{{ project.description }}</div>
 
-                                    {# ----------- copyright ----------- #}
-                                    <div class="unig-project-copyright">{{ project.copyright }}</div>
                                 </div>
+                            </div>
 
-                            </article>
-                        </li>
-
-                    {% else %}
-
-
-                        <li class="unig-project-list-item">
-
-                            <article class="unig unig-project {{ class }}">
-
-
-                                {# ----------- Cover ----------- #}
-                                <div class="unig-project-cover">
-                                    <a href="/unig/lightgallery/{{ project.nid }}">
-                                        <div class="unig-project-cover-background">
-                                            {% if project.cover_image.unig_cover.url %}
-                                                <div class="unig-project-cover-image">
-                                                    <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
-                                                </div>
-                                            {% else %}
-                                                <div class="unig-project-cover-image-placeholder">
-                                                    <div class="unig-project-cover-icon"><i class="far fa-image"></i>
-                                                    </div>
-                                                    <div class="unig-project-cover-text">
-                                                        <span>{% trans %} No cover picture selected yet {% endtrans %}</span>
-                                                    </div>
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                    </a>
-                                </div>
-                                {# ----------- Text ----------- #}
-
-                                <div class="unig-project-text">
-
-                                    {# ----------- Datum ----------- #}
-                                    <div class="unig-project-date"> {{ datum }}</div>
-
-
-                                    {# ----------- Titel ----------- #}
-                                    <h2 class="unig-project-title">
-                                        <a href="{{ path('unig.lightgallery', {'album_nid': 'x', 'project_nid': project.nid}) }}">
-                                            {{ project.title }}
-                                        </a>
-                                    </h2>
-
-
-                                    {# ----------- Anzahl Bilder ----------- #}
-                                    <div class="unig-project-number-of-items">
-                                        {% if project.number_of_items == 1 %}
-                                            {{ project.number_of_items }} Bild
-                                        {% elseif project.number_of_items > 1 %}
-                                            {{ project.number_of_items }} Bilder
-                                        {% endif %}
-                                    </div>
-
-                                    {# ----------- body ----------- #}
-                                    <div class="unig-project-description">{{ project.description }}</div>
-
-                                    {# ----------- copyright ----------- #}
-                                    <div class="unig-project-copyright">{{ project.copyright }}</div>
-                                </div>
-                            </article>
-                        </li>
-                    {% endif %}
+                        </article>
+                    </li>
 
                 {% endif %}
 

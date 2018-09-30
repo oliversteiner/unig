@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 
-(function($, Drupal, drupalSettings) {
-  Drupal.behaviors.unigMessage = {
+(function ($, Drupal, drupalSettings) {
+  Drupal.behaviors.unigMessages = {
     messages: [],
 
     attach(context, settings) {
-      $("#unig-main", context)
-        .once("unigMessage")
+      $('#unig-main', context)
+        .once('unigMessages')
         .each(() => {
           const scope = this;
 
@@ -15,9 +15,9 @@
 
           // Message Close Trigger
           document
-            .querySelectorAll(".unig-message-close-trigger", context)
+            .querySelectorAll('.unig-message-close-trigger', context)
             .forEach(elem => {
-              elem.addEventListener("click", event => {
+              elem.addEventListener('click', event => {
                 scope.closeMessage(event);
               });
             });
@@ -26,21 +26,21 @@
 
     observeList() {
       // Select the node that will be observed for mutations
-      const targetNode = document.querySelector(".unig-messages");
+      const targetNode = document.querySelector('.unig-messages');
 
       // Options for the observer (which mutations to observe)
-      const config = { childList: true };
+      const config = {childList: true};
 
       // Callback function to execute when mutations are observed
       const callback = mutationsList => {
         // Check for changes
-        if (mutationsList[0].type === "childList") {
+        if (mutationsList[0].type === 'childList') {
           if (targetNode.childElementCount === 0) {
             // add Class "active"
-            targetNode.classList.remove("active");
+            targetNode.classList.remove('active');
           } else {
             // Remove Class "active"
-            targetNode.classList.add("active");
+            targetNode.classList.add('active');
           }
         }
       };
@@ -60,7 +60,7 @@
       const elem = event.target.parentElement;
 
       // Effect
-      elem.classList.add("slide-out-blurred-top");
+      elem.classList.add('slide-out-blurred-top');
 
       // remove Node
       setTimeout(() => {
@@ -69,17 +69,22 @@
     },
 
     set(text, type) {
-      const message = [text, type];
-      Drupal.behaviors.unig.messages.push(message);
+      let message = [];
 
+      if (Array.isArray(text)) {
+        message = text;
+      } else {
+        message = [text, type];
+      }
+      Drupal.behaviors.unig.messages.push(message);
       this.show(Drupal.behaviors.unig.messages);
     },
 
     show(messages) {
-      const messagesList = document.querySelectorAll(".unig-messages");
+      const messagesList = document.querySelectorAll('.unig-messages');
 
-      let content = "";
-      let icon = "";
+      let content = '';
+      let icon = '';
 
       if (messages.length > 0) {
         messages.forEach(item => {
@@ -87,20 +92,20 @@
           const message = item[0];
 
           switch (item[1]) {
-            case "info":
+            case 'info':
               icon = '<i class="fas fa-info-circle"></i>';
               break;
-            case "success":
+            case 'success':
               icon = '<i class="fas fa-check"></i>';
               break;
-            case "warning":
+            case 'warning':
               icon = '<i class="fas fa-exclamation-triangle"></i>';
               break;
-            case "error":
+            case 'error':
               icon = '<i class="fas fa-exclamation-circle"></i>';
               break;
             default:
-              icon = "";
+              icon = '';
               break;
           }
 
@@ -109,21 +114,21 @@
             `<span class="unig-message-text">${message}</span>`;
 
           // li
-          const messageElem = document.createElement("li");
+          const messageElem = document.createElement('li');
           messageElem.classList.add(`unig-message-type-${type}`);
           messageElem.innerHTML = content;
 
           // close button
-          const closeButton = document.createElement("span");
+          const closeButton = document.createElement('span');
           closeButton.classList.add(
-            "unig-button-icon-info",
-            "unig-message-button-close",
-            "unig-message-close-trigger"
+            'unig-button-icon-info',
+            'unig-message-button-close',
+            'unig-message-close-trigger'
           );
-          closeButton.setAttribute("role", "button");
+          closeButton.setAttribute('role', 'button');
           closeButton.innerHTML =
             '<i class="fa fa-times" aria-hidden="true"></i>';
-          closeButton.addEventListener("click", event => {
+          closeButton.addEventListener('click', event => {
             this.closeMessage(event);
           });
           // add button to li

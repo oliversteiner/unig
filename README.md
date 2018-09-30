@@ -2,7 +2,7 @@
 UniG 1.6.0
 
 ## Todo
-
+- Adapt sort-function to 1.6.5
 
 ### Einstellungen:
 

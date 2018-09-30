@@ -80,7 +80,7 @@
         },
         dataType: "json",
         success(results) {
-          Drupal.behaviors.unig.showMessages(results);
+          Drupal.behaviors.unigMessages.set(results);
         }
       }).then(value => {
           location.reload();

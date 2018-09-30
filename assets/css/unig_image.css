@@ -91,7 +91,8 @@ ul.unig-gallery li.unig-file-item:hover.marked {
   margin-right: 4px; }
 
 .unig-file-nid {
-  border-right: 1px solid #8f8f8f; }
+  border-right: 1px solid #8f8f8f;
+  padding-right: 6px; }
 
 .unig-file-weight {
   border-right: 1px solid #8f8f8f; }

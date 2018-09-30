@@ -177,7 +177,7 @@ const UnigProcess = {
             // build Error Message
             const message = response.messages;
             const type = "warning";
-            Drupal.behaviors.unigMessage.set(message, type);
+            Drupal.behaviors.unigMessages.set(message, type);
 
             return response.json();
           }
@@ -187,7 +187,7 @@ const UnigProcess = {
 
           const message = Drupal.t("Save to server failed.");
           const type = "error";
-          Drupal.behaviors.unigMessage.set(message, type);
+          Drupal.behaviors.unigMessages.set(message, type);
         });
     },
 
@@ -277,7 +277,7 @@ const UnigProcess = {
 
               const message = response.messages;
               const type = "warning";
-              Drupal.behaviors.unigMessage.set(message, type);
+              Drupal.behaviors.unigMessages.set(message, type);
 
               return response.json();
             }
@@ -287,7 +287,7 @@ const UnigProcess = {
 
             const message = Drupal.t("Save to server failed.");
             const type = "error";
-            Drupal.behaviors.unigMessage.set(message, type);
+            Drupal.behaviors.unigMessages.set(message, type);
           });
       }
     }

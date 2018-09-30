@@ -11,14 +11,13 @@ unig.lightgallery.html.twig
 
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
-
 <div class="unig-file-gallery-head">
     <div class="unig-gallery-header-left">
 
         <div class="unig-back-to-list">
             <a href="{{ path('unig.project_list') }}">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                {% trans %} Show all Galeries {% endtrans %}
+                {% trans %} Show all Projects {% endtrans %}
             </a>
         </div>
 
@@ -27,12 +26,16 @@ unig.lightgallery.html.twig
 
     <div class="unig-gallery-header-middle">
         <div><h1 class="unig-project-title">{{ project.title }}</h1>
+
+            {% if user.hasPermission('access unig admin') %}
         {# ----------- open Edit ----------- #}
         <a role="button"
              class="unig-button-edit-project unig-button-edit-project-trigger"
         href="/unig/project/{{ project.nid }}">
             <i class="fa fa-edit"></i>
         </a>
+            {% endif %}
+
     </div>
         <p class="unig-project-date"> {{ datum }}</p>
         <p class="unig-project-description">{{ project.description }}</p>
@@ -42,11 +45,8 @@ unig.lightgallery.html.twig
 
         {# Number of Items #}
         <div class="unig-project-number-of-items">
-            {% if project.number_of_items == 1 %}
-                {{ project.number_of_items }} Bild
-            {% elseif project.number_of_items > 1 %}
-                {{ project.number_of_items }} Bilder
-            {% endif %}
+
+               <i class="fas fa-images"></i> {{ project.number_of_items }}
         </div>
 
         {# copyright #}
@@ -86,18 +86,19 @@ unig.lightgallery.html.twig
 
                 {#  -----------   Image  -----------  #}
                 <div class="lightgallery-item"
-                     data-sub-html="{{ file.title }}"
+                     data-sub-html=".unig-lightgallery-sub-{{ file.nid }}"
                      data-src="{{ file.image.unig_hd.url }}">
 
-                    {% if file.label is not empty %}
-                        <div class="field-label">
-                            <label>{{ file.field_label }}</label>
-                        </div>
-                    {% endif %}
+
                     <div class="field-content">
                         <div class="unig-image-background">
                             <img class="img-responsive" src="{{ file.image.unig_thumbnail.url }}"/>
                         </div>
+                    </div>
+
+                    <div class="unig-lightgallery-sub-{{ file.nid }}" style="display: none">
+                        <h1 class="unig-gallery-diashow">{{ file.title }}</h1>
+                        <p class="unig-gallery-diashow"> {{ file.description }}</p>
                     </div>
                 </div>
 
@@ -118,7 +119,7 @@ unig.lightgallery.html.twig
                 {#  -----------   Name  -----------  #}
                 <div class="unig-file-name" style="display: none">
 
-                    {{ file.image_name }}
+                    {{ file.image.original.name }}
 
                 </div>
 

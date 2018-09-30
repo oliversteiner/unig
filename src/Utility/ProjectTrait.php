@@ -40,6 +40,7 @@ use Drupal\taxonomy\Entity\Term;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use User;
 
 
 trait ProjectTrait
@@ -57,21 +58,31 @@ trait ProjectTrait
     public static function getAllProjectNids()
     {
 
+
+        // Get the current user
+        $user = \Drupal::currentUser();
+
         $query = \Drupal::entityQuery('node')
             //
             // Condition
             ->condition('status', 1)
-            ->condition('type', 'unig_project')
+            ->condition('type', 'unig_project');
             //  ->fieldCondition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
             //
+
+        // Check for permission "Private"
+        if (! $user->hasPermission('access unig private')) {
+            $query->condition('field_unig_private.value', '1', '!=');
+        }
+
             // Order by
-            ->sort('field_unig_weight.value', 'ASC')
-            ->sort('created', 'DESC')
-            ->sort('field_unig_date', 'DESC')
-            ->sort('title', 'ASC')
-            //
-            // Access
-            ->accessCheck(FALSE);
+            $query->sort('field_unig_weight.value', 'ASC')
+                ->sort('created', 'DESC')
+                ->sort('field_unig_date', 'DESC')
+                ->sort('title', 'ASC')
+                //
+                // Access
+                ->accessCheck(FALSE);
 
         $nids = $query->execute();
 
@@ -266,14 +277,14 @@ trait ProjectTrait
             $output->setStatus(true);
             $output->setTitle($title);
             $output->setTid($cover_tid);
-            $output->setMessages(t('New cover picture set for project '.$title), 'success');
+            $output->setMessages(t('New cover picture set for project ' . $title), 'success');
 
 
         } catch (EntityStorageException $e) {
             $output->setStatus(true);
             $output->setTitle($node->getTitle());
             $output->setTid(0);
-            $output->setMessages(t("ERROR: cover image adding failed. Project: ".$title), 'error');
+            $output->setMessages(t("ERROR: cover image adding failed. Project: " . $title), 'error');
         }
 
         return $output;
@@ -555,10 +566,10 @@ trait ProjectTrait
             // Cover Node ID
             $node_cover = $node->get('field_unig_project_cover')->getValue();
 
-            if($node_cover[0] &&  $node_cover[0]['target_id']){
+            if ($node_cover[0] && $node_cover[0]['target_id']) {
                 $cover_id = $node_cover[0]['target_id'];
 
-            }else{
+            } else {
                 $output = self::setCover($nid);
                 $cover_id = $output->getTid();
             }
@@ -817,12 +828,12 @@ trait ProjectTrait
         $title_generated = $entity->get('field_unig_title_generated')->getValue();
         if ($title_generated) {
             $title_generated = $title_generated[0]['value'];
-        }else{
+        } else {
             $title_generated = 1;
         }
 
         // Description
-        $description= $entity->get('field_unig_description')->getValue();
+        $description = $entity->get('field_unig_description')->getValue();
 
         if ($description) {
             $description = $description[0]['value'];
