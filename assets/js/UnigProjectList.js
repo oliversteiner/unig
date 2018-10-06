@@ -1,22 +1,35 @@
 /* eslint-disable prettier/prettier */
-(function($, Drupal, drupalSettings) {
+(function ($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProjectList = {
     projectEditOpen: false,
 
-    confirmDeleteProject() {
-      // Show Confirm Dialog
-      document
-        .querySelector(`.unig-project-delete-confirm`)
-        .setAttribute("style", "display:block");
+    /**
+     *
+     * @param nid
+     */
+    toggleConfirmDeleteProject(nid) {
+      //  Confirm Dialog Elem
+      const elem = document
+        .querySelector(`.unig-project-${nid} .unig-project-delete-confirm`);
+
+      // Toggle display
+      if (elem.getAttribute('style') === 'display:block') {
+        elem.setAttribute('style', 'display:none')
+      } else {
+        elem.setAttribute('style', 'display:block');
+
+      }
 
     },
 
-    cancelDeleteProject() {
-      // Hide Confirm Dialog
-      document
-        .querySelector(`.unig-project-delete-confirm`)
-        .setAttribute("style", "display:none");
 
+    /**
+     *
+     * @param nid
+     */
+    cancelDeleteProject(nid) {
+      // Hide Confirm Dialog
+      this.toggleConfirmDeleteProject(nid);
     },
 
     /**
@@ -25,8 +38,8 @@
      * @param event
      */
     getProjectNid(event) {
-      const $elem = $(event.target).parents(".unig-project-nid");
-      return $elem.data("unig-project-nid");
+      const elem = event.target.closest('.unig-project-nid'); // NO IE
+      return elem.dataset.unigProjectNid;
     },
 
     /**
@@ -50,11 +63,6 @@
       const field = elemTarget.dataset.unigField;
       const mode = elemTarget.dataset.unigMode;
 
-      // Test
-      console.log("elemTarget", elemTarget);
-      console.log("nid", nid);
-      console.log("field", field);
-      console.log("mode", mode);
 
       Drupal.behaviors.unigAdmin.edit(nid, field, mode);
     },
@@ -64,34 +72,35 @@
      * @param settings
      */
     attach(context, settings) {
-      console.log("Drupal.behaviors.unigProjectList");
+      console.log('Drupal.behaviors.unigProjectList');
 
       const scope = this;
+      const root = document.getElementById('unig-main');
 
-      $("#unig-main", context)
-        .once("unigProjectList4634b47")
+      $('#unig-main', context)
+        .once('unigProjectList4634b47')
         .each(() => {
           //  Delete Project Trigger
-          document
-            .querySelectorAll(".unig-project-delete-trigger", context)
+          root
+            .querySelectorAll('.unig-project-delete-trigger')
             .forEach(elem =>
               elem.addEventListener(
-                "click",
+                'click',
                 event => {
-                  const nid = scope.getProjectNid(event);
 
-                  scope.confirmDeleteProject(nid);
+                  const nid = scope.getProjectNid(event);
+                  scope.toggleConfirmDeleteProject(nid);
                 },
                 false
               )
             );
 
           //  Cancel Delete Project Trigger
-          document
-            .querySelectorAll(".unig-project-delete-cancel-trigger", context)
+          root
+            .querySelectorAll('.unig-project-delete-cancel-trigger')
             .forEach(elem =>
               elem.addEventListener(
-                "click",
+                'click',
                 event => {
                   const nid = scope.getProjectNid(event);
                   scope.cancelDeleteProject(nid);
@@ -101,11 +110,11 @@
             );
 
           //  Private Project Trigger
-          document
-            .querySelectorAll(".unig-project-private-trigger", context)
+          root
+            .querySelectorAll('.unig-project-private-trigger')
             .forEach(elem =>
               elem.addEventListener(
-                "click",
+                'click',
                 event => {
                   const nid = scope.getProjectNid(event);
                   scope.togglePrivat(nid);
@@ -115,11 +124,11 @@
             );
 
           // Edit File Title
-          document
-            .querySelectorAll(".unig-edit-trigger", context)
+          root
+            .querySelectorAll('.unig-edit-trigger')
             .forEach(elem =>
               elem.addEventListener(
-                "click",
+                'click',
                 event => {
                   scope.edit(event);
                 },

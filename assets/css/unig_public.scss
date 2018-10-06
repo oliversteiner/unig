@@ -5,6 +5,10 @@
 $font-sans-serif: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma,
 Verdana, Arial, Helvetica, sans-serif;
 
+
+$color-text: #232323;
+$color-info: #848484;
+
 // Color Cover
 // -- Default
 $color-cover-text: #7a7a7a;
@@ -63,6 +67,45 @@ $color-button-text-active-hover: #c8c8c8;
 $color-button-background-active-hover: #313131;
 $color-button-border-active-hover: #313131;
 
+// Seperator
+$color-seperator: rgb(230, 230, 230);
+$color-separator-invert: rgb(74, 74, 74);
+// Layout
+
+.unig-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.unig-row-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.unig-row-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.unig-col {
+}
+
+.unig-col-left {
+  justify-self: flex-start;
+}
+
+.unig-col-right {
+  justify-self: flex-end;
+}
+
+hr.unig {
+  border: none;
+  border-top: solid 1px $color-separator-invert;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+}
+
 // default
 // =====================
 ul.unig-gallery {
@@ -81,7 +124,7 @@ li.unig-file-item {
   list-style-type: none;
   min-width: 100px;
   min-height: 100px;
-  margin: 15px;
+  margin: 20px;
   border-radius: 5px;
   padding: 5px;
   cursor: zoom-in;
@@ -134,7 +177,7 @@ h2.unig-project-title {
 }
 
 .unig-project-description {
-  margin: 20px;
+  margin: 10px 0;
 }
 
 .unig-gallery-header-right {
@@ -331,4 +374,21 @@ a.unig-button-edit-project {
 
 .unig-gallery-diashow{
   color: whitesmoke;
+}
+
+.unig-project-date{
+
+}
+
+.unig-project-info-container {
+  padding: 1px 2px 0 2px;
+  color: $color-info;
+  font-size: 0.8em;
+}
+
+.unig-project-text-container{
+  margin-top: 5px;
+  border-top: solid 1px silver;
+  padding: 5px 2px 0;
+  color: $color-text;
 }

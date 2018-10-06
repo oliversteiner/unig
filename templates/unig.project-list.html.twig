@@ -474,6 +474,10 @@
                                             <i class="fas fa-images"></i> {{ project.number_of_items }}
                                         </div>
 
+                                        {#  -----------   Date  -----------  #}
+                                        <div class="unig-project-date">
+                                            {{ project.date }}
+                                        </div>
 
                                         {# ----------- Private ----------- #}
 
@@ -489,9 +493,6 @@
                                                 <i class="fas fa-lock"></i>
                                             </span>
 
-                                            <span class="unig-project-public" {% if  project.private %} style="display: none" {% endif %}>
-                                                <i class="fas fa-lock-open"></i>
-                                            </span>
 
                                         </div>
 
@@ -501,61 +502,22 @@
 
                                 {# ----------- Display ----------- #}
 
-                                <hr class="unig unig-project-list">
-
-                                {#  -----------   Title  -----------  #}
-                                <div class="unig-project-title">
+                                <div class="unig-project-text-container">
 
                                     {# -----------  Content ----------- #}
-                                    <h2 class="unig-project-title unig-edit-content unig-default-box ">
+                                    <h2 class="unig-project-title ">
                                         {{ project.title }}
                                     </h2>
 
-                                </div>
-
-
-                                {#  -----------   Date  -----------  #}
-                                <div class="unig-project-date">
-
-                                    {# -----------  Content ----------- #}
-                                    <div class="unig-project-date unig-edit-content unig-default-box ">
-                                        {{ project.date }}
+                                    {#  -----------   Description  -----------  #}
+                                    <div class="unig-project-description">
+                                        {{ project.description }}
                                     </div>
 
-                                </div>
-
-
-                                {#  -----------   Description  -----------  #}
-                                <div class="unig-project-description">
-
-
-                                    {# -----------  Content ----------- #}
-                                    <div class="unig-edit-content unig-default-box-textarea">
-
-                                        {% if not project.description %}
-                                            <span class="unig-input-placeholder"> {% trans %} Add description {% endtrans %} </span>
-                                        {% else %}
-                                            {{ project.description }}
-                                        {% endif %}
-
+                                    {#  -----------   Copyright  -----------  #}
+                                    <div class="unig-project-copyright">
+                                        {{ project.copyright }}
                                     </div>
-                                </div>
-
-
-                                {#  -----------   Copyright  -----------  #}
-                                <div class="unig-project-copyright">
-
-
-                                    {# -----------  Content ----------- #}
-                                    <div class="unig-project-copyright unig-edit-content unig-default-box ">
-                                        {% if not project.copyright %}
-                                            <span class="unig-input-placeholder"> {% trans %} Add copyright {% endtrans %} </span>
-                                        {% else %}
-                                            {{ project.copyright }}
-                                        {% endif %}
-                                    </div>
-
-
                                 </div>
                             </div>
 

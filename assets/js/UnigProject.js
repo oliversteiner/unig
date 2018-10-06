@@ -347,7 +347,7 @@
                 (event) => {
                   console.log('delete', event );
 
-                  Drupal.behaviors.unigProjectList.confirmDeleteProject(
+                  Drupal.behaviors.unigProjectList.toggleConfirmDeleteProject(
                     projectNid
                   );
                 },
@@ -362,7 +362,7 @@
               elem.addEventListener(
                 "click",
                 () => {
-                  Drupal.behaviors.unigProjectList.cancelDeleteProject(
+                  Drupal.behaviors.unigProjectList.toggleConfirmDeleteProject(
                     projectNid
                   );
                 },
