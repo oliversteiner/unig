@@ -7,7 +7,7 @@ dependencies:
     - node.type.unig_file
     - node.type.unig_project
 _core:
-  default_config_hash: TwmYZ6lz6bOBijBPK6NR8pZf5z51glLbkIfHmmFdePs
+  default_config_hash: 2dkCfxmuBe10axG14YpvAjQIp0nWwqsHxp20NhwFQl0
 id: node.unig_project.field_unig_project_cover
 field_name: field_unig_project_cover
 entity_type: node

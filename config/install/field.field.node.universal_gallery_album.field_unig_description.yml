@@ -7,6 +7,8 @@ dependencies:
     - node.type.universal_gallery_album
   module:
     - text
+_core:
+  default_config_hash: P1jmTE2gHPzastm1Q-_ClDMNvgXiGl3WGh7AXQvkT9M
 id: node.universal_gallery_album.field_unig_description
 field_name: field_unig_description
 entity_type: node

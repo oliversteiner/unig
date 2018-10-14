@@ -1,3 +1,4 @@
+uuid: 7a2563a8-45bf-4662-82b1-cf04b18c044d
 langcode: de
 status: true
 dependencies:
@@ -8,6 +9,8 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
+_core:
+  default_config_hash: QHztnK-LZVORdzthSXaBSidvPVVdByG16MWK_cmH_FQ
 name: 'Universal Gallery File'
 type: unig_file
 description: 'Files or Images'

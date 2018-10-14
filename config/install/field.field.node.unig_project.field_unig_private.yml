@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_unig_private
     - node.type.unig_project
+_core:
+  default_config_hash: QEuIj1nPdSJXxMA8ty0xJElyQEl4Z42KUlwFv5_ZwSc
 id: node.unig_project.field_unig_private
 field_name: field_unig_private
 entity_type: node

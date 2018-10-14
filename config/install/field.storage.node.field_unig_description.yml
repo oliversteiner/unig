@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - text
+_core:
+  default_config_hash: 4kMWxNgWSrTmT1kQgUsvQl_R6c_cIl_GIyi_WgmioS0
 id: node.field_unig_description
 field_name: field_unig_description
 entity_type: node

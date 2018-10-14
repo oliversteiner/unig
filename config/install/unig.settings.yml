@@ -1,5 +1,7 @@
 unig:
   page_title: 'UniG Settings'
-  default_project: 'Default'
+  default_project: Default
   plupload:
     file_validate_extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+_core:
+  default_config_hash: cP5hkp0fv432U4I3onQWSv2746LN-sydYyfqBbPXDKg

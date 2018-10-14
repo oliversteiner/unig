@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: 203bn26hmVFfJmjoHyPLUO67JpOjSsmmVGCeHvtAqn8
 id: node.field_unig_keywords
 field_name: field_unig_keywords
 entity_type: node

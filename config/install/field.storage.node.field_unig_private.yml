@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: v7dmhEpZVIvXPUKcpVPtd6ewIv8AiU1lNETnXDQCd84
 id: node.field_unig_private
 field_name: field_unig_private
 entity_type: node

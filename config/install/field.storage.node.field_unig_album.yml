@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: jMFkRnYL7IPau3-fi4jRWOFJ1mEIwZlhz3GdNZr2Loo
 id: node.field_unig_album
 field_name: field_unig_album
 entity_type: node

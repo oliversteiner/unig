@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: kFuf7Lc4GEbLZUUec4UyYbuvqvXS_00EbWNad1qKYOA
 id: node.field_unig_people
 field_name: field_unig_people
 entity_type: node

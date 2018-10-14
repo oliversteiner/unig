@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: NgagJD7LME79fj2Fhndo5gInjiynHXCqYP6QQem4v5k
+  default_config_hash: YIfm_Esdey41WxDFYT8NNEAyKu2BM8WYFT7aK-Z67tM
 id: node.field_unig_trash
 field_name: field_unig_trash
 entity_type: node

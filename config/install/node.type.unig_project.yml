@@ -1,3 +1,4 @@
+uuid: 10f23e22-b225-4431-a687-946902dd3fbb
 langcode: de
 status: true
 dependencies:
@@ -8,6 +9,8 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
+_core:
+  default_config_hash: QN2fZK7RdZzvPfVomaBLFu3OiM1t6wiH0SlGat3zr68
 name: 'Universal Gallery Project'
 type: unig_project
 description: ''

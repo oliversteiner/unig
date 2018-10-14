@@ -2,6 +2,8 @@ uuid: 41b95d72-bdc4-481d-b575-8d3684c8f444
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: F5tc5HRmRkrlS7ckge8AL90KLRmxq1Kw7vYoswmgOcQ
 name: unig_thumbnail
 label: 'UniG Thumbnail (150)'
 effects:

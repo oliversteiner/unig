@@ -7,6 +7,8 @@ dependencies:
     - node.type.unig_project
   module:
     - text
+_core:
+  default_config_hash: 30WFTmVEAqvyOwFM0UY1w_tHygwt5hdZMLkpNOEYt68
 id: node.unig_project.field_unig_description
 field_name: field_unig_description
 entity_type: node

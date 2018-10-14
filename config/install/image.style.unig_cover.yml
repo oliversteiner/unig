@@ -2,6 +2,8 @@ uuid: 3c69d6ab-3f1d-4ac2-893e-ce8f0a4cdee0
 langcode: de
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: qsi4W3vvoBIqbxkvccbQ3fXahqq5d-PXIxm3Ash6Qq0
 name: unig_cover
 label: 'UniG Cover'
 effects:
@@ -12,3 +14,4 @@ effects:
     data:
       width: 220
       height: 220
+      anchor: center-center

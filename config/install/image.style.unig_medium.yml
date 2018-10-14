@@ -2,6 +2,8 @@ uuid: 44690643-f326-4778-9b9f-3fd46b7ee061
 langcode: de
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: UeIbem_3GbLpsJoy_SLycqnujE2IPugutBhiMVDsPm0
 name: unig_medium
 label: 'UniG Medium'
 effects:

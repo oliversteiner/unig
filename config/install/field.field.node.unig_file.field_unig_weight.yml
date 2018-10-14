@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_unig_weight
     - node.type.unig_file
 _core:
-  default_config_hash: FGW7VZrtW8FoupHQeYGx2-5Ya8kCflsRTy6d1UayAis
+  default_config_hash: Q6kzjBzK9-iI5K85nKAdToEQe9vjH4ccSRl3ThqE1K4
 id: node.unig_file.field_unig_weight
 field_name: field_unig_weight
 entity_type: node

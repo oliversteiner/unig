@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: TvP-JaqFTf6ESUMHo4W_Oop3TwbpXBWg9rIxNTl8uPo
 id: node.field_unig_project_cover
 field_name: field_unig_project_cover
 entity_type: node

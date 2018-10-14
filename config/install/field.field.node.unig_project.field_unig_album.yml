@@ -7,7 +7,7 @@ dependencies:
     - node.type.unig_project
     - node.type.universal_gallery_album
 _core:
-  default_config_hash: O5_5YIMIHQFVSI78dhL1I6_IZPVfuCj_LcfRKyfd9Kw
+  default_config_hash: rkgV0X7Y31Nw2UumMA5KqiCJRaqKt56c0h47iwqDxfQ
 id: node.unig_project.field_unig_album
 field_name: field_unig_album
 entity_type: node

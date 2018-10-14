@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_unig_weight
     - node.type.universal_gallery_album
+_core:
+  default_config_hash: 69c3ygcZHzSYt1uS6ISQSk9_uxOpR_DFl-PJEEeMsS0
 id: node.universal_gallery_album.field_unig_weight
 field_name: field_unig_weight
 entity_type: node
