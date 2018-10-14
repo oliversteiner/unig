@@ -323,44 +323,47 @@ trait ProjectTrait
                             $name = $image->entity->getFilename();
                             $url = file_create_url($path);
 
-                            $filesize = filesize($path);
-                            $filesize_formated = format_size($filesize);
-                            list($width, $height) = getimagesize($path);
+                            if (file_exists($path)) {
 
-                            $variables['original']['url'] = $url;
-                            $variables['original']['uri'] = $path;
-                            $variables['original']['filesize'] = $filesize;
-                            $variables['original']['filesize_formated'] = $filesize_formated;
-                            $variables['original']['width'] = $width;
-                            $variables['original']['height'] = $height;
-                            $variables['original']['name'] = $name;
+                                $filesize = filesize($path);
+                                $filesize_formated = format_size($filesize);
+                                list($width, $height) = getimagesize($path);
 
-                            // styles
+                                $variables['original']['url'] = $url;
+                                $variables['original']['uri'] = $path;
+                                $variables['original']['filesize'] = $filesize;
+                                $variables['original']['filesize_formated'] = $filesize_formated;
+                                $variables['original']['width'] = $width;
+                                $variables['original']['height'] = $height;
+                                $variables['original']['name'] = $name;
 
-
-                            foreach ($list_image_styles as $images_style) {
-
-
-                                $style = ImageStyle::load($images_style);
-                                $url = $style->buildUrl($path);
-                                $uri = $style->buildUri($path);
+                                // styles
 
 
-                                if (file_exists($uri)) {
+                                foreach ($list_image_styles as $images_style) {
 
-                                    $filesize = filesize($uri);
-                                    $filesize_formated = format_size($filesize);
-                                    list($width, $height) = getimagesize($uri);
 
-                                    $variables[$images_style]['url'] = $url;
-                                    $variables[$images_style]['uri'] = $uri;
-                                    $variables[$images_style]['filesize'] = $filesize;
-                                    $variables[$images_style]['filesize_formated'] = $filesize_formated;
-                                    $variables[$images_style]['width'] = $width;
-                                    $variables[$images_style]['height'] = $height;
+                                    $style = ImageStyle::load($images_style);
+                                    $url = $style->buildUrl($path);
+                                    $uri = $style->buildUri($path);
+
+
+                                    if (file_exists($uri)) {
+
+                                        $filesize = filesize($uri);
+                                        $filesize_formated = format_size($filesize);
+                                        list($width, $height) = getimagesize($uri);
+
+                                        $variables[$images_style]['url'] = $url;
+                                        $variables[$images_style]['uri'] = $uri;
+                                        $variables[$images_style]['filesize'] = $filesize;
+                                        $variables[$images_style]['filesize_formated'] = $filesize_formated;
+                                        $variables[$images_style]['width'] = $width;
+                                        $variables[$images_style]['height'] = $height;
+                                    }
+
+
                                 }
-
-
                             }
                         }
                     }
