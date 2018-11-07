@@ -347,6 +347,7 @@ trait ProjectTrait
                                     $url = $style->buildUrl($path);
                                     $uri = $style->buildUri($path);
 
+                                    $style->createDerivative($path, $uri);
 
                                     if (file_exists($uri)) {
 
