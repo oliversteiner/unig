@@ -9,6 +9,7 @@ const UnigProcess = {
   elemSpinner: null,
   elemSuccess: null,
   elemError: null,
+
   init(nid, mode) {
     // Spinner
     this.elemSpinner = document.querySelector(
@@ -16,6 +17,7 @@ const UnigProcess = {
     );
 
     // Success
+
     this.elemSuccess = document.querySelector(
       `.unig-${mode}-${nid} .unig-process-success`
     );
@@ -31,10 +33,12 @@ const UnigProcess = {
     this.elemSpinner.setAttribute("style", "display:block");
     this.elemSuccess.setAttribute("style", "display:none");
   },
+
   success() {
     this.elemSpinner.setAttribute("style", "display:none");
     this.elemSuccess.setAttribute("style", "display:block");
   },
+
   error() {
     this.elemSpinner.setAttribute("style", "display:none");
     this.elemError.setAttribute("style", "display:block");
