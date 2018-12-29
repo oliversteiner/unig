@@ -1,21 +1,11 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: UniG\n"
-"POT-Creation-Date: 2018-09-29 10:44+0200\n"
-"PO-Revision-Date: 2018-09-29 10:44+0200\n"
-"Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
-"Language-Team: oliver@mollo.ch\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
-"X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: t;Drupal.t\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: tests\n"
-"X-Poedit-SearchPathExcluded-1: translations\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: Unig\n"
+"Language: de\n"
 
 #: assets/js/UnigDownload.js:239
 msgid "A zip-archive with the pictures will be created. Please wait."
@@ -75,7 +65,7 @@ msgstr "Abbrechen"
 
 #: src/Form/UniGSettingsForm.php:35
 msgid "Default Project"
-msgstr "Standard Pronekt"
+msgstr "Standard Projekt"
 
 #: src/Form/UniGSettingsForm.php:41
 msgid "Allowed file types"
@@ -325,3 +315,4 @@ msgstr "Zur Download Liste hinzufügen"
 #: templates/unig.project.html.twig:998
 msgid "Remove from download list"
 msgstr "Von der Download Liste entfernen"
+
