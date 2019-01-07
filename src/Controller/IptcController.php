@@ -40,7 +40,6 @@
      */
     function __construct($fid, $project_nid = NULL) {
 
-     // dpm($project_nid);
 
       // Read File
       $this->fid = $fid;
@@ -341,7 +340,6 @@
 
       $project_nid = $this->project_nid;
       $file_keyword_tids = [];
-     // dpm($new_terms, 'Terms from File - '.$vid);
 
       $voc = $this->loadVocabulary($vid);
 
@@ -368,7 +366,6 @@
 
           $term = Term::load($tid);
 
-        //  dpm($term, 'term found an loaded - '.$project_nid);
 
           // $new_item = ['target_id' => $project_nid];
           $term->field_projects[] = $project_nid;
