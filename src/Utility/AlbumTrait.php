@@ -105,6 +105,7 @@
       ];
 
       $new_post = \Drupal::EntityTypeManager()
+
         ->getStorage($entity_type)
         ->create($new_node);
 

@@ -87,7 +87,7 @@ trait ProjectTrait
         $nids = $query->execute();
 
         if (count($nids) == 0) {
-            //   $nid_default = self::createDefaultUniGProject();
+            //   $nid_default = self::newDefaultUniGProject();
             //   $nids[0] = $nid_default;
 
             $nids = FALSE;
@@ -168,7 +168,7 @@ trait ProjectTrait
      *
      * @return int|null|string
      */
-    public static function createUniGProject($title)
+    public static function newUniGProject($title)
     {
 
         // define entity type and bundle
@@ -183,6 +183,8 @@ trait ProjectTrait
         //load up an array for creation
         $new_node = [
             'title' => $node_title,
+            'status' => 0, //(1 or 0): published or not
+            'promote' => 0, //(1 or 0): promoted to front page
             $entity_def->get('entity_keys')['bundle'] => 'unig_project',
         ];
 
@@ -201,10 +203,10 @@ trait ProjectTrait
     /**
      * @return integer
      */
-    public static function createDefaultUniGProject()
+    public static function newDefaultUniGProject()
     {
         $title = 'Default';
-        $nid = self::createUniGProject($title);
+        $nid = self::newUniGProject($title);
 
         // schreibe nid in die Settings
         \Drupal::configFactory()->getEditable('unig.settings')
@@ -223,7 +225,6 @@ trait ProjectTrait
      */
     public function checkProjectDir($path_destination, $path_unig, $path_project)
     {
-        $result = FALSE;
 
         $root = \Drupal::service('file_system')
             ->realpath($path_destination . $path_unig);
@@ -236,7 +237,7 @@ trait ProjectTrait
                 ->mkdir($realpath_project, 0755, TRUE);
 
             if (FALSE == $result) {
-                drupal_set_message('ERROR: Konnte das Verzeichnis für die Gallery nicht erstellen');
+                \Drupal::messenger()->addMessage('ERROR: Could not create the directory for the gallery');
             }
         } else {
             $result = $realpath_project;

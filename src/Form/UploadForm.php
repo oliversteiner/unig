@@ -198,7 +198,7 @@
 
       if (isset($new_project) && !empty($new_project)) {
         $create_new_project = TRUE;
-        $project_nid = $this->createUniGProject($new_project);
+        $project_nid = $this->newUniGProject($new_project);
 
         // Titel herausfinden
         $project_title = $new_project;
