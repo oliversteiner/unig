@@ -22,6 +22,18 @@ class Helper
         return $term_list;
     }
 
+    public static function getTermsForOptionList($vid)
+    {
+        $term_list = [];
+        $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+        foreach ($terms as $term) {
+            $term_list[] =
+                ['id' => $term->tid,
+                'name' => $term->name];
+        }
+        return $term_list;
+    }
+
     public static function getTermNameByID($term_id)
     {
         $term = Term::load($term_id);
@@ -36,7 +48,7 @@ class Helper
 
         $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
         foreach ($terms as $term) {
-            if($term->name == $term_name){
+            if ($term->name == $term_name) {
                 $tid = $term->tid;
                 break;
             }
@@ -49,11 +61,10 @@ class Helper
         $term_list = [];
         $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
         foreach ($terms as $term) {
-            $term_list[$term->name] = $term->id;
+            $term_list[$term->name] = $term->tid;
         }
         return $term_list;
     }
-
 
 
     /**
@@ -64,11 +75,14 @@ class Helper
      * @return boolean | string | array
      * @throws Exception
      */
-    public static function getFieldValue( $node, $field_name, $term_list = null, $force_array = false)
+    public static function getFieldValue($node, $field_name, $term_list = null, $force_array = false)
     {
         $result = false;
+        $list = [];
 
-
+        if ($term_list) {
+            $list = self::getTermsByID($term_list);
+        }
 
         try {
 
@@ -77,12 +91,12 @@ class Helper
 
             if ($pos === 0) {
 
-                throw new Exception('Use $field_name without "field_" in HELPER:getFieldValue(' . $field_name.')');
+                throw new Exception('Use $field_name without "field_" in HELPER:getFieldValue(' . $field_name . ')');
             }
 
-            $core_fildnames = ['title', 'status', 'body'];
+            $core_field_names = ['title', 'status', 'body'];
 
-           if(!in_array($field_name, $core_fildnames)){
+            if (!in_array($field_name, $core_field_names)) {
                 $field_name = 'field_' . $field_name;
             }
 
@@ -104,7 +118,7 @@ class Helper
 
                     // Value is Taxonomy Term
                     if ($term_list) {
-                        $result = $term_list[$result];
+                        $result = $list[$result];
                     }
 
                     if ($force_array) {
@@ -125,26 +139,30 @@ class Helper
 
                         // Target Field
                         if (isset($item['target_id'])) {
-                            $result[$i] = $item['target_id'];
+
+                            if ($term_list) {
+                                $result[$i] = $list[$item['target_id']];
+                            } else {
+                                $result[$i] = $item['target_id'];
+
+                            }
+
+
                         }
                         $i++;
                     }
 
                 }
             }
+        } catch
+        (Exception $e) {
+
+            throw $e;
+
         }
-        catch
-            (Exception $e) {
-
-                    throw $e;
-
-            }
 
         return $result;
     }
-
-
-
 
 
 }

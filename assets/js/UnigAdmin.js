@@ -91,7 +91,7 @@ const UnigProcess = {
     },
 
     edit(nid, field, mode) {
-      console.log(`Edit`, `${mode} - ${field}- ${nid}`);
+      console.log(`Edit`, `${mode} - ${field} - ${nid}`);
 
       const elemRootClassName = `unig-${mode}-${field}-${nid}`;
       // Elems`
@@ -121,6 +121,40 @@ const UnigProcess = {
         this.save(nid, field, mode);
       });
     },
+
+
+    optionList(nid, field, mode) {
+      console.log(`optionList`, `${mode} - ${field} - ${nid}`);
+
+      const elemRootClassName = `unig-${mode}-${field}-${nid}`;
+      // Elems`
+      const elemTrigger = document.querySelector(
+        `.${elemRootClassName} .unig-edit-trigger`,
+      );
+      const elemEdit = document.querySelector(
+        `.${elemRootClassName} .unig-edit-input`,
+      );
+      const elemInput = document.getElementById(`${elemRootClassName}-input`);
+
+      // change Display to Edit
+      elemTrigger.setAttribute('style', 'display:none');
+      elemEdit.setAttribute('style', 'display:block');
+
+      // set Focus on input
+      elemInput.focus();
+      //  elemInput.select();
+
+      // listen to blur
+      elemInput.addEventListener('blur', () => {
+        // change Display to Default
+        elemEdit.setAttribute('style', 'display:none');
+        elemTrigger.setAttribute('style', 'display:block');
+
+        // Save Changes
+        this.save(nid, field, mode);
+      });
+    },
+
 
     togglePrivat(nid) {
       const field = 'private';
@@ -204,8 +238,7 @@ const UnigProcess = {
      *
      * @param nid
      * @param field
-     * @param input
-     * @param original
+     * @param mode
      * @return {Promise<boolean | never>}
      */
     save(nid, field, mode) {
@@ -236,10 +269,16 @@ const UnigProcess = {
           const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
           elemOriginal.innerText = date.toLocaleDateString(locales, options);
+        } else if (field === 'category') {
+          const selectValue = elemInput.value;
+          elemOriginal.innerText = $(elemInput).find(`option[value='${selectValue}']`).text();
+
+
         } else {
           // copy new Input to Original
           elemOriginal.innerText = textInput;
         }
+
 
         // Start Process Spinner
         const process = UnigProcess;

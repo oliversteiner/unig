@@ -500,6 +500,17 @@ trait ProjectTrait
             // Private
             $private = Helper::getFieldValue($node, 'unig_private');
 
+            // Category
+            $category = Helper::getFieldValue($node, 'unig_category', 'unig_category');
+            $category_id = Helper::getFieldValue($node, 'unig_category' );
+
+            $category_list = Helper::getTermsForOptionList('unig_category');
+
+            // Tags
+            $tags = Helper::getFieldValue($node, 'unig_tags' ,'unig_tags', true);
+            $tags_ids = Helper::getFieldValue($node, 'unig_tags' ,false, true);
+            $tags_list = Helper::getTermsForOptionList('unig_tags');
+
             // Date
             $date = Helper::getFieldValue($node, 'unig_date');
             if ($date) {
@@ -563,6 +574,12 @@ trait ProjectTrait
                 'description' => $description,
                 'copyright' => $copyright,
                 'weight' => $weight,
+                'category' => $category,
+                'category_id' => $category_id,
+                'category_list' => $category_list,
+                'tags' => $tags,
+                'tags_ids' => $tags_ids,
+                'tags_list' => $tags_list,
                 'private' => $private,
                 'timestamp' => $timestamp,
                 'date' => $date,
@@ -969,6 +986,10 @@ trait ProjectTrait
 
         // copyright
         $entity->field_unig_copyright[0] = $data['copyright'];
+
+        // category
+        $entity->field_unig_category[0]['target_id'] = $data['category'];
+
 
         // private
         $int_private = (int)$data['private'];

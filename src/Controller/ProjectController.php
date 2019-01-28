@@ -73,7 +73,7 @@ class ProjectController extends ControllerBase
     }
 
     /**
-     * @return \Drupal\Core\Ajax\AjaxResponse
+     * @return JsonResponse
      */
     public function ajaxSetCover($project_nid, $image_nid)
     {

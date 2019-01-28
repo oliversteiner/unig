@@ -53,14 +53,26 @@
      */
     edit(event) {
       // Elem
+      // TODO This function is double ->  Drupal.behaviors.unigProject.edit
       const elemTarget = event.target.parentNode;
 
       // Data
       const nid = elemTarget.dataset.unigNid;
       const field = elemTarget.dataset.unigField;
       const mode = elemTarget.dataset.unigMode;
+      const form = elemTarget.dataset.unigForm;
 
-      Drupal.behaviors.unigAdmin.edit(nid, field, mode);
+      // Test
+      console.log('elemTarget', elemTarget);
+      console.log('nid', nid);
+      console.log('field', field);
+      console.log('mode', mode);
+      console.log('form', form);
+      if (form === 'option_list') {
+        Drupal.behaviors.unigAdmin.optionList(nid, field, mode);
+      } else {
+        Drupal.behaviors.unigAdmin.edit(nid, field, mode);
+      }
     },
     /**
      *

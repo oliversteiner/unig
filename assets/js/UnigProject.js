@@ -5,11 +5,11 @@
     toggleToolbox(nid, name) {
       // toggle Div
       const $target = $(`#unig-file-${nid} .unig-file-${name}-toolbox`);
-      $target.slideToggle("fast");
+      $target.slideToggle('fast');
 
       // toggle Button
       const $button = $(`#unig-file-${nid} .unig-file-${name}-toolbox-trigger`);
-      $button.toggleClass("active");
+      $button.toggleClass('active');
     },
 
     toggleAllToolbox(name, modus) {
@@ -20,46 +20,45 @@
       const $buttonAll = $(`.unig-button-${name}-toggle-all`);
 
       switch (modus) {
-        case "hide":
-          $button.removeClass("active");
-          $buttonAll.removeClass("active");
-          $target.slideUp("fast");
+        case 'hide':
+          $button.removeClass('active');
+          $buttonAll.removeClass('active');
+          $target.slideUp('fast');
           break;
-        case "show":
-          $button.addClass("active");
-          $buttonAll.addClass("active");
-          $target.slideDown("fast");
+        case 'show':
+          $button.addClass('active');
+          $buttonAll.addClass('active');
+          $target.slideDown('fast');
 
           break;
 
         default:
-          $button.toggleClass("active");
-          $target.slideToggle("fast");
+          $button.toggleClass('active');
+          $target.slideToggle('fast');
           break;
       }
     },
 
     toggleEditButtons() {
-      $(".unig-file-download-mark").toggle();
-      $(".unig-file-rating").toggle();
-      $(".unig-file-head-info").toggle();
-      $(".unig-file-middle").toggle();
+      $('.unig-file-download-mark').toggle();
+      $('.unig-file-rating').toggle();
+      $('.unig-file-head-info').toggle();
+      $('.unig-file-middle').toggle();
 
-      $(".unig-button-files-edit").toggle();
-      $(".unig-button-files-preview").toggle();
-      $(".unig-button-sort-toggle").toggle();
-      $(".unig-fieldset-keywords").toggle();
-      $(".unig-button-files-add").toggle();
+      $('.unig-button-files-edit').toggle();
+      $('.unig-button-files-preview').toggle();
+      $('.unig-button-sort-toggle').toggle();
+      $('.unig-fieldset-keywords').toggle();
+      $('.unig-button-files-add').toggle();
     },
 
     getNodeId(event) {
-      const $elem = $(event.target).parents(".unig-file-item");
-      const nid = $elem.data("unig-file-nid");
+      const $elem = $(event.target).parents('.unig-file-item');
+      const nid = $elem.data('unig-file-nid');
       return nid;
     },
 
     edit(event) {
-
       // Elem
       const elemTarget = event.target.parentNode;
 
@@ -67,14 +66,21 @@
       const nid = elemTarget.dataset.unigNid;
       const field = elemTarget.dataset.unigField;
       const mode = elemTarget.dataset.unigMode;
+      const form = elemTarget.dataset.unigForm;
 
       // Test
-      console.log('elemTarget',elemTarget );
-      console.log('nid',nid );
-      console.log('field',field );
-      console.log('mode',mode );
+      console.log('elemTarget', elemTarget);
+      console.log('nid', nid);
+      console.log('field', field);
+      console.log('mode', mode);
+      console.log('form', form);
+      if (form === 'option_list') {
 
-      Drupal.behaviors.unigAdmin.edit(nid, field, mode);
+        Drupal.behaviors.unigAdmin.optionList(nid, field, mode);
+      } else {
+
+      //  Drupal.behaviors.unigAdmin.edit(nid, field, mode);
+      }
     },
 
     getProjectNid() {
@@ -84,15 +90,14 @@
     save(data, route) {
       $.ajax({
         url: Drupal.url(`unig/${route}`),
-        type: "POST",
+        type: 'POST',
         data: {
-          data
+          data,
         },
-        dataType: "json",
+        dataType: 'json',
         success(results) {
-
           Drupal.behaviors.unigMessages.set(results);
-        }
+        },
       });
 
       return true;
@@ -106,7 +111,7 @@
       // console.log('number ', number);
 
       let numberNew = 0;
-      if (direction === "up") {
+      if (direction === 'up') {
         numberNew = number + 1;
       } else {
         numberNew = number - 1;
@@ -114,29 +119,29 @@
       $input.val(numberNew);
       $badge.html(numberNew);
       if (numberNew !== 0) {
-        $badge.addClass("active");
+        $badge.addClass('active');
       } else {
-        $badge.removeClass("active");
+        $badge.removeClass('active');
       }
       if (numberNew > 0) {
-        $badge.removeClass("negativ");
-        $badge.addClass("positiv");
+        $badge.removeClass('negativ');
+        $badge.addClass('positiv');
       }
       if (numberNew < 0) {
-        $badge.addClass("negativ");
-        $badge.removeClass("positiv");
+        $badge.addClass('negativ');
+        $badge.removeClass('positiv');
       }
       if (numberNew === 0) {
-        $badge.removeClass("negativ");
-        $badge.removeClass("positiv");
+        $badge.removeClass('negativ');
+        $badge.removeClass('positiv');
       }
 
       const data = {
         nid,
-        value: numberNew
+        value: numberNew,
       };
 
-      const route = "rating/save";
+      const route = 'rating/save';
 
       this.save(data, route);
     },
@@ -144,19 +149,19 @@
     setProjectCover(projectNid, imageNid) {
       // get DOM Elems
       const processElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-process`
+        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-process`,
       );
 
       const isCoverElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageNid} .unig-image-is-cover`
+        `.unig-image-is-cover-container-${imageNid} .unig-image-is-cover`,
       );
 
       const buttonElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-button`
+        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-button`,
       );
 
       // activate Process Spinner
-      processElem.classList.add("active");
+      processElem.classList.add('active');
 
       const url = `/unig/set_cover/${projectNid}/${imageNid}`;
 
@@ -169,40 +174,40 @@
 
           // deactivate all active covers
           const allActiveCoverElems = document.querySelectorAll(
-            ".unig-image-is-cover.active"
+            '.unig-image-is-cover.active',
           );
 
           // activate all buttons
           const allbuttonElems = document.querySelectorAll(
-            ".unig-set-project-cover-button"
+            '.unig-set-project-cover-button',
           );
 
           allActiveCoverElems.forEach(elem => {
-            elem.classList.remove("active");
+            elem.classList.remove('active');
           });
 
           allbuttonElems.forEach(elem => {
-            elem.classList.add("active");
+            elem.classList.add('active');
           });
 
-          isCoverElem.classList.add("active");
-          processElem.classList.remove("active");
+          isCoverElem.classList.add('active');
+          processElem.classList.remove('active');
 
           // deactivate this Button
-          buttonElem.classList.remove("active");
+          buttonElem.classList.remove('active');
         });
     },
 
     clearAjaxMessageBox() {
-      document.getElementsByClassName("unig-ajax-container").innerHtml = "";
+      document.getElementsByClassName('unig-ajax-container').innerHtml = '';
     },
 
     editFileTitle(nid) {
-      Drupal.behaviors.unigAdmin.edit(nid, "title", "file");
+      Drupal.behaviors.unigAdmin.edit(nid, 'title', 'file');
     },
 
     editFileDescription(nid) {
-      Drupal.behaviors.unigAdmin.edit(nid, "description", "file");
+      Drupal.behaviors.unigAdmin.edit(nid, 'description', 'file');
     },
 
     /**
@@ -218,87 +223,86 @@
 
       const scope = this;
 
-      $("#unig-main", context)
-        .once("unigProject")
+      $('#unig-main', context)
+        .once('unigProject')
         .each(() => {
-
           $("*[id^='lightgallery-']").lightGallery({
-            selector: ".lightgallery-item"
+            selector: '.lightgallery-item',
           });
 
           // Toggle all Keywords
-          $(".unig-button-keywords-toggle-all", context).click(() => {
+          $('.unig-button-keywords-toggle-all', context).click(() => {
             const $trigger = $(scope);
-            if ($trigger.hasClass("active")) {
-              scope.toggleAllToolbox("keywords", "hide");
+            if ($trigger.hasClass('active')) {
+              scope.toggleAllToolbox('keywords', 'hide');
             } else {
-              scope.toggleAllToolbox("keywords", "show");
+              scope.toggleAllToolbox('keywords', 'show');
             }
           });
 
           // Toggle all People
-          $(".unig-button-people-toggle-all", context).click(() => {
+          $('.unig-button-people-toggle-all', context).click(() => {
             const $trigger = $(scope);
-            if ($trigger.hasClass("active")) {
-              scope.toggleAllToolbox("people", "hide");
+            if ($trigger.hasClass('active')) {
+              scope.toggleAllToolbox('people', 'hide');
             } else {
-              scope.toggleAllToolbox("people", "show");
+              scope.toggleAllToolbox('people', 'show');
             }
           });
 
           // Event Handlers
-          $(".unig-gallery-preview-wrapper img", context).hover(() => {
+          $('.unig-gallery-preview-wrapper img', context).hover(() => {
             $(scope)
-              .parents(".unig-file-edit")
-              .toggleClass("active");
+              .parents('.unig-file-edit')
+              .toggleClass('active');
           });
 
           // Rating Down
-          $(".unig-file-rating-down-trigger", context).click(event => {
+          $('.unig-file-rating-down-trigger', context).click(event => {
             const nid = scope.getNodeId(event);
-            scope.setRating(nid, "down");
+            scope.setRating(nid, 'down');
 
             console.log(`${nid}: Down!`);
           });
 
           // Rating Up
-          $(".unig-file-rating-up-trigger", context).click(event => {
+          $('.unig-file-rating-up-trigger', context).click(event => {
             const nid = scope.getNodeId(event);
 
-            scope.setRating(nid, "up");
+            scope.setRating(nid, 'up');
             // console.log(nid + ': Up!');
           });
 
           // Toggle Keywords Toolbox
-          $(".unig-file-keywords-toolbox-trigger", context).click(event => {
-            const name = "keywords";
+          $('.unig-file-keywords-toolbox-trigger', context).click(event => {
+            const name = 'keywords';
             const nid = scope.getNodeId(event);
             scope.toggleToolbox(nid, name);
           });
 
           // Toggle People Toolbox
-          $(".unig-file-people-toolbox-trigger", context).click(event => {
-            const name = "people";
+          $('.unig-file-people-toolbox-trigger', context).click(event => {
+            const name = 'people';
             const nid = scope.getNodeId(event);
             scope.toggleToolbox(nid, name);
           });
 
           // Toggle Download Toolbox
-          $(".unig-file-download-toolbox-trigger", context).click(event => {
-            const name = "download";
+          $('.unig-file-download-toolbox-trigger', context).click(event => {
+            const name = 'download';
             const nid = scope.getNodeId(event);
             scope.toggleToolbox(nid, name);
           });
 
           // Toggle Options Toolbox
-          $(".unig-file-options-toolbox-trigger", context).click(event => {
-            const name = "options";
+          $('.unig-file-options-toolbox-trigger', context).click(event => {
+            const name = 'options';
             const nid = scope.getNodeId(event);
             scope.toggleToolbox(nid, name);
           });
 
           // Set Coverimage to current project
-          $(".unig-set-project-cover-trigger", context).click(event => {
+          $('.unig-set-project-cover-trigger', context).click(event => {
             // clear ajax message box
             scope.clearAjaxMessageBox();
             const imageNid = scope.getNodeId(event);
@@ -308,99 +312,94 @@
           });
 
           // Toggle Meta Info Toolbox
-          $(".unig-file-metainfo-toolbox-trigger", context).click(event => {
-            const name = "metainfo";
+          $('.unig-file-metainfo-toolbox-trigger', context).click(event => {
+            const name = 'metainfo';
             const nid = scope.getNodeId(event);
             scope.toggleToolbox(nid, name);
           });
 
           // Close Message Generate Images
-          $(".unig-messages-generate-images-close-trigger", context).click(
+          $('.unig-messages-generate-images-close-trigger', context).click(
             () => {
-              $(".unig-messages-generate-images").hide();
-            }
+              $('.unig-messages-generate-images').hide();
+            },
           );
 
           // New Album Form
-          $(".ajax-container-new-album-trigger", context).click(() => {
-            const $container = $("#ajax-container-new-album-container");
+          $('.ajax-container-new-album-trigger', context).click(() => {
+            const $container = $('#ajax-container-new-album-container');
             $container.toggle();
 
             const $formElemProjectNid = $("input[name='projectNid']");
-            const projectNid = $container.data("projectnid");
+            const projectNid = $container.data('projectnid');
             $formElemProjectNid.val(projectNid);
           });
 
-          $(".unig-generate-preview-images-trigger", context).click(() => {
+          $('.unig-generate-preview-images-trigger', context).click(() => {
             Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
           });
 
-
-
           const projectNid = scope.getProjectNid();
-
 
           //  Delete Project Trigger
           document
-            .querySelectorAll(".unig-project-delete-trigger", context)
+            .querySelectorAll('.unig-project-delete-trigger', context)
             .forEach(elem =>
               elem.addEventListener(
-                "click",
-                (event) => {
-                  console.log('delete', event );
+                'click',
+                event => {
+                  console.log('delete', event);
 
                   Drupal.behaviors.unigProjectList.toggleConfirmDeleteProject(
-                    projectNid
+                    projectNid,
                   );
                 },
-                false
-              )
+                false,
+              ),
             );
 
           //  Cancel Delete Project Trigger
           document
-            .querySelectorAll(".unig-project-delete-cancel-trigger", context)
+            .querySelectorAll('.unig-project-delete-cancel-trigger', context)
             .forEach(elem =>
               elem.addEventListener(
-                "click",
+                'click',
                 () => {
                   Drupal.behaviors.unigProjectList.toggleConfirmDeleteProject(
-                    projectNid
+                    projectNid,
                   );
                 },
-                false
-              )
+                false,
+              ),
             );
-
-
 
           // Edit Trigger
           document
-            .querySelectorAll(".unig-edit-trigger", context)
+            .querySelectorAll('.unig-edit-trigger', context)
             .forEach(elem =>
               elem.addEventListener(
-                "click",
+                'click',
                 event => {
                   scope.edit(event);
                 },
-                false
-              )
+                false,
+              ),
             );
 
           //  Private Project Trigger
           document
-            .querySelectorAll(".unig-project-private-trigger", context)
+            .querySelectorAll('.unig-project-private-trigger', context)
             .forEach(elem =>
               elem.addEventListener(
-                "click",
+                'click',
                 event => {
                   const nid = scope.getProjectNid(event);
                   scope.togglePrivat(nid);
                 },
-                false
-              )
+                false,
+              ),
             );
         });
-    }
+    },
   };
 })(jQuery, Drupal, drupalSettings);
