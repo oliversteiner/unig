@@ -34,6 +34,8 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\AlertCommand;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Url;
+use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
@@ -67,22 +69,22 @@ trait ProjectTrait
             // Condition
             ->condition('status', 1)
             ->condition('type', 'unig_project');
-            //  ->ondition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
-            //
+        //  ->ondition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
+        //
 
         // Check for permission "Private"
-        if (! $user->hasPermission('access unig private')) {
+        if (!$user->hasPermission('access unig private')) {
             $query->condition('field_unig_private.value', '1', '!=');
         }
 
-            // Order by
-            $query->sort('field_unig_weight.value', 'ASC')
-                ->sort('created', 'DESC')
-                ->sort('field_unig_date', 'DESC')
-                ->sort('title', 'ASC')
-                //
-                // Access
-                ->accessCheck(FALSE);
+        // Order by
+        $query->sort('field_unig_weight.value', 'ASC')
+            ->sort('created', 'DESC')
+            ->sort('field_unig_date', 'DESC')
+            ->sort('title', 'ASC')
+            //
+            // Access
+            ->accessCheck(FALSE);
 
         $nids = $query->execute();
 
@@ -299,92 +301,55 @@ trait ProjectTrait
      * @param $nid
      *
      * @return array
+     * @throws \Exception
      */
-    public static function getImage($nid)
+    public static function getCoverImageVars($nid)
     {
         $variables = [];
 
         $node = Node::load($nid);
-
         if ($node) {
+            $unig_image_id = Helper::getFieldValue($node, 'unig_image');
 
-            // Field Event Image
-            if (!empty($node->field_unig_image)) {
-                if (isset($node->field_unig_image->entity)) {
+            $file = File::load($unig_image_id);
 
-                    $list_image_styles = \Drupal::entityQuery('image_style')->execute();
+            if ($file && $file instanceof FileInterface) {
+                $image = \Drupal::service('image.factory')->get($file->getFileUri());
+                /** @var \Drupal\Core\Image\Image $image */
+                if ($image->isValid()) {
 
-                    foreach ($node->field_unig_image as $image) {
+                    $image_uri = $file->getFileUri();
+                    $file_name = $file->getFilename();
 
-                        if ($image->entity) {
+                    $file_size = filesize($image_uri);
+                    $file_size_formatted = format_size($file_size);
+                    list($width, $height) = getimagesize($image_uri);
 
-                            // Original
-
-                            $path = $image->entity->getFileUri();
-                            $name = $image->entity->getFilename();
-                            $url = file_create_url($path);
-
-                            if (file_exists($path)) {
-
-                                $filesize = filesize($path);
-                                $filesize_formated = format_size($filesize);
-                                list($width, $height) = getimagesize($path);
-
-                                $variables['original']['url'] = $url;
-                                $variables['original']['uri'] = $path;
-                                $variables['original']['filesize'] = $filesize;
-                                $variables['original']['filesize_formated'] = $filesize_formated;
-                                $variables['original']['width'] = $width;
-                                $variables['original']['height'] = $height;
-                                $variables['original']['name'] = $name;
-
-                                // styles
+                    $original['url'] = file_create_url($image_uri);
+                    $original['uri'] = $image_uri;
+                    $original['name'] = $file_name;
+                    $original['filesize'] = $file_size;
+                    $original['filesize_formated'] = $file_size_formatted;
+                    $original['width'] = $width;
+                    $original['height'] = $height;
 
 
-                                foreach ($list_image_styles as $images_style) {
-
-
-                                    $style = ImageStyle::load($images_style);
-                                    $url = $style->buildUrl($path);
-                                    $uri = $style->buildUri($path);
-
-                                    $style->createDerivative($path, $uri);
-
-                                    if (file_exists($uri)) {
-
-                                        $filesize = filesize($uri);
-                                        $filesize_formated = format_size($filesize);
-                                        list($width, $height) = getimagesize($uri);
-
-                                        $variables[$images_style]['url'] = $url;
-                                        $variables[$images_style]['uri'] = $uri;
-                                        $variables[$images_style]['filesize'] = $filesize;
-                                        $variables[$images_style]['filesize_formated'] = $filesize_formated;
-                                        $variables[$images_style]['width'] = $width;
-                                        $variables[$images_style]['height'] = $height;
-                                    }
-
-
-                                }
-                            }
-                        }
-                    }
+                    $variables = CreateImageStylesTrait::createImageStyles($unig_image_id, 'unig_cover');
+                    $variables['original'] = $original;
                 }
-
+                return $variables;
 
             }
         }
-        return $variables;
-
     }
-
 
     /**
      * @param $nid_project
      *
      * @return int
      */
-    public static function countFilesInProject($nid_project)
+    public
+    static function countFilesInProject($nid_project)
     {
 
         $files = self::getListofFilesInProject($nid_project);
@@ -405,7 +370,8 @@ trait ProjectTrait
      *
      * @return array
      */
-    public static function getListofFilesInProject($nid_project, $album_nid = NULL)
+    public
+    static function getListofFilesInProject($nid_project, $album_nid = NULL)
     {
         // bundle : unig_file
         // field: field_unig_project[0]['target_id']
@@ -456,7 +422,8 @@ trait ProjectTrait
         return $nids;
     }
 
-    public static function buildProjectList()
+    public
+    static function buildProjectList()
     {
 
         $nids = self::getAllProjectNids();
@@ -465,7 +432,10 @@ trait ProjectTrait
 
         if ($nids) {
             foreach ($nids as $project_nid) {
-                $variables[] = self::buildProject($project_nid);
+                try {
+                    $variables[] = self::buildProject($project_nid);
+                } catch (\Exception $e) {
+                }
             }
 
         }
@@ -475,10 +445,15 @@ trait ProjectTrait
 
 
     /**
+     * @param $project_nid
      * @return array
      *
+     * @throws InvalidPluginDefinitionException
+     * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+     * @throws \Exception
      */
-    public static function buildProject($project_nid)
+    public
+    static function buildProject($project_nid)
     {
 
         // project
@@ -500,61 +475,40 @@ trait ProjectTrait
         //  - cover_image
         //
 
-        $project = [];
 
-        $node = \Drupal::entityTypeManager()
-            ->getStorage('node')
-            ->load($project_nid);
+        $node = Node::load($project_nid);
 
 
-        if ($node && $node->get('nid')->getValue()) {
+        if (!$node) {
+            $project = ['nid' => 0];
+        } else {
+
             // NID
-            $node_nid = $node->get('nid')->getValue();
-            $nid = $node_nid[0]['value'];
+            $project_id = $project_nid;
 
             // Title
-            $node_title = $node->get('title')->getValue();
-            $title = $node_title[0]['value'];
+            $title = Helper::getFieldValue($node, 'title');
 
             // Body
-            $description = '';
-            $node_description = $node->get('field_unig_description')->getValue();
-            if ($node_description) {
-                $description = $node_description[0]['value'];
-            }
+            $description = Helper::getFieldValue($node, 'unig_description');
 
             // Weight
-            $weight = 0;
-            $node_weight = $node->get('field_unig_weight')->getValue();
-            if ($node_weight) {
-                $weight = $node_weight[0]['value'];
-            }
+            $weight = Helper::getFieldValue($node, 'unig_weight');
 
             // Copyright
-            $copyright = '';
-            $node_copyright = $node->get('field_unig_copyright')->getValue();
-            if ($node_copyright) {
-                $copyright = $node_copyright[0]['value'];
-            }
+            $copyright = Helper::getFieldValue($node, 'unig_copyright');
 
             // Private
-            $private = 0;
-            $node_private = $node->get('field_unig_private')->getValue();
-            if ($node_private) {
-                $private = $node_private[0]['value'];
-            }
+            $private = Helper::getFieldValue($node, 'unig_private');
 
             // Date
-            $node_date = $node->get('field_unig_date')->getValue();
-
-            if ($node_date) {
-                $date = $node_date[0]['value'];
+            $date = Helper::getFieldValue($node, 'unig_date');
+            if ($date) {
                 $format = 'Y-m-d';
                 $php_date_obj = date_create_from_format($format, $date);
             } else {
                 $php_date_obj = date_create();
             }
-
 
             // Timestamp
             $timestamp = (int)$php_date_obj->format('U');
@@ -566,28 +520,25 @@ trait ProjectTrait
             $date = $php_date_obj->format("d. F Y");
 
             // Date
+            // TODO: move date display format to settings page
             $date_drupal = $php_date_obj->format("Y-m-d");
 
-            // Cover Node ID
-            $node_cover = $node->get('field_unig_project_cover')->getValue();
-
-            if ($node_cover[0] && $node_cover[0]['target_id']) {
-                $cover_id = $node_cover[0]['target_id'];
-
-            } else {
-                $output = self::setCover($nid);
-                $cover_id = $output->getTid();
-            }
-
             // Cover Image
-            $cover_image = self::getImage($cover_id);
+            $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
+
+            if (!$cover_id) {
+                $new_cover = self::setCover($project_id);
+                $cover_id = $new_cover->getTid();
+            }
+            $cover_image = self::getCoverImageVars($cover_id);
+
 
             // number_of_items
-            $number_of_items = self::countFilesInProject($nid);
+            $number_of_items = self::countFilesInProject($project_id);
 
 
             // Album List
-            $album_list = AlbumTrait::getAlbumList($nid);
+            $album_list = AlbumTrait::getAlbumList($project_id);
 
             // url friendly title
 
@@ -607,7 +558,7 @@ trait ProjectTrait
 
             // Twig-Variables
             $project = [
-                'nid' => $nid,
+                'nid' => $project_id,
                 'title' => $title,
                 'title_url' => $clean_string,
                 'description' => $description,
@@ -627,10 +578,6 @@ trait ProjectTrait
 
             ];
 
-        } else {
-
-            $project = [
-                'nid' => 0];
         }
         return $project;
 
@@ -644,7 +591,8 @@ trait ProjectTrait
      * @return array
      * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
-    public static function buildFileList($project_nid, $album_nid = NULL)
+    public
+    static function buildFileList($project_nid, $album_nid = NULL)
     {
 
         $file_nids = self::getListofFilesInProject($project_nid, $album_nid);
@@ -659,7 +607,8 @@ trait ProjectTrait
         return $variables;
     }
 
-    public static function getJSONfromProjectFiles($project_nid, $album_nid = NULL)
+    public
+    static function getJSONfromProjectFiles($project_nid, $album_nid = NULL)
     {
 
         $response = new JsonResponse();
@@ -690,32 +639,37 @@ trait ProjectTrait
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      */
-    public static function getJSONfromKeywordsForProject($project_nid)
+    public
+    static function getJSONfromKeywordsForProject($project_nid)
     {
         $vid = 'unig_keywords';
         return self::getJSONfromKeywords($vid);
     }
 
-    public static function getJSONfromKeywords()
+    public
+    static function getJSONfromKeywords()
     {
         $vid = 'unig_keywords';
         return self::getJSONfromVocubulary($vid);
     }
 
 
-    public static function getJSONfromPeopleForProject($project_nid)
+    public
+    static function getJSONfromPeopleForProject($project_nid)
     {
         $vid = 'unig_people';
         return self::getJSONfromPeople($vid);
     }
 
-    public static function getJSONfromPeople()
+    public
+    static function getJSONfromPeople()
     {
         $vid = 'unig_people';
         return self::getJSONfromVocubulary($vid);
     }
 
-    public static function getJSONfromVocubulary($vid)
+    public
+    static function getJSONfromVocubulary($vid)
     {
         $response = new JsonResponse();
 
@@ -742,7 +696,8 @@ trait ProjectTrait
      * @param      $project_nid
      * @param null $album_nid
      */
-    public static function importKeywordsFromProject($project_nid, $album_nid = NULL)
+    public
+    static function importKeywordsFromProject($project_nid, $album_nid = NULL)
     {
 
         $nids = self::getListofFilesInProject($project_nid, $album_nid);
@@ -755,7 +710,8 @@ trait ProjectTrait
 
     }
 
-    public static function importKeywordsFromNode($nid)
+    public
+    static function importKeywordsFromNode($nid)
     {
 
         // File
@@ -798,8 +754,10 @@ trait ProjectTrait
      * @return array
      *
      * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+     * @throws \Exception
      */
-    public static function buildFile($file_nid)
+    public
+    static function buildFile($file_nid)
     {
 
         // project
@@ -869,7 +827,7 @@ trait ProjectTrait
         }
 
         // image
-        $image = self::getImage($file_nid);
+        $image = self::getCoverImageVars($file_nid);
         $image_name = $image['original']['name'];
 
         // people
@@ -928,7 +886,8 @@ trait ProjectTrait
         return $file;
     }
 
-    public static function projectDelete($project_nid)
+    public
+    static function projectDelete($project_nid)
     {
 
 

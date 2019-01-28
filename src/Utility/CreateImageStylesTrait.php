@@ -2,52 +2,73 @@
 
 namespace Drupal\unig\Utility;
 
+use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
+use Drupal\image\Entity\ImageStyle;
+
 trait CreateImageStylesTrait
 {
 
-    public static function createImageStyles($image_uri, $style_name = false)
+    /**
+     * @param $img_id
+     * @param bool $style_name
+     * @return array|mixed
+     */
+    public static function createImageStyles($img_id, $style_name = false)
     {
-
+        $variables = [];
 
         if (!$style_name) {
 
-            $all_styles_url = [];
-            // generate all Styles
-            $styles = \Drupal::entityTypeManager()
-                ->getStorage('image_style')
-                ->loadMultiple();
+            $image_styles = ImageStyle::loadMultiple();
 
-            /** @var \Drupal\image\Entity\ImageStyle $style_name */
-            foreach ($styles as $style) {
-                $destination = $style->buildUri($image_uri);
-                $style_name = $style->id();
-                if (!file_exists($destination)) {
-                    $style->createDerivative($image_uri, $destination);
-                }
-                $url = $style->buildUrl($image_uri);
+            foreach ($image_styles as $image_style) {
+                $image_style_id = $image_style->id();
+                $variables[$image_style_id] = self::createImageStyle($img_id, $image_style);
 
-                $all_styles_url[$style_name] = $url;
             }
-
-            return $all_styles_url;
 
         } else {
-
-            // generate specific Style
-            $styles = \Drupal::entityTypeManager()
-                ->getStorage('image_style')
-                ->load($style_name);
-            $destination = $styles->buildUri($image_uri);
-
-            if (!file_exists($destination)) {
-                $styles->createDerivative($image_uri, $destination);
-            }
-            $url[$style_name] = $styles->buildUrl($image_uri);
-
-
-            return $url;
+            $image_style = ImageStyle::load($style_name);
+            $variables = self::createImageStyle($img_id, $image_style);
         }
 
+        return $variables;
+    }
 
+    static function createImageStyle($img_id, ImageStyle $image_style)
+    {
+        $variables = [];
+        $file = File::load($img_id);
+
+        if ($file && $file instanceof FileInterface) {
+            $image = \Drupal::service('image.factory')->get($file->getFileUri());
+            /** @var \Drupal\Core\Image\Image $image */
+            if ($image->isValid()) {
+
+                $image_style_id = $image_style->id();
+
+                $image_uri = $file->getFileUri();
+                $destination = $image_style->buildUrl($image_uri);
+
+
+                if (!file_exists($destination)) {
+
+                    $image_style->createDerivative($image_uri, $destination);
+                }
+
+                $filesize = filesize($image_uri);
+                $filesize_formated = format_size($filesize);
+                list($width, $height) = getimagesize($image_uri);
+
+                $variables[$image_style_id]['url'] = $destination;
+                $variables[$image_style_id]['uri'] = $image_uri;
+                $variables[$image_style_id]['filesize'] = $filesize;
+                $variables[$image_style_id]['filesize_formated'] = $filesize_formated;
+                $variables[$image_style_id]['width'] = $width;
+                $variables[$image_style_id]['height'] = $height;
+            }
+        }
+        return $variables;
     }
 }

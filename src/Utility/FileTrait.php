@@ -15,6 +15,7 @@ trait FileTrait
     public $bundle_file = 'unig_file';
 
     // define Extensions to be used als imagefield
+    // TODO: move to settings page
     private $ext_image = ['jpg', 'jpeg', 'gif', 'png', 'svg'];
 
     /**
@@ -26,7 +27,7 @@ trait FileTrait
      *
      *  Inputs Plupload:
      *      - tmppath   => string(45)
-     * "temporary://o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
+     *          "temporary://o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
      *      - tmpname   => string(33) "o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
      *      - name      => string(22) "451415562631785265.jpg"
      *      - status    => string(4) "done"
@@ -65,8 +66,8 @@ trait FileTrait
         // load up an array for creation
         $new_node = [
             'title' => $node_title,
-            'status' => 0, //(1 or 0): published or not
-            'promote' => 0, //(1 or 0): promoted to front page
+        //    'status' => 0, //(1 or 0): published or not
+        //    'promote' => 0, //(1 or 0): promoted to front page
             $entity_def->get('entity_keys')['bundle'] => $this->bundle_file,
         ];
 

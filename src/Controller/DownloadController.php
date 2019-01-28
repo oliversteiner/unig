@@ -60,7 +60,7 @@
       foreach ($items as $item) {
 
 
-        $images = ProjectTrait::getImage($item);
+        $images = ProjectTrait::getCoverImageVars($item);
 
         $uri = $images[$image_style]['uri'];
         $files[] = $uri;
