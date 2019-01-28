@@ -141,7 +141,9 @@
      */
     generatePreviewImages(context) {
       const test = false;
+
       const nids = Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews;
+      console.log('nodeIDsWithNoPreviews', nids);
 
       const numberOfImages = nids.length;
 
@@ -158,7 +160,7 @@
         ).textContent = numberOfImages.toString();
 
         if (test === true) {
-          // console.log("---------- generate Preview Test Mode -----------");
+          console.log('---------- generate Preview Test Mode -----------');
 
           // Add Spinner to Image Placeholder
           nids.forEach(nid => {
@@ -203,7 +205,7 @@
             }, index * 500);
           });
 
-          //  console.log("---------- End Test Mode -----------");
+          console.log('---------- End Test Mode -----------');
         } else {
           //  First generate medium Previews
 
@@ -220,9 +222,9 @@
               },
             })
               .then(res => res.json())
-              .then(response =>
-                Drupal.behaviors.unigLazyLoad.replaceImage(nid, response),
-              )
+              .then(response => {
+                Drupal.behaviors.unigLazyLoad.replaceImage(nid, response);
+              })
               .catch(error => console.error('Error:', error));
           });
 
@@ -239,7 +241,6 @@
               })
                 .then(res => res.json())
                 .then(response => {
-
                   console.log('response', response);
 
                   Drupal.behaviors.unigLazyLoad.replaceImage(nid, response);
@@ -263,7 +264,7 @@
                 })
                 .catch(error => console.error('Error:', error));
             });
-          }, 5000);
+          }, 2000);
         } // end else Test
       }
     },
@@ -350,6 +351,8 @@
      * @param mode
      */
     addImage(fileList, id, mode) {
+      console.log('addImage', id);
+
       // target
       document
         .querySelector(`#unig-file-${id} .unig-lazyload-placeholder`)
@@ -368,14 +371,20 @@
           styleName = 'unig_hd';
           break;
 
-        default:
+        case 'medium':
           styleName = 'unig_medium';
           display = true;
+          break;
+
+        default:
+          styleName = 'unig_medium';
 
           break;
       }
 
-      if (fileList[id].image[styleName]) {
+
+      if (fileList[id].image[styleName].url) {
+
         const src = fileList[id].image[styleName].url;
         const imgID = `img-${id}-${mode}`;
 
@@ -416,7 +425,7 @@
      *
      */
     buildImgContainer(fileList) {
-      Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews = [];
+      // Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews = [];
 
       if (fileList) {
         const ElemsTargetImageContainer = document.querySelectorAll(
@@ -464,7 +473,7 @@
 
         setTimeout(() => {
           this.generatePreviewImages();
-        }, 500);
+        }, 1000);
       }
     },
   };

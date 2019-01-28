@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier,no-restricted-syntax,prefer-destructuring,no-console */
 /**
  * Created by ost on 14.05.17.
  */
@@ -6,19 +5,20 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
     attach(context, settings) {
-      console.log('Drupal.behaviors.unigData');
-
-      const scope = this;
 
       $('#unig-main', context)
         .once('unigData')
         .each(() => {
+
+          console.log('Drupal.behaviors.unigData');
+          console.log('Unig -> Start Point');
+
           if (!drupalSettings.unigDataOnce) {
             drupalSettings.unigDataOnce = true;
 
             Drupal.behaviors.unigData.project.load().then(result => {
-              const nid = result.nid;
-              Drupal.behaviors.unigData.FileList.load(nid).then(data => {
+              const projectId = result.nid;
+              Drupal.behaviors.unigData.FileList.load(projectId).then(data => {
                 Drupal.behaviors.unigLazyLoad.loadImages(data);
               });
             });

@@ -215,15 +215,17 @@
 
     attach(context, settings) {
       // onload
-      $("*[id^='lightgallery-']").lightGallery({
-        selector: ".lightgallery-item"
-      });
 
       const scope = this;
 
       $("#unig-main", context)
-        .once("unigProjectList4634b47")
+        .once("unigProject")
         .each(() => {
+
+          $("*[id^='lightgallery-']").lightGallery({
+            selector: ".lightgallery-item"
+          });
+
           // Toggle all Keywords
           $(".unig-button-keywords-toggle-all", context).click(() => {
             const $trigger = $(scope);

@@ -2,25 +2,30 @@
   Drupal.behaviors.unigKeywords = {
     attach(context, settings) {
       // onload
-      console.log("Drupal.behaviors.unigKeywords ");
 
-      this.constructor(context, settings);
-      this.addAll();
-      this.markAllAsActive();
-      this.updateDisplay();
+      $('#unig-main', context)
+        .once('unigKeywords')
+        .each(() => {
+          console.log('Drupal.behaviors.unigKeywords');
+
+          this.constructor(context, settings);
+          this.addAll();
+          this.markAllAsActive();
+          this.updateDisplay();
+        });
     },
 
     isToolbarOpen: false,
 
-    $tags_container: $(".unig-toolbar-keywords-tags-container", this.context),
+    $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
 
     $check_all_keywords_trigger: $(
-      "unig-button-keywords-check-all",
-      this.context
+      'unig-button-keywords-check-all',
+      this.context,
     ),
     $uncheck_all_keywords_trigger: $(
-      "unig-button-keywords-uncheck-all",
-      this.context
+      'unig-button-keywords-uncheck-all',
+      this.context,
     ),
 
     Storage: Drupal.behaviors.unigData.keywordsStorage,
@@ -36,16 +41,16 @@
     },
 
     openToolbar() {
-      $(".unig-toolbar-keywords").slideDown();
-      $(".unig-toolbar-keywords").addClass("open");
-      $(".unig-toolbar-keywords-toggle-trigger").addClass("active");
+      $('.unig-toolbar-keywords').slideDown();
+      $('.unig-toolbar-keywords').addClass('open');
+      $('.unig-toolbar-keywords-toggle-trigger').addClass('active');
       this.isToolbarOpen = true;
     },
 
     closeToolbar() {
-      $(".unig-toolbar-keywords").slideUp();
-      $(".unig-toolbar-keywords").removeClass("open");
-      $(".unig-toolbar-keywords-toggle-trigger").removeClass("active");
+      $('.unig-toolbar-keywords').slideUp();
+      $('.unig-toolbar-keywords').removeClass('open');
+      $('.unig-toolbar-keywords-toggle-trigger').removeClass('active');
       this.isToolbarOpen = false;
     },
 
@@ -86,10 +91,10 @@
      */
     markAsActive(id) {
       const $targetToolbar = $(`#unig-tag-id-${id}`);
-      $targetToolbar.addClass("active");
+      $targetToolbar.addClass('active');
 
       const $targetToolbox = $(`.unig-keyword-id-${id}`);
-      $targetToolbox.addClass("active");
+      $targetToolbox.addClass('active');
     },
     /**
      *
@@ -97,16 +102,16 @@
      */
     markAsInactive(id) {
       const $target = $(`#unig-tag-id-${id}`);
-      $target.removeClass("active");
+      $target.removeClass('active');
 
       const $targetToolbox = $(`.unig-keyword-id-${id}`);
-      $targetToolbox.removeClass("active");
+      $targetToolbox.removeClass('active');
     },
 
     toggleMark(id) {
       const $target = $(`#unig-tag-id-${id}`);
 
-      if ($target.hasClass("active")) {
+      if ($target.hasClass('active')) {
         // if item in list. toggle off
         this.markAsInactive(id);
       } else {
@@ -137,7 +142,7 @@
      *
      */
     markAllAsInactive() {
-      $("*[id^=unig-tag-id-]").removeClass("active");
+      $('*[id^=unig-tag-id-]').removeClass('active');
     },
     /**
      *
@@ -156,24 +161,24 @@
      */
     updateDisplay() {
       // target
-      const $targetNumberOf = $(".unig-keywords-display");
+      const $targetNumberOf = $('.unig-keywords-display');
 
       // get Number
       const numberAllItems = this.List.count();
       const numberChosenItems = this.Storage.count();
 
-      let text = "";
+      let text = '';
 
       // Append to DOM
       if (numberAllItems > 0) {
         if (numberChosenItems > 0) {
           text = `${numberChosenItems}&thinsp;/&thinsp;${numberAllItems}`;
           $targetNumberOf.html(text);
-          $targetNumberOf.addClass("badge badge-marked");
+          $targetNumberOf.addClass('badge badge-marked');
         } else {
           text = numberAllItems;
           $targetNumberOf.html(text);
-          $targetNumberOf.removeClass("badge badge-marked");
+          $targetNumberOf.removeClass('badge badge-marked');
         }
       } else {
         // remove text
@@ -184,11 +189,11 @@
     buildTags(context) {
       const keywordsList = Drupal.behaviors.unigData.keywordsList.get();
 
-      let elemLi = "";
+      let elemLi = '';
       if (keywordsList) {
         keywordsList.forEach(item => {
           // check
-          const additionalClass = "";
+          const additionalClass = '';
           const label = item.name;
 
           elemLi +=
@@ -208,13 +213,13 @@
         '<div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger">' +
         '<i class="fa fa-circle" aria-hidden="true"></i>' +
         '<span class="unig-tags-title">check all</span>' +
-        "</div>";
+        '</div>';
 
       const buttonUnMarkAll =
         '<div class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">' +
         '<i class="fa fa-circle-o" aria-hidden="true"></i>' +
         '<span class="unig-tags-title">uncheck all</span>' +
-        "</div>";
+        '</div>';
 
       // Build DOM
       const html = buttonMarkAll + buttonUnMarkAll + prefix + elemLi + suffix;
@@ -224,14 +229,14 @@
 
       const scope = Drupal.behaviors.unigKeywords;
 
-      $(".unig-keywords-mark-all-tags-trigger", context).click(() => {
+      $('.unig-keywords-mark-all-tags-trigger', context).click(() => {
         scope.addAll();
         scope.markAllAsActive();
         scope.updateDisplay();
         scope.updateFiles();
       });
 
-      $(".unig-keywords-unmark-all-tags-trigger", context).click(() => {
+      $('.unig-keywords-unmark-all-tags-trigger', context).click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
         scope.updateDisplay();
@@ -239,10 +244,10 @@
       });
 
       // Update GUI
-      $(".build-done").ready(() => {
+      $('.build-done').ready(() => {
         // Add Handler
-        $(".unig-keyword-trigger", context).click(function() {
-          const id = $(this).data("id");
+        $('.unig-keyword-trigger', context).click(function() {
+          const id = $(this).data('id');
 
           scope.toggle(id);
           scope.toggleMark(id);
@@ -301,20 +306,20 @@
           suggest(matches);
         },
         renderItem(item, search) {
-          search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+          search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
           return `<div class="autocomplete-suggestion" data-name="${
             item.name
-          }" data-id="${item.id}" data-val="${search}">${item.name}</div>`;
+            }" data-id="${item.id}" data-val="${search}">${item.name}</div>`;
         },
 
         onSelect(e, term, item) {
-          const id = item.getAttribute("data-id");
+          const id = item.getAttribute('data-id');
           Scope.add(id);
           Scope.markAsActive(id);
           Scope.updateDisplay();
           Scope.updateFiles();
-        }
+        },
       });
     },
 
@@ -326,7 +331,7 @@
       if (arrayId.length > 0) {
         // hide all files with this tag
         const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(
-          arrayId
+          arrayId,
         );
 
         // hide all files not in result_list
@@ -357,8 +362,8 @@
           const $elem = $(`#unig-file-${file}`);
 
           if (
-            $elem.css("display") === "none" ||
-            $elem.css("visibility") === "hidden"
+            $elem.css('display') === 'none' ||
+            $elem.css('visibility') === 'hidden'
           ) {
             // The element is not visible
             $elem.fadeIn();
@@ -366,11 +371,11 @@
         }
       }
 
-      let html = "";
+      let html = '';
       if (Drupal.behaviors.unigKeywords.Visible.length > 0) {
         html = `${Drupal.behaviors.unigKeywords.Visible.length} von `;
       }
-      $(".number_of_visible").html(html);
+      $('.number_of_visible').html(html);
     },
     /**
      *
@@ -403,25 +408,25 @@
         },
         reason => {
           // failureCallback
-        }
+        },
       );
 
       // Close Toolbar
-      $(".unig-toolbar-keywords-close-trigger", context).click(event => {
+      $('.unig-toolbar-keywords-close-trigger', context).click(event => {
         Drupal.behaviors.unigKeywords.closeToolbar(event);
       });
 
       // Open Toolbar
-      $(".unig-toolbar-keywords-open-trigger", context).click(event => {
+      $('.unig-toolbar-keywords-open-trigger', context).click(event => {
         Drupal.behaviors.unigKeywords.closeToolbar(event);
       });
 
       // Toggle Toolbar
-      $(".unig-toolbar-keywords-toggle-trigger", context).click(event => {
+      $('.unig-toolbar-keywords-toggle-trigger', context).click(event => {
         Drupal.behaviors.unigKeywords.toggleToolbar(event);
       });
 
       // Autocomplate
-    }
+    },
   };
 })(jQuery, Drupal, drupalSettings);

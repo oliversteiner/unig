@@ -8,7 +8,7 @@
     projectName: "",
     messages: [],
 
-    attach(context, settings) {
+    attach(context) {
       // console.log(' Drupal.behaviors.unig');
       $("#unig-main", context)
         .once("unig")

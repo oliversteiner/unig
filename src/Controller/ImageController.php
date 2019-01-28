@@ -41,7 +41,8 @@ class ImageController extends ControllerBase
             if ($entity) {
                 $file_id = Helper::getFieldValue($entity, 'unig_image');
                 $title = $entity->getTitle();
-                $uri_list = CreateImageStylesTrait::createImageStyles($file_id, $style_name);
+              //  $uri_list = CreateImageStylesTrait::createImageStyles($file_id, $style_name);
+                $uri_list = CreateImageStylesTrait::createImageStyles($file_id);
 
                 // Output
                 $output->setData($uri_list);

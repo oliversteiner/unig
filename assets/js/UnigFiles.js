@@ -5,7 +5,11 @@
     number_files_visible: 0,
 
     attach(context, settings) {
-      console.log(" Drupal.behaviors.unigFiles");
-    }
+      $('#unig-main', context)
+        .once('unigFiles')
+        .each(() => {
+          console.log(' Drupal.behaviors.unigFiles');
+        });
+    },
   };
 })(jQuery, Drupal, drupalSettings);

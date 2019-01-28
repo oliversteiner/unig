@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-(function ($, Drupal, drupalSettings) {
+(function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProjectList = {
     projectEditOpen: false,
 
@@ -9,19 +8,17 @@
      */
     toggleConfirmDeleteProject(nid) {
       //  Confirm Dialog Elem
-      const elem = document
-        .querySelector(`.unig-project-${nid} .unig-project-delete-confirm`);
+      const elem = document.querySelector(
+        `.unig-project-${nid} .unig-project-delete-confirm`,
+      );
 
       // Toggle display
       if (elem.getAttribute('style') === 'display:block') {
-        elem.setAttribute('style', 'display:none')
+        elem.setAttribute('style', 'display:none');
       } else {
         elem.setAttribute('style', 'display:block');
-
       }
-
     },
-
 
     /**
      *
@@ -63,7 +60,6 @@
       const field = elemTarget.dataset.unigField;
       const mode = elemTarget.dataset.unigMode;
 
-
       Drupal.behaviors.unigAdmin.edit(nid, field, mode);
     },
     /**
@@ -72,28 +68,25 @@
      * @param settings
      */
     attach(context, settings) {
-      console.log('Drupal.behaviors.unigProjectList');
-
       const scope = this;
       const root = document.getElementById('unig-main');
 
       $('#unig-main', context)
-        .once('unigProjectList4634b47')
+        .once('unigProjectList')
         .each(() => {
-          //  Delete Project Trigger
-          root
-            .querySelectorAll('.unig-project-delete-trigger')
-            .forEach(elem =>
-              elem.addEventListener(
-                'click',
-                event => {
+          console.log('Drupal.behaviors.unigProjectList');
 
-                  const nid = scope.getProjectNid(event);
-                  scope.toggleConfirmDeleteProject(nid);
-                },
-                false
-              )
-            );
+          //  Delete Project Trigger
+          root.querySelectorAll('.unig-project-delete-trigger').forEach(elem =>
+            elem.addEventListener(
+              'click',
+              event => {
+                const nid = scope.getProjectNid(event);
+                scope.toggleConfirmDeleteProject(nid);
+              },
+              false,
+            ),
+          );
 
           //  Cancel Delete Project Trigger
           root
@@ -105,37 +98,33 @@
                   const nid = scope.getProjectNid(event);
                   scope.cancelDeleteProject(nid);
                 },
-                false
-              )
+                false,
+              ),
             );
 
           //  Private Project Trigger
-          root
-            .querySelectorAll('.unig-project-private-trigger')
-            .forEach(elem =>
-              elem.addEventListener(
-                'click',
-                event => {
-                  const nid = scope.getProjectNid(event);
-                  scope.togglePrivat(nid);
-                },
-                false
-              )
-            );
+          root.querySelectorAll('.unig-project-private-trigger').forEach(elem =>
+            elem.addEventListener(
+              'click',
+              event => {
+                const nid = scope.getProjectNid(event);
+                scope.togglePrivat(nid);
+              },
+              false,
+            ),
+          );
 
           // Edit File Title
-          root
-            .querySelectorAll('.unig-edit-trigger')
-            .forEach(elem =>
-              elem.addEventListener(
-                'click',
-                event => {
-                  scope.edit(event);
-                },
-                false
-              )
-            );
+          root.querySelectorAll('.unig-edit-trigger').forEach(elem =>
+            elem.addEventListener(
+              'click',
+              event => {
+                scope.edit(event);
+              },
+              false,
+            ),
+          );
         });
-    }
+    },
   };
 })(jQuery, Drupal, drupalSettings);
