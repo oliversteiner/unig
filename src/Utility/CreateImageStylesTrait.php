@@ -29,6 +29,7 @@ trait CreateImageStylesTrait
 
             $image_styles = ImageStyle::loadMultiple();
 
+
             foreach ($image_styles as $image_style) {
                 $image_style_id = $image_style->id();
                 $images[$image_style_id] = self::createImageStyle($file, $image_style, $dont_create);

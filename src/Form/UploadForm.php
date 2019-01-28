@@ -62,9 +62,9 @@
 
 
 
-      if ($_POST && isset($_POST['project_nid'])) {
+/*      if ($_POST && isset($_POST['project_nid'])) {
         $project_nid = $_POST['project_nid'];
-      }
+      }*/
 
       if ($project_nid != NULL) {
         {

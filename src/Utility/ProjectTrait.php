@@ -102,7 +102,6 @@ trait ProjectTrait
 
     /**
      * @return array
-     * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
      */
     public function getProjectlistSelected()
     {
@@ -113,12 +112,11 @@ trait ProjectTrait
 
         $select['neu'] = t('Create new project...');
 
-        if ($nids) {
+        if ($nids && is_array($nids)) {
 
             $select['-'] = '';
 
-            $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-            $entity_list = $node_storage->loadMultiple($nids);
+            $entity_list = Node::loadMultiple($nids);
 
             foreach ($entity_list as $nid => $node) {
 

@@ -140,7 +140,7 @@
      * @param context
      */
     generatePreviewImages(context) {
-      const test = true;
+      const test = false;
       const nids = Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews;
 
       const numberOfImages = nids.length;
