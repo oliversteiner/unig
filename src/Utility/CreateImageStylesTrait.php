@@ -14,9 +14,16 @@ trait CreateImageStylesTrait
      * @param bool $style_name
      * @return array|mixed
      */
-    public static function createImageStyles($img_id, $style_name = false)
+    public static function createImageStyles($img_id_or_file, $style_name = false, $dont_create = false)
     {
-        $variables = [];
+        $images = [];
+
+        if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
+            $file = $img_id_or_file;
+
+        } else {
+            $file = File::load($img_id_or_file);
+        }
 
         if (!$style_name) {
 
@@ -24,51 +31,95 @@ trait CreateImageStylesTrait
 
             foreach ($image_styles as $image_style) {
                 $image_style_id = $image_style->id();
-                $variables[$image_style_id] = self::createImageStyle($img_id, $image_style);
-
+                $images[$image_style_id] = self::createImageStyle($file, $image_style, $dont_create);
             }
+            $images['original'] = self::getOriginalVars($file);
+
+        } elseif ($style_name === 'original') {
+            $images = self::getOriginalVars($file);
 
         } else {
             $image_style = ImageStyle::load($style_name);
-            $variables = self::createImageStyle($img_id, $image_style);
+            $images = self::createImageStyle($file, $image_style, $dont_create);
         }
 
-        return $variables;
+        return $images;
     }
 
-    static function createImageStyle($img_id, ImageStyle $image_style)
+    static function createImageStyle($img_id_or_file, ImageStyle $image_style, $dont_create = false)
     {
-        $variables = [];
-        $file = File::load($img_id);
+        $image = [];
+
+        if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
+            $file = $img_id_or_file;
+
+        } else {
+            $file = File::load($img_id_or_file);
+        }
+
+
+        if ($file) {
+            $file_image = \Drupal::service('image.factory')->get($file->getFileUri());
+            /** @var \Drupal\Core\Image\Image $image */
+            if ($file_image->isValid()) {
+
+                $image_uri = $file->getFileUri();
+                $destination = $image_style->buildUrl($image_uri);
+
+                if (!file_exists($destination)) {
+                    if(!$dont_create){
+                        $image_style->createDerivative($image_uri, $destination);
+                    }
+                }
+
+                $file_size = filesize($image_uri);
+                $file_size_formatted = format_size($file_size);
+                list($width, $height) = getimagesize($image_uri);
+
+                $image['url'] = $destination;
+                $image['uri'] = $image_uri;
+                $image['file_size'] = $file_size;
+                $image['file_size_formatted'] = $file_size_formatted;
+                $image['width'] = $width;
+                $image['height'] = $height;
+            }
+        }
+        return $image;
+    }
+
+    static function getOriginalVars($img_id_or_file)
+    {
+        $original = [];
+
+        if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
+            $file = $img_id_or_file;
+
+        } else {
+            $file = File::load($img_id_or_file);
+        }
 
         if ($file && $file instanceof FileInterface) {
             $image = \Drupal::service('image.factory')->get($file->getFileUri());
             /** @var \Drupal\Core\Image\Image $image */
             if ($image->isValid()) {
 
-                $image_style_id = $image_style->id();
-
                 $image_uri = $file->getFileUri();
-                $destination = $image_style->buildUrl($image_uri);
+                $file_name = $file->getFilename();
 
-
-                if (!file_exists($destination)) {
-
-                    $image_style->createDerivative($image_uri, $destination);
-                }
-
-                $filesize = filesize($image_uri);
-                $filesize_formated = format_size($filesize);
+                $file_size = filesize($image_uri);
+                $file_size_formatted = format_size($file_size);
                 list($width, $height) = getimagesize($image_uri);
 
-                $variables[$image_style_id]['url'] = $destination;
-                $variables[$image_style_id]['uri'] = $image_uri;
-                $variables[$image_style_id]['filesize'] = $filesize;
-                $variables[$image_style_id]['filesize_formated'] = $filesize_formated;
-                $variables[$image_style_id]['width'] = $width;
-                $variables[$image_style_id]['height'] = $height;
+                $original['url'] = file_create_url($image_uri);
+                $original['uri'] = $image_uri;
+                $original['name'] = $file_name;
+                $original['file_size'] = $file_size;
+                $original['file_size_formatted'] = $file_size_formatted;
+                $original['width'] = $width;
+                $original['height'] = $height;
             }
+
         }
-        return $variables;
+        return $original;
     }
 }

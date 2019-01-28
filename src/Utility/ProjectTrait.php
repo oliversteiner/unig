@@ -310,38 +310,39 @@ trait ProjectTrait
         $node = Node::load($nid);
         if ($node) {
             $unig_image_id = Helper::getFieldValue($node, 'unig_image');
+            $variables = CreateImageStylesTrait::createImageStyles($unig_image_id, 'unig_cover');
 
-            $file = File::load($unig_image_id);
-
-            if ($file && $file instanceof FileInterface) {
-                $image = \Drupal::service('image.factory')->get($file->getFileUri());
-                /** @var \Drupal\Core\Image\Image $image */
-                if ($image->isValid()) {
-
-                    $image_uri = $file->getFileUri();
-                    $file_name = $file->getFilename();
-
-                    $file_size = filesize($image_uri);
-                    $file_size_formatted = format_size($file_size);
-                    list($width, $height) = getimagesize($image_uri);
-
-                    $original['url'] = file_create_url($image_uri);
-                    $original['uri'] = $image_uri;
-                    $original['name'] = $file_name;
-                    $original['filesize'] = $file_size;
-                    $original['filesize_formated'] = $file_size_formatted;
-                    $original['width'] = $width;
-                    $original['height'] = $height;
-
-
-                    $variables = CreateImageStylesTrait::createImageStyles($unig_image_id, 'unig_cover');
-                    $variables['original'] = $original;
-                }
-                return $variables;
-
-            }
         }
+        return $variables;
+
     }
+
+    /**
+     *
+     * get uri from all styles
+     *
+     * @param $nid
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public static function getImageVars($nid)
+    {
+        $variables = [];
+
+        $node = Node::load($nid);
+        if ($node) {
+            $unig_image_id = Helper::getFieldValue($node, 'unig_image');
+            $variables = CreateImageStylesTrait::createImageStyles($unig_image_id, false, true);
+
+        }
+        return $variables;
+
+    }
+
+
+
+
 
     /**
      * @param $nid_project
@@ -827,8 +828,7 @@ trait ProjectTrait
         }
 
         // image
-        $image = self::getCoverImageVars($file_nid);
-        $image_name = $image['original']['name'];
+        $image = self::getImageVars($file_nid);
 
         // people
         $people = [];
@@ -872,7 +872,6 @@ trait ProjectTrait
             'description' => $description,
             'album_list' => $album_list,
             'image' => $image,
-            'file_name' => $image_name,
             'comments' => $comments,
             'weight' => $weight,
             'rating' => $rating,

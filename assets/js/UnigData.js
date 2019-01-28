@@ -6,52 +6,51 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
     attach(context, settings) {
-      console.log("Drupal.behaviors.unigData");
-
+      console.log('Drupal.behaviors.unigData');
 
       const scope = this;
 
-      $('#unig-main', context).once('unigData').each(() => {
+      $('#unig-main', context)
+        .once('unigData')
+        .each(() => {
+          if (!drupalSettings.unigDataOnce) {
+            drupalSettings.unigDataOnce = true;
 
-
-        if (!drupalSettings.unigDataOnce) {
-          drupalSettings.unigDataOnce = true;
-
-          Drupal.behaviors.unigData.project.load().then(result => {
-            const nid = result.nid;
-            Drupal.behaviors.unigData.FileList.load(nid).then(data => {
-              Drupal.behaviors.unigLazyLoad.loadImages(data);
+            Drupal.behaviors.unigData.project.load().then(result => {
+              const nid = result.nid;
+              Drupal.behaviors.unigData.FileList.load(nid).then(data => {
+                Drupal.behaviors.unigLazyLoad.loadImages(data);
+              });
             });
-          });
-        }
-      })
-    }
+          }
+        });
+    },
   };
 
   Drupal.behaviors.unigData.project = {
-    route: "unig/project/info/json",
-    hostname: "default",
-    name: "",
-    name_url: "",
+    route: 'unig/project/info/json',
+    hostname: 'default',
+    name: '',
+    name_url: '',
     nid: 0,
     data: {},
 
     load() {
-      const ProjectNid = $("#unig-project-nid").val();
+      const ProjectNid = $('#unig-project-nid').val();
       this.nid = ProjectNid;
 
       const data = {
-        project_nid: ProjectNid
+        project_nid: ProjectNid,
       };
 
       return $.ajax({
         url: Drupal.url(this.route),
-        type: "POST",
+        type: 'POST',
         data,
-        dataType: "json"
+        dataType: 'json',
       }).done(result => {
         Drupal.behaviors.unigData.project.set(result);
-        console.log("result project load:", result);
+        console.log('result project load:', result);
       });
     },
     set(data) {
@@ -62,8 +61,8 @@
       this.nid = data.nid;
     },
     destroy() {
-      this.name = "";
-      this.name_url = "";
+      this.name = '';
+      this.name_url = '';
       this.nid = 0;
       this.data = {};
     },
@@ -72,7 +71,7 @@
     },
     getId() {
       return this.id;
-    }
+    },
   };
 
   /**
@@ -90,7 +89,7 @@
    *     Drupal.behaviors.unigData.FilesForDownload.count}}
    */
   Drupal.behaviors.unigData.FilesForDownload = {
-    localStorageName: "unig.itemsForDownload.",
+    localStorageName: 'unig.itemsForDownload.',
     list: [],
 
     add(nid) {
@@ -155,7 +154,7 @@
       const localString = localStorage.getItem(storagename);
 
       if (localString != null) {
-        this.list = localString.split(",");
+        this.list = localString.split(',');
         this.clean();
       }
       return true;
@@ -190,7 +189,7 @@
       // console.log('count - length ', this.list.length);
 
       return this.list.length;
-    }
+    },
   };
 
   /**
@@ -205,37 +204,33 @@
    */
   Drupal.behaviors.unigData.FileList = {
     list: [],
-    route: "unig/project/json",
+    route: 'unig/project/json',
 
     load(projectNid) {
-
       // Route : unig/unig.ajax.project
 
       if (!projectNid) {
-        projectNid = $("#unig-project-nid").val();
-      }
-
-      if (!projectNid) {
-
+        projectNid = $('#unig-project-nid').val();
       } else {
         const data = {
           project_nid: projectNid,
-          album_nid: 0
+          album_nid: 0,
         };
 
         return $.ajax({
           url: Drupal.url(this.route),
-          type: "POST",
+          type: 'POST',
           data,
-          dataType: "json"
+          dataType: 'json',
         })
           .done(result => {
-
+            console.log('  Drupal.behaviors.unigData.FileList', result);
+                
             Drupal.behaviors.unigData.FileList.set(result);
           })
           .fail(xhr => {
             // DEBUG
-            console.error("cannot load UniG FileList");
+            console.error('Can\'t load UniG FileList');
             console.log(data);
             console.log(xhr);
           });
@@ -340,7 +335,7 @@
       }
 
       return results;
-    }
+    },
   };
 
   /**
@@ -355,16 +350,16 @@
    */
   Drupal.behaviors.unigData.keywordsList = {
     list: [],
-    route: "unig/term/keywords/json",
+    route: 'unig/term/keywords/json',
 
     load() {
       const data = {};
 
       return $.ajax({
         url: Drupal.url(this.route),
-        type: "POST",
+        type: 'POST',
         data,
-        dataType: "json"
+        dataType: 'json',
       })
         .done(result => {
           Drupal.behaviors.unigData.keywordsList.set(result);
@@ -406,11 +401,11 @@
       }
 
       return length;
-    }
+    },
   };
 
   Drupal.behaviors.unigData.keywordsStorage = {
-    localStorageName: "unig.keywords.",
+    localStorageName: 'unig.keywords.',
 
     list: [],
 
@@ -466,7 +461,7 @@
       const localString = localStorage.getItem(localStorageName);
 
       if (localString != null) {
-        const list = localString.split(",");
+        const list = localString.split(',');
         this.list = Drupal.behaviors.unig.cleanArray(list);
       }
 
@@ -498,21 +493,21 @@
      */
     count() {
       return this.list.length;
-    }
+    },
   };
 
   Drupal.behaviors.unigData.peopleList = {
     list: [],
-    route: "unig/term/people/json",
+    route: 'unig/term/people/json',
 
     load() {
       const data = {};
 
       return $.ajax({
         url: Drupal.url(this.route),
-        type: "POST",
+        type: 'POST',
         data,
-        dataType: "json"
+        dataType: 'json',
       })
         .done(result => {
           Drupal.behaviors.unig.keywords.set(result);
@@ -551,11 +546,11 @@
         }
       }
       return size;
-    }
+    },
   };
 
   Drupal.behaviors.unigData.peopleStorage = {
-    localStorageName: "unig.people.",
+    localStorageName: 'unig.people.',
 
     list: [],
 
@@ -615,7 +610,7 @@
       const localString = localStorage.getItem(localStorageName);
 
       if (localString != null) {
-        this.list = localString.split(",");
+        this.list = localString.split(',');
         this.clean();
       }
       return true;
@@ -646,6 +641,6 @@
      */
     count() {
       return this.list.length;
-    }
+    },
   };
 })(jQuery, Drupal, drupalSettings);

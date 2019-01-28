@@ -57,7 +57,7 @@
       return nid;
     },
 
-    humanFileSize(size) {
+    humanFile_size(size) {
       // https://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable-string
       const i = size === 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
       //      return `${(size / Math.pow(1024, i)).toFixed(2) * 1} ${

@@ -22,7 +22,7 @@ default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
   file_extensions: 'txt pdf rtf'
-  max_filesize: ''
+  max_file_size: ''
   description_field: true
   handler: 'default:file'
   handler_settings: {  }

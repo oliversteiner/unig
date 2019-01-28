@@ -6,6 +6,10 @@
 #}
 
 
+{#
+{{ dd(project_list) }}
+#}
+
 <div id="unig-main" class="unig unig-project-list">
 
     <div class="unig-debug">
@@ -147,9 +151,9 @@
                             <div class="unig-project-cover">
                                 <a href="/unig/project/{{ project.nid }}">
                                     <div class="unig-project-cover-background">
-                                        {% if project.cover_image.unig_cover.url %}
+                                        {% if project.cover_image.url %}
                                             <div class="unig-project-cover-image">
-                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                                <img class="" src="{{ project.cover_image.url }}" alt="">
                                             </div>
                                         {% else %}
                                             <div class="unig-project-cover-image-placeholder">
@@ -448,9 +452,9 @@
                             <div class="unig-project-cover">
                                 <a href="/unig/lightgallery/{{ project.nid }}">
                                     <div class="unig-project-cover-background">
-                                        {% if project.cover_image.unig_cover.url %}
+                                        {% if project.cover_image.url %}
                                             <div class="unig-project-cover-image">
-                                                <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
+                                                <img class="" src="{{ project.cover_image.url }}" alt="">
                                             </div>
                                         {% else %}
                                             <div class="unig-project-cover-image-placeholder">

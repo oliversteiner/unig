@@ -151,9 +151,9 @@
 
       $(".unig-file-download-list-size-sd").html("0");
 
-      const sd = Drupal.behaviors.unig.humanFileSize(this.downloadsize.sd);
-      const hd = Drupal.behaviors.unig.humanFileSize(this.downloadsize.hd);
-      const xl = Drupal.behaviors.unig.humanFileSize(this.downloadsize.xl);
+      const sd = Drupal.behaviors.unig.humanFile_size(this.downloadsize.sd);
+      const hd = Drupal.behaviors.unig.humanFile_size(this.downloadsize.hd);
+      const xl = Drupal.behaviors.unig.humanFile_size(this.downloadsize.xl);
 
       this.$toolbar_sd.html(sd);
       this.$toolbar_hd.html(hd);
@@ -448,15 +448,15 @@
           const Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
           const file = itemList[item];
           if (file.image.large) {
-            const sd = file.image.large.filesize;
+            const sd = file.image.large.file_size;
             Downloadsize.sd += sd;
           }
           if (file.image.unig_hd) {
-            const hd = file.image.unig_hd.filesize;
+            const hd = file.image.unig_hd.file_size;
             Downloadsize.hd += hd;
           }
           if (file.image.original) {
-            const xl = file.image.original.filesize;
+            const xl = file.image.original.file_size;
             Downloadsize.xl += xl;
           }
         });
