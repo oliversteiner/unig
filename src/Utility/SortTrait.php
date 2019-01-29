@@ -27,7 +27,8 @@ trait SortTrait
         $file_position = 1;
 
         $output = new OutputController();
-
+        $message = '';
+        $type = 'error';
         foreach ($arr_data as $string) {
 
 
@@ -39,7 +40,7 @@ trait SortTrait
                     ->getStorage('node')
                     ->load($nid);
             } catch (InvalidPluginDefinitionException $e) {
-                $output->setMessages('Database Error', 'error', TRUE);
+
             }
 
             // weight
@@ -53,13 +54,18 @@ trait SortTrait
 
                 // Output
                 $output->setStatus(TRUE);
+                $message = 'New order saved';
+                $type = 'success';
 
             } catch (EntityStorageException $e) {
-                $output->setMessages('save failed', 'error', TRUE);
+                $message = 'save failed';
+                $type = 'error';
             }
 
             $file_position++;
         } // foreach
+
+        $output->setMessages($message, $type, false);
 
         return $output->json();
 
@@ -73,14 +79,15 @@ trait SortTrait
     {
         $data = $_POST['data'];
         $output = new OutputController();
-
+        $message = '';
+        $type = '';
 
         // load all nids
         $nids = [];
         $arr_data = explode("&", $data);
         foreach ($arr_data as $string) {
             $nid = str_replace('nid=', '', $string);
-            $nids[] = (int) $nid;
+            $nids[] = (int)$nid;
         }
 
         // load all File-names
@@ -119,9 +126,7 @@ trait SortTrait
         $position = 1;
         foreach ($names_orded as $index => $item) {
 
-
-            $id = (int) $item['id'];
-
+            $id = (int)$item['id'];
 
             // Load node
             try {
@@ -130,7 +135,6 @@ trait SortTrait
                     ->load($id);
 
             } catch (InvalidPluginDefinitionException $e) {
-                $output->setMessages('Database Error', 'error', TRUE);
             }
 
             // set new Weight
@@ -138,12 +142,18 @@ trait SortTrait
             // save
             try {
                 $entity->save();
+                $message = 'Reset order to alphabetical';
+                $type = 'success';
+
             } catch (EntityStorageException $e) {
+                $message = 'can\'t reset';
+                $type = 'Error';
             }
 
             $position++;
         }
 
+        $output->setMessages($message, $type, false);
 
         return $output->json();
     }
@@ -195,7 +205,7 @@ trait SortTrait
                 $id[$key] = $row['id'];
                 $name[$key] = $row['name'];
             }
-            array_multisort($name, SORT_ASC,SORT_NATURAL, $nodes_unsorted);
+            array_multisort($name, SORT_ASC, SORT_NATURAL, $nodes_unsorted);
 
         } else if ($sort_mode === 'date') {
 
@@ -203,7 +213,7 @@ trait SortTrait
                 $id[$key] = $row['id'];
                 $date[$key] = $row['date'];
             }
-            array_multisort($date, SORT_DESC,SORT_NATURAL, $nodes_unsorted);
+            array_multisort($date, SORT_DESC, SORT_NATURAL, $nodes_unsorted);
 
         } else {
 
@@ -211,12 +221,11 @@ trait SortTrait
                 $id[$key] = $row['id'];
                 $weight[$key] = $row['weight'];
             }
-            array_multisort($weight, SORT_ASC,SORT_NATURAL, $nodes_unsorted);
+            array_multisort($weight, SORT_ASC, SORT_NATURAL, $nodes_unsorted);
         }
 
 
         $nodes_sorted = $nodes_unsorted;
-
 
 
         // Save new Position
@@ -250,7 +259,6 @@ trait SortTrait
 
             $position++;
         }
-
 
 
         $output->setData($nodes_unsorted);

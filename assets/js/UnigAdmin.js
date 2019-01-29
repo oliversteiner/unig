@@ -51,7 +51,6 @@ const UnigProcess = {
       $('#unig-main', context)
         .once('unigAdmin')
         .each(() => {
-          console.log('Drupal.behaviors.unigAdmin');
 
           // Theme - Default
           $('.unig-theme-dark-trigger', context).click(() => {
@@ -91,7 +90,6 @@ const UnigProcess = {
     },
 
     edit(nid, field, mode) {
-      console.log(`Edit`, `${mode} - ${field} - ${nid}`);
 
       const elemRootClassName = `unig-${mode}-${field}-${nid}`;
       // Elems`
@@ -124,7 +122,6 @@ const UnigProcess = {
 
 
     optionList(nid, field, mode) {
-      console.log(`optionList`, `${mode} - ${field} - ${nid}`);
 
       const elemRootClassName = `unig-${mode}-${field}-${nid}`;
       // Elems`
@@ -195,7 +192,6 @@ const UnigProcess = {
           if (response.status) {
             process.success();
 
-            console.log('Private', response.data[1]);
 
             if (response.data[1]) {
               // set To Private
@@ -219,7 +215,7 @@ const UnigProcess = {
             // build Error Message
             const message = response.messages;
             const type = 'warning';
-            Drupal.behaviors.unigMessages.set(message, type);
+            Drupal.behaviors.unigMessages.addMessage(message, type);
 
             return response.json();
           }
@@ -229,7 +225,7 @@ const UnigProcess = {
 
           const message = Drupal.t('Save to server failed.');
           const type = 'error';
-          Drupal.behaviors.unigMessages.set(message, type);
+          Drupal.behaviors.unigMessages.addMessage(message, type);
         });
     },
 
@@ -317,14 +313,13 @@ const UnigProcess = {
 
               // Private
               if (field === 'private') {
-                console.log('Privat', response.data.private);
               }
             } else {
               process.error();
 
               const message = response.messages;
               const type = 'warning';
-              Drupal.behaviors.unigMessages.set(message, type);
+              Drupal.behaviors.unigMessages.addMessage(message, type);
 
               return response.json();
             }
@@ -334,7 +329,7 @@ const UnigProcess = {
 
             const message = Drupal.t('Save to server failed.');
             const type = 'error';
-            Drupal.behaviors.unigMessages.set(message, type);
+            Drupal.behaviors.unigMessages.addMessage(message, type);
           });
       }
     },
