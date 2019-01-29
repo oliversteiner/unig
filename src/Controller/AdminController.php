@@ -55,7 +55,10 @@ class AdminController extends ControllerBase
         $nid = $data['nid'];
         $field = $data['field'];
         $value = $data['value'];
-        $mode = $data['mode'];
+        $mode = false;
+        if ($data['mode']) {
+            $mode = $data['mode'];
+        }
 
         // Load node
         $node = Node::load($nid);
@@ -92,8 +95,7 @@ class AdminController extends ControllerBase
 
             // for Ajax Output
             $value = $newValue;
-        }
-        else {
+        } else {
             // set Value to Field
             $node->set('field_unig_' . $field, $value);
 
