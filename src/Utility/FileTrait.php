@@ -66,8 +66,8 @@ trait FileTrait
         // load up an array for creation
         $new_node = [
             'title' => $node_title,
-        //    'status' => 0, //(1 or 0): published or not
-        //    'promote' => 0, //(1 or 0): promoted to front page
+            'status' => 0, //(1 or 0): published or not
+            'promote' => 0, //(1 or 0): promoted to front page
             $entity_def->get('entity_keys')['bundle'] => $this->bundle_file,
         ];
 
