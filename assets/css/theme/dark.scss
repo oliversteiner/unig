@@ -58,12 +58,28 @@
   // ===== Project List
   .unig-project {
     background-color: $color-admin-background;
-    border: 2px solid $color-admin-border;
+    border: 2px solid $color-admin-background;
+  }
+
+  .unig-project-text {
+    background-color: $color-admin-background;
+    border: 2px solid $color-admin-background;
+  }
+
+  li.unig-project-list-item article {
+    background-color: $color-admin-background;
+    border: 2px solid $color-admin-background;
   }
 
   li.unig-project-list-item.private article {
-    background-color: $color-admin-private;
+    background-color: $color-admin-background;
+    border: 2px solid $color-admin-marked;
   }
+
+  .unig-project-container.private .unig-project-public-private {
+    color: $color-admin-marked;
+  }
+
   .unig-project-list-toolbar {
     border-top: 1px solid $color-admin-border;
   }

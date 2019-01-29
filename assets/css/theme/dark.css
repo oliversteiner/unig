@@ -843,9 +843,18 @@
   border-color: #4b4b4b; }
 #unig-main.unig-theme-dark .unig-project {
   background-color: #222222;
-  border: 2px solid #3a3a3a; }
+  border: 2px solid #222222; }
+#unig-main.unig-theme-dark .unig-project-text {
+  background-color: #222222;
+  border: 2px solid #222222; }
+#unig-main.unig-theme-dark li.unig-project-list-item article {
+  background-color: #222222;
+  border: 2px solid #222222; }
 #unig-main.unig-theme-dark li.unig-project-list-item.private article {
-  background-color: #c3ccb9; }
+  background-color: #222222;
+  border: 2px solid #5d5585; }
+#unig-main.unig-theme-dark .unig-project-container.private .unig-project-public-private {
+  color: #5d5585; }
 #unig-main.unig-theme-dark .unig-project-list-toolbar {
   border-top: 1px solid #3a3a3a; }
 #unig-main.unig-theme-dark input,
