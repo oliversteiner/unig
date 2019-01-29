@@ -6,7 +6,6 @@
       $('#unig-main', context)
         .once('unigKeywords')
         .each(() => {
-          console.log('Drupal.behaviors.unigKeywords');
 
           this.constructor(context, settings);
           this.addAll();

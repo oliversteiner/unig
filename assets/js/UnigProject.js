@@ -68,12 +68,6 @@
       const mode = elemTarget.dataset.unigMode;
       const form = elemTarget.dataset.unigForm;
 
-      // Test
-      console.log('elemTarget', elemTarget);
-      console.log('nid', nid);
-      console.log('field', field);
-      console.log('mode', mode);
-      console.log('form', form);
       if (form === 'option_list') {
 
         Drupal.behaviors.unigAdmin.optionList(nid, field, mode);
@@ -96,7 +90,7 @@
         },
         dataType: 'json',
         success(results) {
-          Drupal.behaviors.unigMessages.set(results);
+          Drupal.behaviors.unigMessages.addMessage(results);
         },
       });
 
@@ -108,7 +102,6 @@
       const $input = $(`#unig-file-${nid} .unig-file-rating-input`);
 
       const number = parseInt($input.val(), 10);
-      // console.log('number ', number);
 
       let numberNew = 0;
       if (direction === 'up') {
@@ -170,7 +163,7 @@
         .then(json => {
           // Set message to ajax container
 
-          Drupal.behaviors.unigMessages.set(json.messages[0]);
+          Drupal.behaviors.unigMessages.addMessage(json.messages[0]);
 
           // deactivate all active covers
           const allActiveCoverElems = document.querySelectorAll(
@@ -261,8 +254,6 @@
           $('.unig-file-rating-down-trigger', context).click(event => {
             const nid = scope.getNodeId(event);
             scope.setRating(nid, 'down');
-
-            console.log(`${nid}: Down!`);
           });
 
           // Rating Up
@@ -270,7 +261,6 @@
             const nid = scope.getNodeId(event);
 
             scope.setRating(nid, 'up');
-            // console.log(nid + ': Up!');
           });
 
           // Toggle Keywords Toolbox
@@ -348,8 +338,6 @@
               elem.addEventListener(
                 'click',
                 event => {
-                  console.log('delete', event);
-
                   Drupal.behaviors.unigProjectList.toggleConfirmDeleteProject(
                     projectNid,
                   );

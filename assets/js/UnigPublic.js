@@ -6,61 +6,60 @@
 
     // ----- Names
     // Button
-    elemButtonNames: document.querySelector(".unig-gallery-button-image-name"),
+    elemButtonNames: document.querySelector('.unig-gallery-button-image-name'),
 
     // Show
     elemLabelShowNames: document.querySelector(
-      ".unig-gallery-image-name-label-show"
+      '.unig-gallery-image-name-label-show',
     ),
 
     // Hide
     elemLabelHideNames: document.querySelector(
-      ".unig-gallery-image-name-label-hide"
+      '.unig-gallery-image-name-label-hide',
     ),
 
     // ------ Index
-
     // Button
-    elemButtonIndex: document.querySelector(".unig-gallery-button-image-index"),
+    elemButtonIndex: document.querySelector('.unig-gallery-button-image-index'),
 
     // Show
     elemLabelShowIndex: document.querySelector(
-      ".unig-gallery-image-index-label-show"
+      '.unig-gallery-image-index-label-show',
     ),
 
     // Hide
     elemLabelHideIndex: document.querySelector(
-      ".unig-gallery-image-index-label-hide"
+      '.unig-gallery-image-index-label-hide',
     ),
     /**
      *
      */
     showImageNames() {
-      this.elemLabelShowNames.setAttribute("style", "display:none");
-      this.elemLabelHideNames.setAttribute("style", "display:block");
+      this.elemLabelShowNames.setAttribute('style', 'display:none');
+      this.elemLabelHideNames.setAttribute('style', 'display:block');
 
       // Show Title
-      document.querySelectorAll(".unig-file-name").forEach(elem => {
-        elem.setAttribute("style", "display:block");
+      document.querySelectorAll('.unig-file-name').forEach(elem => {
+        elem.setAttribute('style', 'display:block');
       });
 
       // set Active
-      this.elemButtonNames.classList.add("active");
+      this.elemButtonNames.classList.add('active');
     },
     /**
      *
      */
     hideImageNames() {
-      this.elemLabelShowNames.setAttribute("style", "display:block");
-      this.elemLabelHideNames.setAttribute("style", "display:none");
+      this.elemLabelShowNames.setAttribute('style', 'display:block');
+      this.elemLabelHideNames.setAttribute('style', 'display:none');
 
       // Show Title
-      document.querySelectorAll(".unig-file-name").forEach(elem => {
-        elem.setAttribute("style", "display:none");
+      document.querySelectorAll('.unig-file-name').forEach(elem => {
+        elem.setAttribute('style', 'display:none');
       });
 
       // unset Active
-      this.elemButtonNames.classList.remove("active");
+      this.elemButtonNames.classList.remove('active');
     },
     /**
      *
@@ -77,29 +76,31 @@
 
     // Image Index Numbers
     showImageIndex() {
-      this.elemLabelShowIndex.setAttribute("style", "display:none");
-      this.elemLabelHideIndex.setAttribute("style", "display:block");
+      this.elemLabelShowIndex.setAttribute('style', 'display:none');
+      this.elemLabelHideIndex.setAttribute('style', 'display:block');
 
       // Show Title
-      document.querySelectorAll(".unig-file-index").forEach(elem => {
-        elem.setAttribute("style", "display:block");
+      document.querySelectorAll('.unig-file-index').forEach(elem => {
+        elem.setAttribute('style', 'display:block');
       });
 
       // set Active
-      this.elemButtonIndex.classList.add("active");
+      this.elemButtonIndex.classList.add('active');
     },
+
     hideImageIndex() {
-      this.elemLabelShowIndex.setAttribute("style", "display:block");
-      this.elemLabelHideIndex.setAttribute("style", "display:none");
+      this.elemLabelShowIndex.setAttribute('style', 'display:block');
+      this.elemLabelHideIndex.setAttribute('style', 'display:none');
 
       // Show Title
-      document.querySelectorAll(".unig-file-index").forEach(elem => {
-        elem.setAttribute("style", "display:none");
+      document.querySelectorAll('.unig-file-index').forEach(elem => {
+        elem.setAttribute('style', 'display:none');
       });
 
       // unset Active
-      this.elemButtonIndex.classList.remove("active");
+      this.elemButtonIndex.classList.remove('active');
     },
+
     toggleImageIndex() {
       if (!this.statusIndex) {
         this.showImageIndex();
@@ -114,24 +115,24 @@
     attach(context, settings) {
       // onload
       $("*[id^='lightgallery-']").lightGallery({
-        selector: ".lightgallery-item"
+        selector: '.lightgallery-item',
       });
 
       // Title Trigger
       document
-        .querySelector(".unig-gallery-image-name-trigger", context)
-        .addEventListener("click", () => {
+        .querySelector('.unig-gallery-image-name-trigger', context)
+        .addEventListener('click', () => {
           // change Button Label
           this.toggleImageNames();
         });
 
       // Index Trigger
       document
-        .querySelector(".unig-gallery-image-index-trigger", context)
-        .addEventListener("click", () => {
+        .querySelector('.unig-gallery-image-index-trigger', context)
+        .addEventListener('click', () => {
           // change Button Label
           this.toggleImageIndex();
         });
-    }
+    },
   };
 })(jQuery, Drupal, drupalSettings);

@@ -5,14 +5,9 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
     attach(context, settings) {
-
       $('#unig-main', context)
         .once('unigData')
         .each(() => {
-
-          console.log('Drupal.behaviors.unigData');
-          console.log('Unig -> Start Point');
-
           if (!drupalSettings.unigDataOnce) {
             drupalSettings.unigDataOnce = true;
 
@@ -50,7 +45,6 @@
         dataType: 'json',
       }).done(result => {
         Drupal.behaviors.unigData.project.set(result);
-        console.log('result project load:', result);
       });
     },
     set(data) {
@@ -93,14 +87,10 @@
     list: [],
 
     add(nid) {
-      // console.log('UnigDownloadList - add()', nid);
-
       const intNid = parseInt(nid, 10);
       if (intNid) {
         this.list.push(intNid);
       }
-
-      // console.log('list ', this.list);
     },
 
     /**
@@ -108,7 +98,6 @@
      *
      */
     remove(nid) {
-      // console.log('UnigDownloadList - remove()');
 
       const index = this.list.indexOf(nid); // indexOf is not supported in
       // IE 7 and 8.
@@ -119,7 +108,6 @@
     },
 
     destroy() {
-      // console.log('itemList - destroy()');
       this.list = [];
     },
 
@@ -165,7 +153,6 @@
      * @return {*}
      */
     get() {
-      // console.log('get this.count ', this.count());
 
       if (this.count() > 0) {
         return this.list;
@@ -184,9 +171,7 @@
      * @return {number}
      */
     count() {
-      // console.log('count -list ', this.list);
 
-      // console.log('count - length ', this.list.length);
 
       return this.list.length;
     },
@@ -224,15 +209,11 @@
           dataType: 'json',
         })
           .done(result => {
-            console.log('  Drupal.behaviors.unigData.FileList', result);
-                
+
             Drupal.behaviors.unigData.FileList.set(result);
           })
           .fail(xhr => {
-            // DEBUG
-            console.error('Can\'t load UniG FileList');
-            console.log(data);
-            console.log(xhr);
+
           });
       }
     },
@@ -364,13 +345,10 @@
         .done(result => {
           Drupal.behaviors.unigData.keywordsList.set(result);
         })
-        .fail(xhr => {
-          console.log(xhr);
-        });
+        .fail(xhr => {});
     },
 
     destroy() {
-      // console.log('itemList - destroy()');
       this.list = [];
     },
 

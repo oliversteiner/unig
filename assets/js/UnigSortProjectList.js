@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier,no-console */
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigSortProjectList = {
     sortActivate(context) {
@@ -7,7 +6,6 @@
         items: "> li.unig-sortable-item",
         tolerance: "pointer",
         change: (event, ui) => {
-          console.log("sortable: change", event);
 
           $(".unig-button-sort-list-save", context).show();
           $(".unig-button-sort-list-cancel", context).show();
@@ -80,7 +78,7 @@
         },
         dataType: "json",
         success(results) {
-          Drupal.behaviors.unigMessages.set(results);
+          Drupal.behaviors.unigMessages.addMessage(results);
         }
       }).then(value => {
           location.reload();

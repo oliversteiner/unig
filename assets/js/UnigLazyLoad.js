@@ -4,7 +4,6 @@
     nodeIDsWithNoPreviews: [],
     imagesCounter: 0,
     attach() {
-      // console.log("Drupal.behaviors.unigLazyLoad");
     },
     replaceImage(nid, result) {
       const styleNames = ['unig_thumbnail', 'unig_medium', 'unig_hd'];
@@ -143,7 +142,6 @@
       const test = false;
 
       const nids = Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews;
-      console.log('nodeIDsWithNoPreviews', nids);
 
       const numberOfImages = nids.length;
 
@@ -159,61 +157,32 @@
           '.unig-preview-image-number-of-images',
         ).textContent = numberOfImages.toString();
 
-        if (test === true) {
-          console.log('---------- generate Preview Test Mode -----------');
 
-          // Add Spinner to Image Placeholder
+        //  First generate medium Previews
+
+        nids.forEach(nid => {
+          // add spinner
+          this.spinnerPlaceholder(nid, context);
+
+          const url = `/unig/imagestyles/${nid}/unig_medium`;
+
+          fetch(url, {
+            method: 'GET', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then(res => res.json())
+            .then(response => {
+              Drupal.behaviors.unigLazyLoad.replaceImage(nid, response);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        //  waite 2 seconds and generate all other styles
+        setTimeout(() => {
           nids.forEach(nid => {
-            this.spinnerPlaceholder(nid, context);
-          });
-
-          // iterate over Placeholders, remove Spinner and add Check
-          nids.forEach((nid, index) => {
-            setTimeout(() => {
-              // Dom-Elem
-              const DomTargetPreviewSpinner = document.querySelector(
-                `#no-preview-spinner-${nid}`,
-              );
-
-              if (DomTargetPreviewSpinner) {
-                // remove Spinner
-                DomTargetPreviewSpinner.parentElement.removeChild(
-                  DomTargetPreviewSpinner,
-                );
-
-                // Add check
-                document.querySelector(`#img-preview-${nid}-medium`).innerHTML =
-                  '<i class="fas fa-check fa-3x">';
-
-                // Display Elem
-                document
-                  .querySelector(`#img-preview-${nid}-medium`)
-                  .setAttribute('style', 'display:block');
-              }
-
-              // Update Counter Number in Message Block
-              document.querySelector(
-                '.unig-preview-image-counter',
-              ).textContent = Drupal.behaviors.unigLazyLoad.imagesCounter.toString();
-
-              // Update Counter
-              Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
-
-              if (index === numberOfImages - 1) {
-                this.generatePreviewImagesDone();
-              }
-            }, index * 500);
-          });
-
-          console.log('---------- End Test Mode -----------');
-        } else {
-          //  First generate medium Previews
-
-          nids.forEach(nid => {
-            // add spinner
-            this.spinnerPlaceholder(nid, context);
-
-            const url = `/unig/imagestyles/${nid}/unig_medium`;
+            const url = `/unig/imagestyles/${nid}`;
 
             fetch(url, {
               method: 'GET', // or 'PUT'
@@ -223,49 +192,29 @@
             })
               .then(res => res.json())
               .then(response => {
+
                 Drupal.behaviors.unigLazyLoad.replaceImage(nid, response);
+
+                // Update Counter Number in Message Block
+                document.querySelector(
+                  '.unig-preview-image-counter',
+                ).textContent = Drupal.behaviors.unigLazyLoad.imagesCounter.toString();
+
+                // Update Counter
+                Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
+                // after last elem in list
+
+                // after last elem in list
+                if (
+                  Drupal.behaviors.unigLazyLoad.imagesCounter ===
+                  numberOfImages
+                ) {
+                  Drupal.behaviors.unigLazyLoad.generatePreviewImagesDone();
+                }
               })
               .catch(error => console.error('Error:', error));
           });
-
-          //  waite 2 seconds and generate all other styles
-          setTimeout(() => {
-            nids.forEach(nid => {
-              const url = `/unig/imagestyles/${nid}`;
-
-              fetch(url, {
-                method: 'GET', // or 'PUT'
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              })
-                .then(res => res.json())
-                .then(response => {
-                  console.log('response', response);
-
-                  Drupal.behaviors.unigLazyLoad.replaceImage(nid, response);
-
-                  // Update Counter Number in Message Block
-                  document.querySelector(
-                    '.unig-preview-image-counter',
-                  ).textContent = Drupal.behaviors.unigLazyLoad.imagesCounter.toString();
-
-                  // Update Counter
-                  Drupal.behaviors.unigLazyLoad.imagesCounter += 1;
-                  // after last elem in list
-
-                  // after last elem in list
-                  if (
-                    Drupal.behaviors.unigLazyLoad.imagesCounter ===
-                    numberOfImages
-                  ) {
-                    Drupal.behaviors.unigLazyLoad.generatePreviewImagesDone();
-                  }
-                })
-                .catch(error => console.error('Error:', error));
-            });
-          }, 2000);
-        } // end else Test
+        }, 2000);
       }
     },
 
@@ -351,7 +300,6 @@
      * @param mode
      */
     addImage(fileList, id, mode) {
-      console.log('addImage', id);
 
       // target
       document

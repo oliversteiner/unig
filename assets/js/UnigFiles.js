@@ -8,7 +8,6 @@
       $('#unig-main', context)
         .once('unigFiles')
         .each(() => {
-          console.log(' Drupal.behaviors.unigFiles');
         });
     },
   };

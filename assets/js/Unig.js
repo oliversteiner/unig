@@ -9,7 +9,6 @@
     messages: [],
 
     attach(context) {
-      // console.log(' Drupal.behaviors.unig');
       $("#unig-main", context)
         .once("unig")
         .each(() => {});
@@ -20,7 +19,6 @@
     },
 
     changeArrayItemToInt(array) {
-      // console.log('changeArrayItemToInt ', array);
 
       if (Object.prototype.toString.call(array) === "[object Array]") {
         const intArray = [];
@@ -34,19 +32,16 @@
 
         return intArray;
       }
-      // console.log('in not Array ');
 
       return false;
     },
 
     cleanArray(array) {
-      // console.log('cleanArray:input ', array);
 
       const intArray = this.changeArrayItemToInt(array);
       const NoDublicatesArray = this.removeDuplicates(intArray);
       const CleanArray = this.changeArrayItemToInt(NoDublicatesArray);
 
-      // console.log('clean_array ', clean_array);
 
       return CleanArray;
     },

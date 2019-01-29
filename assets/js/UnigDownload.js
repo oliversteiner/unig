@@ -6,7 +6,6 @@
       $('#unig-main', context)
         .once('unigDownload')
         .each(() => {
-          console.log('Drupal.behaviors.unigDownload');
           this.constructor(context, settings);
         });
     },
@@ -291,17 +290,14 @@
       // get Item List
       const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
       const itemList = Drupal.behaviors.unigData.FileList.get();
-      // console.log('itemList ', itemList);
 
       let elemLi = '';
       if (itemsForDownload) {
         itemsForDownload.forEach(elem => {
-          // console.log('itemsForDownload.forEach ', elem);
 
           // check
           const item = itemList[elem];
 
-          // console.log('item ', item);
 
           if (item && item.title) {
             const label = item.title;

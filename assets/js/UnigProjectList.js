@@ -62,12 +62,6 @@
       const mode = elemTarget.dataset.unigMode;
       const form = elemTarget.dataset.unigForm;
 
-      // Test
-      console.log('elemTarget', elemTarget);
-      console.log('nid', nid);
-      console.log('field', field);
-      console.log('mode', mode);
-      console.log('form', form);
       if (form === 'option_list') {
         Drupal.behaviors.unigAdmin.optionList(nid, field, mode);
       } else {
@@ -86,7 +80,6 @@
       $('#unig-main', context)
         .once('unigProjectList')
         .each(() => {
-          console.log('Drupal.behaviors.unigProjectList');
 
           //  Delete Project Trigger
           root.querySelectorAll('.unig-project-delete-trigger').forEach(elem =>

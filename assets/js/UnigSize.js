@@ -1,6 +1,4 @@
 (function($, Drupal, drupalSettings) {
-  'use strict';
-
   Drupal.behaviors.unigSize = {
     $target: $('ul.unig-gallery'),
 
@@ -16,16 +14,14 @@
     img_medium: '.img-preview-medium',
     img_big: '.img-preview-big',
 
-    attach: function(context, settings) {
+    attach(context, settings) {
       $('#unig-main', context)
         .once('unigSize')
         .each(() => {
-          console.log(' Drupal.behaviors.unigSize');
-
-          const unigSize = Drupal.behaviors.unigSize;
+          const { unigSize } = Drupal.behaviors;
 
           // change to small
-          $('.unig-image-size-small-trigger').click(function() {
+          $('.unig-image-size-small-trigger').click(() => {
             unigSize.reset();
             unigSize.$target.addClass('unig-images-small');
             $(unigSize.img_small).show();
@@ -33,14 +29,14 @@
           });
 
           // change to medium
-          $('.unig-image-size-medium-trigger').click(function() {
+          $('.unig-image-size-medium-trigger').click(() => {
             unigSize.reset();
             unigSize.$target.addClass('unig-images-medium');
             $(unigSize.img_medium).show();
             unigSize.$button_medium.addClass('active');
           });
 
-          $('.unig-image-size-big-trigger').click(function() {
+          $('.unig-image-size-big-trigger').click(() => {
             unigSize.reset();
             unigSize.$target.addClass('unig-images-big');
             $(unigSize.img_big).show();
@@ -49,9 +45,7 @@
         });
     },
 
-    reset: function() {
-      //  console.log('reset ');
-
+    reset() {
       this.$target.removeClass('unig-images-medium-blur');
       this.$target.removeClass('unig-images-small');
       this.$target.removeClass('unig-images-medium');
