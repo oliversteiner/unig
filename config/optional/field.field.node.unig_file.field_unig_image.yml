@@ -8,7 +8,7 @@ dependencies:
   module:
     - image
 _core:
-  default_config_hash: YWHcwvgQu8aLOVvepfHDhBS_rlSrg-zew-CvPNLD_UQ
+  default_config_hash: uxsNUtSH35KLPAdH-Vp6Nes71nTXRfsKU_jiSK0vqgM
 id: node.unig_file.field_unig_image
 field_name: field_unig_image
 entity_type: node
@@ -22,7 +22,7 @@ default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png gif jpg jpeg'
-  max_file_size: ''
+  max_filesize: ''
   max_resolution: ''
   min_resolution: ''
   alt_field: true

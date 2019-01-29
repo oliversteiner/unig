@@ -7,6 +7,8 @@ dependencies:
     - node.type.unig_file
   module:
     - text
+_core:
+  default_config_hash: O_ZFd3AY5xCikC9f2VSPQxb41nO609K11IMDuc905Lg
 id: node.unig_file.field_unig_description
 field_name: field_unig_description
 entity_type: node

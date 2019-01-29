@@ -1,16 +1,18 @@
-uuid: ac5d2152-2f8f-450c-acc7-582ea7765559
+uuid: a690ceab-a41e-4dd7-8a4b-d59364b306b2
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_unig_people
+    - field.storage.node.field_unig_keywords
     - node.type.unig_file
-    - taxonomy.vocabulary.unig_people
-id: node.unig_file.field_unig_people
-field_name: field_unig_people
+    - taxonomy.vocabulary.unig_keywords
+_core:
+  default_config_hash: 0AVIm_FKb9mNQh1ox_UEZasSriICmIWerrF3gqZOxZg
+id: node.unig_file.field_unig_keywords
+field_name: field_unig_keywords
 entity_type: node
 bundle: unig_file
-label: 'UniG People'
+label: 'UniG Keywords'
 description: ''
 required: false
 translatable: false
@@ -20,7 +22,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      unig_people: unig_people
+      unig_keywords: unig_keywords
     sort:
       field: name
       direction: asc

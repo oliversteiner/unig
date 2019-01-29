@@ -1,28 +1,28 @@
-uuid: c6ab9d90-4dca-45b0-bf3c-3c90a0bf195d
+uuid: b30a3b1e-bfa3-4e81-b673-6e84f8049fd6
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_unig_album
+    - field.storage.node.field_unig_project
     - node.type.unig_file
-    - node.type.universal_gallery_album
+    - node.type.unig_project
 _core:
-  default_config_hash: gISIW-W_pZ-gNlmgVLZMXZGow0kVvbC-ifdOaIYiDC8
-id: node.unig_file.field_unig_album
-field_name: field_unig_album
+  default_config_hash: oAfQo3XXUxNDpdT8HX45zFG4UseGCirY77e4z6DHfT0
+id: node.unig_file.field_unig_project
+field_name: field_unig_project
 entity_type: node
 bundle: unig_file
-label: 'Unig Album'
+label: 'UniG Project'
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      universal_gallery_album: universal_gallery_album
+      unig_project: unig_project
     sort:
       field: _none
     auto_create: false

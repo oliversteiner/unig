@@ -8,7 +8,7 @@ dependencies:
   module:
     - file
 _core:
-  default_config_hash: WAfjcPN21cXZHFDVsmapvHiHa7zgSjdC0_Dg09jzuTA
+  default_config_hash: ORaFqZ_UlwqA8g2mycRWDohpW1lrA4toqqtlx3vvgMk
 id: node.unig_file.field_unig_file
 field_name: field_unig_file
 entity_type: node
@@ -22,7 +22,7 @@ default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
   file_extensions: 'txt pdf rtf'
-  max_file_size: ''
+  max_filesize: ''
   description_field: true
   handler: 'default:file'
   handler_settings: {  }

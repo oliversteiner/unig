@@ -1,0 +1,11 @@
+uuid: 00dc344f-b6f6-4450-afb2-2d6f9e2062b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.unig_category
+id: taxonomy_term.unig_category
+target_entity_type_id: taxonomy_term
+target_bundle: unig_category
+default_langcode: site_default
+language_alterable: false

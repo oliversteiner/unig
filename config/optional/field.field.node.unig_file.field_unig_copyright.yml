@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_unig_copyright
     - node.type.unig_file
+_core:
+  default_config_hash: r63GwIDl3FAluOKTwbo0RJycXA5cUWzRjVKwtqNNM0s
 id: node.unig_file.field_unig_copyright
 field_name: field_unig_copyright
 entity_type: node
