@@ -48,7 +48,7 @@
           }
 
           content =
-            `<span class="unig-message-index">${messageIndex}</span>` +
+            //  `<span class="unig-message-index">${messageIndex}</span>` +
             `<span class="unig-message-icon">${icon}</span>` +
             `<span class="unig-message-text">${message}</span>`;
 

@@ -90,7 +90,9 @@
         },
         dataType: 'json',
         success(results) {
-          Drupal.behaviors.unigMessages.addMessage(results);
+          const text = results.messages[0][0];
+          const type = results.messages[0][1];
+          Drupal.behaviors.unigMessages.addMessage(text, type);
         },
       });
 
@@ -162,8 +164,9 @@
         .then(response => response.json())
         .then(json => {
           // Set message to ajax container
-
-          Drupal.behaviors.unigMessages.addMessage(json.messages[0]);
+          const text = json.messages[0][0];
+          const type = json.messages[0][1];
+          Drupal.behaviors.unigMessages.addMessage(text, type);
 
           // deactivate all active covers
           const allActiveCoverElems = document.querySelectorAll(
