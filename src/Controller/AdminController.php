@@ -56,7 +56,7 @@ class AdminController extends ControllerBase
         $field = $data['field'];
         $value = $data['value'];
         $mode = false;
-        if ($data['mode']) {
+        if ($data && !empty($data['mode'])) {
             $mode = $data['mode'];
         }
 

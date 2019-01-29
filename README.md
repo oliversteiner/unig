@@ -1,23 +1,19 @@
 #### Version
-UniG 1.6.0
+UniG 1.6.1
 
 ## Todo
-- Adapt sort-function to 1.6.5
-- Check für Access: in particular via URL
 
-### Einstellungen:
 
 
 ## Ideen
 Album zu Projekt
-mit Alben/Gruppen als Taxonomy
 
 ## Next
-Rewrite as Standalone Library für Crossplatform:
+Rewrite as Standalone Library for Crossplatform:
 - JSON API
 - Drupal
 - Wordpress
-- Electron / Ionic App
+- Electron
 
 
 ## Requirements
@@ -30,4 +26,3 @@ Twig tweak
 ## Tools
 
 
-## Install:

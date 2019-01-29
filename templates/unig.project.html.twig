@@ -48,8 +48,11 @@
 
                                                 {# ----------- Edit Content ----------- #}
                                                 <div class="unig-project-category unig-edit-content unig-default-box ">
-                                                    {{ project.category }}
-                                                </div>
+                                                    {% if not project.category %}
+                                                        <span class="unig-input-placeholder"> {% trans %} Category {% endtrans %} </span>
+                                                    {% else %}
+                                                        {{ project.category }}
+                                                    {% endif %}                                                </div>
 
                                             </div>
 

@@ -177,7 +177,7 @@
                                             <i class="fas fa-images"></i> {{ project.number_of_items }}
                                         </div>
 
-                                        {# Vorschau #}
+                                        {# Preview #}
                                         <a class="unig-button-icon-info"
                                            href="{{ path('unig.lightgallery', {'album_nid': null, 'project_nid': project.nid}) }}">
                                             {% trans %} Preview {% endtrans %}
@@ -230,6 +230,47 @@
 
 
                                 <div class="animate-container animate-container-{{ project.nid }}">
+
+
+                                    {#  -----------   Category  -----------  #}
+                                    <div class="unig-project-category">
+
+                                        {#  -----------   Edit Root  -----------  #}
+                                        <div class="unig-project-category-{{ project.nid }}">
+
+                                            {# ----------- Edit Trigger ----------- #}
+                                            <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                                                 data-unig-field="category"
+                                                 data-unig-mode="project"
+                                                 data-unig-form="option_list">
+
+                                                {# ----------- Edit Content ----------- #}
+                                                <div class="unig-project-category unig-edit-content unig-default-box ">
+
+                                                    {% if not project.category %}
+                                                        <span class="unig-input-placeholder"> {% trans %} Category {% endtrans %} </span>
+                                                    {% else %}
+                                                        {{ project.category }}
+                                                    {% endif %}
+
+                                                </div>
+
+                                            </div>
+
+                                            {# ----------- Edit Input ----------- #}
+                                            <div class="unig-edit-input" style="display: none">
+
+
+                                                <select name="unig-project-category-{{ project.nid }}"
+                                                        id="unig-project-category-{{ project.nid }}-input">
+                                                    {% for category_item in project.category_list %}
+                                                        <option value="{{ category_item.id }}"{% if category_item.name == project.category %} selected {% endif %}>{{ category_item.name }} </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
 
 
                                     {#  -----------   Title  -----------  #}
