@@ -1,10 +1,9 @@
 // Variables
-// =====================
+// ---------------------
 
 // Font
-$font-sans-serif: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma,
-Verdana, Arial, Helvetica, sans-serif;
-
+$font-sans-serif: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma,
+  Verdana, Arial, Helvetica, sans-serif;
 
 $color-text: #232323;
 $color-info: #848484;
@@ -107,7 +106,7 @@ hr.unig {
 }
 
 // default
-// =====================
+// ---------------------
 ul.unig-gallery {
   display: flex;
   align-content: flex-start;
@@ -119,16 +118,15 @@ ul.unig-gallery {
 }
 
 // Files
-// =====================
+// ---------------------
 li.unig-file-item {
   list-style-type: none;
   min-width: 100px;
   min-height: 100px;
-  margin: 20px;
+  margin: 15px;
   border-radius: 5px;
   padding: 5px;
   cursor: zoom-in;
-
   color: $color-image-text;
   background-color: $color-image-background;
   border: 1px solid $color-image-border;
@@ -213,7 +211,6 @@ li.unig-file-item img {
   padding: 8px 8px 0 8px;
 }
 
-
 .unig-file-title {
   padding: 8px 8px 0 8px;
 
@@ -228,8 +225,6 @@ li.unig-file-item img {
   padding: 8px 8px 0 8px;
   width: 130px;
   text-align: center;
-
-
 }
 
 .unig-gallery-toolbar {
@@ -250,7 +245,7 @@ li.unig-file-item img {
 }
 
 // GUI
-// ============================
+// ----------------------------
 
 .unig-gallery-button {
   font-size: 0.7em;
@@ -289,7 +284,7 @@ li.unig-file-item img {
 }
 
 // Project List Items
-// ============================
+// ----------------------------
 
 ul.unig-project-list {
   display: flex;
@@ -310,7 +305,7 @@ li.unig-project-list-item article {
 }
 
 // Cover
-// ============================
+// ----------------------------
 
 .unig-project-cover {
   display: flex;
@@ -389,7 +384,6 @@ a.unig-button-edit-project {
 }
 
 .unig-project-date {
-
 }
 
 .unig-project-info-container {
