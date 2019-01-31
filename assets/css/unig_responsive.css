@@ -9,8 +9,10 @@
     width: 100%; }
 
   .unig-gallery-header-right {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    display: flex; }
+    margin: 0; }
 
   .unig-gallery-toolbar {
     display: flex;

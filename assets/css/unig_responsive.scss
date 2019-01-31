@@ -27,8 +27,10 @@
 
 
   .unig-gallery-header-right {
-    width: 100%;
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
   }
 
 
