@@ -1,0 +1,25 @@
+@media (max-width: 575.98px) {
+  .unig-file-gallery-head {
+    flex-wrap: wrap; }
+
+  .unig-gallery-header-left {
+    width: 100%; }
+
+  .unig-gallery-header-middle {
+    width: 100%; }
+
+  .unig-gallery-header-right {
+    width: 100%;
+    display: flex; }
+
+  .unig-gallery-toolbar {
+    display: flex;
+    margin: 0; } }
+@media (min-width: 320px) and (max-width: 410.98px) {
+  .unig-gallery-header-text-row-2 {
+    display: block; }
+
+  li.unig-file-item {
+    margin: 0; } }
+
+/*# sourceMappingURL=unig_responsive.css.map */

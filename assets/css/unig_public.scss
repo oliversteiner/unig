@@ -28,7 +28,7 @@ $color-cover-border-active: transparent;
 // Color Image
 // -- Default
 $color-image-text: #7a7a7a;
-$color-image-background: #transparent;
+$color-image-background: transparent;
 $color-image-border: rgba(215, 215, 215, 0);
 
 // -- :hover
@@ -148,6 +148,7 @@ li.unig-file-item {
 
 li.unig-file-item img {
   border: 1px solid $color-image-border;
+
   &:hover {
     border-color: $color-image-border-hover;
   }
@@ -167,17 +168,29 @@ li.unig-file-item img {
   align-items: flex-start;
 }
 
-h2.unig-project-title {
+.unig-project-title h1 {
   margin-top: 0;
 }
 
 .unig-gallery-header-middle {
   text-align: center;
-  width: 500px;
+  width: 60%;
+}
+
+.unig-gallery-header-text {
+}
+
+.unig-gallery-header-text-row-1 {
+}
+
+.unig-gallery-header-text-row-2 {
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
 }
 
 .unig-project-description {
-  margin: 10px 0;
+  margin: 0 20px;
 }
 
 .unig-gallery-header-right {
@@ -195,13 +208,10 @@ h2.unig-project-title {
 }
 
 .unig-file-name {
-   font-family: $font-sans-serif;
-   font-size: 0.9em;
-   padding: 8px 8px 0 8px;
- }
-
-
-
+  font-family: $font-sans-serif;
+  font-size: 0.9em;
+  padding: 8px 8px 0 8px;
+}
 
 
 .unig-file-title {
@@ -221,6 +231,7 @@ h2.unig-project-title {
 
 
 }
+
 .unig-gallery-toolbar {
   margin-top: 5px;
 }
@@ -263,6 +274,7 @@ h2.unig-project-title {
     background-color: $color-button-background-active;
     border-color: $color-button-border-active;
   }
+
   &.active {
     color: $color-button-text-currently-active;
     background-color: $color-button-background-currently-active;
@@ -372,11 +384,11 @@ a.unig-button-edit-project {
   margin: 5px;
 }
 
-.unig-gallery-diashow{
+.unig-gallery-diashow {
   color: whitesmoke;
 }
 
-.unig-project-date{
+.unig-project-date {
 
 }
 
@@ -386,7 +398,7 @@ a.unig-button-edit-project {
   font-size: 0.8em;
 }
 
-.unig-project-text-container{
+.unig-project-text-container {
   margin-top: 5px;
   border-top: solid 1px silver;
   padding: 5px 2px 0;

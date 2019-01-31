@@ -41,7 +41,7 @@ li.unig-file-item {
   padding: 5px;
   cursor: zoom-in;
   color: #7a7a7a;
-  background-color: #transparent;
+  background-color: transparent;
   border: 1px solid rgba(215, 215, 215, 0); }
   li.unig-file-item:hover {
     color: #ededed;
@@ -67,15 +67,20 @@ li.unig-file-item img {
   justify-content: space-between;
   align-items: flex-start; }
 
-h2.unig-project-title {
+.unig-project-title h1 {
   margin-top: 0; }
 
 .unig-gallery-header-middle {
   text-align: center;
-  width: 500px; }
+  width: 60%; }
+
+.unig-gallery-header-text-row-2 {
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between; }
 
 .unig-project-description {
-  margin: 10px 0; }
+  margin: 0 20px; }
 
 .unig-gallery-header-right {
   margin-right: 50px; }

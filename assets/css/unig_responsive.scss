@@ -1,0 +1,60 @@
+//
+// Mobile Medium
+// ------------------------------------------------
+
+@media (max-width: 767.98px) {
+}
+
+//
+// Mobile Small
+// ------------------------------------------------
+
+@media (max-width: 575.98px) {
+  .unig-file-gallery-head {
+    flex-wrap: wrap;
+  }
+
+  .unig-gallery-header-text {
+  }
+
+  .unig-gallery-header-left {
+    width: 100%;
+  }
+
+  .unig-gallery-header-middle {
+    width: 100%;
+  }
+
+
+  .unig-gallery-header-right {
+    width: 100%;
+    display: flex;
+  }
+
+
+  .unig-gallery-toolbar {
+    display: flex;
+    margin: 0;
+  }
+}
+
+//
+// iPhone 6 7 8
+// ------------------------------------------------
+
+@media (min-width: 320px) and (max-width: 410.98px) {
+
+  .unig-gallery-header-text-row-2 {
+    display: block;
+  }
+  li.unig-file-item {
+    margin: 0;
+  }
+}
+
+//
+// iPhone 5 / SE
+// ------------------------------------------------
+
+@media (max-width: 320px) {
+}
