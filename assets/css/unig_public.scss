@@ -3,7 +3,7 @@
 
 // Font
 $font-sans-serif: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma,
-  Verdana, Arial, Helvetica, sans-serif;
+Verdana, Arial, Helvetica, sans-serif;
 
 $color-text: #232323;
 $color-info: #848484;
@@ -290,6 +290,8 @@ ul.unig-project-list {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 
 li.unig-project-list-item {

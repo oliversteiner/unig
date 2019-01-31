@@ -155,7 +155,9 @@ li.unig-file-item img {
 ul.unig-project-list {
   display: flex;
   justify-content: flex-start;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0; }
 
 li.unig-project-list-item {
   list-style: none; }
