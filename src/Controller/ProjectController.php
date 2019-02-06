@@ -7,6 +7,7 @@ use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\node\Entity\Node;
 use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\FileTrait;
 use Drupal\unig\Utility\ProjectListTemplateTrait;
@@ -16,189 +17,209 @@ use Drupal\unig\Utility\RatingTrait;
 use Drupal\unig\Utility\SortTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 /**
  * Controller routines for page example routes.
  */
 class ProjectController extends ControllerBase
 {
+  /**
+   * {@inheritdoc}
+   */
+  protected function getModuleName()
+  {
+    return 'unig';
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getModuleName()
-    {
-        return 'unig';
+  use ProjectTrait;
+  use FileTrait;
+  use ProjectListTemplateTrait;
+  use ProjectTemplateTrait;
+  use SortTrait;
+  use RatingTrait;
+
+  public function project($project_nid, $album_nid = null)
+  {
+    if (empty($project_nid)) {
+      return $this->projectListTemplate();
+    } else {
+      return $this->projectTemplate($project_nid, $album_nid);
+    }
+  }
+
+  /**
+   * Returns a page title.
+   * @param $project_nid
+   * @param null $album_nid
+   * @return string
+   */
+  public function getTitle($project_nid, $album_nid = null): string
+  {
+    // Get Node from Project
+    if ($project_nid !== null) {
+      $node = Node::load($project_nid);
     }
 
-    use ProjectTrait;
-    use FileTrait;
-    use ProjectListTemplateTrait;
-    use ProjectTemplateTrait;
-    use SortTrait;
-    use RatingTrait;
-
-
-    public function project($project_nid, $album_nid = NULL)
-    {
-
-        if (empty($project_nid)) {
-            return $this->projectListTemplate();
-        } else {
-            return $this->projectTemplate($project_nid, $album_nid);
-        }
+    // Get Node from Album
+    if ($album_nid !== null) {
+      $node = Node::load($album_nid);
     }
 
-    /**
-     * @return array
-     */
-    public function testPage()
-    {
-        return [
-            '#markup' => '<p>' . $this->t('Test Page') . '</p>',
-        ];
+    // Get Title from loaded Node
+    return !empty($node) ? $node->getTitle() : t('Project');
+  }
+
+  /**
+   * @return array
+   */
+  public function testPage()
+  {
+    return [
+      '#markup' => '<p>' . $this->t('Test Page') . '</p>',
+    ];
+  }
+
+  /**
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  public function ajaxTest($nid)
+  {
+    $message = $nid;
+    $response = new AjaxResponse();
+    $response->addCommand(
+      new ReplaceCommand(
+        '.unig-ajax-container',
+        '<div class="unig-ajax-container active">' . $message . '</div>'
+      )
+    );
+    return $response;
+  }
+
+  /**
+   * @return JsonResponse
+   */
+  public function ajaxSetCover($project_nid, $image_nid)
+  {
+    $data = ProjectTrait::setCover($project_nid, $image_nid);
+
+    return $data->json();
+  }
+
+  /**
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  public function ajaxAddAlbum($file_nid, $album_nid)
+  {
+    $album_name = AlbumTrait::getAlbum($album_nid)->title;
+
+    $cover_id = AlbumTrait::addAlbum($file_nid, $album_nid);
+
+    if ($cover_id) {
+      $message = "Das Bild wurde zum Album $album_name hinzugefügt";
+    } else {
+      $message = "Fehler: Das Bild konnte dem Album $album_name nicht hinzugefügt werden";
     }
 
-    /**
-     * @return \Drupal\Core\Ajax\AjaxResponse
-     */
-    public function ajaxTest($nid)
-    {
+    $response = new AjaxResponse();
+    $response->addCommand(
+      new ReplaceCommand(
+        '.unig-ajax-container',
+        '<div class="unig-ajax-container active">' . $message . '</div>'
+      )
+    );
+    return $response;
+  }
 
-        $message = $nid;
-        $response = new AjaxResponse();
-        $response->addCommand(new ReplaceCommand('.unig-ajax-container', '<div class="unig-ajax-container active">' . $message . '</div>'));
-        return $response;
+  /**
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  public function ajaxDeleteFile($file_nid)
+  {
+    $response = new AjaxResponse();
 
+    $result = FileTrait::deleteFile($file_nid);
+
+    if ($result['status']) {
+      $response->addCommand(
+        new ReplaceCommand('li.unig-file-' . $file_nid, '')
+      );
+    }
+    $message = $result['message'];
+
+    $response->addCommand(
+      new ReplaceCommand(
+        '.unig-ajax-container',
+        '<div class="unig-ajax-container active">' . $message . '</div>'
+      )
+    );
+
+    return $response;
+  }
+
+  /**
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  public function ajaxProjectDelete($project_nid)
+  {
+    $response = new AjaxResponse();
+
+    $result = ProjectTrait::projectDelete($project_nid);
+
+    if ($result['status']) {
+      $response->addCommand(
+        new ReplaceCommand('article.unig-project-' . $project_nid, '')
+      );
     }
 
-    /**
-     * @return JsonResponse
-     */
-    public function ajaxSetCover($project_nid, $image_nid)
-    {
+    $message = $result['message'];
+    $response->addCommand(
+      new ReplaceCommand(
+        '.unig-ajax-container',
+        '<div class="unig-ajax-container active">' . $message . '</div>'
+      )
+    );
 
-        $data = ProjectTrait::setCover($project_nid, $image_nid);
+    return $response;
+  }
 
-        return $data->json();
+  /**
+   * @param $project_nid
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  public function ajaxNewAlbumForm($project_nid)
+  {
+    $message = 'new form';
 
+    $css = ['display' => 'block'];
+
+    $response = new AjaxResponse();
+    $response->addCommand(new CssCommand('#unig-form-new-album-input', $css));
+    $response->addCommand(
+      new HtmlCommand('.unig-form-new-album-input-messages', $message)
+    );
+    return $response;
+  }
+
+  /**
+   * @param $project_nid
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   */
+  public function ajaxProjectInfo($project_nid)
+  {
+    if (isset($_POST['project_nid'])) {
+      $project_nid = $_POST['project_nid'];
     }
 
+    $response = new JsonResponse();
+    $result = ProjectTrait::buildProject($project_nid);
 
-    /**
-     * @return \Drupal\Core\Ajax\AjaxResponse
-     */
-    public function ajaxAddAlbum($file_nid, $album_nid)
-    {
-
-
-        $album_name = AlbumTrait::getAlbum($album_nid)->title;
-
-        $cover_id = AlbumTrait::addAlbum($file_nid, $album_nid);
-
-        if ($cover_id) {
-            $message = "Das Bild wurde zum Album $album_name hinzugefügt";
-
-        } else {
-            $message = "Fehler: Das Bild konnte dem Album $album_name nicht hinzugefügt werden";
-
-        }
-
-        $response = new AjaxResponse();
-        $response->addCommand(new ReplaceCommand('.unig-ajax-container', '<div class="unig-ajax-container active">' . $message . '</div>'));
-        return $response;
-
+    if (!empty($result)) {
+      $response->setData($result);
+    } else {
+      $response->setData(0);
     }
 
-
-    /**
-     * @return \Drupal\Core\Ajax\AjaxResponse
-     */
-    public function ajaxDeleteFile($file_nid)
-    {
-
-
-        $response = new AjaxResponse();
-
-        $result = FileTrait::deleteFile($file_nid);
-
-
-        if ($result['status']) {
-            $response->addCommand(new ReplaceCommand('li.unig-file-' . $file_nid, ''));
-        }
-        $message = $result['message'];
-
-        $response->addCommand(new ReplaceCommand('.unig-ajax-container', '<div class="unig-ajax-container active">' . $message . '</div>'));
-
-        return $response;
-
-    }
-
-    /**
-     * @return \Drupal\Core\Ajax\AjaxResponse
-     */
-    public function ajaxProjectDelete($project_nid)
-    {
-
-
-        $response = new AjaxResponse();
-
-        $result = ProjectTrait::projectDelete($project_nid);
-
-
-        if ($result['status']) {
-            $response->addCommand(new ReplaceCommand('article.unig-project-' . $project_nid, ''));
-        }
-
-        $message = $result['message'];
-        $response->addCommand(new ReplaceCommand('.unig-ajax-container', '<div class="unig-ajax-container active">' . $message . '</div>'));
-
-        return $response;
-
-    }
-
-
-    /**
-     * @param $project_nid
-     *
-     * @return \Drupal\Core\Ajax\AjaxResponse
-     */
-    public function ajaxNewAlbumForm($project_nid)
-    {
-
-        $message = 'new form';
-
-        $css = ['display' => 'block'];
-
-        $response = new AjaxResponse();
-        $response->addCommand(new CssCommand('#unig-form-new-album-input', $css));
-        $response->addCommand(new HtmlCommand('.unig-form-new-album-input-messages', $message));
-        return $response;
-
-    }
-
-    /**
-     * @param $project_nid
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function ajaxProjectInfo($project_nid)
-    {
-
-        if (isset($_POST['project_nid'])) {
-            $project_nid = $_POST['project_nid'];
-        }
-
-        $response = new JsonResponse();
-        $result = ProjectTrait::buildProject($project_nid);
-
-        if (!empty($result)) {
-            $response->setData($result);
-        } else {
-            $response->setData(0);
-        }
-
-        return $response;
-
-    }
+    return $response;
+  }
 }

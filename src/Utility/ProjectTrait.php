@@ -465,7 +465,7 @@ trait ProjectTrait
 
     // var_dump($project_nid);
     $project_id = (int)$project_id;
-    $node = Node::load((int)$project_id);
+    $node = Node::load($project_id);
 
     if (!$node) {
       $project = ['nid' => 0];

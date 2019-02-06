@@ -22,6 +22,7 @@ unig.project_list:
   path: '/unig'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
+    _title: 'All Projects'
   requirements:
     _permission: 'access content'
 
@@ -34,6 +35,7 @@ unig.project:
   path: '/unig/project/{project_nid}/{album_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::project'
+    _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
     project_nid: null
     album_nid: null
   requirements:
@@ -80,6 +82,7 @@ unig.lightgallery:
   path: '/unig/lightgallery/{project_nid}/{album_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\LightgalleryController::getTemplate'
+    _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
     project_nid: null
     album_nid: null
   requirements:
