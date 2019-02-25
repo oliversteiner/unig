@@ -144,8 +144,15 @@ trait ProjectTrait
       return $default_project_nid;
     }
 
+    // sonst das letzte Projekt nehmen
     $list = ProjectTrait::getAllProjectNids();
-    return $list[0];
+
+    if ($list) {
+      return array_shift($list);
+    } else {
+      return 0;
+    }
+
   }
 
   /**
@@ -172,7 +179,7 @@ trait ProjectTrait
       'title' => $title,
       'status' => 0, //(1 or 0): published or not
       'promote' => 0, //(1 or 0): promoted to front page
-      'bundle' => 'unig_project',
+      'type' => 'unig_project',
     ];
 
     $new_post = \Drupal::entityTypeManager()
@@ -299,7 +306,7 @@ trait ProjectTrait
   public static function getCoverImageVars($nid): array
   {
     $variables = [];
-    if ($nid ) {
+    if ($nid) {
 
       $node = Node::load((int)$nid);
       if ($node) {

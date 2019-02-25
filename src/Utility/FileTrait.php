@@ -40,7 +40,7 @@ trait FileTrait
   public function createNodeUniGImage($file_tmp, $project_nid = null): int
   {
     // define entity type and bundle
-    $entity_type = "node";
+    $entity_type = 'node';
 
     // get fid of the temporary uploaded file
     $file_id = $this->getFileId($file_tmp, $project_nid);
@@ -54,30 +54,24 @@ trait FileTrait
     $node_title = $file_name;
 
     // get definition of target entity type
-    $entity_def = \Drupal::entityTypeManager()->getDefinition($entity_type);
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
 
     // load up an array for creation
-    $new_node = [
+    $new_unig_file = $storage->create([
       'title' => $node_title,
       'status' => 0, //(1 or 0): published or not
       'promote' => 0, //(1 or 0): promoted to front page
-      $entity_def->get('entity_keys')['bundle'] => $this->bundle_file,
-    ];
+      'type' => 'unig_file',
+    ]);
 
-    // Init new node
-    $new_post = \Drupal::entityTypeManager()
-      ->getStorage($entity_type)
-      ->create($new_node);
-
-    //
 
     // Set true for generated Title
-    if (!empty($new_post->field_unig_title_generated)) {
-      $new_post->field_unig_title_generated->setValue(1);
+    if (!empty($new_unig_file->field_unig_title_generated)) {
+      $new_unig_file->field_unig_title_generated->setValue(1);
     }
 
-    if (!empty($new_post->field_unig_project)) {
-      $new_post->field_unig_project->setValue([
+    if (!empty($new_unig_file->field_unig_project)) {
+      $new_unig_file->field_unig_project->setValue([
         'target_id' => $project_nid,
       ]);
     }
@@ -85,8 +79,8 @@ trait FileTrait
     // check file if Image or File:
     if (in_array($file_ext, $this->ext_image)) {
       // if Image save to Imagefield
-      if (!empty($new_post->field_unig_image)) {
-        $new_post->field_unig_image->setValue([
+      if (!empty($new_unig_file->field_unig_image)) {
+        $new_unig_file->field_unig_image->setValue([
           'target_id' => $file_id,
         ]);
       }
@@ -102,7 +96,8 @@ trait FileTrait
         foreach ($keywords as $keyword) {
           $value_keywords[] = ['target_id' => $keyword];
         }
-        $new_post->field_unig_keywords = $value_keywords;
+
+        $new_unig_file->field_unig_keywords = $value_keywords;
       }
 
       // People
@@ -111,19 +106,19 @@ trait FileTrait
         foreach ($people as $dude) {
           $value_people[] = ['target_id' => $dude];
         }
-        $new_post->field_unig_people = $value_people;
+        $new_unig_file->field_unig_people = $value_people;
       }
     } else {
       // if other save for Filefield
     }
 
     try {
-      $new_post->save();
+      $new_unig_file->save();
     } catch (EntityStorageException $e) {
     }
 
     // hole die neu erstellte ID
-    $new_id = $new_post->id();
+    $new_id = $new_unig_file->id();
     // $this->createStyle($new_id, 'thumbnail');
     // $this->createStyle($new_id, 'unig_medium');
 
@@ -174,8 +169,7 @@ trait FileTrait
         // Node delete succses
         $status = true;
         $message = 'Die Datei mit der ID ' . $nid . ' wurde gelöscht';
-      }
-      // no Node found
+      } // no Node found
       else {
         $status = false;
         $message = 'kein File mit der ID ' . $nid . ' gefunden';
