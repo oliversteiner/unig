@@ -177,7 +177,7 @@ trait ProjectTrait
     //load up an array for creation
     $new_node = [
       'title' => $title,
-      'status' => 0, //(1 or 0): published or not
+      'status' => 1, //(1 or 0): published or not
       'promote' => 0, //(1 or 0): promoted to front page
       'type' => 'unig_project',
     ];
