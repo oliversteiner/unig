@@ -136,22 +136,22 @@ trait ProjectTrait
       return $project_nid;
     }
 
+
     // Aus den Einstellungen das Defaultalbum wählen
     $default_config = \Drupal::config('unig.settings');
     $default_project_nid = $default_config->get('unig.default_project');
-
     if ($default_project_nid) {
-      return $default_project_nid;
+      return (int)$default_project_nid;
     }
+
 
     // sonst das letzte Projekt nehmen
     $list = ProjectTrait::getAllProjectNids();
-
     if ($list) {
       return array_shift($list);
-    } else {
-      return 0;
     }
+
+    return 0;
 
   }
 
