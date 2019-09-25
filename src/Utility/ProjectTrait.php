@@ -136,14 +136,12 @@ trait ProjectTrait
       return $project_nid;
     }
 
-
     // Aus den Einstellungen das Defaultalbum wählen
     $default_config = \Drupal::config('unig.settings');
     $default_project_nid = $default_config->get('unig.default_project');
     if ($default_project_nid) {
-      return (int)$default_project_nid;
+      return (int) $default_project_nid;
     }
-
 
     // sonst das letzte Projekt nehmen
     $list = ProjectTrait::getAllProjectNids();
@@ -152,7 +150,6 @@ trait ProjectTrait
     }
 
     return 0;
-
   }
 
   /**
@@ -179,7 +176,7 @@ trait ProjectTrait
       'title' => $title,
       'status' => 1, //(1 or 0): published or not
       'promote' => 0, //(1 or 0): promoted to front page
-      'type' => 'unig_project',
+      'type' => 'unig_project'
     ];
 
     $new_post = \Drupal::entityTypeManager()
@@ -243,7 +240,7 @@ trait ProjectTrait
     } else {
       $result = $realpath_project;
     }
-    $this->zaehler++;
+    $this->counter++;
 
     return $result;
   }
@@ -286,7 +283,7 @@ trait ProjectTrait
       $output->setTitle($node->getTitle());
       $output->setTid(0);
       $output->setMessages(
-        t("ERROR: cover image adding failed. Project: " . $title),
+        t('ERROR: cover image adding failed. Project: ' . $title),
         'error'
       );
     }
@@ -307,13 +304,10 @@ trait ProjectTrait
   {
     $variables = [];
     if ($nid) {
-
-      $node = Node::load((int)$nid);
+      $node = Node::load((int) $nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
-        $variables = CreateImageStylesTrait::createImageStyles(
-          $unig_image_id
-        );
+        $variables = CreateImageStylesTrait::createImageStyles($unig_image_id);
       }
     }
     return $variables;
@@ -372,8 +366,7 @@ trait ProjectTrait
   public static function getListofFilesInProject(
     $nid_project,
     $album_nid = null
-  )
-  {
+  ) {
     // bundle : unig_file
     // field: field_unig_project[0]['target_id']
     //
@@ -421,12 +414,10 @@ trait ProjectTrait
   public static function buildProjectList(): array
   {
     $nids = self::getAllProjectNids();
-// DEBUG
+    // DEBUG
     //   $nids = [298];
 
-
     $variables = [];
-
 
     if ($nids) {
       foreach ($nids as $project_nid) {
@@ -450,7 +441,6 @@ trait ProjectTrait
    */
   public static function buildProject($project_id): array
   {
-
     // project
     //  - nid
     //  - date
@@ -471,7 +461,7 @@ trait ProjectTrait
     //
 
     // var_dump($project_nid);
-    $project_id = (int)$project_id;
+    $project_id = (int) $project_id;
     $node = Node::load($project_id);
 
     if (!$node) {
@@ -519,17 +509,17 @@ trait ProjectTrait
       }
 
       // Timestamp
-      $timestamp = (int)$php_date_obj->format('U');
+      $timestamp = (int) $php_date_obj->format('U');
 
       // Year
-      $year = $php_date_obj->format("Y");
+      $year = $php_date_obj->format('Y');
 
       // Date
-      $date = $php_date_obj->format("d. F Y");
+      $date = $php_date_obj->format('d. F Y');
 
       // Date
       // TODO: move date display format to settings page
-      $date_drupal = $php_date_obj->format("Y-m-d");
+      $date_drupal = $php_date_obj->format('Y-m-d');
 
       // Cover Image
       $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
@@ -538,7 +528,7 @@ trait ProjectTrait
         $new_cover = self::setCover($project_id);
         $cover_id = $new_cover->getTid();
       }
-      $cover_image = self::getCoverImageVars((int)$cover_id);
+      $cover_image = self::getCoverImageVars((int) $cover_id);
 
       // number_of_items
       $number_of_items = self::countFilesInProject($project_id);
@@ -582,7 +572,7 @@ trait ProjectTrait
         'cover_id' => $cover_id,
         'cover_image' => $cover_image,
         'album_list' => $album_list,
-        'host' => $host,
+        'host' => $host
       ];
     }
 
@@ -611,8 +601,7 @@ trait ProjectTrait
   public static function getJSONfromProjectFiles(
     $project_nid,
     $album_nid = null
-  )
-  {
+  ) {
     $response = new JsonResponse();
 
     if ($_POST) {
@@ -675,8 +664,8 @@ trait ProjectTrait
     }
     foreach ($terms as $term) {
       $term_data[] = [
-        "id" => $term->tid,
-        "name" => $term->name,
+        'id' => $term->tid,
+        'name' => $term->name
       ];
     }
 
@@ -691,8 +680,7 @@ trait ProjectTrait
   public static function importKeywordsFromProject(
     $project_nid,
     $album_nid = null
-  )
-  {
+  ) {
     $nids = self::getListofFilesInProject($project_nid, $album_nid);
 
     foreach ($nids as $nid) {
@@ -858,7 +846,7 @@ trait ProjectTrait
       'copyright' => $copyright,
       'people' => $people,
       'keywords' => $keywords,
-      'title_generated' => $title_generated,
+      'title_generated' => $title_generated
     ];
 
     return $file;
@@ -884,7 +872,8 @@ trait ProjectTrait
         // Node delete success
         $status = true;
         $message = 'Das Projekt mit der ID ' . $project_nid . ' wurde gelöscht';
-      } // no Node found
+      }
+      // no Node found
       else {
         $status = false;
         $message = 'kein Projekt mit der ID ' . $project_nid . ' gefunden';
@@ -894,7 +883,7 @@ trait ProjectTrait
     // Output
     $output = [
       'status' => $status,
-      'message' => $message,
+      'message' => $message
     ];
     return $output;
   }
@@ -947,7 +936,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int)$data['private'];
+    $int_private = (int) $data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {

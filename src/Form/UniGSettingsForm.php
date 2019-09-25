@@ -7,70 +7,76 @@ use Drupal\Core\Form\FormStateInterface;
 
 class UniGSettingsForm extends ConfigFormBase
 {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId()
+  {
+    return 'unig_settings_form';
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormId()
-    {
-        return 'unig_settings_form';
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state)
+  {
+    // Form constructor.
+    $form = parent::buildForm($form, $form_state);
 
+    // Default settings.
+    $config = $this->config('unig.settings');
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(array $form, FormStateInterface $form_state) {
-        // Form constructor.
-        $form = parent::buildForm($form, $form_state);
+    // Page title field.
+    $form['default_project'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Default Project'),
+      '#default_value' => $config->get('unig.default_project')
+    );
+    // Source text field.
+    $form['file_validate_extensions'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Allowed file types'),
+      '#default_value' => $config->get(
+        'unig.plupload.file_validate_extensions'
+      ),
+      '#description' => $this->t(
+        'Allowed file types, no Points, separated by space.'
+      )
+    );
 
-        // Default settings.
-        $config = $this->config('unig.settings');
+    return $form;
+  }
 
-        // Page title field.
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state)
+  {
+  }
 
-        // Page title field.
-        $form['default_project'] = array(
-            '#type' => 'textfield',
-            '#title' => $this->t('Default Project'),
-            '#default_value' => $config->get('unig.default_project'),
-        );
-        // Source text field.
-        $form['file_validate_extensions'] = array(
-            '#type' => 'textfield',
-            '#title' => $this->t('Allowed file types'),
-            '#default_value' => $config->get('unig.plupload.file_validate_extensions'),
-            '#description' => $this->t('Allowed file types, no Points, separated by space.'),
-        );
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state)
+  {
+    $config = $this->config('unig.settings');
+    $config->set(
+      'unig.default_project',
+      $form_state->getValue('default_project')
+    );
+    $config->set(
+      'unig.plupload.file_validate_extensions',
+      $form_state->getValue('file_validate_extensions')
+    );
+    $config->save();
+    return parent::submitForm($form, $form_state);
+  }
 
-        return $form;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateForm(array &$form, FormStateInterface $form_state) {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function submitForm(array &$form, FormStateInterface $form_state) {
-        $config = $this->config('unig.settings');
-        $config->set('unig.default_project', $form_state->getValue('default_project'));
-        $config->set('unig.plupload.file_validate_extensions', $form_state->getValue('file_validate_extensions'));
-        $config->save();
-        return parent::submitForm($form, $form_state);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEditableConfigNames() {
-        return [
-            'unig.settings',
-        ];
-    }
-
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames()
+  {
+    return ['unig.settings'];
+  }
 }

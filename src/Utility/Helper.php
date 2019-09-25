@@ -2,6 +2,9 @@
 
 namespace Drupal\unig\Utility;
 
+use Drupal;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
@@ -14,12 +17,12 @@ class Helper
   /**
    * @param string $vid
    * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public static function getTerms(string $vid): array
   {
-    return \Drupal::entityTypeManager()
+    return Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadTree($vid);
   }
@@ -27,8 +30,8 @@ class Helper
   /**
    * @param string $vid
    * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public static function getTermsByID(string $vid): array
   {
@@ -45,8 +48,8 @@ class Helper
   /**
    * @param string $vid
    * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public static function getTermsForOptionList(string $vid): array
   {
@@ -57,7 +60,7 @@ class Helper
       foreach ($terms as $term) {
         $term_list[] = [
           'id' => $term->tid,
-          'name' => $term->name,
+          'name' => $term->name
         ];
       }
     }
@@ -82,8 +85,8 @@ class Helper
    * @param string $term_name
    * @param string $vid
    * @return int
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public static function getTermIDByName(string $term_name, string $vid): int
   {
@@ -102,8 +105,8 @@ class Helper
   /**
    * @param string $vid
    * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public static function getTermsByName(string $vid): array
   {
@@ -128,8 +131,7 @@ class Helper
     $field_name,
     $term_list = null,
     $force_array = false
-  )
-  {
+  ) {
     $result = false;
     $list = [];
 
@@ -144,8 +146,8 @@ class Helper
       if ($pos === 0) {
         throw new Exception(
           'Use $field_name without "field_" in HELPER:getFieldValue(' .
-          $field_name .
-          ')'
+            $field_name .
+            ')'
         );
       }
 

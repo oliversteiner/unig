@@ -15,7 +15,7 @@ trait projectListTemplateTrait
    * @return string
    *   A module name.
    */
-  abstract protected function getModuleName();
+  abstract protected function getModuleName(): string;
 
   /**
    * Generate a render array with our Admin content.
@@ -23,7 +23,7 @@ trait projectListTemplateTrait
    * @return array
    *   A render array.
    */
-  public function projectListTemplate()
+  public function projectListTemplate(): array
   {
     $template_path = $this->getProjectListPath();
     $template = file_get_contents($template_path);
@@ -90,7 +90,7 @@ trait projectListTemplateTrait
    * @return string
    *   Path string.
    */
-  protected function getProjectListPath()
+  protected function getProjectListPath(): string
   {
     return drupal_get_path('module', $this->getModuleName()) .
       "/templates/unig.project-list.html.twig";

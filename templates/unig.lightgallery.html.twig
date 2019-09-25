@@ -112,8 +112,6 @@ Twig Vars
         {# Date #}
         <div class="unig-project-date"> {{ date }}</div>
 
-
-
         {# copyright #}
         <div class="unig-project-copyright">{{ project.copyright }}</div>
       </div>
@@ -165,11 +163,9 @@ Twig Vars
 
     {% for file in files %}
 
-
       <li class="unig-file-item  unig-file-item-id-{{ file.nid }}">
 
         <div class="unig-file-index" style="display:none;">{{ loop.index }}</div>
-
 
         {#  -----------   Image  -----------  #}
         <div class="lightgallery-item"
@@ -199,19 +195,14 @@ Twig Vars
           </div>
         </div>
 
-
         {#  -----------   Name  -----------  #}
         <div class="unig-file-name" style="display: none">
-
           {{ file.image.original.name }}
-
         </div>
 
         {#  -----------   Description  -----------  #}
         <div class="unig-file-description">
-
           {{ file.description }}
-
         </div>
 
       </li>

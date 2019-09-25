@@ -2,94 +2,93 @@
 
 namespace Drupal\unig\Controller;
 
+use Drupal;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\FileTrait;
 use Drupal\unig\Utility\ProjectTrait;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-
 /**
  * Controller routines for page example routes.
  */
 class LightgalleryController extends ControllerBase
 {
+  use ProjectTrait;
+  use FileTrait;
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getModuleName()
-    {
-        return 'unig';
+  /**
+   * {@inheritdoc}
+   */
+  protected function getModuleName(): string
+  {
+    return 'unig';
+  }
+
+  /**
+   * Generate a render array with our Admin content.
+   *
+   * @param      $project_nid
+   * @param null $album_nid
+   *
+   * @return array A render array.
+   * A render array.
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
+  public function getTemplate($project_nid, $album_nid = null): array
+  {
+    // Make sure you don't trust the URL to be safe! Always check for exploits.
+    if (!is_numeric($project_nid)) {
+      // We will just show a standard "access denied" page in this case.
+      throw new AccessDeniedHttpException();
     }
 
-    use ProjectTrait;
-    use FileTrait;
+    $template_path = $this->getTemplatePath();
+    $template = file_get_contents($template_path);
+    $build = [
+      'description' => [
+        '#type' => 'inline_template',
+        '#template' => $template,
+        '#context' => $this->getTemplateVariables($project_nid, $album_nid)
+      ]
+    ];
+    $build['#attached']['library'] = 'unig/unig.project';
+    return $build;
+  }
 
+  /**
+   * Variables to act as context to the twig template file.
+   *
+   * @param $project_nid
+   * @param null $album_nid
+   * @return array
+   *   Associative array that defines context for a template.
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
+  protected function getTemplateVariables($project_nid, $album_nid = null): array
+  {
+    $variables['module'] = $this->getModuleName();
+    $variables['album'] = AlbumTrait::getAlbumList($project_nid);
+    $variables['project'] = ProjectTrait::buildProject($project_nid);
+    $variables['files'] = ProjectTrait::buildFileList($project_nid, $album_nid);
+    $user = Drupal::currentUser();
+    $variables['user'] = clone $user;
+    return $variables;
+  }
 
-    /**
-     * Generate a render array with our Admin content.
-     *
-     * @param      $project_nid
-     * @param null $album_nid
-     *
-     * @return array A render array.
-     * A render array.
-     */
-    public function getTemplate($project_nid, $album_nid = NULL)
-    {
-
-        // Make sure you don't trust the URL to be safe! Always check for exploits.
-        if (!is_numeric($project_nid)) {
-            // We will just show a standard "access denied" page in this case.
-            throw new AccessDeniedHttpException();
-        }
-
-
-        $template_path = $this->getTemplatePath();
-        $template = file_get_contents($template_path);
-        $build = [
-            'description' => [
-                '#type' => 'inline_template',
-                '#template' => $template,
-                '#context' => $this->getTemplateVariables($project_nid, $album_nid),
-            ],
-        ];
-        $build['#attached']['library'] = 'unig/unig.project';
-
-        return $build;
-    }
-
-
-    /**
-     * Variables to act as context to the twig template file.
-     *
-     * @return array
-     *   Associative array that defines context for a template.
-     */
-    protected function getTemplateVariables($project_nid, $album_nid = NULL)
-    {
-
-
-        $variables['module'] = $this->getModuleName();
-        $variables['album'] = AlbumTrait::getAlbumList($project_nid);
-        $variables['project'] = ProjectTrait::buildProject($project_nid);
-        $variables['files'] = ProjectTrait::buildFileList($project_nid, $album_nid);
-        $user = \Drupal::currentUser();
-        $variables['user'] = clone $user;
-        return $variables;
-    }
-
-
-    /**
-     * Get full path to the template.
-     *
-     * @return string
-     *   Path string.
-     */
-    protected function getTemplatePath()
-    {
-        return drupal_get_path('module', $this->getModuleName()) . "/templates/unig.lightgallery.html.twig";
-    }
-
+  /**
+   * Get full path to the template.
+   *
+   * @return string
+   *   Path string.
+   */
+  protected function getTemplatePath(): string
+  {
+    return drupal_get_path('module', $this->getModuleName()) .
+      '/templates/unig.lightgallery.html.twig';
+  }
 }
