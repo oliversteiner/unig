@@ -22,10 +22,31 @@ unig.project_list:
   path: '/unig'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
-    _title: 'All Projects'
+    _title: 'Gallery'
   requirements:
     _permission: 'access content'
-
+#
+# Content > Universal Gallery > List Projects with category
+#
+unig.projects.category:
+  path: '/unig/category/'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
+    _title: 'Category'
+    cat_id: null
+  requirements:
+    _permission: 'access content'
+#
+# Content > Universal Gallery > List Projects with category
+#
+unig.projects.category.id:
+  path: '/unig/category/{cat_id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
+    _title_callback: '\Drupal\unig\Controller\ProjectController::getCategoryTitle'
+    cat_id: null
+  requirements:
+    _permission: 'access content'
 
 
 #
