@@ -9,11 +9,14 @@
 {#
 {{ dd(project_list) }}
 #}
-
+<unig>
 <div id="unig-main" class="unig unig-project-list">
 
   <div class="unig-debug">
+
   </div>
+
+
 
 
   {% if is_admin %}
@@ -151,7 +154,7 @@
               <div class="unig-project-cover">
                 <a href="/unig/project/{{ project.nid }}">
                   <div class="unig-project-cover-background">
-                    {% if project.cover_image.unig_cover.url %}
+                    {% if project.cover_image and project.cover_image.unig_cover.url %}
                       <div class="unig-project-cover-image">
                         <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
                       </div>
@@ -582,3 +585,4 @@
     </ul>
   </div>
 </div>
+</unig>

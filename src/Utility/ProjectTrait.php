@@ -50,10 +50,10 @@ trait ProjectTrait
   public $project_nids = [];
 
   /**
-   * @return array|int
-   *
+   * @param null $cat_id
+   * @return array
    */
-  public static function getAllProjectNids($cat_id = null)
+  public static function getAllProjectNids($cat_id = null): array
   {
     // Get the current user
     $user = \Drupal::currentUser();
@@ -99,7 +99,7 @@ trait ProjectTrait
       //   $nid_default = self::newDefaultUniGProject();
       //   $nids[0] = $nid_default;
 
-      $nids = false;
+      // $nids = false;
     }
 
     return $nids;
@@ -151,7 +151,7 @@ trait ProjectTrait
     $default_config = \Drupal::config('unig.settings');
     $default_project_nid = $default_config->get('unig.default_project');
     if ($default_project_nid) {
-      return (int) $default_project_nid;
+      return (int)$default_project_nid;
     }
 
     // sonst das letzte Projekt nehmen
@@ -308,17 +308,18 @@ trait ProjectTrait
    *
    * @param $nid
    *
-   * @return array
+   * @return
    * @throws \Exception
    */
-  public static function getCoverImageVars($nid): array
+  public static function getCoverImageVars($nid)
   {
     $variables = [];
+
     if ($nid) {
-      $node = Node::load((int) $nid);
-      if ($node) {
-        $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
-        $variables = CreateImageStylesTrait::createImageStyles($cover_id);
+      $cover_id = $nid;
+      $node = Node::load((int)$nid);
+      if ($node && $cover_id) {
+      $variables = CreateImageStylesTrait::createImageStyles($cover_id);
       }
     }
     return $variables;
@@ -377,7 +378,8 @@ trait ProjectTrait
   public static function getListofFilesInProject(
     $nid_project,
     $album_nid = null
-  ) {
+  )
+  {
     // bundle : unig_file
     // field: field_unig_project[0]['target_id']
     //
@@ -432,10 +434,7 @@ trait ProjectTrait
 
     if ($nids) {
       foreach ($nids as $project_nid) {
-        try {
-          $variables[] = self::buildProject($project_nid);
-        } catch (\Exception $e) {
-        }
+        $variables[] = self::buildProject($project_nid);
       }
     }
 
@@ -472,7 +471,7 @@ trait ProjectTrait
     //
 
     // var_dump($project_nid);
-    $project_id = (int) $project_id;
+    $project_id = (int)$project_id;
     $node = Node::load($project_id);
 
     if (!$node) {
@@ -520,7 +519,7 @@ trait ProjectTrait
       }
 
       // Timestamp
-      $timestamp = (int) $php_date_obj->format('U');
+      $timestamp = (int)$php_date_obj->format('U');
 
       // Year
       $year = $php_date_obj->format('Y');
@@ -534,12 +533,11 @@ trait ProjectTrait
 
       // Cover Image
       $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
+      $cover_image = false;
 
-      if (!$cover_id) {
-        $new_cover = self::setCover($project_id);
-        $cover_id = $new_cover->getTid();
+      if ($cover_id) {
+        $cover_image = self::getCoverImageVars($cover_id);
       }
-      $cover_image = self::getCoverImageVars((int) $cover_id);
 
       // number_of_items
       $number_of_items = self::countFilesInProject($project_id);
@@ -612,7 +610,8 @@ trait ProjectTrait
   public static function getJSONfromProjectFiles(
     $project_nid,
     $album_nid = null
-  ) {
+  )
+  {
     $response = new JsonResponse();
 
     if ($_POST) {
@@ -691,7 +690,8 @@ trait ProjectTrait
   public static function importKeywordsFromProject(
     $project_nid,
     $album_nid = null
-  ) {
+  )
+  {
     $nids = self::getListofFilesInProject($project_nid, $album_nid);
 
     foreach ($nids as $nid) {
@@ -883,8 +883,7 @@ trait ProjectTrait
         // Node delete success
         $status = true;
         $message = 'Das Projekt mit der ID ' . $project_nid . ' wurde gelöscht';
-      }
-      // no Node found
+      } // no Node found
       else {
         $status = false;
         $message = 'kein Projekt mit der ID ' . $project_nid . ' gefunden';
@@ -947,7 +946,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int) $data['private'];
+    $int_private = (int)$data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {

@@ -6,25 +6,10 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\views\ViewExecutable;
-
-
-/**
- * Implements hook_views_pre_render().
- */
-function unig_views_pre_render(ViewExecutable $view) {
-//  drupal_set_message($view->storage->id());
-
-    if (isset($view) && ($view->storage->id() === 'unig_files')) {
-   //     $view->element['#attached']['library'][] = 'unig/unig.admin.images';
-    }
-}
 
 function unig_page_attachments(array &$attachments) {
     $attachments['#attached']['library'][] = 'unig/unig';
 }
-
-
 
 
 

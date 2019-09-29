@@ -5,122 +5,141 @@ namespace Drupal\unig\Utility;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\node\Entity\Node;
 
 trait CreateImageStylesTrait
 {
 
-    /**
-     * @param $img_id
-     * @param bool $style_name
-     * @return array|mixed
-     */
-    public static function createImageStyles($img_id_or_file, $style_name = false, $dont_create = false)
-    {
-        $images = [];
-
-        if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
-            $file = $img_id_or_file;
-
-        } else {
-            $file = File::load($img_id_or_file);
-        }
-
-        if (!$style_name) {
-
-            $image_styles = ImageStyle::loadMultiple();
+  /**
+   * @param $img_id
+   * @param bool $style_name
+   * @return array|mixed
+   * @throws \Exception
+   */
+  public static function createImageStyles($img_id_or_file, $style_name = false, $dont_create = false)
+  {
+    $images = [];
+    $file = null;
 
 
-            foreach ($image_styles as $image_style) {
-                $image_style_id = $image_style->id();
-                $images[$image_style_id] = self::createImageStyle($file, $image_style, $dont_create);
-            }
-            $images['original'] = self::getOriginalVars($file);
-
-        } elseif ($style_name === 'original') {
-            $images = self::getOriginalVars($file);
-
-        } else {
-            $image_style = ImageStyle::load($style_name);
-            $images = self::createImageStyle($file, $image_style, $dont_create);
-        }
-
-        return $images;
+    // Input is File
+    if ( $img_id_or_file instanceof FileInterface) {
+      $file = $img_id_or_file;
     }
 
-    static function createImageStyle($img_id_or_file, ImageStyle $image_style, $dont_create = false)
-    {
-        $image = [];
+    // Input is ID
+    if (is_string($img_id_or_file) || is_int($img_id_or_file)) {
 
-        if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
-            $file = $img_id_or_file;
+      $unig_file_node = Node::load($img_id_or_file);
 
-        } else {
-            $file = File::load($img_id_or_file);
-        }
+      // is ID UniG File ?
+      if ($unig_file_node && $unig_file_node->bundle() === 'unig_file') {
 
-
-        if ($file) {
-            $file_image = \Drupal::service('image.factory')->get($file->getFileUri());
-            /** @var \Drupal\Core\Image\Image $image */
-            if ($file_image->isValid()) {
-
-                $image_uri = $file->getFileUri();
-                $destination = $image_style->buildUrl($image_uri);
-
-                if (!file_exists($destination)) {
-                    if(!$dont_create){
-                        $image_style->createDerivative($image_uri, $destination);
-                    }
-                }
-
-                $file_size = filesize($image_uri);
-                $file_size_formatted = format_size($file_size);
-                list($width, $height) = getimagesize($image_uri);
-
-                $image['url'] = $destination;
-                $image['uri'] = $image_uri;
-                $image['file_size'] = $file_size;
-                $image['file_size_formatted'] = $file_size_formatted;
-                $image['width'] = $width;
-                $image['height'] = $height;
-            }
-        }
-        return $image;
+        $file_id = Helper::getFieldValue($unig_file_node, 'unig_image');
+        $file = File::load($file_id);
+      }
     }
 
-    static function getOriginalVars($img_id_or_file)
-    {
-        $original = [];
 
-        if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
-            $file = $img_id_or_file;
 
-        } else {
-            $file = File::load($img_id_or_file);
+    if ($file && $file instanceof FileInterface) {
+
+      if (!$style_name) {
+
+        $image_styles = ImageStyle::loadMultiple();
+
+        foreach ($image_styles as $image_style) {
+          $image_style_id = $image_style->id();
+          $images[$image_style_id] = self::createImageStyle($file, $image_style, $dont_create);
         }
+        $images['original'] = self::getOriginalVars($file);
 
-        if ($file && $file instanceof FileInterface) {
-            $image = \Drupal::service('image.factory')->get($file->getFileUri());
-            /** @var \Drupal\Core\Image\Image $image */
-            if ($image->isValid()) {
+      } elseif ($style_name === 'original') {
+        $images = self::getOriginalVars($file);
 
-                $image_uri = $file->getFileUri();
-                $file_name = $file->getFilename();
-
-                $file_size = filesize($image_uri);
-                $file_size_formatted = format_size($file_size);
-                list($width, $height) = getimagesize($image_uri);
-
-                $original['url'] = file_create_url($image_uri);
-                $original['uri'] = $image_uri;
-                $original['name'] = $file_name;
-                $original['file_size'] = $file_size;
-                $original['file_size_formatted'] = $file_size_formatted;
-                $original['width'] = $width;
-                $original['height'] = $height;
-            }
-
-        }
-        return $original;
+      } else {
+        $image_style = ImageStyle::load($style_name);
+        $images = self::createImageStyle($file, $image_style, $dont_create);
+      }
     }
+    return $images;
+  }
+
+  static function createImageStyle($img_id_or_file, ImageStyle $image_style, $dont_create = false)
+  {
+    $image = [];
+
+    if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
+      $file = $img_id_or_file;
+
+    } else {
+
+      $file = File::load($img_id_or_file);
+    }
+
+
+    if ($file && $file instanceof FileInterface) {
+      $file_image = \Drupal::service('image.factory')->get($file->getFileUri());
+      /** @var \Drupal\Core\Image\Image $image */
+      if ($file_image->isValid()) {
+
+        $image_uri = $file->getFileUri();
+        $destination = $image_style->buildUrl($image_uri);
+
+        if (!file_exists($destination)) {
+          if (!$dont_create) {
+            $image_style->createDerivative($image_uri, $destination);
+          }
+        }
+
+        $file_size = filesize($image_uri);
+        $file_size_formatted = format_size($file_size);
+        list($width, $height) = getimagesize($image_uri);
+
+        $image['url'] = $destination;
+        $image['uri'] = $image_uri;
+        $image['file_size'] = $file_size;
+        $image['file_size_formatted'] = $file_size_formatted;
+        $image['width'] = $width;
+        $image['height'] = $height;
+      }
+    }
+    return $image;
+  }
+
+  static function getOriginalVars($img_id_or_file)
+  {
+    $original = [];
+
+    if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
+      $file = $img_id_or_file;
+
+    } else {
+      $file = File::load($img_id_or_file);
+    }
+
+    if ($file && $file instanceof FileInterface) {
+      $image = \Drupal::service('image.factory')->get($file->getFileUri());
+      /** @var \Drupal\Core\Image\Image $image */
+      if ($image->isValid()) {
+
+        $image_uri = $file->getFileUri();
+        $file_name = $file->getFilename();
+
+        $file_size = filesize($image_uri);
+        $file_size_formatted = format_size($file_size);
+        list($width, $height) = getimagesize($image_uri);
+
+        $original['url'] = file_create_url($image_uri);
+        $original['uri'] = $image_uri;
+        $original['name'] = $file_name;
+        $original['file_size'] = $file_size;
+        $original['file_size_formatted'] = $file_size_formatted;
+        $original['width'] = $width;
+        $original['height'] = $height;
+      }
+
+    }
+    return $original;
+  }
 }
