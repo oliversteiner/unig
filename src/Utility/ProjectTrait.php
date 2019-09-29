@@ -317,8 +317,8 @@ trait ProjectTrait
     if ($nid) {
       $node = Node::load((int) $nid);
       if ($node) {
-        $unig_image_id = Helper::getFieldValue($node, 'unig_image');
-        $variables = CreateImageStylesTrait::createImageStyles($unig_image_id);
+        $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
+        $variables = CreateImageStylesTrait::createImageStyles($cover_id);
       }
     }
     return $variables;
