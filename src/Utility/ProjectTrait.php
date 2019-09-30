@@ -74,7 +74,6 @@ trait ProjectTrait
 
     // Restricting to category?
     if ($cat_id && is_int($cat_id)) {
-
       // check if  cat_id is valid term
       $term = Helper::getTermNameByID($cat_id);
 
@@ -98,7 +97,6 @@ trait ProjectTrait
     if (count($nids) === 0) {
       //   $nid_default = self::newDefaultUniGProject();
       //   $nids[0] = $nid_default;
-
       // $nids = false;
     }
 
@@ -151,7 +149,7 @@ trait ProjectTrait
     $default_config = \Drupal::config('unig.settings');
     $default_project_nid = $default_config->get('unig.default_project');
     if ($default_project_nid) {
-      return (int)$default_project_nid;
+      return (int) $default_project_nid;
     }
 
     // sonst das letzte Projekt nehmen
@@ -317,9 +315,9 @@ trait ProjectTrait
 
     if ($nid) {
       $cover_id = $nid;
-      $node = Node::load((int)$nid);
+      $node = Node::load((int) $nid);
       if ($node && $cover_id) {
-      $variables = CreateImageStylesTrait::createImageStyles($cover_id);
+        $variables = CreateImageStylesTrait::createImageStyles($cover_id);
       }
     }
     return $variables;
@@ -341,11 +339,7 @@ trait ProjectTrait
     $node = Node::load($nid);
     if ($node) {
       $unig_image_id = Helper::getFieldValue($node, 'unig_image');
-      $variables = CreateImageStylesTrait::createImageStyles(
-        $unig_image_id,
-        false,
-        true
-      );
+      $variables = CreateImageStylesTrait::createImageStyles($unig_image_id);
     }
     return $variables;
   }
@@ -378,8 +372,7 @@ trait ProjectTrait
   public static function getListofFilesInProject(
     $nid_project,
     $album_nid = null
-  )
-  {
+  ) {
     // bundle : unig_file
     // field: field_unig_project[0]['target_id']
     //
@@ -471,7 +464,7 @@ trait ProjectTrait
     //
 
     // var_dump($project_nid);
-    $project_id = (int)$project_id;
+    $project_id = (int) $project_id;
     $node = Node::load($project_id);
 
     if (!$node) {
@@ -519,7 +512,7 @@ trait ProjectTrait
       }
 
       // Timestamp
-      $timestamp = (int)$php_date_obj->format('U');
+      $timestamp = (int) $php_date_obj->format('U');
 
       // Year
       $year = $php_date_obj->format('Y');
@@ -610,8 +603,7 @@ trait ProjectTrait
   public static function getJSONfromProjectFiles(
     $project_nid,
     $album_nid = null
-  )
-  {
+  ) {
     $response = new JsonResponse();
 
     if ($_POST) {
@@ -690,8 +682,7 @@ trait ProjectTrait
   public static function importKeywordsFromProject(
     $project_nid,
     $album_nid = null
-  )
-  {
+  ) {
     $nids = self::getListofFilesInProject($project_nid, $album_nid);
 
     foreach ($nids as $nid) {
@@ -883,7 +874,8 @@ trait ProjectTrait
         // Node delete success
         $status = true;
         $message = 'Das Projekt mit der ID ' . $project_nid . ' wurde gelöscht';
-      } // no Node found
+      }
+      // no Node found
       else {
         $status = false;
         $message = 'kein Projekt mit der ID ' . $project_nid . ' gefunden';
@@ -946,7 +938,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int)$data['private'];
+    $int_private = (int) $data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {
