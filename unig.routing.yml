@@ -1,12 +1,3 @@
-##
-# Todo:  Check Permissions
-#
-#
-# Admin Page
-#
-
-
-
 unig.admin:
   path: '/unig/admin'
   defaults:
@@ -95,7 +86,6 @@ unig.project.ajax.delete:
   requirements:
     _permission: 'access unig admin'
 
-
 #
 # Show Gallery
 #
@@ -108,7 +98,6 @@ unig.lightgallery:
     album_nid: null
   requirements:
     _permission: 'access content'
-
 
 #
 # Upload with Args
@@ -142,7 +131,6 @@ unig.admin.config:
     _controller: '\Drupal\unig\Controller\AdminController::unigConfig'
   requirements:
     _permission: 'access unig admin'
-
 
 #
 # AJAX setCover
@@ -248,7 +236,7 @@ unig.sort.mode:
     _permission: 'access unig admin'
 
 #
-#
+# rating.save
 #
 unig.ajax.rating.save:
   path: '/unig/rating/save'
@@ -258,7 +246,7 @@ unig.ajax.rating.save:
   requirements:
     _permission: 'access unig admin'
 #
-#
+# term.keywords.json
 #
 unig.term.keywords.json:
   path: '/unig/term/keywords/json/{project_nid}'
@@ -269,7 +257,7 @@ unig.term.keywords.json:
   requirements:
     _permission: 'access unig admin'
 #
-#
+# term.people.json
 #
 unig.term.people.json:
   path: '/unig/term/people/json/{project_nid}'
@@ -280,7 +268,7 @@ unig.term.people.json:
   requirements:
     _permission: 'access unig admin'
 #
-#
+# download.json
 #
 unig.download.json:
   path: '/unig/download'

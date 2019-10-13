@@ -251,7 +251,7 @@ trait ProjectTrait
     } else {
       $result = $realpath_project;
     }
-    $this->zaehler++;
+    $this->counter++;
 
     return $result;
   }

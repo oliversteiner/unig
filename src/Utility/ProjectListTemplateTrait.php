@@ -15,7 +15,7 @@ trait ProjectListTemplateTrait
    * @return string
    *   A module name.
    */
-  abstract protected function getModuleName();
+  abstract protected function getModuleName(): string;
 
   /**
    * @param $cat_id
@@ -117,7 +117,7 @@ trait ProjectListTemplateTrait
    * @return string
    *   Path string.
    */
-  protected function getProjectListPath()
+  protected function getProjectListPath(): string
   {
     return drupal_get_path('module', $this->getModuleName()) .
       '/templates/unig.project-list.html.twig';

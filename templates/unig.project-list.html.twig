@@ -15,7 +15,6 @@
   <div class="unig-debug">
   </div>
 
-
   {% if is_admin %}
 
     <div class="unig-toolbar">
@@ -31,9 +30,7 @@
           {% trans %} New Project {% endtrans %}
         </a>
 
-
         {# sort #}
-
         <div class="unig-button unig-sort-list-toggle-trigger">
           <i class="fa fa-sort" aria-hidden="true"></i>
           {% trans %} Sort order {% endtrans %}
@@ -58,17 +55,12 @@
         </div>
       </div>
 
-
     </div>
 
-
     {# Fieldset - Sort #}
-
     <div class="unig-toolbar unig-toolbar-sort" style="display: none">
 
-
       <span class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</span>
-
 
       <div class="unig-button unig-button unig-button-sort-list-alphanumeric unig-sort-list-alphanumeric-trigger ">
         <i class="fas fa-sort-alpha-down"></i>
@@ -103,7 +95,6 @@
     </ul>
   </div>
 
-
   <div class="unig">
     <ul class="unig-project-list unig-sortable">
 
@@ -111,8 +102,6 @@
         {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
         {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
-
-
 
         {# -------------------  Admin -------------------------- #}
         {% if is_admin %}
@@ -271,9 +260,7 @@
                         </select>
                       </div>
                     </div>
-
                   </div>
-
 
                   {#  -----------   Title  -----------  #}
                   <div class="unig-project-title">
@@ -290,7 +277,6 @@
                         <h2 class="unig-project-title unig-edit-content unig-default-box ">
                           {{ project.title }}
                         </h2>
-
                       </div>
 
                       {# ----------- Edit Input ----------- #}
@@ -304,9 +290,7 @@
                                value="{{ project.title }}">
                       </div>
                     </div>
-
                   </div>
-
 
                   {#  -----------   Date  -----------  #}
                   <div class="unig-project-date">
@@ -323,7 +307,6 @@
                         <div class="unig-project-date unig-edit-content unig-default-box ">
                           {{ project.date }}
                         </div>
-
                       </div>
 
                       {# ----------- Edit Input ----------- #}
@@ -336,7 +319,6 @@
                                value="{{ project.date_drupal }}">
                       </div>
                     </div>
-
 
                     {#  -----------   Description  -----------  #}
                     <div class="unig-project-description">
@@ -408,7 +390,6 @@
                                  value="{{ project.copyright }}">
                         </div>
                       </div>
-
                     </div>
 
 
@@ -446,9 +427,7 @@
                           </a>
                         </div>
                       </div>
-
                     </div>
-
 
                     {#  -----------   Album  -----------  #}
                     {% if album_list %}
@@ -472,7 +451,6 @@
           </li>
 
           {# ------------------- End Admin -------------------------- #}
-          {# -------------------------------------------------------- #}
 
         {% else %}
 
@@ -489,7 +467,6 @@
 
             <article
               class="unig-project-container unig-project-private-status unig-project-{{ project.nid }} {{ class }} {% if project.private %} private {% endif %}">
-
 
               {# ----------- Cover ----------- #}
               <div class="unig-project-cover">
