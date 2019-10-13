@@ -2,6 +2,19 @@
 
 namespace Drupal\unig\Utility;
 
+use Drupal;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Entity\EntityStorageException;
+
+/**
+ * Trait AlbumTrait
+ * @package Drupal\unig\Utility
+ *
+ * TODO: replace German Strings
+ * TODO: rplace drupal_Set_message
+ *
+ */
 trait AlbumTrait
 {
   /**
@@ -11,7 +24,7 @@ trait AlbumTrait
    */
   public static function getAlbum($album_nid)
   {
-    $entity = \Drupal::entityTypeManager()
+    $entity = Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($album_nid);
 
@@ -24,7 +37,7 @@ trait AlbumTrait
     // Twig-Variables
     $album = [
       'nid' => $nid,
-      'title' => $title,
+      'title' => $title
     ];
 
     return $album;
@@ -34,15 +47,16 @@ trait AlbumTrait
    * @param $nid
    *
    * @return mixed
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    * @internal param $file_nid
-   *
    */
   public static function getAlbumList($nid)
   {
     $album_nids = [];
     $albums = [];
 
-    $entity = \Drupal::entityTypeManager()
+    $entity = Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($nid);
 
@@ -72,9 +86,9 @@ trait AlbumTrait
    * @return mixed
    *
    * save new Album in db
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   * @throws EntityStorageException
    */
 
   public static function newAlbum($name)
@@ -87,15 +101,14 @@ trait AlbumTrait
     //load up an array for creation
     $new_node = [
       'title' => $node_title,
-      'type' => $entity_bundle,
+      'type' => $entity_bundle
     ];
 
-    $new_post = \Drupal::entityTypeManager()
+    $new_post = Drupal::entityTypeManager()
       ->getStorage($entity_type)
       ->create($new_node);
 
     $new_post->save();
-
     return $new_post->id();
   }
 
@@ -103,9 +116,9 @@ trait AlbumTrait
    * @param $target_nid
    * @param $album_nid
    * @return mixed
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   * @throws EntityStorageException
    */
   public static function addAlbum($target_nid, $album_nid)
   {
@@ -116,7 +129,7 @@ trait AlbumTrait
     // leer? neues
     // ergänze das array mit dem neuen Album
 
-    $entity = \Drupal::entityTypeManager()
+    $entity = Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($target_nid);
 
@@ -136,8 +149,6 @@ trait AlbumTrait
       $entity->save();
     }
 
-    // Load and Save Project
-    // $node->field_unig_album = ['target_id' => $nid_cover,];
 
     return $target_nid;
   }

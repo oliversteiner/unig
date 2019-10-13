@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unig\n"
-"POT-Creation-Date: 2019-02-06 17:06+0100\n"
+"POT-Creation-Date: 2019-09-25 11:17+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: t\n"
 "X-Poedit-Basepath: ..\n"
@@ -110,27 +110,27 @@ msgstr "%count Objekte zum Projekt %project hinzugefügt."
 msgid "Create new project..."
 msgstr "Neues Projekt erstellen..."
 
-#: src/Utility/ProjectTrait.php:274
+#: src/Utility/ProjectTrait.php:281
 msgid "New cover picture set for project "
 msgstr "Neues Cover Bild gesetzt für Projekt "
 
-#: src/Utility/ProjectTrait.php:282
+#: src/Utility/ProjectTrait.php:289
 msgid "ERROR: cover image adding failed. Project: "
 msgstr "FEHLER: Coverbild konnte nicht gesetzt werden für Projekt: "
 
-#: templates/unig.lightgallery.html.twig:143
+#: templates/unig.lightgallery.html.twig:144
 msgid "Show image names"
 msgstr "Bildnamen anzeigen"
 
-#: templates/unig.lightgallery.html.twig:145
+#: templates/unig.lightgallery.html.twig:146
 msgid "Hide image names"
 msgstr "Bilder Namen ausblenden"
 
-#: templates/unig.lightgallery.html.twig:151
+#: templates/unig.lightgallery.html.twig:152
 msgid "Show index numbers"
 msgstr "Indexnummer anzeigen"
 
-#: templates/unig.lightgallery.html.twig:153
+#: templates/unig.lightgallery.html.twig:154
 msgid "Hide index numbers"
 msgstr "Indexnummer ausblenden"
 

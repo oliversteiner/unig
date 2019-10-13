@@ -2,12 +2,24 @@
 
 namespace Drupal\unig\Utility;
 
+use Drupal;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
 
+/**
+ * Trait FileTrait
+ * @package Drupal\unig\Utility
+ *
+ *
+ * TODO: replace German Strings
+ * TODO: replace drupal_Set_message
+ *
+ */
 trait FileTrait
 {
   public $bundle_file = 'unig_file';
@@ -34,8 +46,8 @@ trait FileTrait
    * @param $project_nid
    *
    * @return int
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public function createNodeUniGImage($file_tmp, $project_nid = null): int
   {
@@ -54,16 +66,15 @@ trait FileTrait
     $node_title = $file_name;
 
     // get definition of target entity type
-    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $storage = Drupal::entityTypeManager()->getStorage('node');
 
     // load up an array for creation
     $new_unig_file = $storage->create([
       'title' => $node_title,
       'status' => 0, //(1 or 0): published or not
       'promote' => 0, //(1 or 0): promoted to front page
-      'type' => 'unig_file',
+      'type' => 'unig_file'
     ]);
-
 
     // Set true for generated Title
     if (!empty($new_unig_file->field_unig_title_generated)) {
@@ -72,7 +83,7 @@ trait FileTrait
 
     if (!empty($new_unig_file->field_unig_project)) {
       $new_unig_file->field_unig_project->setValue([
-        'target_id' => $project_nid,
+        'target_id' => $project_nid
       ]);
     }
 
@@ -81,7 +92,7 @@ trait FileTrait
       // if Image save to Imagefield
       if (!empty($new_unig_file->field_unig_image)) {
         $new_unig_file->field_unig_image->setValue([
-          'target_id' => $file_id,
+          'target_id' => $file_id
         ]);
       }
 
@@ -129,8 +140,8 @@ trait FileTrait
    * @param $values
    *
    * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public function createMultiNode($values): array
   {
@@ -169,7 +180,8 @@ trait FileTrait
         // Node delete succses
         $status = true;
         $message = 'Die Datei mit der ID ' . $nid . ' wurde gelöscht';
-      } // no Node found
+      }
+      // no Node found
       else {
         $status = false;
         $message = 'kein File mit der ID ' . $nid . ' gefunden';
@@ -179,7 +191,7 @@ trait FileTrait
     // Output
     return [
       'status' => $status,
-      'message' => $message,
+      'message' => $message
     ];
   }
 
@@ -206,8 +218,8 @@ trait FileTrait
     $path_unig = 'unig/';
 
     // If Pathauto is active, take aliasname from project for directory
-    $project_alias = \Drupal::service('path.alias_storage')->load([
-      'source' => '/node/' . $project_nid,
+    $project_alias = Drupal::service('path.alias_storage')->load([
+      'source' => '/node/' . $project_nid
     ]);
 
     if ($project_alias) {
@@ -224,7 +236,7 @@ trait FileTrait
     // Create file object from a locally copied file.
     $uri = file_unmanaged_copy($tmppath, $uri_destination, FILE_EXISTS_REPLACE);
     $file = File::Create([
-      'uri' => $uri,
+      'uri' => $uri
     ]);
 
     try {

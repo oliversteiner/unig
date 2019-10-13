@@ -1,228 +1,210 @@
 <?php
 
-
 namespace Drupal\unig\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 class OutputController extends ControllerBase
 {
+  protected $status = false; // False, TRUE
+  protected $mode = '';
+  protected $nid = null;
+  protected $data = null;
+  protected $tid = null;
+  protected $title = '';
+  protected $type = 'status'; // status, info, success, warning, error
+  protected $messages = []; // ($message = NULL, $type = 'status', $repeat = FALSE)
 
+  /**
+   * IptcController constructor.
+   *
+   */
+  public function __construct()
+  {
+  }
 
-    protected $status = FALSE; // False, TRUE
+  /**
+   * @return bool
+   */
+  public function getStatus(): bool
+  {
+    return $this->status;
+  }
 
-    protected $mode = '';
+  /**
+   * @param bool $status
+   *  status, info, warning, error
+   */
+  public function setStatus($status): void
+  {
+    $this->status = $status;
+  }
 
-    protected $nid = NULL;
+  /**
+   * @return null
+   */
+  public function getNid()
+  {
+    return $this->nid;
+  }
 
-    protected $data = NULL;
+  /**
+   * @param null $nid
+   */
+  public function setNid($nid): void
+  {
+    $this->nid = $nid;
+  }
 
-    protected $tid = NULL;
+  /**
+   * @return null
+   */
+  public function getTid()
+  {
+    return $this->tid;
+  }
 
-    protected $title = '';
+  /**
+   * @param null $tid
+   */
+  public function setTid($tid): void
+  {
+    $this->tid = $tid;
+  }
 
-    protected $type = 'status';  // status, info, success, warning, error
+  /**
+   * @return string <string>
+   */
+  public function getTitle(): string
+  {
+    return $this->title;
+  }
 
-    protected $messages = []; // ($message = NULL, $type = 'status', $repeat = FALSE)
+  /**
+   * @param string $title
+   */
+  public function setTitle($title)
+  {
+    $this->title = $title;
+  }
 
+  /**
+   * @return array
+   */
+  public function getMessages()
+  {
+    return $this->messages;
+  }
 
-    /**
-     * IptcController constructor.
-     *
-     * @param $fid
-     */
-    function __construct()
-    {
-
-
+  /**
+   *
+   *
+   * @param null $message
+   * @param string $type
+   * @param bool $repeat
+   */
+  public function setMessages(
+    $message = null,
+    $type = 'status',
+    $repeat = false
+  )
+  {
+    if ($repeat) {
+      $new_message = [$message, $type];
+      $this->messages[] = $new_message;
+    } else {
+      $this->messages = [];
+      $new_message = [$message, $type];
+      $this->messages[0] = $new_message;
     }
+  }
 
-    /**
-     * @return bool
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
+  /**
+   * @param int $row
+   * @return mixed
+   */
+  public function getMessage($row = 0)
+  {
+    return $this->messages[$row][0];
+  }
 
-    /**
-     * @param bool $status
-     *  status, info, warning, error
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
+  /**
+   * @param int $row
+   * @return mixed
+   */
+  public function getMessageType($row = 0)
+  {
+    return $this->messages[$row][1];
+  }
 
-    /**
-     * @return null
-     */
-    public function getNid()
-    {
-        return $this->nid;
-    }
+  /**
+   * @return string
+   */
+  public function getMode()
+  {
+    return $this->mode;
+  }
 
-    /**
-     * @param null $nid
-     */
-    public function setNid($nid)
-    {
-        $this->nid = $nid;
-    }
+  /**
+   * @param string $mode
+   */
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
 
-    /**
-     * @return null
-     */
-    public function getTid()
-    {
-        return $this->tid;
-    }
+  /**
+   * @return null
+   */
+  public function getData()
+  {
+    return $this->data;
+  }
 
-    /**
-     * @param null $tid
-     */
-    public function setTid($tid)
-    {
-        $this->tid = $tid;
-    }
+  /**
+   * @param null $data
+   */
+  public function setData($data): void
+  {
+    $this->data = $data;
+  }
 
-    /**
-     * @return string <string>
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
+  /**
+   * @return JsonResponse
+   */
+  public function json(): JsonResponse
+  {
+    $output = [
+      'status' => $this->status,
+      'mode' => $this->mode,
+      'nid' => $this->nid,
+      'tid' => $this->tid,
+      'title' => $this->title,
+      'messages' => $this->messages,
+      'data' => $this->data
+    ];
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
+    $response = new JsonResponse();
+    $response->setData($output);
+    return $response;
+  }
 
+  /**
+   * @return array
+   */
+  public function debug(): array
+  {
+    $output = [
+      'status' => $this->status,
+      'mode' => $this->mode,
+      'nid' => $this->nid,
+      'tid' => $this->tid,
+      'title' => $this->title,
+      'messages' => $this->messages,
+      'data' => $this->data
+    ];
 
-    /**
-     *
-     *
-     * @param null $message
-     * @param string $type
-     * @param bool $repeat
-     */
-    public function setMessages($message = NULL, $type = 'status', $repeat = FALSE)
-    {
-
-        if ($repeat) {
-            $new_message = [$message, $type];
-            $this->messages[] = $new_message;
-        } else {
-            $this->messages = [];
-            $new_message = [$message, $type];
-            $this->messages[0] = $new_message;
-        }
-    }
-
-    /**
-     * @return array
-     */
-    public function getMessages()
-    {
-        return $this->messages;
-    }
-
-    /**
-     * @param int $row
-     * @return mixed
-     */
-    public function getMessage($row = 0)
-    {
-        return $this->messages[$row][0];
-    }
-
-    /**
-     * @param int $row
-     * @return mixed
-     */
-    public function getMessageType($row = 0)
-    {
-        return $this->messages[$row][1];
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getMode()
-    {
-        return $this->mode;
-    }
-
-    /**
-     * @param string $mode
-     */
-    public function setMode($mode)
-    {
-        $this->mode = $mode;
-    }
-
-    /**
-     * @return null
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * @param null $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    public function json()
-    {
-
-        $output = [
-            'status' => $this->status,
-            'mode' => $this->mode,
-            'nid' => $this->nid,
-            'tid' => $this->tid,
-            'title' => $this->title,
-            'messages' => $this->messages,
-            'data' => $this->data,
-        ];
-
-        $response = new JsonResponse();
-        $response->setData($output);
-        return $response;
-    }
-
-    /**
-     * @return array
-     */
-    public function debug()
-    {
-
-        $output = [
-            'status' => $this->status,
-            'mode' => $this->mode,
-            'nid' => $this->nid,
-            'tid' => $this->tid,
-            'title' => $this->title,
-            'messages' => $this->messages,
-            'data' => $this->data,
-        ];
-
-        return $output;
-    }
-
-
+    return $output;
+  }
 }

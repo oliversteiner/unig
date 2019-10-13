@@ -80,7 +80,6 @@
       $('#unig-main', context)
         .once('unigProjectList')
         .each(() => {
-
           //  Delete Project Trigger
           root.querySelectorAll('.unig-project-delete-trigger').forEach(elem =>
             elem.addEventListener(

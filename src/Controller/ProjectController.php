@@ -2,11 +2,14 @@
 
 namespace Drupal\unig\Controller;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
 use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\FileTrait;
@@ -41,9 +44,9 @@ class ProjectController extends ControllerBase
   {
     if (empty($project_nid)) {
       return $this->projectListTemplate();
-    } else {
-      return $this->projectTemplate($project_nid, $album_nid);
     }
+
+    return $this->projectTemplate($project_nid, $album_nid);
   }
 
   /**
@@ -74,14 +77,14 @@ class ProjectController extends ControllerBase
   public function testPage()
   {
     return [
-      '#markup' => '<p>' . $this->t('Test Page') . '</p>',
+      '#markup' => '<p>' . $this->t('Test Page') . '</p>'
     ];
   }
 
   /**
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return AjaxResponse
    */
-  public function ajaxTest($nid)
+  public function ajaxTest($nid): AjaxResponse
   {
     $message = $nid;
     $response = new AjaxResponse();
@@ -97,17 +100,21 @@ class ProjectController extends ControllerBase
   /**
    * @return JsonResponse
    */
-  public function ajaxSetCover($project_nid, $image_nid)
+  public function ajaxSetCover($project_nid, $image_nid): JsonResponse
   {
     $data = ProjectTrait::setCover($project_nid, $image_nid);
-
     return $data->json();
   }
 
   /**
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @param $file_nid
+   * @param $album_nid
+   * @return AjaxResponse
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   * @throws EntityStorageException
    */
-  public function ajaxAddAlbum($file_nid, $album_nid)
+  public function ajaxAddAlbum($file_nid, $album_nid): AjaxResponse
   {
     $album_name = AlbumTrait::getAlbum($album_nid)->title;
 
@@ -130,9 +137,11 @@ class ProjectController extends ControllerBase
   }
 
   /**
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @param $file_nid
+   * @return AjaxResponse
+   * @throws EntityStorageException
    */
-  public function ajaxDeleteFile($file_nid)
+  public function ajaxDeleteFile($file_nid): AjaxResponse
   {
     $response = new AjaxResponse();
 
@@ -156,9 +165,9 @@ class ProjectController extends ControllerBase
   }
 
   /**
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return AjaxResponse
    */
-  public function ajaxProjectDelete($project_nid)
+  public function ajaxProjectDelete($project_nid): AjaxResponse
   {
     $response = new AjaxResponse();
 
@@ -184,14 +193,12 @@ class ProjectController extends ControllerBase
   /**
    * @param $project_nid
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return AjaxResponse
    */
-  public function ajaxNewAlbumForm($project_nid)
+  public function ajaxNewAlbumForm($project_nid): AjaxResponse
   {
     $message = 'new form';
-
     $css = ['display' => 'block'];
-
     $response = new AjaxResponse();
     $response->addCommand(new CssCommand('#unig-form-new-album-input', $css));
     $response->addCommand(
@@ -203,9 +210,11 @@ class ProjectController extends ControllerBase
   /**
    * @param $project_nid
    *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   * @return JsonResponse
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
-  public function ajaxProjectInfo($project_nid)
+  public function ajaxProjectInfo($project_nid): JsonResponse
   {
     if (isset($_POST['project_nid'])) {
       $project_nid = $_POST['project_nid'];
