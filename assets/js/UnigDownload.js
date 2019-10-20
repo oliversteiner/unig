@@ -560,70 +560,8 @@
         Drupal.behaviors.unigDownload.bulkDownloadStart('xl');
       });
 
-      // TODO - currently unused
-      $('.unig-file-download-list-direct').click(function() {
-        const $target = $(this).find('unig-file-download-list-picto');
-      });
-
       $('.unig-message-box-close-trigger', context).click(() => {
         Drupal.behaviors.unigDownload.closeDownloadMessageBox();
-      });
-
-      $('.open-download-message-box-trigger', context).click(() => {
-        console.log('open-download-message-box-trigger');
-        Drupal.behaviors.unigDownload.openDownloadMessageBox()
-      });
-
-      // Success
-      $('.success-download-message-box-trigger', context).click(() => {
-        console.log('success-download-message-box-trigger');
-
-        const status = 'working';
-        const icon = 'fas fa-circle-notch fa-spin';
-        const message = 'success';
-
-        Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
-      });
-
-      // Warning
-      $('.warning-download-message-box-trigger', context).click(() => {
-        console.log('warning-download-message-box-trigger');
-
-        const status = 'warning';
-        const icon = 'fas fa-exclamation-triangle';
-        const message = 'warning';
-
-        Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
-      });
-
-      // Reset
-      $('.reset-download-message-box-trigger', context).click(() => {
-        console.log('reset-download-message-box-trigger');
-
-        const status = 'default';
-        const icon = false;
-        const message = '';
-
-        Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
-      });
-
-
-      // start
-      $('.start-download-message-box-trigger', context).click(() => {
-        console.log('start-download-message-box-trigger');
-        Drupal.behaviors.unigDownload.message_download_processing();
-      });
-
-      // ok
-      $('.ok-download-message-box-trigger', context).click(() => {
-        console.log('ok-download-message-box-trigger');
-        Drupal.behaviors.unigDownload.message_download_ok();
-      });
-
-      // error
-      $('.error-download-message-box-trigger', context).click(() => {
-        console.log('error-download-message-box-trigger');
-        Drupal.behaviors.unigDownload.message_download_failed();
       });
 
 
