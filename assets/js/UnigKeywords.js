@@ -216,7 +216,7 @@
 
       const buttonUnMarkAll =
         '<div class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">' +
-        '<i class="fas fa-circle-o" aria-hidden="true"></i>' +
+        '<i class="far fa-circle" aria-hidden="true"></i>' +
         '<span class="unig-tags-title">uncheck all</span>' +
         '</div>';
 
