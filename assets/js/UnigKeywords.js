@@ -243,6 +243,7 @@
       });
 
       // Update GUI
+
       $('.build-done').ready(() => {
         // Add Handler
         $('.unig-keyword-trigger', context).click(function() {
