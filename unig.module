@@ -6,17 +6,10 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\views\ViewExecutable;
 
-
-/**
- * @param array $attachments
- */
 function unig_page_attachments(array &$attachments) {
     $attachments['#attached']['library'][] = 'unig/unig';
 }
-
-
 
 
 
