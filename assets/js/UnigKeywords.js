@@ -210,13 +210,13 @@
 
       const buttonMarkAll =
         '<div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger">' +
-        '<i class="fa fa-circle" aria-hidden="true"></i>' +
+        '<i class="fas fa-circle" aria-hidden="true"></i>' +
         '<span class="unig-tags-title">check all</span>' +
         '</div>';
 
       const buttonUnMarkAll =
         '<div class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">' +
-        '<i class="fa fa-circle-o" aria-hidden="true"></i>' +
+        '<i class="fas fa-circle-o" aria-hidden="true"></i>' +
         '<span class="unig-tags-title">uncheck all</span>' +
         '</div>';
 

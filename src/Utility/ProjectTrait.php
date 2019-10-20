@@ -28,7 +28,9 @@
 
 namespace Drupal\unig\Utility;
 
+use Drupal;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\AlertCommand;
 use Drupal\Core\Entity\EntityStorageException;
@@ -40,6 +42,7 @@ use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use User;
 
@@ -56,12 +59,12 @@ trait ProjectTrait
   public static function getAllProjectNids($cat_id = null)
   {
     // Get the current user
-    $user = \Drupal::currentUser();
+    $user = Drupal::currentUser();
 
     $query =
       //
       // Condition
-      \Drupal::entityQuery('node')
+      Drupal::entityQuery('node')
         ->condition('status', 1)
         ->condition('type', 'unig_project');
     //  ->condition('field_date', 'value', array('2011-03-01', '2011-03-31'), 'BETWEEN')
@@ -74,7 +77,6 @@ trait ProjectTrait
 
     // Restricting to category?
     if ($cat_id && is_int($cat_id)) {
-
       // check if  cat_id is valid term
       $term = Helper::getTermNameByID($cat_id);
 
@@ -148,7 +150,7 @@ trait ProjectTrait
     }
 
     // Aus den Einstellungen das Defaultalbum wählen
-    $default_config = \Drupal::config('unig.settings');
+    $default_config = Drupal::config('unig.settings');
     $default_project_nid = $default_config->get('unig.default_project');
     if ($default_project_nid) {
       return (int) $default_project_nid;
@@ -169,7 +171,7 @@ trait ProjectTrait
    * @return int|null|string
    * @throws EntityStorageException
    * @throws InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws PluginNotFoundException
    */
   public static function newUniGProject($title)
   {
@@ -190,7 +192,7 @@ trait ProjectTrait
       'type' => 'unig_project'
     ];
 
-    $new_post = \Drupal::entityTypeManager()
+    $new_post = Drupal::entityTypeManager()
       ->getStorage('node')
       ->create($new_node);
 
@@ -204,7 +206,7 @@ trait ProjectTrait
    * @return integer
    * @throws EntityStorageException
    * @throws InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws PluginNotFoundException
    */
   public static function newDefaultUniGProject(): int
   {
@@ -212,7 +214,7 @@ trait ProjectTrait
     $nid = self::newUniGProject($title);
 
     // schreibe nid in die Settings
-    \Drupal::configFactory()
+    Drupal::configFactory()
       ->getEditable('unig.settings')
       ->set('unig.default_project', $nid)
       ->save();
@@ -229,7 +231,7 @@ trait ProjectTrait
    */
   public function checkProjectDir($path_destination, $path_unig, $path_project)
   {
-    $root = \Drupal::service('file_system')->realpath(
+    $root = Drupal::service('file_system')->realpath(
       $path_destination . $path_unig
     );
     $realpath_project = $root . '/' . $path_project;
@@ -237,14 +239,14 @@ trait ProjectTrait
     $is_dir = is_dir($realpath_project);
 
     if (false == $is_dir) {
-      $result = \Drupal::service('file_system')->mkdir(
+      $result = Drupal::service('file_system')->mkdir(
         $realpath_project,
         0755,
         true
       );
 
       if (false == $result) {
-        \Drupal::messenger()->addMessage(
+        Drupal::messenger()->addMessage(
           'ERROR: Could not create the directory for the gallery'
         );
       }
@@ -309,7 +311,7 @@ trait ProjectTrait
    * @param $nid
    *
    * @return array
-   * @throws \Exception
+   * @throws Exception
    */
   public static function getCoverImageVars($nid): array
   {
@@ -331,7 +333,7 @@ trait ProjectTrait
    * @param $nid
    *
    * @return array
-   * @throws \Exception
+   * @throws Exception
    */
   public static function getImageVars($nid)
   {
@@ -392,7 +394,7 @@ trait ProjectTrait
         // Condition
         //
         // Order by
-        \Drupal::entityQuery('node')
+        Drupal::entityQuery('node')
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
           ->condition('field_unig_album', $album_nid)
@@ -410,7 +412,7 @@ trait ProjectTrait
         // Order by
         //
         // Access
-        \Drupal::entityQuery('node')
+        Drupal::entityQuery('node')
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
           ->sort('field_unig_weight.value', 'ASC')
@@ -434,7 +436,7 @@ trait ProjectTrait
       foreach ($nids as $project_nid) {
         try {
           $variables[] = self::buildProject($project_nid);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
       }
     }
@@ -447,8 +449,8 @@ trait ProjectTrait
    * @return array
    *
    * @throws InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Exception
+   * @throws PluginNotFoundException
+   * @throws Exception
    */
   public static function buildProject($project_id): array
   {
@@ -550,15 +552,15 @@ trait ProjectTrait
       // url friendly title
 
       // Always replace whitespace with the separator.
-      if (\Drupal::hasService('pathauto.alias_cleaner')) {
-        $clean_string = \Drupal::service('pathauto.alias_cleaner')->cleanString(
+      if (Drupal::hasService('pathauto.alias_cleaner')) {
+        $clean_string = Drupal::service('pathauto.alias_cleaner')->cleanString(
           $title
         );
       } else {
         $clean_string = preg_replace('/\s+/', '_', $title);
       }
 
-      $host = \Drupal::request()->getHost();
+      $host = Drupal::request()->getHost();
 
       // Twig-Variables
       $project = [
@@ -595,7 +597,7 @@ trait ProjectTrait
    * @param null $album_nid
    *
    * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws InvalidPluginDefinitionException
    */
   public static function buildFileList($project_nid, $album_nid = null)
   {
@@ -609,19 +611,21 @@ trait ProjectTrait
     return $variables;
   }
 
-  public static function getJSONfromProjectFiles(
+  public static function getJSONFromProjectFiles(
     $project_nid,
     $album_nid = null
-  ) {
+  ): JsonResponse {
     $response = new JsonResponse();
 
-    if ($_POST) {
-      $response->setData($_POST);
+    // TODO: (replace $_POST with new Drupal method )
 
-      if (isset($_POST['project_nid'])) {
-        $project_nid = $_POST['project_nid'];
-      }
+    $postReq = \Drupal::request()->request->all();
+    // $response['debug'] = $postReq;
+
+    if (isset($postReq, $postReq['project_nid'])) {
+      $project_nid = $postReq['project_nid'];
     }
+
 
     $file_nids = self::getListofFilesInProject($project_nid);
     $variables = [];
@@ -635,7 +639,7 @@ trait ProjectTrait
   }
 
   /**
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   * @return JsonResponse
    *
    */
   public static function getJSONfromKeywordsForProject($project_nid)
@@ -668,7 +672,7 @@ trait ProjectTrait
 
     $terms = [];
     try {
-      $terms = \Drupal::entityTypeManager()
+      $terms = Drupal::entityTypeManager()
         ->getStorage('taxonomy_term')
         ->loadTree($vid);
     } catch (InvalidPluginDefinitionException $e) {
@@ -738,8 +742,8 @@ trait ProjectTrait
    *
    * @return array
    *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Exception
+   * @throws InvalidPluginDefinitionException
+   * @throws Exception
    */
   public static function buildFile($file_nid)
   {
@@ -759,7 +763,7 @@ trait ProjectTrait
     //    - edit
     //    - delete
 
-    $entity = \Drupal::entityTypeManager()
+    $entity = Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($file_nid);
 
@@ -915,8 +919,8 @@ trait ProjectTrait
    * @return mixed
    *
    *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws InvalidPluginDefinitionException
+   * @throws EntityStorageException
    */
   public static function saveProject()
   {
@@ -924,7 +928,7 @@ trait ProjectTrait
     $data = $_POST['data'];
 
     // Load node
-    $entity = \Drupal::entityTypeManager()
+    $entity = Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($project_nid);
 

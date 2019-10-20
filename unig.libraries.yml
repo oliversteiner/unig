@@ -83,6 +83,7 @@ unig.admin.project:
     - unig/unig.lightgallery
     - unig/unig.autocomplete
     - unig/unig.lightgallery
+    - unig/unig.download
 #
 #
 #
@@ -130,3 +131,9 @@ unig.autocomplete:
       assets/third-party/autocomplete/auto-complete.css: {}
   js:
     assets/third-party/autocomplete/auto-complete.min.js: {}
+#
+#
+#
+unig.download:
+  js:
+    assets/third-party/download/download.min.js: {}

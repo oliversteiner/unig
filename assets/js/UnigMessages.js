@@ -67,7 +67,7 @@
           closeButton.setAttribute('role', 'button');
           closeButton.setAttribute('data-message-index', messageIndex);
           closeButton.innerHTML =
-            '<i class="fa fa-times" aria-hidden="true"></i>';
+            '<i class="fas fa-times" aria-hidden="true"></i>';
           closeButton.addEventListener('click', event => {
             this.removeMessage(event, messageIndex);
           });

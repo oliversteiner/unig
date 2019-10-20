@@ -12,6 +12,7 @@
 @import "item_overlay";
 @import "images_size";
 @import "messages";
+@import "message_box";
 
 $font-unig: "Lato", "Lucida Grande", "Source Sans Pro", "Lucida Sans Unicode",
 Tahoma, Verdana, Arial, Helvetica, sans-serif;
@@ -197,4 +198,8 @@ li.lazyload-test {
 
 .unig-edit-project-col {
   padding-right: 20px;
+}
+
+.row{
+  display: flex;
 }
