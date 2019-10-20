@@ -8,8 +8,6 @@
       $('#unig-main', context)
         .once('unigDownload')
         .each(() => {
-          console.log('UNIG - Download', this.version);
-
           this.constructor(context, settings);
         });
     },
@@ -448,7 +446,6 @@
         itemsForDownload.forEach(item => {
           const Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
           const file = itemList[item];
-          console.log('file',file );
 
           if (file.image.unig_sd) {
             const sd = file.image.unig_sd.file_size;
