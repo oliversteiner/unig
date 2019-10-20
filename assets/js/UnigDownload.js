@@ -16,9 +16,9 @@
 
     downloadsize: {},
 
-    $toolbar_sd: $('.unig-file-download-table-size-sd'),
-    $toolbar_hd: $('.unig-file-download-table-size-hd'),
-    $toolbar_xl: $('.unig-file-download-table-size-xl'),
+    $toolbar_sd: $('.unig-bulk-download-table .unig-file-download-table-size-sd'),
+    $toolbar_hd: $('.unig-bulk-download-table .unig-file-download-table-size-hd'),
+    $toolbar_xl: $('.unig-bulk-download-table .unig-file-download-table-size-xl'),
 
     $bulkDownloadMessageContainer: $('.unig-bulk-download-message-container'),
 

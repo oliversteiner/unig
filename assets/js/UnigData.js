@@ -209,13 +209,9 @@
           dataType: 'json',
         })
           .done(result => {
-
             Drupal.behaviors.unigData.FileList.set(result);
-            console.log('FileList', result);
-
           })
           .fail(xhr => {
-
           });
       }
     },

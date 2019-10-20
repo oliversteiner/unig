@@ -130,8 +130,7 @@ trait FileTrait
 
     // hole die neu erstellte ID
     $new_id = $new_unig_file->id();
-    // $this->createStyle($new_id, 'thumbnail');
-    // $this->createStyle($new_id, 'unig_medium');
+
 
     return $new_id;
   }

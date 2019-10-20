@@ -9,13 +9,7 @@ namespace Drupal\unig\Utility;
  */
 trait ProjectListTemplateTrait
 {
-  /**
-   * Name of our module.
-   *
-   * @return string
-   *   A module name.
-   */
-  abstract protected function getModuleName();
+
 
   /**
    * @param $cat_id
