@@ -278,7 +278,9 @@
               {# Fieldset Footer #}
               <div class="unig-fieldset-footer"></div>
 
+
             </div> {# / Fieldset #}
+
           </div>{# / Toolbar Body #}
 
           {# Toolbar Footer #}
@@ -321,6 +323,18 @@
         </div>
       </div>
 
+    </div>
+
+
+    {# Fieldset debug #}
+    <div class="unig-toolbar unig-toolbar-debug">
+      <div class="unig-fieldset-debug">
+        <div class="row">
+{#
+          <div class="unig-button open-download-message-box-trigger">open message box</div>
+#}
+        </div>
+      </div>
     </div>
 
     {# Toolbar - general #}
@@ -470,7 +484,7 @@
 
       <div>
         <div class="unig-dl-info-head">
-          {% trans %} Cancel {% endtrans %} <span class="unig-dl-number-of">0</span>
+          {% trans %} Files: {% endtrans %} <span class="unig-dl-number-of">0</span>
 
         </div>
         <div class="unig-dl-info-body">
@@ -497,7 +511,7 @@
               {# SD #}
               <tr role="button" class="unig-bulk-download-sd-trigger">
                 <td class="unig-file-download-table-label">SD</td>
-                <td class="unig-file-download-table-width">440&thinsp;px</td>
+                <td class="unig-file-download-table-width">720&thinsp;px</td>
                 <td class="unig-file-download-table-size">
                   <span class="unig-file-download-table-size-sd">0 MB</span>
                 </td>
@@ -521,11 +535,11 @@
               </tr>
 
               {# Max #}
-              <tr role="button" class="unig-bulk-download-max-trigger">
+              <tr role="button" class="unig-bulk-download-xl-trigger">
                 <td class="unig-file-download-table-label">XL</td>
                 <td class="unig-file-download-table-width">4500&thinsp;px</td>
                 <td class="unig-file-download-table-size">
-                  <span class="unig-file-download-table-size-max">0 MB</span>
+                  <span class="unig-file-download-table-size-xl">0 MB</span>
                 </td>
                 <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                              aria-hidden="true"></i>
@@ -534,22 +548,39 @@
               </tr>
             </table>
           </div>
-          {# Ajax Message #}
+
+          {# Messages #}
           <div class="unig-bulk-download-message-container">
+            <div>
 
+              <div class="unig-message-box-header">
+                <div class="unig-message-box-close-trigger">
+                  <i class="fas fa-times-circle" aria-hidden="true"></i>
+                </div>
+              </div>
 
+              <div class="unig-message-box-picto">
+              </div>
+              <div class="unig-message-box-body">
+
+                bla bla <br>
+                fjklsdaflksda <br>
+                asdfasfdsa
+              </div>
+            </div>
           </div>
+
         </div>
 
 
+        {# Download Footer #}
         <div class="unig-dl-info-footer">
-
-
         </div>
       </div>
 
-      <div class="unig-dl-tumbnails">
-        {# Placeholder for Tumbnalils#}
+      {# Download Thumbnails #}
+      <div class="unig-dl-thumbnails">
+        {# Placeholder for Thumbnails #}
       </div>
 
     </div>
@@ -1003,14 +1034,15 @@
                   </tr>
 
                   {# SD #}
-                  <tr role="button" class="unig-file-download-large-trigger"
-                      data-unig-file-url="{{ file.image.large.url }}">
+                  <tr role="button" class="unig-file-download-trigger"
+                      data-unig-file-url="{{ file.image.unig_sd.url }}"
+                      data-size="sd">
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">
-                      {{ file.image.large.width }}&thinsp;px
+                      {{ file.image.unig_sd.width }}&thinsp;px
                     </td>
                     <td class="unig-file-download-table-size">
-                      <span class="unig-file-download-table-size-sd">{{ file.image.large.file_size_formatted }}</span>
+                      <span class="unig-file-download-table-size-sd">{{ file.image.unig_sd.file_size_formatted }}</span>
                     </td>
                     <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                  aria-hidden="true"></i>
@@ -1019,8 +1051,9 @@
                   </tr>
 
                   {# HD #}
-                  <tr role="button" class="unig-file-download-unig_hd-trigger"
-                      data-unig-file-url="{{ file.image.unig_hd.url }}">
+                  <tr role="button" class="unig-file-download-trigger"
+                      data-unig-file-url="{{ file.image.unig_hd.url }}"
+                      data-size="hd">
                     <td class="unig-file-download-table-label">HD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_hd.width }}&thinsp;px
@@ -1035,15 +1068,16 @@
                   </tr>
 
                   {# XL #}
-                  <tr role="button" class="unig-file-download-xl-trigger"
-                      data-unig-file-url="{{ file.image.original.url }}">
+                  <tr role="button" class="unig-file-download-trigger"
+                      data-unig-file-url="{{ file.image.original.url }}"
+                      data-size="xl">
                     <td class="unig-file-download-table-label">XL</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.original.width }}&thinsp;px
                     </td>
                     <td class="unig-file-download-table-size">
                       <span
-                        class="unig-file-download-table-size-max">{{ file.image.original.file_size_formatted }}</span>
+                        class="unig-file-download-table-size-xl">{{ file.image.original.file_size_formatted }}</span>
                     </td>
                     <td class="unig-file-download-table-icon"><i class="fas fa-download"
                                                                  aria-hidden="true"></i>
@@ -1102,5 +1136,4 @@
   <div class="unig-footer">
     {# Footer #}
   </div>
-
 </div>

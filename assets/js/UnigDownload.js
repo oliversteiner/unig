@@ -1,5 +1,7 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigDownload = {
+    version: '1.0.0',
+
     attach(context, settings) {
       // onload
 
@@ -165,9 +167,9 @@
 
     bulkDownloadStart(size) {
       $(`.unig-bulk-download-${size}-trigger`).addClass('active');
-      this.$bulk_download_message_container.html(
-        `Start Download ${size} Paket`,
-      );
+
+      // Set Download Message Container to Prozessing
+      Drupal.behaviors.unigDownload.message_download_processing(size);
 
       const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
       const data = {
@@ -175,9 +177,6 @@
         projectName: size,
         items: itemsForDownload,
       };
-
-      // Set Download Message Container to Prozessing
-      Drupal.behaviors.unigDownload.message_download_processing();
 
       $.ajax({
         url: Drupal.url('unig/download/'),
@@ -200,43 +199,54 @@
       return true;
     },
 
-    resetGui() {},
+
+    downloadFile(url){
+      download(url);
+    },
+
+    openDownloadMessageBox(){
+      this.$bulkDownloadMessageContainer.slideDown('fast');
+    },
+
+    setDownloadMessage(status, icon, message) {
+
+      Drupal.behaviors.unigDownload.openDownloadMessageBox();
+
+
+      $('.unig-bulk-download-message-container > div').removeClass().addClass(status);
+
+      $('.unig-message-box-picto').html();
+      if(icon){
+      $('.unig-message-box-picto').html(`<i class="${icon}"></i>`);
+      }
+
+      $('.unig-message-box-body').html();
+      $('.unig-message-box-body').html(message);
+    },
 
     bulkDownloadCancel() {
       const $bulkDownloadSd = $('.unig-bulk-download-sd-trigger');
       const $bulkDownloadHd = $('.unig-bulk-download-hd-trigger');
-      const $bulkDownloadxl = $('.unig-bulk-download-xl-trigger');
+      const $bulkDownloadXl = $('.unig-bulk-download-xl-trigger');
 
-      this.$bulkDownloadMessageContainer.html();
       $bulkDownloadSd.removeClass('active');
       $bulkDownloadHd.removeClass('active');
-      $bulkDownloadxl.removeClass('active');
+      $bulkDownloadXl.removeClass('active');
+
+      // Reset Message Box
+      const status = 'default';
+      const icon = false;
+      const message = '';
+      Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
+      Drupal.behaviors.unigDownload.closeDownloadMessageBox();
     },
 
-    message_box(mode) {
-      if (mode) {
-        mode = `-${mode}`;
-      } else {
-        mode = '';
-      }
-      this.$bulkDownloadMessageContainer.html(
-        `<div class="unig-message-box${mode}">` +
-          `   <div class="unig-message-box-close-trigger"><i class="fa fa-close" aria-hidden="true"></i></div>` +
-          `   <div class="unig-message-box-body">` +
-          `   </div>` +
-          `</div>`,
-      );
-      $('.unig-message-box-close-trigger').click(() => {
-        $('.unig-bulk-download-message-container').slideUp('fast', function() {
-          // remove content from div
-          $(this).html('');
-          // display empty div
-          $(this).show();
-        });
+    closeDownloadMessageBox() {
+      this.$bulkDownloadMessageContainer.slideUp('fast', function() {
       });
     },
 
-    message_download_processing() {
+    message_download_processing(size) {
       // translate
       const textZip = Drupal.t(
         'A zip-archive with the pictures will be created. Please wait.',
@@ -244,48 +254,39 @@
       const textCancel = Drupal.t('Cancel download');
       const textLoading = Drupal.t('Loading...');
 
-      const mode = '';
-      this.message_box(mode);
+      const status = 'working';
+      const icon = 'fas fa-circle-notch fa-spin';
+      const message =
+          `<span class="sr-only">${textLoading}</span>` +
+          `${textZip}<br>` +
+          `<button onclick="Drupal.behaviors.unigDownload.bulkDownloadCancel()">${textCancel}</button>`
+      ;
 
-      $('.unig-message-box-body').html(
-        `<div class="unig-message-box-picto"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></div>` +
-          `<span class="sr-only">${textLoading}</span>${textZip}<button onclick="Drupal.behaviors.unigDownload.bulkDownloadCancel()">${textCancel}</button>`,
-      );
+      Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
+
     },
 
     message_download_ok(url) {
-      const mode = 'success';
-      this.message_box(mode);
+      const status = 'success';
+      const icon = 'fas fa-check';
+      const message =
+        `Der Download ist bereit.<br>Sollte der Download nicht automatisch starten: <a href="${url}">hier klicken.</a>`;
 
-      $('.unig-message-box-body').html(
-        `${'<div class="unig-message-box-picto">' +
-          '<i class="fa fa-check-circle-o color-success"></i>' +
-          '<span class="sr-only">OK</span>' +
-          '</div>' +
-          '<div>Der Download ist bereit.</div>' +
-          '<div>' +
-          'Sollte der Download nicht automatisch starten: ' +
-          '<a href="'}${url}">hier klicken.</a></div>`,
-      );
+      Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
+
+
     },
 
     message_download_failed() {
-      const mode = 'warning';
-      this.message_box(mode);
-
-      $('.unig-message-box-body').html(
-        '<div class="unig-message-box-picto" >' +
-          '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>' +
-          '<span class="sr-only">Error</span>' +
-          '</div>' +
-          '<div>Es ist ein Fehler aufgetreten beim erstellen des Zips.</div>' +
-          '<div>Bitte die Seite neu laden und noch einmal versuchen.</div>',
-      );
+      const status = 'warning';
+      const icon = 'fas fa-exclamation-triangle';
+      const message = 'Es ist ein Fehler aufgetreten beim erstellen des Zips.<br>Bitte die Seite neu laden und noch einmal versuchen.'
+      Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
     },
 
-    buildTumbnails() {
+    buildThumbnails() {
       // Target
-      const $area = $('.unig-dl-tumbnails');
+      const $area = $('.unig-dl-thumbnails');
 
       // get Item List
       const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
@@ -294,22 +295,20 @@
       let elemLi = '';
       if (itemsForDownload) {
         itemsForDownload.forEach(elem => {
-
           // check
           const item = itemList[elem];
 
-
           if (item && item.title) {
             const label = item.title;
-            const imgSrc = item.image.unig_small.url;
+            const imgSrc = item.image.unig_thumbnail.url;
 
             elemLi +=
               `<li class="unig-dl" id="unig-dl-${elem}" data-nid = "${elem}">` +
               ` <div class="unig-dl-nid">${elem}</div>` +
               ` <div class="unig-dl-image item-overlay">` +
-              `   <img src="${imgSrc}" />` +
+              `   <img src="${imgSrc}" alt=""/>` +
               ` <div class="item-overlay-canvas top">` +
-              `   <span class="item-overlay-text"><i class="fa fa-times" aria-hidden="true"></i>\n</span></div>` +
+              `   <span class="item-overlay-text"><i class="fas fa-times-circle" aria-hidden="true"></i>\n</span></div>` +
               ` </div>` +
               ` <div class="unig-dl-label">${label}</div>` +
               `</li>`;
@@ -343,7 +342,7 @@
      *
      */
     refreshGUI() {
-      if (this.isFolderxl == true) {
+      if (this.isFolderXl === true) {
         this.openToolbar();
       }
       this.isFolderActive = true;
@@ -359,14 +358,14 @@
         });
       }
 
-      this.buildTumbnails();
+      this.buildThumbnails();
       this.updateInfo();
     },
 
     clearDownloadList() {
       this.removeAll();
       this.removeAllMarks();
-      this.buildTumbnails();
+      this.buildThumbnails();
       this.calculateDownloadsize();
       this.refreshGUI();
       this.updateInfo();
@@ -376,7 +375,7 @@
     fillDownloadList() {
       this.addAll();
       this.addAllMarks();
-      this.buildTumbnails();
+      this.buildThumbnails();
       this.calculateDownloadsize();
       this.refreshGUI();
       this.updateInfo();
@@ -447,8 +446,9 @@
         itemsForDownload.forEach(item => {
           const Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
           const file = itemList[item];
-          if (file.image.large) {
-            const sd = file.image.large.file_size;
+
+          if (file.image.unig_sd) {
+            const sd = file.image.unig_sd.file_size;
             Downloadsize.sd += sd;
           }
           if (file.image.unig_hd) {
@@ -502,19 +502,19 @@
         const nid = Drupal.behaviors.unig.getNodeId(event);
 
         // Add to Download-List
-        //  Scope.toggle(nid);
+        Scope.toggle(nid);
 
         // Mark as Download-Item
         Scope.toggleMark(nid);
 
         // Update Infos
-        //  Scope.calculateDownloadsize();
+        Scope.calculateDownloadsize();
 
-        // Build Download Area
-        //  Scope.refreshGUI();
+        // Build Download Areaunig-message-box-success
+        Scope.refreshGUI();
 
         // Save to localStorage
-        //  Drupal.behaviors.unigData.FilesForDownload.save();
+        Drupal.behaviors.unigData.FilesForDownload.save();
       });
 
       // Add All Files to Download
@@ -557,9 +557,21 @@
         Drupal.behaviors.unigDownload.bulkDownloadStart('xl');
       });
 
-      $('.unig-file-download-list-direct').click(function() {
-        const $target = $(this).find('unig-file-download-list-picto');
+      $('.unig-message-box-close-trigger', context).click(() => {
+        Drupal.behaviors.unigDownload.closeDownloadMessageBox();
       });
+
+
+      // Single File Download Trigger
+      $('.unig-file-download-trigger', context).click((elem) => {
+
+        const url = elem.currentTarget.dataset.unigFileUrl;
+        const size = elem.currentTarget.dataset.size;
+
+        Drupal.behaviors.unigDownload.downloadFile(url, size);
+
+      });
+
     },
   };
 })(jQuery, Drupal, drupalSettings);

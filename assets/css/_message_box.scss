@@ -1,0 +1,65 @@
+@import 'colors';
+
+@mixin message-box {
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  border:  1px solid;
+}
+.unig-bulk-download-message-container{
+  display: none;
+}
+.unig-bulk-download-message-container {
+  .working,
+  .default {
+    @include message-box;
+
+    background-color: $color-background;
+    border: 1px solid $color-default-border;
+    color: $color-text;
+  }
+
+  .success {
+    @include message-box;
+
+    background-color: $color-ok-background;
+    border-color: $color-ok-border;
+    color: $color-ok-text;
+  }
+
+  .warning {
+    @include message-box;
+
+    background-color: $color-warning-background;
+    border-color: $color-warning-border;
+    color: $color-warning-text;
+  }
+}
+
+.unig-message-box-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.unig-message-box-body {
+}
+
+.unig-message-box-picto {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  margin: -10px 0 15px;
+}
+
+.unig-message-box-close-trigger {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  &:active {
+    color: rgba(0, 0, 0, 1);
+  }
+}

@@ -59,7 +59,7 @@ unig.project:
 unig.ajax.project:
   path: '/unig/project/json/{project_nid}/{album_nid}'
   defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::getJSONfromProjectFiles'
+    _controller: '\Drupal\unig\Controller\ProjectController::getJSONFromProjectFiles'
     project_nid: null
     album_nid: null
   requirements:
