@@ -12,9 +12,6 @@ use ZipArchive;
 
 class DownloadController extends ControllerBase
 {
-  function __construct()
-  {
-  }
 
   /**
    * {@inheritdoc}
