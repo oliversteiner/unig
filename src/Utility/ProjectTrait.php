@@ -176,31 +176,30 @@ trait ProjectTrait
    */
   public static function newUniGProject($title)
   {
-    // define entity type and bundle
-    // $entity_type = "node";
-
-    //  $node_title = $title;
-    //  $node_alias = UniGTrait::toAscii($title);
-
-    // get definition of target entity type
-    // $entity_def = \Drupal::entityTypeManager()->getDefinition($entity_type);
+    $config = \Drupal::config('unig.settings');
 
     //load up an array for creation
-    $new_node = [
+    $content = [
       'title' => $title,
       'status' => 1, //(1 or 0): published or not
       'promote' => 0, //(1 or 0): promoted to front page
       'type' => 'unig_project'
     ];
 
-    $new_post = Drupal::entityTypeManager()
+    $new_node = Drupal::entityTypeManager()
       ->getStorage('node')
-      ->create($new_node);
+      ->create($content);
 
-    $new_post->save();
+    // Add default Category
+    $category_tid = $config->get('unig.default_category');
+    if($category_tid){
+    $new_node->set('field_unig_category', $category_tid);
+    }
+
+    $new_node->save();
 
     // hole die neu erstellte Node ID
-    return $new_post->id();
+    return $new_node->id();
   }
 
   /**
