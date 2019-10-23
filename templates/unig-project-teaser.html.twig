@@ -41,7 +41,7 @@
 
 
 {% if private != false and logged_in == false %}
-
+{%  elseif id == 0 %}
 {% else %}
 
   <div class="{{ classes|join(' ')}}">
