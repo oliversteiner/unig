@@ -236,10 +236,17 @@ class IptcController extends ControllerBase
 
     $this->data = $data;
 
-    $this->data_keywords = $data['keywords'];
-    $this->data_creation_date = $data['creation_date'];
-    $this->data_copyright = $data['copyright'];
+    if (isset($data['keywords'])) {
+      $this->data_keywords = $data['keywords'];
+    }
 
+    if (isset($data['creation_date'])) {
+      $this->data_creation_date = $data['creation_date'];
+    }
+
+    if (isset($data['copyright'])) {
+      $this->data_copyright = $data['copyright'];
+    }
     return $data;
   }
 
