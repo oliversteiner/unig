@@ -154,7 +154,7 @@ trait ProjectTrait
     $default_config = Drupal::config('unig.settings');
     $default_project_nid = $default_config->get('unig.default_project');
     if ($default_project_nid) {
-      return (int) $default_project_nid;
+      return (int)$default_project_nid;
     }
 
     // sonst das letzte Projekt nehmen
@@ -192,8 +192,8 @@ trait ProjectTrait
 
     // Add default Category
     $category_tid = $config->get('unig.default_category');
-    if($category_tid){
-    $new_node->set('field_unig_category', $category_tid);
+    if ($category_tid) {
+      $new_node->set('field_unig_category', $category_tid);
     }
 
     $new_node->save();
@@ -317,7 +317,7 @@ trait ProjectTrait
   {
     $variables = [];
     if ($nid) {
-      $node = Node::load((int) $nid);
+      $node = Node::load((int)$nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
         $variables = CreateImageStylesTrait::createImageStyles($unig_image_id);
@@ -379,7 +379,8 @@ trait ProjectTrait
   public static function getListofFilesInProject(
     $nid_project,
     $album_nid = null
-  ) {
+  )
+  {
     // bundle : unig_file
     // field: field_unig_project[0]['target_id']
     //
@@ -474,13 +475,13 @@ trait ProjectTrait
     //
 
     // Load Project
-    $node = Node::load((int) $project_id);
+    $node = Node::load((int)$project_id);
 
     // check if Nid is Unig Project
     if ($node && $node->bundle() !== 'unig_project') {
       $message = 'Node with ' . $project_id . ' is not an UniG-Project';
       \Drupal::logger('type')->error($message);
-      throw new \RuntimeException($message);
+      return ['nid' => 0];
     }
 
     // No Project with this Nid
@@ -523,7 +524,7 @@ trait ProjectTrait
     }
 
     // Timestamp
-    $timestamp = (int) $php_date_obj->format('U');
+    $timestamp = (int)$php_date_obj->format('U');
 
     // Year
     $year = $php_date_obj->format('Y');
@@ -542,7 +543,7 @@ trait ProjectTrait
       $new_cover = self::setCover($project_id);
       $cover_id = $new_cover->getTid();
     }
-    $cover_image = self::getCoverImageVars((int) $cover_id);
+    $cover_image = self::getCoverImageVars((int)$cover_id);
 
     // number_of_items
     $number_of_items = self::countFilesInProject($project_id);
@@ -623,7 +624,8 @@ trait ProjectTrait
   public static function getJSONFromProjectFiles(
     $project_nid,
     $album_nid = null
-  ): JsonResponse {
+  ): JsonResponse
+  {
     $response = new JsonResponse();
 
     // TODO: (replace $_POST with new Drupal method )
@@ -703,7 +705,8 @@ trait ProjectTrait
   public static function importKeywordsFromProject(
     $project_nid,
     $album_nid = null
-  ) {
+  )
+  {
     $nids = self::getListofFilesInProject($project_nid, $album_nid);
 
     foreach ($nids as $nid) {
@@ -778,7 +781,7 @@ trait ProjectTrait
     if ($entity && $entity->bundle() !== 'unig_file') {
       $message = 'Node with ' . $file_nid . ' is not an UniG-File';
       \Drupal::logger('type')->error($message);
-      throw new \RuntimeException($message);
+      return ['nid' => 0];
     }
 
     // NID
@@ -901,8 +904,7 @@ trait ProjectTrait
         // Node delete success
         $status = true;
         $message = 'Das Projekt mit der ID ' . $project_nid . ' wurde gelöscht';
-      }
-      // no Node found
+      } // no Node found
       else {
         $status = false;
         $message = 'kein Projekt mit der ID ' . $project_nid . ' gefunden';
@@ -965,7 +967,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int) $data['private'];
+    $int_private = (int)$data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {
