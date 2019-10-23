@@ -1,0 +1,120 @@
+{#
+/**
+ * @file
+ * Theme  to display a UniG Gallery preview.
+ *
+ * Available variables:
+ *  - id
+ *  - nid
+ *  - title
+ *  - title_url
+ *  - description
+ *  - copyright
+ *  - weight
+ *  - category
+ *  - category_id
+ *  - category_list
+ *  - tags
+ *  - tags_ids
+ *  - tags_list
+ *  - private
+ *  - timestamp
+ *  - date
+ *  - date_drupal
+ *  - year
+ *  - number_of_items
+ *  - cover_id
+ *  - cover_image
+ *  - album_list
+ *  - host
+ *
+ */
+#}
+
+{% set classes = [
+  view_mode ? view_mode|clean_class,
+  private ? 'private',
+  'unig-project-preview',
+  'unig-project-container',
+  'unig-project-'~id]
+%}
+
+
+{% if private != false and logged_in == false %}
+
+{% else %}
+
+  <div class="{{ classes|join(' ')}}">
+
+    {# ----------- Cover ----------- #}
+    <div class="unig-project-cover">
+      <a href="{{ url }}">
+        <div class="unig-project-cover-background">
+          {% if cover_image.unig_cover.url %}
+            <div class="unig-project-cover-image">
+              <img class="" src="{{ cover_image.unig_cover.url }}" alt="">
+            </div>
+          {% else %}
+            <div class="unig-project-cover-image-placeholder">
+
+              <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+              <div class="unig-project-cover-text">
+                <span>{% trans %} No cover picture selected {% endtrans %}</span>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+
+    {# ----------- Text ----------- #}
+    <div class="unig-project-text">
+      <div class="unig-project-info-container">
+        <div class="unig-row">
+
+          {# ----------- Number of items ----------- #}
+          <div class="unig-project-number-of-items unig-col-left">
+            <i class="fas fa-images"></i> {{ number_of_items }}
+          </div>
+
+          {#  -----------   Date  -----------  #}
+          <div class="unig-project-date">
+            {{ date }}
+          </div>
+
+          {# ----------- Private ----------- #}
+          {% if private %}
+            <div class="unig-project-public-private unig-button-icon-info"
+                 title="{% trans %} This Project is private {% endtrans %} ">
+                <span>
+                    <i class="fas fa-lock"></i>
+                </span>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+
+      {# ----------- Display ----------- #}
+
+      <div class="unig-project-text-container">
+
+        {#  -----------   Category  -----------  #}
+        <div class="unig-project-category">
+          {{ category }}
+        </div>
+
+        {# -----------  Content ----------- #}
+        <h2 class="unig-project-title">
+          {{ title }}
+        </h2>
+
+        {#  -----------   Description  -----------  #}
+        <div class="unig-project-description">
+          {{ description }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endif %}

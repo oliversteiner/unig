@@ -1,6 +1,14 @@
 #
 #
 #
+unig.project.preview:
+  css:
+    theme:
+      assets/css/unig_public.css: {}
+      assets/css/unig_project_preview.css: {}
+#
+#
+#
 unig.project_list:
   css:
     theme:

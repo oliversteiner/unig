@@ -43,6 +43,7 @@ use Drupal\taxonomy\Entity\Term;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
 use Exception;
+use http\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use User;
 
@@ -455,7 +456,7 @@ trait ProjectTrait
   public static function buildProject($project_id): array
   {
     // project
-    //  - nid
+    //  - nid / id
     //  - date
     //  - timestamp
     //  - year
@@ -473,121 +474,130 @@ trait ProjectTrait
     //  - cover_image
     //
 
-    // var_dump($project_nid);
-    $project_id = (int) $project_id;
-    $node = Node::load($project_id);
+    // Load Project
+    $node = Node::load((int) $project_id);
 
-    if (!$node) {
-      $project = ['nid' => 0];
-    } else {
-      // NID
-
-      // Title
-      $title = Helper::getFieldValue($node, 'title');
-
-      // Body
-      $description = Helper::getFieldValue($node, 'unig_description');
-
-      // Weight
-      $weight = Helper::getFieldValue($node, 'unig_weight');
-
-      // Copyright
-      $copyright = Helper::getFieldValue($node, 'unig_copyright');
-
-      // Private
-      $private = Helper::getFieldValue($node, 'unig_private');
-
-      // Category
-      $category = Helper::getFieldValue(
-        $node,
-        'unig_category',
-        'unig_category'
-      );
-      $category_id = Helper::getFieldValue($node, 'unig_category');
-
-      $category_list = Helper::getTermsForOptionList('unig_category');
-
-      // Tags
-      $tags = Helper::getFieldValue($node, 'unig_tags', 'unig_tags', true);
-      $tags_ids = Helper::getFieldValue($node, 'unig_tags', false, true);
-      $tags_list = Helper::getTermsForOptionList('unig_tags');
-
-      // Date
-      $date = Helper::getFieldValue($node, 'unig_date');
-      if ($date) {
-        $format = 'Y-m-d';
-        $php_date_obj = date_create_from_format($format, $date);
-      } else {
-        $php_date_obj = date_create();
-      }
-
-      // Timestamp
-      $timestamp = (int) $php_date_obj->format('U');
-
-      // Year
-      $year = $php_date_obj->format('Y');
-
-      // Date
-      $date = $php_date_obj->format('d. F Y');
-
-      // Date
-      // TODO: move date display format to settings page
-      $date_drupal = $php_date_obj->format('Y-m-d');
-
-      // Cover Image
-      $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
-
-      if (!$cover_id) {
-        $new_cover = self::setCover($project_id);
-        $cover_id = $new_cover->getTid();
-      }
-      $cover_image = self::getCoverImageVars((int) $cover_id);
-
-      // number_of_items
-      $number_of_items = self::countFilesInProject($project_id);
-
-      // Album List
-      $album_list = AlbumTrait::getAlbumList($project_id);
-
-      // url friendly title
-
-      // Always replace whitespace with the separator.
-      if (Drupal::hasService('pathauto.alias_cleaner')) {
-        $clean_string = Drupal::service('pathauto.alias_cleaner')->cleanString(
-          $title
-        );
-      } else {
-        $clean_string = preg_replace('/\s+/', '_', $title);
-      }
-
-      $host = Drupal::request()->getHost();
-
-      // Twig-Variables
-      $project = [
-        'nid' => $project_id,
-        'title' => $title,
-        'title_url' => $clean_string,
-        'description' => $description,
-        'copyright' => $copyright,
-        'weight' => $weight,
-        'category' => $category,
-        'category_id' => $category_id,
-        'category_list' => $category_list,
-        'tags' => $tags,
-        'tags_ids' => $tags_ids,
-        'tags_list' => $tags_list,
-        'private' => $private,
-        'timestamp' => $timestamp,
-        'date' => $date,
-        'date_drupal' => $date_drupal,
-        'year' => $year,
-        'number_of_items' => $number_of_items,
-        'cover_id' => $cover_id,
-        'cover_image' => $cover_image,
-        'album_list' => $album_list,
-        'host' => $host
-      ];
+    // check if Nid is Unig Project
+    if ($node && $node->bundle() !== 'unig_project') {
+      $message = 'Node with ' . $project_id . ' is not an UniG-Project';
+      \Drupal::logger('type')->error($message);
+      throw new \RuntimeException($message);
     }
+
+    // No Project with this Nid
+    if (!$node) {
+      return ['nid' => 0];
+    }
+
+    // Title
+    $title = Helper::getFieldValue($node, 'title');
+
+    // Body
+    $description = Helper::getFieldValue($node, 'unig_description');
+
+    // Weight
+    $weight = Helper::getFieldValue($node, 'unig_weight');
+
+    // Copyright
+    $copyright = Helper::getFieldValue($node, 'unig_copyright');
+
+    // Private
+    $private = Helper::getFieldValue($node, 'unig_private');
+
+    // Category
+    $category = Helper::getFieldValue($node, 'unig_category', 'unig_category');
+    $category_id = Helper::getFieldValue($node, 'unig_category');
+    $category_list = Helper::getTermsForOptionList('unig_category');
+
+    // Tags
+    $tags = Helper::getFieldValue($node, 'unig_tags', 'unig_tags', true);
+    $tags_ids = Helper::getFieldValue($node, 'unig_tags', false, true);
+    $tags_list = Helper::getTermsForOptionList('unig_tags');
+
+    // Date
+    $date = Helper::getFieldValue($node, 'unig_date');
+    if ($date) {
+      $format = 'Y-m-d';
+      $php_date_obj = date_create_from_format($format, $date);
+    } else {
+      $php_date_obj = date_create();
+    }
+
+    // Timestamp
+    $timestamp = (int) $php_date_obj->format('U');
+
+    // Year
+    $year = $php_date_obj->format('Y');
+
+    // Date
+    $date = $php_date_obj->format('d. F Y');
+
+    // Date
+    // TODO: move date display format to settings page
+    $date_drupal = $php_date_obj->format('Y-m-d');
+
+    // Cover Image
+    $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
+
+    if (!$cover_id) {
+      $new_cover = self::setCover($project_id);
+      $cover_id = $new_cover->getTid();
+    }
+    $cover_image = self::getCoverImageVars((int) $cover_id);
+
+    // number_of_items
+    $number_of_items = self::countFilesInProject($project_id);
+
+    // Album List
+    $album_list = AlbumTrait::getAlbumList($project_id);
+
+    // url friendly title
+
+    // Always replace whitespace with the separator.
+    if (Drupal::hasService('pathauto.alias_cleaner')) {
+      $clean_string = Drupal::service('pathauto.alias_cleaner')->cleanString(
+        $title
+      );
+    } else {
+      $clean_string = preg_replace('/\s+/', '_', $title);
+    }
+
+    // Host
+    $host = Drupal::request()->getHost();
+
+    // URL
+    $url = Url::fromRoute('unig.lightgallery', [
+      'project_nid' => $project_id
+    ]);
+
+    // Twig-Variables
+    // --------------------------------------------
+    $project = [
+      'id' => $project_id,
+      'nid' => $project_id,
+      'title' => $title,
+      'title_url' => $clean_string,
+      'description' => $description,
+      'copyright' => $copyright,
+      'weight' => $weight,
+      'category' => $category,
+      'category_id' => $category_id,
+      'category_list' => $category_list,
+      'tags' => $tags,
+      'tags_ids' => $tags_ids,
+      'tags_list' => $tags_list,
+      'private' => $private,
+      'timestamp' => $timestamp,
+      'date' => $date,
+      'date_drupal' => $date_drupal,
+      'year' => $year,
+      'number_of_items' => $number_of_items,
+      'cover_id' => $cover_id,
+      'cover_image' => $cover_image,
+      'album_list' => $album_list,
+      'host' => $host,
+      'url' => $url
+    ];
 
     return $project;
   }
@@ -625,7 +635,6 @@ trait ProjectTrait
     if (isset($postReq, $postReq['project_nid'])) {
       $project_nid = $postReq['project_nid'];
     }
-
 
     $file_nids = self::getListofFilesInProject($project_nid);
     $variables = [];
@@ -766,6 +775,12 @@ trait ProjectTrait
     $entity = Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($file_nid);
+
+    if ($entity && $entity->bundle() !== 'unig_file') {
+      $message = 'Node with ' . $file_nid . ' is not an UniG-File';
+      \Drupal::logger('type')->error($message);
+      throw new \RuntimeException($message);
+    }
 
     // NID
     $nid = $entity->id();
