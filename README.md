@@ -1,20 +1,13 @@
 #### Version
-UniG 1.6.1
+UniG 1.6.2
 
 ## Todo
 
 
 
-## Ideen
-Album zu Projekt
-
-## Next
-Rewrite as Standalone Library for Crossplatform:
-- JSON API
-- Drupal
-- Wordpress
-- Electron
-
+## Planed Features
+- albums in Project
+- rewrite with vue.js
 
 ## Requirements
 
