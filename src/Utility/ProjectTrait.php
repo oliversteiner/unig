@@ -320,7 +320,7 @@ trait ProjectTrait
       $node = Node::load((int)$nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
-        $variables = CreateImageStylesTrait::createImageStyles($unig_image_id);
+        $variables = CreateImageStylesTrait::createImageStyles($unig_image_id, false, false);
       }
     }
     return $variables;
@@ -345,7 +345,7 @@ trait ProjectTrait
       $variables = CreateImageStylesTrait::createImageStyles(
         $unig_image_id,
         false,
-        true
+        false
       );
     }
     return $variables;
