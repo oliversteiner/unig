@@ -253,7 +253,7 @@ class UploadForm extends FormBase
 
     // go to Gallery Page
     $arr_args = ['project_nid' => $project_nid];
-    $form_state->setRedirect('unig.project', $arr_args);
+    $form_state->setRedirect('unig.project.admin', $arr_args);
 
     return 'submitForm';
   }

@@ -44,9 +44,11 @@ body {
   h1 {
     font-size: 16px;
   }
+
   h2 {
     font-size: 15px;
   }
+
   a,
   a:hover,
   a.link,
@@ -70,22 +72,25 @@ body {
   font-family: $font-unig;
   font-size: 14px;
 }
+
 .unig *:focus {
   outline: none;
 }
 
-.unig-edit-content  *{
+.unig-edit-content * {
   pointer-events: none;
 }
 
-.unig-default-box{
+.unig-default-box {
   padding: 1px;
 }
-.unig-default-box-textarea{
+
+.unig-default-box-textarea {
   padding: 3px;
 
 }
-.unig-input-placeholder{
+
+.unig-input-placeholder {
   color: $color-50;
 }
 
@@ -93,24 +98,27 @@ body {
 // Table
 // ========================
 
-.unig table{
+.unig table {
   margin: 0;
   padding: 5px;
 }
+
 .unig td,
-.unig th{
+.unig th {
   padding: 5px 7px;
 }
 
-.unig-info{
-color: $color-50;
+.unig-info {
+  color: $color-50;
 }
+
 // Layout
 
 .unig-row {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  border: 1px solid green; /* Debug */
 }
 
 .unig-row-start {
@@ -142,6 +150,7 @@ hr.unig {
 }
 
 .unig-toolbar {
+  border: 1px solid #aa1f99; /* Debug */
 }
 
 .unig-space {
@@ -200,6 +209,6 @@ li.lazyload-test {
   padding-right: 20px;
 }
 
-.row{
+.row {
   display: flex;
 }

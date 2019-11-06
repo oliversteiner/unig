@@ -55,7 +55,7 @@ class LightgalleryController extends ControllerBase
         '#context' => $this->getTemplateVariables($project_nid, $album_nid)
       ]
     ];
-    $build['#attached']['library'] = 'unig/unig.project';
+    $build['#attached']['library'] = 'unig/unig.project.admin';
     return $build;
   }
 

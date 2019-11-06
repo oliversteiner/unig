@@ -1152,6 +1152,11 @@ ul.unig-tags-keywords {
   display: block;
 }
 
+.unig-fieldset-item {
+  border: 1px solid red;
+  /* Debug */
+}
+
 .unig-fieldset-body.block {
   display: flex;
   justify-content: space-between;
@@ -1486,6 +1491,8 @@ ul.unig-messages li {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  border: 1px solid green;
+  /* Debug */
 }
 
 .unig-row-start {
@@ -1511,6 +1518,11 @@ hr.unig {
   border-top: solid 1px #4a4a4a;
   margin: 10px 0 0;
   padding: 10px 0 0;
+}
+
+.unig-toolbar {
+  border: 1px solid #aa1f99;
+  /* Debug */
 }
 
 .unig-space {

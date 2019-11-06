@@ -14,6 +14,6 @@
   title: Show Private Projects
   description: Allow users to show privat projects
 
-'access unig download':
-  title: Show Download UI
+'access unig user':
+  title: Show Download and search UI
   description: Allow users to show the download UI for bulk download and max resolution

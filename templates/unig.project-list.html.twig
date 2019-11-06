@@ -496,7 +496,14 @@
 
               {# ----------- Cover ----------- #}
               <div class="unig-project-cover">
-                <a href="/unig/lightgallery/{{ project.nid }}">
+
+                {% if is_member %}
+                <a href="/unig/member/{{ project.nid }}">
+
+                  {% else %}
+                  <a href="/unig/lightgallery/{{ project.nid }}">
+
+                  {% endif %}
                   <div class="unig-project-cover-background">
                     {% if project.cover_image.unig_cover.url %}
                       <div class="unig-project-cover-image">

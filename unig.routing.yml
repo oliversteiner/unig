@@ -43,7 +43,7 @@ unig.projects.category.id:
 #
 # Admin Page project detail
 #
-unig.project:
+unig.project.admin:
   path: '/unig/project/{project_nid}/{album_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::project'
@@ -52,6 +52,21 @@ unig.project:
     album_nid: null
   requirements:
     _permission: 'access unig admin'
+
+#
+# Show Download and search UI
+# Allow users to show the download UI for bulk download and max resolution
+# - UniG Member
+#
+unig.project.user:
+  path: '/unig/member/{project_nid}/{album_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::project'
+    _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
+    project_nid: null
+    album_nid: null
+  requirements:
+    _permission: 'access unig user'
 
 #
 # Admin Page project detail
