@@ -335,7 +335,7 @@ trait ProjectTrait
    * @return array
    * @throws Exception
    */
-  public static function getImageVars($nid)
+  public static function getImageVars($nid): array
   {
     $variables = [];
 
