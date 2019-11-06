@@ -43,7 +43,7 @@ unig.projects.category.id:
 #
 # Admin Page project detail
 #
-unig.project:
+unig.project.admin:
   path: '/unig/project/{project_nid}/{album_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::project'
@@ -52,6 +52,21 @@ unig.project:
     album_nid: null
   requirements:
     _permission: 'access unig admin'
+
+#
+# Show Download and search UI
+# Allow users to show the download UI for bulk download and max resolution
+# - UniG Member
+#
+unig.project.user:
+  path: '/unig/member/{project_nid}/{album_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::project'
+    _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
+    project_nid: null
+    album_nid: null
+  requirements:
+    _permission: 'access unig user'
 
 #
 # Admin Page project detail
@@ -63,7 +78,7 @@ unig.ajax.project:
     project_nid: null
     album_nid: null
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig user'
 
   #
   # Admin Page project info
@@ -74,7 +89,7 @@ unig.ajax.project.info:
     _controller: '\Drupal\unig\Controller\ProjectController::ajaxProjectInfo'
     project_nid: null
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig user'
 
 #
 # Admin Page project detail
@@ -244,7 +259,7 @@ unig.ajax.rating.save:
     _controller: '\Drupal\unig\Controller\ProjectController::ratingSave'
     _title: 'Rating'
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig user'
 #
 # term.keywords.json
 #
@@ -255,7 +270,7 @@ unig.term.keywords.json:
     _title: 'Keywords'
     project_nid: null
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig user'
 #
 # term.people.json
 #
@@ -266,7 +281,7 @@ unig.term.people.json:
     _title: 'People'
     project_nid: null
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig user'
 #
 # download.json
 #
@@ -276,7 +291,7 @@ unig.download.json:
     _controller: '\Drupal\unig\Controller\DownloadController::bulkDownload'
     _title: 'Bulk Download'
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig user'
 #
 #  ImageStyle
 #
@@ -288,4 +303,4 @@ unig.imagestyles:
     node_ids: null
     style_name: false
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig user'

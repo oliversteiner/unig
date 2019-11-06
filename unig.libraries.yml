@@ -18,7 +18,24 @@ unig.project_list:
 #
 #
 #
-unig.project:
+unig.project.admin:
+  css:
+    theme:
+      assets/css/unig_public.css: {}
+      assets/css/unig_responsive.css: {}
+  js:
+    assets/js/UnigPublic.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/jquery.once
+    - unig/unig.lightgallery
+
+#
+#
+#
+unig.project.user:
   css:
     theme:
       assets/css/unig_public.css: {}

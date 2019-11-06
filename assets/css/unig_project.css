@@ -11,105 +11,130 @@
   margin-top: 20px;
   border-bottom: 1px solid #e6e6e6;
   margin-bottom: 5px;
-  padding-bottom: 5px; }
-  .unig-project-year h2 {
-    margin: 0;
-    padding: 0; }
+  padding-bottom: 5px;
+}
+.unig-project-year h2 {
+  margin: 0;
+  padding: 0;
+}
 
 .unig-project-list-container {
   display: flex;
   align-content: flex-start;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap; }
-  .unig-project-list-container > a {
-    margin: 0;
-    padding: 0; }
+  flex-wrap: wrap;
+}
+.unig-project-list-container > a {
+  margin: 0;
+  padding: 0;
+}
 
 .unig-project-list-title {
   display: inline-block;
   margin-right: 20px;
-  font-size: 1.2em; }
+  font-size: 1.2em;
+}
 
 .unig-project-label {
-  margin-top: 5px; }
+  margin-top: 5px;
+}
 
 .unig-project-toolbar {
-  margin: 10px 0; }
+  margin: 10px 0;
+}
 
 .unig-project-list-container .unig-sortable-placeholder {
   display: inline-block;
   margin: 10px;
   padding: 20px;
   width: 140px;
-  height: 200px; }
+  height: 200px;
+}
 
 .unig-back-to-list {
-  margin: 0 10px; }
+  margin: 0 10px;
+}
 
 ul.unig-gallery li.unig-file-item:hover {
   background-color: #e6e6e6;
-  border-color: #414d47; }
+  border-color: #414d47;
+}
 
 .unig-project-date {
   font-size: 0.9em;
-  margin-right: 50px; }
+  margin-right: 50px;
+}
 
 .unig-project-number-of-items {
-  font-size: 16px; }
+  font-size: 16px;
+}
 
 .unig-project-number-of-items i {
-  color: #8f8f8f; }
+  color: #8f8f8f;
+}
 
 .unig-ajax-container-elem,
 .unig-messages-generate-images {
   padding: 10px;
   border: 1px solid #cccccc;
   margin: 5px;
-  border-radius: 4px; }
+  border-radius: 4px;
+}
 
 .unig-generate-images-currend-process-text i,
 .unig-generate-images-currend-process-text svg {
   margin-right: 5px;
-  color: gray; }
+  color: gray;
+}
 
 .unig-preview-image-process {
-  margin-left: 10px; }
+  margin-left: 10px;
+}
 
 .unig-preview-image-process-work {
-  color: #7f5930; }
+  color: #7f5930;
+}
 
 .unig-preview-image-process-done {
-  color: #0f7f34; }
+  color: #0f7f34;
+}
 
 .unig-generate-images-current-process-name {
   margin-left: 10px;
-  font-style: italic; }
+  font-style: italic;
+}
 
 .unig-generate-images-current-process-size {
   margin-left: 10px;
-  font-style: italic; }
+  font-style: italic;
+}
 
 .unig-messages-generate-images-close-trigger {
   float: right;
   margin-right: 10px;
-  color: gray; }
-  .unig-messages-generate-images-close-trigger:hover {
-    cursor: pointer;
-    color: black; }
-  .unig-messages-generate-images-close-trigger:active {
-    color: #b3b3b3; }
+  color: gray;
+}
+.unig-messages-generate-images-close-trigger:hover {
+  cursor: pointer;
+  color: black;
+}
+.unig-messages-generate-images-close-trigger:active {
+  color: #b3b3b3;
+}
 
 .unig-fa-check {
   color: #0f7f34;
-  margin-right: 5px; }
+  margin-right: 5px;
+}
 
 .unig-image-is-cover-container {
   margin-top: -36px;
   position: absolute;
   height: 30px;
   text-align: center;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 .unig-image-is-cover,
 .unig-set-project-cover-button,
@@ -120,149 +145,186 @@ ul.unig-gallery li.unig-file-item:hover {
   text-align: center;
   font-size: 0.8em;
   letter-spacing: 0.05em;
-  height: 30px; }
+  height: 30px;
+}
 
 .unig-image-is-cover.active {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5); }
+  background: rgba(0, 0, 0, 0.5);
+}
 
 .unig-set-project-cover-button {
-  display: none; }
+  display: none;
+}
 
 .unig-set-project-cover-button.active {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0; }
+  opacity: 0;
+}
 
 .unig-set-project-cover-button.active:hover {
   opacity: 1;
   background: rgba(0, 0, 0, 0.5);
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .unig-set-project-cover-process.active {
   display: flex;
   background: rgba(0, 0, 0, 0.5);
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+}
 
 .unig-images-small .unig-image-is-cover-container {
-  width: 150px; }
+  width: 150px;
+}
 .unig-images-small .unig-image-is-cover,
 .unig-images-small .unig-set-project-cover-button,
 .unig-images-small .unig-set-project-cover-process {
-  width: 150px; }
+  width: 150px;
+}
 
 .unig-images-medium .unig-image-is-cover-container {
-  width: 220px; }
+  width: 220px;
+}
 .unig-images-medium .unig-image-is-cover,
 .unig-images-medium .unig-set-project-cover-button,
 .unig-images-medium .unig-set-project-cover-process {
-  width: 220px; }
+  width: 220px;
+}
 
 .unig-images-big .unig-image-is-cover-container {
-  width: 460px; }
+  width: 460px;
+}
 .unig-images-big .unig-image-is-cover,
 .unig-images-big .unig-set-project-cover-button,
 .unig-images-big .unig-set-project-cover-process {
-  width: 460px; }
+  width: 460px;
+}
 
 .unig-project .unig-button-project-edit {
   background-color: transparent;
   margin-left: 10px;
-  top: -5px; }
+  top: -5px;
+}
 
 .unig-project .unig-project-title {
-  display: inline-block; }
+  display: inline-block;
+}
 
 .unig-project area.unig-project-title {
-  width: 210px; }
+  width: 210px;
+}
 
 .unig-project-title-trigger {
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .unig-button-project-edit-wrapper {
-  display: inline-block; }
+  display: inline-block;
+}
 
 .unig-project label {
   display: inline-block;
   min-width: 70px;
-  vertical-align: top; }
+  vertical-align: top;
+}
 
 .unig-edit-project-col-1,
 .unig-edit-project-col-2 {
   border-right: 1px solid #d6d6d6;
-  margin-right: 10px; }
+  margin-right: 10px;
+}
 
 .unig-project .unig-edit-project-title,
 .unig-project .unig-edit-project-date,
 .unig-project .unig-edit-project-copyright {
-  margin-bottom: 10px; }
-  .unig-project .unig-edit-project-title label,
-  .unig-project .unig-edit-project-date label,
-  .unig-project .unig-edit-project-copyright label {
-    margin-top: 4px; }
+  margin-bottom: 10px;
+}
+.unig-project .unig-edit-project-title label,
+.unig-project .unig-edit-project-date label,
+.unig-project .unig-edit-project-copyright label {
+  margin-top: 4px;
+}
 
 .unig-fieldset-item .unig-project-description,
 .unig-fieldset-item .unig-edit-project-copyright {
-  color: #8f8f8f; }
+  color: #8f8f8f;
+}
 
 .unig-project-description {
   max-width: 500px;
-  margin: 0 20px; }
+  margin: 0;
+}
 
 .unig-project-container-delete {
-  margin-top: 50px; }
+  margin-top: 50px;
+}
 
 .unig-project-delete-confirm-message {
-  padding: 10px 0; }
-  .unig-project-delete-confirm-message i,
-  .unig-project-delete-confirm-message svg {
-    color: #ffbd57;
-    margin-right: 4px; }
+  padding: 10px 0;
+}
+.unig-project-delete-confirm-message i,
+.unig-project-delete-confirm-message svg {
+  color: #ffbd57;
+  margin-right: 4px;
+}
 
 .unig-button-project-delete {
   color: #a2132b;
   border-color: transparent;
-  background-color: transparent; }
-  .unig-button-project-delete:hover {
-    background-color: #bf9f9d;
-    border-color: #ffb4aa;
-    color: #ffe6e5; }
-  .unig-button-project-delete:active {
-    background-color: #bf9f9d;
-    border-color: #ffb4aa;
-    color: #ffe6e5; }
+  background-color: transparent;
+}
+.unig-button-project-delete:hover {
+  background-color: #bf9f9d;
+  border-color: #ffb4aa;
+  color: #ffe6e5;
+}
+.unig-button-project-delete:active {
+  background-color: #bf9f9d;
+  border-color: #ffb4aa;
+  color: #ffe6e5;
+}
 
 .unig-file-description,
 .unig-file-description textarea,
 .unig-file-title input {
-  text-align: center; }
+  text-align: center;
+}
 
 .unig-file-description {
   max-width: 220px;
-  color: gray; }
+  color: gray;
+}
 
 .unig-file-description .unig-input-placeholder {
   font-size: 0.7em;
-  color: #8f8f8f; }
+  color: #8f8f8f;
+}
 
 .unig-process-spinner {
-  color: gray; }
+  color: gray;
+}
 
 .unig-process-success {
-  color: #0f7f34; }
+  color: #0f7f34;
+}
 
 .unig-process-error {
-  color: #a2132b; }
+  color: #a2132b;
+}
 
 .unig-project-private-status.private .unig-fieldset-project {
   border-top: solid 5px #6a7fc4;
-  padding-top: 10px; }
+  padding-top: 10px;
+}
 
 .unig-project-private-status.private .unig-project-public-private {
-  color: #1d4281; }
+  color: #1d4281;
+}
 
 /*# sourceMappingURL=unig_project.css.map */

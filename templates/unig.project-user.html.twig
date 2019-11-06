@@ -1,0 +1,685 @@
+{% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
+
+{# Unig Main #}
+<div id="unig-main" class="unig unig-project unig-project-user unig-project-nid"
+     data-unig-project-nid="{{ project.nid }}">
+
+  {# Unig Header #}
+  <div class="unig-header">
+
+
+    {# Toolbar - Project #}
+    <div
+      class="unig-project-{{ project.nid }} unig-toolbar unig-toolbar-info unig-project-normal-container-{{ project.nid }} unig-project-private-status {% if project.private %} private {% endif %}"
+      style="display: block">
+
+      {# Toolbar Header #}
+      <div class="unig-toolbar-header">
+        {# Title #}
+        <div class="unig-toolbar-title"></div>
+      </div> {# Toolbar Header #}
+
+      {# Toolbar Body #}
+      <div class="unig-toolbar-body block">
+
+        {# Fieldset bank #}
+        <div class="unig-fieldset unig-fieldset-project block">
+
+          {# Header #}
+          <div class="unig-fieldset-header">
+            <div class="unig-fieldset-title"></div>
+          </div>
+
+          {# Body #}
+          <div class="unig-fieldset-body block">
+
+            {# Left #}
+            <div class="unig-fieldset-item">
+              <div>
+
+                {#  -----------   Category  -----------  #}
+                <div class="unig-project-category">
+                  {{ project.category }}
+                </div>
+
+                {#  -----------   Title  -----------  #}
+                <div class="unig-project-title">
+                  <h2 class="unig-project-title">
+                    {{ project.title }}
+                  </h2>
+                </div>
+              </div>
+
+            </div>{# fieldset-item left #}
+
+            {# Middle #}
+            <div class="unig-fieldset-item">
+              {#  -----------   Description  -----------  #}
+              <div class="unig-project-description">
+                {{ project.description }}
+              </div>
+            </div>{# fieldset-item Middle #}
+
+            {# Right #}
+            <div class="unig-fieldset-item">
+
+
+              <div class="unig-row">
+
+                {# ----------- Number of Items ----------- #}
+                <div class="unig-project-number-of-items">
+                  <i class="fas fa-image" aria-hidden="true"></i>
+                  <span class="number_of_visible">{{ project.number_of_items }}</span>
+                </div>
+
+                {# ----------- Private ----------- #}
+                <div class="unig-project-public-private">
+
+                  {% if project.private %}
+                    {% set title_private =  "Dieses Projekt ist privat" %}
+                    <i class="fas fa-lock"></i>
+                  {% else %}
+                    {% set title_private = "Dieses Projekt ist öffentlich" %}
+                    <i class="fas fa-lock-open"></i>
+                  {% endif %}
+
+                </div>
+
+                {#  -----------   Prozess Indicator -----------  #}
+                <div class="unig-project-{{ project.nid }}">
+
+                      <span class="unig-toolbar-icon ">
+                     <span class="unig-process-spinner" style="display: none"> <i
+                         class="fas fa-spinner fa-spin" aria-hidden="true"></i></span>
+                     <span class="unig-process-success" style="display: none"> <i
+                         class="fas fa-check" aria-hidden="true"></i></span>
+                     <span class="unig-process-error" style="display: none"> <i
+                         class="fas fa-exclamation-triangle" aria-hidden="true"></i></span>
+                      </span>
+
+                </div>
+
+              </div> {# row #}
+
+
+              {#  -----------   Date  -----------  #}
+              <div class="unig-project-date">
+                {{ project.date }}
+              </div>
+
+              {#  -----------   Copyright  -----------  #}
+              <div class="unig-project-copyright">
+                {{ project.copyright }}
+              </div>
+
+
+            </div> {# fieldset-item right #}
+
+          </div> {# fieldset-body #}
+
+          {# Fieldset Footer #}
+          <div class="unig-fieldset-footer"></div> {# fieldset-footer #}
+
+
+        </div> {# / Fieldset #}
+
+      </div>{# Toolbar Body #}
+
+      {# Toolbar Footer #}
+      <div class="unig-toolbar-footer"></div> {# Toolbar Footer #}
+
+    </div> {# Toolbar - Project #}
+
+    {# Toolbar - Debug #}
+    <div class="unig-toolbar unig-toolbar-debug">
+      <div class="unig-fieldset-debug">
+        <div class="row">
+          {#
+                    <div class="unig-button open-download-message-box-trigger">open message box</div>
+          #}
+        </div>
+      </div>
+    </div> {# Toolbar - debug #}
+
+    {# Toolbar - General #}
+    <div class="unig-toolbar unig-toolbar-general">
+
+
+      {# Fieldset - Keywords #}
+      <div class="unig-fieldset no-border unig-fieldset-keywords">
+
+        {# Button Keywords #}
+        <div class="unig-button unig-button-toolbar-keywords-toggle unig-toolbar-keywords-toggle-trigger">
+          <i class="fas fa-key" aria-hidden="true"></i>
+          <span class="unig-keywords-display"></span>
+        </div>
+
+        {# Button People #}
+        <div class="unig-button unig-button-toolbar-people-toggle unig-toolbar-people-toggle-trigger">
+          <i class="fas fa-user" aria-hidden="true"></i>
+          <span class="unig-people-display"></span>
+        </div>
+      </div>
+
+      {# Fieldset - Downloads #}
+      <div class="unig-fieldset no-border unig-fieldset-downloads">
+
+        {# Button downloads #}
+        <div class="unig-button unig-toolbar-download-toggle unig-toolbar-download-toggle-trigger">
+          <i class="fas fa-download" aria-hidden="true"></i>
+          <span class="unig-dl-number-of">0</span>
+        </div>
+      </div>
+
+      {# Fieldset - Modus #}
+      <div class="unig-fieldset no-border unig-fieldset-modus">
+
+        {# Button Edit #}
+        <div class="unig-button unig-button-files-edit unig-project-edit-trigger" style="display: none">
+          <i class="fas fa-edit" aria-hidden="true"></i>
+          {% trans %} Edit {% endtrans %}
+        </div>
+
+        {# Button Preview #}
+        <a role="button" class="unig-button unig-button-files-preview"
+           href="/unig/lightgallery/{{ project.nid }}">
+          <i class="fas fa-image" aria-hidden="true"></i>
+          {% trans %} Preview {% endtrans %}
+        </a>
+      </div>
+
+
+      {# Fieldset - Image Size #}
+      <div class="unig-fieldset no-border unig-fieldset-image-size unig-button-group">
+
+        {# Button Image Size - Small - 110 px #}
+        <div class="unig-button unig-button-image-size unig-button-image-size-small unig-image-size-small-trigger ">
+          <i class=" icon-image-size-small"></i>
+        </div>
+
+        {# Button Image Size - Medium - 220 px #}
+        <div
+          class="unig-button unig-button-image-size unig-button-image-size-medium unig-image-size-medium-trigger active">
+          <span class=" icon-image-size-medium"></span>
+        </div>
+
+        {# Button Image Size - Big - 480 px #}
+        <div class="unig-button unig-button-image-size unig-button-image-size-big unig-image-size-big-trigger ">
+          <span class="icon-image-size-big"></span>
+        </div>
+
+      </div>
+
+
+    </div> {# Toolbar - general #}
+
+    {# Toolbar - Download #}
+    <div class="unig-toolbar unig-toolbar-download" style="display: none">
+
+      <div>
+        <div class="unig-dl-info-head">
+          {% trans %} Files: {% endtrans %} <span class="unig-dl-number-of">0</span>
+
+        </div>
+        <div class="unig-dl-info-body">
+          <div>
+
+
+            {# Button Clear Download List  #}
+            <div class="unig-button unig-button-small  unig-button-download-add-all-to-list-trigger">
+              <i class="fas fa-th" aria-hidden="true"></i>
+              <span class="number_of_visible"></span>
+
+              {% trans %} Add all files {% endtrans %}
+            </div>
+
+            {# Button Clear Download List  #}
+            <div class="unig-button unig-button-small  unig-button-download-clear-list-trigger">
+              <i class="fas fa-times" aria-hidden="true"></i>
+              {% trans %} Remove All  {% endtrans %}
+            </div>
+          </div>
+          <div class="unig-toolbox">
+            <table class="unig-bulk-download-table">
+
+              {# SD #}
+              <tr role="button" class="unig-bulk-download-sd-trigger">
+                <td class="unig-file-download-table-label">SD</td>
+                <td class="unig-file-download-table-width">720&thinsp;px</td>
+                <td class="unig-file-download-table-size">
+                  <span class="unig-file-download-table-size-sd">0 MB</span>
+                </td>
+                <td class="unig-file-download-table-icon">
+                  <i class="fas fa-download" aria-hidden="true"></i>
+                </td>
+
+              </tr>
+
+              {# HD #}
+              <tr role="button" class="unig-bulk-download-hd-trigger">
+                <td class="unig-file-download-table-label">HD</td>
+                <td class="unig-file-download-table-width">1920&thinsp;px</td>
+                <td class="unig-file-download-table-size">
+                  <span class="unig-file-download-table-size-hd">0 MB</span>
+                </td>
+                <td class="unig-file-download-table-icon">
+                  <i class="fas fa-download" aria-hidden="true"></i>
+                </td>
+
+              </tr>
+
+              {# XL #}
+              <tr role="button" class="unig-bulk-download-xl-trigger">
+                <td class="unig-file-download-table-label">XL</td>
+                <td class="unig-file-download-table-width">4500&thinsp;px</td>
+                <td class="unig-file-download-table-size">
+                  <span class="unig-file-download-table-size-xl">0 MB</span>
+                </td>
+                <td class="unig-file-download-table-icon"><i class="fas fa-download"
+                                                             aria-hidden="true"></i>
+                </td>
+
+              </tr>
+            </table>
+          </div>
+
+          {# Messages #}
+          <div class="unig-bulk-download-message-container">
+            <div>
+
+              <div class="unig-message-box-header">
+                <div class="unig-message-box-close-trigger">
+                  <i class="fas fa-times-circle" aria-hidden="true"></i>
+                </div>
+              </div>
+
+              <div class="unig-message-box-picto">
+              </div>
+
+              <div class="unig-message-box-body">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        {# Download Footer #}
+        <div class="unig-dl-info-footer">
+        </div>
+      </div>
+
+      {# Download Thumbnails #}
+      <div class="unig-dl-thumbnails">
+        {# Placeholder for Thumbnails #}
+      </div>
+
+    </div> {# Toolbar - Download #}
+
+    {# Toolbar - Keywords #}
+    <div class="unig-toolbar unig-toolbar-keywords" style="display: none">
+      <div class="unig-toolbar-head">
+
+        {# title #}
+        <div class="unig-toolbar-head-title">
+          <i class="fas fa-key" aria-hidden="true"></i>
+          Keywords
+        </div>
+
+        {# space #}
+        <div class="unig-space"></div>
+
+        {# seperator #}
+        <div class="unig-seperator"></div>
+
+        {# search #}
+        <div class="unig-toolbar-head-search">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input type="text" name="unig-keywords-autocomplete"
+                 placeholder="{% trans %} search {% endtrans %}">
+        </div>
+
+      </div>
+      <div class="unig-toolbar-body">
+        <div class="unig-toolbar-keywords-tags-container">
+          {# Placeholder for tags#}
+        </div>
+      </div>
+
+      {# Button Show Keywords on Files #}
+      <div class="unig-toolbar-footer">
+        <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
+          <i class="fas fa-list" aria-hidden="true"></i>
+          Show Keywords on Files
+        </div>
+      </div>
+
+    </div> {# Toolbar - Keywords #}
+
+    {# Toolbar - People #}
+    <div class="unig-toolbar unig-toolbar-people" style="display: none">
+
+      <div class="unig-toolbar-head"></div>
+      <div class="unig-toolbar-body">
+        <div class="unig-toolbar-people-tags-container">
+          {# Placeholder for tags#}
+        </div>
+      </div>
+      <div class="unig-toolbar-footer">
+        <div class="unig-button unig-button-people-toggle-all">
+          <i class="fas fa-key" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div> {# Toolbar - People #}
+
+    {# --------------- Ajax Message  --------------- #}
+    <div class="unig-messages-container">
+      <ul class="unig-messages">
+      </ul>
+    </div>
+
+    {# --------------- Ajax Messages Generate Images  --------------- #}
+    <div class="unig-messages-generate-images" style="display: none">
+      {# Text #}
+      <span class="unig-generate-images-currend-process-text">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans %} Generate preview images: {% endtrans %}
+                    <span class="unig-preview-image-counter">0</span>
+                    {% trans %} of {% endtrans %}
+                    <span class="unig-preview-image-number-of-images">0</span>.
+                </span>
+
+      {# Process Indicator #}
+      <span class="unig-preview-image-process">
+                    <span class="unig-preview-image-process-work"><i class="fas fa-spinner fa-spin"></i></span>
+                    <span class="unig-preview-image-process-done" style="display: none"><i
+                        class="fas fa-check"></i></span>
+                </span>
+
+      {# Current Image in Work Name#}
+      <span class="unig-generate-images-current-process-name">Name</span>
+
+      {# Current Image in Work Size#}
+      <span class="unig-generate-images-current-process-size">Size</span>
+
+      <span class="unig-messages-generate-images-close-trigger"> <i class="fas fa-times"></i></span>
+
+    </div>
+
+  </div> {# Unig Header #}
+
+  {# Unig Body #}
+  <div class="unig-body">
+
+    <div class="unig">
+      <ul class="unig-gallery unig-images-medium" id="lightgallery-{{ project.nid }}">
+
+        <input type="hidden" id="unig-project-nid" value="{{ project.nid }}">
+
+        {% for file in files %}
+
+          <li class="unig-file-item unig-file-edit unig-file-{{ file.nid }}"
+              id="unig-file-{{ file.nid }}" data-unig-file-nid="{{ file.nid }}">
+
+            {# hidden inputs #}
+            <div>
+              <input type="hidden" id="is-marked-{{ file.nid }}" name="is-market-{{ file.nid }}"
+                     value="0">
+            </div>
+
+            <div>
+
+
+              {# ----------- HEAD ----------- #}
+              <div class="unig-file-head">
+
+                {# ----------- Download Mark ----------- #}
+                <div
+                  class="unig-file-picto unig-file-head-item unig-file-download-mark unig-file-download-mark-trigger">
+                  <i class="fas fa-bookmark" aria-hidden="true"></i>
+                </div>
+
+                {# ----------- Rating ----------- #}
+                <div class="unig-file-head-item unig-file-rating">
+
+                  {# thumbs-down #}
+                  <span class="unig-file-picto unig-file-rating-down unig-file-rating-down-trigger">
+                                        <i class="fas fa-thumbs-down" aria-hidden="true"></i>
+                                    </span>
+
+                  {# badge #}
+                  <span
+                    class="unig-file-item-info unig-file-rating-badge {% if file.rating != 0 %} active {% endif %}">{% if file.rating != 0 %} {{ file.rating }} {% endif %}</span>
+
+                  {# thumbs-up #}
+                  <span class="unig-file-picto unig-file-rating-up unig-file-rating-up-trigger">
+                    <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+                  </span>
+
+                  {# Hidden Input #}
+                  <input class="unig-file-rating-input" name="file_rating" type="hidden"
+                         value="{{ file.rating }}">
+                </div>
+
+                {# ----------- Info ----------- #}
+                <div class="unig-file-head-item unig-file-head-info">
+                </div>
+
+              </div>
+
+              {#  -----------   Image  -----------  #}
+              <div class="lightgallery-item"
+                   id="unig-lightgallery-placeholder-{{ file.nid }}"
+                   data-sub-html="{{ file.title }}"
+                   data-src="{{ file.image.unig_hd.url }}">
+
+                {% if file.label is not empty %}
+                  <div class="field-label">
+                    <label>{{ file.field_label }}</label>
+                  </div>
+                {% endif %}
+                <div class="field-content">
+
+                  <div class="unig-image-background unig-lazyload-container">
+                    <div class="unig-lazyload-placeholder"
+                         id="unig-lazyload-placeholder-{{ file.nid }}">
+                      <i class="fas fa-image" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              {#  -----------   Title  -----------  #}
+              <div class="unig-file-title">
+                {{ file.title }}
+              </div>
+
+
+              {#  -----------   Description  -----------  #}
+              <div class="unig-file-description">
+                {{ file.description }}
+              </div>
+
+
+              {#  -----------   MIDDLE  -----------  #}
+              <div class="unig-file-middle ">
+
+                <div class="unig-file-middle-toolbox">
+
+                  {#  -----------   keywords button  -----------  #}
+                  <span class="unig-toolbox-button unig-file-picto unig-file-keywords-toolbox-trigger">
+                                        <i class="fas fa-key" aria-hidden="true"></i>
+                                    </span>
+
+                  {#  -----------   people button  -----------  #}
+                  <span class="unig-toolbox-button unig-file-picto unig-file-people-toolbox-trigger">
+                                        <i class="fas fa-user" aria-hidden="true"></i>
+                                    </span>
+
+                  {#  -----------   Download button  -----------  #}
+                  <span class="unig-toolbox-button unig-file-picto  unig-file-download-toolbox-trigger">
+                                        <i class="fas fa-download" aria-hidden="true"></i>
+                                    </span>
+
+                  {#  -----------   Meta Info button  -----------  #}
+                  <span class="unig-toolbox-button unig-file-picto unig-file-metainfo-toolbox-trigger">
+                                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                    </span>
+
+                </div>
+              </div>
+
+
+              {#  -----------   Toolbox Meta Info  -----------  #}
+              <div class="unig-toolbox  unig-file-metainfo-toolbox" style="display: none">
+                <table>
+                  <tr>
+                    <th colspan="2">{{ file.image.original.name }}</th>
+                  </tr>
+                  <tr>
+                    <th>{% trans %} Size {% endtrans %}
+
+                    </th>
+                    <td>{{ file.image.original.file_size_formatted }}</td>
+                  </tr>
+                  <tr>
+                    <th>{% trans %} Width {% endtrans %}
+
+                    </th>
+                    <td>{{ file.image.original.width }} px</td>
+                  </tr>
+                  <tr>
+                    <th>{% trans %} Height {% endtrans %}
+
+                    </th>
+                    <td>{{ file.image.original.height }} px</td>
+                  </tr>
+                </table>
+              </div>
+
+
+              {#  -----------   Toolbox Download List  -----------  #}
+              <div class="unig-toolbox  unig-file-download-toolbox" style="display: none">
+
+                <table class="unig-file-download-table">
+
+                  {# add to download list #}
+                  <tr role="button" class="unig-file-download-mark-trigger">
+                    <td class="unig-file-download-table-label"><i class="fas fa-bookmark"
+                                                                  aria-hidden="true"></i></td>
+                    <td class="unig-file-download-table-text" colspan="3">
+                      <span class="unig-file-download-mark-add">{% trans %} Add to download list{% endtrans %}</span>
+                      <span class="unig-file-download-mark-remove"
+                            style="display: none">{% trans %} Remove from download list{% endtrans %}</span>
+
+                    </td>
+                  </tr>
+
+                  {# SD #}
+                  <tr role="button" class="unig-file-download-trigger"
+                      data-unig-file-url="{{ file.image.unig_sd.url }}"
+                      data-size="sd">
+                    <td class="unig-file-download-table-label">SD</td>
+                    <td class="unig-file-download-table-width">
+                      {{ file.image.unig_sd.width }}&thinsp;px
+                    </td>
+                    <td class="unig-file-download-table-size">
+                      <span class="unig-file-download-table-size-sd">{{ file.image.unig_sd.file_size_formatted }}</span>
+                    </td>
+                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
+                                                                 aria-hidden="true"></i>
+                    </td>
+
+                  </tr>
+
+                  {# HD #}
+                  <tr role="button" class="unig-file-download-trigger"
+                      data-unig-file-url="{{ file.image.unig_hd.url }}"
+                      data-size="hd">
+                    <td class="unig-file-download-table-label">HD</td>
+                    <td class="unig-file-download-table-width">
+                      {{ file.image.unig_hd.width }}&thinsp;px
+                    </td>
+                    <td class="unig-file-download-table-size">
+                      <span class="unig-file-download-table-size-hd">{{ file.image.unig_hd.file_size_formatted }}</span>
+                    </td>
+                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
+                                                                 aria-hidden="true"></i>
+                    </td>
+
+                  </tr>
+
+                  {# XL #}
+                  <tr role="button" class="unig-file-download-trigger"
+                      data-unig-file-url="{{ file.image.original.url }}"
+                      data-size="xl">
+                    <td class="unig-file-download-table-label">XL</td>
+                    <td class="unig-file-download-table-width">
+                      {{ file.image.original.width }}&thinsp;px
+                    </td>
+                    <td class="unig-file-download-table-size">
+                      <span
+                        class="unig-file-download-table-size-xl">{{ file.image.original.file_size_formatted }}</span>
+                    </td>
+                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
+                                                                 aria-hidden="true"></i>
+                    </td>
+
+                  </tr>
+                </table>
+              </div>
+
+
+              {#  -----------   Toolbox Keyword  -----------  #}
+              <div class="unig-toolbox unig-file-keywords-toolbox" style="display: none">
+
+                {#  Keywords  #}
+                {% if file.keywords is not empty %}
+
+                  {# Title #}
+                  <span class="unig-toolbox-tag-title-picto">
+                                    <i class="fas fa-key" aria-hidden="true"></i></span>
+
+                  {# Items #}
+                  {% for  keyword in file.keywords %}
+                    <span class="unig-tag unig-keyword unig-keyword-trigger unig-keyword-id-{{ keyword.id }}"
+                          data-id="{{ keyword.id }}">{{ keyword.name }}</span>
+                  {% endfor %}
+                {% endif %}
+              </div>
+
+
+              {#  -----------   Toolbox People -----------  #}
+              <div class="unig-toolbox unig-file-people-toolbox" style="display: none">
+
+                {#  People  #}
+                {% if file.people is not empty %}
+
+                  {# Title #}
+                  <span class="unig-toolbox-tag-title-picto">
+                                    <i class="fas fa-user" aria-hidden="true"></i></span>
+
+                  {# Items #}
+                  {% for  people in file.people %}
+                    <span
+                      class="unig-tag unig-keyword-people unig-keyword-people-tag-id-{{ people.id }}">{{ people.name }}</span>
+                  {% endfor %}
+                {% endif %}
+
+
+              </div>
+
+            </div>
+          </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div> {# Unig Body #}
+
+  {# Unig Footer #}
+  <div class="unig-footer">
+  </div> {# Unig Footer #}
+
+</div> {# Unig Main #}

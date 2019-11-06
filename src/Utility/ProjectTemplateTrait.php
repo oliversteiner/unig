@@ -57,10 +57,11 @@ trait projectTemplateTrait
     ] = $this->getProjectVariables($project_nid, $album_nid);
 
     // Adding JS Library depends of admin or not
-    if (Drupal::currentUser()->hasPermission('access unig admin')) {
+    if (Drupal::currentUser()->hasPermission('access unig admin') ||
+      Drupal::currentUser()->hasPermission('access unig user')) {
       $build['#attached']['library'] = 'unig/unig.admin.project';
     } else {
-      $build['#attached']['library'] = 'unig/unig.project';
+      $build['#attached']['library'] = 'unig/unig.project.admin';
     }
 
     return $build;
@@ -114,7 +115,20 @@ trait projectTemplateTrait
    */
   protected function getProjectPath(): string
   {
+    $user = Drupal::currentUser();
+    $template = 'unig.lightgallery.html.twig';
+
+    // User is logged in
+    if ($user->hasPermission('access unig user')) {
+      $template = 'unig.project-user.html.twig';
+    }
+
+    // User is Admin
+    if ($user->hasPermission('access unig admin')) {
+      $template = 'unig.project.html.twig';
+    }
+
     return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/unig.project.html.twig';
+      '/templates/'.$template;
   }
 }
