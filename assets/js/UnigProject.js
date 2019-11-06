@@ -2,6 +2,26 @@
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProject = {
+    extractKeywords() {
+      const projectNid = this.getProjectNid();
+      console.log('Extracts Keywords', projectNid);
+
+
+
+      const url = `/unig/process/extract-keyword/${projectNid}/`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(json => {
+          // Set message to ajax container
+          const text = json.messages[0][0];
+          const type = json.messages[0][1];
+          Drupal.behaviors.unigMessages.addMessage(text, type);
+
+        });
+
+    },
+
     toggleToolbox(nid, name) {
       // toggle Div
       const $target = $(`#unig-file-${nid} .unig-file-${name}-toolbox`);
@@ -69,11 +89,9 @@
       const form = elemTarget.dataset.unigForm;
 
       if (form === 'option_list') {
-
         Drupal.behaviors.unigAdmin.optionList(nid, field, mode);
       } else {
-
-      //  Drupal.behaviors.unigAdmin.edit(nid, field, mode);
+        //  Drupal.behaviors.unigAdmin.edit(nid, field, mode);
       }
     },
 
@@ -328,8 +346,14 @@
             $formElemProjectNid.val(projectNid);
           });
 
+          // Generate Previews
           $('.unig-generate-preview-images-trigger', context).click(() => {
             Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
+          });
+
+          // Extract Keywords
+          $('.unig-extract-keywords-trigger', context).click(() => {
+            scope.extractKeywords();
           });
 
           const projectNid = scope.getProjectNid();

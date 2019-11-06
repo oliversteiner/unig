@@ -304,3 +304,14 @@ unig.imagestyles:
     style_name: false
   requirements:
     _permission: 'access unig user'
+
+#
+# Content > Universal Gallery > List Projects
+#
+unig.process.extract-keyword:
+  path: '/unig/process/extract-keyword/{project_nid}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\ProjectController::extractKeyword'
+    project_nid: null
+  requirements:
+    _permission: 'access unig admin'

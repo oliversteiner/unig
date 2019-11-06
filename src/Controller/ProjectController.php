@@ -97,6 +97,16 @@ class ProjectController extends ControllerBase
     return $response;
   }
 
+  public function extractKeyword(): JsonResponse
+  {
+
+    $output = new OutputController();
+
+    $output->setMessages('test', 'info');
+
+    return $output->json();
+  }
+
   /**
    * @return JsonResponse
    */
