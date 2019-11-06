@@ -823,10 +823,6 @@
 #unig-main.unig-theme-dark .unig-fieldset.block {
   display: block;
 }
-#unig-main.unig-theme-dark .unig-fieldset-item {
-  border: 1px solid red;
-  /* Debug */
-}
 #unig-main.unig-theme-dark .unig-fieldset-body.block {
   display: flex;
   justify-content: space-between;
