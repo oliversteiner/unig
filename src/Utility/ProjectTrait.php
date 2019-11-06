@@ -320,7 +320,11 @@ trait ProjectTrait
       $node = Node::load((int)$nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
-        $variables = CreateImageStylesTrait::createImageStyles($unig_image_id, false, false);
+        $variables = CreateImageStylesTrait::createImageStyles(
+          $unig_image_id,
+          false,
+          false
+        );
       }
     }
     return $variables;
@@ -701,51 +705,89 @@ trait ProjectTrait
   /**
    * @param      $project_nid
    * @param null $album_nid
+   * @return array
    */
   public static function importKeywordsFromProject(
     $project_nid,
     $album_nid = null
-  )
+  ): array
   {
+    $list = [];
     $nids = self::getListofFilesInProject($project_nid, $album_nid);
 
+    // read Keywords of every Files in Project
     foreach ($nids as $nid) {
-      self::importKeywordsFromNode($nid);
+      $result = self::importKeywordsFromNode($nid);
+      if ($result) {
+        $list[] = $result;
+      }
     }
+
+    // return list of images id with keywords
+    return $list;
   }
 
-  public static function importKeywordsFromNode($nid)
+  /**
+   * @param $nid
+   * @return bool|null
+   */
+  public static function importKeywordsFromNode($nid): ?bool
   {
     // File
     $entity = Node::load($nid);
-    $file_id = $entity->get('field_unig_image')->target_id;
-    $title = $entity->getTitle();
+    if (!empty($entity)) {
+      $file_id = $entity->get('field_unig_image')->target_id;
+      if ($file_id) {
+        // IPTC
+        $iptc = new IptcController($file_id);
+        // dpm($iptc);
+        $keywords = $iptc->getKeywordTermIDs();
+        $people = $iptc->getPeopleTermIds();
 
-    // IPTC
-    $iptc = new IptcController($file_id);
-    $keywords = $iptc->getKeywordTermIDs();
-    $people = $iptc->getPeopleTermIds();
+        $keywords = $iptc->getKeywords();
+        $people = $iptc->getPeopleNames();
 
-    // Keywords
-    if (!empty($keywords)) {
-      $value_keywords = [];
-      foreach ($keywords as $keyword) {
-        $value_keywords[] = ['target_id' => $keyword];
+
+        // Keywords
+        if (!empty($keywords)) {
+          $value_keywords = [];
+          foreach ($keywords as $keyword) {
+            $value_keywords[] = ['target_id' => $keyword];
+          }
+          $entity->set('field_unig_keywords', $value_keywords) ;
+        }
+
+        // People
+        if (!empty($people)) {
+          $value_people = [];
+          foreach ($people as $dude) {
+            $value_people[] = ['target_id' => $dude];
+          }
+          $entity->field_unig_people = $value_people;
+        }
+
+        // Save
+
+        try {
+          $entity->save();
+          if (!empty($value_people) || !empty($value_keywords)) {
+            return $nid;
+          }
+          return false;
+        } catch (EntityStorageException $e) {
+          return false;
+        }
+      } else {
+        $message = 'importKeywordsFromNode: no Image found in Node ' . $nid;
+        Drupal::logger('unig')->warning($message);
+        return false;
       }
-      $entity->field_unig_keywords = $value_keywords;
-    }
 
-    // People
-    if (!empty($people)) {
-      $value_people = [];
-      foreach ($people as $dude) {
-        $value_people[] = ['target_id' => $dude];
-      }
-      $entity->field_unig_people = $value_people;
+    } else {
+      $message = 'importKeywordsFromNode: invalid NID';
+      Drupal::logger('unig')->warning($message);
+      return false;
     }
-
-    // Save
-    $entity->save();
   }
 
   /**

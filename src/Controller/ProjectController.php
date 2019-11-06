@@ -97,14 +97,40 @@ class ProjectController extends ControllerBase
     return $response;
   }
 
-  public function extractKeyword(): JsonResponse
+  public static function extractKeyword($project_nid): JsonResponse
   {
-
     $output = new OutputController();
 
-    $output->setMessages('test', 'info');
+    $list = self::importKeywordsFromProject($project_nid);
+
+    if ($list && count($list) !== 0) {
+      $number_of_images_with_keywords = count($list);
+      $output->setMessages(
+        'Found Keywords in ' . $number_of_images_with_keywords . ' Images',
+        'info'
+      );
+    } else {
+      $output->setMessages('No Keywords found', 'warning');
+    }
 
     return $output->json();
+  }
+
+  public static function extractKeywordTest($nid): array
+  {
+    $version = 3;
+    $result = self::importKeywordsFromNode($nid);
+
+    return [
+      '#markup' =>
+        '
+   <p>Version: ' .
+        $version .
+        '</p>
+   <p>extractKeywordTestAction: ' .
+        $result .
+        '</p>'
+    ];
   }
 
   /**
