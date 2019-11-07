@@ -28,6 +28,81 @@
 
     $bulkDownloadMessageContainer: $('.unig-bulk-download-message-container'),
 
+    updateFiles() {
+      $('.unig-button-download-add-current-to-list').hide();
+
+      Drupal.behaviors.unigPeople.Visible = [];
+      const peopleIds = Drupal.behaviors.unigData.peopleStorage.get();
+      const keywordIds = Drupal.behaviors.unigData.keywordsStorage.get();
+      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
+      const fullList = Drupal.behaviors.unigData.FileList.list;
+
+      if (peopleIds.length > 0) {
+        // hide all files with this tag
+        // const peopleList = Drupal.behaviors.unigData.FileList.findKeyword(peopleIds );
+
+        if (fullList && fullList.length > 0) {
+          for (const item of fullList) {
+            const $elem = $(`#unig-file-${item.nid}`);
+
+            $elem.hide();
+            $elem.data('current', false);
+
+            // all people
+            for (const people of item.people) {
+              if (peopleIds.includes(parseInt(people.id))) {
+                // if also keywords
+                // all Keywords
+                if (keywordIds.length > 0) {
+                  for (const keywords of item.keywords) {
+                    if (keywordIds.includes(parseInt(keywords.id))) {
+                      $elem.show();
+                      $elem.data('current', true);
+                      Drupal.behaviors.unigPeople.Visible.push(item.nid);
+                    }
+                  }
+                } else {
+                  $elem.show();
+                  $elem.data('current', true);
+                  Drupal.behaviors.unigPeople.Visible.push(item.nid);
+                }
+              }
+            }
+          }
+        }
+      } else if (keywordIds.length > 0) {
+        console.log('keywordIds', keywordIds);
+
+        if (fullList && fullList.length > 0) {
+          for (const item of fullList) {
+            const $elem = $(`#unig-file-${item.nid}`);
+            $elem.hide();
+            $elem.data('current', false);
+
+            for (const keywords of item.keywords) {
+              if (keywordIds.includes(parseInt(keywords.id))) {
+                $elem.show();
+                $elem.data('current', true);
+                Drupal.behaviors.unigPeople.Visible.push(item.nid);
+              }
+            }
+          }
+        }
+      } else {
+        // show all
+        for (const item of fullList) {
+          $(`#unig-file-${item.nid}`).show();
+        }
+      }
+
+      let html = '';
+      if (Drupal.behaviors.unigPeople.Visible.length > 0) {
+        html = `${Drupal.behaviors.unigPeople.Visible.length} von ${number_of_all_items}`;
+      }
+      $('.number_of_visible').html(html);
+      $('.unig-button-download-add-current-to-list').show();
+    },
+
     toggleToolbar(context) {
       if (this.isToolbarOpen) {
         this.closeToolbar(context);
@@ -247,8 +322,7 @@
     },
 
     closeDownloadMessageBox() {
-      this.$bulkDownloadMessageContainer.slideUp('fast', function() {
-      });
+      this.$bulkDownloadMessageContainer.slideUp('fast', function() {});
     },
 
     message_download_processing(size) {
