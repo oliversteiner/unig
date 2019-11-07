@@ -844,7 +844,7 @@ div.unig-file-download-mark.marked:hover {
 }
 
 ul.unig-dl {
-  margin: 0;
+  margin: 0 0 0 20px;
   padding: 0;
 }
 
@@ -893,6 +893,11 @@ li.unig-dl .unig-dl-nid {
   margin: 6px 1px;
 }
 
+.unig-dl-number-of {
+  margin-left: 5px;
+  color: green;
+}
+
 table.unig-bulk-download-table {
   width: 250px;
   padding: 0;
@@ -927,7 +932,6 @@ td.unig-file-download-table-size {
   background-color: #c3c3c3;
   color: #515151;
 }
-
 .badge-marked {
   background-color: #c3c3c3;
   color: #515151;

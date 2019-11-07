@@ -41,11 +41,8 @@ div.unig-file-download-mark {
 // =====  Download Thumbnails
 //
 
-
-
-
 ul.unig-dl {
-  margin: 0;
+  margin: 0 0 0 20px;
   padding: 0;
 }
 li.unig-dl {
@@ -90,19 +87,25 @@ li.unig-dl .unig-dl-nid {
   }
 
   &-body {
+    //
   }
 
   &-footer {
     margin: 6px 1px;
   }
 }
+
+.unig-dl-number-of {
+  margin-left: 5px;
+  color: green;
+}
+
 table.unig-bulk-download-table {
   width: 250px;
   padding: 0;
   border: 0;
   margin: 10px 10px 20px 0;
 }
-
 
 td.unig-file-download-table-label {
   font-weight: bold;
@@ -126,8 +129,7 @@ td.unig-file-download-table-size {
   border-radius: 10px;
   background-color: $color-badge;
   color: $color-admin-background-invert;
-}
-.badge {
+
   &-marked {
     background-color: $color-badge-marked;
     color: $color-admin-background-invert;

@@ -891,7 +891,7 @@
   display: flex;
 }
 #unig-main.unig-theme-dark ul.unig-dl {
-  margin: 0;
+  margin: 0 0 0 20px;
   padding: 0;
 }
 #unig-main.unig-theme-dark li.unig-dl {
@@ -932,6 +932,10 @@
 }
 #unig-main.unig-theme-dark .unig-dl-info-footer {
   margin: 6px 1px;
+}
+#unig-main.unig-theme-dark .unig-dl-number-of {
+  margin-left: 5px;
+  color: green;
 }
 #unig-main.unig-theme-dark table.unig-bulk-download-table {
   width: 250px;
