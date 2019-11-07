@@ -607,6 +607,11 @@
 }
 #unig-main.unig-theme-dark .unig-keyword-tag-id {
   display: none;
+  margin-right: 5px;
+}
+#unig-main.unig-theme-dark .unig-people-tag-id {
+  display: none;
+  margin-right: 5px;
 }
 #unig-main.unig-theme-dark .unig-button-download-add-current-to-list {
   display: none;

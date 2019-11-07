@@ -1,10 +1,10 @@
 (function($, Drupal, drupalSettings) {
-  Drupal.behaviors.unigKeywords = {
+  Drupal.behaviors.unigPeople = {
     attach(context, settings) {
       // onload
 
       $('#unig-main', context)
-        .once('unigKeywords')
+        .once('unigPeople')
         .each(() => {
           this.constructor(context, settings);
           this.addAll();
@@ -15,19 +15,19 @@
 
     isToolbarOpen: false,
 
-    $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
+    $tags_container: $('.unig-toolbar-people-tags-container', this.context),
 
-    $check_all_keywords_trigger: $(
-      'unig-button-keywords-check-all',
+    $check_all_people_trigger: $(
+      'unig-button-people-check-all',
       this.context,
     ),
-    $uncheck_all_keywords_trigger: $(
-      'unig-button-keywords-uncheck-all',
+    $uncheck_all_people_trigger: $(
+      'unig-button-people-uncheck-all',
       this.context,
     ),
 
-    Storage: Drupal.behaviors.unigData.keywordsStorage,
-    List: Drupal.behaviors.unigData.allKeywords,
+    Storage: Drupal.behaviors.unigData.peopleStorage,
+    List: Drupal.behaviors.unigData.peopleList,
     Visible: [],
 
     toggleToolbar(context) {
@@ -39,16 +39,16 @@
     },
 
     openToolbar() {
-      $('.unig-toolbar-keywords').slideDown();
-      $('.unig-toolbar-keywords').addClass('open');
-      $('.unig-toolbar-keywords-toggle-trigger').addClass('active');
+      $('.unig-toolbar-people').slideDown();
+      $('.unig-toolbar-people').addClass('open');
+      $('.unig-toolbar-people-toggle-trigger').addClass('active');
       this.isToolbarOpen = true;
     },
 
     closeToolbar() {
-      $('.unig-toolbar-keywords').slideUp();
-      $('.unig-toolbar-keywords').removeClass('open');
-      $('.unig-toolbar-keywords-toggle-trigger').removeClass('active');
+      $('.unig-toolbar-people').slideUp();
+      $('.unig-toolbar-people').removeClass('open');
+      $('.unig-toolbar-people-toggle-trigger').removeClass('active');
       this.isToolbarOpen = false;
     },
 
@@ -64,13 +64,13 @@
      * @param id
      */
     toggle(id) {
-      const keywordsStorage = this.Storage.get();
+      const peopleStorage = this.Storage.get();
 
       // if first Item in list toggle on
-      if (keywordsStorage === false) {
+      if (peopleStorage === false) {
         this.add(id);
       } else {
-        // search item in keywordsStorage List
+        // search item in peopleStorage List
         const IsInDownloadList = this.Storage.find(id);
 
         if (IsInDownloadList) {
@@ -91,7 +91,7 @@
       const $targetToolbar = $(`#unig-tag-id-${id}`);
       $targetToolbar.addClass('active');
 
-      const $targetToolbox = $(`.unig-keyword-id-${id}`);
+      const $targetToolbox = $(`.unig-people-id-${id}`);
       $targetToolbox.addClass('active');
     },
     /**
@@ -102,7 +102,7 @@
       const $target = $(`#unig-tag-id-${id}`);
       $target.removeClass('active');
 
-      const $targetToolbox = $(`.unig-keyword-id-${id}`);
+      const $targetToolbox = $(`.unig-people-id-${id}`);
       $targetToolbox.removeClass('active');
     },
 
@@ -159,7 +159,7 @@
      */
     updateDisplay() {
       // target
-      const $targetNumberOf = $('.unig-keywords-display');
+      const $targetNumberOf = $('.unig-people-display');
 
       // get Number
       const numberAllItems = this.List.count();
@@ -184,36 +184,37 @@
       }
     },
 
-    buildTags(keywordsList) {
+    buildTags(peopleList) {
+
 
       let elemLi = '';
-      if (keywordsList) {
-        keywordsList.forEach(item => {
+      if (peopleList) {
+        peopleList.forEach(item => {
           // check
           const additionalClass = '';
           const label = item.name;
 
           elemLi +=
-            `<li class="unig-tag unig-tag-keyword unig-keyword-trigger ${additionalClass}" 
+            `<li class="unig-tag unig-tag-people unig-people-trigger ${additionalClass}" 
                 id="unig-tag-id-${item.id}" 
                 data-id = "${item.id}">` +
-            `<span class="unig-keyword-tag-id">${item.id}</span>` +
-            `<span class="unig-keyword-tag-label">${label}</span>` +
+            `<span class="unig-people-tag-id">${item.id}</span>` +
+            `<span class="unig-people-tag-label">${label}</span>` +
             `</li>`;
         });
       }
 
-      const prefix = '<ul class="unig-tags unig-tags-keywords">';
+      const prefix = '<ul class="unig-tags unig-tags-people">';
       const suffix = '</ul><span class="build-done"></span>';
 
       const buttonMarkAll =
-        '<div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger">' +
+        '<div class="unig-tag unig-mark-all-tags unig-button-people-mark-all-tags unig-people-mark-all-tags-trigger">' +
         '<i class="fas fa-circle" aria-hidden="true"></i>' +
         '<span class="unig-tags-title">check all</span>' +
         '</div>';
 
       const buttonUnMarkAll =
-        '<div class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">' +
+        '<div class="unig-tag unig-unmark-all-tags unig-button-people-unmark-all-tags unig-people-unmark-all-tags-trigger">' +
         '<i class="far fa-circle" aria-hidden="true"></i>' +
         '<span class="unig-tags-title">uncheck all</span>' +
         '</div>';
@@ -224,16 +225,16 @@
       // Add to dom
       this.$tags_container.html(html);
 
-      const scope = Drupal.behaviors.unigKeywords;
+      const scope = Drupal.behaviors.unigPeople;
 
-      $('.unig-keywords-mark-all-tags-trigger').click(() => {
+      $('.unig-people-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
         scope.updateDisplay();
         scope.updateFiles();
       });
 
-      $('.unig-keywords-unmark-all-tags-trigger').click(() => {
+      $('.unig-people-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
         scope.updateDisplay();
@@ -244,7 +245,7 @@
 
       $('.build-done').ready(() => {
         // Add Handler
-        $('.unig-keyword-trigger').click(function() {
+        $('.unig-people-trigger').click(function() {
           const id = $(this).data('id');
 
           scope.toggle(id);
@@ -265,11 +266,11 @@
      */
     reMark() {
       // Get Download Item List
-      const keywordsStorage = this.Storage.get();
+      const peopleStorage = this.Storage.get();
 
-      if (keywordsStorage) {
-        keywordsStorage.forEach(elem => {
-          Drupal.behaviors.unigKeywords.markAsActive(elem);
+      if (peopleStorage) {
+        peopleStorage.forEach(elem => {
+          Drupal.behaviors.unigPeople.markAsActive(elem);
         });
       }
     },
@@ -288,13 +289,13 @@
      *
      */
     searchAutocomplete() {
-      const Scope = Drupal.behaviors.unigKeywords;
+      const Scope = Drupal.behaviors.unigPeople;
       const UnigAutoComplete = new autoComplete({
-        selector: '*[name="unig-keywords-autocomplete"]',
+        selector: '*[name="unig-people-autocomplete"]',
         minChars: 2,
         source(term, suggest) {
           term = term.toLowerCase();
-          const choices = Drupal.behaviors.unigData.allKeywords.get();
+          const choices = Drupal.behaviors.unigData.allpeople.get();
           const matches = [];
           for (let i = 0; i < choices.length; i++) {
             if (choices[i].name.toLowerCase().indexOf(term)) {
@@ -373,8 +374,8 @@
       }
 
       let html = '';
-      if (Drupal.behaviors.unigKeywords.Visible.length > 0) {
-        html = `${Drupal.behaviors.unigKeywords.Visible.length} von ${number_of_all_items}`;
+      if (Drupal.behaviors.unigPeople.Visible.length > 0) {
+        html = `${Drupal.behaviors.unigPeople.Visible.length} von ${number_of_all_items}`;
       }
       $('.number_of_visible').html(html);
       $('.unig-button-download-add-current-to-list').show();
@@ -387,18 +388,18 @@
     constructor(context) {
 
       // Close Toolbar
-      $('.unig-toolbar-keywords-close-trigger', context).click(event => {
-        Drupal.behaviors.unigKeywords.closeToolbar(event);
+      $('.unig-toolbar-people-close-trigger', context).click(event => {
+        Drupal.behaviors.unigPeople.closeToolbar(event);
       });
 
       // Open Toolbar
-      $('.unig-toolbar-keywords-open-trigger', context).click(event => {
-        Drupal.behaviors.unigKeywords.closeToolbar(event);
+      $('.unig-toolbar-people-open-trigger', context).click(event => {
+        Drupal.behaviors.unigPeople.closeToolbar(event);
       });
 
       // Toggle Toolbar
-      $('.unig-toolbar-keywords-toggle-trigger', context).click(event => {
-        Drupal.behaviors.unigKeywords.toggleToolbar(event);
+      $('.unig-toolbar-people-toggle-trigger', context).click(event => {
+        Drupal.behaviors.unigPeople.toggleToolbar(event);
       });
 
       // Autocomplate

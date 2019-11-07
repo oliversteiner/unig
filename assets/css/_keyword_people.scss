@@ -1,22 +1,28 @@
 // =====  Keywords  =====
 //
-div.unig-container-keyword,
-div.unig-container-keyword-people {
 
-}
-div.unig-container-keyword,
-div.unig-container-keyword-people {
 
-}
 
-ul.unig-tags-keywords{
+ul.unig-tags-keywords {
   display: inline-block;
 }
 
-li.unig-keyword-tag{}
-.unig-keyword-tag-id{display:none;}
-.unig-keyword-tag-label{}
+li.unig-keyword-tag {
+}
 
-.unig-button-download-add-current-to-list{
+.unig-keyword-tag-id {
+  display: none;
+  margin-right: 5px;
+}
+
+.unig-people-tag-id {
+  display: none;
+  margin-right: 5px;
+}
+
+.unig-keyword-tag-label {
+}
+
+.unig-button-download-add-current-to-list {
   display: none;
 }

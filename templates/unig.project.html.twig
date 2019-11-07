@@ -633,7 +633,7 @@
       <div class="unig-toolbar-footer">
         <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
           <i class="fas fa-list" aria-hidden="true"></i>
-          Show Keywords on Files
+          {% trans %} Show Keywords on Files {% endtrans %}
         </div>
       </div>
 
@@ -650,7 +650,9 @@
       </div>
       <div class="unig-toolbar-footer">
         <div class="unig-button unig-button-people-toggle-all">
-          <i class="fas fa-key" aria-hidden="true"></i>
+          <i class="fas fa-user" aria-hidden="true"></i>
+          {% trans %} Show People Names on Files {% endtrans %}
+
         </div>
       </div>
     </div> {# Toolbar - People #}
@@ -1134,7 +1136,7 @@
                   {# Items #}
                   {% for  people in file.people %}
                     <span
-                      class="unig-tag unig-keyword-people unig-keyword-people-tag-id-{{ people.id }}">{{ people.name }}</span>
+                      class="unig-tag-read-only unig-people unig-people-tag-id-{{ people.id }}">{{ people.name }}</span>
                   {% endfor %}
                 {% endif %}
 

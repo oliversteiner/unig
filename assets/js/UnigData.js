@@ -107,14 +107,11 @@
      */
     remove(nid) {
 
-      console.log('remove:', nid);
-
       const index = this.list.indexOf(nid);
       // remove it
       if (index > -1) {
         this.list.splice(index, 1);
       }
-      console.log('list:', this.list);
 
     },
 
@@ -201,6 +198,7 @@
   Drupal.behaviors.unigData.FileList = {
     list: [],
     keywords: [],
+    people: [],
     route: 'unig/project/json',
 
     load(projectNid) {
@@ -221,11 +219,16 @@
           dataType: 'json',
         })
           .done(result => {
-            console.log('FileList', Object.values(result));
             const fileList = Object.values(result);
             this.list = fileList
+
+            // Keywords
             this.keywords = this.getKeywords(fileList);
             Drupal.behaviors.unigData.allKeywords.load(fileList);
+
+            // People
+            this.people = this.getPeople(fileList);
+            Drupal.behaviors.unigData.peopleList.load(fileList);
           })
           .fail(xhr => {
           });
@@ -261,6 +264,23 @@
       });
 
       return keywordsList;
+    },
+
+    getPeople(fileList) {
+
+      let peopleList = [];
+
+      fileList.forEach(item => {
+        const people = item.people;
+        people.forEach(people => {
+          const id = parseInt(people.id);
+          if (!peopleList.includes(id)) {
+            peopleList.push(id);
+          }
+        });
+      });
+
+      return peopleList;
     },
 
     /**
@@ -362,10 +382,8 @@
         dataType: 'json',
       })
         .done(result => {
-          console.log(this.route, result);
 
           const keywordsInProject = Drupal.behaviors.unigData.FileList.keywords;
-          console.log('keywordsInProject', keywordsInProject);
 
           let keywordsList = [];
           if (keywordsInProject) {
@@ -511,21 +529,38 @@
     },
   };
 
+
   Drupal.behaviors.unigData.peopleList = {
     list: [],
     route: 'unig/term/people/json',
 
     load() {
-      const data = {};
 
-      return $.ajax({
+      $.ajax({
         url: Drupal.url(this.route),
-        type: 'POST',
-        data,
+        type: 'GET',
         dataType: 'json',
       })
         .done(result => {
-          Drupal.behaviors.unig.keywords.set(result);
+
+          const peopleInProject = Drupal.behaviors.unigData.FileList.people;
+
+          let peopleList = [];
+          if (peopleInProject) {
+            result.forEach(item => {
+              if (peopleInProject.includes(item.id)) {
+                peopleList.push(item);
+              }
+            });
+
+          } else {
+            peopleList = result;
+          }
+
+          this.list = peopleList;
+          Drupal.behaviors.unigPeople.searchAutocomplete(peopleList);
+          Drupal.behaviors.unigPeople.buildTags(peopleList);
+
         })
         .fail(xhr => {
         });
@@ -537,31 +572,28 @@
 
     /**
      * returns array or false
+     *
+     * @return {boolean}
      */
     get() {
-      if (this.count() > 0) {
+      if (this.list && this.list.length > 0) {
         return this.list;
       }
       return false;
     },
 
-    set(arr) {
-      this.list = arr;
-    },
 
     /**
      *
      * @return {number}
      */
     count() {
-      let size = 0;
-      let key;
-      for (key in this) {
-        if (this.hasOwnProperty(key)) {
-          size++;
-        }
+      let length = 0;
+      if (this.list && this.list.length > 0) {
+        length = this.list.length;
       }
-      return size;
+
+      return length;
     },
   };
 

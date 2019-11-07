@@ -984,6 +984,12 @@ ul.unig-tags-keywords {
 
 .unig-keyword-tag-id {
   display: none;
+  margin-right: 5px;
+}
+
+.unig-people-tag-id {
+  display: none;
+  margin-right: 5px;
 }
 
 .unig-button-download-add-current-to-list {
@@ -1289,6 +1295,7 @@ li.unig-file-item {
   list-style-type: none;
   min-width: 100px;
   min-height: 100px;
+  max-width: 250px;
   margin: 10px;
   border-radius: 5px;
   padding: 5px 12px 4px 12px;

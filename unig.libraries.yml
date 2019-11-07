@@ -94,6 +94,7 @@ unig.admin.project:
     assets/js/UnigSortProject.js: {}
     assets/js/UnigDownload.js: {}
     assets/js/UnigKeywords.js: {}
+    assets/js/UnigPeople.js: {}
     assets/js/UnigAdmin.js: {}
     assets/js/UnigFiles.js: {}
     assets/js/UnigSize.js: {}
