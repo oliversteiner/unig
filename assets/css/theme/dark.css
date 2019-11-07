@@ -608,6 +608,9 @@
 #unig-main.unig-theme-dark .unig-keyword-tag-id {
   display: none;
 }
+#unig-main.unig-theme-dark .unig-button-download-add-current-to-list {
+  display: none;
+}
 #unig-main.unig-theme-dark .unig-file-rating {
   margin: auto;
 }

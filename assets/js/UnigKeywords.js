@@ -322,29 +322,38 @@
     },
 
     updateFiles() {
+      $('.unig-button-download-add-current-to-list').hide();
+
       Drupal.behaviors.unigKeywords.Visible = [];
       const keywordIds = Drupal.behaviors.unigData.keywordsStorage.get();
       const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
+      const fullList = Drupal.behaviors.unigData.FileList.list;
 
       if (keywordIds.length > 0) {
         // hide all files with this tag
-       // const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(keywordIds );
+        // const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(keywordIds );
 
-        const fullList = Drupal.behaviors.unigData.FileList.list;
 
         if (fullList && fullList.length > 0) {
           for (const item of fullList) {
             $(`#unig-file-${item.nid}`).hide();
+            $(`#unig-file-${item.nid}`).data('current', false);
 
             // all Keywords
             for (const keywords of item.keywords) {
-              if(keywordIds.includes(parseInt(keywords.id))){
+              if (keywordIds.includes(parseInt(keywords.id))) {
                 $(`#unig-file-${item.nid}`).show();
+                $(`#unig-file-${item.nid}`).data('current', true);
                 Drupal.behaviors.unigKeywords.Visible.push(item.nid);
 
               }
             }
           }
+        }
+      } else {
+        // show all
+        for (const item of fullList) {
+          $(`#unig-file-${item.nid}`).show();
         }
       }
 
@@ -353,6 +362,7 @@
         html = `${Drupal.behaviors.unigKeywords.Visible.length} von ${number_of_all_items}`;
       }
       $('.number_of_visible').html(html);
+      $('.unig-button-download-add-current-to-list').show();
     },
     /**
      *

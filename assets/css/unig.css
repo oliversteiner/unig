@@ -986,6 +986,10 @@ ul.unig-tags-keywords {
   display: none;
 }
 
+.unig-button-download-add-current-to-list {
+  display: none;
+}
+
 .unig .unig-toolbox td,
 .unig .unig-toolbox th,
 .unig .unig-toolbox p,
