@@ -347,6 +347,7 @@
   color: #888888;
   border-color: transparent;
   background-color: transparent;
+  opacity: 0.8;
 }
 #unig-main.unig-theme-dark .unig a.unig-button-icon i, #unig-main.unig-theme-dark .unig a.unig-button-icon svg,
 #unig-main.unig-theme-dark .unig .unig-button-icon i,
@@ -425,6 +426,7 @@
   color: #b4b4b4;
   border-color: transparent;
   background-color: transparent;
+  opacity: 1;
 }
 #unig-main.unig-theme-dark a.unig-button-icon-info:hover,
 #unig-main.unig-theme-dark .unig-button-icon-info:hover {
@@ -439,6 +441,7 @@
   color: #b8b8b8;
   border-color: transparent;
   background-color: transparent;
+  opacity: 1;
 }
 #unig-main.unig-theme-dark a.unig-button-icon-success:hover, #unig-main.unig-theme-dark a.unig-button-icon-ok:hover,
 #unig-main.unig-theme-dark .unig-button-icon-success:hover,
@@ -454,6 +457,7 @@
   background-color: transparent;
   border-color: transparent;
   color: #daffd4;
+  opacity: 1;
 }
 #unig-main.unig-theme-dark a.unig-button-icon-warning:hover,
 #unig-main.unig-theme-dark .unig-button-icon-warning:hover {
@@ -468,6 +472,7 @@
   background-color: transparent;
   border-color: transparent;
   color: #fff8cf;
+  opacity: 1;
 }
 #unig-main.unig-theme-dark a.unig-button-icon-error:hover, #unig-main.unig-theme-dark a.unig-button-icon-danger:hover,
 #unig-main.unig-theme-dark .unig-button-icon-error:hover,
@@ -483,6 +488,7 @@
   background-color: transparent;
   border-color: transparent;
   color: #ffe6e5;
+  opacity: 1;
 }
 #unig-main.unig-theme-dark a.unig-button-icon:active,
 #unig-main.unig-theme-dark .unig-button-icon:active {

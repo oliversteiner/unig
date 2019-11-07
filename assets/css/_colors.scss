@@ -52,8 +52,6 @@ $color-default-text-hover: rgb(50, 50, 50);
 $color-default-text-invert: rgb(204, 204, 204);
 $color-default-text-invert-hover: rgb(204, 204, 204);
 
-
-
 // OK
 $color-success: #0f7f34;
 
@@ -151,13 +149,11 @@ $color-badge-marked: rgb(195, 195, 195);
 $color-badge-inverted: rgb(195, 195, 195);
 $color-badge-marked-inverted: rgb(195, 195, 195);
 
-
-
-
 // toolbar
 $color-toolbar-title: rgb(191, 191, 191);
 $color-toolbar-border: rgb(230, 230, 230);
 $color-toolbar-background: rgb(246, 246, 246);
+$color-toolbar-background-header: rgb(143, 143, 143);
 $color-toolbar-stroke: rgb(227, 226, 226);
 $color-toolbar-stroke-invert: rgb(110, 109, 109);
 
@@ -166,7 +162,6 @@ $color-fieldset-border: rgb(234, 237, 240);
 $color-fieldset-background: rgb(247, 250, 253);
 $color-fieldset-stroke: rgb(227, 226, 226);
 $color-fieldset-stroke-invert: rgb(110, 109, 109);
-
 
 // toolbox
 $color-toolbox-text: $color-admin-text;
@@ -203,14 +198,13 @@ $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 // sort
 $color-sortable-placeholder-background: rgba(0, 0, 0, 0.1);
 $color-sortable-placeholder-border: rgba(0, 0, 0, 0.2);
-$color-sortable-active-background : rgba(0, 0, 0, 0.80);
-$color-sortable-active-text : rgb(255, 251, 199);
-
+$color-sortable-active-background: rgba(0, 0, 0, 0.8);
+$color-sortable-active-text: rgb(255, 251, 199);
 
 // Private
-$color-admin-private : rgb(106, 127, 196);
-$color-admin-private-hover : rgb(50, 49, 136);
-$color-admin-private-active : rgb(29, 66, 129);
+$color-admin-private: rgb(106, 127, 196);
+$color-admin-private-hover: rgb(50, 49, 136);
+$color-admin-private-active: rgb(29, 66, 129);
 
 // Color Cover
 // -- Default
@@ -225,13 +219,13 @@ $color-cover-border-hover: transparent;
 
 // -- :active
 $color-cover-text-active: #808080;
-$color-cover-background-active: #000000;
+$color-cover-background-active: #000;
 $color-cover-border-active: transparent;
 
 // Color Image
 // -- Default
 $color-image-text: #7a7a7a;
-$color-image-background: #transparent;
+$color-image-background: transparent;
 $color-image-border: rgba(215, 215, 215, 0);
 
 // -- :hover
@@ -240,6 +234,9 @@ $color-image-background-hover: #b3b3b3;
 $color-image-border-hover: rgba(122, 122, 122, 0);
 
 // -- :active
-$color-image-text-active: #ffffff;
+$color-image-text-active: #fff;
 $color-image-background-active: #565656;
 $color-image-border-active: rgba(122, 122, 122, 0);
+
+// Shadow
+$box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.4);

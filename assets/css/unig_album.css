@@ -5,16 +5,20 @@
 *
 */
 div.unig-album {
-  display: none; }
+  display: none;
+}
 
 ul.unig-project-album-list-items li {
-  background-color: transparent; }
+  background-color: transparent;
+}
 
 .unig-project-album-list {
-  margin-top: 10px; }
-  .unig-project-album-list-title {
-    border-bottom: solid 1px #e6e6e6;
-    margin-bottom: 5px;
-    padding-bottom: 5px; }
+  margin-top: 10px;
+}
+.unig-project-album-list-title {
+  border-bottom: solid 1px #e6e6e6;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
 
 /*# sourceMappingURL=unig_album.css.map */

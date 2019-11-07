@@ -7,7 +7,6 @@
       console.log('Extracts Keywords', projectNid);
 
 
-
       const url = `/unig/process/extract-keyword/${projectNid}/`;
 
       fetch(url)
@@ -224,6 +223,7 @@
       Drupal.behaviors.unigAdmin.edit(nid, 'description', 'file');
     },
 
+
     /**
      *
      * @param nid
@@ -240,8 +240,19 @@
       $('#unig-main', context)
         .once('unigProject')
         .each(() => {
-          $("*[id^='lightgallery-']").lightGallery({
+          $('*[id^=\'lightgallery-\']').lightGallery({
             selector: '.lightgallery-item',
+          });
+
+
+          // Toggle Options
+          $('.unig-project-options-trigger', context).click(() => {
+            $('.unig-dropdown-project-options').toggle();
+          });
+
+          // Close Options
+          $('.unig-project-options-close-trigger', context).click(() => {
+            $('.unig-dropdown-project-options').hide();
           });
 
           // Toggle all Keywords
@@ -253,6 +264,7 @@
               scope.toggleAllToolbox('keywords', 'show');
             }
           });
+
 
           // Toggle all People
           $('.unig-button-people-toggle-all', context).click(() => {
@@ -341,7 +353,7 @@
             const $container = $('#ajax-container-new-album-container');
             $container.toggle();
 
-            const $formElemProjectNid = $("input[name='projectNid']");
+            const $formElemProjectNid = $('input[name=\'projectNid\']');
             const projectNid = $container.data('projectnid');
             $formElemProjectNid.val(projectNid);
           });
@@ -354,6 +366,7 @@
           // Extract Keywords
           $('.unig-extract-keywords-trigger', context).click(() => {
             scope.extractKeywords();
+            $('.unig-dropdown-project-options').hide();
           });
 
           const projectNid = scope.getProjectNid();

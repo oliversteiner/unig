@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAAA;;;;;EAKE;ACHF,cAAc;EACZ,OAAO,EAAE,IAAI;;AAWf,mCAAmC;EACjC,gBAAgB,EAAE,WAAW;;AAI/B,wBAAyB;EACvB,UAAU,EAAE,IAAI;EAEhB,8BAAQ;IACN,aAAa,EAAE,iBAAmB;IAClC,aAAa,EAAE,GAAG;IAClB,cAAc,EAAE,GAAG",
-"sources": ["_colors.scss","unig_album.scss"],
-"names": [],
-"file": "unig_album.css"
-}
+{"version":3,"sourceRoot":"","sources":["_colors.scss","unig_album.scss"],"names":[],"mappings":"AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;ACEA;EACE;;;AAWF;EACE;;;AAIF;EACE;;AAEA;EACE;EACA;EACA","file":"unig_album.css"}
