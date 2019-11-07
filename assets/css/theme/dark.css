@@ -724,6 +724,16 @@
   margin: 3px;
   padding: 3px 6px;
 }
+#unig-main.unig-theme-dark .unig-tag-read-only {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 0.9em;
+  margin: 3px;
+  padding: 3px 6px;
+  background-color: rgba(41, 41, 41, 0.96);
+  border-color: #080808;
+  color: #adabab;
+}
 #unig-main.unig-theme-dark .unig-tag {
   background-color: rgba(41, 41, 41, 0.96);
   border-color: #080808;

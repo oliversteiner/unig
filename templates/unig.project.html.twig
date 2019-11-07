@@ -1107,7 +1107,7 @@
 
                   {# Items #}
                   {% for  keyword in file.keywords %}
-                    <span class="unig-tag unig-keyword unig-keyword-trigger unig-keyword-id-{{ keyword.id }}"
+                    <span class="unig-tag-read-only unig-keyword unig-keyword-id-{{ keyword.id }}"
                           data-id="{{ keyword.id }}">{{ keyword.name }}</span>
                   {% endfor %}
                 {% endif %}

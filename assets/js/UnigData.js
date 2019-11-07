@@ -99,12 +99,15 @@
      */
     remove(nid) {
 
-      const index = this.list.indexOf(nid); // indexOf is not supported in
-      // IE 7 and 8.
+      console.log('remove:', nid);
+
+      const index = this.list.indexOf(nid);
       // remove it
       if (index > -1) {
         this.list.splice(index, 1);
       }
+      console.log('list:', this.list);
+
     },
 
     destroy() {
@@ -209,6 +212,8 @@
           dataType: 'json',
         })
           .done(result => {
+            console.log('FileList', Object.values(result));
+
             Drupal.behaviors.unigData.FileList.set(result);
           })
           .fail(xhr => {
@@ -230,7 +235,7 @@
     },
 
     set(arr) {
-      this.list = arr;
+      this.list = Object.values(arr); // convert Objects of items to array of items
     },
 
     /**
@@ -238,14 +243,7 @@
      * @return {number}
      */
     count() {
-      let size = 0;
-      let key;
-      for (key in this.list) {
-        if (this.list.hasOwnProperty(key)) {
-          size++;
-        }
-      }
-      return size;
+      return this.list.length;
     },
 
     /**

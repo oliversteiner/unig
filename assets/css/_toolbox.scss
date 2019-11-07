@@ -89,6 +89,16 @@
   margin: 3px;
   padding: 3px 6px;
 }
+.unig-tag-read-only {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 0.9em;
+  margin: 3px;
+  padding: 3px 6px;
+  background-color: $color-toolbox-tag-background;
+  border-color: $color-toolbox-tag-border;
+  color: $color-toolbox-tag;
+}
 .unig-tag {
   background-color: $color-toolbox-tag-background;
   border-color: $color-toolbox-tag-border;

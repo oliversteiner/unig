@@ -1069,6 +1069,17 @@ ul.unig-tags-keywords {
   padding: 3px 6px;
 }
 
+.unig-tag-read-only {
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 0.9em;
+  margin: 3px;
+  padding: 3px 6px;
+  background-color: #e4e3e3;
+  border-color: white;
+  color: #343434;
+}
+
 .unig-tag {
   background-color: #e4e3e3;
   border-color: white;

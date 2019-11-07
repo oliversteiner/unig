@@ -200,11 +200,11 @@
     },
 
 
-    downloadFile(url){
+    downloadFile(url) {
       download(url);
     },
 
-    openDownloadMessageBox(){
+    openDownloadMessageBox() {
       this.$bulkDownloadMessageContainer.slideDown('fast');
     },
 
@@ -216,8 +216,8 @@
       $('.unig-bulk-download-message-container > div').removeClass().addClass(status);
 
       $('.unig-message-box-picto').html();
-      if(icon){
-      $('.unig-message-box-picto').html(`<i class="${icon}"></i>`);
+      if (icon) {
+        $('.unig-message-box-picto').html(`<i class="${icon}"></i>`);
       }
 
       $('.unig-message-box-body').html();
@@ -257,9 +257,9 @@
       const status = 'working';
       const icon = 'fas fa-circle-notch fa-spin';
       const message =
-          `<span class="sr-only">${textLoading}</span>` +
-          `${textZip}<br>` +
-          `<button onclick="Drupal.behaviors.unigDownload.bulkDownloadCancel()">${textCancel}</button>`
+        `<span class="sr-only">${textLoading}</span>` +
+        `${textZip}<br>` +
+        `<button onclick="Drupal.behaviors.unigDownload.bulkDownloadCancel()">${textCancel}</button>`
       ;
 
       Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
@@ -280,7 +280,7 @@
     message_download_failed() {
       const status = 'warning';
       const icon = 'fas fa-exclamation-triangle';
-      const message = 'Es ist ein Fehler aufgetreten beim erstellen des Zips.<br>Bitte die Seite neu laden und noch einmal versuchen.'
+      const message = 'Es ist ein Fehler aufgetreten beim erstellen des Zips.<br>Bitte die Seite neu laden und noch einmal versuchen.';
       Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
     },
 
@@ -294,17 +294,17 @@
 
       let elemLi = '';
       if (itemsForDownload) {
-        itemsForDownload.forEach(elem => {
+        itemsForDownload.forEach(id => {
           // check
-          const item = itemList[elem];
+          const item = itemList.find(item => item.id == id);
 
           if (item && item.title) {
             const label = item.title;
             const imgSrc = item.image.unig_thumbnail.url;
 
             elemLi +=
-              `<li class="unig-dl" id="unig-dl-${elem}" data-nid = "${elem}">` +
-              ` <div class="unig-dl-nid">${elem}</div>` +
+              `<li class="unig-dl" id="unig-dl-${id}" data-nid = "${id}">` +
+              ` <div class="unig-dl-nid">${id}</div>` +
               ` <div class="unig-dl-image item-overlay">` +
               `   <img src="${imgSrc}" alt=""/>` +
               ` <div class="item-overlay-canvas top">` +
@@ -398,8 +398,8 @@
       const listItem = Drupal.behaviors.unigData.FileList.get();
 
       if (listItem) {
-        for (const key in listItem) {
-          this.removeMark(key);
+        for (const item of listItem) {
+          this.removeMark(item.id);
         }
       }
     },
@@ -408,8 +408,8 @@
       const listItem = Drupal.behaviors.unigData.FileList.get();
 
       if (listItem) {
-        for (const key in listItem) {
-          this.addMark(key);
+        for (const item of listItem) {
+          this.addMark(item.id);
         }
       }
     },
@@ -419,8 +419,8 @@
       const listItem = Drupal.behaviors.unigData.FileList.get();
 
       if (listItem) {
-        for (const key in listItem) {
-          this.add(key);
+        for (const item of listItem) {
+          this.add(item.id);
         }
       }
     },
@@ -442,23 +442,29 @@
         xl: 0,
       };
 
-      if (itemsForDownload) {
-        itemsForDownload.forEach(item => {
-          const Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
-          const file = itemList[item];
+      console.log('itemsForDownload',itemsForDownload );
 
-          if (file.image.unig_sd) {
-            const sd = file.image.unig_sd.file_size;
-            Downloadsize.sd += sd;
+      if (itemsForDownload) {
+        itemsForDownload.forEach(id => {
+          let Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
+          const file = itemList.find(item => item.id === id);
+          console.log('File', file);
+
+          if(file){
+            if (file.image.unig_sd) {
+              const sd = file.image.unig_sd.file_size;
+              Downloadsize.sd += sd;
+            }
+            if (file.image.unig_hd) {
+              const hd = file.image.unig_hd.file_size;
+              Downloadsize.hd += hd;
+            }
+            if (file.image.original) {
+              const xl = file.image.original.file_size;
+              Downloadsize.xl += xl;
+            }
           }
-          if (file.image.unig_hd) {
-            const hd = file.image.unig_hd.file_size;
-            Downloadsize.hd += hd;
-          }
-          if (file.image.original) {
-            const xl = file.image.original.file_size;
-            Downloadsize.xl += xl;
-          }
+
         });
       }
     },

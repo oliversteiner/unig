@@ -744,9 +744,6 @@ trait ProjectTrait
         $keywords = $iptc->getKeywordTermIDs();
         $people = $iptc->getPeopleTermIds();
 
-        $keywords = $iptc->getKeywords();
-        $people = $iptc->getPeopleNames();
-
 
         // Keywords
         if (!empty($keywords)) {
@@ -910,6 +907,7 @@ trait ProjectTrait
     // Twig-Variables
     $file = [
       'nid' => $nid,
+      'id' => (int)$nid,
       'title' => $title,
       'description' => $description,
       'album_list' => $album_list,

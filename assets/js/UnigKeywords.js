@@ -6,7 +6,6 @@
       $('#unig-main', context)
         .once('unigKeywords')
         .each(() => {
-
           this.constructor(context, settings);
           this.addAll();
           this.markAllAsActive();
@@ -308,9 +307,7 @@
         renderItem(item, search) {
           search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
-          return `<div class="autocomplete-suggestion" data-name="${
-            item.name
-            }" data-id="${item.id}" data-val="${search}">${item.name}</div>`;
+          return `<div class="autocomplete-suggestion" data-name="${item.name}" data-id="${item.id}" data-val="${search}">${item.name}</div>`;
         },
 
         onSelect(e, term, item) {
@@ -325,55 +322,37 @@
 
     updateFiles() {
       Drupal.behaviors.unigKeywords.Visible = [];
-      const arrayId = Drupal.behaviors.unigData.keywordsStorage.get();
-      const fullList = Drupal.behaviors.unigData.FileList.get();
+      const keywordIds = Drupal.behaviors.unigData.keywordsStorage.get();
+      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
 
-      if (arrayId.length > 0) {
+      if (keywordIds.length > 0) {
         // hide all files with this tag
-        const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(
-          arrayId,
-        );
+       // const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(keywordIds );
 
-        // hide all files not in result_list
+        const fullList = Drupal.behaviors.unigData.FileList.get();
 
-        // go through all files
-        for (const index in fullList) {
-          let hide = true;
-          // compare each keyword id with ids in "result_list"
-          for (let i = 0; i < keywordList.length; i++) {
-            if (parseInt(keywordList[i], 10) === parseInt(index, 10)) {
-              // keyword found !, do not hide file
-              hide = false;
-              $(`#unig-file-${index}`).slideUp();
-              Drupal.behaviors.unigKeywords.Visible.push(index);
+        if (fullList && fullList.length > 0) {
+          for (const item of fullList) {
+            $(`#unig-file-${item.nid}`).hide();
 
-              break;
+            // all Keywords
+            for (const keywords of item.keywords) {
+              if(keywordIds.includes(parseInt(keywords.id))){
+                console.error('treffer');
+                $(`#unig-file-${item.nid}`).show();
+                Drupal.behaviors.unigKeywords.Visible.push(item.nid);
+
+              }
             }
           }
-          // hide file
-          if (hide) {
-            $(`#unig-file-${index}`).slideDown();
-          }
-        } // for full_list
-      } else {
-        // Show all
-        for (const file in fullList) {
-          Drupal.behaviors.unigKeywords.Visible.push(file);
-          const $elem = $(`#unig-file-${file}`);
-
-          if (
-            $elem.css('display') === 'none' ||
-            $elem.css('visibility') === 'hidden'
-          ) {
-            // The element is not visible
-            $elem.fadeIn();
-          }
+        } else {
+          console.log('not an array', fullList);
         }
       }
 
       let html = '';
       if (Drupal.behaviors.unigKeywords.Visible.length > 0) {
-        html = `${Drupal.behaviors.unigKeywords.Visible.length} von `;
+        html = `${Drupal.behaviors.unigKeywords.Visible.length} von ${number_of_all_items}`;
       }
       $('.number_of_visible').html(html);
     },
