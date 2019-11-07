@@ -497,13 +497,8 @@
               {# ----------- Cover ----------- #}
               <div class="unig-project-cover">
 
-                {% if is_member %}
-                <a href="/unig/member/{{ project.nid }}">
+                <a href="/unig/lightgallery/{{ project.nid }}">
 
-                  {% else %}
-                  <a href="/unig/lightgallery/{{ project.nid }}">
-
-                  {% endif %}
                   <div class="unig-project-cover-background">
                     {% if project.cover_image.unig_cover.url %}
                       <div class="unig-project-cover-image">
@@ -551,6 +546,11 @@
                                                 <i class="fas fa-lock"></i>
                                             </span>
                     </div>
+
+
+                    {% if can_download %}
+                      <a href="/unig/member/{{ project.nid }}"> <i class="fas fa-download"></i></a>
+                      {% endif %}
                   </div>
                 </div>
 
