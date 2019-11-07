@@ -27,7 +27,7 @@
     ),
 
     Storage: Drupal.behaviors.unigData.keywordsStorage,
-    List: Drupal.behaviors.unigData.keywordsList,
+    List: Drupal.behaviors.unigData.allKeywords,
     Visible: [],
 
     toggleToolbar(context) {
@@ -184,8 +184,9 @@
       }
     },
 
-    buildTags(context) {
-      const keywordsList = Drupal.behaviors.unigData.keywordsList.get();
+    buildTags(keywordsList) {
+
+      console.log('keywordsList', keywordsList);
 
       let elemLi = '';
       if (keywordsList) {
@@ -227,14 +228,14 @@
 
       const scope = Drupal.behaviors.unigKeywords;
 
-      $('.unig-keywords-mark-all-tags-trigger', context).click(() => {
+      $('.unig-keywords-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
         scope.updateDisplay();
         scope.updateFiles();
       });
 
-      $('.unig-keywords-unmark-all-tags-trigger', context).click(() => {
+      $('.unig-keywords-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
         scope.updateDisplay();
@@ -245,7 +246,7 @@
 
       $('.build-done').ready(() => {
         // Add Handler
-        $('.unig-keyword-trigger', context).click(function() {
+        $('.unig-keyword-trigger').click(function() {
           const id = $(this).data('id');
 
           scope.toggle(id);
@@ -295,7 +296,7 @@
         minChars: 2,
         source(term, suggest) {
           term = term.toLowerCase();
-          const choices = Drupal.behaviors.unigData.keywordsList.get();
+          const choices = Drupal.behaviors.unigData.allKeywords.get();
           const matches = [];
           for (let i = 0; i < choices.length; i++) {
             if (choices[i].name.toLowerCase().indexOf(term)) {
@@ -329,7 +330,7 @@
         // hide all files with this tag
        // const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(keywordIds );
 
-        const fullList = Drupal.behaviors.unigData.FileList.get();
+        const fullList = Drupal.behaviors.unigData.FileList.list;
 
         if (fullList && fullList.length > 0) {
           for (const item of fullList) {
@@ -338,15 +339,12 @@
             // all Keywords
             for (const keywords of item.keywords) {
               if(keywordIds.includes(parseInt(keywords.id))){
-                console.error('treffer');
                 $(`#unig-file-${item.nid}`).show();
                 Drupal.behaviors.unigKeywords.Visible.push(item.nid);
 
               }
             }
           }
-        } else {
-          console.log('not an array', fullList);
         }
       }
 
@@ -362,33 +360,6 @@
      * @param settings
      */
     constructor(context) {
-      const Scope = Drupal.behaviors.unigKeywords;
-      const List = Drupal.behaviors.unigData.keywordsList;
-      const Storage = Drupal.behaviors.unigData.keywordsStorage;
-
-      // preload data from localStorage
-      Storage.load();
-
-      // promise : wait for data from server
-      List.load().then(
-        () => {
-          Scope.searchAutocomplete();
-          Scope.buildTags(context);
-          // successCallback
-          const keywordsStorage = Storage.get();
-
-          if (keywordsStorage) {
-            const count = Storage.count();
-            if (count > 0) {
-              //  Scope.openToolbar();
-            }
-          }
-          //  Scope.openToolbar();
-        },
-        reason => {
-          // failureCallback
-        },
-      );
 
       // Close Toolbar
       $('.unig-toolbar-keywords-close-trigger', context).click(event => {

@@ -693,8 +693,8 @@ trait ProjectTrait
     }
     foreach ($terms as $term) {
       $term_data[] = [
-        'id' => $term->tid,
-        'name' => $term->name
+        'id' => (integer)$term->tid,
+        'name' => (string)$term->name
       ];
     }
 
@@ -751,7 +751,7 @@ trait ProjectTrait
           foreach ($keywords as $keyword) {
             $value_keywords[] = ['target_id' => $keyword];
           }
-          $entity->set('field_unig_keywords', $value_keywords) ;
+          $entity->set('field_unig_keywords', $value_keywords);
         }
 
         // People
@@ -881,7 +881,7 @@ trait ProjectTrait
 
         if ($term) {
           $name = $term->getName();
-          $item = ['id' => $tid, 'name' => $name];
+          $item = ['id' => (integer)$tid, 'name' => (string)$name];
           $people[] = $item;
         }
       }
@@ -896,7 +896,7 @@ trait ProjectTrait
 
         if ($term) {
           $name = $term->getName();
-          $item = ['id' => $tid, 'name' => $name];
+          $item = ['id' => (integer)$tid, 'name' => (string)$name];
           $keywords[] = $item;
         }
       }
