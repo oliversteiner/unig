@@ -19,6 +19,7 @@ $font-unig: 'Lato', 'Lucida Grande', 'Source Sans Pro', 'Lucida Sans Unicode',
   Tahoma, Verdana, Arial, Helvetica, sans-serif;
 
 body {
+  //
 }
 
 .unig {
@@ -35,12 +36,10 @@ body {
   table {
     font-size: 14px;
   }
-}
 
-// Title and Link
-// ========================
+  // Title and Link
+  // ========================
 
-.unig {
   h1 {
     font-size: 16px;
   }
@@ -72,12 +71,12 @@ body {
   font-size: 14px;
 }
 
-.unig *:focus {
-  outline: none;
-}
-
 .unig-edit-content * {
   pointer-events: none;
+}
+
+.unig *:focus {
+  outline: none;
 }
 
 .unig-default-box {
@@ -128,6 +127,7 @@ body {
 }
 
 .unig-col {
+  //
 }
 
 .unig-col-left {
@@ -146,6 +146,7 @@ hr.unig {
 }
 
 .unig-toolbar {
+  //
 }
 
 .unig-space {
@@ -192,12 +193,6 @@ li.lazyload-test {
 
 .color-error {
   color: $color-error;
-}
-
-.test {
-}
-
-.unig_form_upload_project {
 }
 
 .unig-edit-project-col {

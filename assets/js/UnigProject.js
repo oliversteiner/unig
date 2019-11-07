@@ -107,9 +107,12 @@
         },
         dataType: 'json',
         success(results) {
-          const text = results.messages[0][0];
-          const type = results.messages[0][1];
-          Drupal.behaviors.unigMessages.addMessage(text, type);
+          console.log('SAVE', results);
+          if (results.messages && results.messages[0]) {
+            const text = results.messages[0][0];
+            const type = results.messages[0][1];
+            Drupal.behaviors.unigMessages.addMessage(text, type);
+          }
         },
       });
 

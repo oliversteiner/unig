@@ -29,7 +29,6 @@
 }
 
 
-
 .unig-project-list-title {
   display: inline-block;
   margin-right: 20px;
@@ -137,6 +136,7 @@ ul.unig-gallery li.unig-file-item:hover {
     cursor: pointer;
     color: $color-100;
   }
+
   &:active {
     color: $color-40;
   }
@@ -299,13 +299,13 @@ ul.unig-gallery li.unig-file-item:hover {
 
 .unig-project-delete-confirm-message {
   padding: 10px 0;
+
   i,
   svg {
     color: $color-warning;
     margin-right: 4px;
   }
 }
-
 
 
 .unig-button-project-delete {
@@ -355,11 +355,11 @@ ul.unig-gallery li.unig-file-item:hover {
   color: $color-error;
 }
 
-.unig-project-private-status.private .unig-fieldset-project{
-border-top: solid 5px $color-admin-private;
+.unig-project-private-status.private .unig-fieldset-project {
+  border-top: solid 5px $color-admin-private;
   padding-top: 10px;
 }
 
-.unig-project-private-status.private .unig-project-public-private{
+.unig-project-private-status.private .unig-project-public-private {
   color: $color-admin-private-active;
 }

@@ -1511,7 +1511,6 @@ ul.unig-messages li {
 .unig table {
   font-size: 14px;
 }
-
 .unig h1 {
   font-size: 16px;
 }
@@ -1537,12 +1536,12 @@ ul.unig-messages li {
   font-size: 14px;
 }
 
-.unig *:focus {
-  outline: none;
-}
-
 .unig-edit-content * {
   pointer-events: none;
+}
+
+.unig *:focus {
+  outline: none;
 }
 
 .unig-default-box {
