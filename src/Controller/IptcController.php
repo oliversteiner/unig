@@ -21,11 +21,11 @@ class IptcController extends ControllerBase
 {
   protected $fid = null;
   protected $data = [];
-  protected $data_keywords = [];
-  protected $data_creation_date = null;
-  protected $data_copyright = null;
-  protected $data_people_names = [];
-  protected $data_keywords_without_peoples = [];
+  protected $keywords = [];
+  protected $creation_date = null;
+  protected $copyright = null;
+  protected $peoples = [];
+  protected $keywords_without_peoples = [];
   protected $people_tids = [];
   protected $keyword_tids = [];
   protected $project_nid = null;
@@ -79,7 +79,15 @@ class IptcController extends ControllerBase
    */
   public function getKeywords()
   {
-    return $this->data_keywords;
+    return $this->keywords;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getPeopleNames()
+  {
+    return $this->peoples;
   }
 
   /**
@@ -88,7 +96,7 @@ class IptcController extends ControllerBase
    */
   public function getKeywordTerms(): array
   {
-    $terms = $this->data_keywords_without_peoples;
+    $terms = $this->keywords_without_peoples;
     $voc = 'unig_keywords';
 
     return $this->getTerms($terms, $voc);
@@ -116,7 +124,7 @@ class IptcController extends ControllerBase
    */
   public function getPeopleTerms()
   {
-    $terms = $this->data_people_names;
+    $terms = $this->peoples;
     $voc = 'unig_people';
 
     return $this->getTerms($terms, $voc);
@@ -147,27 +155,25 @@ class IptcController extends ControllerBase
 
     $keywords = $this->data['keywords'];
 
-    if (is_array($keywords) && count($keywords) < 0) {
+    if (is_array($keywords) && count($keywords) > 0) {
       // search for People names in Keywords:
       // pattern:  "aa bb cc"
       $pattern = '/[\D]{2,}[\s]{1}[\D]{2,}[\s]*[[\D]{2,}]*/';
 
       foreach ($keywords as $keyword) {
-        if (preg_match($pattern, $keyword)) {
+        preg_match($pattern, $keyword, $matches);
+        if ($matches) {
           $peoples[] = $keyword;
         } else {
           $keywords_without_peoples[] = $keyword;
         }
       }
     }
-    $this->data_keywords = $keywords;
-    $this->data_people_names = $peoples;
-    $this->data_keywords_without_peoples = $keywords_without_peoples;
-  }
 
-  function getPeopleNames()
-  {
-    return $this->data_people_names;
+
+    $this->keywords = $keywords;
+    $this->peoples = $peoples;
+    $this->keywords_without_peoples = $keywords_without_peoples;
   }
 
   private function _readIptcFromFile()
@@ -227,8 +233,7 @@ class IptcController extends ControllerBase
                       echo "$innervalue";
                   }
                 }*/
-    }
-    // End if File
+    } // End if File
     else {
       $message = t('File does not exist');
       $this->messenger->addMessage($message, 'error');
@@ -237,15 +242,15 @@ class IptcController extends ControllerBase
     $this->data = $data;
 
     if (isset($data['keywords'])) {
-      $this->data_keywords = $data['keywords'];
+      $this->keywords = $data['keywords'];
     }
 
     if (isset($data['creation_date'])) {
-      $this->data_creation_date = $data['creation_date'];
+      $this->creation_date = $data['creation_date'];
     }
 
     if (isset($data['copyright'])) {
-      $this->data_copyright = $data['copyright'];
+      $this->copyright = $data['copyright'];
     }
     return $data;
   }
@@ -269,19 +274,11 @@ class IptcController extends ControllerBase
   }
 
   /**
-   * @return array
-   */
-  public function getDataKeywords(): array
-  {
-    return $this->data_keywords;
-  }
-
-  /**
    * @return null
    */
-  public function getDataCopyright()
+  public function getCopyright()
   {
-    return $this->data_copyright;
+    return $this->copyright;
   }
 
   /**
@@ -314,7 +311,7 @@ class IptcController extends ControllerBase
   public function savePeopleTerms(): array
   {
     $vid = 'unig_people';
-    $terms = $this->data_people_names;
+    $terms = $this->peoples;
     $tids = $this->saveTerms($vid, $terms, $this->project_nid);
     $this->people_tids = $tids;
     return $tids;
@@ -326,7 +323,7 @@ class IptcController extends ControllerBase
   public function saveKeywordTerms(): array
   {
     $vid = 'unig_keywords';
-    $terms = $this->data_keywords_without_peoples;
+    $terms = $this->keywords_without_peoples;
     $tids = $this->saveTerms($vid, $terms, $this->project_nid);
     $this->keyword_tids = $tids;
     return $tids;
@@ -337,57 +334,39 @@ class IptcController extends ControllerBase
    * @param $new_terms
    *
    * @return array // all term ids from File
-   * @throws PluginNotFoundException
    * @throws EntityStorageException
    */
   public function saveTerms($vid, $new_terms): array
   {
+
+    // TODO: Add Project nid
+
     $project_nid = $this->project_nid;
     $file_keyword_tids = [];
-    $voc = $this->loadVocabulary($vid);
-    $terms_in_voc = [];
-
-    // reduce Voc to names
-    foreach ($voc as $index => $term) {
-      $terms_in_voc[] = $term['name'];
-    }
 
     // if there is new terms
     foreach ($new_terms as $new_term) {
-      if (in_array($new_term, $terms_in_voc)) {
-        $position = array_search($new_term, $terms_in_voc);
-        $tid = $voc[$position]['id'];
-        $file_keyword_tids[] = $tid;
 
-        // load item and search for project id
 
-        // if project id not there add new one
-
-        $term = Term::load($tid);
-
-        if (!empty($term)) {
-          $term->field_projects[] = $project_nid;
-          $term->save();
-        }
+      if ($terms = taxonomy_term_load_multiple_by_name((string)$new_term, $vid)) {
+        // Only use the first term returned; there should only be one anyways if we do this right.
+        $term = reset($terms);
       } else {
-        if (!empty($new_term)) {
-          $new_item = ['target_id' => $project_nid];
+        $term = Term::create([
+          'name' => $new_term,
+          'vid' => $vid,
+        ]);
+        $term->save();
 
-          // Add new Terms to Voc
-          $term_created = Term::create([
-            'name' => $new_term,
-            'vid' => $vid,
-            'field_projects' => $new_item
-          ])->save();
+        Drupal::logger('unig')->info(
+          'new ' . $vid . ': ' . $new_term
+        );
 
-          $this->messenger->addMessage('new ' . $vid . ': ' . $new_term, true);
-
-          // Add new term to output
-          $tid = $term_created->tid->value;
-          $file_keyword_tids[] = $tid;
-        }
       }
+      $tid = $term->id();
+      $file_keyword_tids[] = $tid;
     }
+
 
     return $file_keyword_tids;
   }

@@ -59,7 +59,7 @@ trait CreateImageStylesTrait
   /**
    * @param $img_id_or_file
    * @param ImageStyle $image_style
-   * @param bool $dont_create
+   * @param bool $create
    * @return array|Image
    */
   public static function createImageStyle(

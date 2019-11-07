@@ -6,7 +6,6 @@
       $('#unig-main', context)
         .once('unigKeywords')
         .each(() => {
-
           this.constructor(context, settings);
           this.addAll();
           this.markAllAsActive();
@@ -28,7 +27,7 @@
     ),
 
     Storage: Drupal.behaviors.unigData.keywordsStorage,
-    List: Drupal.behaviors.unigData.keywordsList,
+    List: Drupal.behaviors.unigData.allKeywords,
     Visible: [],
 
     toggleToolbar(context) {
@@ -185,8 +184,9 @@
       }
     },
 
-    buildTags(context) {
-      const keywordsList = Drupal.behaviors.unigData.keywordsList.get();
+    buildTags(keywordsList) {
+
+      console.log('keywordsList', keywordsList);
 
       let elemLi = '';
       if (keywordsList) {
@@ -228,14 +228,14 @@
 
       const scope = Drupal.behaviors.unigKeywords;
 
-      $('.unig-keywords-mark-all-tags-trigger', context).click(() => {
+      $('.unig-keywords-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
         scope.updateDisplay();
         scope.updateFiles();
       });
 
-      $('.unig-keywords-unmark-all-tags-trigger', context).click(() => {
+      $('.unig-keywords-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
         scope.updateDisplay();
@@ -246,7 +246,7 @@
 
       $('.build-done').ready(() => {
         // Add Handler
-        $('.unig-keyword-trigger', context).click(function() {
+        $('.unig-keyword-trigger').click(function() {
           const id = $(this).data('id');
 
           scope.toggle(id);
@@ -296,7 +296,7 @@
         minChars: 2,
         source(term, suggest) {
           term = term.toLowerCase();
-          const choices = Drupal.behaviors.unigData.keywordsList.get();
+          const choices = Drupal.behaviors.unigData.allKeywords.get();
           const matches = [];
           for (let i = 0; i < choices.length; i++) {
             if (choices[i].name.toLowerCase().indexOf(term)) {
@@ -308,9 +308,7 @@
         renderItem(item, search) {
           search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
-          return `<div class="autocomplete-suggestion" data-name="${
-            item.name
-            }" data-id="${item.id}" data-val="${search}">${item.name}</div>`;
+          return `<div class="autocomplete-suggestion" data-name="${item.name}" data-id="${item.id}" data-val="${search}">${item.name}</div>`;
         },
 
         onSelect(e, term, item) {
@@ -324,58 +322,47 @@
     },
 
     updateFiles() {
+      $('.unig-button-download-add-current-to-list').hide();
+
       Drupal.behaviors.unigKeywords.Visible = [];
-      const arrayId = Drupal.behaviors.unigData.keywordsStorage.get();
-      const fullList = Drupal.behaviors.unigData.FileList.get();
+      const keywordIds = Drupal.behaviors.unigData.keywordsStorage.get();
+      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
+      const fullList = Drupal.behaviors.unigData.FileList.list;
 
-      if (arrayId.length > 0) {
+      if (keywordIds.length > 0) {
         // hide all files with this tag
-        const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(
-          arrayId,
-        );
+        // const keywordList = Drupal.behaviors.unigData.FileList.findKeyword(keywordIds );
 
-        // hide all files not in result_list
 
-        // go through all files
-        for (const index in fullList) {
-          let hide = true;
-          // compare each keyword id with ids in "result_list"
-          for (let i = 0; i < keywordList.length; i++) {
-            if (parseInt(keywordList[i], 10) === parseInt(index, 10)) {
-              // keyword found !, do not hide file
-              hide = false;
-              $(`#unig-file-${index}`).slideUp();
-              Drupal.behaviors.unigKeywords.Visible.push(index);
+        if (fullList && fullList.length > 0) {
+          for (const item of fullList) {
+            $(`#unig-file-${item.nid}`).hide();
+            $(`#unig-file-${item.nid}`).data('current', false);
 
-              break;
+            // all Keywords
+            for (const keywords of item.keywords) {
+              if (keywordIds.includes(parseInt(keywords.id))) {
+                $(`#unig-file-${item.nid}`).show();
+                $(`#unig-file-${item.nid}`).data('current', true);
+                Drupal.behaviors.unigKeywords.Visible.push(item.nid);
+
+              }
             }
           }
-          // hide file
-          if (hide) {
-            $(`#unig-file-${index}`).slideDown();
-          }
-        } // for full_list
+        }
       } else {
-        // Show all
-        for (const file in fullList) {
-          Drupal.behaviors.unigKeywords.Visible.push(file);
-          const $elem = $(`#unig-file-${file}`);
-
-          if (
-            $elem.css('display') === 'none' ||
-            $elem.css('visibility') === 'hidden'
-          ) {
-            // The element is not visible
-            $elem.fadeIn();
-          }
+        // show all
+        for (const item of fullList) {
+          $(`#unig-file-${item.nid}`).show();
         }
       }
 
       let html = '';
       if (Drupal.behaviors.unigKeywords.Visible.length > 0) {
-        html = `${Drupal.behaviors.unigKeywords.Visible.length} von `;
+        html = `${Drupal.behaviors.unigKeywords.Visible.length} von ${number_of_all_items}`;
       }
       $('.number_of_visible').html(html);
+      $('.unig-button-download-add-current-to-list').show();
     },
     /**
      *
@@ -383,33 +370,6 @@
      * @param settings
      */
     constructor(context) {
-      const Scope = Drupal.behaviors.unigKeywords;
-      const List = Drupal.behaviors.unigData.keywordsList;
-      const Storage = Drupal.behaviors.unigData.keywordsStorage;
-
-      // preload data from localStorage
-      Storage.load();
-
-      // promise : wait for data from server
-      List.load().then(
-        () => {
-          Scope.searchAutocomplete();
-          Scope.buildTags(context);
-          // successCallback
-          const keywordsStorage = Storage.get();
-
-          if (keywordsStorage) {
-            const count = Storage.count();
-            if (count > 0) {
-              //  Scope.openToolbar();
-            }
-          }
-          //  Scope.openToolbar();
-        },
-        reason => {
-          // failureCallback
-        },
-      );
 
       // Close Toolbar
       $('.unig-toolbar-keywords-close-trigger', context).click(event => {

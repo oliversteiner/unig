@@ -463,6 +463,12 @@
 
                 {# ----------- Info ----------- #}
                 <div class="unig-file-head-item unig-file-head-info">
+
+                  {# ----------- Index Number ----------- #}
+                  <span class="unig-file-item-info unig-file-index">
+                                    {{ loop.index }}
+                                    </span>
+
                 </div>
 
               </div>
@@ -643,7 +649,7 @@
 
                   {# Items #}
                   {% for  keyword in file.keywords %}
-                    <span class="unig-tag unig-keyword unig-keyword-trigger unig-keyword-id-{{ keyword.id }}"
+                    <span class="unig-tag unig-keyword unig-keyword-id-{{ keyword.id }}"
                           data-id="{{ keyword.id }}">{{ keyword.name }}</span>
                   {% endfor %}
                 {% endif %}

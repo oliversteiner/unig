@@ -52,7 +52,8 @@
                             <span class="unig-input-placeholder"> {% trans %} Category {% endtrans %} </span>
                           {% else %}
                             {{ project.category }}
-                          {% endif %}                                                </div>
+                          {% endif %}
+                        </div>
 
                       </div>
 
@@ -325,19 +326,18 @@
 
     </div>
 
-
-    {# Fieldset debug #}
+    {# Fieldset - Debug #}
     <div class="unig-toolbar unig-toolbar-debug">
       <div class="unig-fieldset-debug">
         <div class="row">
-{#
-          <div class="unig-button open-download-message-box-trigger">open message box</div>
-#}
+          {#
+                    <div class="unig-button open-download-message-box-trigger">open message box</div>
+          #}
         </div>
       </div>
-    </div>
+    </div> {# Fieldset debug #}
 
-    {# Toolbar - general #}
+    {# Toolbar - General #}
     <div class="unig-toolbar unig-toolbar-general">
 
 
@@ -448,10 +448,19 @@
       </div>
 
       {# Fieldset - generate #}
-      <div class="unig-fieldset no-border unig-fieldset-image-size unig-button-group">
+      <div class="unig-fieldset no-border unig-fieldset-generate unig-button-group">
       </div>
 
-    </div>
+      {# Fieldset - Extract Keywords #}
+      <div class="unig-fieldset no-border unig-fieldset-extract-keywords unig-button-group">
+        {# Button Theme Default #}
+        <div class="unig-button unig-button-extract-keywords  unig-extract-keywords-trigger">
+          <i class="fas fa-key" aria-hidden="true"></i>
+          {% trans %} Extract Keywords {% endtrans %}
+        </div>
+      </div> {# Fieldset - Extract Keywords #}
+
+    </div>  {# Toolbar - General #}
 
     {# Toolbar - Sort #}
     <div class="unig-toolbar unig-toolbar-sort" style="display: none">
@@ -477,9 +486,9 @@
       </div>
 
 
-    </div>
+    </div>  {# Toolbar - Sort #}
 
-    {# Toolbar Download #}
+    {# Toolbar - Download #}
     <div class="unig-toolbar unig-toolbar-download" style="display: none">
 
       <div>
@@ -490,21 +499,29 @@
         <div class="unig-dl-info-body">
           <div>
 
-
-            {# Button Clear Download List  #}
+            {# Button Add All to  Download List  #}
             <div class="unig-button unig-button-small  unig-button-download-add-all-to-list-trigger">
               <i class="fas fa-th" aria-hidden="true"></i>
-              <span class="number_of_visible"></span>
-
-              {% trans %} Add all files {% endtrans %}
+              {% trans %} Add All Images {% endtrans %}
             </div>
 
             {# Button Clear Download List  #}
             <div class="unig-button unig-button-small  unig-button-download-clear-list-trigger">
               <i class="fas fa-times" aria-hidden="true"></i>
-              {% trans %} Remove All  {% endtrans %}
+              {% trans %} Remove All Images  {% endtrans %}
             </div>
           </div>
+
+          <div>
+            {# Button Add All to  Download List  #}
+            <div class="unig-button unig-button-small  unig-button-download-add-current-to-list unig-button-download-add-current-to-list-trigger">
+              {% trans %} Add {% endtrans %} <span class="number_of_visible"></span> {% trans %} Images {% endtrans %}
+            </div>
+
+          </div>
+
+
+
           <div class="unig-toolbox">
             <table class="unig-bulk-download-table">
 
@@ -580,9 +597,9 @@
         {# Placeholder for Thumbnails #}
       </div>
 
-    </div>
+    </div> {# Toolbar - Download #}
 
-    {# Toolbar Keywords #}
+    {# Toolbar - Keywords #}
     <div class="unig-toolbar unig-toolbar-keywords" style="display: none">
       <div class="unig-toolbar-head">
 
@@ -620,9 +637,9 @@
         </div>
       </div>
 
-    </div>
+    </div> {# Toolbar - Keywords #}
 
-    {# Toolbar People#}
+    {# Toolbar - People #}
     <div class="unig-toolbar unig-toolbar-people" style="display: none">
 
       <div class="unig-toolbar-head"></div>
@@ -636,7 +653,7 @@
           <i class="fas fa-key" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
+    </div> {# Toolbar - People #}
 
     {# --------------- Ajax Message  --------------- #}
     <div class="unig-messages-container">
@@ -673,6 +690,7 @@
     </div>
 
   </div>
+  {# Unig Body #}
   <div class="unig-body">
     <div class="unig unig-project unig-lightgallery">
 
@@ -1097,7 +1115,7 @@
 
                   {# Items #}
                   {% for  keyword in file.keywords %}
-                    <span class="unig-tag unig-keyword unig-keyword-trigger unig-keyword-id-{{ keyword.id }}"
+                    <span class="unig-tag-read-only unig-keyword unig-keyword-id-{{ keyword.id }}"
                           data-id="{{ keyword.id }}">{{ keyword.name }}</span>
                   {% endfor %}
                 {% endif %}
@@ -1129,8 +1147,9 @@
         {% endfor %}
       </ul>
     </div>
-  </div> {# unig-body #}
+  </div> {# Unig Body #}
+
+  {# Unig Footer #}
   <div class="unig-footer">
-    {# Footer #}
-  </div>
+  </div>{# Unig Footer #}
 </div>
