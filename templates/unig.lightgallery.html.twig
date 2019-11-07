@@ -152,6 +152,18 @@ Twig Vars
               style="display: none">{% trans %} Hide index numbers {% endtrans %} </span>
       </div>
 
+      {# Button Downloads #}
+      {% if user.hasPermission('access unig user') %}
+        {# ----------- open Edit ----------- #}
+        <a role="button"
+           class="unig-gallery-toolbar-item unig-gallery-button "
+           href="/unig/member/{{ project.nid }}">
+          <i class="fas fa-download"></i>
+          {% trans %} Download {% endtrans %}
+        </a>
+      {% endif %}
+
+
     </div>
   </div>
 

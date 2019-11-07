@@ -1,0 +1,84 @@
+@import 'colors';
+
+.unig-dropdown-wrapper {
+  position: relative;
+}
+
+.unig-dropdown {
+  position: absolute;
+  border: 1px solid $color-toolbox-border;
+  margin: 10px;
+  background-color: $color-toolbox-background;
+  color: $color-toolbox-text;
+  width: 200px;
+  right: 0;
+  box-shadow: $box-shadow;
+  z-index: 300;
+
+  // Main
+  // --------------------------------------------
+  &-header {
+    border-bottom: 1px solid $color-toolbox-stroke;
+    padding: 2px 10px;
+    background-color: $color-toolbar-background-header;
+    color: white;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  &-header-label {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  &-main {
+    //
+  }
+
+  &-footer {
+    border-top: 1px solid $color-toolbox-stroke;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+
+  // Row
+  // --------------------------------------------
+
+  &-row {
+    display: flex;
+    padding: 5px 10px;
+    border-bottom: 1px solid $color-toolbox-stroke;
+  }
+
+  &-row:hover {
+    background-color: $color-toolbox-hover;
+    cursor: pointer;
+  }
+
+  // Item
+  // --------------------------------------------
+
+  &-item-icon,
+  &-header-icon,
+  &-footer-icon {
+    width: 20px;
+    text-align: left;
+    display: inline-block;
+  }
+
+  &-item-label,
+  &-header-label,
+  &-footer-label {
+    //
+  }
+}
+
+.unig-dropdown-close {
+  opacity: 0.5
+}
+
+.unig-dropdown-close:hover {
+  opacity: 1;
+  cursor: pointer;
+}

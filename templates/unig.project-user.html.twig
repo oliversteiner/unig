@@ -130,16 +130,6 @@
 
     </div> {# Toolbar - Project #}
 
-    {# Toolbar - Debug #}
-    <div class="unig-toolbar unig-toolbar-debug">
-      <div class="unig-fieldset-debug">
-        <div class="row">
-          {#
-                    <div class="unig-button open-download-message-box-trigger">open message box</div>
-          #}
-        </div>
-      </div>
-    </div> {# Toolbar - debug #}
 
     {# Toolbar - General #}
     <div class="unig-toolbar unig-toolbar-general">
@@ -224,21 +214,29 @@
         <div class="unig-dl-info-body">
           <div>
 
-
-            {# Button Clear Download List  #}
+            {# Button Add All to  Download List  #}
             <div class="unig-button unig-button-small  unig-button-download-add-all-to-list-trigger">
               <i class="fas fa-th" aria-hidden="true"></i>
-              <span class="number_of_visible"></span>
-
-              {% trans %} Add all files {% endtrans %}
+              {% trans %} Add All Images {% endtrans %}
             </div>
 
             {# Button Clear Download List  #}
             <div class="unig-button unig-button-small  unig-button-download-clear-list-trigger">
               <i class="fas fa-times" aria-hidden="true"></i>
-              {% trans %} Remove All  {% endtrans %}
+              {% trans %} Remove All Images  {% endtrans %}
             </div>
           </div>
+
+          <div>
+            {# Button Add All to  Download List  #}
+            <div
+              class="unig-button unig-button-small  unig-button-download-add-current-to-list unig-button-download-add-current-to-list-trigger">
+              {% trans %} Add {% endtrans %} <span class="number_of_visible"></span> {% trans %} Images {% endtrans %}
+            </div>
+
+          </div>
+
+
           <div class="unig-toolbox">
             <table class="unig-bulk-download-table">
 
@@ -333,11 +331,13 @@
         <div class="unig-seperator"></div>
 
         {# search #}
+        {#
         <div class="unig-toolbar-head-search">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <input type="text" name="unig-keywords-autocomplete"
-                 placeholder="{% trans %} search {% endtrans %}">
-        </div>
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                  <input type="text" name="unig-keywords-autocomplete"
+                         placeholder="{% trans %} search {% endtrans %}">
+                </div>
+                #}
 
       </div>
       <div class="unig-toolbar-body">
@@ -367,7 +367,9 @@
       </div>
       <div class="unig-toolbar-footer">
         <div class="unig-button unig-button-people-toggle-all">
-          <i class="fas fa-key" aria-hidden="true"></i>
+          <i class="fas fa-user" aria-hidden="true"></i>
+          {% trans %} Show People Names on Files {% endtrans %}
+
         </div>
       </div>
     </div> {# Toolbar - People #}
@@ -533,6 +535,15 @@
                                         <i class="fas fa-info-circle" aria-hidden="true"></i>
                                     </span>
 
+                  {#  -----------   Prozess Indicator -----------  #}
+                  <span class="unig-toolbox-icon unig-file-picto">
+                                       <span class="unig-process-spinner" style="display: none"> <i
+                                           class="fas fa-spinner fa-spin" aria-hidden="true"></i></span>
+                                       <span class="unig-process-success" style="display: none"> <i
+                                           class="fas fa-check" aria-hidden="true"></i></span>
+                                       <span class="unig-process-error" style="display: none"> <i
+                                           class="fas fa-exclamation-triangle" aria-hidden="true"></i></span>
+                                    </span>
                 </div>
               </div>
 
@@ -649,12 +660,11 @@
 
                   {# Items #}
                   {% for  keyword in file.keywords %}
-                    <span class="unig-tag unig-keyword unig-keyword-id-{{ keyword.id }}"
+                    <span class="unig-tag-read-only unig-keyword unig-keyword-id-{{ keyword.id }}"
                           data-id="{{ keyword.id }}">{{ keyword.name }}</span>
                   {% endfor %}
                 {% endif %}
               </div>
-
 
               {#  -----------   Toolbox People -----------  #}
               <div class="unig-toolbox unig-file-people-toolbox" style="display: none">
@@ -669,7 +679,7 @@
                   {# Items #}
                   {% for  people in file.people %}
                     <span
-                      class="unig-tag unig-keyword-people unig-keyword-people-tag-id-{{ people.id }}">{{ people.name }}</span>
+                      class="unig-tag-read-only unig-people unig-people-tag-id-{{ people.id }}">{{ people.name }}</span>
                   {% endfor %}
                 {% endif %}
 

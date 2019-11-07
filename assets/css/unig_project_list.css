@@ -7,23 +7,27 @@
 ul.unig-project-list {
   display: flex;
   justify-content: flex-start;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+}
 
 li.unig-project-list-item {
-  list-style: none; }
+  list-style: none;
+}
 
 li.unig-project-list-item article {
   display: block;
   box-sizing: border-box;
   border: 1px silver solid;
   width: 240px;
-  margin: 20px 30px 40px 0; }
+  margin: 20px 30px 40px 0;
+}
 
 .unig-project-cover {
   display: flex;
   justify-content: center;
   align-content: center;
-  text-align: center; }
+  text-align: center;
+}
 
 .unig-project-cover-background {
   display: flex;
@@ -34,22 +38,27 @@ li.unig-project-list-item article {
   border: none;
   width: 240px;
   height: 240px;
-  cursor: pointer; }
-  .unig-project-cover-background:hover {
-    color: #959595;
-    background-color: #575757;
-    border-color: transparent; }
-  .unig-project-cover-background:active {
-    color: #808080;
-    background-color: #000000;
-    border-color: transparent; }
+  cursor: pointer;
+}
+.unig-project-cover-background:hover {
+  color: #959595;
+  background-color: #575757;
+  border-color: transparent;
+}
+.unig-project-cover-background:active {
+  color: #808080;
+  background-color: #000;
+  border-color: transparent;
+}
 
 .unig-project-cover-icon {
-  font-size: 3.5em; }
+  font-size: 3.5em;
+}
 
 li.unig-project-list-item-year {
   display: block;
-  width: 100%; }
+  width: 100%;
+}
 
 .unig-project-cover a,
 .unig-project-cover a:hover,
@@ -57,24 +66,29 @@ li.unig-project-list-item-year {
   padding: 0;
   margin: 0;
   text-decoration: none;
-  border: none; }
+  border: none;
+}
 
 .unig-project-text {
   padding: 5px 15px;
-  background-color: #e9e9e9; }
+  background-color: #e9e9e9;
+}
 
 li.unig-project-list-item-year {
   display: block;
-  width: 100%; }
+  width: 100%;
+}
 
 .unig-project-year {
-  border-bottom: 1px solid #d6d6d6; }
+  border-bottom: 1px solid #d6d6d6;
+}
 
 .unig-project-list .unig-sortable-placeholder {
   display: inline-flex;
   align-self: flex-start;
   width: 300px;
-  height: 300px; }
+  height: 300px;
+}
 
 .unig-project-date,
 .unig-project-title,
@@ -82,7 +96,8 @@ li.unig-project-list-item-year {
 .unig-project-copyright,
 .unig-project-private {
   margin: 2px 0;
-  padding: 2px 0; }
+  padding: 2px 0;
+}
 
 .unig-edit-project-date,
 .unig-edit-project-title,
@@ -90,7 +105,8 @@ li.unig-project-list-item-year {
 .unig-edit-project-copyright,
 .unig-edit-project-private {
   margin: 2px 0;
-  padding: 2px 0; }
+  padding: 2px 0;
+}
 
 .unig-edit-project-date .title,
 .unig-edit-project-title .title,
@@ -100,100 +116,125 @@ li.unig-project-list-item-year {
   font-style: normal;
   font-weight: normal;
   font-size: 0.9em;
-  color: #8f8f8f; }
+  color: #8f8f8f;
+}
 
 .unig-project-list-toolbar {
   margin-top: 5px;
-  padding-top: 5px; }
+  padding-top: 5px;
+}
 
 .unig-project-list-toolbar-last {
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+}
 
 .unig-project-edit-container input,
 .unig-project-edit-container textarea,
 .unig-project-edit-container label {
-  font-size: 0.9em; }
+  font-size: 0.9em;
+}
 
 .unig-edit-project-copyright {
-  font-style: italic; }
+  font-style: italic;
+}
 
 .unig-project-edit-container textarea {
-  padding: 3px; }
+  padding: 3px;
+}
 
 .unig-project-copyright {
-  font-style: italic; }
+  font-style: italic;
+}
 
 .unig-edit-project-private input,
 .unig-edit-project-private label {
   display: inline;
-  margin-right: 4px; }
+  margin-right: 4px;
+}
 
 .cover-description {
   display: block;
   margin-top: 10px;
-  font-size: 15px; }
+  font-size: 15px;
+}
 
 .unig-button.unig-button-project-edit {
-  color: #b3b3b3; }
+  color: #b3b3b3;
+}
 
 .unig-button.unig-button-project-edit:hover {
   color: black;
-  background-color: transparent; }
+  background-color: transparent;
+}
 
 .unig-button.unig-button-project-edit:active {
   color: #d9d9d9;
-  background-color: transparent; }
+  background-color: transparent;
+}
 
 .unig-project-number-of-items {
   padding-top: 3px;
-  font-size: 0.9em; }
+  font-size: 0.9em;
+}
 
 .unig-project-info-container {
-  padding: 5px 2px 0 2px; }
+  padding: 5px 2px 0 2px;
+}
 
 .unig-project-normal-container {
-  padding: 0 2px; }
+  padding: 0 2px;
+}
 
 hr.unig.unig-project-list {
   border-color: #d6d6d6;
   margin: 5px 0 0;
-  padding: 5px 0 0; }
+  padding: 5px 0 0;
+}
 
 .unig-button-project-edit-close {
   float: right;
-  margin-right: 5px; }
+  margin-right: 5px;
+}
 
 .unig-project-list-item input,
 .unig-project-list-item textarea {
   border: none;
-  background-color: #f3f3f3; }
+  background-color: #f3f3f3;
+}
 
 .unig-project-list-item .unig-project-title,
 .unig-project-list-item h2.unig-project-title,
 .unig-project-list-item .unig-project-title input {
   font-size: 1.2em;
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 .unig-project-delete-confirm-message {
-  padding: 10px 0; }
-  .unig-project-delete-confirm-message i,
-  .unig-project-delete-confirm-message svg {
-    color: #ffbd57;
-    margin-right: 4px; }
+  padding: 10px 0;
+}
+.unig-project-delete-confirm-message i,
+.unig-project-delete-confirm-message svg {
+  color: #ffbd57;
+  margin-right: 4px;
+}
 
 .unig-project-public-private span {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 .unig-project-container.private .unig-project-cover-background {
   background-color: #6a7fc4;
-  color: #1d4281; }
+  color: #1d4281;
+}
 
 .unig-project-container.private .unig-project-cover-background:hover {
   background-color: #323188;
-  color: #6a7fc4; }
+  color: #6a7fc4;
+}
 
 .unig-project-container.private .unig-project-public-private {
-  color: #1d4281; }
+  color: #1d4281;
+}
 
 /*# sourceMappingURL=unig_project_list.css.map */

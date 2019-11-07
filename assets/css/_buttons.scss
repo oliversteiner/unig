@@ -218,6 +218,7 @@ a.unig-button,
   color: $color-default-text;
   border-color: transparent;
   background-color: transparent;
+  opacity: 0.8;
 
   i, svg {
     margin: 0;
@@ -265,12 +266,15 @@ a.unig-button-icon,
     color: $color-default-text-hover;
     border-color: transparent;
     background-color: transparent;
+    opacity: 1;
   }
   &-info:hover {
     @include unig-button;
     color: $color-admin-text;
     border-color: transparent;
     background-color: transparent;
+    opacity: 1;
+
   }
 
   &-success:hover,
@@ -279,6 +283,8 @@ a.unig-button-icon,
     background-color: transparent;
     border-color: transparent;
     color: $color-ok-background;
+    opacity: 1;
+
   }
 
   &-warning:hover {
@@ -286,6 +292,8 @@ a.unig-button-icon,
     background-color: transparent;
     border-color: transparent;
     color: $color-warning-background;
+    opacity: 1;
+
   }
 
   &-error:hover,
@@ -294,6 +302,8 @@ a.unig-button-icon,
     background-color: transparent;
     border-color: transparent;
     color: $color-error-background;
+    opacity: 1;
+
   }
 
 }

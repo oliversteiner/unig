@@ -1,23 +1,25 @@
-@import "colors";
-@import "animations";
-@import "buttons";
-@import "sortable";
-@import "inputs";
-@import "download";
-@import "rating";
-@import "keyword_people";
-@import "toolbox";
-@import "toolbar";
-@import "fieldset";
-@import "item_overlay";
-@import "images_size";
-@import "messages";
-@import "message_box";
+@import 'colors';
+@import 'animations';
+@import 'buttons';
+@import 'sortable';
+@import 'inputs';
+@import 'download';
+@import 'rating';
+@import 'keyword_people';
+@import 'toolbox';
+@import 'toolbar';
+@import 'fieldset';
+@import 'item_overlay';
+@import 'images_size';
+@import 'messages';
+@import 'message_box';
+@import 'dropdown';
 
-$font-unig: "Lato", "Lucida Grande", "Source Sans Pro", "Lucida Sans Unicode",
-Tahoma, Verdana, Arial, Helvetica, sans-serif;
+$font-unig: 'Lato', 'Lucida Grande', 'Source Sans Pro', 'Lucida Sans Unicode',
+  Tahoma, Verdana, Arial, Helvetica, sans-serif;
 
 body {
+  //
 }
 
 .unig {
@@ -34,13 +36,10 @@ body {
   table {
     font-size: 14px;
   }
-}
 
+  // Title and Link
+  // ========================
 
-// Title and Link
-// ========================
-
-.unig {
   h1 {
     font-size: 16px;
   }
@@ -57,13 +56,12 @@ body {
   }
 }
 
-
 // Input
 // ========================
 
 .unig-edit-box,
 .unig input,
-.unig input[type=text],
+.unig input[type='text'],
 .unig textarea {
   border: none;
   box-sizing: border-box;
@@ -73,12 +71,12 @@ body {
   font-size: 14px;
 }
 
-.unig *:focus {
-  outline: none;
-}
-
 .unig-edit-content * {
   pointer-events: none;
+}
+
+.unig *:focus {
+  outline: none;
 }
 
 .unig-default-box {
@@ -87,13 +85,11 @@ body {
 
 .unig-default-box-textarea {
   padding: 3px;
-
 }
 
 .unig-input-placeholder {
   color: $color-50;
 }
-
 
 // Table
 // ========================
@@ -131,6 +127,7 @@ body {
 }
 
 .unig-col {
+  //
 }
 
 .unig-col-left {
@@ -149,6 +146,7 @@ hr.unig {
 }
 
 .unig-toolbar {
+  //
 }
 
 .unig-space {
@@ -195,12 +193,6 @@ li.lazyload-test {
 
 .color-error {
   color: $color-error;
-}
-
-.test {
-}
-
-.unig_form_upload_project {
 }
 
 .unig-edit-project-col {

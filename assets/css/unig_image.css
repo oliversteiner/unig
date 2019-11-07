@@ -11,22 +11,27 @@
   cursor: zoom-in;
   border-radius: 3px;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 ul.unig-gallery li.unig-file-edit.active {
-  border: 2px solid #7f2421; }
+  border: 2px solid #7f2421;
+}
 
 .unig-gallery-preview-wrapper img {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 .unig-lightgallery-title {
   display: inline-block;
-  margin-right: 20px; }
+  margin-right: 20px;
+}
 
 .unig-lightgallery-date {
   display: inline-block;
-  margin-right: 20px; }
+  margin-right: 20px;
+}
 
 ul.unig-gallery {
   display: flex;
@@ -36,93 +41,117 @@ ul.unig-gallery {
   flex-wrap: wrap;
   margin: 0;
   padding: 0;
-  background-color: #c7c7c7; }
+}
 
 ul.unig-gallery li.unig-file-item {
   background-color: #e7e7e7;
-  border: 2px solid transparent; }
+  border: 2px solid transparent;
+}
 
 ul.unig-gallery li.unig-file-item.marked {
   background-color: #9d98d2;
-  border: 2px solid transparent; }
+  border: 2px solid transparent;
+}
 
 ul.unig-gallery li.unig-file-item:hover {
   background-color: #b8b8b8;
-  border-color: #414d47; }
+  border-color: #414d47;
+}
 
 ul.unig-gallery li.unig-file-item:hover.marked {
   background-color: #9d98d2;
-  border-color: #414d47; }
+  border-color: #414d47;
+}
 
 .unig-file-item-text {
-  color: #292929; }
+  color: #292929;
+}
 
 .unig-file-item-info {
-  color: #8f8f8f; }
+  color: #8f8f8f;
+}
 
 .unig-file-picto {
-  color: #d3d2d2; }
+  color: #d3d2d2;
+}
 
 .marked .unig-file-picto {
-  color: #6b69a2; }
+  color: #6b69a2;
+}
 
 .unig-file-picto:hover {
-  color: #aa5cfc; }
+  color: #aa5cfc;
+}
 
 .unig-file-picto:active {
-  color: black; }
+  color: black;
+}
 
 .unig-file-picto.active {
-  color: black; }
+  color: black;
+}
 
 .unig-file-picto.active:hover {
-  color: #8d52ba; }
+  color: #8d52ba;
+}
 
 .unig-file-head {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 .unig-file-head-item {
-  padding: 2px; }
+  padding: 2px;
+}
 
 .unig-file-item-info {
   text-align: center;
   padding-right: 2px;
-  margin-right: 4px; }
+  margin-right: 4px;
+}
 
 .unig-file-nid {
   border-right: 1px solid #8f8f8f;
-  padding-right: 6px; }
+  padding-right: 6px;
+}
 
 .unig-file-weight {
-  border-right: 1px solid #8f8f8f; }
+  border-right: 1px solid #8f8f8f;
+}
 
 .unig-file-name {
   display: block;
   padding: 2px 9px;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+}
 
 .unig-project-date {
-  font-size: 1.2em; }
+  font-size: 1.2em;
+}
 
 h2.unig-project-title {
   margin: 0;
   padding: 0;
-  font-size: 1.8em; }
+  font-size: 1.8em;
+}
 
 .unig-file-gallery-head {
-  margin-left: 50px; }
+  margin-left: 50px;
+}
 
 .unig-file-middle {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 .unig-file-title {
   padding: 5px 10px 2px 10px;
-  text-align: center; }
+  text-align: center;
+}
 
 .unig-button-image-size {
-  display: inline-block; }
+  display: inline-block;
+}
 
 .css-picto-image-wrapper {
   display: flex;
@@ -130,12 +159,14 @@ h2.unig-project-title {
   align-content: center;
   height: 20px;
   width: 20px;
-  font-size: 2px; }
+  font-size: 2px;
+}
 
 .no-preview-medium,
 .no-preview-small,
 .no-preview-big {
   padding-top: 10px;
-  color: #676767; }
+  color: #676767;
+}
 
 /*# sourceMappingURL=unig_image.css.map */

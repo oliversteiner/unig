@@ -1,0 +1,22 @@
+.unig-project-user {
+
+  // remove Background
+  .unig-toolbar,
+  .unig-fieldset {
+    background: transparent;
+    border: none;
+  }
+
+  // remove Border
+  a.unig-button,
+  .unig-button {
+    border: 1px solid transparent;
+  }
+
+  // remove Background
+  a.unig-button:not(:hover),
+  .unig-button:not(:hover) {
+    border: 1px solid transparent;
+    background: transparent;
+  }
+}

@@ -1,0 +1,16 @@
+.unig-project-user .unig-toolbar,
+.unig-project-user .unig-fieldset {
+  background: transparent;
+  border: none;
+}
+.unig-project-user a.unig-button,
+.unig-project-user .unig-button {
+  border: 1px solid transparent;
+}
+.unig-project-user a.unig-button:not(:hover),
+.unig-project-user .unig-button:not(:hover) {
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+/*# sourceMappingURL=unig_project_user.css.map */
