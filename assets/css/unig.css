@@ -1311,7 +1311,10 @@ ul.unig-images-small li.unig-file-item {
   width: 150px;
 }
 
-ul.unig-images-small .unig-file-head,
+ul.unig-images-small .unig-file-head .unig-file-rating {
+  font-size: 0.7rem;
+}
+
 ul.unig-images-small .unig-file-middle-toolbox {
   display: none;
 }
@@ -1328,11 +1331,13 @@ ul.unig-images-medium div.unig-lazyload-container {
 
 ul.unig-images-big li.unig-file-item {
   width: 460px;
+  max-width: 460px;
 }
 
 ul.unig-images-big div.unig-lazyload-container {
   min-width: 440px;
   min-height: 280px;
+  max-width: 460px;
 }
 
 ul.unig-messages.active {
