@@ -219,6 +219,8 @@
 
     attach(context, settings) {
       // onload
+      console.log('LoadTime:', drupalSettings.unig.project.time);
+
 
       const scope = this;
 

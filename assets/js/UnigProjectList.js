@@ -35,7 +35,7 @@
      * @param event
      */
     getProjectId(event) {
-      const elem = event.target.closest('.unig-project-nid'); // NO IE
+      const elem = event.target.closest('.unig-project-id'); // NO IE
       return elem.dataset.unigProjectNid;
     },
 

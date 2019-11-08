@@ -49,9 +49,9 @@ use User;
 
 trait ProjectTrait
 {
-  public $default_project_nid;
+  public $default_project_id;
 
-  public $project_nids = [];
+  public $project_ids = [];
 
   /**
    * @return array|int
@@ -141,20 +141,20 @@ trait ProjectTrait
   /**
    * depricated
    *
-   * @param bool $project_nid
+   * @param bool $project_id
    * @return int
    */
-  public function getDefaultProjectNid($project_nid = false): ?int
+  public function getDefaultProjectNid($project_id = false): ?int
   {
-    if ($project_nid) {
-      return $project_nid;
+    if ($project_id) {
+      return $project_id;
     }
 
     // Aus den Einstellungen das Defaultalbum wählen
     $default_config = Drupal::config('unig.settings');
-    $default_project_nid = $default_config->get('unig.default_project');
-    if ($default_project_nid) {
-      return (int)$default_project_nid;
+    $default_project_id = $default_config->get('unig.default_project');
+    if ($default_project_id) {
+      return (int)$default_project_id;
     }
 
     // sonst das letzte Projekt nehmen
@@ -438,9 +438,9 @@ trait ProjectTrait
     $variables = [];
 
     if ($nids) {
-      foreach ($nids as $project_nid) {
+      foreach ($nids as $project_id) {
         try {
-          $variables[] = self::buildProject($project_nid);
+          $variables[] = self::buildProject($project_id);
         } catch (Exception $e) {
         }
       }
@@ -450,7 +450,7 @@ trait ProjectTrait
   }
 
   /**
-   * @param $project_nid
+   * @param $project_id
    * @return array
    *
    * @throws InvalidPluginDefinitionException
@@ -571,7 +571,7 @@ trait ProjectTrait
 
     // URL
     $url = Url::fromRoute('unig.lightgallery', [
-      'project_nid' => $project_id
+      'project_id' => $project_id
     ]);
 
     // Twig-Variables
@@ -607,15 +607,15 @@ trait ProjectTrait
   }
 
   /**
-   * @param      $project_nid
+   * @param      $project_id
    * @param null $album_nid
    *
    * @return array
    * @throws InvalidPluginDefinitionException
    */
-  public static function buildFileList($project_nid, $album_nid = null)
+  public static function buildFileList($project_id, $album_nid = null)
   {
-    $file_nids = self::getListofFilesInProject($project_nid, $album_nid);
+    $file_nids = self::getListofFilesInProject($project_id, $album_nid);
     $variables = [];
 
     foreach ($file_nids as $file_nid) {
@@ -626,7 +626,7 @@ trait ProjectTrait
   }
 
   public static function getJSONFromProjectFiles(
-    $project_nid,
+    $project_id,
     $album_nid = null
   ): JsonResponse
   {
@@ -637,11 +637,11 @@ trait ProjectTrait
     $postReq = \Drupal::request()->request->all();
     // $response['debug'] = $postReq;
 
-    if (isset($postReq, $postReq['project_nid'])) {
-      $project_nid = $postReq['project_nid'];
+    if (isset($postReq, $postReq['project_id'])) {
+      $project_id = $postReq['project_id'];
     }
 
-    $file_nids = self::getListofFilesInProject($project_nid);
+    $file_nids = self::getListofFilesInProject($project_id);
     $variables = [];
 
     foreach ($file_nids as $file_nid) {
@@ -657,7 +657,7 @@ trait ProjectTrait
    * @return JsonResponse
    *
    */
-  public static function getJSONfromKeywordsForProject($project_nid)
+  public static function getJSONfromKeywordsForProject($project_id)
   {
     $vid = 'unig_keywords';
     return self::getJSONfromKeywords($vid);
@@ -669,7 +669,7 @@ trait ProjectTrait
     return self::getJSONfromVocubulary($vid);
   }
 
-  public static function getJSONfromPeopleForProject($project_nid)
+  public static function getJSONfromPeopleForProject($project_id)
   {
     $vid = 'unig_people';
     return self::getJSONfromPeople($vid);
@@ -704,17 +704,17 @@ trait ProjectTrait
   }
 
   /**
-   * @param      $project_nid
+   * @param      $project_id
    * @param null $album_nid
    * @return array
    */
   public static function importKeywordsFromProject(
-    $project_nid,
+    $project_id,
     $album_nid = null
   ): array
   {
     $list = [];
-    $nids = self::getListofFilesInProject($project_nid, $album_nid);
+    $nids = self::getListofFilesInProject($project_id, $album_nid);
 
     // read Keywords of every Files in Project
     foreach ($nids as $nid) {
@@ -925,14 +925,14 @@ trait ProjectTrait
     return $file;
   }
 
-  public static function projectDelete($project_nid)
+  public static function projectDelete($project_id)
   {
     // delete Project
     $status = false;
-    $message = $project_nid;
+    $message = $project_id;
 
-    if ($project_nid) {
-      $node = Node::Load($project_nid);
+    if ($project_id) {
+      $node = Node::Load($project_id);
 
       // load node
       if ($node) {
@@ -940,15 +940,15 @@ trait ProjectTrait
         $node->delete();
 
         // Delete Files
-        self::deleteAllFilesInProject($project_nid);
+        self::deleteAllFilesInProject($project_id);
 
         // Node delete success
         $status = true;
-        $message = 'Das Projekt mit der ID ' . $project_nid . ' wurde gelöscht';
+        $message = 'Das Projekt mit der ID ' . $project_id . ' wurde gelöscht';
       } // no Node found
       else {
         $status = false;
-        $message = 'kein Projekt mit der ID ' . $project_nid . ' gefunden';
+        $message = 'kein Projekt mit der ID ' . $project_id . ' gefunden';
       }
     }
 
@@ -960,10 +960,10 @@ trait ProjectTrait
     return $output;
   }
 
-  public static function deleteAllFilesInProject($project_nid)
+  public static function deleteAllFilesInProject($project_id)
   {
     // Delete all Files
-    $file_nids = self::getListofFilesInProject($project_nid);
+    $file_nids = self::getListofFilesInProject($project_id);
 
     foreach ($file_nids as $file_nid) {
       FileTrait::deleteFile($file_nid);
@@ -981,13 +981,13 @@ trait ProjectTrait
    */
   public static function saveProject()
   {
-    $project_nid = $_POST['project_nid'];
+    $project_id = $_POST['project_id'];
     $data = $_POST['data'];
 
     // Load node
     $entity = Drupal::entityTypeManager()
       ->getStorage('node')
-      ->load($project_nid);
+      ->load($project_id);
 
     // title
     $entity->title[0] = $data['title'];

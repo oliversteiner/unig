@@ -39,7 +39,7 @@
     },
 
     getProjectID() {
-      const id = $('.unig-project-nid').data('unig-project-nid');
+      const id = $('.unig-project-id').data('unig-project-id');
       return id;
     },
 

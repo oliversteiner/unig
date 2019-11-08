@@ -1,24 +1,16 @@
 #
 #
 #
-unig.project.preview:
+unig.project.teaser:
   css:
     theme:
       assets/css/unig_public.css: {}
       assets/css/unig_project_preview.css: {}
-#
-#
-#
-unig.project_list:
-  css:
-    theme:
-      assets/css/unig_public.css: {}
-      assets/css/unig_responsive.css: {}
 
 #
 #
 #
-unig.project:
+unig.project.public:
   css:
     theme:
       assets/css/unig_public.css: {}
@@ -32,29 +24,13 @@ unig.project:
     - core/jquery.once
     - unig/unig.lightgallery
 
-#
-#
-#
-unig.project.user:
-  css:
-    theme:
-      assets/css/unig_public.css: {}
-      assets/css/unig_responsive.css: {}
-  js:
-    assets/js/UnigPublic.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - core/jquery
-    - core/jquery.once
-    - unig/unig.lightgallery
 #
 #
 #
 unig.upload:
   css:
     theme:
-      assets/css/unig.css: {}
+      assets/css/unig_admin.css: {}
       assets/css/unig_responsive.css: {}
 
   js:
@@ -67,7 +43,7 @@ unig.upload:
 unig.upload_albumid:
   css:
     theme:
-      assets/css/unig.css: {}
+      assets/css/unig_admin.css: {}
   js:
     assets/js/UnigUpload.js: {}
   dependencies:
@@ -79,7 +55,7 @@ unig.project.admin:
   css:
     theme:
       fontcustom/unig-icons/unig-icons.css: {}
-      assets/css/unig.css: {}
+      assets/css/unig_admin.css: {}
       assets/css/unig_album.css: {}
       assets/css/unig_image.css: {}
       assets/css/unig_project.css: {}
@@ -115,10 +91,10 @@ unig.project.admin:
 #
 #
 #
-unig.admin.project_list:
+unig.list.admin:
   css:
     theme:
-      assets/css/unig.css: {}
+      assets/css/unig_admin.css: {}
       assets/css/unig_project_list.css: {}
       assets/css/theme/dark.css: {}
       assets/css/unig_responsive.css: {}
@@ -136,6 +112,23 @@ unig.admin.project_list:
     - core/jquery.once
     - core/jquery.ui.datepicker
     - core/jquery.ui.sortable
+
+#
+#
+#
+unig.list.public:
+  css:
+    theme:
+      assets/css/unig_project_list.css: {}
+      assets/css/unig_responsive.css: {}
+  js:
+    assets/js/Unig.js: {}
+    assets/js/UnigProjectList.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/jquery.once
 
 #
 #

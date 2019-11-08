@@ -43,19 +43,19 @@ trait FileTrait
    *      - status    => string(4) "done"
    *
    * @param $file_tmp
-   * @param $project_nid
+   * @param $project_id
    *
    * @return int
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function createNodeUniGImage($file_tmp, $project_nid = null): int
+  public function createNodeUniGImage($file_tmp, $project_id = null): int
   {
     // define entity type and bundle
     $entity_type = 'node';
 
     // get fid of the temporary uploaded file
-    $file_id = $this->getFileId($file_tmp, $project_nid);
+    $file_id = $this->getFileId($file_tmp, $project_id);
 
     // split the filename: get name and lowercase extension separately
     $file_temp = $file_tmp['name'];
@@ -83,7 +83,7 @@ trait FileTrait
 
     if (!empty($new_unig_file->field_unig_project)) {
       $new_unig_file->field_unig_project->setValue([
-        'target_id' => $project_nid
+        'target_id' => $project_id
       ]);
     }
 
@@ -97,7 +97,7 @@ trait FileTrait
       }
 
       // IPTC
-      $iptc = new IptcController($file_id, $project_nid);
+      $iptc = new IptcController($file_id, $project_id);
       $keywords = $iptc->getKeywordTermIDs();
       $people = $iptc->getPeopleTermIds();
 
@@ -147,10 +147,10 @@ trait FileTrait
     // Create Multiple Nodes
     $node_ids = [];
     $file_upload = $values['file_upload'];
-    $project_nid = $values['project_nid'];
+    $project_id = $values['project_id'];
 
     foreach ($file_upload as $file_tmp) {
-      $node_ids[] = $this->createNodeUniGImage($file_tmp, $project_nid);
+      $node_ids[] = $this->createNodeUniGImage($file_tmp, $project_id);
     }
 
     return $node_ids;
@@ -196,11 +196,11 @@ trait FileTrait
 
   /**
    * @param $file_temp
-   * @param $project_nid
+   * @param $project_id
    *
    * @return int
    */
-  public function getFileId($file_temp, $project_nid)
+  public function getFileId($file_temp, $project_id)
   {
     // Plupload
     // ---------------------------------
@@ -218,13 +218,13 @@ trait FileTrait
 
     // If Pathauto is active, take aliasname from project for directory
     $project_alias = Drupal::service('path.alias_storage')->load([
-      'source' => '/node/' . $project_nid
+      'source' => '/node/' . $project_id
     ]);
 
     if ($project_alias) {
-      $project_name = $project_nid . '-' . $project_alias . '/';
+      $project_name = $project_id . '-' . $project_alias . '/';
     } else {
-      $project_name = $project_nid . '/';
+      $project_name = $project_id . '/';
     }
     $path_album = $path_prefix_unig . $project_name;
 

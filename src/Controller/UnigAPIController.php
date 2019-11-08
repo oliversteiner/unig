@@ -8,9 +8,9 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\unig\Utility\AlbumTrait;
-use Drupal\unig\Utility\CacheTrait;
 use Drupal\unig\Utility\ProjectTemplateTrait;
 use Drupal\unig\Utility\ProjectTrait;
+use Drupal\unig\Utility\UnigCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -69,7 +69,7 @@ class UnigAPIController extends ControllerBase
     $base = 'unig/api/';
     $version = '1.0.0';
 
-    $result = self::clearProjectCache($id);
+    $result = UnigCache::clearProjectCache($id);
 
     $response = [
       'label' => $label,
@@ -96,12 +96,12 @@ class UnigAPIController extends ControllerBase
     $base = 'unig/api/';
     $version = '1.0.0';
 
-    $result = self::clearProjectCache($id);
+    $result = UnigCache::clearProjectCache($id);
     $variables = [];
     $variables['album'] = AlbumTrait::getAlbumList($id);
     $variables['project'] = ProjectTrait::buildProject($id);
     $variables['files'] = ProjectTrait::buildFileList($id, null);
-    $result = self::saveProjectCache($id, $variables);
+    $result = UnigCache::saveProjectCache($id, $variables);
 
     $response = [
       'label' => $label,

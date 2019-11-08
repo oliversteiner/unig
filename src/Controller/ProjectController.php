@@ -40,26 +40,26 @@ class ProjectController extends ControllerBase
   use SortTrait;
   use RatingTrait;
 
-  public function project($project_nid, $album_nid = null)
+  public function project($project_id, $album_nid = null)
   {
-    if (empty($project_nid)) {
+    if (empty($project_id)) {
       return $this->projectListTemplate();
     }
 
-    return $this->projectTemplate($project_nid, $album_nid);
+    return $this->projectTemplate($project_id, $album_nid);
   }
 
   /**
    * Returns a page title.
-   * @param $project_nid
+   * @param $project_id
    * @param null $album_nid
    * @return string
    */
-  public function getTitle($project_nid, $album_nid = null): string
+  public function getTitle($project_id, $album_nid = null): string
   {
     // Get Node from Project
-    if ($project_nid !== null) {
-      $node = Node::load($project_nid);
+    if ($project_id !== null) {
+      $node = Node::load($project_id);
     }
 
     // Get Node from Album
@@ -97,11 +97,11 @@ class ProjectController extends ControllerBase
     return $response;
   }
 
-  public static function extractKeyword($project_nid): JsonResponse
+  public static function extractKeyword($project_id): JsonResponse
   {
     $output = new OutputController();
 
-    $list = self::importKeywordsFromProject($project_nid);
+    $list = self::importKeywordsFromProject($project_id);
 
     if ($list && count($list) !== 0) {
       $number_of_images_with_keywords = count($list);
@@ -136,9 +136,9 @@ class ProjectController extends ControllerBase
   /**
    * @return JsonResponse
    */
-  public function ajaxSetCover($project_nid, $image_nid): JsonResponse
+  public function ajaxSetCover($project_id, $image_nid): JsonResponse
   {
-    $data = ProjectTrait::setCover($project_nid, $image_nid);
+    $data = ProjectTrait::setCover($project_id, $image_nid);
     return $data->json();
   }
 
@@ -203,15 +203,15 @@ class ProjectController extends ControllerBase
   /**
    * @return AjaxResponse
    */
-  public function ajaxProjectDelete($project_nid): AjaxResponse
+  public function ajaxProjectDelete($project_id): AjaxResponse
   {
     $response = new AjaxResponse();
 
-    $result = ProjectTrait::projectDelete($project_nid);
+    $result = ProjectTrait::projectDelete($project_id);
 
     if ($result['status']) {
       $response->addCommand(
-        new ReplaceCommand('article.unig-project-' . $project_nid, '')
+        new ReplaceCommand('article.unig-project-' . $project_id, '')
       );
     }
 
@@ -227,11 +227,11 @@ class ProjectController extends ControllerBase
   }
 
   /**
-   * @param $project_nid
+   * @param $project_id
    *
    * @return AjaxResponse
    */
-  public function ajaxNewAlbumForm($project_nid): AjaxResponse
+  public function ajaxNewAlbumForm($project_id): AjaxResponse
   {
     $message = 'new form';
     $css = ['display' => 'block'];
@@ -244,20 +244,20 @@ class ProjectController extends ControllerBase
   }
 
   /**
-   * @param $project_nid
+   * @param $project_id
    *
    * @return JsonResponse
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function ajaxProjectInfo($project_nid): JsonResponse
+  public function ajaxProjectInfo($project_id): JsonResponse
   {
-    if (isset($_POST['project_nid'])) {
-      $project_nid = $_POST['project_nid'];
+    if (isset($_POST['project_id'])) {
+      $project_id = $_POST['project_id'];
     }
 
     $response = new JsonResponse();
-    $result = ProjectTrait::buildProject($project_nid);
+    $result = ProjectTrait::buildProject($project_id);
 
     if (!empty($result)) {
       $response->setData($result);

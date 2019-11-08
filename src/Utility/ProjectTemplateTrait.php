@@ -25,7 +25,7 @@ trait ProjectTemplateTrait
   /**
    * Generate a render array with our Admin content.
    *
-   * @param      $project_nid
+   * @param      $project_id
    * @param null $album_nid
    *
    * @return array A render array.
@@ -34,7 +34,7 @@ trait ProjectTemplateTrait
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function projectTemplate($project_nid, $album_nid = null): array
+  public function projectTemplate($project_id, $album_nid = null): array
   {
     // Times to Load
     // build without cache : 8.2914
@@ -46,12 +46,12 @@ trait ProjectTemplateTrait
     $start = $time;
 
     // Make sure you don't trust the URL to be safe! Always check for exploits.
-    if (!is_numeric($project_nid)) {
+    if (!is_numeric($project_id)) {
       // We will just show a standard "access denied" page in this case.
       throw new AccessDeniedHttpException();
     }
 
-    $project_variables = $this->getProjectVariables($project_nid, $album_nid);
+    $project_variables = $this->getProjectVariables($project_id, $album_nid);
 
     $template_path = $this->getProjectPath();
     $template = file_get_contents($template_path);
@@ -75,7 +75,7 @@ trait ProjectTemplateTrait
     ) {
       $build['#attached']['library'] = 'unig/unig.project.admin';
     } else {
-      $build['#attached']['library'] = 'unig/unig.project';
+      $build['#attached']['library'] = 'unig/unig.project.public';
     }
 
     $time = microtime();
@@ -94,7 +94,7 @@ trait ProjectTemplateTrait
   /**
    * Variables to act as context to the twig template file.
    *
-   * @param $project_nid
+   * @param $project_id
    * @param null $album_nid
    * @return array
    *   Associative array that defines context for a template.
@@ -102,10 +102,10 @@ trait ProjectTemplateTrait
    * @throws PluginNotFoundException
    * @throws Drupal\Core\Entity\EntityStorageException
    */
-  protected function getProjectVariables($project_nid, $album_nid = null): array
+  protected function getProjectVariables($project_id, $album_nid = null): array
   {
     // load Cache
-    $cache = UnigCache::loadProjectCache($project_nid);
+    $cache = UnigCache::loadProjectCache($project_id);
 
     if (!empty($cache)) {
       $variables['album'] = $cache['album'];
@@ -113,15 +113,15 @@ trait ProjectTemplateTrait
       $variables['files'] = $cache['files'];
     } else {
       // generate Project items
-      $variables['album'] = AlbumTrait::getAlbumList($project_nid);
-      $variables['project'] = ProjectTrait::buildProject($project_nid);
+      $variables['album'] = AlbumTrait::getAlbumList($project_id);
+      $variables['project'] = ProjectTrait::buildProject($project_id);
       $variables['files'] = ProjectTrait::buildFileList(
-        $project_nid,
+        $project_id,
         $album_nid
       );
 
       // save project variables to cache
-      UnigCache::saveProjectCache($project_nid, $variables);
+      UnigCache::saveProjectCache($project_id, $variables);
     }
 
     // Module

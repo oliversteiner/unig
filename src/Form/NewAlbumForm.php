@@ -30,7 +30,7 @@
     /**
      * UploadImages constructor.
      *
-     * @param $project_nid
+     * @param $project_id
      */
     public function __construct() {
 
@@ -51,7 +51,7 @@
     public function buildForm(array $form, FormStateInterface $form_state) {
 
 
-      $form['project_nid'] = [
+      $form['project_id'] = [
         '#type' => 'hidden',
         '#value' => '',
       ];
@@ -93,7 +93,7 @@
       $values = $form_state->getValues();
 
       $album_name = $values['new_album'];
-      $projekt_nid = $values['project_nid'];
+      $projekt_nid = $values['project_id'];
 
       if (isset($album_name) && !empty($album_name)) {
 
@@ -136,7 +136,7 @@
       $values = $form_state->getValues();
 
       $album_name = $values['new_album'];
-      $project_nid = $values['project_nid'];
+      $project_id = $values['project_id'];
 
       if (isset($album_name) && !empty($album_name)) {
 
@@ -145,7 +145,7 @@
 
         if ($album_nid) {
 
-          AlbumTrait::addAlbum($project_nid, $album_nid);
+          AlbumTrait::addAlbum($project_id, $album_nid);
           drupal_set_message('Neues Album "' . $album_name . '" erstellt');
 
         }

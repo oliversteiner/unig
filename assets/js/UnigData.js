@@ -4,7 +4,6 @@
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
-
     project: {},
 
     attach(context, settings) {
@@ -16,18 +15,15 @@
             console.log('project loading...');
 
             this.project = drupalSettings.unig.project.project;
-            const projectId = this.project.nid;
+            const projectId = this.project.id;
             console.log('Done.');
 
             console.log('FileList loading...');
             Drupal.behaviors.unigData.FileList.load();
-              console.log('Done.');
+            console.log('Done.');
 
-              console.log('Images loading...');
-           //   Drupal.behaviors.unigLazyLoad.loadImages();
-
-
-
+            console.log('Images loading...');
+            Drupal.behaviors.unigLazyLoad.loadImages();
           }
         });
     },
@@ -95,13 +91,11 @@
      *
      */
     remove(nid) {
-
       const index = this.list.indexOf(nid);
       // remove it
       if (index > -1) {
         this.list.splice(index, 1);
       }
-
     },
 
     destroy() {
@@ -121,7 +115,7 @@
      */
     save() {
       const storageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 
@@ -133,7 +127,7 @@
      */
     load() {
       const storagename = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
       const localString = localStorage.getItem(storagename);
@@ -150,7 +144,6 @@
      * @return {*}
      */
     get() {
-
       if (this.count() > 0) {
         return this.list;
       }
@@ -168,8 +161,6 @@
      * @return {number}
      */
     count() {
-
-
       return this.list.length;
     },
   };
@@ -202,7 +193,6 @@
       // People
       this.people = this.getPeople(fileList);
       Drupal.behaviors.unigData.peopleList.load(fileList);
-
     },
 
     destroy() {
@@ -218,9 +208,7 @@
       return false;
     },
 
-
     getKeywords(fileList) {
-
       let keywordsList = [];
 
       fileList.forEach(item => {
@@ -237,7 +225,6 @@
     },
 
     getPeople(fileList) {
-
       let peopleList = [];
 
       fileList.forEach(item => {
@@ -345,14 +332,12 @@
     route: 'unig/term/keywords/json',
 
     load() {
-
       $.ajax({
         url: Drupal.url(this.route),
         type: 'GET',
         dataType: 'json',
       })
         .done(result => {
-
           const keywordsInProject = Drupal.behaviors.unigData.FileList.keywords;
 
           let keywordsList = [];
@@ -362,7 +347,6 @@
                 keywordsList.push(item);
               }
             });
-
           } else {
             keywordsList = result;
           }
@@ -370,10 +354,8 @@
           this.list = keywordsList;
           Drupal.behaviors.unigKeywords.searchAutocomplete(keywordsList);
           Drupal.behaviors.unigKeywords.buildTags(keywordsList);
-
         })
-        .fail(xhr => {
-        });
+        .fail(xhr => {});
     },
 
     destroy() {
@@ -391,7 +373,6 @@
       }
       return false;
     },
-
 
     /**
      *
@@ -445,7 +426,7 @@
     save() {
       const cleanlist = Drupal.behaviors.unig.cleanArray(this.list);
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 
@@ -457,7 +438,7 @@
      */
     load() {
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 
@@ -499,20 +480,17 @@
     },
   };
 
-
   Drupal.behaviors.unigData.peopleList = {
     list: [],
     route: 'unig/term/people/json',
 
     load() {
-
       $.ajax({
         url: Drupal.url(this.route),
         type: 'GET',
         dataType: 'json',
       })
         .done(result => {
-
           const peopleInProject = Drupal.behaviors.unigData.FileList.people;
 
           let peopleList = [];
@@ -522,7 +500,6 @@
                 peopleList.push(item);
               }
             });
-
           } else {
             peopleList = result;
           }
@@ -530,10 +507,8 @@
           this.list = peopleList;
           Drupal.behaviors.unigPeople.searchAutocomplete(peopleList);
           Drupal.behaviors.unigPeople.buildTags(peopleList);
-
         })
-        .fail(xhr => {
-        });
+        .fail(xhr => {});
     },
 
     destroy() {
@@ -551,7 +526,6 @@
       }
       return false;
     },
-
 
     /**
      *
@@ -609,7 +583,7 @@
      */
     save() {
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 
@@ -621,7 +595,7 @@
      */
     load() {
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 

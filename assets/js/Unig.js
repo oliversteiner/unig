@@ -12,10 +12,6 @@
       $("#unig-main", context)
         .once("unig")
         .each(() => {
-
-          console.log('LoadTime:', drupalSettings.unig.project.time);
-
-
         });
     },
 

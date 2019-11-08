@@ -259,9 +259,7 @@
       const mode = 'small';
 
       fileList.forEach(file => {
-        if (fileList && fileList.hasOwnProperty(id)) {
-          this.addImage(fileList, id, mode);
-        }
+          this.addImage(file, mode);
       });
 
       Drupal.behaviors.unigLazyLoad.loadImagesBig(fileList);
@@ -274,10 +272,8 @@
       if (Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews.length === 0) {
         const mode = 'medium';
 
-        fileList.forEach(id => {
-          if (fileList && fileList.hasOwnProperty(id)) {
-            this.addImage(fileList, id, mode);
-          }
+        fileList.forEach(file => {
+          this.addImage(file, mode);
         });
         Drupal.behaviors.unigLazyLoad.loadImagesSmall(fileList);
       }
@@ -289,10 +285,8 @@
     loadImagesBig(fileList) {
       const mode = 'big';
 
-      Object.keys(fileList).forEach(id => {
-        if (fileList && fileList.hasOwnProperty(id)) {
-          this.addImage(fileList, id, mode);
-        }
+      fileList.forEach(file => {
+        this.addImage(file, mode);
       });
     },
     /**
@@ -301,12 +295,11 @@
      * @param id
      * @param mode
      */
-    addImage(fileList, id, mode) {
+    addImage(file, mode) {
 
+      const id = file.id;
       // target
-      document
-        .querySelector(`#unig-file-${id} .unig-lazyload-placeholder`)
-        .setAttribute('style', 'display:none');
+      $(`#unig-file-${id} .unig-lazyload-placeholder`).hide();
 
       // elem
       let styleName = '';
@@ -328,14 +321,13 @@
 
         default:
           styleName = 'unig_medium';
-
           break;
       }
 
 
-      if (fileList[id].image[styleName].url) {
+      if (file.image[styleName].url) {
 
-        const src = fileList[id].image[styleName].url;
+        const src = file.image[styleName].url;
         const imgID = `img-${id}-${mode}`;
 
         const NodeImg = document.createElement('img');
@@ -384,10 +376,9 @@
 
         const ImageIds = [];
 
-        Object.keys(fileList).forEach((id, index) => {
-          if (fileList && fileList.hasOwnProperty(id)) {
-            ImageIds[index] = id;
-          }
+        Object.keys(fileList).forEach((file, index) => {
+            ImageIds[index] = file.id;
+
         });
 
         for (let i = 0; i < ElemsTargetImageContainer.length; ++i) {
