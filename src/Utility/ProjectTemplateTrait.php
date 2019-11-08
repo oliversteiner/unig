@@ -5,8 +5,6 @@ namespace Drupal\unig\Utility;
 use Drupal;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\node\Entity\Node;
-use Drupal\unig\Models\UnigProject;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -16,8 +14,6 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  */
 trait ProjectTemplateTrait
 {
-
-  use CacheTrait;
   /**
    * Name of our module.
    *
@@ -34,14 +30,15 @@ trait ProjectTemplateTrait
    *
    * @return array A render array.
    * A render array.
+   * @throws Drupal\Core\Entity\EntityStorageException
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
   public function projectTemplate($project_nid, $album_nid = null): array
   {
     // Times to Load
-    // unchanged: 15.1587
-    // remove duplicated code : 8.2914
+    // build without cache : 8.2914
+    // load from cache field : 0.0619
 
     $time = microtime();
     $time = explode(' ', $time);
@@ -107,9 +104,8 @@ trait ProjectTemplateTrait
    */
   protected function getProjectVariables($project_nid, $album_nid = null): array
   {
-
     // load Cache
-    $cache = self::loadProjectCache($project_nid);
+    $cache = UnigCache::loadProjectCache($project_nid);
 
     if (!empty($cache)) {
       $variables['album'] = $cache['album'];
@@ -125,7 +121,7 @@ trait ProjectTemplateTrait
       );
 
       // save project variables to cache
-     self::saveProjectCache($project_nid, $variables);
+      UnigCache::saveProjectCache($project_nid, $variables);
     }
 
     // Module
@@ -141,7 +137,7 @@ trait ProjectTemplateTrait
     $user = Drupal::currentUser();
 
     // TODO: Remove deprecated Code
-/*    $variables['user'] = clone $user;
+    /*    $variables['user'] = clone $user;
     // Remove password and session IDs, since themes should not need nor see them.
     unset(
       $variables['user']->pass,

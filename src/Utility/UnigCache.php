@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
 use Drupal\unig\Models\UnigProject;
 
-trait CacheTrait
+class UnigCache
 {
 
   /**

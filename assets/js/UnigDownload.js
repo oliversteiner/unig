@@ -263,7 +263,7 @@
         type: 'POST',
         data: {
           data,
-          project_nid: Drupal.behaviors.unigData.project.nid,
+          project_nid: Drupal.behaviors.unigData.project.id,
         },
         dataType: 'json',
         success(results) {

@@ -54,8 +54,8 @@
 
     getNodeId(event) {
       const $elem = $(event.target).parents('.unig-file-item');
-      const nid = $elem.data('unig-file-nid');
-      return nid;
+      const fileId = $elem.data('unig-file-nid');
+      return fileId;
     },
 
     edit(event) {
@@ -75,16 +75,18 @@
       }
     },
 
-    getProjectNid() {
-      return drupalSettings.unig.project.project.nid;
+    getProjectId() {
+      return drupalSettings.unig.project.project.id;
     },
 
     save(data, route) {
+      const projectId = this.getProjectId();
       $.ajax({
         url: Drupal.url(`unig/${route}`),
         type: 'POST',
         data: {
           data,
+          projectId:projectId,
         },
         dataType: 'json',
         success(results) {
@@ -141,24 +143,24 @@
       this.save(data, route);
     },
 
-    setProjectCover(projectNid, imageNid) {
+    setProjectCover(projectId, imageId) {
       // get DOM Elems
       const processElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-process`,
+        `.unig-image-is-cover-container-${imageId} .unig-set-project-cover-process`,
       );
 
       const isCoverElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageNid} .unig-image-is-cover`,
+        `.unig-image-is-cover-container-${imageId} .unig-image-is-cover`,
       );
 
       const buttonElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageNid} .unig-set-project-cover-button`,
+        `.unig-image-is-cover-container-${imageId} .unig-set-project-cover-button`,
       );
 
       // activate Process Spinner
       processElem.classList.add('active');
 
-      const url = `/unig/set_cover/${projectNid}/${imageNid}`;
+      const url = `/unig/set_cover/${projectId}/${imageId}`;
 
       fetch(url)
         .then(response => response.json())
@@ -301,9 +303,9 @@
           $('.unig-set-project-cover-trigger', context).click(event => {
             // clear ajax message box
             scope.clearAjaxMessageBox();
-            const imageNid = scope.getNodeId(event);
-            const projectNid = Drupal.behaviors.unigData.project.nid;
-            scope.setProjectCover(projectNid, imageNid);
+            const imageId = scope.getNodeId(event);
+            const projectId = Drupal.behaviors.unigData.project.id;
+            scope.setProjectCover(projectId, imageId);
             // the actual function go via drupal <a href ... >  and "use-ajax"
           });
 
@@ -326,9 +328,9 @@
             const $container = $('#ajax-container-new-album-container');
             $container.toggle();
 
-            const $formElemProjectNid = $('input[name=\'projectNid\']');
-            const projectNid = $container.data('projectnid');
-            $formElemProjectNid.val(projectNid);
+            const $formElemProjectNid = $('input[name=\'projectId\']');
+            const projectId = $container.data('projectnid');
+            $formElemProjectNid.val(projectId);
           });
 
           // Generate Previews
@@ -338,7 +340,7 @@
 
 
 
-          const projectNid = scope.getProjectNid();
+          const projectId = scope.getProjectId();
 
           //  Delete Project Trigger
           document
@@ -348,7 +350,7 @@
                 'click',
                 event => {
                   Drupal.behaviors.unigProjectList.toggleConfirmDeleteProject(
-                    projectNid,
+                    projectId,
                   );
                 },
                 false,
@@ -363,7 +365,7 @@
                 'click',
                 () => {
                   Drupal.behaviors.unigProjectList.toggleConfirmDeleteProject(
-                    projectNid,
+                    projectId,
                   );
                 },
                 false,
@@ -390,7 +392,7 @@
               elem.addEventListener(
                 'click',
                 event => {
-                  const nid = scope.getProjectNid(event);
+                  const nid = scope.getProjectId(event);
                   scope.togglePrivat(nid);
                 },
                 false,

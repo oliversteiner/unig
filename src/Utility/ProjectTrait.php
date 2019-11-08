@@ -578,7 +578,7 @@ trait ProjectTrait
     // --------------------------------------------
     $project = [
       'id' => $project_id,
-      'nid' => $project_id,
+      'project_id' => $project_id,
       'title' => $title,
       'title_url' => $clean_string,
       'description' => $description,

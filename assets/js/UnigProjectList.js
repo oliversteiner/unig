@@ -34,7 +34,7 @@
      *
      * @param event
      */
-    getProjectNid(event) {
+    getProjectId(event) {
       const elem = event.target.closest('.unig-project-nid'); // NO IE
       return elem.dataset.unigProjectNid;
     },
@@ -85,7 +85,7 @@
             elem.addEventListener(
               'click',
               event => {
-                const nid = scope.getProjectNid(event);
+                const nid = scope.getProjectId(event);
                 scope.toggleConfirmDeleteProject(nid);
               },
               false,
@@ -99,7 +99,7 @@
               elem.addEventListener(
                 'click',
                 event => {
-                  const nid = scope.getProjectNid(event);
+                  const nid = scope.getProjectId(event);
                   scope.cancelDeleteProject(nid);
                 },
                 false,
@@ -111,7 +111,7 @@
             elem.addEventListener(
               'click',
               event => {
-                const nid = scope.getProjectNid(event);
+                const nid = scope.getProjectId(event);
                 scope.togglePrivat(nid);
               },
               false,

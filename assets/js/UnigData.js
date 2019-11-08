@@ -4,6 +4,9 @@
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
+
+    project: {},
+
     attach(context, settings) {
       $('#unig-main', context)
         .once('unigData')
@@ -12,60 +15,46 @@
             drupalSettings.unigDataOnce = true;
             console.log('project loading...');
 
-            Drupal.behaviors.unigData.project.load().then(result => {
-              const projectId = result.nid;
+            this.project = drupalSettings.unig.project.project;
+            const projectId = this.project.nid;
+            console.log('Done.');
+
+            console.log('FileList loading...');
+            Drupal.behaviors.unigData.FileList.load();
               console.log('Done.');
 
-              console.log('FileList loading...');
-              Drupal.behaviors.unigData.FileList.load(projectId).then(data => {
-                console.log('Done.');
+              console.log('Images loading...');
+           //   Drupal.behaviors.unigLazyLoad.loadImages();
 
-                console.log('Images loading...');
-                Drupal.behaviors.unigLazyLoad.loadImages(data);
 
-              });
-            });
+
           }
         });
     },
   };
 
-  Drupal.behaviors.unigData.project = {
-    route: 'unig/project/info/json',
+  Drupal.behaviors.unigData.project2 = {
     hostname: 'default',
     name: '',
     name_url: '',
-    nid: 0,
+    id: 0,
     data: {},
 
     load() {
-      const ProjectNid = $('#unig-project-nid').val();
-      this.nid = ProjectNid;
-
-      const data = {
-        project_nid: ProjectNid,
-      };
-
-      return $.ajax({
-        url: Drupal.url(this.route),
-        type: 'POST',
-        data,
-        dataType: 'json',
-      }).done(result => {
-        Drupal.behaviors.unigData.project.set(result);
-      });
+      const project = drupalSettings.unig.project.project;
+      this.set(project);
     },
-    set(data) {
-      this.name = data.title;
-      this.name_url = data.title_url;
-      this.data = data;
-      this.hostname = data.host;
-      this.nid = data.nid;
+    set(project) {
+      this.name = project.title;
+      this.name_url = project.title_url;
+      this.hostname = project.host;
+      this.id = project.project_id;
+      this.data = project;
     },
     destroy() {
       this.name = '';
       this.name_url = '';
-      this.nid = 0;
+      this.id = 0;
       this.data = {};
     },
     getName() {
@@ -133,7 +122,7 @@
     save() {
       const storageName = `${this.localStorageName +
       Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.id
       }`;
 
       localStorage.setItem(storageName, this.list);
@@ -145,7 +134,7 @@
     load() {
       const storagename = `${this.localStorageName +
       Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.id
       }`;
       const localString = localStorage.getItem(storagename);
 
@@ -201,38 +190,19 @@
     people: [],
     route: 'unig/project/json',
 
-    load(projectNid) {
-      // Route : unig/unig.ajax.project
+    load() {
+      const fileList = drupalSettings.unig.project.files;
 
-      if (!projectNid) {
-        projectNid = $('#unig-project-nid').val();
-      } else {
-        const data = {
-          project_nid: projectNid,
-          album_nid: 0,
-        };
+      this.list = fileList;
 
-        return $.ajax({
-          url: Drupal.url(this.route),
-          type: 'POST',
-          data,
-          dataType: 'json',
-        })
-          .done(result => {
-            const fileList = Object.values(result);
-            this.list = fileList
+      // Keywords
+      this.keywords = this.getKeywords(fileList);
+      Drupal.behaviors.unigData.allKeywords.load(fileList);
 
-            // Keywords
-            this.keywords = this.getKeywords(fileList);
-            Drupal.behaviors.unigData.allKeywords.load(fileList);
+      // People
+      this.people = this.getPeople(fileList);
+      Drupal.behaviors.unigData.peopleList.load(fileList);
 
-            // People
-            this.people = this.getPeople(fileList);
-            Drupal.behaviors.unigData.peopleList.load(fileList);
-          })
-          .fail(xhr => {
-          });
-      }
     },
 
     destroy() {
@@ -476,7 +446,7 @@
       const cleanlist = Drupal.behaviors.unig.cleanArray(this.list);
       const localStorageName = `${this.localStorageName +
       Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.id
       }`;
 
       localStorage.setItem(localStorageName, cleanlist);
@@ -488,7 +458,7 @@
     load() {
       const localStorageName = `${this.localStorageName +
       Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.id
       }`;
 
       const localString = localStorage.getItem(localStorageName);
@@ -640,7 +610,7 @@
     save() {
       const localStorageName = `${this.localStorageName +
       Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.id
       }`;
 
       localStorage.setItem(localStorageName, this.list);
@@ -652,7 +622,7 @@
     load() {
       const localStorageName = `${this.localStorageName +
       Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.id
       }`;
 
       const localString = localStorage.getItem(localStorageName);

@@ -243,8 +243,10 @@
      *
      * @param fileList
      */
-    loadImages(fileList) {
-      // Get fileList
+    loadImages() {
+
+      const fileList = drupalSettings.unig.project.files;
+
 
       this.numberOfFiles = fileList.length;
       this.buildImgContainer(fileList);
@@ -256,7 +258,7 @@
     loadImagesSmall(fileList) {
       const mode = 'small';
 
-      Object.keys(fileList).forEach(id => {
+      fileList.forEach(file => {
         if (fileList && fileList.hasOwnProperty(id)) {
           this.addImage(fileList, id, mode);
         }
@@ -272,7 +274,7 @@
       if (Drupal.behaviors.unigLazyLoad.nodeIDsWithNoPreviews.length === 0) {
         const mode = 'medium';
 
-        Object.keys(fileList).forEach(id => {
+        fileList.forEach(id => {
           if (fileList && fileList.hasOwnProperty(id)) {
             this.addImage(fileList, id, mode);
           }
