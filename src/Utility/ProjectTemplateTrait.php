@@ -58,7 +58,7 @@ trait projectTemplateTrait
 
     // Adding JS Library depends of admin or not
     if (Drupal::currentUser()->hasPermission('access unig admin') ||
-      Drupal::currentUser()->hasPermission('access unig user')) {
+      Drupal::currentUser()->hasPermission('access unig download')) {
       $build['#attached']['library'] = 'unig/unig.admin.project';
     } else {
       $build['#attached']['library'] = 'unig/unig.project.admin';
@@ -96,6 +96,7 @@ trait projectTemplateTrait
     );
 
     $variables['is_admin'] = $user->hasPermission('access unig admin');
+    $variables['can_download'] = $user->hasPermission('access unig download');
     $variables['access_private_project'] = $user->hasPermission(
       'access private project'
     );
@@ -119,7 +120,7 @@ trait projectTemplateTrait
     $template = 'unig.lightgallery.html.twig';
 
     // User is logged in
-    if ($user->hasPermission('access unig user')) {
+    if ($user->hasPermission('access unig download')) {
       $template = 'unig.project-user.html.twig';
     }
 

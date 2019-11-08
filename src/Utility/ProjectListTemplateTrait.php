@@ -96,7 +96,7 @@ trait ProjectListTemplateTrait
     );
 
     $variables['is_admin'] = $user->hasPermission('access unig admin');
-    $variables['can_download'] = $user->hasPermission('access unig user');
+    $variables['can_download'] = $user->hasPermission('access unig download');
     $variables['show_private'] = $user->hasPermission('access unig admin');
     $variables['logged_in'] = $user->isAuthenticated();
 
