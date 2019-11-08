@@ -18,7 +18,7 @@ unig.project_list:
 #
 #
 #
-unig.project.admin:
+unig.project:
   css:
     theme:
       assets/css/unig_public.css: {}
@@ -75,7 +75,7 @@ unig.upload_albumid:
 #
 #
 #
-unig.admin.project:
+unig.project.admin:
   css:
     theme:
       fontcustom/unig-icons/unig-icons.css: {}
