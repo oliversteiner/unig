@@ -144,7 +144,7 @@ trait FileTrait
    */
   public function createMultiNode($values): array
   {
-    // Nodes erstellen
+    // Create Multiple Nodes
     $node_ids = [];
     $file_upload = $values['file_upload'];
     $project_nid = $values['project_nid'];

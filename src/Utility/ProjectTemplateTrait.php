@@ -5,6 +5,8 @@ namespace Drupal\unig\Utility;
 use Drupal;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\node\Entity\Node;
+use Drupal\unig\Models\UnigProject;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -12,8 +14,10 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  * @see \Drupal\Core\Render\Element\InlineTemplate
  * @see https://www.drupal.org/developing/api/8/localization
  */
-trait projectTemplateTrait
+trait ProjectTemplateTrait
 {
+
+  use CacheTrait;
   /**
    * Name of our module.
    *
@@ -35,11 +39,22 @@ trait projectTemplateTrait
    */
   public function projectTemplate($project_nid, $album_nid = null): array
   {
+    // Times to Load
+    // unchanged: 15.1587
+    // remove duplicated code : 8.2914
+
+    $time = microtime();
+    $time = explode(' ', $time);
+    $time = $time[1] + $time[0];
+    $start = $time;
+
     // Make sure you don't trust the URL to be safe! Always check for exploits.
     if (!is_numeric($project_nid)) {
       // We will just show a standard "access denied" page in this case.
       throw new AccessDeniedHttpException();
     }
+
+    $project_variables = $this->getProjectVariables($project_nid, $album_nid);
 
     $template_path = $this->getProjectPath();
     $template = file_get_contents($template_path);
@@ -47,22 +62,34 @@ trait projectTemplateTrait
       'description' => [
         '#type' => 'inline_template',
         '#template' => $template,
-        '#context' => $this->getProjectVariables($project_nid, $album_nid)
+        '#context' => $project_variables
       ]
     ];
 
     // Project Variables for JS
     $build['#attached']['drupalSettings']['unig'][
       'project'
-    ] = $this->getProjectVariables($project_nid, $album_nid);
+    ] = $project_variables;
 
     // Adding JS Library depends of admin or not
-    if (Drupal::currentUser()->hasPermission('access unig admin') ||
-      Drupal::currentUser()->hasPermission('access unig download')) {
-      $build['#attached']['library'] = 'unig/unig.admin.project';
-    } else {
+    if (
+      Drupal::currentUser()->hasPermission('access unig admin') ||
+      Drupal::currentUser()->hasPermission('access unig download')
+    ) {
       $build['#attached']['library'] = 'unig/unig.project.admin';
+    } else {
+      $build['#attached']['library'] = 'unig/unig.project';
     }
+
+    $time = microtime();
+    $time = explode(' ', $time);
+    $time = $time[1] + $time[0];
+    $finish = $time;
+    $total_time = round($finish - $start, 4);
+
+    $build['#attached']['drupalSettings']['unig']['project'][
+      'time'
+    ] = $total_time;
 
     return $build;
   }
@@ -76,24 +103,51 @@ trait projectTemplateTrait
    *   Associative array that defines context for a template.
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
+   * @throws Drupal\Core\Entity\EntityStorageException
    */
   protected function getProjectVariables($project_nid, $album_nid = null): array
   {
+
+    // load Cache
+    $cache = self::loadProjectCache($project_nid);
+
+    if (!empty($cache)) {
+      $variables['album'] = $cache['album'];
+      $variables['project'] = $cache['project'];
+      $variables['files'] = $cache['files'];
+    } else {
+      // generate Project items
+      $variables['album'] = AlbumTrait::getAlbumList($project_nid);
+      $variables['project'] = ProjectTrait::buildProject($project_nid);
+      $variables['files'] = ProjectTrait::buildFileList(
+        $project_nid,
+        $album_nid
+      );
+
+      // save project variables to cache
+     self::saveProjectCache($project_nid, $variables);
+    }
+
+    // Module
     $variables['module'] = $this->getModuleName();
 
+    // Language
     $language = Drupal::languageManager()
       ->getCurrentLanguage()
       ->getId();
     $variables['language'] = $language;
 
+    // Generate User Items
     $user = Drupal::currentUser();
-    $variables['user'] = clone $user;
+
+    // TODO: Remove deprecated Code
+/*    $variables['user'] = clone $user;
     // Remove password and session IDs, since themes should not need nor see them.
     unset(
       $variables['user']->pass,
       $variables['user']->sid,
       $variables['user']->ssid
-    );
+    );*/
 
     $variables['is_admin'] = $user->hasPermission('access unig admin');
     $variables['can_download'] = $user->hasPermission('access unig download');
@@ -101,9 +155,6 @@ trait projectTemplateTrait
       'access private project'
     );
     $variables['logged_in'] = $user->isAuthenticated();
-    $variables['album'] = AlbumTrait::getAlbumList($project_nid);
-    $variables['project'] = ProjectTrait::buildProject($project_nid);
-    $variables['files'] = ProjectTrait::buildFileList($project_nid, $album_nid);
 
     return $variables;
   }
@@ -130,6 +181,7 @@ trait projectTemplateTrait
     }
 
     return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/'.$template;
+      '/templates/' .
+      $template;
   }
 }
