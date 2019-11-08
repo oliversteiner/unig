@@ -326,3 +326,27 @@ unig.process.extract-keyword-test:
     nid: null
   requirements:
     _permission: 'access unig admin'
+
+#
+# API
+# ----------------------------------------
+# Project
+unig.api.project:
+  path: '/unig/api/project/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::project'
+    id: null
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# API
+# ----------------------------------------
+# Project
+unig.api.project.clear-cache:
+  path: '/unig/api/cc/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::clearCache'
+    id: null
+  requirements:
+    _permission: 'access unig admin'
