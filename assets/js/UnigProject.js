@@ -1,22 +1,6 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProject = {
-    extractKeywords() {
-      const projectNid = this.getProjectNid();
 
-
-      const url = `/unig/process/extract-keyword/${projectNid}/`;
-
-      fetch(url)
-        .then(response => response.json())
-        .then(json => {
-          // Set message to ajax container
-          const text = json.messages[0][0];
-          const type = json.messages[0][1];
-          Drupal.behaviors.unigMessages.addMessage(text, type);
-
-        });
-
-    },
 
     toggleToolbox(nid, name) {
       // toggle Div
@@ -244,16 +228,6 @@
           });
 
 
-          // Toggle Options
-          $('.unig-project-options-trigger', context).click(() => {
-            $('.unig-dropdown-project-options').toggle();
-          });
-
-          // Close Options
-          $('.unig-project-options-close-trigger', context).click(() => {
-            $('.unig-dropdown-project-options').hide();
-          });
-
           // Toggle all Keywords
           $('.unig-button-keywords-toggle-all', context).click(() => {
             const $trigger = $(scope);
@@ -362,11 +336,7 @@
             Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
           });
 
-          // Extract Keywords
-          $('.unig-extract-keywords-trigger', context).click(() => {
-            scope.extractKeywords();
-            $('.unig-dropdown-project-options').hide();
-          });
+
 
           const projectNid = scope.getProjectNid();
 

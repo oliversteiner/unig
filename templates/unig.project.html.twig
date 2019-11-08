@@ -1,5 +1,6 @@
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
+
 <div id="unig-main" class="unig unig-project unig-project-nid" data-unig-project-nid="{{ project.nid }}">
   <div class="unig-header">
 
@@ -472,12 +473,22 @@
             {# Main #}
             <div class="unig-dropdown-main">
               {# Row #}
+
+                {# Item - Extract Keywords #}
               <div class="unig-dropdown-row">
-                {# Item #}
                 <div class="unig-dropdown-item unig-extract-keywords-trigger">
                   <span class="unig-dropdown-item-icon"><i class="fas fa-key" aria-hidden="true"></i></span>
                   <span class="unig-dropdown-item-label"> {% trans %} Extract Keywords {% endtrans %}</span>
                 </div>
+              </div>
+
+                {# Item - Clear Cache #}
+              <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-clear-project-cache-trigger" data-id="{{ project.id }}">
+                  <span class="unig-dropdown-item-icon"><i class="fas fa-ban" aria-hidden="true"></i></span>
+                  <span class="unig-dropdown-item-label"> {% trans %} Clear Project Cache {% endtrans %}</span>
+                </div>
+
               </div>
             </div>
 
