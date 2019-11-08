@@ -11,7 +11,12 @@
     attach(context) {
       $("#unig-main", context)
         .once("unig")
-        .each(() => {});
+        .each(() => {
+
+          console.log('LoadTime:', drupalSettings.unig.project.time);
+
+
+        });
     },
 
     removeDuplicates(arr) {
