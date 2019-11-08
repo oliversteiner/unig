@@ -7,10 +7,11 @@ use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\CacheTrait;
 use Drupal\unig\Utility\ProjectTemplateTrait;
+use Drupal\unig\Utility\ProjectTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 /**
  * Class APIController.
@@ -36,8 +37,8 @@ class UnigAPIController extends ControllerBase
     $project = $this->getProjectVariables($id, null);
 
     $response = [
-      'label' =>$label,
-      'path' => $base.$name,
+      'label' => $label,
+      'path' => $base . $name,
       'version' => $version,
       'project' => $project
     ];
@@ -71,15 +72,45 @@ class UnigAPIController extends ControllerBase
     $result = self::clearProjectCache($id);
 
     $response = [
-      'label' =>$label,
-      'path' => $base.$name,
+      'label' => $label,
+      'path' => $base . $name,
       'version' => $version,
-      'project id' => $id,
-      'clear cache' => $result,
+      'projectId' => $id,
+      'clearCache' => $result
     ];
 
     return new JsonResponse($response);
-
   }
 
+  /**
+   * @param $id
+   * @return JsonResponse
+   * @throws EntityStorageException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
+  public function rebuildCache($id): JsonResponse
+  {
+    $label = 'Unig Project Rebuild Clear Cache';
+    $name = 'rc';
+    $base = 'unig/api/';
+    $version = '1.0.0';
+
+    $result = self::clearProjectCache($id);
+    $variables = [];
+    $variables['album'] = AlbumTrait::getAlbumList($id);
+    $variables['project'] = ProjectTrait::buildProject($id);
+    $variables['files'] = ProjectTrait::buildFileList($id, null);
+    $result = self::saveProjectCache($id, $variables);
+
+    $response = [
+      'label' => $label,
+      'path' => $base . $name,
+      'version' => $version,
+      'projectId' => $id,
+      'rebuildCache' => $result
+    ];
+
+    return new JsonResponse($response);
+  }
 }

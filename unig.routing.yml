@@ -350,3 +350,15 @@ unig.api.project.clear-cache:
     id: null
   requirements:
     _permission: 'access unig admin'
+
+#
+# API
+# ----------------------------------------
+# Project
+unig.api.project.rebuild-cache:
+  path: '/unig/api/rc/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::rebuildCache'
+    id: null
+  requirements:
+    _permission: 'access unig admin'
