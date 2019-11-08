@@ -1,10 +1,7 @@
-/* eslint-disable prettier/prettier,no-console */
-
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProject = {
     extractKeywords() {
       const projectNid = this.getProjectNid();
-      console.log('Extracts Keywords', projectNid);
 
 
       const url = `/unig/process/extract-keyword/${projectNid}/`;
@@ -107,7 +104,6 @@
         },
         dataType: 'json',
         success(results) {
-          console.log('SAVE', results);
           if (results.messages && results.messages[0]) {
             const text = results.messages[0][0];
             const type = results.messages[0][1];

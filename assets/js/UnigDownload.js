@@ -71,7 +71,6 @@
           }
         }
       } else if (keywordIds.length > 0) {
-        console.log('keywordIds', keywordIds);
 
         if (fullList && fullList.length > 0) {
           for (const item of fullList) {
@@ -552,13 +551,11 @@
         xl: 0,
       };
 
-      console.log('itemsForDownload', itemsForDownload);
 
       if (itemsForDownload) {
         itemsForDownload.forEach(id => {
           let Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
           const file = itemList.find(item => item.id === id);
-          console.log('File', file);
 
           if (file) {
             if (file.image.unig_sd) {
