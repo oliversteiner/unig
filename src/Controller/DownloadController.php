@@ -24,14 +24,14 @@ class DownloadController extends ControllerBase
   public function bulkDownload(): JsonResponse
   {
     $data = $_POST['data'];
-    $project_nid = $_POST['project_nid'];
+    $project_id = $_POST['project_id'];
     $image_style = '';
     $files = [];
     $size = $data['size'];
     $items = $data['items'];
     $images = [];
 
-    $project = ProjectTrait::buildProject($project_nid);
+    $project = ProjectTrait::buildProject($project_id);
 
     switch ($size) {
       case 'sd':

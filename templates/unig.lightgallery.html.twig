@@ -6,7 +6,7 @@
 Twig Vars
   --------------------------------
   project:
-    - nid
+    - id
     - title
     - title_url
     - description
@@ -34,7 +34,7 @@ Twig Vars
     - host
   --------------------------------
   files.0:
-    - nid
+    - id
     - title
     - description
     - album_list
@@ -74,7 +74,7 @@ Twig Vars
   {# header-left #}
   <div class="unig-gallery-header-left">
     <div class="unig-back-to-list">
-      <a href="{{ path('unig.project_list') }}">
+      <a href="{{ path('unig.list') }}">
         <i class="fas fa-chevron-left" aria-hidden="true"></i>
         {% trans %} Show all projects {% endtrans %}
       </a>
@@ -99,7 +99,7 @@ Twig Vars
               {# ----------- open Edit ----------- #}
               <a role="button"
                  class="unig-button-edit-project unig-button-edit-project-trigger"
-                 href="/unig/project/{{ project.nid }}">
+                 href="{{ path('unig.project.admin',{'project_id':project.id, 'album_id':album.id}) }}">
                 <i class="fas fa-edit"></i>
               </a>
             {% endif %}
@@ -157,7 +157,7 @@ Twig Vars
         {# ----------- open Edit ----------- #}
         <a role="button"
            class="unig-gallery-toolbar-item unig-gallery-button "
-           href="/unig/member/{{ project.nid }}">
+           href="{{ path('unig.project.download',{'project_id':project.id, 'album_id':album.id}) }}">
           <i class="fas fa-download"></i>
           {% trans %} Download {% endtrans %}
         </a>
@@ -171,17 +171,17 @@ Twig Vars
 
 
 <div class="unig">
-  <ul class="unig-gallery" id="lightgallery-{{ project.nid }}">
+  <ul class="unig-gallery" id="lightgallery-{{ project.id }}">
 
     {% for file in files %}
 
-      <li class="unig-file-item  unig-file-item-id-{{ file.nid }}">
+      <li class="unig-file-item  unig-file-item-id-{{ file.id }}">
 
         <div class="unig-file-index" style="display:none;">{{ loop.index }}</div>
 
         {#  -----------   Image  -----------  #}
         <div class="lightgallery-item"
-             data-sub-html=".unig-lightgallery-sub-{{ file.nid }}"
+             data-sub-html=".unig-lightgallery-sub-{{ file.id }}"
              data-src="{{ file.image.unig_hd.url }}">
 
           <div class="field-content">
@@ -190,7 +190,7 @@ Twig Vars
             </div>
           </div>
 
-          <div class="unig-lightgallery-sub-{{ file.nid }}" style="display: none">
+          <div class="unig-lightgallery-sub-{{ file.id }}" style="display: none">
             <h1 class="unig-gallery-diashow">{{ file.title }}</h1>
             <p class="unig-gallery-diashow"> {{ file.description }}</p>
           </div>

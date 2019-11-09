@@ -18,15 +18,15 @@ use Drupal\Core\Entity\EntityStorageException;
 trait AlbumTrait
 {
   /**
-   * @param $album_nid
+   * @param $album_id
    *
    * @return mixed
    */
-  public static function getAlbum($album_nid)
+  public static function getAlbum($album_id)
   {
     $entity = Drupal::entityTypeManager()
       ->getStorage('node')
-      ->load($album_nid);
+      ->load($album_id);
 
     // NID
     $nid = $entity->id();
@@ -53,7 +53,7 @@ trait AlbumTrait
    */
   public static function getAlbumList($nid)
   {
-    $album_nids = [];
+    $album_ids = [];
     $albums = [];
 
     $entity = Drupal::entityTypeManager()
@@ -64,16 +64,16 @@ trait AlbumTrait
       if (isset($entity->field_unig_album->entity)) {
         foreach ($entity->field_unig_album as $album) {
           if ($album->entity) {
-            $album_nids[] = $album->entity->id();
+            $album_ids[] = $album->entity->id();
           }
         }
       }
     }
 
-    if (count($album_nids) > 0) {
+    if (count($album_ids) > 0) {
       // put them in new array
-      foreach ($album_nids as $album_nid) {
-        $albums[] = self::getAlbum($album_nid);
+      foreach ($album_ids as $album_id) {
+        $albums[] = self::getAlbum($album_id);
       }
     }
 
@@ -114,13 +114,13 @@ trait AlbumTrait
 
   /**
    * @param $target_nid
-   * @param $album_nid
+   * @param $album_id
    * @return mixed
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    * @throws EntityStorageException
    */
-  public static function addAlbum($target_nid, $album_nid)
+  public static function addAlbum($target_nid, $album_id)
   {
     // Wenn nicht:
     // Projekt öffnen und nachschauen ob schon ein Vorschaubild gesetzt ist
@@ -137,12 +137,12 @@ trait AlbumTrait
       $albums = $entity->get('field_unig_album')->getValue();
       kint($albums);
 
-      $find_album = array_search($album_nid, $albums);
+      $find_album = array_search($album_id, $albums);
 
       if ($find_album) {
         drupal_set_message('Das Album ist schon in der Liste');
       } else {
-        $new_item = ['target_id' => $album_nid];
+        $new_item = ['target_id' => $album_id];
 
         $entity->field_unig_album[] = $new_item;
       }

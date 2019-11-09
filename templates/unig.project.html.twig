@@ -1,12 +1,13 @@
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
-<div id="unig-main" class="unig unig-project unig-project-nid" data-unig-project-nid="{{ project.nid }}">
+
+<div id="unig-main" class="unig unig-project unig-project-id" data-unig-project-id="{{ project.id }}">
   <div class="unig-header">
 
-    <div class="animate-container-{{ project.nid }}">
+    <div class="animate-container-{{ project.id }}">
       {# Toolbar - Project - Normal #}
       <div
-        class="unig-project-{{ project.nid }} unig-toolbar unig-toolbar-info unig-project-normal-container-{{ project.nid }} unig-project-private-status {% if project.private %} private {% endif %}"
+        class="unig-project-{{ project.id }} unig-toolbar unig-toolbar-info unig-project-normal-container-{{ project.id }} unig-project-private-status {% if project.private %} private {% endif %}"
         style="display: block">
 
         {# Header #}
@@ -38,10 +39,10 @@
                   <div class="unig-project-category">
 
                     {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-category-{{ project.nid }}">
+                    <div class="unig-project-category-{{ project.id }}">
 
                       {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                            data-unig-field="category"
                            data-unig-mode="project"
                            data-unig-form="option_list">
@@ -61,8 +62,8 @@
                       <div class="unig-edit-input" style="display: none">
 
 
-                        <select name="unig-project-category-{{ project.nid }}"
-                                id="unig-project-category-{{ project.nid }}-input">
+                        <select name="unig-project-category-{{ project.id }}"
+                                id="unig-project-category-{{ project.id }}-input">
                           {% for category_item in project.category_list %}
                             <option
                               value="{{ category_item.id }}"{% if category_item.name == project.category %} selected {% endif %}>{{ category_item.name }} </option>
@@ -78,10 +79,10 @@
                   <div class="unig-project-title">
 
                     {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-title-{{ project.nid }}">
+                    <div class="unig-project-title-{{ project.id }}">
 
                       {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                            data-unig-field="title"
                            data-unig-mode="project">
 
@@ -95,7 +96,7 @@
                       {# ----------- Edit Input ----------- #}
                       <div class="unig-edit-input" style="display: none">
 
-                        <input id="unig-project-title-{{ project.nid }}-input"
+                        <input id="unig-project-title-{{ project.id }}-input"
                                title="Title"
                                class="unig-project-title"
                                type="text"
@@ -111,11 +112,11 @@
                   <div class="unig-project-description">
 
                     {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-description-{{ project.nid }}">
+                    <div class="unig-project-description-{{ project.id }}">
 
                       {# ----------- Edit Trigger ----------- #}
                       <div class="unig-edit-trigger"
-                           data-unig-nid="{{ project.nid }}"
+                           data-unig-project-id="{{ project.id }}"
                            data-unig-field="description"
                            data-unig-mode="project"
                       >
@@ -135,7 +136,7 @@
                       {# ----------- Edit Input ----------- #}
                       <div class="unig-edit-input" style="display: none">
                                                 <textarea
-                                                  id="unig-project-description-{{ project.nid }}-input"
+                                                  id="unig-project-description-{{ project.id }}-input"
                                                   rows="3"
                                                   cols="40"
                                                   title="Description">{{ project.description }}</textarea>
@@ -189,7 +190,7 @@
 
 
                   {#  -----------   Prozess Indicator -----------  #}
-                  <div class="unig-project-{{ project.nid }}">
+                  <div class="unig-project-{{ project.id }}">
 
                                         <span class="unig-toolbar-icon ">
                                        <span class="unig-process-spinner" style="display: none"> <i
@@ -209,10 +210,10 @@
                 <div class="unig-project-date">
 
                   {#  -----------   Edit Root  -----------  #}
-                  <div class="unig-project-date-{{ project.nid }}">
+                  <div class="unig-project-date-{{ project.id }}">
 
                     {# ----------- Edit Trigger ----------- #}
-                    <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                    <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                          data-unig-field="date"
                          data-unig-mode="project">
 
@@ -226,7 +227,7 @@
                     {# ----------- Edit Input ----------- #}
                     <div class="unig-edit-input" style="display: none">
 
-                      <input id="unig-project-date-{{ project.nid }}-input"
+                      <input id="unig-project-date-{{ project.id }}-input"
                              title="date"
                              class="unig-project-date"
                              type="date"
@@ -240,10 +241,10 @@
                 <div class="unig-project-copyright">
 
                   {#  -----------   Edit Root  -----------  #}
-                  <div class="unig-project-copyright-{{ project.nid }}">
+                  <div class="unig-project-copyright-{{ project.id }}">
 
                     {# ----------- Edit Trigger ----------- #}
-                    <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                    <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                          data-unig-field="copyright"
                          data-unig-mode="project">
 
@@ -262,7 +263,7 @@
                     {# ----------- Edit Input ----------- #}
                     <div class="unig-edit-input" style="display: none">
 
-                      <input id="unig-project-copyright-{{ project.nid }}-input"
+                      <input id="unig-project-copyright-{{ project.id }}-input"
                              title="copyright"
                              class="unig-project-copyright"
                              type="text"
@@ -289,7 +290,7 @@
 
 
           {#  ----------- Confirm Project  -----------  #}
-          <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.nid }}"
+          <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.id }}"
                style="display: none">
 
             {# Message#}
@@ -303,7 +304,7 @@
               <div role="button"
                    class="unig-button
                                                   unig-button-project-delete-cancel
-                                                  unig-button-project-delete-cancel-{{ project.nid }}
+                                                  unig-button-project-delete-cancel-{{ project.id }}
                                                   unig-project-delete-cancel-trigger">
                 {% trans %} No, Cancel {% endtrans %}
               </div>
@@ -312,8 +313,8 @@
               <a role="button"
                  class="use-ajax unig-button unig-button-danger
                                                unig-button-project-delete-yes
-                                               unig-button-project-delete-yes-{{ project.nid }}"
-                 href="{{ path('unig.project.ajax.delete', {'project_nid': project.nid}) }}">
+                                               unig-button-project-delete-yes-{{ project.id }}"
+                 href="{{ path('unig.api.project.delete', {'project_id': project.id}) }}">
                 {% trans %} Yes, Delete Project {% endtrans %}
               </a>
             </div>
@@ -346,14 +347,14 @@
 
         {# All Projects #}
         <a type="button" class=" unig-button unig-button-show-projects"
-           href="{{ path('unig.project_list') }}">
+           href="{{ path('unig.list') }}">
           <i class="fas fa-list" aria-hidden="true"></i>
           {% trans %} All Projects {% endtrans %}
         </a>
 
         {# Upload #}
         <a type="button" class="unig-button unig-button-files-add"
-           href="{{ path('unig.upload', {'project_nid': project.nid}) }}">
+           href="{{ path('unig.upload', {'project_id': project.id}) }}">
           <i class="fas fa-plus" aria-hidden="true"></i>
           {% trans %} Add Files {% endtrans %}
         </a>
@@ -403,7 +404,7 @@
 
         {# Button Preview #}
         <a role="button" class="unig-button unig-button-files-preview"
-           href="/unig/lightgallery/{{ project.nid }}">
+           href="/unig/lightgallery/{{ project.id }}">
           <i class="fas fa-image" aria-hidden="true"></i>
           {% trans %} Preview {% endtrans %}
         </a>
@@ -472,12 +473,22 @@
             {# Main #}
             <div class="unig-dropdown-main">
               {# Row #}
+
+              {# Item - Extract Keywords #}
               <div class="unig-dropdown-row">
-                {# Item #}
                 <div class="unig-dropdown-item unig-extract-keywords-trigger">
                   <span class="unig-dropdown-item-icon"><i class="fas fa-key" aria-hidden="true"></i></span>
                   <span class="unig-dropdown-item-label"> {% trans %} Extract Keywords {% endtrans %}</span>
                 </div>
+              </div>
+
+              {# Item - Clear Cache #}
+              <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-clear-project-cache-trigger" data-id="{{ project.id }}">
+                  <span class="unig-dropdown-item-icon"><i class="fas fa-ban" aria-hidden="true"></i></span>
+                  <span class="unig-dropdown-item-label"> {% trans %} Clear Project Cache {% endtrans %}</span>
+                </div>
+
               </div>
             </div>
 
@@ -748,12 +759,12 @@
       <div class="unig-album">
         <ul>
           <li class="unig-albumlist-all">
-            <a href="/unig/project/{{ project.nid }}">Alle</a>
+            <a href="/unig/project/{{ project.id }}">Alle</a>
           </li>
 
           {% for album in project.album_list %}
             <li class=" unig-albumlist-item">
-              <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
+              <a href="/unig/project/{{ project.id }}/{{ album.id }}">{{ album.title }}</a>
             </li>
 
           {% endfor %}
@@ -764,7 +775,7 @@
               <a class="ajax-container-new-album-trigger">{% trans %} Create new album {% endtrans %}
 
               </a>
-              <div id="ajax-container-new-album-container" data-projectnid="{{ project.nid }}"
+              <div id="ajax-container-new-album-container" data-project-id="{{ project.id }}"
                    style="display: none">
                 {{ drupal_form('Drupal\\unig\\Form\\NewAlbumForm' ) }}
               </div>
@@ -777,18 +788,18 @@
     </div>
 
     <div class="unig">
-      <ul class="unig-gallery unig-sortable unig-images-medium" id="lightgallery-{{ project.nid }}">
+      <ul class="unig-gallery unig-sortable unig-images-medium" id="lightgallery-{{ project.id }}">
 
-        <input type="hidden" id="unig-project-nid" value="{{ project.nid }}">
+        <input type="hidden" id="unig-project-id" value="{{ project.id }}">
 
         {% for file in files %}
 
-          <li class="unig-sortable-item sort-handle unig-file-item unig-file-edit unig-file-{{ file.nid }}"
-              id="unig-file-{{ file.nid }}" data-unig-file-nid="{{ file.nid }}">
+          <li class="unig-sortable-item sort-handle unig-file-item unig-file-edit unig-file-{{ file.id }}"
+              id="unig-file-{{ file.id }}" data-unig-file-id="{{ file.id }}">
 
             {# hidden inputs #}
             <div>
-              <input type="hidden" id="is-marked-{{ file.nid }}" name="is-market-{{ file.nid }}"
+              <input type="hidden" id="is-marked-{{ file.id }}" name="is-market-{{ file.id }}"
                      value="0">
             </div>
 
@@ -843,8 +854,8 @@
                                     </span>
 
                   {# ----------- NODE ID ----------- #}
-                  <span class="unig-file-item-info unig-file-nid" style="display: inline-block">
-                                    {{ file.nid }}
+                  <span class="unig-file-item-info unig-file-id" style="display: inline-block">
+                                    {{ file.id }}
                                     </span>
 
                   {# ----------- Index Number ----------- #}
@@ -856,7 +867,7 @@
 
               {#  -----------   Image  -----------  #}
               <div class="lightgallery-item"
-                   id="unig-lightgallery-placeholder-{{ file.nid }}"
+                   id="unig-lightgallery-placeholder-{{ file.id }}"
                    data-sub-html="{{ file.title }}"
                    data-src="{{ file.image.unig_hd.url }}">
 
@@ -869,7 +880,7 @@
 
                   <div class="unig-image-background unig-lazyload-container">
                     <div class="unig-lazyload-placeholder"
-                         id="unig-lazyload-placeholder-{{ file.nid }}">
+                         id="unig-lazyload-placeholder-{{ file.id }}">
                       <i class="fas fa-image" aria-hidden="true"></i>
                     </div>
                   </div>
@@ -877,15 +888,15 @@
               </div>
 
               {#  -----------   Project Cover  -----------  #}
-              <div class="unig-image-is-cover-container unig-image-is-cover-container-{{ file.nid }}">
+              <div class="unig-image-is-cover-container unig-image-is-cover-container-{{ file.id }}">
 
 
-                <div class="unig-image-is-cover {% if project.cover_id == file.nid %}active{% endif %} ">
+                <div class="unig-image-is-cover {% if project.cover_id == file.id %}active{% endif %} ">
                   {% trans %} Cover Picture {% endtrans %}
                 </div>
 
                 <div role="button"
-                     class="unig-set-project-cover-button unig-set-project-cover-trigger {% if project.cover_id != file.nid %}active{% endif %} ">
+                     class="unig-set-project-cover-button unig-set-project-cover-trigger {% if project.cover_id != file.id %}active{% endif %} ">
                   <div class="unig-set-project-cover-message">
                     {% trans %}  Set as cover picture {% endtrans %}
 
@@ -902,10 +913,10 @@
               <div class="unig-file-title">
 
                 {#  -----------   Edit Root  -----------  #}
-                <div class="unig-file-title-{{ file.nid }}">
+                <div class="unig-file-title-{{ file.id }}">
 
                   {# ----------- Edit Trigger ----------- #}
-                  <div class="unig-edit-trigger" data-unig-nid="{{ file.nid }}"
+                  <div class="unig-edit-trigger" data-unig-file-id="{{ file.id }}"
                        data-unig-field="title"
                        data-unig-mode="file">
 
@@ -919,7 +930,7 @@
                   {# ----------- Edit Input ----------- #}
                   <div class="unig-edit-input" style="display: none">
 
-                    <input id="unig-file-title-{{ file.nid }}-input"
+                    <input id="unig-file-title-{{ file.id }}-input"
                            title="Title"
                            type="text"
                            size="26"
@@ -934,11 +945,11 @@
               <div class="unig-file-description">
 
                 {#  -----------   Edit Root  -----------  #}
-                <div class="unig-file-description-{{ file.nid }}">
+                <div class="unig-file-description-{{ file.id }}">
 
                   {# ----------- Edit Trigger ----------- #}
                   <div class="unig-edit-trigger"
-                       data-unig-nid="{{ file.nid }}"
+                       data-unig-file-id="{{ file.id }}"
                        data-unig-field="description"
                        data-unig-mode="file"
                   >
@@ -959,7 +970,7 @@
                   <div class="unig-edit-input" style="display: none">
 
                                 <textarea
-                                  id="unig-file-description-{{ file.nid }}-input"
+                                  id="unig-file-description-{{ file.id }}-input"
                                   rows="4"
                                   cols="26"
                                   title="Description">{{ file.description }}</textarea>
@@ -1024,15 +1035,15 @@
 
                                 </div>
                                 </span>
+
                 {#  -----------   Button Löschen  -----------  #}
                 <span class="unig-file-options-item">
+                    <div class="unig-button-danger unig-file-delete-file unig-file-delete-trigger" role="button">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                        Delete File
+                    </div>
+                </span>
 
-                                <a class="unig-button-danger unig-file-delete-file use-ajax"
-                                   href="/unig/nojs/delete_file/{{ file.nid }}">
-                                    <i class="fas fa-trash" aria-hidden="true"></i>
-                                    Delete File
-                                </a>
-                                    </span>
                 {#  -----------   Album  -----------  #}
               </div>
 
@@ -1065,13 +1076,15 @@
 
               {#  -----------   Toolbox Album  -----------  #}
               <div class="unig-toolbox  unig-file-album-toolbox" style="display: none">
-                <p>Zu Album hinzufügen</p>
+                <p>{% trans %} Add to Album {% endtrans %}
+
+                </p>
 
                 <ul class="unig-gallery-file-album-list-items">
                   {% for album in project.album_list %}
                     <li>
                       <a class="unig-button unig-file-add-album use-ajax"
-                         href="/unig/nojs/add_album/{{ file.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                         href="/unig/nojs/add_album/{{ file.id }}/{{ album.id }}">{{ album.title }}</a>
                     </li>
                   {% endfor %}
                 </ul>

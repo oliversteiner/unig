@@ -4,6 +4,8 @@
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
+    project: {},
+
     attach(context, settings) {
       $('#unig-main', context)
         .once('unigData')
@@ -12,60 +14,43 @@
             drupalSettings.unigDataOnce = true;
             console.log('project loading...');
 
-            Drupal.behaviors.unigData.project.load().then(result => {
-              const projectId = result.nid;
-              console.log('Done.');
+            this.project = drupalSettings.unig.project.project;
+            const projectId = this.project.id;
+            console.log('Done.');
 
-              console.log('FileList loading...');
-              Drupal.behaviors.unigData.FileList.load(projectId).then(data => {
-                console.log('Done.');
+            console.log('FileList loading...');
+            Drupal.behaviors.unigData.FileList.load();
+            console.log('Done.');
 
-                console.log('Images loading...');
-                Drupal.behaviors.unigLazyLoad.loadImages(data);
-
-              });
-            });
+            console.log('Images loading...');
+            Drupal.behaviors.unigLazyLoad.loadImages();
           }
         });
     },
   };
 
-  Drupal.behaviors.unigData.project = {
-    route: 'unig/project/info/json',
+  Drupal.behaviors.unigData.project2 = {
     hostname: 'default',
     name: '',
     name_url: '',
-    nid: 0,
+    id: 0,
     data: {},
 
     load() {
-      const ProjectNid = $('#unig-project-nid').val();
-      this.nid = ProjectNid;
-
-      const data = {
-        project_nid: ProjectNid,
-      };
-
-      return $.ajax({
-        url: Drupal.url(this.route),
-        type: 'POST',
-        data,
-        dataType: 'json',
-      }).done(result => {
-        Drupal.behaviors.unigData.project.set(result);
-      });
+      const project = drupalSettings.unig.project.project;
+      this.set(project);
     },
-    set(data) {
-      this.name = data.title;
-      this.name_url = data.title_url;
-      this.data = data;
-      this.hostname = data.host;
-      this.nid = data.nid;
+    set(project) {
+      this.name = project.title;
+      this.name_url = project.title_url;
+      this.hostname = project.host;
+      this.id = project.project_id;
+      this.data = project;
     },
     destroy() {
       this.name = '';
       this.name_url = '';
-      this.nid = 0;
+      this.id = 0;
       this.data = {};
     },
     getName() {
@@ -106,13 +91,11 @@
      *
      */
     remove(nid) {
-
       const index = this.list.indexOf(nid);
       // remove it
       if (index > -1) {
         this.list.splice(index, 1);
       }
-
     },
 
     destroy() {
@@ -132,8 +115,8 @@
      */
     save() {
       const storageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.id
       }`;
 
       localStorage.setItem(storageName, this.list);
@@ -144,8 +127,8 @@
      */
     load() {
       const storagename = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.id
       }`;
       const localString = localStorage.getItem(storagename);
 
@@ -161,7 +144,6 @@
      * @return {*}
      */
     get() {
-
       if (this.count() > 0) {
         return this.list;
       }
@@ -179,8 +161,6 @@
      * @return {number}
      */
     count() {
-
-
       return this.list.length;
     },
   };
@@ -201,38 +181,36 @@
     people: [],
     route: 'unig/project/json',
 
-    load(projectNid) {
-      // Route : unig/unig.ajax.project
+    remove(id) {
+      // Remove item from List
+      this.list = this.list.filter(item => item.id !== id);
+      this.updateNumberOf();
+    },
 
-      if (!projectNid) {
-        projectNid = $('#unig-project-nid').val();
-      } else {
-        const data = {
-          project_nid: projectNid,
-          album_nid: 0,
-        };
+    updateNumberOf() {
+      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
+      const number_of_current_items =
+        Drupal.behaviors.unigPeople.Visible.length;
 
-        return $.ajax({
-          url: Drupal.url(this.route),
-          type: 'POST',
-          data,
-          dataType: 'json',
-        })
-          .done(result => {
-            const fileList = Object.values(result);
-            this.list = fileList
-
-            // Keywords
-            this.keywords = this.getKeywords(fileList);
-            Drupal.behaviors.unigData.allKeywords.load(fileList);
-
-            // People
-            this.people = this.getPeople(fileList);
-            Drupal.behaviors.unigData.peopleList.load(fileList);
-          })
-          .fail(xhr => {
-          });
+      let text = number_of_all_items;
+      if (number_of_current_items > 0) {
+        text = `${number_of_current_items} von ${number_of_all_items}`;
       }
+      $('.number_of_visible').html(text);
+    },
+
+    load() {
+      const fileList = drupalSettings.unig.project.files;
+
+      this.list = fileList;
+
+      // Keywords
+      this.keywords = this.getKeywords(fileList);
+      Drupal.behaviors.unigData.allKeywords.load(fileList);
+
+      // People
+      this.people = this.getPeople(fileList);
+      Drupal.behaviors.unigData.peopleList.load(fileList);
     },
 
     destroy() {
@@ -248,9 +226,7 @@
       return false;
     },
 
-
     getKeywords(fileList) {
-
       let keywordsList = [];
 
       fileList.forEach(item => {
@@ -267,7 +243,6 @@
     },
 
     getPeople(fileList) {
-
       let peopleList = [];
 
       fileList.forEach(item => {
@@ -375,14 +350,12 @@
     route: 'unig/term/keywords/json',
 
     load() {
-
       $.ajax({
         url: Drupal.url(this.route),
         type: 'GET',
         dataType: 'json',
       })
         .done(result => {
-
           const keywordsInProject = Drupal.behaviors.unigData.FileList.keywords;
 
           let keywordsList = [];
@@ -392,7 +365,6 @@
                 keywordsList.push(item);
               }
             });
-
           } else {
             keywordsList = result;
           }
@@ -400,10 +372,8 @@
           this.list = keywordsList;
           Drupal.behaviors.unigKeywords.searchAutocomplete(keywordsList);
           Drupal.behaviors.unigKeywords.buildTags(keywordsList);
-
         })
-        .fail(xhr => {
-        });
+        .fail(xhr => {});
     },
 
     destroy() {
@@ -421,7 +391,6 @@
       }
       return false;
     },
-
 
     /**
      *
@@ -475,8 +444,8 @@
     save() {
       const cleanlist = Drupal.behaviors.unig.cleanArray(this.list);
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.id
       }`;
 
       localStorage.setItem(localStorageName, cleanlist);
@@ -487,8 +456,8 @@
      */
     load() {
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.id
       }`;
 
       const localString = localStorage.getItem(localStorageName);
@@ -529,20 +498,17 @@
     },
   };
 
-
   Drupal.behaviors.unigData.peopleList = {
     list: [],
     route: 'unig/term/people/json',
 
     load() {
-
       $.ajax({
         url: Drupal.url(this.route),
         type: 'GET',
         dataType: 'json',
       })
         .done(result => {
-
           const peopleInProject = Drupal.behaviors.unigData.FileList.people;
 
           let peopleList = [];
@@ -552,7 +518,6 @@
                 peopleList.push(item);
               }
             });
-
           } else {
             peopleList = result;
           }
@@ -560,10 +525,8 @@
           this.list = peopleList;
           Drupal.behaviors.unigPeople.searchAutocomplete(peopleList);
           Drupal.behaviors.unigPeople.buildTags(peopleList);
-
         })
-        .fail(xhr => {
-        });
+        .fail(xhr => {});
     },
 
     destroy() {
@@ -581,7 +544,6 @@
       }
       return false;
     },
-
 
     /**
      *
@@ -639,8 +601,8 @@
      */
     save() {
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.id
       }`;
 
       localStorage.setItem(localStorageName, this.list);
@@ -651,8 +613,8 @@
      */
     load() {
       const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.nid
+        Drupal.behaviors.unigData.project.hostname}.${
+        Drupal.behaviors.unigData.project.id
       }`;
 
       const localString = localStorage.getItem(localStorageName);

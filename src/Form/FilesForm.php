@@ -55,11 +55,11 @@ class FilesForm extends FormBase
   public function buildForm(
     array $form,
     FormStateInterface $form_state,
-    $project_nid = null
+    $project_id = null
   ) {
-    if ($project_nid != null) {
+    if ($project_id != null) {
       // Make sure you don't trust the URL to be safe! Always check for exploits.
-      if (!is_numeric($project_nid)) {
+      if (!is_numeric($project_id)) {
         // We will just show a standard "access denied" page in this case.
         throw new AccessDeniedHttpException();
       }
@@ -88,10 +88,10 @@ class FilesForm extends FormBase
     $form['container_images'] = [
       '#type' => 'container',
       '#attributes' => ['id' => 'js-wrapper'],
-      '#attached' => array(
-        'library' => array('unig/unig')
-      )
+      '#attached' => ['library' => ['unig/unig.upload']
+      ]
     ];
+
 
     // Group submit handlers in an actions element with a key of "actions" so
     // that it gets styled correctly, and so that other modules may add actions
@@ -153,7 +153,7 @@ class FilesForm extends FormBase
     if (isset($new_project) && !empty($new_project)) {
       $create_new_project = true;
       try {
-        $project_nid = self::newUniGProject($new_project);
+        $project_id = self::newUniGProject($new_project);
       } catch (InvalidPluginDefinitionException $e) {
       } catch (PluginNotFoundException $e) {
       } catch (EntityStorageException $e) {
@@ -162,15 +162,15 @@ class FilesForm extends FormBase
       // Find out the title
       $project_title = $new_project;
     } else {
-      $project_nid = $values['project'];
+      $project_id = $values['project'];
 
       // Find out the title
-      $project_title = $form['project']['#options'][$project_nid];
+      $project_title = $form['project']['#options'][$project_id];
     }
 
     // Create Nodes
 
-    $values['project_nid'] = $project_nid;
+    $values['project_id'] = $project_id;
     $node_ids = $this->createMultiNode($values);
     $number_of = count($node_ids);
 
@@ -197,7 +197,7 @@ class FilesForm extends FormBase
     $message_con_many = "Es wurden $number_of Bilder in das Projekt \"$project_title\" hinzugefügt";
 
     // Link to Image Gallery
-    $message_go_to = "<a href=\"/unig/project/$project_nid\">Die UniG <strong>$project_title</strong> anzeigen</a>";
+    $message_go_to = "<a href=\"/unig/project/$project_id\">Die UniG <strong>$project_title</strong> anzeigen</a>";
     $rendered_message = \Drupal\Core\Render\Markup::create($message_go_to);
 
     switch ($variant) {

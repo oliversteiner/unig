@@ -6,10 +6,10 @@
      *
      * @param nid
      */
-    toggleConfirmDeleteProject(nid) {
+    toggleConfirmDeleteProject(id) {
       //  Confirm Dialog Elem
       const elem = document.querySelector(
-        `.unig-project-${nid} .unig-project-delete-confirm`,
+        `.unig-project-${id} .unig-project-delete-confirm`,
       );
 
       // Toggle display
@@ -22,11 +22,11 @@
 
     /**
      *
-     * @param nid
+     * @param id
      */
-    cancelDeleteProject(nid) {
+    cancelDeleteProject(id) {
       // Hide Confirm Dialog
-      this.toggleConfirmDeleteProject(nid);
+      this.toggleConfirmDeleteProject(id);
     },
 
     /**
@@ -34,17 +34,17 @@
      *
      * @param event
      */
-    getProjectNid(event) {
-      const elem = event.target.closest('.unig-project-nid'); // NO IE
-      return elem.dataset.unigProjectNid;
+    getProjectId(event) {
+      const elem = event.target.closest('.unig-project-id'); // NO IE
+      return elem.dataset.unigProjectId;
     },
 
     /**
      *
-     * @param nid
+     * @param id
      */
-    togglePrivat(nid) {
-      Drupal.behaviors.unigAdmin.togglePrivat(nid);
+    togglePrivate(id) {
+      Drupal.behaviors.unigAdmin.togglePrivate(id);
     },
 
     /**
@@ -53,19 +53,18 @@
      */
     edit(event) {
       // Elem
-      // TODO This function is double ->  Drupal.behaviors.unigProject.edit
       const elemTarget = event.target.parentNode;
 
       // Data
-      const nid = elemTarget.dataset.unigNid;
+      const id = elemTarget.dataset.unigProjectId;
       const field = elemTarget.dataset.unigField;
       const mode = elemTarget.dataset.unigMode;
       const form = elemTarget.dataset.unigForm;
 
       if (form === 'option_list') {
-        Drupal.behaviors.unigAdmin.optionList(nid, field, mode);
+        Drupal.behaviors.unigAdmin.optionList(id, field, mode);
       } else {
-        Drupal.behaviors.unigAdmin.edit(nid, field, mode);
+        Drupal.behaviors.unigAdmin.edit(id, field, mode);
       }
     },
     /**
@@ -85,8 +84,8 @@
             elem.addEventListener(
               'click',
               event => {
-                const nid = scope.getProjectNid(event);
-                scope.toggleConfirmDeleteProject(nid);
+                const id = scope.getProjectId(event);
+                scope.toggleConfirmDeleteProject(id);
               },
               false,
             ),
@@ -99,8 +98,8 @@
               elem.addEventListener(
                 'click',
                 event => {
-                  const nid = scope.getProjectNid(event);
-                  scope.cancelDeleteProject(nid);
+                  const id = scope.getProjectId(event);
+                  scope.cancelDeleteProject(id);
                 },
                 false,
               ),
@@ -111,8 +110,8 @@
             elem.addEventListener(
               'click',
               event => {
-                const nid = scope.getProjectNid(event);
-                scope.togglePrivat(nid);
+                const id = scope.getProjectId(event);
+                scope.togglePrivate(id);
               },
               false,
             ),

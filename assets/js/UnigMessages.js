@@ -7,14 +7,24 @@
       this.updateMessageList();
     },
 
-    addMessage(text, type) {
-      const message = [text, type];
+    removeMessageByID(id) {
+      const messages = Drupal.behaviors.unig.messages;
+
+      const new_messages = messages.filter(message => message.id !== id);
+      Drupal.behaviors.unig.messages = new_messages;
+      this.updateMessageList();
+    },
+
+    addMessage(text, type, id = 0) {
+      const message = { text: text, type: type, id: id };
       Drupal.behaviors.unig.messages.push(message);
       this.updateMessageList();
     },
 
     updateMessageList() {
       const { messages } = Drupal.behaviors.unig;
+      console.log('messages', messages);
+
       const $messagesList = $('.unig-messages');
 
       let content = '';
@@ -26,8 +36,8 @@
 
       if (messages.length > 0) {
         messages.forEach(item => {
-          const message = item[0];
-          const type = item[1];
+          const message = item.text;
+          const type = item.type;
 
           switch (type) {
             case 'info':
@@ -41,6 +51,9 @@
               break;
             case 'error':
               icon = '<i class="fas fa-exclamation-circle"></i>';
+              break;
+            case 'load':
+              icon = '<i class="fas fa-cog fa-spin"></i>';
               break;
             default:
               icon = '';

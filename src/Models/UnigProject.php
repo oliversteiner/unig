@@ -20,4 +20,5 @@ class UnigProject
   public const field_trash = 'field_unig_trash';
   public const field_tags = 'field_unig_tags';
   public const field_weight = 'field_unig_weight';
+  public const field_cache = 'field_unig_cache';
 }

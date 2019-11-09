@@ -1,34 +1,29 @@
-/* eslint-disable prettier/prettier */
-/**
- * Created by ost on 14.05.17.
- */
-
 const UnigProcess = {
-  nid: '',
+  id: '',
   mode: 'file',
   elemSpinner: null,
   elemSuccess: null,
   elemError: null,
 
-  init(nid, mode) {
+  init(id, mode) {
     // Spinner
     this.elemSpinner = document.querySelector(
-      `.unig-${mode}-${nid} .unig-process-spinner`,
+      `.unig-${mode}-${id} .unig-process-spinner`,
     );
 
     // Success
 
     this.elemSuccess = document.querySelector(
-      `.unig-${mode}-${nid} .unig-process-success`,
+      `.unig-${mode}-${id} .unig-process-success`,
     );
 
     // Error
     this.elemError = document.querySelector(
-      `.unig-${mode}-${nid} .unig-process-error`,
+      `.unig-${mode}-${id} .unig-process-error`,
     );
   },
-  start(nid, mode) {
-    this.init(nid, mode);
+  start(id, mode) {
+    this.init(id, mode);
 
     this.elemSpinner.setAttribute('style', 'display:block');
     this.elemSuccess.setAttribute('style', 'display:none');
@@ -89,9 +84,9 @@ const UnigProcess = {
       return true;
     },
 
-    edit(nid, field, mode) {
+    edit(id, field, mode) {
 
-      const elemRootClassName = `unig-${mode}-${field}-${nid}`;
+      const elemRootClassName = `unig-${mode}-${field}-${id}`;
       // Elems`
       const elemTrigger = document.querySelector(
         `.${elemRootClassName} .unig-edit-trigger`,
@@ -116,14 +111,14 @@ const UnigProcess = {
         elemTrigger.setAttribute('style', 'display:block');
 
         // Save Changes
-        this.save(nid, field, mode);
+        this.save(id, field, mode);
       });
     },
 
 
-    optionList(nid, field, mode) {
+    optionList(id, field, mode) {
 
-      const elemRootClassName = `unig-${mode}-${field}-${nid}`;
+      const elemRootClassName = `unig-${mode}-${field}-${id}`;
       // Elems`
       const elemTrigger = document.querySelector(
         `.${elemRootClassName} .unig-edit-trigger`,
@@ -148,34 +143,34 @@ const UnigProcess = {
         elemTrigger.setAttribute('style', 'display:block');
 
         // Save Changes
-        this.save(nid, field, mode);
+        this.save(id, field, mode);
       });
     },
 
 
-    togglePrivat(nid) {
+    togglePrivate(id) {
       const field = 'private';
       const mode = 'project';
 
       // Root
-      const elemRoot = document.querySelector(`.unig-${mode}-${nid}`);
+      const elemRoot = document.querySelector(`.unig-${mode}-${id}`);
 
       // Private
       const elemPrivate = document.querySelector(
-        `.unig-${mode}-${nid} .unig-${mode}-private`,
+        `.unig-${mode}-${id} .unig-${mode}-private`,
       );
 
       // Public
       const elemPublic = document.querySelector(
-        `.unig-${mode}-${nid} .unig-${mode}-public`,
+        `.unig-${mode}-${id} .unig-${mode}-public`,
       );
 
       // Start process spinner
       const process = UnigProcess;
-      process.start(nid, mode);
+      process.start(id, mode);
 
       const data = {
-        nid,
+        id,
         field,
       };
       const url = `/unig/save`;
@@ -229,20 +224,44 @@ const UnigProcess = {
         });
     },
 
+
+    quickSave(data, route) {
+      const projectId =     drupalSettings.unig.project.project.id;
+
+      $.ajax({
+        url: Drupal.url(`unig/${route}`),
+        type: 'POST',
+        data: {
+          data,
+          projectId: projectId,
+        },
+        dataType: 'json',
+        success(results) {
+          if (results.messages && results.messages[0]) {
+            const text = results.messages[0][0];
+            const type = results.messages[0][1];
+            Drupal.behaviors.unigMessages.addMessage(text, type);
+          }
+        },
+      });
+
+      return true;
+    },
+
     /**
      *
      *
-     * @param nid
+     * @param id
      * @param field
      * @param mode
      * @return {Promise<boolean | never>}
      */
-    save(nid, field, mode) {
-      const elemRootClassName = `unig-${mode}-${field}-${nid}`;
+    save(id, field, mode) {
+      const elemRootClassName = `unig-${mode}-${field}-${id}`;
 
       // Error
       const elemError = document.querySelector(
-        `.unig-${mode}-${nid} .unig-process-error`,
+        `.unig-${mode}-${id} .unig-process-error`,
       );
 
       // Original
@@ -278,13 +297,15 @@ const UnigProcess = {
 
         // Start Process Spinner
         const process = UnigProcess;
-        process.start(nid, mode);
+        process.start(id, mode);
+        const projectId = Drupal.behaviors.unigData.project.id        ;
 
         const value = Drupal.checkPlain(textInput);
         const data = {
-          nid,
-          field,
-          value,
+          id:id,
+          project_id:projectId,
+          field:field,
+          value:value,
         };
         const url = `/unig/save`;
 

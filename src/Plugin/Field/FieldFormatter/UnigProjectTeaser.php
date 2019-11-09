@@ -22,7 +22,6 @@ use Drupal\unig\Utility\ProjectTrait;
  */
 class UnigProjectTeaser extends EntityReferenceFormatterBase
 {
-
   use ProjectTrait;
 
   /**
@@ -30,9 +29,7 @@ class UnigProjectTeaser extends EntityReferenceFormatterBase
    */
   public static function defaultSettings()
   {
-    $default_settings =
-      [
-      ] + parent::defaultSettings();
+    $default_settings = [] + parent::defaultSettings();
 
     return $default_settings;
   }
@@ -63,22 +60,23 @@ class UnigProjectTeaser extends EntityReferenceFormatterBase
   {
     $element = [];
 
-    $template_path = drupal_get_path('module', 'unig'). '/templates/unig-project-teaser.html.twig';
+    $template_path =
+      drupal_get_path('module', 'unig') .
+      '/templates/unig-project-teaser.html.twig';
     $template = file_get_contents($template_path);
 
     foreach ($items as $delta => $item) {
       $value = $item->getValue();
-       $nid = $value['target_id'];
+      $nid = $value['target_id'];
 
       $element[$delta] = [
         '#type' => 'inline_template',
         '#template' => $template,
-        '#context' => $this::buildProject($nid),
+        '#context' => $this::buildProject($nid)
       ];
     }
 
-    $element['#attached']['library'][] =
-      'unig/unig.project.preview';
+    $element['#attached']['library'][] = 'unig/unig.project.teaser';
 
     return $element;
   }

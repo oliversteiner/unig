@@ -1,8 +1,8 @@
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 {# Unig Main #}
-<div id="unig-main" class="unig unig-project unig-project-user unig-project-nid"
-     data-unig-project-nid="{{ project.nid }}">
+<div id="unig-main" class="unig unig-project unig-project-user unig-project-id"
+     data-unig-project-id="{{ project.id }}">
 
   {# Unig Header #}
   <div class="unig-header">
@@ -10,7 +10,7 @@
 
     {# Toolbar - Project #}
     <div
-      class="unig-project-{{ project.nid }} unig-toolbar unig-toolbar-info unig-project-normal-container-{{ project.nid }} unig-project-private-status {% if project.private %} private {% endif %}"
+      class="unig-project-{{ project.id }} unig-toolbar unig-toolbar-info unig-project-normal-container-{{ project.id }} unig-project-private-status {% if project.private %} private {% endif %}"
       style="display: block">
 
       {# Toolbar Header #}
@@ -86,7 +86,7 @@
                 </div>
 
                 {#  -----------   Prozess Indicator -----------  #}
-                <div class="unig-project-{{ project.nid }}">
+                <div class="unig-project-{{ project.id }}">
 
                       <span class="unig-toolbar-icon ">
                      <span class="unig-process-spinner" style="display: none"> <i
@@ -172,7 +172,7 @@
 
         {# Button Preview #}
         <a role="button" class="unig-button unig-button-files-preview"
-           href="/unig/lightgallery/{{ project.nid }}">
+           href="{{ path('unig.project.download',{'project_id':project.id, 'album_id':album.id}) }}">
           <i class="fas fa-image" aria-hidden="true"></i>
           {% trans %} Preview {% endtrans %}
         </a>
@@ -414,18 +414,18 @@
   <div class="unig-body">
 
     <div class="unig">
-      <ul class="unig-gallery unig-images-medium" id="lightgallery-{{ project.nid }}">
+      <ul class="unig-gallery unig-images-medium" id="lightgallery-{{ project.id }}">
 
-        <input type="hidden" id="unig-project-nid" value="{{ project.nid }}">
+        <input type="hidden" id="unig-project-id" value="{{ project.id }}">
 
         {% for file in files %}
 
-          <li class="unig-file-item unig-file-edit unig-file-{{ file.nid }}"
-              id="unig-file-{{ file.nid }}" data-unig-file-nid="{{ file.nid }}">
+          <li class="unig-file-item unig-file-edit unig-file-{{ file.id }}"
+              id="unig-file-{{ file.id }}" data-unig-file-id="{{ file.id }}">
 
             {# hidden inputs #}
             <div>
-              <input type="hidden" id="is-marked-{{ file.nid }}" name="is-market-{{ file.nid }}"
+              <input type="hidden" id="is-marked-{{ file.id }}" name="is-market-{{ file.id }}"
                      value="0">
             </div>
 
@@ -477,7 +477,7 @@
 
               {#  -----------   Image  -----------  #}
               <div class="lightgallery-item"
-                   id="unig-lightgallery-placeholder-{{ file.nid }}"
+                   id="unig-lightgallery-placeholder-{{ file.id }}"
                    data-sub-html="{{ file.title }}"
                    data-src="{{ file.image.unig_hd.url }}">
 
@@ -490,7 +490,7 @@
 
                   <div class="unig-image-background unig-lazyload-container">
                     <div class="unig-lazyload-placeholder"
-                         id="unig-lazyload-placeholder-{{ file.nid }}">
+                         id="unig-lazyload-placeholder-{{ file.id }}">
                       <i class="fas fa-image" aria-hidden="true"></i>
                     </div>
                   </div>
