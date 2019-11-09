@@ -422,7 +422,7 @@
 
           <li class="unig-file-item unig-file-edit unig-file-{{ file.id }}"
               id="unig-file-{{ file.id }}" data-unig-file-id="{{ file.id }}">
-
+{{ dd(file) }}
             {# hidden inputs #}
             <div>
               <input type="hidden" id="is-marked-{{ file.id }}" name="is-market-{{ file.id }}"
@@ -596,7 +596,8 @@
                   {# SD #}
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_sd.url }}"
-                      data-size="sd">
+                      data-size="sd"
+                  data-name="{{ file.image.title }}">
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_sd.width }}&thinsp;px

@@ -797,6 +797,7 @@
           <li class="unig-sortable-item sort-handle unig-file-item unig-file-edit unig-file-{{ file.id }}"
               id="unig-file-{{ file.id }}" data-unig-file-id="{{ file.id }}">
 
+
             {# hidden inputs #}
             <div>
               <input type="hidden" id="is-marked-{{ file.id }}" name="is-market-{{ file.id }}"
@@ -1112,7 +1113,9 @@
                   {# SD #}
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_sd.url }}"
-                      data-size="sd">
+                      data-size="sd"
+                  data-name="{{ file.file_name }}"
+                  >
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_sd.width }}&thinsp;px
@@ -1129,7 +1132,9 @@
                   {# HD #}
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_hd.url }}"
-                      data-size="hd">
+                      data-size="hd"
+                      data-name="{{ file.file_name }}"
+                  >
                     <td class="unig-file-download-table-label">HD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_hd.width }}&thinsp;px
@@ -1146,7 +1151,9 @@
                   {# XL #}
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.original.url }}"
-                      data-size="xl">
+                      data-size="xl"
+                      data-name="{{ file.file_name }}"
+                  >
                     <td class="unig-file-download-table-label">XL</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.original.width }}&thinsp;px
