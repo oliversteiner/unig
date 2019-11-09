@@ -1173,6 +1173,10 @@ ul.unig-tags-keywords {
   padding: 10px;
 }
 
+.unig-toolbar-favorite-toggle.active {
+  color: #ff0004;
+}
+
 .unig-fieldset {
   border: 1px solid #eaedf0;
   background: #f7fafd;

@@ -196,7 +196,7 @@
       if (number_of_current_items > 0) {
         text = `${number_of_current_items} von ${number_of_all_items}`;
       }
-      $('.number_of_visible').html(text);
+      $('.number-of-visible').html(text);
     },
 
     load() {

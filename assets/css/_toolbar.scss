@@ -5,14 +5,15 @@
   padding: 10px;
 }
 
-.unig-toolbar-header{
-
+.unig-toolbar-header {
 }
 
-.unig-toolbar-body{
-
+.unig-toolbar-body {
 }
 
-.unig-toolbar-footer{
+.unig-toolbar-footer {
+}
 
+.unig-toolbar-favorite-toggle.active {
+  color: $color-admin-favorite;
 }

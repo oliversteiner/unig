@@ -76,6 +76,7 @@ unig.project.admin:
     assets/js/UnigSize.js: {}
     assets/js/UnigLazyLoad.js: {}
     assets/js/UnigOptions.js: {}
+    assets/js/UnigFavorite.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings

@@ -264,7 +264,7 @@ class UnigFile
       'comments' => $comments,
       'weight' => $weight,
       'rating' => $rating,
-      'favorite' => $favorite,
+      'favorite' => (integer)$favorite,
       'copyright' => $copyright,
       'people' => $people,
       'keywords' => $keywords,

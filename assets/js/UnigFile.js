@@ -34,59 +34,7 @@
         });
     },
 
-    toggleFavorite: function(fileId, projectId) {
-      let favorite = 0;
 
-      // set Favorite
-      Drupal.behaviors.unigData.FileList.list.forEach(file => {
-        if (file.id === fileId) {
-          console.log('------ ' + file.id + ' -----');
-
-          console.log('File is:', file.favorite);
-          if (file.favorite) {
-            favorite = 0;
-            $(`#unig-file-${fileId}  .unig-file-favorite`).removeClass(
-              'favorite',
-            );
-          } else {
-            favorite = 1;
-            $(`#unig-file-${fileId} .unig-file-favorite`).addClass('favorite');
-          }
-          file.favorite = favorite;
-          console.log('Set to:', file.favorite);
-        }
-      });
-
-      // Loading Message
-      let text = 'Set Favorite Status to File ' + fileId;
-      let type = 'load';
-      const messageID = 'favorite';
-      Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
-
-      // send to server
-      const url = `/unig/api/file/favorite/${fileId}/${favorite}/${projectId}`;
-      console.log('url', url);
-
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          console.log('Response:', data);
-
-          // Set message to ajax container
-          const text = data.message;
-          let type = 'info';
-          if (data.status) {
-            if (favorite) {
-              type = 'favorite';
-            } else {
-              type = 'info';
-            }
-          }
-          // Update Message
-          Drupal.behaviors.unigMessages.removeMessageByID(messageID);
-          Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
-        });
-    },
 
     save(data, route) {
       Drupal.behaviors.unigAdmin.quickSave(data, route);
@@ -298,12 +246,7 @@
             // the actual function go via drupal <a href ... >  and "use-ajax"
           });
 
-          // Toggle Favorite
-          $('.unig-file-favorite-trigger', context).click(event => {
-            const fileId = scope.getFileId(event);
-            const projectId = Drupal.behaviors.unigData.project.id;
-            scope.toggleFavorite(fileId, projectId);
-          });
+
 
           // Delete File
           $('.unig-file-delete-trigger', context).click(event => {

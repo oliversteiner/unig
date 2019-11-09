@@ -34,7 +34,6 @@
       Drupal.behaviors.unigPeople.Visible = [];
       const peopleIds = Drupal.behaviors.unigData.peopleStorage.get();
       const keywordIds = Drupal.behaviors.unigData.keywordsStorage.get();
-      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
       const fullList = Drupal.behaviors.unigData.FileList.list;
 
       if (peopleIds.length > 0) {
@@ -43,7 +42,7 @@
 
         if (fullList && fullList.length > 0) {
           for (const item of fullList) {
-            const $elem = $(`#unig-file-${item.nid}`);
+            const $elem = $(`#unig-file-${item.id}`);
 
             $elem.hide();
             $elem.data('current', false);
@@ -58,13 +57,13 @@
                     if (keywordIds.includes(parseInt(keywords.id))) {
                       $elem.show();
                       $elem.data('current', true);
-                      Drupal.behaviors.unigPeople.Visible.push(item.nid);
+                      Drupal.behaviors.unigPeople.Visible.push(item.id);
                     }
                   }
                 } else {
                   $elem.show();
                   $elem.data('current', true);
-                  Drupal.behaviors.unigPeople.Visible.push(item.nid);
+                  Drupal.behaviors.unigPeople.Visible.push(item.id);
                 }
               }
             }
@@ -73,7 +72,7 @@
       } else if (keywordIds.length > 0) {
         if (fullList && fullList.length > 0) {
           for (const item of fullList) {
-            const $elem = $(`#unig-file-${item.nid}`);
+            const $elem = $(`#unig-file-${item.id}`);
             $elem.hide();
             $elem.data('current', false);
 
@@ -81,7 +80,7 @@
               if (keywordIds.includes(parseInt(keywords.id))) {
                 $elem.show();
                 $elem.data('current', true);
-                Drupal.behaviors.unigPeople.Visible.push(item.nid);
+                Drupal.behaviors.unigPeople.Visible.push(item.id);
               }
             }
           }
@@ -89,7 +88,7 @@
       } else {
         // show all
         for (const item of fullList) {
-          $(`#unig-file-${item.nid}`).show();
+          $(`#unig-file-${item.id}`).show();
         }
       }
 
@@ -132,34 +131,34 @@
       this.isToolbarOpen = false;
     },
 
-    add(nid) {
-      Drupal.behaviors.unigData.FilesForDownload.add(nid);
+    add(id) {
+      Drupal.behaviors.unigData.FilesForDownload.add(id);
       Drupal.behaviors.unigData.FilesForDownload.save();
     },
 
-    remove(nid) {
-      Drupal.behaviors.unigData.FilesForDownload.remove(nid);
+    remove(id) {
+      Drupal.behaviors.unigData.FilesForDownload.remove(id);
       Drupal.behaviors.unigData.FilesForDownload.save();
     },
 
-    toggle(nid) {
+    toggle(id) {
       const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
 
       // if first Item in list toggle on
       if (itemsForDownload === false) {
-        this.add(nid);
+        this.add(id);
       } else {
         // search item in itemsForDownload List
         const IsInDownloadList = Drupal.behaviors.unigData.FilesForDownload.find(
-          nid,
+          id,
         );
 
         if (IsInDownloadList) {
           // if item in list. toggle off
-          this.remove(nid);
+          this.remove(id);
         } else {
           // if item  not in list. toggle on
-          this.add(nid);
+          this.add(id);
         }
       }
     },
@@ -168,10 +167,10 @@
       Drupal.behaviors.unigData.FilesForDownload.save();
     },
 
-    addMark(nid) {
-      if (nid) {
+    addMark(id) {
+      if (id) {
         // Mark Elem
-        const elemTarget = document.querySelector(`#unig-file-${nid}`);
+        const elemTarget = document.querySelector(`#unig-file-${id}`);
         elemTarget.classList.add('marked');
 
         // Button "add to download list"
@@ -184,10 +183,10 @@
       }
     },
 
-    removeMark(nid) {
-      if (nid) {
+    removeMark(id) {
+      if (id) {
         // Mark Elem
-        const elemTarget = document.querySelector(`#unig-file-${nid}`);
+        const elemTarget = document.querySelector(`#unig-file-${id}`);
         elemTarget.classList.remove('marked');
 
         // Button "remove from download list"
@@ -200,15 +199,15 @@
       }
     },
 
-    toggleMark(nid) {
-      const elemTarget = document.querySelector(`#unig-file-${nid}`);
+    toggleMark(id) {
+      const elemTarget = document.querySelector(`#unig-file-${id}`);
 
       if (elemTarget.classList.contains('marked')) {
         // if item in list. toggle off
-        this.removeMark(nid);
+        this.removeMark(id);
       } else {
         // if item  not in list. toggle on
-        this.addMark(nid);
+        this.addMark(id);
       }
     },
 
@@ -372,8 +371,8 @@
             const imgSrc = item.image.unig_thumbnail.url;
 
             elemLi +=
-              `<li class="unig-dl" id="unig-dl-${id}" data-nid = "${id}">` +
-              ` <div class="unig-dl-nid">${id}</div>` +
+              `<li class="unig-dl" id="unig-dl-${id}" data-id = "${id}">` +
+              ` <div class="unig-dl-id">${id}</div>` +
               ` <div class="unig-dl-image item-overlay">` +
               `   <img src="${imgSrc}" alt=""/>` +
               ` <div class="item-overlay-canvas top">` +
@@ -396,9 +395,9 @@
 
       // Add Handler
       $('ul.unig-dl').on('click', 'li', function() {
-        const nid = $(this).data('nid');
-        Drupal.behaviors.unigDownload.remove(nid);
-        Drupal.behaviors.unigDownload.removeMark(nid);
+        const id = $(this).data('id');
+        Drupal.behaviors.unigDownload.remove(id);
+        Drupal.behaviors.unigDownload.removeMark(id);
         Drupal.behaviors.unigDownload.calculateDownloadsize();
         Drupal.behaviors.unigDownload.refreshGUI();
         Drupal.behaviors.unigDownload.updateInfo();
@@ -489,7 +488,7 @@
 
       if (listItem) {
         for (const item of listItem) {
-          if ($(`#unig-file-${item.nid}`).data('current')) {
+          if ($(`#unig-file-${item.id}`).data('current')) {
             this.addMark(item.id);
           }
         }
@@ -502,7 +501,7 @@
 
       if (listItem) {
         for (const item of listItem) {
-          if ($(`#unig-file-${item.nid}`).data('current')) {
+          if ($(`#unig-file-${item.id}`).data('current')) {
             this.add(item.id);
           }
         }
