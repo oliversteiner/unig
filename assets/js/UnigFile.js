@@ -1,8 +1,6 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigFiles = {
-
     deleteFile(fileId, projectId) {
-
       // Loading Message
       let text = 'Delete File with ' + fileId + '...';
       let type = 'load';
@@ -21,19 +19,72 @@
           // Set message to ajax container
           const text = data.message;
           let type = 'info';
-          if(data.status){
-           type = 'success';
+          if (data.status) {
+            type = 'success';
 
-           // Remove Item from HTML
-           $('#unig-file-'+fileId).remove();
+            // Remove Item from HTML
+            $('#unig-file-' + fileId).remove();
             Drupal.behaviors.unigData.FileList.remove(fileId);
-           // Remove Item from LIST
-
+            // Remove Item from LIST
           }
 
           // Update Message
           Drupal.behaviors.unigMessages.removeMessageByID(messageID);
           Drupal.behaviors.unigMessages.addMessage(text, type);
+        });
+    },
+
+    toggleFavorite: function(fileId, projectId) {
+      let favorite = 0;
+
+      // set Favorite
+      Drupal.behaviors.unigData.FileList.list.forEach(file => {
+        if (file.id === fileId) {
+          console.log('------ ' + file.id + ' -----');
+
+          console.log('File is:', file.favorite);
+          if (file.favorite) {
+            favorite = 0;
+            $(`#unig-file-${fileId}  .unig-file-favorite`).removeClass(
+              'favorite',
+            );
+          } else {
+            favorite = 1;
+            $(`#unig-file-${fileId} .unig-file-favorite`).addClass('favorite');
+          }
+          file.favorite = favorite;
+          console.log('Set to:', file.favorite);
+        }
+      });
+
+      // Loading Message
+      let text = 'Set Favorite Status to File ' + fileId;
+      let type = 'load';
+      const messageID = 'favorite';
+      Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
+
+      // send to server
+      const url = `/unig/api/file/favorite/${fileId}/${favorite}/${projectId}`;
+      console.log('url', url);
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Response:', data);
+
+          // Set message to ajax container
+          const text = data.message;
+          let type = 'info';
+          if (data.status) {
+            if (favorite) {
+              type = 'favorite';
+            } else {
+              type = 'info';
+            }
+          }
+          // Update Message
+          Drupal.behaviors.unigMessages.removeMessageByID(messageID);
+          Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
         });
     },
 
@@ -137,24 +188,24 @@
       this.save(data, route);
     },
 
-    setProjectCover(projectId, imageId) {
+    setProjectCover(projectId, fileId) {
       // get DOM Elems
       const processElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageId} .unig-set-project-cover-process`,
+        `.unig-image-is-cover-container-${fileId} .unig-set-project-cover-process`,
       );
 
       const isCoverElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageId} .unig-image-is-cover`,
+        `.unig-image-is-cover-container-${fileId} .unig-image-is-cover`,
       );
 
       const buttonElem = document.querySelector(
-        `.unig-image-is-cover-container-${imageId} .unig-set-project-cover-button`,
+        `.unig-image-is-cover-container-${fileId} .unig-set-project-cover-button`,
       );
 
       // activate Process Spinner
       processElem.classList.add('active');
 
-      const url = `/unig/set_cover/${projectId}/${imageId}`;
+      const url = `/unig/set_cover/${projectId}/${fileId}`;
 
       fetch(url)
         .then(response => response.json())
@@ -241,10 +292,17 @@
 
           // Set Cover image to current project
           $('.unig-set-project-cover-trigger', context).click(event => {
-            const imageId = scope.getFileId(event);
+            const fileId = scope.getFileId(event);
             const projectId = Drupal.behaviors.unigData.project.id;
-            scope.setProjectCover(projectId, imageId);
+            scope.setProjectCover(projectId, fileId);
             // the actual function go via drupal <a href ... >  and "use-ajax"
+          });
+
+          // Toggle Favorite
+          $('.unig-file-favorite-trigger', context).click(event => {
+            const fileId = scope.getFileId(event);
+            const projectId = Drupal.behaviors.unigData.project.id;
+            scope.toggleFavorite(fileId, projectId);
           });
 
           // Delete File

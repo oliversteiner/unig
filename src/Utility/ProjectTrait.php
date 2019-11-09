@@ -620,7 +620,7 @@ trait ProjectTrait
     $variables = [];
 
     foreach ($file_nids as $file_nid) {
-      $variables[] = self::buildFile($file_nid);
+      $variables[] = Drupal\unig\Models\UnigFile::buildFile($file_nid);
     }
 
     return $variables;
@@ -646,7 +646,7 @@ trait ProjectTrait
     $variables = [];
 
     foreach ($file_nids as $file_nid) {
-      $variables[$file_nid] = self::buildFile($file_nid);
+      $variables[$file_nid] = Drupal\unig\Models\UnigFile::buildFile($file_nid);
     }
 
     $response->setData($variables);
@@ -787,148 +787,6 @@ trait ProjectTrait
       Drupal::logger('unig')->warning($message);
       return false;
     }
-  }
-
-  /**
-   * @param $file_nid
-   *
-   * @return array
-   *
-   * @throws InvalidPluginDefinitionException
-   * @throws Exception
-   */
-  public static function buildFile($file_nid)
-  {
-    // project
-    //  - nid
-    //  - date
-    //  - timestamp
-    //  - title
-    //  - description
-    //  - copyright
-
-    //  - weight (draggable)
-    //  - album
-    //      - title
-    //      - number_of_items
-    //  - links
-    //    - edit
-    //    - delete
-
-    $entity = Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->load($file_nid);
-
-    if ($entity && $entity->bundle() !== 'unig_file') {
-      $message = 'Node with ' . $file_nid . ' is not an UniG-File';
-      \Drupal::logger('type')->error($message);
-      return ['nid' => 0];
-    }
-
-    // NID
-    $nid = $entity->id();
-
-    // Title
-    $title = $entity->label();
-
-    // Title Generated
-    $title_generated = $entity->get('field_unig_title_generated')->getValue();
-    if ($title_generated) {
-      $title_generated = $title_generated[0]['value'];
-    } else {
-      $title_generated = 1;
-    }
-
-    // Description
-    $description = $entity->get('field_unig_description')->getValue();
-
-    if ($description) {
-      $description = $description[0]['value'];
-    }
-
-    // comments
-    $comments = 'comments';
-
-    // Rating
-    $rating = 0;
-    $node_rating = $entity->get('field_unig_rating')->getValue();
-    if ($node_rating) {
-      $rating = $node_rating[0]['value'];
-    }
-
-    // Weight
-    $weight = 0;
-    $node_weight = $entity->get('field_unig_weight')->getValue();
-    if ($node_weight) {
-      $weight = $node_weight[0]['value'];
-    }
-
-    // Copyright
-    $copyright = '';
-    $node_copyright = $entity->get('field_unig_copyright')->getValue();
-    if ($node_copyright) {
-      $copyright = $node_copyright[0]['value'];
-    }
-
-    // image
-    $image = self::getImageVars($file_nid);
-
-    // $file_path = FileSystem::realpath($entity->get('field_unig_image')->entity->getFileUri());
-    $file_name = $entity->get('field_unig_image')->entity->getFilename();
-
-
-    // people
-    $people = [];
-    $node_people = $entity->get('field_unig_people')->getValue();
-    if ($node_people) {
-      foreach ($node_people as $term) {
-        $tid = $term['target_id'];
-        $term = Term::load($tid);
-
-        if ($term) {
-          $name = $term->getName();
-          $item = ['id' => (integer)$tid, 'name' => (string)$name];
-          $people[] = $item;
-        }
-      }
-    }
-    // keywords
-    $keywords = [];
-    $node_keywords = $entity->get('field_unig_keywords')->getValue();
-    if ($node_keywords) {
-      foreach ($node_keywords as $term) {
-        $tid = $term['target_id'];
-        $term = Term::load($tid);
-
-        if ($term) {
-          $name = $term->getName();
-          $item = ['id' => (integer)$tid, 'name' => (string)$name];
-          $keywords[] = $item;
-        }
-      }
-    }
-    // Album List
-    $album_list = AlbumTrait::getAlbumList($nid);
-
-    // Twig-Variables
-    $file = [
-      'nid' => $nid,
-      'id' => (int)$nid,
-      'title' => $title,
-      'description' => $description,
-      'album_list' => $album_list,
-      'file_name' => $file_name,
-      'image' => $image,
-      'comments' => $comments,
-      'weight' => $weight,
-      'rating' => $rating,
-      'copyright' => $copyright,
-      'people' => $people,
-      'keywords' => $keywords,
-      'title_generated' => $title_generated
-    ];
-
-    return $file;
   }
 
   public static function projectDelete($project_id)

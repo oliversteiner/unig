@@ -118,9 +118,21 @@ class UnigAPIController extends ControllerBase
    */
   public function fileDelete($file_id, $project_id): JsonResponse
   {
-    $data = ['file_id' => (int) $file_id, 'project_id' => (int) $project_id];
 
     $result = UnigFile::delete($file_id, $project_id);
+
+    return new JsonResponse($result);
+  }
+
+  /**
+   * @param $file_id
+   * @param $value
+   * @param $project_id
+   * @return JsonResponse
+   */
+  public function fileFavorite($file_id, $value, $project_id): JsonResponse
+  {
+    $result = UnigFile::favorite($file_id, $value, $project_id);
 
     return new JsonResponse($result);
   }

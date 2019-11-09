@@ -55,6 +55,9 @@
             case 'load':
               icon = '<i class="fas fa-cog fa-spin"></i>';
               break;
+            case 'favorite':
+              icon = '<i class="fas fa-heart"></i>';
+              break;
             default:
               icon = '';
               break;

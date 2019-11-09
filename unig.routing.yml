@@ -353,6 +353,17 @@ unig.api.file.delete:
   requirements:
     _permission: 'access unig admin'
 
+# File Favorite
+unig.api.file.favorit:
+  path: '/unig/api/file/favorite/{file_id}/{value}/{project_id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigApiController::fileFavorite'
+    file_id: null
+    value: 0
+    project_id: null
+  requirements:
+    _permission: 'access unig admin'
+
 #
 # CACHE
 # ----------------------------------------

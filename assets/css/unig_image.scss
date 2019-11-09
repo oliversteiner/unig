@@ -177,3 +177,22 @@ h2.unig-project-title {
   padding-top: 10px;
   color: #676767;
 }
+
+.unig-file-favorite {
+  width: 30px;
+  padding: 0 7px;
+  display: inline-block;
+  margin-left: -5px;
+
+  &:hover {
+    color: $color-admin-marked;
+    cursor: pointer;
+  }
+
+  &.favorite{
+    color: $color-admin-favorite;
+  }
+  &.favorite:hover {
+    color: $color-admin-marked-hover;
+  }
+}

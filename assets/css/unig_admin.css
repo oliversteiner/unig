@@ -1383,6 +1383,10 @@ ul.unig-messages li {
   color: #8f8f8f;
 }
 
+.unig-message-type-favorite .unig-message-icon {
+  color: #ff0004;
+}
+
 /*
 *     THEME
 *     =================

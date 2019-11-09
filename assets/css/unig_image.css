@@ -169,4 +169,21 @@ h2.unig-project-title {
   color: #676767;
 }
 
+.unig-file-favorite {
+  width: 30px;
+  padding: 0 7px;
+  display: inline-block;
+  margin-left: -5px;
+}
+.unig-file-favorite:hover {
+  color: #504e69;
+  cursor: pointer;
+}
+.unig-file-favorite.favorite {
+  color: #ff0004;
+}
+.unig-file-favorite.favorite:hover {
+  color: #494691;
+}
+
 /*# sourceMappingURL=unig_image.css.map */

@@ -634,7 +634,7 @@
       // Add current Files to Download
       $('.unig-button-download-add-current-to-list-trigger', context).click(
         event => {
-          Drupal.behaviors.unigDownload.fillDownloadListWithCurrent(event);
+          Drupal.behaviors.unigDownload.fillDownloadListWithCurrent(event);'^'
         },
       );
 
