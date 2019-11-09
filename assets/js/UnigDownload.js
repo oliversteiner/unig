@@ -681,9 +681,6 @@
         const name = elem.currentTarget.dataset.name;
 
         const nameWithSize = name.replace(/\./, '-' + size + '.');
-        console.log('url', url);
-        console.log('Download', nameWithSize);
-
 
         // TODO implement Download for  other Files then JPG
          // download(url);

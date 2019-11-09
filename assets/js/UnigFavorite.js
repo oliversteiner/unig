@@ -5,7 +5,6 @@
     number_of_favorites: 0,
     toggleShowOnlyFavorites() {
       this.show = !this.show;
-      console.log('Show Favorites: ', this.show);
       const fullList = Drupal.behaviors.unigData.FileList.list;
 
       if (fullList && fullList.length > 0) {
@@ -35,17 +34,14 @@
           }
         }
       }
-      console.log('this.number_of_favorites', this.number_of_favorites);
 
     },
 
     update() {
-      console.log('Favorite Update', this.number_of_favorites);
 
       const favorites = Drupal.behaviors.unigData.FileList.list.filter(
         item => item.favorite === 1,
       );
-      console.log('favorites', favorites);
 
       this.number_of_favorites = favorites.length;
 
@@ -58,9 +54,7 @@
       // set Favorite
       Drupal.behaviors.unigData.FileList.list.forEach(file => {
         if (file.id === fileId) {
-          console.log('------ ' + file.id + ' -----');
 
-          console.log('File is:', file.favorite);
           if (file.favorite) {
             favorite = 0;
             $(`#unig-file-${fileId}  .unig-file-favorite`).removeClass(
@@ -71,7 +65,6 @@
             $(`#unig-file-${fileId} .unig-file-favorite`).addClass('favorite');
           }
           file.favorite = favorite;
-          console.log('Set to:', file.favorite);
         }
       });
 
@@ -84,12 +77,10 @@
 
       // send to server
       const url = `/unig/api/file/favorite/${fileId}/${favorite}/${projectId}`;
-      console.log('url', url);
 
       fetch(url)
         .then(response => response.json())
         .then(data => {
-          console.log('Response:', data);
 
           // Set message to ajax container
           const text = data.message;
@@ -108,7 +99,6 @@
     },
 
     constructor(context, settings) {
-      console.log('unigFavorite');
       this.update();
 
       // Toolbar

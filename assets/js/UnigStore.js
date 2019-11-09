@@ -2,7 +2,6 @@
   Drupal.behaviors.unigStore = {
     attach(context, settings) {
       // onload
-      console.log('unigStore');
     },
 
     name: 'unig',
@@ -56,7 +55,6 @@
     save() {
       // const cleanArray = Drupal.behaviors.unig.cleanArray(this.items);
       localStorage.setItem(this.name, this.items);
-      console.log('Store Items for ' + this.module, this.items);
     },
 
     /**

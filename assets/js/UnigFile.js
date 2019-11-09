@@ -15,7 +15,6 @@
       })
         .then(response => response.json())
         .then(data => {
-          console.log('Response:', data);
           // Set message to ajax container
           const text = data.message;
           let type = 'info';

@@ -11,7 +11,6 @@
       Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
 
       fetch(url).then(response => {
-        console.log('response', response);
 
         if (response.status === 404) {
           response.json().then(function(object) {
@@ -20,7 +19,6 @@
             type = 'error';
             Drupal.behaviors.unigMessages.addMessage(text, type);
 
-            console.log(object.type, object.message);
           });
         } else if (response.status === 200) {
           response.json().then(data => {

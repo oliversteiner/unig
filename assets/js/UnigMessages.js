@@ -23,7 +23,6 @@
 
     updateMessageList() {
       const { messages } = Drupal.behaviors.unig;
-      console.log('messages', messages);
 
       const $messagesList = $('.unig-messages');
 

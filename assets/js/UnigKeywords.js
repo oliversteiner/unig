@@ -63,28 +63,7 @@
      *
      * @param id
      */
-    toggle_old(id) {
-      const keywordsStorage = this.Store.get();
 
-      // if first Item in list toggle on
-      if (keywordsStorage === false) {
-        this.add(id);
-      } else {
-        // search item in keywordsStorage List
-        const IsInDownloadList = this.Store.find(id);
-
-        if (IsInDownloadList) {
-          // if item in list. toggle off
-          this.remove(id);
-        } else {
-          // if item  not in list. toggle on
-          this.add(id);
-          $('.icon-of-visible').html(
-            '<i class="fas fa-key" aria-hidden="true"></i>',
-          );
-        }
-      }
-    },
 
     /**
      *
@@ -167,7 +146,6 @@
 
       // get Number
 
-      console.log('this.keywordList', this.keywordList);
 
       const numberAllItems = this.keywordList.length;
       const numberChosenItems = this.Store.count();
@@ -200,7 +178,7 @@
           const label = item.name;
 
           elemLi +=
-            `<li class="unig-tag unig-tag-keyword unig-keyword-trigger2 ${additionalClass}" 
+            `<li class="unig-tag unig-tag-keyword ${additionalClass}" 
                 id="unig-tag-id-${item.id}" 
                 data-id = "${item.id}"
                 onclick="Drupal.behaviors.unigKeywords.toggleTag(${item.id})"
@@ -250,19 +228,7 @@
 
       // Update GUI
 
-      $('.build-done').ready().once('keywordTags19').each(() => {
-        // Add Handler
-        $('.unig-keyword-trigger').click(function() {
-          console.log('click ---');
-
-          const id = $(this).data('id');
-
-          scope.toggle(id);
-          scope.toggleMark(id);
-          scope.updateDisplay();
-          Drupal.behaviors.unigDownload.updateFiles();
-        });
-
+      $('.build-done').ready(() => {
         scope.reMark();
         scope.updateDisplay();
       });
@@ -343,9 +309,8 @@
      */
     constructor(context) {
       this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
-      // this.Store = Drupal.behaviors.unigStore;
-      this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
 
+      this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
       this.Store.init('keywords');
 
       // Close Toolbar

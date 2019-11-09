@@ -214,7 +214,7 @@
 
       // People
       this.people = this.getPeople(fileList);
-      Drupal.behaviors.unigData.peopleList.load(fileList);
+      Drupal.behaviors.unigData.projectPeople.load(fileList);
     },
 
     destroy() {
@@ -376,7 +376,6 @@
           this.list = keywordsList;
           // Drupal.behaviors.unigKeywords.searchAutocomplete(keywordsList);
           Drupal.behaviors.unigKeywords.buildTags(keywordsList);
-          console.log('Drupal.behaviors.unigData.projectKeywords', this.list);
           Drupal.behaviors.unigKeywords.updateDisplay();
         })
         .fail(xhr => {
@@ -415,7 +414,7 @@
   };
 
 
-  Drupal.behaviors.unigData.peopleList = {
+  Drupal.behaviors.unigData.projectPeople = {
     list: [],
     route: 'unig/term/people/json',
 
