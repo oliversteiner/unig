@@ -15,7 +15,11 @@
     },
 
     removeDuplicates(arr) {
+      if(arr){
       return arr.filter((elem, index, self) => index === self.indexOf(elem));
+      }else{
+        return [];
+      }
     },
 
     changeArrayItemToInt(array) {

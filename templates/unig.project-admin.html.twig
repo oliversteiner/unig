@@ -831,13 +831,15 @@
                 {# ----------- Download Mark ----------- #}
                 <div
                   class="unig-file-picto unig-file-head-item unig-file-download-mark unig-file-download-mark-trigger">
-                  <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  <i class="fas fa-bookmark" aria-hidden="true"
+                     aria-label="{% trans %} Mark for Download {% endtrans %}"></i>
                 </div>
 
                 {# ----------- Favorite ----------- #}
                 <div
                   class="unig-file-picto unig-file-head-item unig-file-favorite unig-file-favorite-trigger  {% if file.favorite != 0 %} favorite {% endif %}">
-                  <i class="fas fa-heart" aria-hidden="true"></i>
+                  <i class="fas fa-heart" aria-hidden="true"
+                     aria-label="{% trans %} Mark as Favorite {% endtrans %}"></i>
                 </div>
 
                 {# ----------- Rating ----------- #}
@@ -1130,7 +1132,7 @@
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_sd.url }}"
                       data-size="sd"
-                  data-name="{{ file.file_name }}"
+                      data-name="{{ file.file_name }}"
                   >
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">

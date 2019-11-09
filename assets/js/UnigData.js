@@ -115,7 +115,7 @@
      */
     save() {
       const storageName = `${this.localStorageName +
-        Drupal.behaviors.unigData.project.hostname}.${
+      Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 
@@ -127,7 +127,7 @@
      */
     load() {
       const storagename = `${this.localStorageName +
-        Drupal.behaviors.unigData.project.hostname}.${
+      Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
       const localString = localStorage.getItem(storagename);
@@ -194,9 +194,13 @@
 
       let text = number_of_all_items;
       if (number_of_current_items > 0) {
-        text = `${number_of_current_items} von ${number_of_all_items}`;
+        $('.unig-button-download-add-current-to-list').show();
+        $('.number-of-visible').html(number_of_current_items);
+        $('.icon-of-visible').html('<i class="fas fa-user" aria-hidden="true"></i>');
+
+      } else {
+        $('.unig-button-download-add-current-to-list').hide();
       }
-      $('.number-of-visible').html(text);
     },
 
     load() {
@@ -206,7 +210,7 @@
 
       // Keywords
       this.keywords = this.getKeywords(fileList);
-      Drupal.behaviors.unigData.allKeywords.load(fileList);
+      Drupal.behaviors.unigData.projectKeywords.load(fileList);
 
       // People
       this.people = this.getPeople(fileList);
@@ -345,7 +349,7 @@
    *     Drupal.behaviors.unigData.FileList.set, count:
    *     Drupal.behaviors.unigData.FileList.count}}
    */
-  Drupal.behaviors.unigData.allKeywords = {
+  Drupal.behaviors.unigData.projectKeywords = {
     list: [],
     route: 'unig/term/keywords/json',
 
@@ -370,10 +374,14 @@
           }
 
           this.list = keywordsList;
-          Drupal.behaviors.unigKeywords.searchAutocomplete(keywordsList);
+          // Drupal.behaviors.unigKeywords.searchAutocomplete(keywordsList);
           Drupal.behaviors.unigKeywords.buildTags(keywordsList);
+          console.log('Drupal.behaviors.unigData.projectKeywords', this.list);
+          Drupal.behaviors.unigKeywords.updateDisplay();
         })
-        .fail(xhr => {});
+        .fail(xhr => {
+        });
+
     },
 
     destroy() {
@@ -406,97 +414,6 @@
     },
   };
 
-  Drupal.behaviors.unigData.keywordsStorage = {
-    localStorageName: 'unig.keywords.',
-
-    list: [],
-
-    add(nid) {
-      const IntNid = parseInt(nid, 10);
-      if (IntNid) {
-        this.list.push(IntNid);
-        this.save();
-      }
-    },
-
-    /**
-     * remove from list
-     *
-     */
-    remove(nid) {
-      const index = this.list.indexOf(nid); // indexOf is not supported in
-      // IE 7 and 8.
-      // remove it
-      if (index > -1) {
-        this.list.splice(index, 1);
-        this.save();
-      }
-    },
-
-    destroy() {
-      this.list = [];
-      this.save();
-    },
-
-    /**
-     * save to localStorage
-     */
-    save() {
-      const cleanlist = Drupal.behaviors.unig.cleanArray(this.list);
-      const localStorageName = `${this.localStorageName +
-        Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.id
-      }`;
-
-      localStorage.setItem(localStorageName, cleanlist);
-    },
-
-    /**
-     * load from localStorage
-     */
-    load() {
-      const localStorageName = `${this.localStorageName +
-        Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.id
-      }`;
-
-      const localString = localStorage.getItem(localStorageName);
-
-      if (localString != null) {
-        const list = localString.split(',');
-        this.list = Drupal.behaviors.unig.cleanArray(list);
-      }
-
-      return true;
-    },
-
-    /**
-     * returns array or false
-     */
-    get() {
-      if (this.count() > 0) {
-        return this.list;
-      }
-      return false;
-    },
-
-    find(nid) {
-      const search = this.list.indexOf(nid);
-
-      if (search === -1) {
-        return false;
-      }
-      return true;
-    },
-
-    /**
-     *
-     * @return {number}
-     */
-    count() {
-      return this.list.length;
-    },
-  };
 
   Drupal.behaviors.unigData.peopleList = {
     list: [],
@@ -526,7 +443,8 @@
           Drupal.behaviors.unigPeople.searchAutocomplete(peopleList);
           Drupal.behaviors.unigPeople.buildTags(peopleList);
         })
-        .fail(xhr => {});
+        .fail(xhr => {
+        });
     },
 
     destroy() {
@@ -601,7 +519,7 @@
      */
     save() {
       const localStorageName = `${this.localStorageName +
-        Drupal.behaviors.unigData.project.hostname}.${
+      Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 
@@ -613,7 +531,7 @@
      */
     load() {
       const localStorageName = `${this.localStorageName +
-        Drupal.behaviors.unigData.project.hostname}.${
+      Drupal.behaviors.unigData.project.hostname}.${
         Drupal.behaviors.unigData.project.id
       }`;
 

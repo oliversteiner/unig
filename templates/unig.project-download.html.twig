@@ -161,6 +161,16 @@
         </div>
       </div>
 
+      {# Fieldset - Favorit #}
+      <div class="unig-fieldset no-border unig-fieldset-favorite">
+
+        {# Button favorit #}
+        <div class="unig-button unig-toolbar-favorite-toggle unig-toolbar-favorite-toggle-trigger">
+          <i class="fas fa-heart" aria-hidden="true"></i>
+          <span class="unig-favorite-number-of">0</span>
+        </div>
+      </div>
+
       {# Fieldset - Modus #}
       <div class="unig-fieldset no-border unig-fieldset-modus">
 
@@ -230,8 +240,13 @@
           <div>
             {# Button Add All to  Download List  #}
             <div
-              class="unig-button unig-button-small  unig-button-download-add-current-to-list unig-button-download-add-current-to-list-trigger">
-              {% trans %} Add {% endtrans %} <span class="number-of-visible"></span> {% trans %} Images {% endtrans %}
+              class="unig-button unig-button-small
+              unig-button-download-add-current-to-list
+              unig-button-download-add-current-to-list-trigger"
+              style="display: none">
+              <span class="icon-of-visible"> </span> {% trans %} Add {% endtrans %} <span
+                class="number-of-visible"> 0 </span> {% trans %} of {% endtrans %} <span
+                class="number-of-all-files">{{ project.number_of_items }}</span> {% trans %} Images {% endtrans %}
             </div>
 
           </div>
@@ -422,7 +437,7 @@
 
           <li class="unig-file-item unig-file-edit unig-file-{{ file.id }}"
               id="unig-file-{{ file.id }}" data-unig-file-id="{{ file.id }}">
-{{ dd(file) }}
+
             {# hidden inputs #}
             <div>
               <input type="hidden" id="is-marked-{{ file.id }}" name="is-market-{{ file.id }}"
@@ -438,13 +453,15 @@
                 {# ----------- Download Mark ----------- #}
                 <div
                   class="unig-file-picto unig-file-head-item unig-file-download-mark unig-file-download-mark-trigger">
-                  <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  <i class="fas fa-bookmark" aria-hidden="true"
+                     aria-label="{% trans %} Mark for Download {% endtrans %}"></i>
                 </div>
 
                 {# ----------- Favorite ----------- #}
                 <div
                   class="unig-file-picto unig-file-head-item unig-file-favorite unig-file-favorite-trigger  {% if file.favorite != 0 %} favorite {% endif %}">
-                  <i class="fas fa-heart" aria-hidden="true"></i>
+                  <i class="fas fa-heart" aria-hidden="true"
+                     aria-label="{% trans %} Mark as Favorite {% endtrans %}"></i>
                 </div>
 
 
@@ -604,7 +621,7 @@
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_sd.url }}"
                       data-size="sd"
-                  data-name="{{ file.image.title }}">
+                      data-name="{{ file.image.title }}">
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_sd.width }}&thinsp;px

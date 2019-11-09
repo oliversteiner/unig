@@ -20,12 +20,15 @@
               $elem.hide();
               $elem.data('current', false);
             }
+            $('.unig-button-download-add-current-to-list').show();
             $('.number-of-visible').html(this.number_of_favorites);
+            $('.icon-of-visible').html('<i class="fas fa-heart" aria-hidden="true"></i>');
 
             // hide not favorites
           } else {
             // show all
             $('.unig-toolbar-favorite-toggle').removeClass('active');
+            $('.unig-button-download-add-current-to-list').hide();
             $('.number-of-visible').html('');
             $elem.show();
             $elem.data('current', false);

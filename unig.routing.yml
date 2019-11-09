@@ -362,7 +362,7 @@ unig.api.file.favorit:
     value: 0
     project_id: null
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig download'
 
 #
 # CACHE

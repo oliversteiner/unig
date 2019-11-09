@@ -34,8 +34,6 @@
         });
     },
 
-
-
     save(data, route) {
       Drupal.behaviors.unigAdmin.quickSave(data, route);
     },
@@ -54,31 +52,40 @@
       $button.toggleClass('active');
     },
 
-    toggleAllToolbox(name, modus) {
+    toggleAllToolbox(name) {
       // toggle Div
       const $target = $(`.unig-file-${name}-toolbox`);
       // toggle Button
       const $button = $(`.unig-file-${name}-toolbox-trigger`);
       const $buttonAll = $(`.unig-button-${name}-toggle-all`);
 
-      switch (modus) {
-        case 'hide':
-          $button.removeClass('active');
-          $buttonAll.removeClass('active');
-          $target.slideUp('fast');
-          break;
-        case 'show':
-          $button.addClass('active');
-          $buttonAll.addClass('active');
-          $target.slideDown('fast');
+      let status = false;
 
-          break;
-
-        default:
-          $button.toggleClass('active');
-          $target.slideToggle('fast');
-          break;
+      // Keywords
+      if (name === 'keywords') {
+        status = Drupal.behaviors.unigProject.showKeywordsOnFile;
+        status = !status;
+        Drupal.behaviors.unigProject.showKeywordsOnFile = status;
       }
+
+      // People
+      if (name === 'people') {
+        status = Drupal.behaviors.unigProject.showPeoplesOnFile;
+        status = !status;
+        Drupal.behaviors.unigProject.showPeoplesOnFile = status;
+      }
+
+      if(status){
+        $button.addClass('active');
+        $buttonAll.addClass('active');
+        $target.slideDown('fast');
+      }
+      else{
+        $button.removeClass('active');
+        $buttonAll.removeClass('active');
+        $target.slideUp('fast');
+      }
+
     },
 
     toggleEditButtons() {
@@ -245,8 +252,6 @@
             scope.setProjectCover(projectId, fileId);
             // the actual function go via drupal <a href ... >  and "use-ajax"
           });
-
-
 
           // Delete File
           $('.unig-file-delete-trigger', context).click(event => {

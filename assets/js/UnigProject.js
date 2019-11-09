@@ -1,5 +1,7 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigProject = {
+    showKeywordsOnFile:false,
+    showPeoplesOnFile:false,
 
 
     edit(event) {
@@ -56,7 +58,8 @@
     },
 
     attach(context) {
-      const scope = this;
+      const unigProject = Drupal.behaviors.unigProject;
+      const unigFile = Drupal.behaviors.unigFiles;
 
       $('#unig-main', context)
         .once('unigProject')
@@ -69,22 +72,13 @@
 
           // Toggle all Keywords
           $('.unig-button-keywords-toggle-all', context).click(() => {
-            const $trigger = $(scope);
-            if ($trigger.hasClass('active')) {
-              scope.toggleAllToolbox('keywords', 'hide');
-            } else {
-              scope.toggleAllToolbox('keywords', 'show');
-            }
+              unigFile.toggleAllToolbox('keywords');
           });
 
           // Toggle all People
           $('.unig-button-people-toggle-all', context).click(() => {
-            const $trigger = $(scope);
-            if ($trigger.hasClass('active')) {
-              scope.toggleAllToolbox('people', 'hide');
-            } else {
-              scope.toggleAllToolbox('people', 'show');
-            }
+              unigFile.toggleAllToolbox('people');
+
           });
 
 
@@ -155,7 +149,7 @@
                 'click',
                 event => {
                   const id = drupalSettings.unig.project.project.id;
-                  scope.togglePrivate(id);
+                  unigProject.togglePrivate(id);
                 },
                 false,
               ),

@@ -66,6 +66,7 @@ unig.project.admin:
     assets/js/Unig.js: {}
     assets/js/UnigMessages.js: {}
     assets/js/UnigData.js: {}
+    assets/js/UnigStore.js: {}
     assets/js/UnigProject.js: {}
     assets/js/UnigSortProject.js: {}
     assets/js/UnigDownload.js: {}

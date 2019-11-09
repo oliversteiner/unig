@@ -33,7 +33,7 @@
 
       Drupal.behaviors.unigPeople.Visible = [];
       const peopleIds = Drupal.behaviors.unigData.peopleStorage.get();
-      const keywordIds = Drupal.behaviors.unigData.keywordsStorage.get();
+      const keywordIds = Drupal.behaviors.unigKeywords.Store.get();
       const fullList = Drupal.behaviors.unigData.FileList.list;
 
       if (peopleIds.length > 0) {

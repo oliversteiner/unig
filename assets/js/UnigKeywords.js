@@ -1,5 +1,19 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigKeywords = {
+    keywordList: [],
+    Store: {},
+    Visible: [],
+    isToolbarOpen: false,
+    $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
+    $check_all_keywords_trigger: $(
+      'unig-button-keywords-check-all',
+      this.context,
+    ),
+    $uncheck_all_keywords_trigger: $(
+      'unig-button-keywords-uncheck-all',
+      this.context,
+    ),
+
     attach(context, settings) {
       // onload
 
@@ -12,24 +26,6 @@
           this.updateDisplay();
         });
     },
-
-    isToolbarOpen: false,
-
-    $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
-
-    $check_all_keywords_trigger: $(
-      'unig-button-keywords-check-all',
-      this.context,
-    ),
-    $uncheck_all_keywords_trigger: $(
-      'unig-button-keywords-uncheck-all',
-      this.context,
-    ),
-
-    Storage: Drupal.behaviors.unigData.keywordsStorage,
-    List: Drupal.behaviors.unigData.allKeywords,
-    Visible: [],
-
     toggleToolbar(context) {
       if (this.isToolbarOpen) {
         this.closeToolbar(context);
@@ -53,25 +49,29 @@
     },
 
     add(id) {
-      this.Storage.add(id);
+      this.Store.add(id);
     },
 
     remove(id) {
-      this.Storage.remove(id);
+      this.Store.remove(id);
+    },
+
+    toggle(id) {
+      this.Store.toggle(id);
     },
     /**
      *
      * @param id
      */
-    toggle(id) {
-      const keywordsStorage = this.Storage.get();
+    toggle_old(id) {
+      const keywordsStorage = this.Store.get();
 
       // if first Item in list toggle on
       if (keywordsStorage === false) {
         this.add(id);
       } else {
         // search item in keywordsStorage List
-        const IsInDownloadList = this.Storage.find(id);
+        const IsInDownloadList = this.Store.find(id);
 
         if (IsInDownloadList) {
           // if item in list. toggle off
@@ -79,6 +79,9 @@
         } else {
           // if item  not in list. toggle on
           this.add(id);
+          $('.icon-of-visible').html(
+            '<i class="fas fa-key" aria-hidden="true"></i>',
+          );
         }
       }
     },
@@ -122,14 +125,14 @@
      *
      */
     removeAll() {
-      this.Storage.destroy();
+      this.Store.destroy();
     },
     /**
      *
      *
      */
     addAll() {
-      const items = this.List.get();
+      const items = this.keywordList;
 
       for (let i = 0; i < items.length; i++) {
         this.add(items[i].id);
@@ -147,7 +150,7 @@
      *
      */
     markAllAsActive() {
-      const items = this.List.get();
+      const items = this.keywordList;
 
       for (let i = 0; i < items.length; i++) {
         this.markAsActive(items[i].id);
@@ -158,12 +161,16 @@
      *
      */
     updateDisplay() {
+      this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
       // target
       const $targetNumberOf = $('.unig-keywords-display');
 
       // get Number
-      const numberAllItems = this.List.count();
-      const numberChosenItems = this.Storage.count();
+
+      console.log('this.keywordList', this.keywordList);
+
+      const numberAllItems = this.keywordList.length;
+      const numberChosenItems = this.Store.count();
 
       let text = '';
 
@@ -185,7 +192,6 @@
     },
 
     buildTags(keywordsList) {
-
       let elemLi = '';
       if (keywordsList) {
         keywordsList.forEach(item => {
@@ -194,9 +200,11 @@
           const label = item.name;
 
           elemLi +=
-            `<li class="unig-tag unig-tag-keyword unig-keyword-trigger ${additionalClass}" 
+            `<li class="unig-tag unig-tag-keyword unig-keyword-trigger2 ${additionalClass}" 
                 id="unig-tag-id-${item.id}" 
-                data-id = "${item.id}">` +
+                data-id = "${item.id}"
+                onclick="Drupal.behaviors.unigKeywords.toggleTag(${item.id})"
+                >` +
             `<span class="unig-keyword-tag-id">${item.id}</span>` +
             `<span class="unig-keyword-tag-label">${label}</span>` +
             `</li>`;
@@ -242,9 +250,11 @@
 
       // Update GUI
 
-      $('.build-done').ready(() => {
+      $('.build-done').ready().once('keywordTags19').each(() => {
         // Add Handler
         $('.unig-keyword-trigger').click(function() {
+          console.log('click ---');
+
           const id = $(this).data('id');
 
           scope.toggle(id);
@@ -258,6 +268,13 @@
       });
     },
 
+    toggleTag(id){
+      this.toggle(id);
+      this.toggleMark(id);
+      this.updateDisplay();
+      Drupal.behaviors.unigDownload.updateFiles();
+    },
+
     /**
      *
      *
@@ -265,7 +282,7 @@
      */
     reMark() {
       // Get Download Item List
-      const keywordsStorage = this.Storage.get();
+      const keywordsStorage = this.Store.get();
 
       if (keywordsStorage) {
         keywordsStorage.forEach(elem => {
@@ -275,7 +292,7 @@
     },
 
     clearDownloadList() {
-      this.Storage.destroy();
+      this.Store.destroy();
       this.markAllAsInactive();
       this.buildTags();
       this.updateDisplay();
@@ -294,7 +311,7 @@
         minChars: 2,
         source(term, suggest) {
           term = term.toLowerCase();
-          const choices = Drupal.behaviors.unigData.allKeywords.get();
+          const choices = Drupal.behaviors.unigData.projectKeywords.get();
           const matches = [];
           for (let i = 0; i < choices.length; i++) {
             if (choices[i].name.toLowerCase().indexOf(term)) {
@@ -325,6 +342,11 @@
      * @param settings
      */
     constructor(context) {
+      this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
+      // this.Store = Drupal.behaviors.unigStore;
+      this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
+
+      this.Store.init('keywords');
 
       // Close Toolbar
       $('.unig-toolbar-keywords-close-trigger', context).click(event => {
@@ -340,8 +362,7 @@
       $('.unig-toolbar-keywords-toggle-trigger', context).click(event => {
         Drupal.behaviors.unigKeywords.toggleToolbar(event);
       });
-
-      // Autocomplate
     },
   };
+
 })(jQuery, Drupal, drupalSettings);
