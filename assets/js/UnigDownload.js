@@ -71,7 +71,6 @@
           }
         }
       } else if (keywordIds.length > 0) {
-
         if (fullList && fullList.length > 0) {
           for (const item of fullList) {
             const $elem = $(`#unig-file-${item.nid}`);
@@ -276,8 +275,8 @@
       return true;
     },
 
-    downloadFile(url) {
-      download(url);
+    downloadFile(url, name) {
+      download(url, name);
     },
 
     openDownloadMessageBox() {
@@ -548,7 +547,6 @@
         xl: 0,
       };
 
-
       if (itemsForDownload) {
         itemsForDownload.forEach(id => {
           let Downloadsize = Drupal.behaviors.unigDownload.downloadsize;
@@ -681,8 +679,22 @@
       $('.unig-file-download-trigger', context).click(elem => {
         const url = elem.currentTarget.dataset.unigFileUrl;
         const size = elem.currentTarget.dataset.size;
+        const name = elem.currentTarget.dataset.name;
 
-        Drupal.behaviors.unigDownload.downloadFile(url, size);
+        const nameWithSize = name.replace(/\./, '-' + size + '.');
+        console.log('url', url);
+        console.log('Download', nameWithSize);
+
+
+        // TODO implement Download for  other Files then JPG
+         // download(url);
+
+        let x=new XMLHttpRequest();
+        x.open( "GET", url , true);
+        x.responseType="blob";
+        x.onload= function(e){download(e.target.response, nameWithSize, "image/jpg");};
+        x.send();
+
       });
     },
   };

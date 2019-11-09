@@ -4,6 +4,28 @@
 *     bright
 *
 */
+a.unig-list-link,
+a.unig-list-link:hover {
+  text-decoration: none;
+  border: none;
+}
+
+.unig-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.unig-row-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.unig-row-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
 ul.unig-project-list {
   display: flex;
   justify-content: flex-start;
@@ -237,4 +259,4 @@ hr.unig.unig-project-list {
   color: #1d4281;
 }
 
-/*# sourceMappingURL=unig_project_list.css.map */
+/*# sourceMappingURL=unig_list.css.map */

@@ -29,6 +29,7 @@
 namespace Drupal\unig\Utility;
 
 use Drupal;
+use Drupal\Component\FileSystem\FileSystem;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Ajax\AjaxResponse;
@@ -570,7 +571,7 @@ trait ProjectTrait
     $host = Drupal::request()->getHost();
 
     // URL
-    $url = Url::fromRoute('unig.lightgallery', [
+    $url = Url::fromRoute('unig.project.public', [
       'project_id' => $project_id
     ]);
 
@@ -872,6 +873,10 @@ trait ProjectTrait
     // image
     $image = self::getImageVars($file_nid);
 
+    // $file_path = FileSystem::realpath($entity->get('field_unig_image')->entity->getFileUri());
+    $file_name = $entity->get('field_unig_image')->entity->getFilename();
+
+
     // people
     $people = [];
     $node_people = $entity->get('field_unig_people')->getValue();
@@ -912,6 +917,7 @@ trait ProjectTrait
       'title' => $title,
       'description' => $description,
       'album_list' => $album_list,
+      'file_name' => $file_name,
       'image' => $image,
       'comments' => $comments,
       'weight' => $weight,
@@ -983,7 +989,6 @@ trait ProjectTrait
   public static function saveProject()
   {
     $postReq = \Drupal::request()->request->all();
-    dpm($postReq);
     $project_id = $postReq['id'] ?? FALSE;
     $data = $postReq['data'] ?? FALSE;
 

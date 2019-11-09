@@ -84,7 +84,18 @@ unig.ajax.project.info:
 #
 # Show Gallery
 #
-unig.lightgallery:
+unig.project.public:
+  path: '/unig/public/{project_id}/{album_id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\LightgalleryController::getTemplate'
+    _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
+    project_id: null
+    album_id: null
+  requirements:
+    _permission: 'access content'
+
+# only for back compatibility
+unig.project.public.alt:
   path: '/unig/lightgallery/{project_id}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\LightgalleryController::getTemplate'

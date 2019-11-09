@@ -172,7 +172,7 @@
 
         {# Button Preview #}
         <a role="button" class="unig-button unig-button-files-preview"
-           href="{{ path('unig.project.download',{'project_id':project.id, 'album_id':album.id}) }}">
+           href="{{ path('unig.project.public',{'project_id':project.id, 'album_id':album.id}) }}">
           <i class="fas fa-image" aria-hidden="true"></i>
           {% trans %} Preview {% endtrans %}
         </a>
@@ -422,7 +422,7 @@
 
           <li class="unig-file-item unig-file-edit unig-file-{{ file.id }}"
               id="unig-file-{{ file.id }}" data-unig-file-id="{{ file.id }}">
-
+{{ dd(file) }}
             {# hidden inputs #}
             <div>
               <input type="hidden" id="is-marked-{{ file.id }}" name="is-market-{{ file.id }}"
@@ -596,7 +596,8 @@
                   {# SD #}
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_sd.url }}"
-                      data-size="sd">
+                      data-size="sd"
+                  data-name="{{ file.image.title }}">
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_sd.width }}&thinsp;px

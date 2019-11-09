@@ -115,6 +115,6 @@ trait ProjectListTemplateTrait
   protected function getProjectListPath()
   {
     return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/unig.project-list.html.twig';
+      '/templates/unig.list.html.twig';
   }
 }

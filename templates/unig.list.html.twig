@@ -1,13 +1,15 @@
 {#
 /**
- * @file unig.project-list.html.twig
+ * @file unig.list.html.twig
  *
  */
 #}
 
 
 
+{#
 {{ dd(project_list) }}
+#}
 
 <unig>
 <div id="unig-main" class="unig unig-project-list">
@@ -176,7 +178,7 @@
 
                     {# Preview #}
                     <a class="unig-button-icon-info"
-                       href="{{ path('unig.lightgallery', {'project_id': project.id, 'album_id': album.id, }) }}">
+                       href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
                       {% trans %} Preview {% endtrans %}
 
                     </a>
@@ -491,7 +493,7 @@
               {# ----------- Cover ----------- #}
               <div class="unig-project-cover">
 
-                <a href="{{ path('unig.lightgallery', {'project_id': project.id, 'album_id': album.id, }) }}">
+                <a href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
 
                   <div class="unig-project-cover-background">
                     {% if project.cover_image.unig_cover.url %}
@@ -543,7 +545,7 @@
 
 
                     {% if can_download %}
-                      <a href="{{ path('unig.project.download', {'project_id': project.id, 'album_id': album.id, }) }}"> <i class="fas fa-download"></i></a>
+                      <a class="unig-list-link" href="{{ path('unig.project.download', {'project_id': project.id, 'album_id': album.id, }) }}"> <i class="fas fa-download"></i></a>
                       {% endif %}
                   </div>
                 </div>

@@ -74,7 +74,7 @@ msgstr "Zulässige Datei-Typen"
 msgid "Allowed file types, no points, separated by space."
 msgstr "Zulässige Dateitypen, keine Punkte, getrennt durch Leerzeichen."
 
-#: src/Form/UploadForm.php:77 templates/unig.lightgallery.html.twig:79
+#: src/Form/UploadForm.php:77 templates/unig.project.public.html.twig:79
 msgid "Show all projects"
 msgstr "Zeige alle Projekte"
 
@@ -138,23 +138,23 @@ msgstr "Noch kein Titelbild ausgewählt"
 msgid "This Project is private"
 msgstr "Dieses Projekt ist privat"
 
-#: templates/unig.lightgallery.html.twig:142
+#: templates/unig.project.public.html.twig:142
 msgid "Show image names"
 msgstr "Bildnamen anzeigen"
 
-#: templates/unig.lightgallery.html.twig:144
+#: templates/unig.project.public.html.twig:144
 msgid "Hide image names"
 msgstr "Bilder Namen ausblenden"
 
-#: templates/unig.lightgallery.html.twig:150
+#: templates/unig.project.public.html.twig:150
 msgid "Show index numbers"
 msgstr "Indexnummer anzeigen"
 
-#: templates/unig.lightgallery.html.twig:152
+#: templates/unig.project.public.html.twig:152
 msgid "Hide index numbers"
 msgstr "Indexnummer ausblenden"
 
-#: templates/unig.lightgallery.html.twig:162
+#: templates/unig.project.public.html.twig:162
 msgid "Download"
 msgstr "Download"
 
