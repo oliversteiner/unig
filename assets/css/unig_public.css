@@ -1,27 +1,33 @@
 .unig-row {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+}
 
 .unig-row-start {
   display: flex;
-  justify-content: flex-start; }
+  justify-content: flex-start;
+}
 
 .unig-row-end {
   display: flex;
-  justify-content: flex-end; }
+  justify-content: flex-end;
+}
 
 .unig-col-left {
-  justify-self: flex-start; }
+  justify-self: flex-start;
+}
 
 .unig-col-right {
-  justify-self: flex-end; }
+  justify-self: flex-end;
+}
 
 hr.unig {
   border: none;
   border-top: solid 1px #4a4a4a;
   margin: 10px 0 0;
-  padding: 10px 0 0; }
+  padding: 10px 0 0;
+}
 
 ul.unig-gallery {
   display: flex;
@@ -30,7 +36,8 @@ ul.unig-gallery {
   align-items: flex-start;
   flex-wrap: wrap;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 li.unig-file-item {
   list-style-type: none;
@@ -42,80 +49,100 @@ li.unig-file-item {
   cursor: zoom-in;
   color: #7a7a7a;
   background-color: transparent;
-  border: 1px solid rgba(215, 215, 215, 0); }
-  li.unig-file-item:hover {
-    color: #ededed;
-    background-color: #b3b3b3;
-    border-color: rgba(122, 122, 122, 0); }
-  li.unig-file-item:active {
-    color: #ffffff;
-    background-color: #565656;
-    border-color: rgba(122, 122, 122, 0); }
+  border: 1px solid rgba(215, 215, 215, 0);
+}
+li.unig-file-item:hover {
+  color: #ededed;
+  background-color: #b3b3b3;
+  border-color: rgba(122, 122, 122, 0);
+}
+li.unig-file-item:active {
+  color: #ffffff;
+  background-color: #565656;
+  border-color: rgba(122, 122, 122, 0);
+}
 
 li.unig-file-item img {
-  border: 1px solid rgba(215, 215, 215, 0); }
-  li.unig-file-item img:hover {
-    border-color: rgba(122, 122, 122, 0); }
-  li.unig-file-item img:active {
-    border-color: rgba(122, 122, 122, 0); }
+  border: 1px solid rgba(215, 215, 215, 0);
+}
+li.unig-file-item img:hover {
+  border-color: rgba(122, 122, 122, 0);
+}
+li.unig-file-item img:active {
+  border-color: rgba(122, 122, 122, 0);
+}
 
 .unig-back-to-list {
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+}
 
 .unig-file-gallery-head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; }
+  align-items: flex-start;
+}
 
 .unig-project-title h1 {
-  margin-top: 0; }
+  margin-top: 0;
+}
 
 .unig-gallery-header-middle {
   text-align: center;
-  width: 60%; }
+  width: 60%;
+}
 
 .unig-gallery-header-text-row-2 {
   display: flex;
   align-content: space-between;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 .unig-project-description {
-  margin: 0 20px; }
+  margin: 0 20px;
+}
 
 .unig-gallery-header-right {
-  margin-right: 50px; }
+  margin-right: 50px;
+}
 
 .unig-project-copyright {
   font-style: italic;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+}
 
 .unig-file-index {
   font-family: Helvetica, sans-serif;
-  padding: 0 0 5px 5px; }
+  padding: 0 0 5px 5px;
+}
 
 .unig-file-name {
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
   font-size: 0.9em;
-  padding: 8px 8px 0 8px; }
+  padding: 8px 8px 0 8px;
+}
 
 .unig-file-title {
   padding: 8px 8px 0 8px;
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
   font-size: 0.9em;
-  text-align: center; }
+  text-align: center;
+}
 
 .unig-file-description {
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
   font-size: 0.8em;
   padding: 8px 8px 0 8px;
   width: 130px;
-  text-align: center; }
+  text-align: center;
+}
 
 .unig-gallery-toolbar {
-  margin-top: 5px; }
+  margin-top: 5px;
+}
 
 .unig-gallery-toolbar-item {
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+}
 
 .unig-image-background {
   display: flex;
@@ -123,7 +150,8 @@ li.unig-file-item img {
   justify-content: center;
   align-items: flex-start;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 .unig-gallery-button {
   font-size: 0.7em;
@@ -134,47 +162,56 @@ li.unig-file-item img {
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
   margin-bottom: 5px;
   padding: 2px 8px 2px 8px;
-  cursor: pointer; }
-  .unig-gallery-button:hover {
-    color: #4d4d4d;
-    background-color: #e4e4e4;
-    border-color: transparent; }
-  .unig-gallery-button:active {
-    color: #c8c8c8;
-    background-color: #313131;
-    border-color: #dfdfdf; }
-  .unig-gallery-button.active {
-    color: #434343;
-    background-color: #d4d4d4;
-    border-color: #dfdfdf; }
-  .unig-gallery-button.active:hover {
-    color: #c8c8c8;
-    background-color: #313131;
-    border-color: #313131; }
+  cursor: pointer;
+}
+.unig-gallery-button:hover {
+  color: #4d4d4d;
+  background-color: #e4e4e4;
+  border-color: transparent;
+}
+.unig-gallery-button:active {
+  color: #c8c8c8;
+  background-color: #313131;
+  border-color: #dfdfdf;
+}
+.unig-gallery-button.active {
+  color: #434343;
+  background-color: #d4d4d4;
+  border-color: #dfdfdf;
+}
+.unig-gallery-button.active:hover {
+  color: #c8c8c8;
+  background-color: #313131;
+  border-color: #313131;
+}
 
 ul.unig-project-list {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 li.unig-project-list-item {
-  list-style: none; }
+  list-style: none;
+}
 
 li.unig-project-list-item article {
   display: block;
   box-sizing: border-box;
   border: 1px silver solid;
   width: 240px;
-  margin: 0 19px 40px 0; }
+  margin: 0 19px 40px 0;
+}
 
 .unig-project-cover {
   display: flex;
   justify-content: center;
   align-content: center;
   text-align: center;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+}
 
 .unig-project-cover-background {
   display: flex;
@@ -185,25 +222,31 @@ li.unig-project-list-item article {
   border: 1px solid transparent;
   width: 240px;
   height: 240px;
-  cursor: pointer; }
-  .unig-project-cover-background:hover {
-    color: #959595;
-    background-color: #575757;
-    border-color: transparent; }
-  .unig-project-cover-background:active {
-    color: #808080;
-    background-color: #000000;
-    border-color: transparent; }
+  cursor: pointer;
+}
+.unig-project-cover-background:hover {
+  color: #959595;
+  background-color: #575757;
+  border-color: transparent;
+}
+.unig-project-cover-background:active {
+  color: #808080;
+  background-color: #000000;
+  border-color: transparent;
+}
 
 .unig-project-cover-icon {
-  font-size: 3.5em; }
+  font-size: 3.5em;
+}
 
 .unig-project-cover-text {
-  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif; }
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
 
 li.unig-project-list-item-year {
   display: block;
-  width: 100%; }
+  width: 100%;
+}
 
 .unig-project-cover a,
 .unig-project-cover a:hover,
@@ -211,29 +254,36 @@ li.unig-project-list-item-year {
   padding: 0;
   margin: 0;
   text-decoration: none;
-  border: none; }
+  border: none;
+}
 
 .unig-project-text {
-  padding: 5px 15px; }
+  padding: 5px 15px;
+}
 
 h1.unig-project-title {
-  display: inline-block; }
+  display: inline-block;
+}
 
 a.unig-button-edit-project {
-  margin: 5px; }
+  margin: 5px;
+}
 
 .unig-gallery-diashow {
-  color: whitesmoke; }
+  color: whitesmoke;
+}
 
 .unig-project-info-container {
   padding: 1px 2px 0 2px;
   color: #848484;
-  font-size: 0.8em; }
+  font-size: 0.8em;
+}
 
 .unig-project-text-container {
   margin-top: 5px;
   border-top: solid 1px silver;
   padding: 5px 2px 0;
-  color: #232323; }
+  color: #232323;
+}
 
 /*# sourceMappingURL=unig_public.css.map */

@@ -184,20 +184,10 @@
       const prefix = '<ul class="unig-tags unig-tags-people">';
       const suffix = '</ul><span class="build-done"></span>';
 
-      const buttonMarkAll =
-        '<div class="unig-tag unig-mark-all-tags unig-button-people-mark-all-tags unig-people-mark-all-tags-trigger">' +
-        '<i class="fas fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">check all</span>' +
-        '</div>';
 
-      const buttonUnMarkAll =
-        '<div class="unig-tag unig-unmark-all-tags unig-button-people-unmark-all-tags unig-people-unmark-all-tags-trigger">' +
-        '<i class="far fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">uncheck all</span>' +
-        '</div>';
 
       // Build DOM
-      const html = buttonMarkAll + buttonUnMarkAll + prefix + elemLi + suffix;
+      const html =  prefix + elemLi + suffix;
 
       // Add to dom
       this.$tags_container.html(html);

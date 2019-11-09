@@ -580,10 +580,16 @@
           </div>
 
           <div>
+
             {# Button Add All to  Download List  #}
             <div
-              class="unig-button unig-button-small  unig-button-download-add-current-to-list unig-button-download-add-current-to-list-trigger">
-              {% trans %} Add {% endtrans %} <span class="number-of-visible"></span> {% trans %} Images {% endtrans %}
+              class="unig-button unig-button-small
+              unig-button-download-add-current-to-list
+              unig-button-download-add-current-to-list-trigger"
+              style="display: none">
+              <span class="icon-of-visible"> </span> {% trans %} Add {% endtrans %} <span
+                class="number-of-visible"> 0 </span> {% trans %} of {% endtrans %} <span
+                class="number-of-all-files">{{ project.number_of_items }}</span> {% trans %} Images {% endtrans %}
             </div>
 
           </div>
@@ -672,22 +678,47 @@
 
         {# title #}
         <div class="unig-toolbar-head-title">
-          <i class="fas fa-key" aria-hidden="true"></i>
-          Keywords
+          <span class="unig-toolbar-head-title-icon">
+            <i class="fas fa-key" aria-hidden="true"></i>
+          </span>
+          <span class="unig-toolbar-head-title-label">
+            {% trans %} Keywords {% endtrans %}
+          </span>
         </div>
 
         {# space #}
         <div class="unig-space"></div>
 
-        {# seperator #}
-        <div class="unig-seperator"></div>
+        {# separator #}
+        <div class="unig-separator"></div>
+
+        {# Unmark all  #}
+        <div
+          class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">
+          <i class="far fa-times" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Uncheck all {% endtrans %}</span>
+        </div>
+
+        {# Mark all #}
+        <div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger">
+          <i class="fas fa-circle" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Check all {% endtrans %}</span>
+        </div>
+
+        {#  Show Keywords on Files #}
+        <div
+          class="unig-tag unig-show-keywords-on-files unig-show-keywords-on-files-trigger unig-button-keywords-toggle-all">
+          <i class="fas fa-list" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Show Keywords on Files {% endtrans %}</span>
+        </div>
+
 
         {# search #}
-        <div class="unig-toolbar-head-search">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <input type="text" name="unig-keywords-autocomplete"
-                 placeholder="{% trans %} search {% endtrans %}">
-        </div>
+        {#        <div class="unig-toolbar-head-search">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                  <input type="text" name="unig-keywords-autocomplete"
+                         placeholder="{% trans %} search {% endtrans %}">
+                </div>#}
 
       </div>
       <div class="unig-toolbar-body">
@@ -698,10 +729,6 @@
 
       {# Button Show Keywords on Files #}
       <div class="unig-toolbar-footer">
-        <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
-          <i class="fas fa-list" aria-hidden="true"></i>
-          {% trans %} Show Keywords on Files {% endtrans %}
-        </div>
       </div>
 
     </div> {# Toolbar - Keywords #}
@@ -709,18 +736,49 @@
     {# Toolbar - People #}
     <div class="unig-toolbar unig-toolbar-people" style="display: none">
 
-      <div class="unig-toolbar-head"></div>
+      <div class="unig-toolbar-head">
+        {# title #}
+        <div class="unig-toolbar-head-title">
+          <span class="unig-toolbar-head-title-icon">
+            <i class="fas fa-user" aria-hidden="true"></i>
+          </span>
+          <span class="unig-toolbar-head-title-label">
+            {% trans %} People Names {% endtrans %}
+          </span>
+        </div>
+
+        {# space #}
+        <div class="unig-space"></div>
+
+        {# separator #}
+        <div class="unig-separator"></div>
+
+        {# Unmark all  #}
+        <div
+          class="unig-tag unig-unmark-all-tags unig-button-people-unmark-all-tags unig-people-unmark-all-tags-trigger">
+          <i class="far fa-times" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Uncheck all {% endtrans %}</span>
+        </div>
+
+        {# Mark all #}
+        <div class="unig-tag unig-mark-all-tags unig-button-people-mark-all-tags unig-people-mark-all-tags-trigger">
+          <i class="fas fa-circle" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Check all {% endtrans %}</span>
+        </div>
+
+        {#  Show Keywords on Files #}
+        <div class="unig-tag unig-show-people-on-files unig-show-people-on-files-trigger unig-button-people-toggle-all">
+          <i class="fas fa-list" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Show People Names on Files {% endtrans %}</span>
+        </div>
+
+      </div>
       <div class="unig-toolbar-body">
         <div class="unig-toolbar-people-tags-container">
           {# Placeholder for tags#}
         </div>
       </div>
       <div class="unig-toolbar-footer">
-        <div class="unig-button unig-button-people-toggle-all">
-          <i class="fas fa-user" aria-hidden="true"></i>
-          {% trans %} Show People Names on Files {% endtrans %}
-
-        </div>
       </div>
     </div> {# Toolbar - People #}
 

@@ -23,13 +23,16 @@
     },
 
     toggle(id) {
-
+      let status = false;
       if (this.find(id)) {
+        status = true;
         this.remove(id);
       } else {
+        status = false;
         this.add(id);
       }
       this.save();
+      return status;
     },
 
     /**

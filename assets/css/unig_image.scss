@@ -185,14 +185,14 @@ h2.unig-project-title {
   margin-left: -5px;
 
   &:hover {
-    color: $color-admin-marked;
+    color: black;
     cursor: pointer;
   }
 
   &.favorite{
     color: $color-admin-favorite;
   }
-  &.favorite:hover {
-    color: $color-admin-marked-hover;
+  &:hover.favorite {
+    color: #8f0003;
   }
 }

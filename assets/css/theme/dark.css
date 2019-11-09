@@ -774,38 +774,34 @@
   justify-content: space-around;
   padding: 10px 5px 5px 5px;
 }
-#unig-main.unig-theme-dark .unig-toolbar-footer .unig-button,
-#unig-main.unig-theme-dark .unig-toolbar-body .unig-button,
-#unig-main.unig-theme-dark .unig-toolbar-head .unig-button {
-  border-radius: 2px;
-  font-size: 0.8em;
-  margin: 2px 5px;
-  padding: 2px 5px;
-}
-#unig-main.unig-theme-dark .unig-toolbar-head-search {
-  display: inline-block;
-  float: right;
-}
-#unig-main.unig-theme-dark .unig-toolbar-head-search input {
-  border-radius: 5px;
-}
-#unig-main.unig-theme-dark .unig-toolbar-head-title {
-  border-bottom: solid 1px #272727;
-  display: inline-block;
-}
-#unig-main.unig-theme-dark .unig-toolbar-head {
-  border-bottom: 1px solid;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-}
 #unig-main.unig-theme-dark .unig-mark-all-tags,
+#unig-main.unig-theme-dark .unig-show-keywords-on-files,
+#unig-main.unig-theme-dark .unig-show-people-on-files,
 #unig-main.unig-theme-dark .unig-unmark-all-tags {
   border-color: inherit;
   background-color: inherit;
+  opacity: 0.5;
 }
 #unig-main.unig-theme-dark .unig-mark-all-tags .unig-tags-title,
+#unig-main.unig-theme-dark .unig-show-keywords-on-files .unig-tags-title,
+#unig-main.unig-theme-dark .unig-show-people-on-files .unig-tags-title,
 #unig-main.unig-theme-dark .unig-unmark-all-tags .unig-tags-title {
   display: none;
+}
+#unig-main.unig-theme-dark .unig-mark-all-tags:hover,
+#unig-main.unig-theme-dark .unig-show-keywords-on-files:hover,
+#unig-main.unig-theme-dark .unig-show-people-on-files:hover,
+#unig-main.unig-theme-dark .unig-unmark-all-tags:hover {
+  border-color: inherit;
+  background-color: inherit;
+  opacity: 1;
+}
+#unig-main.unig-theme-dark .unig-mark-all-tags:hover .unig-tags-title,
+#unig-main.unig-theme-dark .unig-show-keywords-on-files:hover .unig-tags-title,
+#unig-main.unig-theme-dark .unig-show-people-on-files:hover .unig-tags-title,
+#unig-main.unig-theme-dark .unig-unmark-all-tags:hover .unig-tags-title {
+  padding: 0 5px;
+  display: inline-block;
 }
 #unig-main.unig-theme-dark .unig-sortable-placeholder {
   display: inline-block;
@@ -969,6 +965,10 @@
 #unig-main.unig-theme-dark .badge-marked {
   background-color: #464646;
   color: #979797;
+}
+#unig-main.unig-theme-dark .unig-button.unig-button-cancel-download {
+  margin: 10px;
+  border: 1px solid silver;
 }
 
 #unig-main.unig-theme-dark .unig-image-background {

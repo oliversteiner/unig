@@ -71,12 +71,12 @@
           });
 
           // Toggle all Keywords
-          $('.unig-button-keywords-toggle-all', context).click(() => {
+          $('.unig-show-keywords-on-files-trigger', context).click(() => {
               unigFile.toggleAllToolbox('keywords');
           });
 
           // Toggle all People
-          $('.unig-button-people-toggle-all', context).click(() => {
+          $('.unig-show-people-on-files-trigger', context).click(() => {
               unigFile.toggleAllToolbox('people');
 
           });
