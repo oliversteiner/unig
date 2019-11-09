@@ -38,73 +38,6 @@
       this.updateInfo();
     },
 
-    updateFiles() {
-      $('.unig-button-download-add-current-to-list').hide();
-
-      Drupal.behaviors.unigPeople.Visible = [];
-      const peopleIds = Drupal.behaviors.unigPeople.Store.get();
-      const keywordIds = Drupal.behaviors.unigKeywords.Store.get();
-      const fullList = Drupal.behaviors.unigData.FileList.list;
-
-      if (peopleIds.length > 0) {
-        // hide all files with this tag
-
-        if (fullList && fullList.length > 0) {
-          for (const item of fullList) {
-            const $elem = $(`#unig-file-${item.id}`);
-
-            $elem.hide();
-            $elem.data('current', false);
-
-            // all people
-            for (const people of item.people) {
-              if (peopleIds.includes(parseInt(people.id))) {
-                // if also keywords
-                // all Keywords
-                if (keywordIds.length > 0) {
-                  for (const keywords of item.keywords) {
-                    if (keywordIds.includes(parseInt(keywords.id))) {
-                      $elem.show();
-                      $elem.data('current', true);
-                      Drupal.behaviors.unigPeople.Visible.push(item.id);
-                    }
-                  }
-                } else {
-                  $elem.show();
-                  $elem.data('current', true);
-                  Drupal.behaviors.unigPeople.Visible.push(item.id);
-                }
-              }
-            }
-          }
-        }
-      } else if (keywordIds.length > 0) {
-        if (fullList && fullList.length > 0) {
-          for (const item of fullList) {
-            const $elem = $(`#unig-file-${item.id}`);
-            $elem.hide();
-            $elem.data('current', false);
-
-            for (const keywords of item.keywords) {
-              if (keywordIds.includes(parseInt(keywords.id))) {
-                $elem.show();
-                $elem.data('current', true);
-                Drupal.behaviors.unigPeople.Visible.push(item.id);
-              }
-            }
-          }
-        }
-      } else {
-        // show all
-        for (const item of fullList) {
-          $(`#unig-file-${item.id}`).show();
-        }
-      }
-
-      Drupal.behaviors.unigData.FileList.updateNumberOf();
-
-      $('.unig-button-download-add-current-to-list').show();
-    },
 
     toggleToolbar(context) {
       if (this.isToolbarOpen) {
@@ -395,7 +328,7 @@
     },
 
     fillDownloadListWithCurrent() {
-      this.addCurrent();
+      this.addVisible();
       this.addMarksToCurrent();
       this.updateDownloadList();
     },
@@ -423,30 +356,11 @@
       }
     },
 
-    addMarksToCurrent() {
-      this.removeAllMarks();
-      const listItem = Drupal.behaviors.unigData.FileList.get();
 
-      if (listItem) {
-        for (const item of listItem) {
-          if ($(`#unig-file-${item.id}`).data('current')) {
-            this.addMark(item.id);
-          }
-        }
-      }
-    },
-
-    addCurrent() {
+    addVisible() {
       this.removeAll();
-      const listItem = Drupal.behaviors.unigData.FileList.get();
-
-      if (listItem) {
-        for (const item of listItem) {
-          if ($(`#unig-file-${item.id}`).data('current')) {
-            this.add(item.id);
-          }
-        }
-      }
+      const idsOfItemsVisible = Drupal.behaviors.unigProject.Store.get();
+      idsOfItemsVisible.forEach(id =>{this.add(id)});
     },
 
     addAllMarks() {
@@ -598,18 +512,20 @@
         const size = elem.currentTarget.dataset.size;
         const name = elem.currentTarget.dataset.name;
 
-        const nameWithSize = name.replace(/\./, '-' + size + '.');
+      //  const nameWithSize = name.replace(/\./, '-' + size + '.');
 
         // TODO implement Download for  other Files then JPG
-        // download(url);
+         download(url);
 
-        let x = new XMLHttpRequest();
+/*        let x = new XMLHttpRequest();
         x.open('GET', url, true);
         x.responseType = 'blob';
         x.onload = function(e) {
           download(e.target.response, nameWithSize, 'image/jpg');
         };
-        x.send();
+        x.send();*/
+
+
       });
     },
   };

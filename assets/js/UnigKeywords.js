@@ -2,7 +2,6 @@
   Drupal.behaviors.unigKeywords = {
     keywordList: [],
     Store: {},
-    Visible: [],
     isToolbarOpen: false,
     $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
     $check_all_keywords_trigger: $(
@@ -23,7 +22,7 @@
           this.constructor(context, settings);
           this.addAll();
           this.markAllAsActive();
-          this.updateDisplay();
+          this.update();
         });
     },
     toggleToolbar(context) {
@@ -139,7 +138,7 @@
      *
      *
      */
-    updateDisplay() {
+    update() {
       this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
       // target
       const $targetNumberOf = $('.unig-keywords-display');
@@ -167,6 +166,7 @@
         // remove text
         $targetNumberOf.html();
       }
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     buildTags(keywordsList) {
@@ -203,30 +203,27 @@
       $('.unig-keywords-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       $('.unig-keywords-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       // Update GUI
 
       $('.build-done').ready(() => {
         scope.reMark();
-        scope.updateDisplay();
+        scope.update();
       });
     },
 
     toggleTag(id){
       this.toggle(id);
       this.toggleMark(id);
-      this.updateDisplay();
-      Drupal.behaviors.unigDownload.updateFiles();
+      this.update();
     },
 
     /**
@@ -249,8 +246,7 @@
       this.Store.clear();
       this.markAllAsInactive();
       this.buildTags();
-      this.updateDisplay();
-      Drupal.behaviors.unigDownload.updateFiles();
+      this.update();
     },
 
     /**
@@ -284,8 +280,7 @@
           const id = item.getAttribute('data-id');
           Scope.add(id);
           Scope.markAsActive(id);
-          Scope.updateDisplay();
-          Drupal.behaviors.unigDownload.updateFiles();
+          Scope.update();
         },
       });
     },

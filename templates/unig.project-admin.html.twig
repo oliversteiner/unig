@@ -157,9 +157,12 @@
 
 
                   {# Number of Items #}
+                  {# ----------- Number of Items ----------- #}
                   <div class="unig-project-number-of-items">
                     <i class="fas fa-image" aria-hidden="true"></i>
-                    <span class="number-of-visible">{{ project.number_of_items }}</span>
+                    <span class="number-of-visible"> {{ project.number_of_items }} </span>
+                    {% trans %} of {% endtrans %}
+                    <span class="number-of-all-files">{{ project.number_of_items }}</span>
                   </div>
 
                   {# ----------- Private ----------- #}
@@ -331,9 +334,7 @@
     <div class="unig-toolbar unig-toolbar-debug">
       <div class="unig-fieldset-debug">
         <div class="row">
-          {#
-                    <div class="unig-button open-download-message-box-trigger">open message box</div>
-          #}
+
         </div>
       </div>
     </div> {# Fieldset debug #}

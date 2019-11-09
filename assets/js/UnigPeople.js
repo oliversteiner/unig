@@ -10,7 +10,6 @@
       this.context,
     ),
 
-    Visible: [],
     attach(context, settings) {
       // onload
 
@@ -20,7 +19,7 @@
           this.constructor(context, settings);
           this.addAll();
           this.markAllAsActive();
-          this.updateDisplay();
+          this.update();
         });
     },
 
@@ -132,7 +131,7 @@
      *
      *
      */
-    updateDisplay() {
+    update() {
       this.peopleList = Drupal.behaviors.unigData.projectPeople.list;
 
       // target
@@ -159,6 +158,7 @@
         // remove text
         $targetNumberOf.html();
       }
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     buildTags(peopleList) {
@@ -197,30 +197,27 @@
       $('.unig-people-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       $('.unig-people-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       // Update GUI
 
       $('.build-done').ready(() => {
         scope.reMark();
-        scope.updateDisplay();
+        scope.update();
       });
     },
 
     toggleTag(id){
       this.toggle(id);
       this.toggleMark(id);
-      this.updateDisplay();
-      Drupal.behaviors.unigDownload.updateFiles();
+      this.update();
     },
 
     /**
@@ -243,7 +240,7 @@
       this.Store.clear();
       this.markAllAsInactive();
       this.buildTags();
-      this.updateDisplay();
+      this.update();
       Drupal.behaviors.unigDownload.updateFiles();
     },
 
@@ -278,7 +275,7 @@
           const id = item.getAttribute('data-id');
           Scope.add(id);
           Scope.markAsActive(id);
-          Scope.updateDisplay();
+          Scope.update();
           Drupal.behaviors.unigDownload.updateFiles();
         },
       });

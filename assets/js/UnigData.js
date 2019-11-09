@@ -38,29 +38,10 @@
     remove(id) {
       // Remove item from List
       this.list = this.list.filter(item => item.id !== id);
-      this.updateNumberOf();
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
-    updateNumberOf() {
-      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
-      const number_of_current_items =
-        Drupal.behaviors.unigPeople.Visible.length;
 
-      let text = number_of_all_items;
-      let icon = 'fa-key';
-      if (Drupal.behaviors.unigPeople.Store.count()) {
-        icon = 'fa-user';
-      }
-      if (number_of_current_items > 0) {
-        $('.unig-button-download-add-current-to-list').show();
-        $('.number-of-visible').html(number_of_current_items);
-        $('.icon-of-visible').html(
-          `<i class="fas ${icon}" aria-hidden="true"></i>`,
-        );
-      } else {
-        $('.unig-button-download-add-current-to-list').hide();
-      }
-    },
 
     load() {
       const fileList = drupalSettings.unig.project.files;
@@ -160,7 +141,7 @@
           this.list = keywordsList;
           // Drupal.behaviors.unigKeywords.searchAutocomplete(keywordsList);
           Drupal.behaviors.unigKeywords.buildTags(keywordsList);
-          Drupal.behaviors.unigKeywords.updateDisplay();
+          Drupal.behaviors.unigKeywords.update();
         })
         .fail(xhr => {
         });
