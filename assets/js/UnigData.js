@@ -47,11 +47,15 @@
         Drupal.behaviors.unigPeople.Visible.length;
 
       let text = number_of_all_items;
+      let icon = 'fa-key';
+      if (Drupal.behaviors.unigPeople.Store.count()) {
+        icon = 'fa-user';
+      }
       if (number_of_current_items > 0) {
         $('.unig-button-download-add-current-to-list').show();
         $('.number-of-visible').html(number_of_current_items);
         $('.icon-of-visible').html(
-          '<i class="fas fa-user" aria-hidden="true"></i>',
+          `<i class="fas ${icon}" aria-hidden="true"></i>`,
         );
       } else {
         $('.unig-button-download-add-current-to-list').hide();
@@ -158,7 +162,8 @@
           Drupal.behaviors.unigKeywords.buildTags(keywordsList);
           Drupal.behaviors.unigKeywords.updateDisplay();
         })
-        .fail(xhr => {});
+        .fail(xhr => {
+        });
     },
 
     clear() {
@@ -222,7 +227,8 @@
           Drupal.behaviors.unigPeople.searchAutocomplete(peopleList);
           Drupal.behaviors.unigPeople.buildTags(peopleList);
         })
-        .fail(xhr => {});
+        .fail(xhr => {
+        });
     },
 
     clear() {
