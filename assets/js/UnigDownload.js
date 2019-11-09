@@ -511,19 +511,24 @@
         const url = elem.currentTarget.dataset.unigFileUrl;
         const size = elem.currentTarget.dataset.size;
         const name = elem.currentTarget.dataset.name;
+        const id = elem.currentTarget.dataset.id;
 
-      //  const nameWithSize = name.replace(/\./, '-' + size + '.');
+
+        const item = drupalSettings.unig.project.files.find(item=>item.id === id);
+        console.log('found file',item );
+
+        const nameWithSize = name.replace(/\./, '-' + size + '.');
 
         // TODO implement Download for  other Files then JPG
-         download(url);
+         // download(url);
 
-/*        let x = new XMLHttpRequest();
+        let x = new XMLHttpRequest();
         x.open('GET', url, true);
         x.responseType = 'blob';
         x.onload = function(e) {
           download(e.target.response, nameWithSize, 'image/jpg');
         };
-        x.send();*/
+        x.send();
 
 
       });

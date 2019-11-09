@@ -1191,6 +1191,7 @@
                       data-unig-file-url="{{ file.image.unig_sd.url }}"
                       data-size="sd"
                       data-name="{{ file.file_name }}"
+                      data-id="{{ file.id }}"
                   >
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">
@@ -1199,8 +1200,8 @@
                     <td class="unig-file-download-table-size">
                       <span class="unig-file-download-table-size-sd">{{ file.image.unig_sd.file_size_formatted }}</span>
                     </td>
-                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                 aria-hidden="true"></i>
+                    <td class="unig-file-download-table-icon">
+                      <i class="fas fa-download" aria-hidden="true"></i>
                     </td>
 
                   </tr>
@@ -1210,16 +1211,18 @@
                       data-unig-file-url="{{ file.image.unig_hd.url }}"
                       data-size="hd"
                       data-name="{{ file.file_name }}"
+                      data-id="{{ file.id }}"
                   >
                     <td class="unig-file-download-table-label">HD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_hd.width }}&thinsp;px
                     </td>
                     <td class="unig-file-download-table-size">
-                      <span class="unig-file-download-table-size-hd">{{ file.image.unig_hd.file_size_formatted }}</span>
+                      <span class="unig-file-download-table-size-hd">
+                        {{ file.image.unig_hd.file_size_formatted }}</span>
                     </td>
-                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                 aria-hidden="true"></i>
+                    <td class="unig-file-download-table-icon">
+                      <i class="fas fa-download" aria-hidden="true"></i>
                     </td>
 
                   </tr>
@@ -1229,6 +1232,7 @@
                       data-unig-file-url="{{ file.image.original.url }}"
                       data-size="xl"
                       data-name="{{ file.file_name }}"
+                      data-id="{{ file.id }}"
                   >
                     <td class="unig-file-download-table-label">XL</td>
                     <td class="unig-file-download-table-width">
@@ -1236,10 +1240,12 @@
                     </td>
                     <td class="unig-file-download-table-size">
                       <span
-                        class="unig-file-download-table-size-xl">{{ file.image.original.file_size_formatted }}</span>
+                        class="unig-file-download-table-size-xl">
+                        {{ file.image.original.file_size_formatted }}
+                      </span>
                     </td>
-                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                 aria-hidden="true"></i>
+                    <td class="unig-file-download-table-icon">
+                      <i class="fas fa-download"  aria-hidden="true"></i>
                     </td>
 
                   </tr>
