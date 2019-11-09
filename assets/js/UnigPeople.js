@@ -97,7 +97,7 @@
      *
      */
     removeAll() {
-      this.Store.destroy();
+      this.Store.clear();
     },
     /**
      *
@@ -250,7 +250,7 @@
     },
 
     clearDownloadList() {
-      this.Store.destroy();
+      this.Store.clear();
       this.markAllAsInactive();
       this.buildTags();
       this.updateDisplay();

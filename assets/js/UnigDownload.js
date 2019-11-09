@@ -1,20 +1,10 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigDownload = {
     version: '1.0.0',
-
-    attach(context, settings) {
-      // onload
-
-      $('#unig-main', context)
-        .once('unigDownload')
-        .each(() => {
-          this.constructor(context, settings);
-        });
-    },
-
     isToolbarOpen: false,
-
+    Store:{},
     downloadsize: {},
+    downloadList: [],
 
     $toolbar_sd: $(
       '.unig-bulk-download-table .unig-file-download-table-size-sd',
@@ -28,11 +18,21 @@
 
     $bulkDownloadMessageContainer: $('.unig-bulk-download-message-container'),
 
+    attach(context, settings) {
+      // onload
+
+      $('#unig-main', context)
+        .once('unigDownload')
+        .each(() => {
+          this.constructor(context, settings);
+        });
+    },
+
     updateFiles() {
       $('.unig-button-download-add-current-to-list').hide();
 
       Drupal.behaviors.unigPeople.Visible = [];
-      const peopleIds = Drupal.behaviors.unigData.peopleStorage.get();
+      const peopleIds = Drupal.behaviors.unigPeople.Store.get();
       const keywordIds = Drupal.behaviors.unigKeywords.Store.get();
       const fullList = Drupal.behaviors.unigData.FileList.list;
 
@@ -132,40 +132,17 @@
     },
 
     add(id) {
-      Drupal.behaviors.unigData.FilesForDownload.add(id);
-      Drupal.behaviors.unigData.FilesForDownload.save();
+      this.Store.add(id);
     },
 
     remove(id) {
-      Drupal.behaviors.unigData.FilesForDownload.remove(id);
-      Drupal.behaviors.unigData.FilesForDownload.save();
+      this.Store.remove(id);
     },
 
     toggle(id) {
-      const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
-
-      // if first Item in list toggle on
-      if (itemsForDownload === false) {
-        this.add(id);
-      } else {
-        // search item in itemsForDownload List
-        const IsInDownloadList = Drupal.behaviors.unigData.FilesForDownload.find(
-          id,
-        );
-
-        if (IsInDownloadList) {
-          // if item in list. toggle off
-          this.remove(id);
-        } else {
-          // if item  not in list. toggle on
-          this.add(id);
-        }
-      }
+      this.Store.toggle(id);
     },
 
-    save() {
-      Drupal.behaviors.unigData.FilesForDownload.save();
-    },
 
     addMark(id) {
       if (id) {
@@ -217,7 +194,7 @@
       const $targetNumberOf = $('.unig-dl-number-of');
 
       // get Number
-      const numberOfItems = Drupal.behaviors.unigData.FilesForDownload.count();
+      const numberOfItems = this.Store.count();
 
       // Append to DOM
       $targetButtonNumberOf.html(numberOfItems);
@@ -246,7 +223,7 @@
       // Set Download Message Container to Prozessing
       Drupal.behaviors.unigDownload.message_download_processing(size);
 
-      const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
+      const itemsForDownload = this.Store.get();
       const data = {
         size,
         projectName: size,
@@ -316,7 +293,8 @@
     },
 
     closeDownloadMessageBox() {
-      this.$bulkDownloadMessageContainer.slideUp('fast', function() {});
+      this.$bulkDownloadMessageContainer.slideUp('fast', function() {
+      });
     },
 
     message_download_processing(size) {
@@ -357,7 +335,7 @@
       const $area = $('.unig-dl-thumbnails');
 
       // get Item List
-      const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
+      const itemsForDownload = this.Store.get();
       const itemList = Drupal.behaviors.unigData.FileList.get();
 
       let elemLi = '';
@@ -416,15 +394,10 @@
       this.isFolderActive = true;
 
       // Get Download Item List
-      const itemsForDownload = Drupal.behaviors.unigData.FilesForDownload.get();
-
-      if (itemsForDownload) {
-        itemsForDownload.forEach(elem => {
-          if (elem) {
-            Drupal.behaviors.unigDownload.addMark(elem);
-          }
-        });
-      }
+      const itemsForDownload = this.Store.get();
+      itemsForDownload.forEach(elem => {
+        Drupal.behaviors.unigDownload.addMark(elem);
+      });
 
       this.buildThumbnails();
       this.updateInfo();
@@ -465,7 +438,7 @@
      *
      */
     removeAll() {
-      Drupal.behaviors.unigData.FilesForDownload.destroy();
+      this.Store.clear();
     },
 
     /**
@@ -575,6 +548,11 @@
      * @param settings
      */
     constructor(context, settings) {
+      this.downloadList = [];
+
+      this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
+      this.Store.init('download');
+
       // promise : wait for data from server
 
       if (Drupal.behaviors.unigData.FileList.load()) {
@@ -633,7 +611,8 @@
       // Add current Files to Download
       $('.unig-button-download-add-current-to-list-trigger', context).click(
         event => {
-          Drupal.behaviors.unigDownload.fillDownloadListWithCurrent(event);'^'
+          Drupal.behaviors.unigDownload.fillDownloadListWithCurrent(event);
+          ('^');
         },
       );
 
@@ -683,14 +662,15 @@
         const nameWithSize = name.replace(/\./, '-' + size + '.');
 
         // TODO implement Download for  other Files then JPG
-         // download(url);
+        // download(url);
 
-        let x=new XMLHttpRequest();
-        x.open( "GET", url , true);
-        x.responseType="blob";
-        x.onload= function(e){download(e.target.response, nameWithSize, "image/jpg");};
+        let x = new XMLHttpRequest();
+        x.open('GET', url, true);
+        x.responseType = 'blob';
+        x.onload = function(e) {
+          download(e.target.response, nameWithSize, 'image/jpg');
+        };
         x.send();
-
       });
     },
   };

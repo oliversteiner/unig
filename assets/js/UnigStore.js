@@ -44,7 +44,7 @@
       }
     },
 
-    destroy() {
+    clear() {
       this.items = [];
       this.save();
     },
