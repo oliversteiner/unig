@@ -164,7 +164,7 @@ trait ProjectTemplateTrait
   protected function getProjectPath(): string
   {
     $user = Drupal::currentUser();
-    $template = 'unig.lightgallery.html.twig';
+    $template = 'unig.project-public.html.twig';
 
     // User is logged in
     if ($user->hasPermission('access unig download')) {
@@ -173,7 +173,7 @@ trait ProjectTemplateTrait
 
     // User is Admin
     if ($user->hasPermission('access unig admin')) {
-      $template = 'unig.project.html.twig';
+      $template = 'unig.project-admin.html.twig';
     }
 
     return drupal_get_path('module', $this->getModuleName()) .

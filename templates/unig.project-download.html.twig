@@ -172,7 +172,7 @@
 
         {# Button Preview #}
         <a role="button" class="unig-button unig-button-files-preview"
-           href="{{ path('unig.project.download',{'project_id':project.id, 'album_id':album.id}) }}">
+           href="{{ path('unig.project.public',{'project_id':project.id, 'album_id':album.id}) }}">
           <i class="fas fa-image" aria-hidden="true"></i>
           {% trans %} Preview {% endtrans %}
         </a>

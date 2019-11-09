@@ -570,7 +570,7 @@ trait ProjectTrait
     $host = Drupal::request()->getHost();
 
     // URL
-    $url = Url::fromRoute('unig.lightgallery', [
+    $url = Url::fromRoute('unig.project.public', [
       'project_id' => $project_id
     ]);
 

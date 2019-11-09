@@ -85,7 +85,6 @@ unig.project.admin:
     - core/jquery.ui.sortable
     - unig/unig.lightgallery
     - unig/unig.autocomplete
-    - unig/unig.lightgallery
     - unig/unig.download
 #
 #
@@ -94,7 +93,7 @@ unig.list.admin:
   css:
     theme:
       assets/css/unig_admin.css: {}
-      assets/css/unig_project_list.css: {}
+      assets/css/unig_list.css: {}
       assets/css/theme/dark.css: {}
       assets/css/unig_responsive.css: {}
   js:
@@ -118,7 +117,7 @@ unig.list.admin:
 unig.list.public:
   css:
     theme:
-      assets/css/unig_project_list.css: {}
+      assets/css/unig_list.css: {}
       assets/css/unig_responsive.css: {}
   js:
     assets/js/Unig.js: {}
@@ -128,6 +127,7 @@ unig.list.public:
     - core/drupalSettings
     - core/jquery
     - core/jquery.once
+    - unig/unig.lightgallery
 
 #
 #

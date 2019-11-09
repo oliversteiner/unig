@@ -55,7 +55,7 @@ class LightgalleryController extends ControllerBase
         '#context' => $this->getTemplateVariables($project_id, $album_id)
       ]
     ];
-    $build['#attached']['library'] = 'unig/unig.project.admin';
+    $build['#attached']['library'] = 'unig/unig.project.public';
     return $build;
   }
 
@@ -89,6 +89,6 @@ class LightgalleryController extends ControllerBase
   protected function getTemplatePath(): string
   {
     return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/unig.lightgallery.html.twig';
+      '/templates/unig.project-public.html.twig';
   }
 }
