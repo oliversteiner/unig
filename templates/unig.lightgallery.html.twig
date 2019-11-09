@@ -74,7 +74,7 @@ Twig Vars
   {# header-left #}
   <div class="unig-gallery-header-left">
     <div class="unig-back-to-list">
-      <a href="{{ path('unig.project_list') }}">
+      <a href="{{ path('unig.list') }}">
         <i class="fas fa-chevron-left" aria-hidden="true"></i>
         {% trans %} Show all projects {% endtrans %}
       </a>
@@ -99,7 +99,7 @@ Twig Vars
               {# ----------- open Edit ----------- #}
               <a role="button"
                  class="unig-button-edit-project unig-button-edit-project-trigger"
-                 href="/unig/project/{{ project.id }}">
+                 href="{{ path('unig.project.admin',{'project_id':project.id, 'album_id':album.id}) }}">
                 <i class="fas fa-edit"></i>
               </a>
             {% endif %}
@@ -157,7 +157,7 @@ Twig Vars
         {# ----------- open Edit ----------- #}
         <a role="button"
            class="unig-gallery-toolbar-item unig-gallery-button "
-           href="/unig/member/{{ project.id }}">
+           href="{{ path('unig.project.download',{'project_id':project.id, 'album_id':album.id}) }}">
           <i class="fas fa-download"></i>
           {% trans %} Download {% endtrans %}
         </a>

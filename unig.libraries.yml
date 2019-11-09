@@ -67,13 +67,12 @@ unig.project.admin:
     assets/js/UnigMessages.js: {}
     assets/js/UnigData.js: {}
     assets/js/UnigProject.js: {}
-    assets/js/UnigProjectList.js: {}
     assets/js/UnigSortProject.js: {}
     assets/js/UnigDownload.js: {}
     assets/js/UnigKeywords.js: {}
     assets/js/UnigPeople.js: {}
     assets/js/UnigAdmin.js: {}
-    assets/js/UnigFiles.js: {}
+    assets/js/UnigFile.js: {}
     assets/js/UnigSize.js: {}
     assets/js/UnigLazyLoad.js: {}
     assets/js/UnigOptions.js: {}

@@ -7,11 +7,13 @@ use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\unig\Models\UnigFile;
 use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\ProjectTemplateTrait;
 use Drupal\unig\Utility\ProjectTrait;
 use Drupal\unig\Utility\UnigCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class APIController.
@@ -29,6 +31,20 @@ class UnigAPIController extends ControllerBase
    */
   public function project($id): JsonResponse
   {
+    // Get HTTP Vars
+    $post_as_json = \Drupal::request()->getContent();
+    $methode = \Drupal::request()->getMethod();
+
+    $data = json_decode($post_as_json, true);
+
+    // CREATE
+
+    // DELETE
+
+    // UPDATE
+
+    // GET
+
     $label = 'Unig Project Variables';
     $name = 'project';
     $base = 'unig/api/';
@@ -80,6 +96,33 @@ class UnigAPIController extends ControllerBase
     ];
 
     return new JsonResponse($response);
+  }
+
+  public function file(): JsonResponse
+  {
+    $post_as_json = \Drupal::request()->getContent();
+    $methods = \Drupal::request()->getMethod();
+
+    $data = json_decode($post_as_json, true);
+
+    return new JsonResponse($methods);
+  }
+
+  /**
+   * @param $file_id
+   * @param $project_id
+   * @return JsonResponse
+   * @Method("DELETE")
+   * @Route(unig.api.file.delete)
+   * @throws EntityStorageException
+   */
+  public function fileDelete($file_id, $project_id): JsonResponse
+  {
+    $data = ['file_id' => (int) $file_id, 'project_id' => (int) $project_id];
+
+    $result = UnigFile::delete($file_id, $project_id);
+
+    return new JsonResponse($result);
   }
 
   /**

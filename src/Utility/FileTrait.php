@@ -131,7 +131,6 @@ trait FileTrait
     // hole die neu erstellte ID
     $new_id = $new_unig_file->id();
 
-
     return $new_id;
   }
 
@@ -157,20 +156,20 @@ trait FileTrait
   }
 
   /**
-   * @param $nid
+   * @param $file_id
    *
    * @return array
-   * @internal param $values
-   *
    * @throws EntityStorageException
+   *@internal param $values
+   * TODO: Deprecated
    */
-  public static function deleteFile($nid): array
+  public static function deleteFile($file_id, $project_id = null): array
   {
     $status = false;
-    $message = $nid;
+    $message = $file_id;
 
-    if ($nid) {
-      $node = Node::Load($nid);
+    if ($file_id) {
+      $node = Node::Load($file_id);
 
       // load node
       if ($node) {
@@ -178,12 +177,17 @@ trait FileTrait
 
         // Node delete succses
         $status = true;
-        $message = 'Die Datei mit der ID ' . $nid . ' wurde gelöscht';
+        $message = 'Die Datei mit der ID ' . $file_id . ' wurde gelöscht';
+
+        // Clear Project Cache
+        if ($project_id) {
+          UnigCache::clearProjectCache($project_id);
+        }
       }
       // no Node found
       else {
         $status = false;
-        $message = 'kein File mit der ID ' . $nid . ' gefunden';
+        $message = 'kein File mit der ID ' . $file_id . ' gefunden';
       }
     }
 

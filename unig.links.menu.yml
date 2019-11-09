@@ -14,7 +14,7 @@ unig.settings_form:
 unig.admin_content:
     title: 'Universal Gallery'
     description: 'Show all Galleries'
-    route_name: unig.project_list
+    route_name: unig.list
     parent: 'system.admin_content'
 
 #
@@ -23,7 +23,7 @@ unig.admin_content:
 unig.project.list:
     title:  'List all Galleries'
     description: 'Show all Galleries'
-    route_name: unig.project_list
+    route_name: unig.list
     parent: 'unig.admin_content'
 
 #

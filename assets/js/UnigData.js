@@ -181,6 +181,24 @@
     people: [],
     route: 'unig/project/json',
 
+    remove(id) {
+      // Remove item from List
+      this.list = this.list.filter(item => item.id !== id);
+      this.updateNumberOf();
+    },
+
+    updateNumberOf() {
+      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
+      const number_of_current_items =
+        Drupal.behaviors.unigPeople.Visible.length;
+
+      let text = number_of_all_items;
+      if (number_of_current_items > 0) {
+        text = `${number_of_current_items} von ${number_of_all_items}`;
+      }
+      $('.number_of_visible').html(text);
+    },
+
     load() {
       const fileList = drupalSettings.unig.project.files;
 

@@ -26,7 +26,7 @@ trait ProjectTemplateTrait
    * Generate a render array with our Admin content.
    *
    * @param      $project_id
-   * @param null $album_nid
+   * @param null $album_id
    *
    * @return array A render array.
    * A render array.
@@ -34,7 +34,7 @@ trait ProjectTemplateTrait
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function projectTemplate($project_id, $album_nid = null): array
+  public function projectTemplate($project_id, $album_id = null): array
   {
     // Times to Load
     // build without cache : 8.2914
@@ -51,7 +51,7 @@ trait ProjectTemplateTrait
       throw new AccessDeniedHttpException();
     }
 
-    $project_variables = $this->getProjectVariables($project_id, $album_nid);
+    $project_variables = $this->getProjectVariables($project_id, $album_id);
 
     $template_path = $this->getProjectPath();
     $template = file_get_contents($template_path);
@@ -95,14 +95,14 @@ trait ProjectTemplateTrait
    * Variables to act as context to the twig template file.
    *
    * @param $project_id
-   * @param null $album_nid
+   * @param null $album_id
    * @return array
    *   Associative array that defines context for a template.
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    * @throws Drupal\Core\Entity\EntityStorageException
    */
-  protected function getProjectVariables($project_id, $album_nid = null): array
+  protected function getProjectVariables($project_id, $album_id = null): array
   {
     // load Cache
     $cache = UnigCache::loadProjectCache($project_id);
@@ -117,7 +117,7 @@ trait ProjectTemplateTrait
       $variables['project'] = ProjectTrait::buildProject($project_id);
       $variables['files'] = ProjectTrait::buildFileList(
         $project_id,
-        $album_nid
+        $album_id
       );
 
       // save project variables to cache
@@ -168,7 +168,7 @@ trait ProjectTemplateTrait
 
     // User is logged in
     if ($user->hasPermission('access unig download')) {
-      $template = 'unig.project-user.html.twig';
+      $template = 'unig.project-download.html.twig';
     }
 
     // User is Admin

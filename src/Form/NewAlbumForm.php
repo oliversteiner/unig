@@ -98,12 +98,12 @@
       if (isset($album_name) && !empty($album_name)) {
 
         // Neues Album erstellen
-        $album_nid = AlbumTrait::newAlbum($album_name);
+        $album_id = AlbumTrait::newAlbum($album_name);
         // Das Album dem Aktuellen Projekt zuweisen
-        AlbumTrait::addAlbum($projekt_nid, $album_nid);
+        AlbumTrait::addAlbum($projekt_nid, $album_id);
 
 
-        $message = "Neues Album erstellt: $album_name ($album_nid)";
+        $message = "Neues Album erstellt: $album_name ($album_id)";
         $response->addCommand(new AppendCommand('#unig-form-new-album-input-messages', $message));
 
       }
@@ -114,7 +114,7 @@
       }
 
 
-      if ($album_nid) {
+      if ($album_id) {
         drupal_set_message('Neues Album "' . $album_name . '" erstellt');
 
 
@@ -141,11 +141,11 @@
       if (isset($album_name) && !empty($album_name)) {
 
 
-        $album_nid = AlbumTrait::newAlbum($album_name);
+        $album_id = AlbumTrait::newAlbum($album_name);
 
-        if ($album_nid) {
+        if ($album_id) {
 
-          AlbumTrait::addAlbum($project_id, $album_nid);
+          AlbumTrait::addAlbum($project_id, $album_id);
           drupal_set_message('Neues Album "' . $album_name . '" erstellt');
 
         }

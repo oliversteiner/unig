@@ -2,20 +2,20 @@
   Drupal.behaviors.unigOptions = {
     clearProjectCache() {
       const id = this.getProjectID();
-      const messgeID = 'rb-' + id;
+      const messageID = 'rb-' + id;
       console.log('clear cache for Project ' + id);
       const url = `/unig/api/cc/${id}`;
 
       let text = 'Clear Cache for Project with id: ' + id;
       let type = 'load';
-      Drupal.behaviors.unigMessages.addMessage(text, type, messgeID);
+      Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
 
       fetch(url).then(response => {
         console.log('response', response);
 
         if (response.status === 404) {
           response.json().then(function(object) {
-            Drupal.behaviors.unigMessages.removeMessageByID(messgeID);
+            Drupal.behaviors.unigMessages.removeMessageByID(messageID);
             text = 'Server Error: ' + object.message;
             type = 'error';
             Drupal.behaviors.unigMessages.addMessage(text, type);
@@ -31,7 +31,7 @@
               text = 'Cant Clear Cache for Project with id: ' + data.projectId;
               type = 'error';
             }
-            Drupal.behaviors.unigMessages.removeMessageByID(messgeID);
+            Drupal.behaviors.unigMessages.removeMessageByID(messageID);
             Drupal.behaviors.unigMessages.addMessage(text, type);
           });
         }

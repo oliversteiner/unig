@@ -376,13 +376,13 @@ trait ProjectTrait
   /**
    * @param      $nid_project
    *
-   * @param null $album_nid
+   * @param null $album_id
    *
    * @return array
    */
   public static function getListofFilesInProject(
     $nid_project,
-    $album_nid = null
+    $album_id = null
   )
   {
     // bundle : unig_file
@@ -393,7 +393,7 @@ trait ProjectTrait
 
     $nids = [];
 
-    if ($album_nid != null) {
+    if ($album_id != null) {
       $query = // alphanumeric
         //
         // Condition
@@ -402,7 +402,7 @@ trait ProjectTrait
         Drupal::entityQuery('node')
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
-          ->condition('field_unig_album', $album_nid)
+          ->condition('field_unig_album', $album_id)
           ->sort('field_unig_weight.value', 'ASC')
           ->sort('title', 'ASC')
           ->sort('created', 'DESC');
@@ -608,14 +608,14 @@ trait ProjectTrait
 
   /**
    * @param      $project_id
-   * @param null $album_nid
+   * @param null $album_id
    *
    * @return array
    * @throws InvalidPluginDefinitionException
    */
-  public static function buildFileList($project_id, $album_nid = null)
+  public static function buildFileList($project_id, $album_id = null)
   {
-    $file_nids = self::getListofFilesInProject($project_id, $album_nid);
+    $file_nids = self::getListofFilesInProject($project_id, $album_id);
     $variables = [];
 
     foreach ($file_nids as $file_nid) {
@@ -627,7 +627,7 @@ trait ProjectTrait
 
   public static function getJSONFromProjectFiles(
     $project_id,
-    $album_nid = null
+    $album_id = null
   ): JsonResponse
   {
     $response = new JsonResponse();
@@ -705,16 +705,16 @@ trait ProjectTrait
 
   /**
    * @param      $project_id
-   * @param null $album_nid
+   * @param null $album_id
    * @return array
    */
   public static function importKeywordsFromProject(
     $project_id,
-    $album_nid = null
+    $album_id = null
   ): array
   {
     $list = [];
-    $nids = self::getListofFilesInProject($project_id, $album_nid);
+    $nids = self::getListofFilesInProject($project_id, $album_id);
 
     // read Keywords of every Files in Project
     foreach ($nids as $nid) {
@@ -966,7 +966,7 @@ trait ProjectTrait
     $file_nids = self::getListofFilesInProject($project_id);
 
     foreach ($file_nids as $file_nid) {
-      FileTrait::deleteFile($file_nid);
+      FileTrait::deleteFile($file_nid, $project_id);
     }
     return true;
   }
@@ -976,13 +976,17 @@ trait ProjectTrait
    * @return mixed
    *
    *
-   * @throws InvalidPluginDefinitionException
    * @throws EntityStorageException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public static function saveProject()
   {
-    $project_id = $_POST['project_id'];
-    $data = $_POST['data'];
+    $postReq = \Drupal::request()->request->all();
+    dpm($postReq);
+    $project_id = $postReq['id'] ?? FALSE;
+    $data = $postReq['data'] ?? FALSE;
+
 
     // Load node
     $entity = Drupal::entityTypeManager()

@@ -9,7 +9,7 @@ unig.admin:
 #
 # Content > Universal Gallery > List Projects
 #
-unig.project_list:
+unig.list:
   path: '/unig'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
@@ -39,44 +39,31 @@ unig.projects.category.id:
   requirements:
     _permission: 'access content'
 
-
 #
 # Admin Page project detail
 #
 unig.project.admin:
-  path: '/unig/project/{project_id}/{album_nid}'
+  path: '/unig/project/{project_id}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::project'
     _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
     project_id: null
-    album_nid: null
+    album_id: null
   requirements:
     _permission: 'access unig admin'
 
 #
 # Show Download and search UI
 # Allow users to show the download UI for bulk download and max resolution
-# - UniG Member
+# - UniG download
 #
-unig.project.user:
-  path: '/unig/member/{project_id}/{album_nid}'
+unig.project.download:
+  path: '/unig/download/{project_id}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::project'
     _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
     project_id: null
-    album_nid: null
-  requirements:
-    _permission: 'access unig download'
-
-#
-# Admin Page project detail
-#
-unig.ajax.project:
-  path: '/unig/project/json/{project_id}/{album_nid}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::getJSONFromProjectFiles'
-    project_id: null
-    album_nid: null
+    album_id: null
   requirements:
     _permission: 'access unig download'
 
@@ -91,26 +78,19 @@ unig.ajax.project.info:
   requirements:
     _permission: 'access unig download'
 
-#
-# Admin Page project detail
-#
-unig.project.ajax.delete:
-  path: '/unig/ajax/project_delete/{project_id}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::ajaxProjectDelete'
-  requirements:
-    _permission: 'access unig admin'
+
+
 
 #
 # Show Gallery
 #
 unig.lightgallery:
-  path: '/unig/lightgallery/{project_id}/{album_nid}'
+  path: '/unig/lightgallery/{project_id}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\LightgalleryController::getTemplate'
     _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
     project_id: null
-    album_nid: null
+    album_id: null
   requirements:
     _permission: 'access content'
 
@@ -120,7 +100,7 @@ unig.lightgallery:
 unig.upload:
   path: '/unig/upload/{project_id}'
   defaults:
-    _form:  '\Drupal\unig\Form\UploadForm'
+    _form: '\Drupal\unig\Form\UploadForm'
     _title: 'Upload'
     project_id: null
   requirements:
@@ -161,21 +141,10 @@ unig.setCover:
     _permission: 'access unig admin'
 
 #
-# AJAX deleteFile
-#
-unig.ajax.deleteFile:
-  path: '/unig/ajax/delete_file/{file_nid}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::ajaxDeleteFile'
-    _title: 'delete File'
-  requirements:
-    _permission: 'access unig admin'
-
-#
 # AJAX setAlbum
 #
 unig.ajax.addAlbum:
-  path: '/unig/ajax/add_album/{file_nid}/{album_nid}'
+  path: '/unig/ajax/add_album/{file_nid}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:ajaxAddAlbum'
     _title: 'add Image to Album'
@@ -328,7 +297,7 @@ unig.process.extract-keyword-test:
     _permission: 'access unig admin'
 
 #
-# API
+# API Project
 # ----------------------------------------
 # Project
 unig.api.project:
@@ -339,10 +308,44 @@ unig.api.project:
   requirements:
     _permission: 'access unig admin'
 
+# TODO replace with DELETE HTTP Var
+unig.api.project.delete:
+  path: '/unig/api/project/delete/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::project'
+    id: null
+  requirements:
+    _permission: 'access unig admin'
+
 #
-# API
+# API File
 # ----------------------------------------
-# Project
+unig.api.file:
+  path: '/unig/api/file/{file_id}/{project_id}'
+  methods: [GET, HEAD]
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigApiController::file'
+    file_id: null
+    project_id: null
+
+  requirements:
+    _permission: 'access unig admin'
+
+# File Delete
+unig.api.file.delete:
+  path: '/unig/api/file/{file_id}/{project_id}'
+  methods: [DELETE]
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigApiController::fileDelete'
+    file_id: null
+    project_id: null
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# CACHE
+# ----------------------------------------
+# clear
 unig.api.project.clear-cache:
   path: '/unig/api/cc/{id}'
   defaults:
@@ -351,10 +354,7 @@ unig.api.project.clear-cache:
   requirements:
     _permission: 'access unig admin'
 
-#
-# API
-# ----------------------------------------
-# Project
+# Rebuild Cache
 unig.api.project.rebuild-cache:
   path: '/unig/api/rc/{id}'
   defaults:

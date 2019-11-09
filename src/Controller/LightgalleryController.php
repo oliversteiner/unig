@@ -31,14 +31,14 @@ class LightgalleryController extends ControllerBase
    * Generate a render array with our Admin content.
    *
    * @param      $project_id
-   * @param null $album_nid
+   * @param null $album_id
    *
    * @return array A render array.
    * A render array.
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function getTemplate($project_id, $album_nid = null): array
+  public function getTemplate($project_id, $album_id = null): array
   {
     // Make sure you don't trust the URL to be safe! Always check for exploits.
     if (!is_numeric($project_id)) {
@@ -52,7 +52,7 @@ class LightgalleryController extends ControllerBase
       'description' => [
         '#type' => 'inline_template',
         '#template' => $template,
-        '#context' => $this->getTemplateVariables($project_id, $album_nid)
+        '#context' => $this->getTemplateVariables($project_id, $album_id)
       ]
     ];
     $build['#attached']['library'] = 'unig/unig.project.admin';
@@ -63,18 +63,18 @@ class LightgalleryController extends ControllerBase
    * Variables to act as context to the twig template file.
    *
    * @param $project_id
-   * @param null $album_nid
+   * @param null $album_id
    * @return array
    *   Associative array that defines context for a template.
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  protected function getTemplateVariables($project_id, $album_nid = null): array
+  protected function getTemplateVariables($project_id, $album_id = null): array
   {
     $variables['module'] = $this->getModuleName();
     $variables['album'] = AlbumTrait::getAlbumList($project_id);
     $variables['project'] = ProjectTrait::buildProject($project_id);
-    $variables['files'] = ProjectTrait::buildFileList($project_id, $album_nid);
+    $variables['files'] = ProjectTrait::buildFileList($project_id, $album_id);
     $user = Drupal::currentUser();
     $variables['user'] = clone $user;
     return $variables;

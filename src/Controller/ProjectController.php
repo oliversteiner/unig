@@ -40,22 +40,22 @@ class ProjectController extends ControllerBase
   use SortTrait;
   use RatingTrait;
 
-  public function project($project_id, $album_nid = null)
+  public function project($project_id, $album_id = null)
   {
     if (empty($project_id)) {
       return $this->projectListTemplate();
     }
 
-    return $this->projectTemplate($project_id, $album_nid);
+    return $this->projectTemplate($project_id, $album_id);
   }
 
   /**
    * Returns a page title.
    * @param $project_id
-   * @param null $album_nid
+   * @param null $album_id
    * @return string
    */
-  public function getTitle($project_id, $album_nid = null): string
+  public function getTitle($project_id, $album_id = null): string
   {
     // Get Node from Project
     if ($project_id !== null) {
@@ -63,8 +63,8 @@ class ProjectController extends ControllerBase
     }
 
     // Get Node from Album
-    if ($album_nid !== null) {
-      $node = Node::load($album_nid);
+    if ($album_id !== null) {
+      $node = Node::load($album_id);
     }
 
     // Get Title from loaded Node
@@ -143,18 +143,18 @@ class ProjectController extends ControllerBase
   }
 
   /**
-   * @param $file_nid
-   * @param $album_nid
+   * @param $file_id
+   * @param $album_id
    * @return AjaxResponse
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    * @throws EntityStorageException
    */
-  public function ajaxAddAlbum($file_nid, $album_nid): AjaxResponse
+  public function ajaxAddAlbum($file_id, $album_id): AjaxResponse
   {
-    $album_name = AlbumTrait::getAlbum($album_nid)->title;
+    $album_name = AlbumTrait::getAlbum($album_id)->title;
 
-    $cover_id = AlbumTrait::addAlbum($file_nid, $album_nid);
+    $cover_id = AlbumTrait::addAlbum($file_id, $album_id);
 
     if ($cover_id) {
       $message = "Das Bild wurde zum Album $album_name hinzugefügt";
@@ -173,19 +173,20 @@ class ProjectController extends ControllerBase
   }
 
   /**
-   * @param $file_nid
+   * @param $file_id
+   * @param $project_id
    * @return AjaxResponse
    * @throws EntityStorageException
    */
-  public function ajaxDeleteFile($file_nid): AjaxResponse
+  public function ajaxDeleteFile($file_id, $project_id): AjaxResponse
   {
     $response = new AjaxResponse();
 
-    $result = FileTrait::deleteFile($file_nid);
+    $result = FileTrait::deleteFile($file_id, $project_id);
 
     if ($result['status']) {
       $response->addCommand(
-        new ReplaceCommand('li.unig-file-' . $file_nid, '')
+        new ReplaceCommand('li.unig-file-' . $file_id, '')
       );
     }
     $message = $result['message'];

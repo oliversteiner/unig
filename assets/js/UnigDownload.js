@@ -94,11 +94,8 @@
         }
       }
 
-      let html = '';
-      if (Drupal.behaviors.unigPeople.Visible.length > 0) {
-        html = `${Drupal.behaviors.unigPeople.Visible.length} von ${number_of_all_items}`;
-      }
-      $('.number_of_visible').html(html);
+      Drupal.behaviors.unigData.FileList.updateNumberOf();
+
       $('.unig-button-download-add-current-to-list').show();
     },
 
@@ -611,18 +608,18 @@
         const Scope = Drupal.behaviors.unigDownload;
 
         // get Node ID
-        const nid = Drupal.behaviors.unig.getNodeId(event);
+        const id = Drupal.behaviors.unig.getFileId(event);
 
         // Add to Download-List
-        Scope.toggle(nid);
+        Scope.toggle(id);
 
         // Mark as Download-Item
-        Scope.toggleMark(nid);
+        Scope.toggleMark(id);
 
         // Update Infos
         Scope.calculateDownloadsize();
 
-        // Build Download Areaunig-message-box-success
+        // Build Download Area unig-message-box-success
         Scope.refreshGUI();
 
         // Save to localStorage

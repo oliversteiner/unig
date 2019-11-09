@@ -148,7 +148,7 @@ const UnigProcess = {
     },
 
 
-    togglePrivat(id) {
+    togglePrivate(id) {
       const field = 'private';
       const mode = 'project';
 
@@ -224,6 +224,30 @@ const UnigProcess = {
         });
     },
 
+
+    quickSave(data, route) {
+      const projectId =     drupalSettings.unig.project.project.id;
+
+      $.ajax({
+        url: Drupal.url(`unig/${route}`),
+        type: 'POST',
+        data: {
+          data,
+          projectId: projectId,
+        },
+        dataType: 'json',
+        success(results) {
+          if (results.messages && results.messages[0]) {
+            const text = results.messages[0][0];
+            const type = results.messages[0][1];
+            Drupal.behaviors.unigMessages.addMessage(text, type);
+          }
+        },
+      });
+
+      return true;
+    },
+
     /**
      *
      *
@@ -274,12 +298,14 @@ const UnigProcess = {
         // Start Process Spinner
         const process = UnigProcess;
         process.start(id, mode);
+        const projectId = Drupal.behaviors.unigData.project.id        ;
 
         const value = Drupal.checkPlain(textInput);
         const data = {
-          id,
-          field,
-          value,
+          id:id,
+          project_id:projectId,
+          field:field,
+          value:value,
         };
         const url = `/unig/save`;
 
