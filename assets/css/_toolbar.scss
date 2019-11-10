@@ -17,3 +17,36 @@
 .unig-toolbar-favorite-toggle.active {
   color: $color-admin-favorite;
 }
+.unig-toolbar-head-title-icon{
+  margin-right: 10px;
+  margin-left: 5px;
+  display: inline-block;
+}
+.unig-toolbar-head-title-label{
+  display: inline-block;
+}
+
+
+.unig-toolbar-footer .unig-button,
+.unig-toolbar-body .unig-button,
+.unig-toolbar-head .unig-button {
+  border-radius: 2px;
+  font-size: 0.8em;
+  margin: 2px 5px;
+  padding: 2px 5px;
+}
+.unig-toolbar-head-search {
+  display: inline-block;
+  float: right;
+}
+.unig-toolbar-head-search input {
+  border-radius: 5px;
+}
+.unig-toolbar-head-title {
+  display: inline-block;
+}
+.unig-toolbar-head {
+  border-bottom: 1px solid;
+  margin-bottom: 7px;
+  padding-bottom: 1px;
+}

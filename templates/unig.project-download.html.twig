@@ -69,7 +69,9 @@
                 {# ----------- Number of Items ----------- #}
                 <div class="unig-project-number-of-items">
                   <i class="fas fa-image" aria-hidden="true"></i>
-                  <span class="number-of-visible">{{ project.number_of_items }}</span>
+                  <span class="number-of-visible"> {{ project.number_of_items }} </span>
+                  {% trans %} of {% endtrans %}
+                  <span class="number-of-all-files">{{ project.number_of_items }}</span>
                 </div>
 
                 {# ----------- Private ----------- #}
@@ -223,17 +225,16 @@
         </div>
         <div class="unig-dl-info-body">
           <div>
-
             {# Button Add All to  Download List  #}
             <div class="unig-button unig-button-small  unig-button-download-add-all-to-list-trigger">
-              <i class="fas fa-th" aria-hidden="true"></i>
-              {% trans %} Add All Images {% endtrans %}
+              <i class="fas fa-plus-circle" aria-hidden="true"></i>
+              {% trans %} Add all  {% endtrans %}
             </div>
 
             {# Button Clear Download List  #}
             <div class="unig-button unig-button-small  unig-button-download-clear-list-trigger">
-              <i class="fas fa-times" aria-hidden="true"></i>
-              {% trans %} Remove All Images  {% endtrans %}
+              <i class="fas fa-trash" aria-hidden="true"></i>
+              {% trans %} Empty List  {% endtrans %}
             </div>
           </div>
 
@@ -335,24 +336,47 @@
 
         {# title #}
         <div class="unig-toolbar-head-title">
-          <i class="fas fa-key" aria-hidden="true"></i>
-          Keywords
+          <span class="unig-toolbar-head-title-icon">
+            <i class="fas fa-key" aria-hidden="true"></i>
+          </span>
+          <span class="unig-toolbar-head-title-label">
+            {% trans %} Keywords {% endtrans %}
+          </span>
         </div>
 
         {# space #}
         <div class="unig-space"></div>
 
-        {# seperator #}
-        <div class="unig-seperator"></div>
+        {# separator #}
+        <div class="unig-separator"></div>
+
+        {# Unmark all  #}
+        <div
+          class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">
+          <i class="far fa-times" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Uncheck all {% endtrans %}</span>
+        </div>
+
+        {# Mark all #}
+        <div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger">
+          <i class="fas fa-circle" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Check all {% endtrans %}</span>
+        </div>
+
+        {#  Show Keywords on Files #}
+        <div
+          class="unig-tag unig-show-keywords-on-files unig-show-keywords-on-files-trigger unig-button-keywords-toggle-all">
+          <i class="fas fa-list" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Show Keywords on Files {% endtrans %}</span>
+        </div>
+
 
         {# search #}
-        {#
-        <div class="unig-toolbar-head-search">
+        {#        <div class="unig-toolbar-head-search">
                   <i class="fas fa-search" aria-hidden="true"></i>
                   <input type="text" name="unig-keywords-autocomplete"
                          placeholder="{% trans %} search {% endtrans %}">
-                </div>
-                #}
+                </div>#}
 
       </div>
       <div class="unig-toolbar-body">
@@ -363,10 +387,6 @@
 
       {# Button Show Keywords on Files #}
       <div class="unig-toolbar-footer">
-        <div class="unig-button unig-button-small unig-button-keywords-toggle-all">
-          <i class="fas fa-list" aria-hidden="true"></i>
-          Show Keywords on Files
-        </div>
       </div>
 
     </div> {# Toolbar - Keywords #}
@@ -374,18 +394,49 @@
     {# Toolbar - People #}
     <div class="unig-toolbar unig-toolbar-people" style="display: none">
 
-      <div class="unig-toolbar-head"></div>
+      <div class="unig-toolbar-head">
+        {# title #}
+        <div class="unig-toolbar-head-title">
+          <span class="unig-toolbar-head-title-icon">
+            <i class="fas fa-user" aria-hidden="true"></i>
+          </span>
+          <span class="unig-toolbar-head-title-label">
+            {% trans %} People Names {% endtrans %}
+          </span>
+        </div>
+
+        {# space #}
+        <div class="unig-space"></div>
+
+        {# separator #}
+        <div class="unig-separator"></div>
+
+        {# Unmark all  #}
+        <div
+          class="unig-tag unig-unmark-all-tags unig-button-people-unmark-all-tags unig-people-unmark-all-tags-trigger">
+          <i class="far fa-times" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Uncheck all {% endtrans %}</span>
+        </div>
+
+        {# Mark all #}
+        <div class="unig-tag unig-mark-all-tags unig-button-people-mark-all-tags unig-people-mark-all-tags-trigger">
+          <i class="fas fa-circle" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Check all {% endtrans %}</span>
+        </div>
+
+        {#  Show Keywords on Files #}
+        <div class="unig-tag unig-show-people-on-files unig-show-people-on-files-trigger unig-button-people-toggle-all">
+          <i class="fas fa-list" aria-hidden="true"></i>
+          <span class="unig-tags-title">{% trans %} Show People Names on Files {% endtrans %}</span>
+        </div>
+
+      </div>
       <div class="unig-toolbar-body">
         <div class="unig-toolbar-people-tags-container">
           {# Placeholder for tags#}
         </div>
       </div>
       <div class="unig-toolbar-footer">
-        <div class="unig-button unig-button-people-toggle-all">
-          <i class="fas fa-user" aria-hidden="true"></i>
-          {% trans %} Show People Names on Files {% endtrans %}
-
-        </div>
       </div>
     </div> {# Toolbar - People #}
 
@@ -621,16 +672,19 @@
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_sd.url }}"
                       data-size="sd"
-                      data-name="{{ file.image.title }}">
+                      data-name="{{ file.file_name }}"
+                      data-id="{{ file.id }}"
+                  >
                     <td class="unig-file-download-table-label">SD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_sd.width }}&thinsp;px
                     </td>
                     <td class="unig-file-download-table-size">
-                      <span class="unig-file-download-table-size-sd">{{ file.image.unig_sd.file_size_formatted }}</span>
+                      <span class="unig-file-download-table-size-sd">
+                        {{ file.image.unig_sd.file_size_formatted }}</span>
                     </td>
-                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                 aria-hidden="true"></i>
+                    <td class="unig-file-download-table-icon">
+                      <i class="fas fa-download" aria-hidden="true"></i>
                     </td>
 
                   </tr>
@@ -638,16 +692,20 @@
                   {# HD #}
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.unig_hd.url }}"
-                      data-size="hd">
+                      data-size="hd"
+                      data-name="{{ file.file_name }}"
+                      data-id="{{ file.id }}"
+                  >
                     <td class="unig-file-download-table-label">HD</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.unig_hd.width }}&thinsp;px
                     </td>
                     <td class="unig-file-download-table-size">
-                      <span class="unig-file-download-table-size-hd">{{ file.image.unig_hd.file_size_formatted }}</span>
+                      <span class="unig-file-download-table-size-hd">
+                        {{ file.image.unig_hd.file_size_formatted }}</span>
                     </td>
-                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                 aria-hidden="true"></i>
+                    <td class="unig-file-download-table-icon">
+                      <i class="fas fa-download" aria-hidden="true"></i>
                     </td>
 
                   </tr>
@@ -655,17 +713,22 @@
                   {# XL #}
                   <tr role="button" class="unig-file-download-trigger"
                       data-unig-file-url="{{ file.image.original.url }}"
-                      data-size="xl">
+                      data-size="xl"
+                      data-name="{{ file.file_name }}"
+                      data-id="{{ file.id }}"
+                  >
                     <td class="unig-file-download-table-label">XL</td>
                     <td class="unig-file-download-table-width">
                       {{ file.image.original.width }}&thinsp;px
                     </td>
                     <td class="unig-file-download-table-size">
                       <span
-                        class="unig-file-download-table-size-xl">{{ file.image.original.file_size_formatted }}</span>
+                        class="unig-file-download-table-size-xl">
+                        {{ file.image.original.file_size_formatted }}
+                      </span>
                     </td>
-                    <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                                 aria-hidden="true"></i>
+                    <td class="unig-file-download-table-icon">
+                      <i class="fas fa-download"  aria-hidden="true"></i>
                     </td>
 
                   </tr>

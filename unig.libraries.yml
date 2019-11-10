@@ -59,7 +59,7 @@ unig.project.admin:
       assets/css/unig_album.css: {}
       assets/css/unig_image.css: {}
       assets/css/unig_project.css: {}
-      assets/css/unig_project_user.css: {}
+      assets/css/unig_project_download.css: {}
       assets/css/theme/dark.css: {}
       assets/css/unig_responsive.css: {}
   js:
@@ -69,15 +69,16 @@ unig.project.admin:
     assets/js/UnigStore.js: {}
     assets/js/UnigProject.js: {}
     assets/js/UnigSortProject.js: {}
-    assets/js/UnigDownload.js: {}
     assets/js/UnigKeywords.js: {}
     assets/js/UnigPeople.js: {}
     assets/js/UnigAdmin.js: {}
     assets/js/UnigFile.js: {}
     assets/js/UnigSize.js: {}
+    assets/js/UnigDownload.js: {}
     assets/js/UnigLazyLoad.js: {}
     assets/js/UnigOptions.js: {}
     assets/js/UnigFavorite.js: {}
+    assets/js/UnigImageStyles.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings

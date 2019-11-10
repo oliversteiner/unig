@@ -937,6 +937,11 @@ td.unig-file-download-table-size {
   color: #515151;
 }
 
+.unig-button.unig-button-cancel-download {
+  margin: 10px;
+  border: 1px solid silver;
+}
+
 .unig-file-rating {
   margin: auto;
 }
@@ -1128,6 +1133,57 @@ ul.unig-tags-keywords {
   padding: 10px 5px 5px 5px;
 }
 
+.unig-mark-all-tags,
+.unig-show-keywords-on-files,
+.unig-show-people-on-files,
+.unig-unmark-all-tags {
+  border-color: inherit;
+  background-color: inherit;
+  opacity: 0.5;
+}
+.unig-mark-all-tags .unig-tags-title,
+.unig-show-keywords-on-files .unig-tags-title,
+.unig-show-people-on-files .unig-tags-title,
+.unig-unmark-all-tags .unig-tags-title {
+  display: none;
+}
+
+.unig-mark-all-tags:hover,
+.unig-show-keywords-on-files:hover,
+.unig-show-people-on-files:hover,
+.unig-unmark-all-tags:hover {
+  border-color: inherit;
+  background-color: inherit;
+  opacity: 1;
+}
+.unig-mark-all-tags:hover .unig-tags-title,
+.unig-show-keywords-on-files:hover .unig-tags-title,
+.unig-show-people-on-files:hover .unig-tags-title,
+.unig-unmark-all-tags:hover .unig-tags-title {
+  padding: 0 5px;
+  display: inline-block;
+}
+
+.unig-toolbar {
+  border: 1px solid #e6e6e6;
+  background: #f6f6f6;
+  padding: 10px;
+}
+
+.unig-toolbar-favorite-toggle.active {
+  color: #ff0004;
+}
+
+.unig-toolbar-head-title-icon {
+  margin-right: 10px;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.unig-toolbar-head-title-label {
+  display: inline-block;
+}
+
 .unig-toolbar-footer .unig-button,
 .unig-toolbar-body .unig-button,
 .unig-toolbar-head .unig-button {
@@ -1147,34 +1203,13 @@ ul.unig-tags-keywords {
 }
 
 .unig-toolbar-head-title {
-  border-bottom: solid 1px #e3e2e2;
   display: inline-block;
 }
 
 .unig-toolbar-head {
   border-bottom: 1px solid;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-}
-
-.unig-mark-all-tags,
-.unig-unmark-all-tags {
-  border-color: inherit;
-  background-color: inherit;
-}
-.unig-mark-all-tags .unig-tags-title,
-.unig-unmark-all-tags .unig-tags-title {
-  display: none;
-}
-
-.unig-toolbar {
-  border: 1px solid #e6e6e6;
-  background: #f6f6f6;
-  padding: 10px;
-}
-
-.unig-toolbar-favorite-toggle.active {
-  color: #ff0004;
+  margin-bottom: 7px;
+  padding-bottom: 1px;
 }
 
 .unig-fieldset {
@@ -1624,15 +1659,15 @@ hr.unig {
   padding-left: 10px;
 }
 
-.unig-seperator.invert,
-.unig-seperator {
+.unig-separator.invert,
+.unig-separator {
   display: inline-block;
   margin-right: 10px;
   padding-left: 10px;
   border-left: 1px solid #e6e6e6;
 }
 
-.unig-seperator.invert {
+.unig-separator.invert {
   border-left: 1px solid #4a4a4a;
 }
 

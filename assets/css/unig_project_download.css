@@ -12,5 +12,15 @@
   border: 1px solid transparent;
   background: transparent;
 }
+.unig-project-user .unig-button-image-size {
+  color: #c3c3c3;
+}
+.unig-project-user .unig-button-image-size.active {
+  color: black;
+}
+.unig-project-user .unig-button.unig-button-cancel-download {
+  margin: 10px;
+  border: 1px solid silver;
+}
 
-/*# sourceMappingURL=unig_project_user.css.map */
+/*# sourceMappingURL=unig_project_download.css.map */

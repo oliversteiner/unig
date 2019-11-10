@@ -5,6 +5,7 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
     project: {},
+    files: [],
 
     attach(context, settings) {
       $('#unig-main', context)
@@ -15,6 +16,8 @@
             console.log('project loading...');
 
             this.project = drupalSettings.unig.project.project;
+            this.files = drupalSettings.unig.project.files;
+
             const projectId = this.project.id;
             console.log('Done.');
 
@@ -29,152 +32,6 @@
     },
   };
 
-  Drupal.behaviors.unigData.project2 = {
-    hostname: 'default',
-    name: '',
-    name_url: '',
-    id: 0,
-    data: {},
-
-    load() {
-      const project = drupalSettings.unig.project.project;
-      this.set(project);
-    },
-    set(project) {
-      this.name = project.title;
-      this.name_url = project.title_url;
-      this.hostname = project.host;
-      this.id = project.project_id;
-      this.data = project;
-    },
-    destroy() {
-      this.name = '';
-      this.name_url = '';
-      this.id = 0;
-      this.data = {};
-    },
-    getName() {
-      return this.name;
-    },
-    getId() {
-      return this.id;
-    },
-  };
-
-  /**
-   * File-IDs in Download List
-   *
-   * @type {{localStorageName: string, list: Array, add:
-   *     Drupal.behaviors.unigData.FilesForDownload.add, remove:
-   *     Drupal.behaviors.unigData.FilesForDownload.remove, destroy:
-   *     Drupal.behaviors.unigData.FilesForDownload.destroy, clean:
-   *     Drupal.behaviors.unigData.FilesForDownload.clean, save:
-   *     Drupal.behaviors.unigData.FilesForDownload.save, load:
-   *     Drupal.behaviors.unigData.FilesForDownload.load, get:
-   *     Drupal.behaviors.unigData.FilesForDownload.get, find:
-   *     Drupal.behaviors.unigData.FilesForDownload.find, count:
-   *     Drupal.behaviors.unigData.FilesForDownload.count}}
-   */
-  Drupal.behaviors.unigData.FilesForDownload = {
-    localStorageName: 'unig.itemsForDownload.',
-    list: [],
-
-    add(nid) {
-      const intNid = parseInt(nid, 10);
-      if (intNid) {
-        this.list.push(intNid);
-      }
-    },
-
-    /**
-     * remove from list
-     *
-     */
-    remove(nid) {
-      const index = this.list.indexOf(nid);
-      // remove it
-      if (index > -1) {
-        this.list.splice(index, 1);
-      }
-    },
-
-    destroy() {
-      this.list = [];
-    },
-
-    /**
-     * remove empty items and dublicates
-     * @return {*}
-     */
-    clean() {
-      this.list = Drupal.behaviors.unig.cleanArray(this.list);
-    },
-
-    /**
-     * save to localStorage
-     */
-    save() {
-      const storageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.id
-      }`;
-
-      localStorage.setItem(storageName, this.list);
-    },
-
-    /**
-     * load from localStorage
-     */
-    load() {
-      const storagename = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.id
-      }`;
-      const localString = localStorage.getItem(storagename);
-
-      if (localString != null) {
-        this.list = localString.split(',');
-        this.clean();
-      }
-      return true;
-    },
-
-    /**
-     *
-     * @return {*}
-     */
-    get() {
-      if (this.count() > 0) {
-        return this.list;
-      }
-      return false;
-    },
-
-    find(nid) {
-      const search = this.list.indexOf(nid);
-
-      return search !== -1;
-    },
-
-    /**
-     *
-     * @return {number}
-     */
-    count() {
-      return this.list.length;
-    },
-  };
-
-  /**
-   * Files
-   *
-   * @type {{list: Array, route: string, load:
-   *     Drupal.behaviors.unigData.FileList.load, destroy:
-   *     Drupal.behaviors.unigData.FileList.destroy, get:
-   *     Drupal.behaviors.unigData.FileList.get, set:
-   *     Drupal.behaviors.unigData.FileList.set, count:
-   *     Drupal.behaviors.unigData.FileList.count}}
-   */
   Drupal.behaviors.unigData.FileList = {
     list: [],
     keywords: [],
@@ -184,24 +41,10 @@
     remove(id) {
       // Remove item from List
       this.list = this.list.filter(item => item.id !== id);
-      this.updateNumberOf();
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
-    updateNumberOf() {
-      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
-      const number_of_current_items =
-        Drupal.behaviors.unigPeople.Visible.length;
 
-      let text = number_of_all_items;
-      if (number_of_current_items > 0) {
-        $('.unig-button-download-add-current-to-list').show();
-        $('.number-of-visible').html(number_of_current_items);
-        $('.icon-of-visible').html('<i class="fas fa-user" aria-hidden="true"></i>');
-
-      } else {
-        $('.unig-button-download-add-current-to-list').hide();
-      }
-    },
 
     load() {
       const fileList = drupalSettings.unig.project.files;
@@ -217,7 +60,7 @@
       Drupal.behaviors.unigData.projectPeople.load(fileList);
     },
 
-    destroy() {
+    clear() {
       this.list = [];
     },
     /**
@@ -269,85 +112,10 @@
     count() {
       return this.list.length;
     },
-
-    /**
-     *
-     *
-     * @param ArrayId
-     * @return {Array}
-     */
-    findKeyword(ArrayId) {
-      const results = [];
-      const list = this.list;
-
-      for (let i = 0; i < ArrayId.length; i++) {
-        const id = parseInt(ArrayId[i], 10);
-
-        let key;
-        for (key in list) {
-          if (list.hasOwnProperty(key)) {
-            const keywords = list[key].keywords;
-
-            for (const index in keywords) {
-              if (keywords.hasOwnProperty(id)) {
-                const KeywordId = parseInt(keywords[index].id, 10);
-
-                // Keyword-ID in File ?
-                if (KeywordId === id) {
-                  // add file to Resultlist
-                  const nid = parseInt(list[key].nid, 10);
-                  results.push(nid);
-                }
-              }
-            }
-          }
-        }
-      }
-
-      return results;
-    },
-
-    countKeyword(arrID) {
-      const results = [];
-      const list = this.list;
-
-      for (let i = 0; i < arrID.length; i++) {
-        const id = parseInt(arrID[i], 10);
-
-        let key;
-        for (key in list) {
-          if (list.hasOwnProperty(key)) {
-            const keywords = list[key].keywords;
-
-            for (const index in keywords) {
-              if (keywords.hasOwnProperty(id)) {
-                const keywordID = parseInt(keywords[index].id, 10);
-
-                // Keyword-ID in File ?
-                if (keywordID === id) {
-                  // add file to Resultlist
-                  const nid = parseInt(list[key].nid, 10);
-                  results.push(nid);
-                }
-              }
-            }
-          }
-        }
-      }
-
-      return results;
-    },
   };
 
   /**
    * Keywords
-   *
-   * @type {{list: Array, route: string, load:
-   *     Drupal.behaviors.unigData.FileList.load, destroy:
-   *     Drupal.behaviors.unigData.FileList.destroy, get:
-   *     Drupal.behaviors.unigData.FileList.get, set:
-   *     Drupal.behaviors.unigData.FileList.set, count:
-   *     Drupal.behaviors.unigData.FileList.count}}
    */
   Drupal.behaviors.unigData.projectKeywords = {
     list: [],
@@ -376,14 +144,13 @@
           this.list = keywordsList;
           // Drupal.behaviors.unigKeywords.searchAutocomplete(keywordsList);
           Drupal.behaviors.unigKeywords.buildTags(keywordsList);
-          Drupal.behaviors.unigKeywords.updateDisplay();
+          Drupal.behaviors.unigKeywords.update();
         })
         .fail(xhr => {
         });
-
     },
 
-    destroy() {
+    clear() {
       this.list = [];
     },
 
@@ -413,7 +180,9 @@
     },
   };
 
-
+  /**
+   * People
+   */
   Drupal.behaviors.unigData.projectPeople = {
     list: [],
     route: 'unig/term/people/json',
@@ -446,7 +215,7 @@
         });
     },
 
-    destroy() {
+    clear() {
       this.list = [];
     },
 
@@ -473,101 +242,6 @@
       }
 
       return length;
-    },
-  };
-
-  Drupal.behaviors.unigData.peopleStorage = {
-    localStorageName: 'unig.people.',
-
-    list: [],
-
-    add(nid) {
-      const intNid = parseInt(nid, 10);
-      if (intNid) {
-        this.list.push(intNid);
-      }
-    },
-
-    /**
-     * remove from list
-     *
-     */
-    remove(nid) {
-      const index = this.list.indexOf(nid); // indexOf is not supported in
-      // IE 7 and 8.
-      // remove it
-      if (index > -1) {
-        this.list.splice(index, 1);
-      }
-    },
-
-    destroy() {
-      this.list = [];
-    },
-
-    /**
-     * remove empty items and dublicates
-     * @return {*}
-     */
-    clean() {
-      this.list = Drupal.behaviors.unig.cleanArray(this.list);
-    },
-
-    /**
-     * save to localStorage
-     */
-    save() {
-      const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.id
-      }`;
-
-      localStorage.setItem(localStorageName, this.list);
-    },
-
-    /**
-     * load from localStorage
-     */
-    load() {
-      const localStorageName = `${this.localStorageName +
-      Drupal.behaviors.unigData.project.hostname}.${
-        Drupal.behaviors.unigData.project.id
-      }`;
-
-      const localString = localStorage.getItem(localStorageName);
-
-      if (localString != null) {
-        this.list = localString.split(',');
-        this.clean();
-      }
-      return true;
-    },
-
-    /**
-     * returns array or false
-     */
-    get() {
-      if (this.count() > 0) {
-        return this.list;
-      }
-      return false;
-    },
-
-    find(nid) {
-      const search = this.list.indexOf(nid);
-
-      if (search === -1) {
-        return false;
-      }
-      return true;
-    },
-
-    /**
-     *
-     * @return {number}
-     */
-    count() {
-      return this.list.length;
     },
   };
 })(jQuery, Drupal, drupalSettings);

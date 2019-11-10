@@ -131,36 +131,31 @@
   justify-content: space-around;
   padding: 10px 5px 5px 5px;
 }
-.unig-toolbar-footer .unig-button,
-.unig-toolbar-body .unig-button,
-.unig-toolbar-head .unig-button {
-  border-radius: 2px;
-  font-size: 0.8em;
-  margin: 2px 5px;
-  padding: 2px 5px;
-}
-.unig-toolbar-head-search {
-  display: inline-block;
-  float: right;
-}
-.unig-toolbar-head-search input {
-  border-radius: 5px;
-}
-.unig-toolbar-head-title {
-  border-bottom: solid 1px $color-toolbox-stroke;
-  display: inline-block;
-}
-.unig-toolbar-head {
-  border-bottom: 1px solid;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-}
+
+
+
 .unig-mark-all-tags,
+.unig-show-keywords-on-files,
+.unig-show-people-on-files,
 .unig-unmark-all-tags {
   border-color: inherit;
   background-color: inherit;
+  opacity: 0.5;
   // border: 1px solid green;
   .unig-tags-title {
     display: none;
+  }
+}
+
+.unig-mark-all-tags:hover,
+.unig-show-keywords-on-files:hover,
+.unig-show-people-on-files:hover,
+.unig-unmark-all-tags:hover {
+  border-color: inherit;
+  background-color: inherit;
+  opacity: 1;
+  .unig-tags-title {
+    padding: 0 5px;
+    display: inline-block;
   }
 }

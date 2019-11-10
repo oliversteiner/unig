@@ -10,7 +10,6 @@
       this.context,
     ),
 
-    Visible: [],
     attach(context, settings) {
       // onload
 
@@ -20,7 +19,7 @@
           this.constructor(context, settings);
           this.addAll();
           this.markAllAsActive();
-          this.updateDisplay();
+          this.update();
         });
     },
 
@@ -97,7 +96,7 @@
      *
      */
     removeAll() {
-      this.Store.destroy();
+      this.Store.clear();
     },
     /**
      *
@@ -132,7 +131,7 @@
      *
      *
      */
-    updateDisplay() {
+    update() {
       this.peopleList = Drupal.behaviors.unigData.projectPeople.list;
 
       // target
@@ -159,6 +158,7 @@
         // remove text
         $targetNumberOf.html();
       }
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     buildTags(peopleList) {
@@ -184,20 +184,10 @@
       const prefix = '<ul class="unig-tags unig-tags-people">';
       const suffix = '</ul><span class="build-done"></span>';
 
-      const buttonMarkAll =
-        '<div class="unig-tag unig-mark-all-tags unig-button-people-mark-all-tags unig-people-mark-all-tags-trigger">' +
-        '<i class="fas fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">check all</span>' +
-        '</div>';
 
-      const buttonUnMarkAll =
-        '<div class="unig-tag unig-unmark-all-tags unig-button-people-unmark-all-tags unig-people-unmark-all-tags-trigger">' +
-        '<i class="far fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">uncheck all</span>' +
-        '</div>';
 
       // Build DOM
-      const html = buttonMarkAll + buttonUnMarkAll + prefix + elemLi + suffix;
+      const html =  prefix + elemLi + suffix;
 
       // Add to dom
       this.$tags_container.html(html);
@@ -207,30 +197,27 @@
       $('.unig-people-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       $('.unig-people-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       // Update GUI
 
       $('.build-done').ready(() => {
         scope.reMark();
-        scope.updateDisplay();
+        scope.update();
       });
     },
 
     toggleTag(id){
       this.toggle(id);
       this.toggleMark(id);
-      this.updateDisplay();
-      Drupal.behaviors.unigDownload.updateFiles();
+      this.update();
     },
 
     /**
@@ -250,10 +237,10 @@
     },
 
     clearDownloadList() {
-      this.Store.destroy();
+      this.Store.clear();
       this.markAllAsInactive();
       this.buildTags();
-      this.updateDisplay();
+      this.update();
       Drupal.behaviors.unigDownload.updateFiles();
     },
 
@@ -288,7 +275,7 @@
           const id = item.getAttribute('data-id');
           Scope.add(id);
           Scope.markAsActive(id);
-          Scope.updateDisplay();
+          Scope.update();
           Drupal.behaviors.unigDownload.updateFiles();
         },
       });

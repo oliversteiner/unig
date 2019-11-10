@@ -3,8 +3,10 @@
     version: '1.0.0',
     show: false,
     number_of_favorites: 0,
+    filter:false,
     toggleShowOnlyFavorites() {
       this.show = !this.show;
+      this.filter = !this.filter;
       const fullList = Drupal.behaviors.unigData.FileList.list;
 
       if (fullList && fullList.length > 0) {
@@ -46,6 +48,8 @@
       this.number_of_favorites = favorites.length;
 
       $('.unig-favorite-number-of').html(this.number_of_favorites);
+      Drupal.behaviors.unigProject.updateBrowser();
+
     },
 
     toggleFavorite: function(fileId, projectId) {

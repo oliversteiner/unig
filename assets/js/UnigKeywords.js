@@ -2,7 +2,6 @@
   Drupal.behaviors.unigKeywords = {
     keywordList: [],
     Store: {},
-    Visible: [],
     isToolbarOpen: false,
     $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
     $check_all_keywords_trigger: $(
@@ -23,7 +22,7 @@
           this.constructor(context, settings);
           this.addAll();
           this.markAllAsActive();
-          this.updateDisplay();
+          this.update();
         });
     },
     toggleToolbar(context) {
@@ -104,7 +103,7 @@
      *
      */
     removeAll() {
-      this.Store.destroy();
+      this.Store.clear();
     },
     /**
      *
@@ -139,7 +138,7 @@
      *
      *
      */
-    updateDisplay() {
+    update() {
       this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
       // target
       const $targetNumberOf = $('.unig-keywords-display');
@@ -167,6 +166,7 @@
         // remove text
         $targetNumberOf.html();
       }
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     buildTags(keywordsList) {
@@ -192,20 +192,8 @@
       const prefix = '<ul class="unig-tags unig-tags-keywords">';
       const suffix = '</ul><span class="build-done"></span>';
 
-      const buttonMarkAll =
-        '<div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger">' +
-        '<i class="fas fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">check all</span>' +
-        '</div>';
-
-      const buttonUnMarkAll =
-        '<div class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">' +
-        '<i class="far fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">uncheck all</span>' +
-        '</div>';
-
       // Build DOM
-      const html = buttonMarkAll + buttonUnMarkAll + prefix + elemLi + suffix;
+      const html =  prefix + elemLi + suffix;
 
       // Add to dom
       this.$tags_container.html(html);
@@ -215,30 +203,27 @@
       $('.unig-keywords-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       $('.unig-keywords-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       // Update GUI
 
       $('.build-done').ready(() => {
         scope.reMark();
-        scope.updateDisplay();
+        scope.update();
       });
     },
 
     toggleTag(id){
       this.toggle(id);
       this.toggleMark(id);
-      this.updateDisplay();
-      Drupal.behaviors.unigDownload.updateFiles();
+      this.update();
     },
 
     /**
@@ -258,11 +243,10 @@
     },
 
     clearDownloadList() {
-      this.Store.destroy();
+      this.Store.clear();
       this.markAllAsInactive();
       this.buildTags();
-      this.updateDisplay();
-      Drupal.behaviors.unigDownload.updateFiles();
+      this.update();
     },
 
     /**
@@ -296,8 +280,7 @@
           const id = item.getAttribute('data-id');
           Scope.add(id);
           Scope.markAsActive(id);
-          Scope.updateDisplay();
-          Drupal.behaviors.unigDownload.updateFiles();
+          Scope.update();
         },
       });
     },
