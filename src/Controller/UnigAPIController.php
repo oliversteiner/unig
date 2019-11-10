@@ -7,6 +7,8 @@ use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\node\Entity\Node;
 use Drupal\unig\Models\UnigFile;
 use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\ProjectTemplateTrait;
@@ -98,14 +100,36 @@ class UnigAPIController extends ControllerBase
     return new JsonResponse($response);
   }
 
-  public function file(): JsonResponse
+  /**
+   * @param $file_id
+   * @param $project_id
+   * @return JsonResponse
+   * @throws \Exception
+   */
+  public function file($file_id, $project_id): JsonResponse
   {
-    $post_as_json = \Drupal::request()->getContent();
-    $methods = \Drupal::request()->getMethod();
+    $label = 'Unig File';
+    $name = 'file';
+    $base = 'unig/api/';
+    $version = '1.0.6';
 
-    $data = json_decode($post_as_json, true);
+     $result = UnigFile::buildFile($file_id);
 
-    return new JsonResponse($methods);
+/*    $node = Node::load($file_id);
+    $image_style_name = 'large';
+    $styled_image_url = ImageStyle::load($image_style_name)->buildUrl($node->field_unig_image->entity->getFileUri());*/
+
+
+    $response = [
+      'label' => $label,
+      'path' => $base . $name,
+      'version' => $version,
+      'project_id' => $project_id,
+      'file_id' => $file_id,
+      'file' => $result,
+    ];
+
+    return new JsonResponse($response);
   }
 
   /**

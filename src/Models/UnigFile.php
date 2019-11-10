@@ -8,12 +8,14 @@ use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\unig\Utility\AlbumTrait;
+use Drupal\unig\Utility\Helper;
 use Drupal\unig\Utility\ProjectTrait;
 use Drupal\unig\Utility\UnigCache;
 use Exception;
 
 class UnigFile
 {
+  use Drupal\unig\Utility\CreateImageStylesTrait;
   public const type = 'unig_file';
 
   /* Drupal Fields */
@@ -51,7 +53,9 @@ class UnigFile
 
         // Node delete success
         $status = true;
-        $message = t('The file with the ID %file_id was deleted.', [ '%file_id'=> $file_id]);
+        $message = t('The file with the ID %file_id was deleted.', [
+          '%file_id' => $file_id
+        ]);
 
         // Clear Project Cache
         if ($project_id) {
@@ -84,7 +88,7 @@ class UnigFile
     $message = '';
 
     if ($file_id) {
-      $node = Node::Load((integer)$file_id);
+      $node = Node::Load((int) $file_id);
 
       // load node
       if ($node) {
@@ -94,10 +98,16 @@ class UnigFile
           $status = true;
 
           // Status Message
-          if($value){
-          $message = t('The file with the ID %file_id was marked as favorite.', [ '%file_id'=> $file_id]);
-          }else{
-            $message = t('The file with the ID %file_id is no longer a favorite.', [ '%file_id'=> $file_id]);
+          if ($value) {
+            $message = t(
+              'The file with the ID %file_id was marked as favorite.',
+              ['%file_id' => $file_id]
+            );
+          } else {
+            $message = t(
+              'The file with the ID %file_id is no longer a favorite.',
+              ['%file_id' => $file_id]
+            );
           }
 
           // Clear Project Cache
@@ -108,9 +118,11 @@ class UnigFile
           // on Error
         } catch (EntityStorageException $e) {
           $status = 'error';
-          $message = t('Can\'t save changes of File %file_id. ', [ '%file_id'=> $file_id]).$e;
+          $message =
+            t('Can\'t save changes of File %file_id. ', [
+              '%file_id' => $file_id
+            ]) . $e;
         }
-
       }
       // no Node found
       else {
@@ -219,7 +231,6 @@ class UnigFile
     // $file_path = FileSystem::realpath($entity->get('field_unig_image')->entity->getFileUri());
     $file_name = $entity->get('field_unig_image')->entity->getFilename();
 
-
     // people
     $people = [];
     $node_people = $entity->get('field_unig_people')->getValue();
@@ -230,7 +241,7 @@ class UnigFile
 
         if ($term) {
           $name = $term->getName();
-          $item = ['id' => (integer)$tid, 'name' => (string)$name];
+          $item = ['id' => (int) $tid, 'name' => (string) $name];
           $people[] = $item;
         }
       }
@@ -245,7 +256,7 @@ class UnigFile
 
         if ($term) {
           $name = $term->getName();
-          $item = ['id' => (integer)$tid, 'name' => (string)$name];
+          $item = ['id' => (int) $tid, 'name' => (string) $name];
           $keywords[] = $item;
         }
       }
@@ -255,7 +266,7 @@ class UnigFile
 
     // Twig-Variables
     $file = [
-      'id' => (int)$nid,
+      'id' => (int) $nid,
       'title' => $title,
       'description' => $description,
       'album_list' => $album_list,
@@ -264,7 +275,7 @@ class UnigFile
       'comments' => $comments,
       'weight' => $weight,
       'rating' => $rating,
-      'favorite' => (integer)$favorite,
+      'favorite' => (int) $favorite,
       'copyright' => $copyright,
       'people' => $people,
       'keywords' => $keywords,
@@ -274,4 +285,20 @@ class UnigFile
     return $file;
   }
 
+  /**
+   * @param $unig_file_id
+   * @return array|Drupal\Core\Image\Image
+   * @throws Exception
+   */
+  public static function forceImageStyleFromUnigFile($unig_file_id)
+  {
+    $variables = [];
+    $node = Node::load($unig_file_id);
+    if ($node) {
+      $unig_image_id = Helper::getFieldValue($node, 'unig_image');
+      $variables = self::forceImageStyle($unig_image_id, 'large');
+    }
+
+    return $variables;
+  }
 }

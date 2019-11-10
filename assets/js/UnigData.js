@@ -5,6 +5,7 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigData = {
     project: {},
+    files: [],
 
     attach(context, settings) {
       $('#unig-main', context)
@@ -15,6 +16,8 @@
             console.log('project loading...');
 
             this.project = drupalSettings.unig.project.project;
+            this.files = drupalSettings.unig.project.files;
+
             const projectId = this.project.id;
             console.log('Done.');
 
