@@ -12,7 +12,7 @@
         .each(() => {
           console.log('unigImageStyles loaded' );
 
-          this.project = drupalSettings.unig.project.project;
+ /*         this.project = drupalSettings.unig.project.project;
           this.files = drupalSettings.unig.project.files;
 
           // load all unig_sd with no size
@@ -81,6 +81,10 @@
 
           });
 
+*/
+          // Worker test
+
+
 
         });
     },
@@ -88,10 +92,39 @@
   };
 })(jQuery, Drupal, drupalSettings);
 
+/*
 async function getImagesAsync(url, name)
 {
   let response = await fetch(url);
   let data ={name:name, response:{}};
   data.response = await response;
   return data;
+}
+*/
+
+
+let worker;
+
+function startWorker() {
+  if (typeof(Worker) !== "undefined") {
+    if (typeof(worker) == "undefined") {
+      // worker = new Worker("workerStyles.js");
+      worker = new Worker('https://drullo.local/modules/custom/unig/assets/js/workerStyles.js');
+      const path = drupalSettings.unig.path;
+      console.log('path', path);
+      worker = new Worker(path+'/assets/js/workerStyles.js');
+      worker.postMessage(drupalSettings.unig.project.files)
+
+    }
+    worker.onmessage = function(event) {
+      document.getElementById("result").innerHTML = event.data;
+    };
+  } else {
+    document.getElementById("result").innerHTML = "Sorry! No Web Worker support.";
+  }
+}
+
+function stopWorker() {
+  worker.terminate();
+  worker = undefined;
 }

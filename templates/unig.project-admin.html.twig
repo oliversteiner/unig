@@ -1,6 +1,11 @@
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
 
+<p>Count numbers: <output id="result"></output></p>
+<button onclick="startWorker()">Start Worker</button>
+<button onclick="stopWorker()">Stop Worker</button>
+
+
 <div id="unig-main" class="unig unig-project unig-project-id" data-unig-project-id="{{ project.id }}">
   <div class="unig-header">
 
