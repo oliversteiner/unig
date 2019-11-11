@@ -271,7 +271,7 @@
 
           // Edit Trigger
           $('.unig-edit-trigger', context).click(event => {
-            scope.edit(event);
+            this.edit(event);
           });
 
           //  Private Project Trigger
