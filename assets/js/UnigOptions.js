@@ -81,6 +81,8 @@
 
     startGeneratingImageStyles() {
       console.log('Start Generating Image Styles');
+      Drupal.behaviors.unigImageStyles.startWorker('unig_medium');
+
       Drupal.behaviors.unigImageStyles.startWorker('unig_sd');
       Drupal.behaviors.unigImageStyles.startWorker('unig_hd');
       Drupal.behaviors.unigImageStyles.startWorker('unig_thumbnail');

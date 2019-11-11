@@ -107,7 +107,6 @@ function removeMessageByID(messageID) {
 
 
 onmessage = function(event) {
-  console.log('message from host:', event.data);
   const files = event.data.files;
   const style = event.data.style;
   generateStyles(files, style);

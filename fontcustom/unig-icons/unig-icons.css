@@ -24,7 +24,7 @@
 [data-icon]:before { content: attr(data-icon); }
 
 [data-icon]:before,
-.icon-image-size-big:before,
+.icon-image-size-large:before,
 .icon-image-size-medium:before,
 .icon-image-size-small:before {
   display: inline-block;
@@ -41,6 +41,6 @@
   font-smoothing: antialiased;
 }
 
-.icon-image-size-big:before { content: "\f100"; }
+.icon-image-size-large:before { content: "\f100"; }
 .icon-image-size-medium:before { content: "\f101"; }
 .icon-image-size-small:before { content: "\f105"; }

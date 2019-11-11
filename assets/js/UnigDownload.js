@@ -515,7 +515,6 @@
 
 
         const item = drupalSettings.unig.project.files.find(item=>item.id === id);
-        console.log('found file',item );
 
         const nameWithSize = name.replace(/\./, '-' + size + '.');
 

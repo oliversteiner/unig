@@ -2,6 +2,7 @@
   Drupal.behaviors.unigProject = {
     showKeywordsOnFile: false,
     showPeoplesOnFile: false,
+    currentSize:'medium',
     Store: {},
 
     edit(event) {
@@ -235,10 +236,6 @@
             $formElemProjectNid.val(projectId);
           });
 
-          // Generate Previews
-          $('.unig-generate-preview-images-trigger', context).click(() => {
-            Drupal.behaviors.unigLazyLoad.generatePreviewImages(context);
-          });
 
           const projectId = drupalSettings.unig.project.project.id;
 

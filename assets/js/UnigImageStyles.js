@@ -42,7 +42,6 @@ let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
     startWorker(style) {
       let text = 'Start Worker...';
       let type = 'load';
-      console.log(text);
       Drupal.behaviors.unigMessages.updateMessage(text, type, this.messageID);
 
       if (typeof Worker !== 'undefined') {
@@ -51,7 +50,6 @@ let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
             'https://drullo.local/modules/custom/unig/assets/js/workerStyles.js',
           );*/
           const path = drupalSettings.unig.path;
-          console.log('path', path);
           ImageStylesWorker[style] = new Worker(path + '/assets/js/workerStyles.js');
 
           // wait 1 Sec before starting Worker
