@@ -1,5 +1,6 @@
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
+
 {# Unig Main #}
 <div id="unig-main" class="unig unig-project unig-project-user unig-project-id"
      data-unig-project-id="{{ project.id }}">
@@ -232,7 +233,7 @@
 
       {# Body #}
       <div class="unig-toolbar-body">
-        Body
+        {{project.help|row}}
       </div>
 
       {# Footer #}
@@ -616,7 +617,7 @@
 
               {#  -----------   Description  -----------  #}
               <div class="unig-file-description">
-                {{ file.description }}
+                {{ file.description|raw }}
               </div>
 
 

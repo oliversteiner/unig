@@ -5,7 +5,6 @@
         .once('help')
         .each(() => {
           console.log('UniG Help');
-          $('.unig-toolbar-help').show();
 
           //  Toggle Help
           $('.unig-help-toggle-trigger', context).click(() => {

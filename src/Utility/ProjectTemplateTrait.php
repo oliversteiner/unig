@@ -122,7 +122,8 @@ trait ProjectTemplateTrait
       );
 
       // save project variables to cache
-      UnigCache::saveProjectCache($project_id, $variables);
+      // TODO: activate Cache
+   //   UnigCache::saveProjectCache($project_id, $variables);
     }
 
     // Module

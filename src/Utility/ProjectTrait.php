@@ -1,58 +1,25 @@
 <?php
 
-/**
- *
- *    Fields:   Unig Project
- *    __________________________________________
- *
- *    body   (formatted, long, with summary)
- *
- *    field_unig_trash          Boolean
- *
- *    field_unig_project_cover  Entity reference
- *
- *    field_unig_description    Text (formatted, long)
- *
- *    field_unig_weight          Number (integer)
- *
- *    field_unig_meta            Entity reference
- *
- *    field_unig_private        Boolean
- *
- *    field_unig_album          Entity reference
- *
- *    field_unig_date           Date
- *
- *
- */
 
 namespace Drupal\unig\Utility;
 
 use Drupal;
-use Drupal\Component\FileSystem\FileSystem;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\AlertCommand;
+
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Url;
-use Drupal\file\Entity\File;
-use Drupal\file\FileInterface;
-use Drupal\image\Entity\ImageStyle;
+
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
+use Drupal\unig\Models\UnigProject;
 use Exception;
-use http\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use User;
 
 trait ProjectTrait
 {
-  public $default_project_id;
-
-  public $project_ids = [];
 
   /**
    * @return array|int
@@ -151,14 +118,14 @@ trait ProjectTrait
       return $project_id;
     }
 
-    // Aus den Einstellungen das Defaultalbum wählen
+    // Choose the default project from settings
     $default_config = Drupal::config('unig.settings');
     $default_project_id = $default_config->get('unig.default_project');
     if ($default_project_id) {
-      return (int)$default_project_id;
+      return (int) $default_project_id;
     }
 
-    // sonst das letzte Projekt nehmen
+    // or take newest Project
     $list = ProjectTrait::getAllProjectNids();
     if ($list) {
       return array_shift($list);
@@ -267,7 +234,7 @@ trait ProjectTrait
    *
    * @return OutputController
    */
-  public static function setCover($nid_project, $nid_image = null)
+  public static function setCover($nid_project, $nid_image = null): OutputController
   {
     $output = new OutputController();
 
@@ -318,7 +285,7 @@ trait ProjectTrait
   {
     $variables = [];
     if ($nid) {
-      $node = Node::load((int)$nid);
+      $node = Node::load((int) $nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
         $variables = CreateImageStylesTrait::createImageStyles(
@@ -381,10 +348,7 @@ trait ProjectTrait
    *
    * @return array
    */
-  public static function getListofFilesInProject(
-    $nid_project,
-    $album_id = null
-  )
+  public static function getListofFilesInProject($nid_project, $album_id = null)
   {
     // bundle : unig_file
     // field: field_unig_project[0]['target_id']
@@ -480,7 +444,7 @@ trait ProjectTrait
     //
 
     // Load Project
-    $node = Node::load((int)$project_id);
+    $node = Node::load((int) $project_id);
 
     // check if Nid is Unig Project
     if ($node && $node->bundle() !== 'unig_project') {
@@ -490,37 +454,42 @@ trait ProjectTrait
     }
 
     // No Project with this Nid
+    /** @var TYPE_NAME $node */
     if (!$node) {
       return ['nid' => 0];
     }
 
     // Title
-    $title = Helper::getFieldValue($node, 'title');
+    $title = $node->label();
 
     // Body
-    $description = Helper::getFieldValue($node, 'unig_description');
+    $description = Helper::getFieldValue($node, UnigProject::field_description);
 
     // Weight
-    $weight = Helper::getFieldValue($node, 'unig_weight');
+    $weight = Helper::getFieldValue($node, UnigProject::field_weight);
 
     // Copyright
-    $copyright = Helper::getFieldValue($node, 'unig_copyright');
+    $copyright = Helper::getFieldValue($node, UnigProject::field_copyright);
 
     // Private
-    $private = Helper::getFieldValue($node, 'unig_private');
+    $private = Helper::getFieldValue($node, UnigProject::field_private);
 
     // Category
-    $category = Helper::getFieldValue($node, 'unig_category', 'unig_category');
-    $category_id = Helper::getFieldValue($node, 'unig_category');
-    $category_list = Helper::getTermsForOptionList('unig_category');
+    $category = Helper::getFieldValue($node, UnigProject::field_category, UnigProject::term_category);
+    $category_id = Helper::getFieldValue($node, UnigProject::field_category);
+    $category_list = Helper::getTermsForOptionList(UnigProject::term_category);
 
     // Tags
-    $tags = Helper::getFieldValue($node, 'unig_tags', 'unig_tags', true);
-    $tags_ids = Helper::getFieldValue($node, 'unig_tags', false, true);
-    $tags_list = Helper::getTermsForOptionList('unig_tags');
+    $tags = Helper::getFieldValue($node, UnigProject::field_tags, UnigProject::term_tags, true);
+    $tags_ids = Helper::getFieldValue($node, UnigProject::field_tags, false, true);
+    $tags_list = Helper::getTermsForOptionList(UnigProject::term_tags);
+
+    // Help
+    $help = Helper::getFieldValue($node, UnigProject::field_help);
+
 
     // Date
-    $date = Helper::getFieldValue($node, 'unig_date');
+    $date = Helper::getFieldValue($node, UnigProject::field_date);
     if ($date) {
       $format = 'Y-m-d';
       $php_date_obj = date_create_from_format($format, $date);
@@ -529,7 +498,7 @@ trait ProjectTrait
     }
 
     // Timestamp
-    $timestamp = (int)$php_date_obj->format('U');
+    $timestamp = (int) $php_date_obj->format('U');
 
     // Year
     $year = $php_date_obj->format('Y');
@@ -542,13 +511,13 @@ trait ProjectTrait
     $date_drupal = $php_date_obj->format('Y-m-d');
 
     // Cover Image
-    $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
+    $cover_id = Helper::getFieldValue($node, UnigProject::field_project_cover);
 
     if (!$cover_id) {
       $new_cover = self::setCover($project_id);
       $cover_id = $new_cover->getTid();
     }
-    $cover_image = self::getCoverImageVars((int)$cover_id);
+    $cover_image = self::getCoverImageVars((int) $cover_id);
 
     // number_of_items
     $number_of_items = self::countFilesInProject($project_id);
@@ -601,7 +570,8 @@ trait ProjectTrait
       'cover_image' => $cover_image,
       'album_list' => $album_list,
       'host' => $host,
-      'url' => $url
+      'url' => $url,
+      'help' => $help
     ];
 
     return $project;
@@ -629,8 +599,7 @@ trait ProjectTrait
   public static function getJSONFromProjectFiles(
     $project_id,
     $album_id = null
-  ): JsonResponse
-  {
+  ): JsonResponse {
     $response = new JsonResponse();
 
     // TODO: (replace $_POST with new Drupal method )
@@ -652,7 +621,6 @@ trait ProjectTrait
     $response->setData($variables);
     return $response;
   }
-
 
   /**
    * @return JsonResponse
@@ -695,8 +663,8 @@ trait ProjectTrait
     }
     foreach ($terms as $term) {
       $term_data[] = [
-        'id' => (integer)$term->tid,
-        'name' => (string)$term->name
+        'id' => (int) $term->tid,
+        'name' => (string) $term->name
       ];
     }
 
@@ -712,8 +680,7 @@ trait ProjectTrait
   public static function importKeywordsFromProject(
     $project_id,
     $album_id = null
-  ): array
-  {
+  ): array {
     $list = [];
     $nids = self::getListofFilesInProject($project_id, $album_id);
 
@@ -745,7 +712,6 @@ trait ProjectTrait
         // dpm($iptc);
         $keywords = $iptc->getKeywordTermIDs();
         $people = $iptc->getPeopleTermIds();
-
 
         // Keywords
         if (!empty($keywords)) {
@@ -781,7 +747,6 @@ trait ProjectTrait
         Drupal::logger('unig')->warning($message);
         return false;
       }
-
     } else {
       $message = 'importKeywordsFromNode: invalid NID';
       Drupal::logger('unig')->warning($message);
@@ -809,7 +774,8 @@ trait ProjectTrait
         // Node delete success
         $status = true;
         $message = 'Das Projekt mit der ID ' . $project_id . ' wurde gelöscht';
-      } // no Node found
+      }
+      // no Node found
       else {
         $status = false;
         $message = 'kein Projekt mit der ID ' . $project_id . ' gefunden';
@@ -847,9 +813,8 @@ trait ProjectTrait
   public static function saveProject()
   {
     $postReq = \Drupal::request()->request->all();
-    $project_id = $postReq['id'] ?? FALSE;
-    $data = $postReq['data'] ?? FALSE;
-
+    $project_id = $postReq['id'] ?? false;
+    $data = $postReq['data'] ?? false;
 
     // Load node
     $entity = Drupal::entityTypeManager()
@@ -875,7 +840,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int)$data['private'];
+    $int_private = (int) $data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {
