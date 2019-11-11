@@ -369,7 +369,7 @@ unig.api.file.favorit:
 # ----------------------------------------
 # clear
 unig.api.project.clear-cache:
-  path: '/unig/api/cc/{id}'
+  path: '/unig/api/clear-cache/{id}'
   defaults:
     _controller: '\Drupal\unig\Controller\UnigAPIController::clearCache'
     id: null
@@ -378,7 +378,7 @@ unig.api.project.clear-cache:
 
 # Rebuild Cache
 unig.api.project.rebuild-cache:
-  path: '/unig/api/rc/{id}'
+  path: '/unig/api/rebuild-cache/{id}'
   defaults:
     _controller: '\Drupal\unig\Controller\UnigAPIController::rebuildCache'
     id: null

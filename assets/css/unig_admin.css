@@ -1429,6 +1429,19 @@ ul.unig-messages li {
   margin-right: 7px;
 }
 
+.unig-message-timer {
+  margin-left: 7px;
+  width: 150px;
+  display: inline-block;
+  border-left: 1px solid silver;
+  padding-left: 7px;
+}
+
+.unig-message-timer-value {
+  margin-left: 5px;
+  color: #7e77c8;
+}
+
 .unig-message-type-error .unig-message-icon {
   color: #a2132b;
 }
