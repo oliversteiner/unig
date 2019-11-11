@@ -30,9 +30,13 @@ class UnigCache
     // Check if cache is empty
     $cache = self::loadProjectCache($id);
     if (empty($cache) || !$cache) {
+      $message = 'Clearing cache successfully for Project ' . $id ;
+      Drupal::logger('unig')->info($message);
       return true;
     }
 
+    $message = 'Clearing cache failed for Project ' . $id ;
+    Drupal::logger('unig')->warning($message);
     return false;
   }
 
@@ -73,13 +77,15 @@ class UnigCache
       $node->set(UnigProject::field_cache, json_encode($variables));
       try {
         $node->save();
+        $message = 'Rebuilding cache successfully for Project ' . $id ;
+        Drupal::logger('unig')->info($message);
         return true;
       } catch (EntityStorageException $e) {
-        $message = 'cant save cache for Project' . $id . ' - ' . $e;
+        $message = 'Can\'t save cache for Project' . $id . ' - ' . $e;
         Drupal::logger('unig')->warning($message);
+        return false;
       }
     }
-
     return false;
   }
 

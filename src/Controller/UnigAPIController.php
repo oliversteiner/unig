@@ -5,6 +5,7 @@ namespace Drupal\unig\Controller;
 use Drupal;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Component\Utility\Timer;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\image\Entity\ImageStyle;
@@ -75,30 +76,7 @@ class UnigAPIController extends ControllerBase
     return 'unig';
   }
 
-  /**
-   * @param $id
-   * @return JsonResponse
-   * @throws EntityStorageException
-   */
-  public function clearCache($id): JsonResponse
-  {
-    $label = 'Unig Project Clear Cache';
-    $name = 'cc';
-    $base = 'unig/api/';
-    $version = '1.0.0';
 
-    $result = UnigCache::clearProjectCache($id);
-
-    $response = [
-      'label' => $label,
-      'path' => $base . $name,
-      'version' => $version,
-      'projectId' => $id,
-      'clearCache' => $result
-    ];
-
-    return new JsonResponse($response);
-  }
 
   /**
    * @param $file_id
@@ -114,10 +92,6 @@ class UnigAPIController extends ControllerBase
     $version = '1.0.6';
 
      $result = UnigFile::buildFile($file_id);
-
-/*    $node = Node::load($file_id);
-    $image_style_name = 'large';
-    $styled_image_url = ImageStyle::load($image_style_name)->buildUrl($node->field_unig_image->entity->getFileUri());*/
 
 
     $response = [
@@ -171,9 +145,12 @@ class UnigAPIController extends ControllerBase
   public function rebuildCache($id): JsonResponse
   {
     $label = 'Unig Project Rebuild Clear Cache';
-    $name = 'rc';
+    $name = 'rebuild-cache';
     $base = 'unig/api/';
     $version = '1.0.0';
+
+
+    Timer::start($name);
 
     $result = UnigCache::clearProjectCache($id);
     $variables = [];
@@ -182,14 +159,51 @@ class UnigAPIController extends ControllerBase
     $variables['files'] = ProjectTrait::buildFileList($id, null);
     $result = UnigCache::saveProjectCache($id, $variables);
 
+    Timer::stop($name);
+    $timer = Timer::read($name);
+
     $response = [
       'label' => $label,
       'path' => $base . $name,
       'version' => $version,
       'projectId' => $id,
-      'rebuildCache' => $result
+      'rebuild-cache' => $result,
+      'timer' => $timer,
     ];
 
     return new JsonResponse($response);
   }
+
+  /**
+   * @param $id
+   * @return JsonResponse
+   * @throws EntityStorageException
+   */
+  public function clearCache($id): JsonResponse
+  {
+    $label = 'Unig Project Clear Cache';
+    $name = 'clear-cache';
+    $base = 'unig/api/';
+    $version = '1.0.0';
+
+    Timer::start($name);
+    $result = UnigCache::clearProjectCache($id);
+    Timer::stop($name);
+    $timer = Timer::read($name);
+
+    $response = [
+      'label' => $label,
+      'path' => $base . $name,
+      'version' => $version,
+      'projectId' => $id,
+      'clear-cache' => $result,
+      'timer' => $timer,
+
+    ];
+
+    return new JsonResponse($response);
+  }
+
 }
+
+
