@@ -169,6 +169,7 @@ class UnigAPIController extends ControllerBase
       'projectId' => $id,
       'cache-rebuild' => $result,
       'timer' => $timer,
+      'variables' =>$variables,
     ];
 
     return new JsonResponse($response);

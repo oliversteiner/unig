@@ -1,4 +1,4 @@
-let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
+let ImageStylesWorker = { unig_sd: undefined, unig_hd: undefined, unig_thumbnail: undefined };
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigImageStyles = {
@@ -7,7 +7,6 @@ let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
     messageID: 'generate-images',
 
     messageFromWorkerToUnig(data) {
-
       // Command
       if (data.hasOwnProperty('command')) {
         this.command(data.command, data.style, data.data);
@@ -46,19 +45,24 @@ let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
 
       if (typeof Worker !== 'undefined') {
         if (typeof worker == 'undefined') {
-/*          ImageStylesWorker[style] = new Worker(
+          /*          ImageStylesWorker[style] = new Worker(
             'https://drullo.local/modules/custom/unig/assets/js/workerStyles.js',
           );*/
           const path = drupalSettings.unig.path;
-          ImageStylesWorker[style] = new Worker(path + '/assets/js/workerStyles.js');
+          ImageStylesWorker[style] = new Worker(
+            path + '/assets/js/workerStyles.js',
+          );
 
           // wait 1 Sec before starting Worker
           setTimeout(() => {
-            const data = { files:drupalSettings.unig.project.files, style:style};
-            ImageStylesWorker[style] .postMessage(data);
+            const data = {
+              files: drupalSettings.unig.project.files,
+              style: style,
+            };
+            ImageStylesWorker[style].postMessage(data);
           }, 1000);
         }
-        ImageStylesWorker[style] .onmessage = function(event) {
+        ImageStylesWorker[style].onmessage = function(event) {
           Drupal.behaviors.unigMessages.updateMessage(
             'Worker is working.',
             type,
@@ -84,17 +88,20 @@ let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
         console.log('No active Worker found');
       } else {
         ImageStylesWorker[style].terminate();
-        ImageStylesWorker[style]  = undefined;
+        ImageStylesWorker[style] = undefined;
       }
 
       if (typeof ImageStylesWorker[style] === 'undefined') {
-        message = 'Worker Stopped, all Styles generated';
+        message = 'Worker ' + style + ' stopped';
         console.log(message);
         Drupal.behaviors.unigMessages.updateMessage(
           message,
           'success',
           this.messageID,
         );
+
+
+
       } else {
         message = "Can't stop Worker";
         console.error(message);
@@ -104,6 +111,22 @@ let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
           this.messageID,
         );
       }
+
+      // All Workers Stopped
+      if (
+        typeof ImageStylesWorker.unig_thumbnail === 'undefined' &&
+        typeof ImageStylesWorker.unig_sd === 'undefined' &&
+        typeof ImageStylesWorker.unig_hd === 'undefined'
+      ) {
+        const message = 'All Workers Stopped';
+        console.log(message);
+        Drupal.behaviors.unigMessages.updateMessage(
+          message,
+          'success',
+          this.messageID,
+        );
+        Drupal.behaviors.unigOptions.cacheRebuild();
+      }
     },
 
     attach(context) {
@@ -111,7 +134,6 @@ let ImageStylesWorker = {unig_sd:{},unig_hd:{},unig_thumbnail:{}};
         .once('unig-image-styles')
         .each(() => {
           console.log('unigImageStyles loaded');
-
         });
     },
   };

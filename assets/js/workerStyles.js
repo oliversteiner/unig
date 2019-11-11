@@ -60,7 +60,7 @@ if(numberOfFileToGenerate === 0){
         }
         numberOfGeneratedFiles++;
         if (numberOfGeneratedFiles >= numberOfFileToGenerate) {
-          text = 'All Images Generated';
+          text = 'Images Generated for '+ style;
           type = 'success';
           console.log(text);
           addMessage(text, type, messageID);

@@ -374,7 +374,7 @@ unig.api.project.cache-clear:
     _controller: '\Drupal\unig\Controller\UnigAPIController::cacheClear'
     id: null
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig download'
 
 # Rebuild Cache
 unig.api.project.cache-rebuild:
@@ -383,4 +383,4 @@ unig.api.project.cache-rebuild:
     _controller: '\Drupal\unig\Controller\UnigAPIController::cacheRebuild'
     id: null
   requirements:
-    _permission: 'access unig admin'
+    _permission: 'access unig download'

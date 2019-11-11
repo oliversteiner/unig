@@ -1,26 +1,56 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigOptions = {
-
     serverError(object) {
       const text = 'Server Error: ' + object.message;
       const type = 'error';
       Drupal.behaviors.unigMessages.addMessage(text, type);
     },
 
-    rebuildProjectCache() {
+    cacheRebuild() {
       const title = 'Rebuild Cache';
       const name = 'cache-rebuild';
-      this.projectCache(title, name)
+      this.projectCache(title, name);
     },
 
-    clearProjectCache() {
+    addFileInfo() {
+      const files = drupalSettings.unig.project.files;
+      const downloadSizes = [
+        { name: 'sd', styleName: 'unig_sd' },
+        { name: 'hd', styleName: 'unig_hd' },
+        { name: 'xl', styleName: 'original' },
+      ];
+
+      files.forEach(file => {
+        const id = file.id;
+
+        downloadSizes.forEach(downloadSize => {
+        //  console.log(' - Update Fileinfo for',id );
+
+          const name = downloadSize.name;
+          const styleName = downloadSize.styleName;
+
+          const size = file.image[styleName].file_size_formatted;
+          const width = file.image[styleName].width + '&thinsp;px';
+
+          // search
+          $(`.unig-file-${id} .unig-file-download-table-width-${name}`).html(
+            width,
+          );
+          $(`.unig-file-${id} .unig-file-download-table-size-${name}`).html(
+            size,
+          );
+        });
+      });
+    },
+
+
+    cacheClear() {
       const title = 'Clear Cache';
       const name = 'cache-clear';
-      this.projectCache(title, name)
+      this.projectCache(title, name);
     },
 
-
-      projectCache(title, name) {
+    async projectCache(title, name) {
       const id = this.getProjectID();
       const messageID = `${name}-${id}`;
       console.log(`${title} for Project ${id}`);
@@ -29,7 +59,7 @@
       let text = `${title} for Project with id: ${id}`;
       let type = 'load';
       let timer = 0;
-      Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
+      Drupal.behaviors.unigMessages.updateMessage(text, type, messageID);
 
       fetch(url).then(response => {
         if (response.status === 404) {
@@ -38,17 +68,32 @@
           });
         } else if (response.status === 200) {
           response.json().then(data => {
-
             text = `${title} for Project with id: ${data.projectId}.`;
             timer = data.timer;
             type = 'success';
+
+            if (data.variables) {
+              console.log('data.variables', data.variables);
+              drupalSettings.unig.project.project = data.variables.project;
+              drupalSettings.unig.project.album = data.variables.album;
+              drupalSettings.unig.project.files = data.variables.files;
+              this.addFileInfo();
+
+              if (Drupal.behaviors.hasOwnProperty('unigLazyLoad')) {
+                Drupal.behaviors.unigLazyLoad.loadImages();
+              }
+            }
 
             if (!data[name]) {
               text = `Cant ${title}for Project with id: ${data.projectId}`;
               type = 'error';
             }
-            Drupal.behaviors.unigMessages.removeMessageByID(messageID);
-            Drupal.behaviors.unigMessages.addMessage(text, type, messageID, timer);
+            Drupal.behaviors.unigMessages.updateMessage(
+              text,
+              type,
+              messageID,
+              timer,
+            );
           });
         }
       });
@@ -130,13 +175,13 @@
 
           //  Clear Cache
           $('.unig-clear-project-cache-trigger', context).click(() => {
-            this.clearProjectCache();
+            this.cacheClear();
             $optionsDropdown.hide();
           });
 
           //  Clear Cache
           $('.unig-rebuild-project-cache-trigger', context).click(() => {
-            this.rebuildProjectCache();
+            this.cacheRebuild();
             $optionsDropdown.hide();
           });
 

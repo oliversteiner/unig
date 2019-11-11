@@ -18,6 +18,11 @@
         styleName: 'unig_hd',
         missing: false,
       },
+      {
+        name: 'SD',
+        styleName: 'unig_sd',
+        missing: false,
+      },
     ],
 
     /**
@@ -29,6 +34,8 @@
         this.currentSize = Drupal.behaviors.unigSize.currentSize;
       }
 
+      // reset Missing Styles
+
       this.buildImgContainer().then(resolve => {
         console.log('buildImgContainer', resolve);
         this.addImages('medium').then(resolve => {
@@ -36,9 +43,12 @@
           this.addImages('small').then(resolve => {
             console.log('small', resolve);
             this.addImages('large').then(resolve => {
-              console.log('large', resolve);
-              this.remarkImages();
-              this.createMissingStyles();
+              console.log('small', resolve);
+              this.addImages('SD').then(resolve => {
+                console.log('SD', resolve);
+                this.remarkImages();
+                this.createMissingStyles();
+              });
             });
           });
         });
@@ -53,13 +63,15 @@
       this.files.forEach(file => {
         this.addImage(file, size);
       });
-      const message = 'done Add Message for ' + size;
-      return message;
+      return 'done';
     },
 
     createMissingStyles() {
       this.styles.forEach(style => {
         if (style.missing) {
+          Drupal.behaviors.unigOptions.cacheClear();
+
+          style.missing = false;
           const styleName = style.styleName;
           Drupal.behaviors.unigImageStyles.startWorker(styleName);
         }
@@ -86,7 +98,7 @@
       const styleName = style.styleName;
       const id = file.id;
 
-       console.log(` -- addImage: [${styleName}] ${file.title}`);
+      // console.log(` -- addImage: [${styleName}] ${file.title}`);
 
       // target
       $(`#unig-file-${id} .unig-lazyload-placeholder`).hide();
@@ -96,22 +108,24 @@
       if (file_size !== 0) {
         // console.log('     Image Exists', file_size);
 
-        const src = file.image[styleName].url;
-        const imgID = `img-${id}-${size}`;
+        if (size === 'small' || size ==='medium' || size ==='large') {
+          const src = file.image[styleName].url;
+          const imgID = `img-${id}-${size}`;
 
-        const NodeImg = document.createElement('img');
-        NodeImg.setAttribute('src', src);
-        NodeImg.setAttribute('alt', size);
-        NodeImg.setAttribute('id', imgID);
+          const NodeImg = document.createElement('img');
+          NodeImg.setAttribute('src', src);
+          NodeImg.setAttribute('alt', size);
+          NodeImg.setAttribute('id', imgID);
 
-        const DomTarget = document.querySelector(
-          `#unig-file-${id} .img-preview-${size}`,
-        );
-        DomTarget.append(NodeImg);
+          const DomTarget = document.querySelector(
+            `#unig-file-${id} .img-preview-${size}`,
+          );
+          DomTarget.append(NodeImg);
 
-        if (this.currentSize === size) {
-          DomTarget.setAttribute('style', 'block');
-          // DomTarget.classList.add('fade-in');
+          if (this.currentSize === size) {
+            DomTarget.setAttribute('style', 'block');
+            // DomTarget.classList.add('fade-in');
+          }
         }
       } else {
         // console.log('     No File Found ');
@@ -121,10 +135,11 @@
           }
           return style;
         });
-        console.log('this.styles', this.styles);
-
       }
     },
+
+
+
     /**
      *
      */

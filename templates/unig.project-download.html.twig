@@ -676,8 +676,8 @@
                       data-id="{{ file.id }}"
                   >
                     <td class="unig-file-download-table-label">SD</td>
-                    <td class="unig-file-download-table-width">
-                      {{ file.image.unig_sd.width }}&thinsp;px
+                    <td class="unig-file-download-table-width-sd">
+                      <span class="unig-file-download-table-width-sd">{{ file.image.unig_sd.width }}&thinsp;px</span>
                     </td>
                     <td class="unig-file-download-table-size">
                       <span class="unig-file-download-table-size-sd">
@@ -698,7 +698,8 @@
                   >
                     <td class="unig-file-download-table-label">HD</td>
                     <td class="unig-file-download-table-width">
-                      {{ file.image.unig_hd.width }}&thinsp;px
+                      <span class="unig-file-download-table-width-hd">
+                        {{ file.image.unig_hd.width }}&thinsp;px</span>
                     </td>
                     <td class="unig-file-download-table-size">
                       <span class="unig-file-download-table-size-hd">
@@ -719,11 +720,12 @@
                   >
                     <td class="unig-file-download-table-label">XL</td>
                     <td class="unig-file-download-table-width">
+                    <span class="unig-file-download-table-width-xl">
                       {{ file.image.original.width }}&thinsp;px
+                    </span>
                     </td>
                     <td class="unig-file-download-table-size">
-                      <span
-                        class="unig-file-download-table-size-xl">
+                      <span  class="unig-file-download-table-size-xl">
                         {{ file.image.original.file_size_formatted }}
                       </span>
                     </td>

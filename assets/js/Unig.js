@@ -1,4 +1,11 @@
-/* eslint-disable prettier/prettier */
+let Unig = {
+  cr() {
+    Drupal.behaviors.unigOptions.cacheRebuild();
+  },
+  cc() {
+    Drupal.behaviors.unigOptions.cacheClear();
+  },
+};
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unig = {
@@ -15,9 +22,9 @@
     },
 
     removeDuplicates(arr) {
-      if(arr){
-      return arr.filter((elem, index, self) => index === self.indexOf(elem));
-      }else{
+      if (arr) {
+        return arr.filter((elem, index, self) => index === self.indexOf(elem));
+      } else {
         return [];
       }
     },
@@ -45,12 +52,10 @@
       return this.changeArrayItemToInt(removeDuplicates);
     },
 
-
     getFileId(event) {
       const $elem = $(event.target).parents('.unig-file-item');
       return $elem.data('unig-file-id');
     },
-
 
     humanFile_size(size) {
       // https://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable-string
