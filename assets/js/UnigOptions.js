@@ -28,6 +28,7 @@
 
       let text = `${title} for Project with id: ${id}`;
       let type = 'load';
+      let timer = 0;
       Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
 
       fetch(url).then(response => {
@@ -37,15 +38,17 @@
           });
         } else if (response.status === 200) {
           response.json().then(data => {
-            text = `${title} for Project with id: ${data.projectId}`;
+
+            text = `${title} for Project with id: ${data.projectId}.`;
+            timer = data.timer;
             type = 'success';
 
-            if (!data.clearCache) {
+            if (!data[name]) {
               text = `Cant ${title}for Project with id: ${data.projectId}`;
               type = 'error';
             }
             Drupal.behaviors.unigMessages.removeMessageByID(messageID);
-            Drupal.behaviors.unigMessages.addMessage(text, type);
+            Drupal.behaviors.unigMessages.addMessage(text, type, messageID, timer);
           });
         }
       });
