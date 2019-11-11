@@ -1,262 +1,134 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigLazyLoad = {
     files: [],
-    styles:{
-      small:'unig_thumbnail',
-      medium:'unig_medium',
-      large:'unig_hd'
-    },
-    rebuildStyles:{
-      small:false,
-      medium:false,
-      large:false
-    },
-
-    replaceImage(nid, result) {
-      const styleNames = ['unig_thumbnail', 'unig_medium', 'unig_hd'];
-      let mode = '';
-
-      if (result.data) {
-        styleNames.forEach(styleName => {
-          if (result.data.hasOwnProperty(styleName)) {
-            switch (styleName) {
-              case 'unig_thumbnail':
-                mode = 'small';
-                break;
-
-              case 'unig_medium':
-                mode = 'medium';
-                break;
-
-              case 'unig_hd':
-                mode = 'large';
-                break;
-
-              default:
-                mode = 'medium';
-                break;
-            }
-
-            // set current process image name in message block
-            document.querySelector(
-              '.unig-generate-images-current-process-name',
-            ).textContent = result.title;
-
-            // set current process image style name in message block
-            document.querySelector(
-              '.unig-generate-images-current-process-size',
-            ).textContent = `(${mode})`;
-
-            const srcCache = result.data[styleName].url;
-
-            const n = srcCache.indexOf('?');
-            const src = srcCache.substring(0, n !== -1 ? n : srcCache.length);
-
-            const imgId = `img-${nid}-${styleName}`;
-
-            const NODEImg = document.createElement('img');
-            NODEImg.setAttribute('src', src);
-            NODEImg.setAttribute('alt', mode);
-            NODEImg.setAttribute('id', imgId);
-
-            const DomTarget = document.querySelector(
-              `#unig-file-${nid} .img-preview-${mode}`,
-            );
-            DomTarget.innerHTML = '';
-            DomTarget.appendChild(NODEImg);
-
-            const DomTargetPreview = document.querySelector(
-              `#no-preview-${mode}-${nid}`,
-            );
-            if (DomTargetPreview) {
-              DomTargetPreview.parentElement.removeChild(DomTargetPreview);
-            }
-
-            if (mode === 'medium') {
-              DomTarget.setAttribute('style', 'block');
-              DomTarget.classList.add('fade-in');
-            }
-          }
-        });
-
-        //   lightgallery
-
-        if (result.data.hasOwnProperty('unig_hd')) {
-          const DomLightgallery = document.querySelector(
-            `#unig-lightgallery-placeholder-${nid}`,
-          );
-          DomLightgallery.setAttribute('data-src', result.data.unig_hd);
-        }
-
-        // Dom-Elem Spinner
-        const DomTargetPreviewSpinner = document.querySelector(
-          `#no-preview-spinner-${nid}`,
-        );
-
-        // remove Spinner
-        if (DomTargetPreviewSpinner) {
-          DomTargetPreviewSpinner.parentElement.removeChild(
-            DomTargetPreviewSpinner,
-          );
-        }
-      }
-    },
-
-    /**
-     *
-     * @param id
-     * @param context
-     */
-    spinnerPlaceholder(id, context) {
-      const ElemSpinner = document.createElement('div');
-      ElemSpinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-      ElemSpinner.setAttribute('id', `no-preview-spinner-${id}`);
-      ElemSpinner.setAttribute('class', `no-preview-spinner`);
-
-      const DomTarget = document.querySelector(
-        `#unig-file-${id} .unig-lazyload-container`,
-      );
-      DomTarget.append(ElemSpinner);
-
-      const DomTargetPreviewSmall = document.querySelector(
-        `#no-preview-small-${id}`,
-      );
-      if (DomTargetPreviewSmall) {
-        DomTargetPreviewSmall.parentElement.removeChild(DomTargetPreviewSmall);
-      }
-
-      const DomTargetPreviewMedium = document.querySelector(
-        `#no-preview-medium-${id}`,
-      );
-      if (DomTargetPreviewMedium) {
-        DomTargetPreviewMedium.parentElement.removeChild(
-          DomTargetPreviewMedium,
-        );
-      }
-
-      const DomTargetPreviewLarge = document.querySelector(
-        `#no-preview-large-${id}`,
-      );
-      if (DomTargetPreviewLarge) {
-        DomTargetPreviewLarge.parentElement.removeChild(DomTargetPreviewLarge);
-      }
-    },
-    /**
-     *
-     * @param context
-     */
-    generatePreviewImages(context) {},
+    currentSize: 'medium',
+    styles: [
+      {
+        name: 'small',
+        styleName: 'unig_thumbnail',
+        missing: false,
+      },
+      {
+        name: 'medium',
+        styleName: 'unig_medium',
+        missing: false,
+      },
+      {
+        name: 'large',
+        styleName: 'unig_hd',
+        missing: false,
+      },
+    ],
 
     /**
      *
      * @param fileList
      */
     loadImages() {
-      this.buildImgContainer();
+      if (Drupal.behaviors.unigSize.hasOwnProperty('currentSize')) {
+        this.currentSize = Drupal.behaviors.unigSize.currentSize;
+      }
+
+      this.buildImgContainer().then(resolve => {
+        console.log('buildImgContainer', resolve);
+        this.addImages('medium').then(resolve => {
+          console.log('medium', resolve);
+          this.addImages('small').then(resolve => {
+            console.log('small', resolve);
+            this.addImages('large').then(resolve => {
+              console.log('large', resolve);
+              this.remarkImages();
+              this.createMissingStyles();
+            });
+          });
+        });
+      });
     },
     /**
      *
      * @param fileList
      */
-    loadImagesSmall(fileList) {
-      const mode = 'small';
-
-      fileList.forEach(file => {
-        this.addImage(file, mode);
+    async addImages(size) {
+      this.files = drupalSettings.unig.project.files;
+      this.files.forEach(file => {
+        this.addImage(file, size);
       });
-
-      this.loadImagesLarge(fileList);
+      const message = 'done Add Message for ' + size;
+      return message;
     },
-    /**
-     *
-     * @param fileList
-     */
-    loadImagesMedium(fileList) {
-      const mode = 'medium';
 
-      fileList.forEach(file => {
-        this.addImage(file, mode);
-      });
-      this.loadImagesSmall(fileList);
-    },
-    /**
-     *
-     * @param fileList
-     */
-    loadImagesLarge(fileList) {
-      const mode = 'large';
-
-      fileList.forEach(file => {
-        this.addImage(file, mode);
+    createMissingStyles() {
+      this.styles.forEach(style => {
+        if (style.missing) {
+          const styleName = style.styleName;
+          Drupal.behaviors.unigImageStyles.startWorker(styleName);
+        }
       });
     },
+
+    remarkImages() {
+      const itemsInDownload = Drupal.behaviors.unigDownload.Store.get();
+      if (itemsInDownload.length > 0) {
+        itemsInDownload.forEach(id => {
+          Drupal.behaviors.unigDownload.addMark(id);
+        });
+      }
+    },
+
     /**
      *
      * @param fileList
      * @param id
-     * @param mode
+     * @param size
      */
-    addImage(file, mode) {
-      console.log(` -- addImage: [${mode}] ${file.title}`);
-
+    addImage(file, size) {
+      const style = this.styles.find(style => style.name === size);
+      const styleName = style.styleName;
       const id = file.id;
+
+       console.log(` -- addImage: [${styleName}] ${file.title}`);
+
       // target
       $(`#unig-file-${id} .unig-lazyload-placeholder`).hide();
-
-      // elem
-      let styleName = '';
-      let display = false;
-
-      switch (mode) {
-        case 'small':
-          styleName = 'unig_thumbnail';
-          break;
-
-        case 'large':
-          styleName = 'unig_hd';
-          break;
-
-        case 'medium':
-          styleName = 'unig_medium';
-          display = true;
-          break;
-
-        default:
-          styleName = 'unig_medium';
-          break;
-      }
 
       const file_size = file.image[styleName].file_size;
 
       if (file_size !== 0) {
-        console.log('     Image Exists', file_size);
+        // console.log('     Image Exists', file_size);
 
         const src = file.image[styleName].url;
-        const imgID = `img-${id}-${mode}`;
+        const imgID = `img-${id}-${size}`;
 
         const NodeImg = document.createElement('img');
         NodeImg.setAttribute('src', src);
-        NodeImg.setAttribute('alt', mode);
+        NodeImg.setAttribute('alt', size);
         NodeImg.setAttribute('id', imgID);
 
         const DomTarget = document.querySelector(
-          `#unig-file-${id} .img-preview-${mode}`,
+          `#unig-file-${id} .img-preview-${size}`,
         );
         DomTarget.append(NodeImg);
 
-        if (display) {
+        if (this.currentSize === size) {
           DomTarget.setAttribute('style', 'block');
           // DomTarget.classList.add('fade-in');
         }
-      } else{
-        console.log('     No File Found ');
-this.rebuildStyles[mode] = true;
+      } else {
+        // console.log('     No File Found ');
+        this.styles = this.styles.map(style => {
+          if (style.name === size) {
+            style.missing = true;
+          }
+          return style;
+        });
+        console.log('this.styles', this.styles);
+
       }
     },
     /**
      *
      */
-    buildImgContainer() {
+    async buildImgContainer() {
       const ElemsTargetImageContainer = document.querySelectorAll(
         'div.unig-lazyload-container',
       );
@@ -297,20 +169,8 @@ this.rebuildStyles[mode] = true;
         ElemsTargetImageContainer[i].appendChild(DOMContainerLarge);
         i++;
       });
-
-      this.loadImagesMedium(fileList);
-
-      setTimeout(() => {
-        // remark items
-        const itemsInDownload = Drupal.behaviors.unigDownload.Store.get();
-        if (itemsInDownload.length > 0) {
-          itemsInDownload.forEach(id => {
-            Drupal.behaviors.unigDownload.addMark(id);
-          });
-        }
-
-        //  this.generatePreviewImages();
-      }, 10);
+      const message = 'done Build Container';
+      return message;
     },
 
     attach(context, settings) {
@@ -318,9 +178,7 @@ this.rebuildStyles[mode] = true;
         .once('loadImages')
         .each(() => {
           console.log('UniG Load Images...');
-          const files = drupalSettings.unig.project.files;
-          this.files = files;
-          this.numberOfFiles = files.length;
+          this.files = drupalSettings.unig.project.files;
 
           this.loadImages();
           console.log('UniG Load Images... Done');
