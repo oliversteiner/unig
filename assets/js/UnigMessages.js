@@ -16,9 +16,9 @@
       this.updateMessageList();
     },
 
-    addMessage(text, type, id = 0) {
+    addMessage(text, type='info', id = 0, timer = 0) {
       this.counter++;
-      const message = { text: text, type: type, id: id };
+      const message = { text: text, type: type, id: id, timer:timer};
       Drupal.behaviors.unig.messages.push(message);
       this.updateMessageList();
     },
@@ -45,6 +45,7 @@
           const message = item.text;
           const type = item.type;
           const id = item.id;
+          const timer = item.timer;
 
           switch (type) {
             case 'info':
@@ -76,6 +77,10 @@
             `<span class="unig-message-id">${id}</span>` +
             `<span class="unig-message-icon">${icon}</span>` +
             `<span class="unig-message-text">${message}</span>`;
+
+          if(timer){
+            content += `<span class="unig-message-timer">Duration: <span class="unig-message-timer-value">${timer}</span></span>`;
+          }
 
           // li
           const messageElem = document.createElement('li');
