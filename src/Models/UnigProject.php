@@ -21,4 +21,12 @@ class UnigProject
   public const field_tags = 'field_unig_tags';
   public const field_weight = 'field_unig_weight';
   public const field_cache = 'field_unig_cache';
+  public const field_help = 'field_unig_help';
+
+  /* Drupal Taxonomy */
+  public const term_category = 'unig_category';
+  public const term_tags = 'unig_tags';
+  public const term_keywords = 'unig_keywords';
+  public const term_people = 'unig_people';
+
 }

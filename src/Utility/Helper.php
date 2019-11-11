@@ -121,48 +121,76 @@ class Helper
   /**
    * @param NodeInterface | Node $node
    * @param string $field_name
-   * @param null $term_list
-   * @param bool $force_array
+   * @param null $term_list_name
+   * @param bool | string $force_array
    * @return boolean | string | array
-   * @throws Exception
    */
   public static function getFieldValue(
     $node,
     $field_name,
-    $term_list = null,
+    $term_list_name = null,
     $force_array = false
-  ) {
+  )
+  {
+    $default_fields = ['body'];
     $result = false;
-    $list = [];
+    $term_list = [];
 
-    if ($term_list) {
-      $list = self::getTermsByID($term_list);
+    if ($term_list_name && is_string($term_list_name)) {
+      $term_list = self::getTermsByID($term_list_name);
     }
 
     try {
-      // check for 'field_field_NAME'
-      $pos = strpos($field_name, 'field_');
-
-      if ($pos === 0) {
-        throw new Exception(
-          'Use $field_name without "field_" in HELPER:getFieldValue(' .
-            $field_name .
-            ')'
+      if (!is_object($node)) {
+        throw new \RuntimeException(
+          'The $node Parameter is not a valid drupal entity.' .
+          ' (Field: ' .
+          $field_name .
+          ' Node:' .
+          $node .
+          ')'
         );
       }
 
-      $core_field_names = ['title', 'status', 'body'];
-
-      if (!in_array($field_name, $core_field_names, true)) {
-        $field_name = 'field_' . $field_name;
+      if (!is_string($field_name)) {
+        throw new \RuntimeException(
+          'field_name must be a string'
+        );
       }
 
+      if (is_string($field_name)) {
+        // check for 'body'
+        if (!in_array($field_name, $default_fields, false)) {
+
+          // check for 'field_field_NAME'
+          $pos = strpos($field_name, 'field_');
+
+          if ($pos === false) {
+            $field_name = 'field_' . $field_name;
+          }
+        }
+      }
+
+    } catch (Exception $e) {
+      throw new \RuntimeException(
+        '$field_name must be a string.' .
+        ' (Field: ' .
+        $field_name .
+        ' Node:' .
+        $node .
+        ') ' .
+        $e
+      );
+    }
+
+
+    try {
       if ($node->get($field_name)) {
         $value = $node->get($field_name)->getValue();
 
-        // single
+        // single Item
         if (count($value) === 1) {
-          // Standart Field
+          // Default Field
           if ($value && $value[0] && isset($value[0]['value'])) {
             $result = $value[0]['value'];
           }
@@ -172,39 +200,83 @@ class Helper
             $result = $value[0]['target_id'];
           }
 
-          // Value is Taxonomy Term
-          if ($term_list) {
-            $result = $list[$result];
+          // Duration Field
+          if ($value && $value[0] && isset($value[0]['duration'])) {
+            $result = $value[0]['duration'];
           }
 
-          if ($force_array) {
+          // Value is Taxonomy Term
+          if ($term_list) {
+
+            if ($term_list && $term_list[$result]) {
+              $result = $term_list[$result];
+            } else {
+              $message =
+                "No Term found with id {$result} in Taxonomy {$term_list}";
+              Drupal::logger('small_messages')->notice($message);
+            }
+          }
+
+          if ($force_array === true) {
             $arr[] = $result;
+            $result = $arr;
+          }
+          if ($force_array === 'full') {
+
+            $term = [];
+            $term['id'] = (int)$value[0]['target_id'];
+            $term['name'] = $term_list[$value[0]['target_id']];
+
+            $arr[] = $term;
             $result = $arr;
           }
         }
 
+        // Multiple Items
         $i = 0;
         if (count($value) > 1) {
           foreach ($value as $item) {
-            // Default Field
+            // Standart Field
             if (isset($item['value'])) {
               $result[$i] = $item['value'];
             }
 
-            // Target Field
-            if (isset($item['target_id'])) {
-              if ($term_list) {
-                $result[$i] = $list[$item['target_id']];
+            // target Field and Termlist
+            // Value is Taxonomy Term
+            if ($term_list_name) {
+              if ($term_list_name && $term_list[$item['target_id']]) {
+
+                if ($force_array === 'full') {
+                  $term = [];
+                  $term['id'] = (int)$item['target_id'];
+                  $term['name'] = $term_list[$item['target_id']];
+                  $result[$i] = $term;
+                } else {
+                  $result[$i] = $term_list[$item['target_id']];
+                }
+
               } else {
-                $result[$i] = $item['target_id'];
+                $result[$i] = false;
+                $message =
+                  "No Term found with id {$result} in Taxonomy {$term_list_name}";
+                Drupal::logger('small_messages')->notice($message);
               }
+            } else if (isset($item['target_id'])) {
+              $result[$i] = $item['target_id'];
             }
             $i++;
           }
         }
+
+        // No Items
+        if ($force_array && count($value) === 0) {
+          $result = [];
+        }
       }
     } catch (Exception $e) {
-      throw $e;
+      throw new \RuntimeException(
+        'field_name (' . $field_name . ') Error \r' . $e
+      );
     }
 
     return $result;

@@ -1,5 +1,6 @@
 {% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
 
+
 {# Unig Main #}
 <div id="unig-main" class="unig unig-project unig-project-user unig-project-id"
      data-unig-project-id="{{ project.id }}">
@@ -132,7 +133,6 @@
 
     </div> {# Toolbar - Project #}
 
-
     {# Toolbar - General #}
     <div class="unig-toolbar unig-toolbar-general">
 
@@ -212,8 +212,44 @@
 
       </div>
 
+      {# Fieldset - help #}
+      <div class="unig-fieldset no-border unig-fieldset-help">
+        <div class="unig-button-icon unig-button-project-help  unig-help-toggle-trigger">
+          <i class="fas fa-question-circle" aria-hidden="true"></i>
+          <span class="button-label" style="display: none">{% trans %} Help {% endtrans %}</span>
+        </div>
+      </div>
 
     </div> {# Toolbar - general #}
+
+
+    {# Toolbar - Help #}
+    <div class="unig-toolbar unig-toolbar-help" style="display: none">
+
+      {# Header #}
+      <div class="unig-toolbar-header">
+        <span class="unig-toolbar-title">{% trans %} Help {% endtrans %}</span>
+      </div>
+
+      {# Body #}
+      <div class="unig-toolbar-body">
+        {{project.help|row}}
+      </div>
+
+      {# Footer #}
+      <div class="unig-toolbar-footer">
+        {# Button Cancel #}
+        <div class="unig-button unig-button-info unig-help-close-trigger">
+          <i class="fas fa-times" aria-hidden="true"></i>
+          {% trans %} Close Help {% endtrans %}
+        </div>
+      </div>
+
+    </div>
+
+
+  </div> {# Toolbar - Help #}
+
 
     {# Toolbar - Download #}
     <div class="unig-toolbar unig-toolbar-download" style="display: none">
@@ -581,7 +617,7 @@
 
               {#  -----------   Description  -----------  #}
               <div class="unig-file-description">
-                {{ file.description }}
+                {{ file.description|raw }}
               </div>
 
 

@@ -56,6 +56,7 @@ unig.project.admin:
     theme:
       fontcustom/unig-icons/unig-icons.css: {}
       assets/css/unig_admin.css: {}
+      assets/css/unig_help.css: {}
       assets/css/unig_album.css: {}
       assets/css/unig_image.css: {}
       assets/css/unig_project.css: {}
@@ -65,6 +66,7 @@ unig.project.admin:
   js:
     assets/js/Unig.js: {}
     assets/js/UnigMessages.js: {}
+    assets/js/UnigHelp.js: {}
     assets/js/UnigData.js: {}
     assets/js/UnigStore.js: {}
     assets/js/UnigProject.js: {}
