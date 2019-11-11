@@ -26,7 +26,6 @@
             console.log('Done.');
 
             console.log('Images loading...');
-            Drupal.behaviors.unigLazyLoad.loadImages();
           }
         });
     },

@@ -11,9 +11,9 @@
     "unig-icons/unig-icons.woff2"
   ],
   "glyphs": {
-    "image-size-big": {
+    "image-size-large": {
       "codepoint": 61696,
-      "source": "vectors/image-size-big.svg"
+      "source": "vectors/image-size-large.svg"
     },
     "image-size-medium": {
       "codepoint": 61697,

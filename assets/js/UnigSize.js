@@ -5,7 +5,7 @@
     // buttons
     $button_small: $('.unig-button-image-size-small'),
     $button_medium: $('.unig-button-image-size-medium'),
-    $button_big: $('.unig-button-image-size-big'),
+    $button_big: $('.unig-button-image-size-large'),
 
     // images
     // BUG? scope dont work with .hide() and .show()
@@ -36,7 +36,7 @@
             unigSize.$button_medium.addClass('active');
           });
 
-          $('.unig-image-size-big-trigger').click(() => {
+          $('.unig-image-size-large-trigger').click(() => {
             unigSize.reset();
             unigSize.$target.addClass('unig-images-big');
             $(unigSize.img_big).show();
