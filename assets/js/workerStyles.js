@@ -1,35 +1,43 @@
 // Worker for Generating Styles
 
-function generateStyles(files) {
 
-  console.log('generateStyles');
+function generateStyles(files, style) {
 
-  const messageID = 'generate-images';
+  let  messageID = style;
   let text = 'Generate Images: ';
   let type = 'load';
   addMessage(text, type, messageID);
 
-  let counter = 0;
-  let counter2 = 0;
+  let numberOfFileToGenerate = 0;
+  let numberOfGeneratedFiles = 0;
 
 
   files.forEach(item => {
 
-    if (!item.image.unig_sd.file_size) {
-      counter++;
+    if (!item.image[style].file_size) {
+      numberOfFileToGenerate++;
     }
   });
-  console.log('Number of not generated Images: ',counter);
 
+if(numberOfFileToGenerate === 0){
+  let text = 'No Images Styles for "'+ style +'"seem to be missing. ';
+  let type = 'success';
 
+  // wait 1 Sec before Message
+  setTimeout( () =>{
+    addMessage(text, type, messageID);
+    sendCommand('stop', style );
+  }, 1000);
+
+}else {
   files.forEach(item => {
 
-    if (!item.image.unig_sd.file_size) {
+    if (!item.image[style].file_size) {
 
-      const url = item.image.unig_sd.url;
+      const url = item.image[style].url;
       const name = item.file_name;
 
-      let text = 'Generate Images: for ' + name;
+      let text = 'Generate "'+style+'" Images: for ' + name;
       let type = 'load';
       addMessage(text, type, messageID);
 
@@ -46,21 +54,21 @@ function generateStyles(files) {
 
           text = 'Generate Images: for ' + data.name + '';
           type = 'load';
-          const messageID = 'generate-images';
-          removeMessageByID(messageID);
           addMessage(text, type, messageID);
           console.log(text);
 
         }
-        counter2++;
-        if (counter2 >= counter) {
+        numberOfGeneratedFiles++;
+        if (numberOfGeneratedFiles >= numberOfFileToGenerate) {
           text = 'All Images Generated';
           type = 'success';
           console.log(text);
-
-          removeMessageByID(messageID);
-          removeMessageByID(messageID);
-          addMessage(text, type);
+          addMessage(text, type, messageID);
+          // wait 1 Sec before Message
+          setTimeout( () =>{
+            addMessage(text, type, messageID);
+            sendCommand('stop', style );
+          }, 1000);
         }
       });
 
@@ -68,6 +76,7 @@ function generateStyles(files) {
     }
 
   });
+}
 
 }
 
@@ -80,10 +89,13 @@ async function getImagesAsync(url, name)
 }
 
 
+function sendCommand(command, style, data = {}) {
+  const message = {command:command , style:style, data:data};
+  postMessage(message);
+}
 
-
-function addMessage(text, type, messageID) {
-  const data = {message : {text:text, type:type, messageID:messageID},mode:'add'};
+function addMessage(text, type, messageID, mode) {
+  const data = {message : {text:text, type:type, messageID:messageID},mode:mode};
   postMessage(data);
 }
 
@@ -96,7 +108,8 @@ function removeMessageByID(messageID) {
 
 onmessage = function(event) {
   console.log('message from host:', event.data);
-  files = event.data;
-  generateStyles(files);
+  const files = event.data.files;
+  const style = event.data.style;
+  generateStyles(files, style);
 
 };
