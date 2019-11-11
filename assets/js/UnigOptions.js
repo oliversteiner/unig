@@ -11,14 +11,12 @@
       Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
 
       fetch(url).then(response => {
-
         if (response.status === 404) {
           response.json().then(function(object) {
             Drupal.behaviors.unigMessages.removeMessageByID(messageID);
             text = 'Server Error: ' + object.message;
             type = 'error';
             Drupal.behaviors.unigMessages.addMessage(text, type);
-
           });
         } else if (response.status === 200) {
           response.json().then(data => {
@@ -55,13 +53,36 @@
         });
     },
 
+    startGeneratingImageStyles() {
+      console.log('Start Generating Image Styles');
+      Drupal.behaviors.unigImageStyles.startWorker('unig_sd');
+      Drupal.behaviors.unigImageStyles.startWorker('unig_hd');
+      Drupal.behaviors.unigImageStyles.startWorker('unig_thumbnail');
+      this.$StartTrigger.hide();
+      this.$StopTrigger.show();
+    },
+
+    stopGeneratingImageStyles(style) {
+      console.log('Stop Generating Image Styles');
+      Drupal.behaviors.unigImageStyles.stopWorker(style);
+      this.$StartTrigger.show();
+      this.$StopTrigger.hide();
+    },
+
     attach(context) {
       $('#unig-main', context)
         .once('options')
         .each(() => {
           console.log('UniG Options');
-
-          const $optionsDropdown = $('.unig-dropdown-project-options');
+          this.$StartTrigger = $(
+            '.unig-generate-image-styles-start-trigger',
+            context,
+          );
+          this.$StopTrigger = $(
+            '.unig-generate-image-styles-stop-trigger',
+            context,
+          );
+          const $optionsDropdown = $('.unig-dropdown-project-options', context);
 
           // Toggle Options
           $('.unig-project-options-trigger', context).click(() => {
@@ -82,6 +103,18 @@
           //  Clear Cache
           $('.unig-clear-project-cache-trigger', context).click(() => {
             this.clearProjectCache();
+            $optionsDropdown.hide();
+          });
+
+          //  start generating image styles
+          this.$StartTrigger.click(() => {
+            this.startGeneratingImageStyles();
+            $optionsDropdown.hide();
+          });
+
+          //  stop generating image styles
+          this.$StopTrigger.click(() => {
+            this.stopGeneratingImageStyles();
             $optionsDropdown.hide();
           });
         });

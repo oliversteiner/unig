@@ -1,6 +1,7 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigMessages = {
     messages: [],
+    counter:0,
 
     removeMessage(messageIndex) {
       Drupal.behaviors.unig.messages.splice(messageIndex, 1);
@@ -16,10 +17,16 @@
     },
 
     addMessage(text, type, id = 0) {
+      this.counter++;
       const message = { text: text, type: type, id: id };
       Drupal.behaviors.unig.messages.push(message);
       this.updateMessageList();
     },
+
+    updateMessage(text, type, id = 0) {
+      this.removeMessageByID(id);
+      this.addMessage(text, type, id)
+      },
 
     updateMessageList() {
       const { messages } = Drupal.behaviors.unig;
@@ -37,6 +44,7 @@
         messages.forEach(item => {
           const message = item.text;
           const type = item.type;
+          const id = item.id;
 
           switch (type) {
             case 'info':
@@ -63,7 +71,9 @@
           }
 
           content =
-            //  `<span class="unig-message-index">${messageIndex}</span>` +
+              `<span class="unig-message-index">${messageIndex}</span>` +
+             `<span class="unig-message-counter">${Drupal.behaviors.unigMessages.counter}</span>` +
+            `<span class="unig-message-id">${id}</span>` +
             `<span class="unig-message-icon">${icon}</span>` +
             `<span class="unig-message-text">${message}</span>`;
 

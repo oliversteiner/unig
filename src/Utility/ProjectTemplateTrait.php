@@ -64,9 +64,12 @@ trait ProjectTemplateTrait
     ];
 
     // Project Variables for JS
-    $build['#attached']['drupalSettings']['unig'][
-      'project'
-    ] = $project_variables;
+    $build['#attached']['drupalSettings']['unig']['project'] = $project_variables;
+
+    $host = \Drupal::request()->getSchemeAndHttpHost();
+    $module = drupal_get_path('module', $this->getModuleName());
+    $build['#attached']['drupalSettings']['unig']['path'] = $host . '/' . $module;
+
 
     // Adding JS Library depends of admin or not
     if (
@@ -84,9 +87,7 @@ trait ProjectTemplateTrait
     $finish = $time;
     $total_time = round($finish - $start, 4);
 
-    $build['#attached']['drupalSettings']['unig']['project'][
-      'time'
-    ] = $total_time;
+    $build['#attached']['drupalSettings']['unig']['project']['time'] = $total_time;
 
     return $build;
   }
