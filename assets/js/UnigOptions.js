@@ -9,13 +9,13 @@
 
     rebuildProjectCache() {
       const title = 'Rebuild Cache';
-      const name = 'rebuild-cache';
+      const name = 'cache-rebuild';
       this.projectCache(title, name)
     },
 
     clearProjectCache() {
       const title = 'Clear Cache';
-      const name = 'clear-cache';
+      const name = 'cache-clear';
       this.projectCache(title, name)
     },
 

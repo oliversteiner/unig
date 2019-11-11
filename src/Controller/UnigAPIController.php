@@ -142,10 +142,10 @@ class UnigAPIController extends ControllerBase
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function rebuildCache($id): JsonResponse
+  public function cacheRebuild($id): JsonResponse
   {
     $label = 'Unig Project Rebuild Clear Cache';
-    $name = 'rebuild-cache';
+    $name = 'cache-rebuild';
     $base = 'unig/api/';
     $version = '1.0.0';
 
@@ -167,7 +167,7 @@ class UnigAPIController extends ControllerBase
       'path' => $base . $name,
       'version' => $version,
       'projectId' => $id,
-      'rebuild-cache' => $result,
+      'cache-rebuild' => $result,
       'timer' => $timer,
     ];
 
@@ -179,10 +179,10 @@ class UnigAPIController extends ControllerBase
    * @return JsonResponse
    * @throws EntityStorageException
    */
-  public function clearCache($id): JsonResponse
+  public function cacheClear($id): JsonResponse
   {
     $label = 'Unig Project Clear Cache';
-    $name = 'clear-cache';
+    $name = 'cache-clear';
     $base = 'unig/api/';
     $version = '1.0.0';
 
@@ -196,7 +196,7 @@ class UnigAPIController extends ControllerBase
       'path' => $base . $name,
       'version' => $version,
       'projectId' => $id,
-      'clear-cache' => $result,
+      'cache-clear' => $result,
       'timer' => $timer,
 
     ];

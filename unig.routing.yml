@@ -368,19 +368,19 @@ unig.api.file.favorit:
 # CACHE
 # ----------------------------------------
 # clear
-unig.api.project.clear-cache:
-  path: '/unig/api/clear-cache/{id}'
+unig.api.project.cache-clear:
+  path: '/unig/api/cache-clear/{id}'
   defaults:
-    _controller: '\Drupal\unig\Controller\UnigAPIController::clearCache'
+    _controller: '\Drupal\unig\Controller\UnigAPIController::cacheClear'
     id: null
   requirements:
     _permission: 'access unig admin'
 
 # Rebuild Cache
-unig.api.project.rebuild-cache:
-  path: '/unig/api/rebuild-cache/{id}'
+unig.api.project.cache-rebuild:
+  path: '/unig/api/cache-rebuild/{id}'
   defaults:
-    _controller: '\Drupal\unig\Controller\UnigAPIController::rebuildCache'
+    _controller: '\Drupal\unig\Controller\UnigAPIController::cacheRebuild'
     id: null
   requirements:
     _permission: 'access unig admin'
