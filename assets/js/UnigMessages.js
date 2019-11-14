@@ -32,21 +32,22 @@
         const $Timer = $(`.unig-message-item-id-${id} .unig-message-timer`);
 
         $Icon.removeClass();
-        $Icon.addClass('unig-message-icon '+type);
+        $Icon.addClass('unig-message-icon ' + type);
         $Icon.html(icon);
         $Text.html(text);
 
         if (timer) {
-          const timerText =  `Duration: <span class="unig-message-timer-value">${timer}</span>`;
+          const timerText = `Duration: <span class="unig-message-timer-value">${timer}</span>`;
           $Timer.html(timerText);
           $Timer.show();
-        }else {
+        } else {
           $Timer.hide();
 
         }
 
 
       } else {
+        this.removeMessageByID(id);
         this.addMessage(text, type, id);
       }
     },
@@ -79,6 +80,13 @@
       return icon;
     },
 
+
+    clear() {
+      Drupal.behaviors.unig.messages = [];
+      const $messagesList = $('.unig-messages');
+      $messagesList.empty();
+    },
+
     updateMessageList() {
       const { messages } = Drupal.behaviors.unig;
 
@@ -109,7 +117,7 @@
 
           if (timer) {
             content += `<span class="unig-message-timer">Duration: <span class="unig-message-timer-value">${timer}</span></span>`;
-          }else{
+          } else {
             content += `<span class="unig-message-timer" style="display: none"></span>`;
           }
 

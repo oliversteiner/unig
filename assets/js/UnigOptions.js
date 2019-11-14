@@ -6,10 +6,10 @@
       Drupal.behaviors.unigMessages.addMessage(text, type);
     },
 
-    cacheRebuild() {
+    async cacheRebuild() {
       const title = 'Rebuild Cache';
       const name = 'cache-rebuild';
-      this.projectCache(title, name);
+      return await this.projectCache(title, name);
     },
 
     addFileInfo() {
@@ -44,13 +44,15 @@
     },
 
 
-    cacheClear() {
+     cacheClear() {
       const title = 'Clear Cache';
       const name = 'cache-clear';
-      this.projectCache(title, name);
+      return  this.projectCache(title, name);
     },
 
-    async projectCache(title, name) {
+     async projectCache(title, name) {
+       Drupal.behaviors.unigMessages.clear();
+
       const id = this.getProjectID();
       const messageID = `${name}-${id}`;
       console.log(`${title} for Project ${id}`);
@@ -61,7 +63,7 @@
       let timer = 0;
       Drupal.behaviors.unigMessages.updateMessage(text, type, messageID);
 
-      fetch(url).then(response => {
+       fetch(url).then(response => {
         if (response.status === 404) {
           response.json().then(object => {
             this.serverError(object);
@@ -79,15 +81,14 @@
               drupalSettings.unig.project.files = data.variables.files;
               this.addFileInfo();
 
-              if (Drupal.behaviors.hasOwnProperty('unigLazyLoad')) {
-                Drupal.behaviors.unigLazyLoad.loadImages();
-              }
+
             }
 
             if (!data[name]) {
               text = `Cant ${title}for Project with id: ${data.projectId}`;
               type = 'error';
             }
+
             Drupal.behaviors.unigMessages.updateMessage(
               text,
               type,
@@ -127,7 +128,6 @@
     startGeneratingImageStyles() {
       console.log('Start Generating Image Styles');
       Drupal.behaviors.unigImageStyles.startWorker('unig_medium');
-
       Drupal.behaviors.unigImageStyles.startWorker('unig_sd');
       Drupal.behaviors.unigImageStyles.startWorker('unig_hd');
       Drupal.behaviors.unigImageStyles.startWorker('unig_thumbnail');
