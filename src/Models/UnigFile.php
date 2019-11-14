@@ -119,7 +119,7 @@ class UnigFile
         } catch (EntityStorageException $e) {
           $status = 'error';
           $message =
-            t('Can\'t save changes of File %file_id. ', [
+            t('Can\'t save changes of File %file_id.', [
               '%file_id' => $file_id
             ]) . $e;
         }
