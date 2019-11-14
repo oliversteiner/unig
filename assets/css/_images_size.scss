@@ -13,6 +13,10 @@ li.unig-file-item {
 // small
 // =====================
 
+.unig-images-small img {
+  width: 100%;
+}
+
 ul.unig-images-small li.unig-file-item {
   width: 150px;
 }
@@ -35,7 +39,12 @@ ul.unig-images-small div.unig-lazyload-container {
 // medium
 // =====================
 
+.unig-images-medium img {
+  width: 100%;
+}
+
 ul.unig-images-medium li.unig-file-item {
+  //
 }
 
 ul.unig-images-medium div.unig-lazyload-container {
@@ -43,15 +52,20 @@ ul.unig-images-medium div.unig-lazyload-container {
   min-height: 150px;
 }
 
-// big
+// large
 // =====================
 
-ul.unig-images-big li.unig-file-item {
+.unig-images-large img {
+  width: 100%;
+}
+
+
+ul.unig-images-large li.unig-file-item {
   width: 460px;
   max-width: 460px;
 }
 
-ul.unig-images-big div.unig-lazyload-container {
+ul.unig-images-large div.unig-lazyload-container {
   min-width: 440px;
   min-height: 280px;
   max-width: 460px;

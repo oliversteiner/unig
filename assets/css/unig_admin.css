@@ -1350,6 +1350,10 @@ li.unig-file-item {
   padding: 5px 12px 4px 12px;
 }
 
+.unig-images-small img {
+  width: 100%;
+}
+
 ul.unig-images-small li.unig-file-item {
   width: 150px;
 }
@@ -1367,17 +1371,25 @@ ul.unig-images-small div.unig-lazyload-container {
   min-height: 100px;
 }
 
+.unig-images-medium img {
+  width: 100%;
+}
+
 ul.unig-images-medium div.unig-lazyload-container {
   min-width: 220px;
   min-height: 150px;
 }
 
-ul.unig-images-big li.unig-file-item {
+.unig-images-large img {
+  width: 100%;
+}
+
+ul.unig-images-large li.unig-file-item {
   width: 460px;
   max-width: 460px;
 }
 
-ul.unig-images-big div.unig-lazyload-container {
+ul.unig-images-large div.unig-lazyload-container {
   min-width: 440px;
   min-height: 280px;
   max-width: 460px;
