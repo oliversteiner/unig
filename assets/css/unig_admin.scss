@@ -140,7 +140,7 @@ body {
 
 hr.unig {
   border: none;
-  border-top: solid 1px $color-seperator-invert;
+  border-top: solid 1px $color-separator-invert;
   margin: 10px 0 0;
   padding: 10px 0 0;
 }
@@ -155,16 +155,16 @@ hr.unig {
   padding-left: 10px;
 }
 
-.unig-seperator.invert,
-.unig-seperator {
+.unig-separator.invert,
+.unig-separator {
   display: inline-block;
   margin-right: 10px;
   padding-left: 10px;
-  border-left: 1px solid $color-seperator;
+  border-left: 1px solid $color-separator;
 }
 
-.unig-seperator.invert {
-  border-left: 1px solid $color-seperator-invert;
+.unig-separator.invert {
+  border-left: 1px solid $color-separator-invert;
 }
 
 // Tests
@@ -202,3 +202,4 @@ li.lazyload-test {
 .row {
   display: flex;
 }
+

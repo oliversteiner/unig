@@ -54,18 +54,18 @@ class UploadForm extends FormBase
   public function buildForm(
     array $form,
     FormStateInterface $form_state,
-    $project_nid = null
+    $project_id = null
   ) {
-    if ($project_nid !== null) {
+    if ($project_id !== null) {
       // Make sure you don't trust the URL to be safe! Always check for exploits.
-      if (!is_numeric($project_nid)) {
+      if (!is_numeric($project_id)) {
         // We will just show a standard "access denied" page in this case.
         throw new AccessDeniedHttpException();
       }
 
-      $form['project_nid'] = [
+      $form['project_id'] = [
         '#type' => 'hidden',
-        '#value' => $project_nid
+        '#value' => $project_id
       ];
     }
     // JS
@@ -94,7 +94,7 @@ class UploadForm extends FormBase
       '#title' => $this->t('Choose Project'),
       '#type' => 'select',
       '#options' => $this->getProjectlistSelected(),
-      '#default_value' => $this->getDefaultProjectNid($project_nid),
+      '#default_value' => $this->getDefaultProjectNid($project_id),
       '#prefix' =>
         '<div id="unig_form_upload_project" class="" style="display:none">',
       '#suffix' => '</div>'
@@ -184,19 +184,19 @@ class UploadForm extends FormBase
 
     if (isset($new_project) && !empty($new_project)) {
       $create_new_project = true;
-      $project_nid = self::newUniGProject($new_project);
+      $project_id = self::newUniGProject($new_project);
 
       // Get Title
       $project_title = $new_project;
     } else {
-      $project_nid = $values['project'];
+      $project_id = $values['project'];
 
       // Get Title
-      $project_title = $form['project']['#options'][$project_nid];
+      $project_title = $form['project']['#options'][$project_id];
     }
 
     // Create Nodes
-    $values['project_nid'] = $project_nid;
+    $values['project_id'] = $project_id;
     $node_ids = $this->createMultiNode($values);
     $count = count($node_ids);
 
@@ -252,7 +252,7 @@ class UploadForm extends FormBase
     }
 
     // go to Gallery Page
-    $arr_args = ['project_nid' => $project_nid];
+    $arr_args = ['project_id' => $project_id];
     $form_state->setRedirect('unig.project.admin', $arr_args);
 
     return 'submitForm';

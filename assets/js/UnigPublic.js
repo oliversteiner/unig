@@ -120,7 +120,7 @@
 
       // Title Trigger
       document
-        .querySelector('.unig-gallery-image-name-trigger', context)
+        .querySelector('.unig-gallery-image-name-trigger')
         .addEventListener('click', () => {
           // change Button Label
           this.toggleImageNames();
@@ -128,7 +128,7 @@
 
       // Index Trigger
       document
-        .querySelector('.unig-gallery-image-index-trigger', context)
+        .querySelector('.unig-gallery-image-index-trigger')
         .addEventListener('click', () => {
           // change Button Label
           this.toggleImageIndex();

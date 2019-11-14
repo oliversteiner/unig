@@ -59,9 +59,9 @@ trait ProjectListTemplateTrait
     $build['#attached']['drupalSettings']['projects'] = $variables;
 
     if (\Drupal::currentUser()->hasPermission('access unig admin')) {
-      $build['#attached']['library'] = 'unig/unig.admin.project_list';
+      $build['#attached']['library'] = 'unig/unig.list.admin';
     } else {
-      $build['#attached']['library'] = 'unig/unig.project_list';
+      $build['#attached']['library'] = 'unig/unig.list.public';
     }
 
     return $build;
@@ -115,6 +115,6 @@ trait ProjectListTemplateTrait
   protected function getProjectListPath()
   {
     return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/unig.project-list.html.twig';
+      '/templates/unig.list.html.twig';
   }
 }

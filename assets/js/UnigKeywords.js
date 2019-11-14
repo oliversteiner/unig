@@ -1,22 +1,9 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigKeywords = {
-    attach(context, settings) {
-      // onload
-
-      $('#unig-main', context)
-        .once('unigKeywords')
-        .each(() => {
-          this.constructor(context, settings);
-          this.addAll();
-          this.markAllAsActive();
-          this.updateDisplay();
-        });
-    },
-
+    keywordList: [],
+    Store: {},
     isToolbarOpen: false,
-
     $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
-
     $check_all_keywords_trigger: $(
       'unig-button-keywords-check-all',
       this.context,
@@ -26,10 +13,18 @@
       this.context,
     ),
 
-    Storage: Drupal.behaviors.unigData.keywordsStorage,
-    List: Drupal.behaviors.unigData.allKeywords,
-    Visible: [],
+    attach(context, settings) {
+      // onload
 
+      $('#unig-main', context)
+        .once('unigKeywords')
+        .each(() => {
+          this.constructor(context, settings);
+          this.addAll();
+          this.markAllAsActive();
+          this.update();
+        });
+    },
     toggleToolbar(context) {
       if (this.isToolbarOpen) {
         this.closeToolbar(context);
@@ -53,35 +48,21 @@
     },
 
     add(id) {
-      this.Storage.add(id);
+      this.Store.add(id);
     },
 
     remove(id) {
-      this.Storage.remove(id);
+      this.Store.remove(id);
+    },
+
+    toggle(id) {
+      this.Store.toggle(id);
     },
     /**
      *
      * @param id
      */
-    toggle(id) {
-      const keywordsStorage = this.Storage.get();
 
-      // if first Item in list toggle on
-      if (keywordsStorage === false) {
-        this.add(id);
-      } else {
-        // search item in keywordsStorage List
-        const IsInDownloadList = this.Storage.find(id);
-
-        if (IsInDownloadList) {
-          // if item in list. toggle off
-          this.remove(id);
-        } else {
-          // if item  not in list. toggle on
-          this.add(id);
-        }
-      }
-    },
 
     /**
      *
@@ -122,14 +103,14 @@
      *
      */
     removeAll() {
-      this.Storage.destroy();
+      this.Store.clear();
     },
     /**
      *
      *
      */
     addAll() {
-      const items = this.List.get();
+      const items = this.keywordList;
 
       for (let i = 0; i < items.length; i++) {
         this.add(items[i].id);
@@ -147,7 +128,7 @@
      *
      */
     markAllAsActive() {
-      const items = this.List.get();
+      const items = this.keywordList;
 
       for (let i = 0; i < items.length; i++) {
         this.markAsActive(items[i].id);
@@ -157,13 +138,16 @@
      *
      *
      */
-    updateDisplay() {
+    update() {
+      this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
       // target
       const $targetNumberOf = $('.unig-keywords-display');
 
       // get Number
-      const numberAllItems = this.List.count();
-      const numberChosenItems = this.Storage.count();
+
+
+      const numberAllItems = this.keywordList.length;
+      const numberChosenItems = this.Store.count();
 
       let text = '';
 
@@ -182,10 +166,10 @@
         // remove text
         $targetNumberOf.html();
       }
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     buildTags(keywordsList) {
-
       let elemLi = '';
       if (keywordsList) {
         keywordsList.forEach(item => {
@@ -194,9 +178,11 @@
           const label = item.name;
 
           elemLi +=
-            `<li class="unig-tag unig-tag-keyword unig-keyword-trigger ${additionalClass}" 
+            `<li class="unig-tag unig-tag-keyword ${additionalClass}" 
                 id="unig-tag-id-${item.id}" 
-                data-id = "${item.id}">` +
+                data-id = "${item.id}"
+                onclick="Drupal.behaviors.unigKeywords.toggleTag(${item.id})"
+                >` +
             `<span class="unig-keyword-tag-id">${item.id}</span>` +
             `<span class="unig-keyword-tag-label">${label}</span>` +
             `</li>`;
@@ -206,20 +192,8 @@
       const prefix = '<ul class="unig-tags unig-tags-keywords">';
       const suffix = '</ul><span class="build-done"></span>';
 
-      const buttonMarkAll =
-        '<div class="unig-tag unig-mark-all-tags unig-button-keywords-mark-all-tags unig-keywords-mark-all-tags-trigger">' +
-        '<i class="fas fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">check all</span>' +
-        '</div>';
-
-      const buttonUnMarkAll =
-        '<div class="unig-tag unig-unmark-all-tags unig-button-keywords-unmark-all-tags unig-keywords-unmark-all-tags-trigger">' +
-        '<i class="far fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">uncheck all</span>' +
-        '</div>';
-
       // Build DOM
-      const html = buttonMarkAll + buttonUnMarkAll + prefix + elemLi + suffix;
+      const html =  prefix + elemLi + suffix;
 
       // Add to dom
       this.$tags_container.html(html);
@@ -229,33 +203,27 @@
       $('.unig-keywords-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       $('.unig-keywords-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       // Update GUI
 
       $('.build-done').ready(() => {
-        // Add Handler
-        $('.unig-keyword-trigger').click(function() {
-          const id = $(this).data('id');
-
-          scope.toggle(id);
-          scope.toggleMark(id);
-          scope.updateDisplay();
-          Drupal.behaviors.unigDownload.updateFiles();
-        });
-
         scope.reMark();
-        scope.updateDisplay();
+        scope.update();
       });
+    },
+
+    toggleTag(id){
+      this.toggle(id);
+      this.toggleMark(id);
+      this.update();
     },
 
     /**
@@ -265,7 +233,7 @@
      */
     reMark() {
       // Get Download Item List
-      const keywordsStorage = this.Storage.get();
+      const keywordsStorage = this.Store.get();
 
       if (keywordsStorage) {
         keywordsStorage.forEach(elem => {
@@ -275,11 +243,10 @@
     },
 
     clearDownloadList() {
-      this.Storage.destroy();
+      this.Store.clear();
       this.markAllAsInactive();
       this.buildTags();
-      this.updateDisplay();
-      Drupal.behaviors.unigDownload.updateFiles();
+      this.update();
     },
 
     /**
@@ -294,7 +261,7 @@
         minChars: 2,
         source(term, suggest) {
           term = term.toLowerCase();
-          const choices = Drupal.behaviors.unigData.allKeywords.get();
+          const choices = Drupal.behaviors.unigData.projectKeywords.get();
           const matches = [];
           for (let i = 0; i < choices.length; i++) {
             if (choices[i].name.toLowerCase().indexOf(term)) {
@@ -313,8 +280,7 @@
           const id = item.getAttribute('data-id');
           Scope.add(id);
           Scope.markAsActive(id);
-          Scope.updateDisplay();
-          Drupal.behaviors.unigDownload.updateFiles();
+          Scope.update();
         },
       });
     },
@@ -325,6 +291,10 @@
      * @param settings
      */
     constructor(context) {
+      this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
+
+      this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
+      this.Store.init('keywords');
 
       // Close Toolbar
       $('.unig-toolbar-keywords-close-trigger', context).click(event => {
@@ -340,8 +310,7 @@
       $('.unig-toolbar-keywords-toggle-trigger', context).click(event => {
         Drupal.behaviors.unigKeywords.toggleToolbar(event);
       });
-
-      // Autocomplate
     },
   };
+
 })(jQuery, Drupal, drupalSettings);

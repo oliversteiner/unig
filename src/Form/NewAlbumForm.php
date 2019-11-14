@@ -30,7 +30,7 @@
     /**
      * UploadImages constructor.
      *
-     * @param $project_nid
+     * @param $project_id
      */
     public function __construct() {
 
@@ -51,7 +51,7 @@
     public function buildForm(array $form, FormStateInterface $form_state) {
 
 
-      $form['project_nid'] = [
+      $form['project_id'] = [
         '#type' => 'hidden',
         '#value' => '',
       ];
@@ -93,17 +93,17 @@
       $values = $form_state->getValues();
 
       $album_name = $values['new_album'];
-      $projekt_nid = $values['project_nid'];
+      $projekt_nid = $values['project_id'];
 
       if (isset($album_name) && !empty($album_name)) {
 
         // Neues Album erstellen
-        $album_nid = AlbumTrait::newAlbum($album_name);
+        $album_id = AlbumTrait::newAlbum($album_name);
         // Das Album dem Aktuellen Projekt zuweisen
-        AlbumTrait::addAlbum($projekt_nid, $album_nid);
+        AlbumTrait::addAlbum($projekt_nid, $album_id);
 
 
-        $message = "Neues Album erstellt: $album_name ($album_nid)";
+        $message = "Neues Album erstellt: $album_name ($album_id)";
         $response->addCommand(new AppendCommand('#unig-form-new-album-input-messages', $message));
 
       }
@@ -114,7 +114,7 @@
       }
 
 
-      if ($album_nid) {
+      if ($album_id) {
         drupal_set_message('Neues Album "' . $album_name . '" erstellt');
 
 
@@ -136,16 +136,16 @@
       $values = $form_state->getValues();
 
       $album_name = $values['new_album'];
-      $project_nid = $values['project_nid'];
+      $project_id = $values['project_id'];
 
       if (isset($album_name) && !empty($album_name)) {
 
 
-        $album_nid = AlbumTrait::newAlbum($album_name);
+        $album_id = AlbumTrait::newAlbum($album_name);
 
-        if ($album_nid) {
+        if ($album_id) {
 
-          AlbumTrait::addAlbum($project_nid, $album_nid);
+          AlbumTrait::addAlbum($project_id, $album_id);
           drupal_set_message('Neues Album "' . $album_name . '" erstellt');
 
         }

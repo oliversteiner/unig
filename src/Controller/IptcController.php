@@ -28,18 +28,18 @@ class IptcController extends ControllerBase
   protected $keywords_without_peoples = [];
   protected $people_tids = [];
   protected $keyword_tids = [];
-  protected $project_nid = null;
+  protected $project_id = null;
 
   /**
    * IptcController constructor.
    *
    * @param $fid
    */
-  function __construct($fid, $project_nid = null)
+  function __construct($fid, $project_id = null)
   {
     // Read File
     $this->fid = $fid;
-    $this->project_nid = $project_nid;
+    $this->project_id = $project_id;
     $this->_readIptcFromFile();
     $this->_splitKeywordsAndPeople();
 
@@ -312,7 +312,7 @@ class IptcController extends ControllerBase
   {
     $vid = 'unig_people';
     $terms = $this->peoples;
-    $tids = $this->saveTerms($vid, $terms, $this->project_nid);
+    $tids = $this->saveTerms($vid, $terms, $this->project_id);
     $this->people_tids = $tids;
     return $tids;
   }
@@ -324,7 +324,7 @@ class IptcController extends ControllerBase
   {
     $vid = 'unig_keywords';
     $terms = $this->keywords_without_peoples;
-    $tids = $this->saveTerms($vid, $terms, $this->project_nid);
+    $tids = $this->saveTerms($vid, $terms, $this->project_id);
     $this->keyword_tids = $tids;
     return $tids;
   }
@@ -341,7 +341,7 @@ class IptcController extends ControllerBase
 
     // TODO: Add Project nid
 
-    $project_nid = $this->project_nid;
+    $project_id = $this->project_id;
     $file_keyword_tids = [];
 
     // if there is new terms

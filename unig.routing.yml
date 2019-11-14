@@ -9,7 +9,7 @@ unig.admin:
 #
 # Content > Universal Gallery > List Projects
 #
-unig.project_list:
+unig.list:
   path: '/unig'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::projectListTemplate'
@@ -39,44 +39,31 @@ unig.projects.category.id:
   requirements:
     _permission: 'access content'
 
-
 #
 # Admin Page project detail
 #
 unig.project.admin:
-  path: '/unig/project/{project_nid}/{album_nid}'
+  path: '/unig/project/{project_id}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::project'
     _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
-    project_nid: null
-    album_nid: null
+    project_id: null
+    album_id: null
   requirements:
     _permission: 'access unig admin'
 
 #
 # Show Download and search UI
 # Allow users to show the download UI for bulk download and max resolution
-# - UniG Member
+# - UniG download
 #
-unig.project.user:
-  path: '/unig/member/{project_nid}/{album_nid}'
+unig.project.download:
+  path: '/unig/download/{project_id}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::project'
     _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
-    project_nid: null
-    album_nid: null
-  requirements:
-    _permission: 'access unig download'
-
-#
-# Admin Page project detail
-#
-unig.ajax.project:
-  path: '/unig/project/json/{project_nid}/{album_nid}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::getJSONFromProjectFiles'
-    project_nid: null
-    album_nid: null
+    project_id: null
+    album_id: null
   requirements:
     _permission: 'access unig download'
 
@@ -84,33 +71,37 @@ unig.ajax.project:
   # Admin Page project info
   #
 unig.ajax.project.info:
-  path: '/unig/project/info/json/{project_nid}'
+  path: '/unig/project/info/json/{project_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::ajaxProjectInfo'
-    project_nid: null
+    project_id: null
   requirements:
     _permission: 'access unig download'
 
-#
-# Admin Page project detail
-#
-unig.project.ajax.delete:
-  path: '/unig/ajax/project_delete/{project_nid}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::ajaxProjectDelete'
-  requirements:
-    _permission: 'access unig admin'
+
+
 
 #
 # Show Gallery
 #
-unig.lightgallery:
-  path: '/unig/lightgallery/{project_nid}/{album_nid}'
+unig.project.public:
+  path: '/unig/public/{project_id}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\LightgalleryController::getTemplate'
     _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
-    project_nid: null
-    album_nid: null
+    project_id: null
+    album_id: null
+  requirements:
+    _permission: 'access content'
+
+# only for back compatibility
+unig.project.public.alt:
+  path: '/unig/lightgallery/{project_id}/{album_id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\LightgalleryController::getTemplate'
+    _title_callback: '\Drupal\unig\Controller\ProjectController::getTitle'
+    project_id: null
+    album_id: null
   requirements:
     _permission: 'access content'
 
@@ -118,11 +109,11 @@ unig.lightgallery:
 # Upload with Args
 #
 unig.upload:
-  path: '/unig/upload/{project_nid}'
+  path: '/unig/upload/{project_id}'
   defaults:
-    _form:  '\Drupal\unig\Form\UploadForm'
+    _form: '\Drupal\unig\Form\UploadForm'
     _title: 'Upload'
-    project_nid: null
+    project_id: null
   requirements:
     _permission: 'access upload form'
 
@@ -151,23 +142,12 @@ unig.admin.config:
 # AJAX setCover
 #
 unig.setCover:
-  path: '/unig/set_cover/{project_nid}/{image_nid}'
+  path: '/unig/set_cover/{project_id}/{image_nid}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::ajaxSetCover'
     _title: 'set Cover Image'
-    project_nid: null
+    project_id: null
     image_nid: null
-  requirements:
-    _permission: 'access unig admin'
-
-#
-# AJAX deleteFile
-#
-unig.ajax.deleteFile:
-  path: '/unig/ajax/delete_file/{file_nid}'
-  defaults:
-    _controller: '\Drupal\unig\Controller\ProjectController::ajaxDeleteFile'
-    _title: 'delete File'
   requirements:
     _permission: 'access unig admin'
 
@@ -175,7 +155,7 @@ unig.ajax.deleteFile:
 # AJAX setAlbum
 #
 unig.ajax.addAlbum:
-  path: '/unig/ajax/add_album/{file_nid}/{album_nid}'
+  path: '/unig/ajax/add_album/{file_nid}/{album_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:ajaxAddAlbum'
     _title: 'add Image to Album'
@@ -186,7 +166,7 @@ unig.ajax.addAlbum:
 # AJAX new Album Form
 #
 unig.ajax.newAlbumForm:
-  path: '/unig/ajax/new_album_form/{project_nid}'
+  path: '/unig/ajax/new_album_form/{project_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController:ajaxAddAlbum'
     _title: 'add new Album'
@@ -264,22 +244,22 @@ unig.ajax.rating.save:
 # term.keywords.json
 #
 unig.term.keywords.json:
-  path: '/unig/term/keywords/json/{project_nid}'
+  path: '/unig/term/keywords/json/{project_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::getJSONfromKeywordsForProject'
     _title: 'Keywords'
-    project_nid: null
+    project_id: null
   requirements:
     _permission: 'access unig download'
 #
 # term.people.json
 #
 unig.term.people.json:
-  path: '/unig/term/people/json/{project_nid}'
+  path: '/unig/term/people/json/{project_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::getJSONfromPeople'
     _title: 'People'
-    project_nid: null
+    project_id: null
   requirements:
     _permission: 'access unig download'
 #
@@ -309,10 +289,10 @@ unig.imagestyles:
 # Content > Universal Gallery > List Projects
 #
 unig.process.extract-keyword:
-  path: '/unig/process/extract-keyword/{project_nid}'
+  path: '/unig/process/extract-keyword/{project_id}'
   defaults:
     _controller: '\Drupal\unig\Controller\ProjectController::extractKeyword'
-    project_nid: null
+    project_id: null
   requirements:
     _permission: 'access unig admin'
 
@@ -326,3 +306,81 @@ unig.process.extract-keyword-test:
     nid: null
   requirements:
     _permission: 'access unig admin'
+
+#
+# API Project
+# ----------------------------------------
+# Project
+unig.api.project:
+  path: '/unig/api/project/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::project'
+    id: null
+  requirements:
+    _permission: 'access unig admin'
+
+# TODO replace with DELETE HTTP Var
+unig.api.project.delete:
+  path: '/unig/api/project/delete/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::project'
+    id: null
+  requirements:
+    _permission: 'access unig admin'
+
+#
+# API File
+# ----------------------------------------
+unig.api.file:
+  path: '/unig/api/file/{file_id}/{project_id}'
+  methods: [GET, HEAD]
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigApiController::file'
+    file_id: null
+    project_id: null
+
+  requirements:
+    _permission: 'access unig admin'
+
+# File Delete
+unig.api.file.delete:
+  path: '/unig/api/file/{file_id}/{project_id}'
+  methods: [DELETE]
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigApiController::fileDelete'
+    file_id: null
+    project_id: null
+  requirements:
+    _permission: 'access unig admin'
+
+# File Favorite
+unig.api.file.favorit:
+  path: '/unig/api/file/favorite/{file_id}/{value}/{project_id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigApiController::fileFavorite'
+    file_id: null
+    value: 0
+    project_id: null
+  requirements:
+    _permission: 'access unig download'
+
+#
+# CACHE
+# ----------------------------------------
+# clear
+unig.api.project.cache-clear:
+  path: '/unig/api/cache-clear/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::cacheClear'
+    id: null
+  requirements:
+    _permission: 'access unig download'
+
+# Rebuild Cache
+unig.api.project.cache-rebuild:
+  path: '/unig/api/cache-rebuild/{id}'
+  defaults:
+    _controller: '\Drupal\unig\Controller\UnigAPIController::cacheRebuild'
+    id: null
+  requirements:
+    _permission: 'access unig download'

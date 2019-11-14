@@ -30,18 +30,18 @@ class LightgalleryController extends ControllerBase
   /**
    * Generate a render array with our Admin content.
    *
-   * @param      $project_nid
-   * @param null $album_nid
+   * @param      $project_id
+   * @param null $album_id
    *
    * @return array A render array.
    * A render array.
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function getTemplate($project_nid, $album_nid = null): array
+  public function getTemplate($project_id, $album_id = null): array
   {
     // Make sure you don't trust the URL to be safe! Always check for exploits.
-    if (!is_numeric($project_nid)) {
+    if (!is_numeric($project_id)) {
       // We will just show a standard "access denied" page in this case.
       throw new AccessDeniedHttpException();
     }
@@ -52,29 +52,29 @@ class LightgalleryController extends ControllerBase
       'description' => [
         '#type' => 'inline_template',
         '#template' => $template,
-        '#context' => $this->getTemplateVariables($project_nid, $album_nid)
+        '#context' => $this->getTemplateVariables($project_id, $album_id)
       ]
     ];
-    $build['#attached']['library'] = 'unig/unig.project.admin';
+    $build['#attached']['library'] = 'unig/unig.project.public';
     return $build;
   }
 
   /**
    * Variables to act as context to the twig template file.
    *
-   * @param $project_nid
-   * @param null $album_nid
+   * @param $project_id
+   * @param null $album_id
    * @return array
    *   Associative array that defines context for a template.
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  protected function getTemplateVariables($project_nid, $album_nid = null): array
+  protected function getTemplateVariables($project_id, $album_id = null): array
   {
     $variables['module'] = $this->getModuleName();
-    $variables['album'] = AlbumTrait::getAlbumList($project_nid);
-    $variables['project'] = ProjectTrait::buildProject($project_nid);
-    $variables['files'] = ProjectTrait::buildFileList($project_nid, $album_nid);
+    $variables['album'] = AlbumTrait::getAlbumList($project_id);
+    $variables['project'] = ProjectTrait::buildProject($project_id);
+    $variables['files'] = ProjectTrait::buildFileList($project_id, $album_id);
     $user = Drupal::currentUser();
     $variables['user'] = clone $user;
     return $variables;
@@ -89,6 +89,6 @@ class LightgalleryController extends ControllerBase
   protected function getTemplatePath(): string
   {
     return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/unig.lightgallery.html.twig';
+      '/templates/unig.project-public.html.twig';
   }
 }

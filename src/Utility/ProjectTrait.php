@@ -1,57 +1,25 @@
 <?php
 
-/**
- *
- *    Fields:   Unig Project
- *    __________________________________________
- *
- *    body   (formatted, long, with summary)
- *
- *    field_unig_trash          Boolean
- *
- *    field_unig_project_cover  Entity reference
- *
- *    field_unig_description    Text (formatted, long)
- *
- *    field_unig_weight          Number (integer)
- *
- *    field_unig_meta            Entity reference
- *
- *    field_unig_private        Boolean
- *
- *    field_unig_album          Entity reference
- *
- *    field_unig_date           Date
- *
- *
- */
 
 namespace Drupal\unig\Utility;
 
 use Drupal;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\AlertCommand;
+
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Url;
-use Drupal\file\Entity\File;
-use Drupal\file\FileInterface;
-use Drupal\image\Entity\ImageStyle;
+
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
+use Drupal\unig\Models\UnigProject;
 use Exception;
-use http\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use User;
 
 trait ProjectTrait
 {
-  public $default_project_nid;
-
-  public $project_nids = [];
 
   /**
    * @return array|int
@@ -141,23 +109,23 @@ trait ProjectTrait
   /**
    * depricated
    *
-   * @param bool $project_nid
+   * @param bool $project_id
    * @return int
    */
-  public function getDefaultProjectNid($project_nid = false): ?int
+  public function getDefaultProjectNid($project_id = false): ?int
   {
-    if ($project_nid) {
-      return $project_nid;
+    if ($project_id) {
+      return $project_id;
     }
 
-    // Aus den Einstellungen das Defaultalbum wählen
+    // Choose the default project from settings
     $default_config = Drupal::config('unig.settings');
-    $default_project_nid = $default_config->get('unig.default_project');
-    if ($default_project_nid) {
-      return (int)$default_project_nid;
+    $default_project_id = $default_config->get('unig.default_project');
+    if ($default_project_id) {
+      return (int) $default_project_id;
     }
 
-    // sonst das letzte Projekt nehmen
+    // or take newest Project
     $list = ProjectTrait::getAllProjectNids();
     if ($list) {
       return array_shift($list);
@@ -266,7 +234,7 @@ trait ProjectTrait
    *
    * @return OutputController
    */
-  public static function setCover($nid_project, $nid_image = null)
+  public static function setCover($nid_project, $nid_image = null): OutputController
   {
     $output = new OutputController();
 
@@ -317,7 +285,7 @@ trait ProjectTrait
   {
     $variables = [];
     if ($nid) {
-      $node = Node::load((int)$nid);
+      $node = Node::load((int) $nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
         $variables = CreateImageStylesTrait::createImageStyles(
@@ -376,14 +344,11 @@ trait ProjectTrait
   /**
    * @param      $nid_project
    *
-   * @param null $album_nid
+   * @param null $album_id
    *
    * @return array
    */
-  public static function getListofFilesInProject(
-    $nid_project,
-    $album_nid = null
-  )
+  public static function getListofFilesInProject($nid_project, $album_id = null)
   {
     // bundle : unig_file
     // field: field_unig_project[0]['target_id']
@@ -393,7 +358,7 @@ trait ProjectTrait
 
     $nids = [];
 
-    if ($album_nid != null) {
+    if ($album_id != null) {
       $query = // alphanumeric
         //
         // Condition
@@ -402,7 +367,7 @@ trait ProjectTrait
         Drupal::entityQuery('node')
           ->condition('type', 'unig_file')
           ->condition('field_unig_project', $nid_project)
-          ->condition('field_unig_album', $album_nid)
+          ->condition('field_unig_album', $album_id)
           ->sort('field_unig_weight.value', 'ASC')
           ->sort('title', 'ASC')
           ->sort('created', 'DESC');
@@ -438,9 +403,9 @@ trait ProjectTrait
     $variables = [];
 
     if ($nids) {
-      foreach ($nids as $project_nid) {
+      foreach ($nids as $project_id) {
         try {
-          $variables[] = self::buildProject($project_nid);
+          $variables[] = self::buildProject($project_id);
         } catch (Exception $e) {
         }
       }
@@ -450,7 +415,7 @@ trait ProjectTrait
   }
 
   /**
-   * @param $project_nid
+   * @param $project_id
    * @return array
    *
    * @throws InvalidPluginDefinitionException
@@ -479,7 +444,7 @@ trait ProjectTrait
     //
 
     // Load Project
-    $node = Node::load((int)$project_id);
+    $node = Node::load((int) $project_id);
 
     // check if Nid is Unig Project
     if ($node && $node->bundle() !== 'unig_project') {
@@ -489,37 +454,42 @@ trait ProjectTrait
     }
 
     // No Project with this Nid
+    /** @var TYPE_NAME $node */
     if (!$node) {
       return ['nid' => 0];
     }
 
     // Title
-    $title = Helper::getFieldValue($node, 'title');
+    $title = $node->label();
 
     // Body
-    $description = Helper::getFieldValue($node, 'unig_description');
+    $description = Helper::getFieldValue($node, UnigProject::field_description);
 
     // Weight
-    $weight = Helper::getFieldValue($node, 'unig_weight');
+    $weight = Helper::getFieldValue($node, UnigProject::field_weight);
 
     // Copyright
-    $copyright = Helper::getFieldValue($node, 'unig_copyright');
+    $copyright = Helper::getFieldValue($node, UnigProject::field_copyright);
 
     // Private
-    $private = Helper::getFieldValue($node, 'unig_private');
+    $private = Helper::getFieldValue($node, UnigProject::field_private);
 
     // Category
-    $category = Helper::getFieldValue($node, 'unig_category', 'unig_category');
-    $category_id = Helper::getFieldValue($node, 'unig_category');
-    $category_list = Helper::getTermsForOptionList('unig_category');
+    $category = Helper::getFieldValue($node, UnigProject::field_category, UnigProject::term_category);
+    $category_id = Helper::getFieldValue($node, UnigProject::field_category);
+    $category_list = Helper::getTermsForOptionList(UnigProject::term_category);
 
     // Tags
-    $tags = Helper::getFieldValue($node, 'unig_tags', 'unig_tags', true);
-    $tags_ids = Helper::getFieldValue($node, 'unig_tags', false, true);
-    $tags_list = Helper::getTermsForOptionList('unig_tags');
+    $tags = Helper::getFieldValue($node, UnigProject::field_tags, UnigProject::term_tags, true);
+    $tags_ids = Helper::getFieldValue($node, UnigProject::field_tags, false, true);
+    $tags_list = Helper::getTermsForOptionList(UnigProject::term_tags);
+
+    // Help
+    $help = Helper::getFieldValue($node, UnigProject::field_help);
+
 
     // Date
-    $date = Helper::getFieldValue($node, 'unig_date');
+    $date = Helper::getFieldValue($node, UnigProject::field_date);
     if ($date) {
       $format = 'Y-m-d';
       $php_date_obj = date_create_from_format($format, $date);
@@ -528,7 +498,7 @@ trait ProjectTrait
     }
 
     // Timestamp
-    $timestamp = (int)$php_date_obj->format('U');
+    $timestamp = (int) $php_date_obj->format('U');
 
     // Year
     $year = $php_date_obj->format('Y');
@@ -541,13 +511,13 @@ trait ProjectTrait
     $date_drupal = $php_date_obj->format('Y-m-d');
 
     // Cover Image
-    $cover_id = Helper::getFieldValue($node, 'unig_project_cover');
+    $cover_id = Helper::getFieldValue($node, UnigProject::field_project_cover);
 
     if (!$cover_id) {
       $new_cover = self::setCover($project_id);
       $cover_id = $new_cover->getTid();
     }
-    $cover_image = self::getCoverImageVars((int)$cover_id);
+    $cover_image = self::getCoverImageVars((int) $cover_id);
 
     // number_of_items
     $number_of_items = self::countFilesInProject($project_id);
@@ -570,15 +540,15 @@ trait ProjectTrait
     $host = Drupal::request()->getHost();
 
     // URL
-    $url = Url::fromRoute('unig.lightgallery', [
-      'project_nid' => $project_id
+    $url = Url::fromRoute('unig.project.public', [
+      'project_id' => $project_id
     ]);
 
     // Twig-Variables
     // --------------------------------------------
     $project = [
       'id' => $project_id,
-      'nid' => $project_id,
+      'project_id' => $project_id,
       'title' => $title,
       'title_url' => $clean_string,
       'description' => $description,
@@ -600,36 +570,36 @@ trait ProjectTrait
       'cover_image' => $cover_image,
       'album_list' => $album_list,
       'host' => $host,
-      'url' => $url
+      'url' => $url,
+      'help' => $help
     ];
 
     return $project;
   }
 
   /**
-   * @param      $project_nid
-   * @param null $album_nid
+   * @param      $project_id
+   * @param null $album_id
    *
    * @return array
    * @throws InvalidPluginDefinitionException
    */
-  public static function buildFileList($project_nid, $album_nid = null)
+  public static function buildFileList($project_id, $album_id = null)
   {
-    $file_nids = self::getListofFilesInProject($project_nid, $album_nid);
+    $file_nids = self::getListofFilesInProject($project_id, $album_id);
     $variables = [];
 
     foreach ($file_nids as $file_nid) {
-      $variables[] = self::buildFile($file_nid);
+      $variables[] = Drupal\unig\Models\UnigFile::buildFile($file_nid);
     }
 
     return $variables;
   }
 
   public static function getJSONFromProjectFiles(
-    $project_nid,
-    $album_nid = null
-  ): JsonResponse
-  {
+    $project_id,
+    $album_id = null
+  ): JsonResponse {
     $response = new JsonResponse();
 
     // TODO: (replace $_POST with new Drupal method )
@@ -637,15 +607,15 @@ trait ProjectTrait
     $postReq = \Drupal::request()->request->all();
     // $response['debug'] = $postReq;
 
-    if (isset($postReq, $postReq['project_nid'])) {
-      $project_nid = $postReq['project_nid'];
+    if (isset($postReq, $postReq['project_id'])) {
+      $project_id = $postReq['project_id'];
     }
 
-    $file_nids = self::getListofFilesInProject($project_nid);
+    $file_nids = self::getListofFilesInProject($project_id);
     $variables = [];
 
     foreach ($file_nids as $file_nid) {
-      $variables[$file_nid] = self::buildFile($file_nid);
+      $variables[$file_nid] = Drupal\unig\Models\UnigFile::buildFile($file_nid);
     }
 
     $response->setData($variables);
@@ -656,7 +626,7 @@ trait ProjectTrait
    * @return JsonResponse
    *
    */
-  public static function getJSONfromKeywordsForProject($project_nid)
+  public static function getJSONfromKeywordsForProject($project_id)
   {
     $vid = 'unig_keywords';
     return self::getJSONfromKeywords($vid);
@@ -668,7 +638,7 @@ trait ProjectTrait
     return self::getJSONfromVocubulary($vid);
   }
 
-  public static function getJSONfromPeopleForProject($project_nid)
+  public static function getJSONfromPeopleForProject($project_id)
   {
     $vid = 'unig_people';
     return self::getJSONfromPeople($vid);
@@ -693,8 +663,8 @@ trait ProjectTrait
     }
     foreach ($terms as $term) {
       $term_data[] = [
-        'id' => (integer)$term->tid,
-        'name' => (string)$term->name
+        'id' => (int) $term->tid,
+        'name' => (string) $term->name
       ];
     }
 
@@ -703,17 +673,16 @@ trait ProjectTrait
   }
 
   /**
-   * @param      $project_nid
-   * @param null $album_nid
+   * @param      $project_id
+   * @param null $album_id
    * @return array
    */
   public static function importKeywordsFromProject(
-    $project_nid,
-    $album_nid = null
-  ): array
-  {
+    $project_id,
+    $album_id = null
+  ): array {
     $list = [];
-    $nids = self::getListofFilesInProject($project_nid, $album_nid);
+    $nids = self::getListofFilesInProject($project_id, $album_id);
 
     // read Keywords of every Files in Project
     foreach ($nids as $nid) {
@@ -743,7 +712,6 @@ trait ProjectTrait
         // dpm($iptc);
         $keywords = $iptc->getKeywordTermIDs();
         $people = $iptc->getPeopleTermIds();
-
 
         // Keywords
         if (!empty($keywords)) {
@@ -779,7 +747,6 @@ trait ProjectTrait
         Drupal::logger('unig')->warning($message);
         return false;
       }
-
     } else {
       $message = 'importKeywordsFromNode: invalid NID';
       Drupal::logger('unig')->warning($message);
@@ -787,151 +754,14 @@ trait ProjectTrait
     }
   }
 
-  /**
-   * @param $file_nid
-   *
-   * @return array
-   *
-   * @throws InvalidPluginDefinitionException
-   * @throws Exception
-   */
-  public static function buildFile($file_nid)
-  {
-    // project
-    //  - nid
-    //  - date
-    //  - timestamp
-    //  - title
-    //  - description
-    //  - copyright
-
-    //  - weight (draggable)
-    //  - album
-    //      - title
-    //      - number_of_items
-    //  - links
-    //    - edit
-    //    - delete
-
-    $entity = Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->load($file_nid);
-
-    if ($entity && $entity->bundle() !== 'unig_file') {
-      $message = 'Node with ' . $file_nid . ' is not an UniG-File';
-      \Drupal::logger('type')->error($message);
-      return ['nid' => 0];
-    }
-
-    // NID
-    $nid = $entity->id();
-
-    // Title
-    $title = $entity->label();
-
-    // Title Generated
-    $title_generated = $entity->get('field_unig_title_generated')->getValue();
-    if ($title_generated) {
-      $title_generated = $title_generated[0]['value'];
-    } else {
-      $title_generated = 1;
-    }
-
-    // Description
-    $description = $entity->get('field_unig_description')->getValue();
-
-    if ($description) {
-      $description = $description[0]['value'];
-    }
-
-    // comments
-    $comments = 'comments';
-
-    // Rating
-    $rating = 0;
-    $node_rating = $entity->get('field_unig_rating')->getValue();
-    if ($node_rating) {
-      $rating = $node_rating[0]['value'];
-    }
-
-    // Weight
-    $weight = 0;
-    $node_weight = $entity->get('field_unig_weight')->getValue();
-    if ($node_weight) {
-      $weight = $node_weight[0]['value'];
-    }
-
-    // Copyright
-    $copyright = '';
-    $node_copyright = $entity->get('field_unig_copyright')->getValue();
-    if ($node_copyright) {
-      $copyright = $node_copyright[0]['value'];
-    }
-
-    // image
-    $image = self::getImageVars($file_nid);
-
-    // people
-    $people = [];
-    $node_people = $entity->get('field_unig_people')->getValue();
-    if ($node_people) {
-      foreach ($node_people as $term) {
-        $tid = $term['target_id'];
-        $term = Term::load($tid);
-
-        if ($term) {
-          $name = $term->getName();
-          $item = ['id' => (integer)$tid, 'name' => (string)$name];
-          $people[] = $item;
-        }
-      }
-    }
-    // keywords
-    $keywords = [];
-    $node_keywords = $entity->get('field_unig_keywords')->getValue();
-    if ($node_keywords) {
-      foreach ($node_keywords as $term) {
-        $tid = $term['target_id'];
-        $term = Term::load($tid);
-
-        if ($term) {
-          $name = $term->getName();
-          $item = ['id' => (integer)$tid, 'name' => (string)$name];
-          $keywords[] = $item;
-        }
-      }
-    }
-    // Album List
-    $album_list = AlbumTrait::getAlbumList($nid);
-
-    // Twig-Variables
-    $file = [
-      'nid' => $nid,
-      'id' => (int)$nid,
-      'title' => $title,
-      'description' => $description,
-      'album_list' => $album_list,
-      'image' => $image,
-      'comments' => $comments,
-      'weight' => $weight,
-      'rating' => $rating,
-      'copyright' => $copyright,
-      'people' => $people,
-      'keywords' => $keywords,
-      'title_generated' => $title_generated
-    ];
-
-    return $file;
-  }
-
-  public static function projectDelete($project_nid)
+  public static function projectDelete($project_id)
   {
     // delete Project
     $status = false;
-    $message = $project_nid;
+    $message = $project_id;
 
-    if ($project_nid) {
-      $node = Node::Load($project_nid);
+    if ($project_id) {
+      $node = Node::Load($project_id);
 
       // load node
       if ($node) {
@@ -939,15 +769,16 @@ trait ProjectTrait
         $node->delete();
 
         // Delete Files
-        self::deleteAllFilesInProject($project_nid);
+        self::deleteAllFilesInProject($project_id);
 
         // Node delete success
         $status = true;
-        $message = 'Das Projekt mit der ID ' . $project_nid . ' wurde gelöscht';
-      } // no Node found
+        $message = 'Das Projekt mit der ID ' . $project_id . ' wurde gelöscht';
+      }
+      // no Node found
       else {
         $status = false;
-        $message = 'kein Projekt mit der ID ' . $project_nid . ' gefunden';
+        $message = 'kein Projekt mit der ID ' . $project_id . ' gefunden';
       }
     }
 
@@ -959,13 +790,13 @@ trait ProjectTrait
     return $output;
   }
 
-  public static function deleteAllFilesInProject($project_nid)
+  public static function deleteAllFilesInProject($project_id)
   {
     // Delete all Files
-    $file_nids = self::getListofFilesInProject($project_nid);
+    $file_nids = self::getListofFilesInProject($project_id);
 
     foreach ($file_nids as $file_nid) {
-      FileTrait::deleteFile($file_nid);
+      FileTrait::deleteFile($file_nid, $project_id);
     }
     return true;
   }
@@ -975,18 +806,20 @@ trait ProjectTrait
    * @return mixed
    *
    *
-   * @throws InvalidPluginDefinitionException
    * @throws EntityStorageException
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
    */
   public static function saveProject()
   {
-    $project_nid = $_POST['project_nid'];
-    $data = $_POST['data'];
+    $postReq = \Drupal::request()->request->all();
+    $project_id = $postReq['id'] ?? false;
+    $data = $postReq['data'] ?? false;
 
     // Load node
     $entity = Drupal::entityTypeManager()
       ->getStorage('node')
-      ->load($project_nid);
+      ->load($project_id);
 
     // title
     $entity->title[0] = $data['title'];
@@ -1007,7 +840,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int)$data['private'];
+    $int_private = (int) $data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {

@@ -110,7 +110,7 @@ ul.unig-gallery li.unig-file-item:hover.marked {
   margin-right: 4px;
 }
 
-.unig-file-nid {
+.unig-file-id {
   border-right: 1px solid #8f8f8f;
   padding-right: 6px;
 }
@@ -167,6 +167,23 @@ h2.unig-project-title {
 .no-preview-big {
   padding-top: 10px;
   color: #676767;
+}
+
+.unig-file-favorite {
+  width: 30px;
+  padding: 0 7px;
+  display: inline-block;
+  margin-left: -5px;
+}
+.unig-file-favorite:hover {
+  color: black;
+  cursor: pointer;
+}
+.unig-file-favorite.favorite {
+  color: #ff0004;
+}
+.unig-file-favorite:hover.favorite {
+  color: #8f0003;
 }
 
 /*# sourceMappingURL=unig_image.css.map */

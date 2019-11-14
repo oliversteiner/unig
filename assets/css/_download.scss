@@ -10,7 +10,7 @@ ul.unig-gallery li.unig-file-item.marked {
   border-color: $color-admin-marked;
 }
 
-div.unig-file-download-mark {
+div.unig-file-download-mark{
   width: 30px;
   padding: 0 7px;
   display: inline-block;
@@ -134,4 +134,9 @@ td.unig-file-download-table-size {
     background-color: $color-badge-marked;
     color: $color-admin-background-invert;
   }
+}
+
+.unig-button.unig-button-cancel-download{
+  margin: 10px;
+  border: 1px solid silver;
 }

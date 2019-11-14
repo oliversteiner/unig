@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ost
- * Date: 06.12.17
- * Time: 09:33
- */
 
 namespace Drupal\unig\Utility;
 
@@ -20,12 +14,13 @@ trait RatingTrait
   /**
    * @return JsonResponse
    * @throws PluginNotFoundException
+   * @throws EntityStorageException
    */
   public static function ratingSave(): JsonResponse
   {
     $post = $_POST['data'];
-
     $nid = $post['nid'];
+    $project_id = $post['project_id'];
     $value = $post['value'];
 
     $output = new OutputController();
@@ -53,6 +48,9 @@ trait RatingTrait
     } catch (EntityStorageException $e) {
       $output->setMessages('save failed', 'error', true);
     }
+
+    // clear cache
+    UnigCache::clearProjectCache($project_id);
 
     return $output->json();
   }

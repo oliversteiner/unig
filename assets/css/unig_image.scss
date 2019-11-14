@@ -112,7 +112,7 @@ ul.unig-gallery li.unig-file-item:hover.marked {
   padding-right: 2px;
   margin-right: 4px;
 }
-.unig-file-nid {
+.unig-file-id {
   border-right: 1px solid $color-admin-info;
   padding-right: 6px;
 }
@@ -176,4 +176,23 @@ h2.unig-project-title {
 .no-preview-big {
   padding-top: 10px;
   color: #676767;
+}
+
+.unig-file-favorite {
+  width: 30px;
+  padding: 0 7px;
+  display: inline-block;
+  margin-left: -5px;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  &.favorite{
+    color: $color-admin-favorite;
+  }
+  &:hover.favorite {
+    color: #8f0003;
+  }
 }

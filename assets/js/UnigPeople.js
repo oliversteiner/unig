@@ -1,5 +1,15 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigPeople = {
+    peopleList: [],
+    Store: {},
+    isToolbarOpen: false,
+    $tags_container: $('.unig-toolbar-people-tags-container', this.context),
+    $check_all_people_trigger: $('unig-button-people-check-all', this.context),
+    $uncheck_all_people_trigger: $(
+      'unig-button-people-uncheck-all',
+      this.context,
+    ),
+
     attach(context, settings) {
       // onload
 
@@ -9,26 +19,9 @@
           this.constructor(context, settings);
           this.addAll();
           this.markAllAsActive();
-          this.updateDisplay();
+          this.update();
         });
     },
-
-    isToolbarOpen: false,
-
-    $tags_container: $('.unig-toolbar-people-tags-container', this.context),
-
-    $check_all_people_trigger: $(
-      'unig-button-people-check-all',
-      this.context,
-    ),
-    $uncheck_all_people_trigger: $(
-      'unig-button-people-uncheck-all',
-      this.context,
-    ),
-
-    Storage: Drupal.behaviors.unigData.peopleStorage,
-    List: Drupal.behaviors.unigData.peopleList,
-    Visible: [],
 
     toggleToolbar(context) {
       if (this.isToolbarOpen) {
@@ -53,34 +46,15 @@
     },
 
     add(id) {
-      this.Storage.add(id);
+      this.Store.add(id);
     },
 
     remove(id) {
-      this.Storage.remove(id);
+      this.Store.remove(id);
     },
-    /**
-     *
-     * @param id
-     */
+
     toggle(id) {
-      const peopleStorage = this.Storage.get();
-
-      // if first Item in list toggle on
-      if (peopleStorage === false) {
-        this.add(id);
-      } else {
-        // search item in peopleStorage List
-        const IsInDownloadList = this.Storage.find(id);
-
-        if (IsInDownloadList) {
-          // if item in list. toggle off
-          this.remove(id);
-        } else {
-          // if item  not in list. toggle on
-          this.add(id);
-        }
-      }
+      this.Store.toggle(id);
     },
 
     /**
@@ -122,14 +96,14 @@
      *
      */
     removeAll() {
-      this.Storage.destroy();
+      this.Store.clear();
     },
     /**
      *
      *
      */
     addAll() {
-      const items = this.List.get();
+      const items = this.peopleList;
 
       for (let i = 0; i < items.length; i++) {
         this.add(items[i].id);
@@ -147,7 +121,7 @@
      *
      */
     markAllAsActive() {
-      const items = this.List.get();
+      const items = this.peopleList;
 
       for (let i = 0; i < items.length; i++) {
         this.markAsActive(items[i].id);
@@ -157,13 +131,15 @@
      *
      *
      */
-    updateDisplay() {
+    update() {
+      this.peopleList = Drupal.behaviors.unigData.projectPeople.list;
+
       // target
       const $targetNumberOf = $('.unig-people-display');
 
       // get Number
-      const numberAllItems = this.List.count();
-      const numberChosenItems = this.Storage.count();
+      const numberAllItems = this.peopleList.length;
+      const numberChosenItems = this.Store.count();
 
       let text = '';
 
@@ -182,11 +158,10 @@
         // remove text
         $targetNumberOf.html();
       }
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     buildTags(peopleList) {
-
-
       let elemLi = '';
       if (peopleList) {
         peopleList.forEach(item => {
@@ -195,9 +170,11 @@
           const label = item.name;
 
           elemLi +=
-            `<li class="unig-tag unig-tag-people unig-people-trigger ${additionalClass}" 
+            `<li class="unig-tag unig-tag-people  ${additionalClass}" 
                 id="unig-tag-id-${item.id}" 
-                data-id = "${item.id}">` +
+                data-id = "${item.id}"
+                onclick="Drupal.behaviors.unigPeople.toggleTag(${item.id})"
+                >` +
             `<span class="unig-people-tag-id">${item.id}</span>` +
             `<span class="unig-people-tag-label">${label}</span>` +
             `</li>`;
@@ -207,20 +184,10 @@
       const prefix = '<ul class="unig-tags unig-tags-people">';
       const suffix = '</ul><span class="build-done"></span>';
 
-      const buttonMarkAll =
-        '<div class="unig-tag unig-mark-all-tags unig-button-people-mark-all-tags unig-people-mark-all-tags-trigger">' +
-        '<i class="fas fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">check all</span>' +
-        '</div>';
 
-      const buttonUnMarkAll =
-        '<div class="unig-tag unig-unmark-all-tags unig-button-people-unmark-all-tags unig-people-unmark-all-tags-trigger">' +
-        '<i class="far fa-circle" aria-hidden="true"></i>' +
-        '<span class="unig-tags-title">uncheck all</span>' +
-        '</div>';
 
       // Build DOM
-      const html = buttonMarkAll + buttonUnMarkAll + prefix + elemLi + suffix;
+      const html =  prefix + elemLi + suffix;
 
       // Add to dom
       this.$tags_container.html(html);
@@ -230,33 +197,27 @@
       $('.unig-people-mark-all-tags-trigger').click(() => {
         scope.addAll();
         scope.markAllAsActive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       $('.unig-people-unmark-all-tags-trigger').click(() => {
         scope.removeAll();
         scope.markAllAsInactive();
-        scope.updateDisplay();
-        Drupal.behaviors.unigDownload.updateFiles();
+        scope.update();
       });
 
       // Update GUI
 
       $('.build-done').ready(() => {
-        // Add Handler
-        $('.unig-people-trigger').click(function() {
-          const id = $(this).data('id');
-
-          scope.toggle(id);
-          scope.toggleMark(id);
-          scope.updateDisplay();
-          Drupal.behaviors.unigDownload.updateFiles();
-        });
-
         scope.reMark();
-        scope.updateDisplay();
+        scope.update();
       });
+    },
+
+    toggleTag(id){
+      this.toggle(id);
+      this.toggleMark(id);
+      this.update();
     },
 
     /**
@@ -266,7 +227,7 @@
      */
     reMark() {
       // Get Download Item List
-      const peopleStorage = this.Storage.get();
+      const peopleStorage = this.Store.get();
 
       if (peopleStorage) {
         peopleStorage.forEach(elem => {
@@ -276,10 +237,10 @@
     },
 
     clearDownloadList() {
-      this.Storage.destroy();
+      this.Store.clear();
       this.markAllAsInactive();
       this.buildTags();
-      this.updateDisplay();
+      this.update();
       Drupal.behaviors.unigDownload.updateFiles();
     },
 
@@ -314,12 +275,11 @@
           const id = item.getAttribute('data-id');
           Scope.add(id);
           Scope.markAsActive(id);
-          Scope.updateDisplay();
+          Scope.update();
           Drupal.behaviors.unigDownload.updateFiles();
         },
       });
     },
-
 
     /**
      *
@@ -327,6 +287,10 @@
      * @param settings
      */
     constructor(context) {
+      this.peopleList = Drupal.behaviors.unigData.projectPeople.list;
+
+      this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
+      this.Store.init('people');
 
       // Close Toolbar
       $('.unig-toolbar-people-close-trigger', context).click(event => {

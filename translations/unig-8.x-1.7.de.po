@@ -1,0 +1,464 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Unig\n"
+"POT-Creation-Date: 2019-11-14 23:00+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: t\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: src\n"
+"X-Poedit-SearchPath-1: templates\n"
+
+#: src/Controller/FilesController.php:73
+#: src/Controller/ProjectController.php:80
+msgid "Test Page"
+msgstr "Testseite"
+
+#: src/Controller/IptcController.php:238
+msgid "File does not exist"
+msgstr "Datei existiert nicht"
+
+#: src/Controller/ProjectController.php:71
+msgid "Project"
+msgstr "Projekt"
+
+#: src/Form/FilesForm.php:70
+msgid "Project name"
+msgstr "Projektnamen"
+
+#: src/Form/FilesForm.php:79
+msgid "Chose project"
+msgstr "Projekt wählen"
+
+#: src/Form/FilesForm.php:106 src/Form/UploadForm.php:135
+msgid "Submit"
+msgstr "Abschicken"
+
+#: src/Form/FilesForm.php:126
+msgid "Name new Project"
+msgstr "Name des neuen Projekts"
+
+#: src/Form/FilesForm.php:131 src/Form/UploadForm.php:163
+msgid "No files selected"
+msgstr "Keine Dateien ausgewählt"
+
+#: src/Form/NewAlbumForm.php:75
+msgid "Verifying entry..."
+msgstr "Eintrag wird überprüft..."
+
+#: src/Form/NewAlbumForm.php:81 templates/unig.list.html.twig:91
+#: templates/unig.project-admin.html.twig:591
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/Form/UniGSettingsForm.php:44
+msgid "Default Project"
+msgstr "Standard Projekt"
+
+#: src/Form/UniGSettingsForm.php:52
+msgid "Default Category"
+msgstr "Standard Kategorie"
+
+#: src/Form/UniGSettingsForm.php:59
+msgid "Allowed file types"
+msgstr "Zulässige Datei-Typen"
+
+#: src/Form/UniGSettingsForm.php:64
+msgid "Allowed file types, no points, separated by space."
+msgstr "Zulässige Dateitypen, keine Punkte, getrennt durch Leerzeichen."
+
+#: src/Form/UploadForm.php:77 templates/unig.project-public.html.twig:79
+msgid "Show all projects"
+msgstr "Zeige alle Projekte"
+
+#: src/Form/UploadForm.php:83
+msgid "Name new project"
+msgstr "Neues Projekt benennen"
+
+#: src/Form/UploadForm.php:94
+msgid "Choose Project"
+msgstr "Projekt wählen"
+
+#: src/Form/UploadForm.php:107
+msgid "Upload Images / Files"
+msgstr "Bilder oder Dateien hochladen"
+
+#: src/Form/UploadForm.php:157
+msgid "Type a name for the new project"
+msgstr "Name des neuen Projekts"
+
+#: src/Form/UploadForm.php:221
+msgid "Added 1 item to the new project %project."
+msgstr "Ein neues Objekt zum neuen Projekt %project hinzugefügt."
+
+#: src/Form/UploadForm.php:225
+msgid "Added %count items to the new project %project."
+msgstr "%count Objekte zum neuen Projekt %project hinzugefügt."
+
+#: src/Form/UploadForm.php:230
+msgid "Added 1 item to the project %project."
+msgstr "Ein neues Objekt zum Projekt %project hinzugefügt."
+
+#: src/Form/UploadForm.php:234
+msgid "Added %count items to the project %project."
+msgstr "%count Objekte zum Projekt %project hinzugefügt."
+
+#: src/Models/UnigFile.php:56
+#, php-format
+msgid "The file with the ID %file_id was deleted."
+msgstr "Die Datei mit der ID %file_id wurde gelöscht."
+
+#: src/Models/UnigFile.php:103
+#, php-format
+msgid "The file with the ID %file_id was marked as favorite."
+msgstr "Die Datei mit der ID %file_id wurde als Favorit markiert."
+
+#: src/Models/UnigFile.php:108
+#, php-format
+msgid "The file with the ID %file_id is no longer a favorite."
+msgstr "Die Datei mit der ID %file_id ist kein Favorit mehr."
+
+#: src/Models/UnigFile.php:122
+#, fuzzy, php-format
+#| msgid "Can't save changes of File %file_id. "
+msgid "Can't save changes of File %file_id."
+msgstr "Änderungen von Datei %file_id können nicht gespeichert werden."
+
+#: src/Utility/ProjectListTemplateTrait.php:25
+#: templates/unig.list.html.twig:251 templates/unig.project-admin.html.twig:53
+msgid "Category"
+msgstr "Kategorie"
+
+#: src/Utility/ProjectTrait.php:88
+msgid "Create new project..."
+msgstr "Neues Projekt erstellen..."
+
+#: src/Utility/ProjectTrait.php:259
+msgid "New cover picture set for project "
+msgstr "Neues Cover Bild gesetzt für Projekt "
+
+#: src/Utility/ProjectTrait.php:267
+msgid "ERROR: cover image adding failed. Project: "
+msgstr "FEHLER: Coverbild konnte nicht gesetzt werden für Projekt: "
+
+#: templates/unig-project-teaser.html.twig:62 templates/unig.list.html.twig:162
+#: templates/unig.list.html.twig:508
+msgid "No cover picture selected"
+msgstr "Noch kein Titelbild ausgewählt"
+
+#: templates/unig-project-teaser.html.twig:88
+msgid "This Project is private"
+msgstr "Dieses Projekt ist privat"
+
+#: templates/unig.list.html.twig:32
+msgid "New Project"
+msgstr "Neues Projekt"
+
+#: templates/unig.list.html.twig:38 templates/unig.list.html.twig:69
+#: templates/unig.project-admin.html.twig:358
+#: templates/unig.project-admin.html.twig:574
+msgid "Sort order"
+msgstr "Reihenfolge"
+
+#: templates/unig.list.html.twig:50 templates/unig.project-admin.html.twig:421
+msgid "Dark"
+msgstr "Dunkel"
+
+#: templates/unig.list.html.twig:56
+msgid "Default"
+msgstr "Standard"
+
+#: templates/unig.list.html.twig:74
+msgid "Sort alphabetical"
+msgstr "Alphabetisch sortieren"
+
+#: templates/unig.list.html.twig:79
+msgid "Sort by date"
+msgstr "Nach Datum sortieren"
+
+#: templates/unig.list.html.twig:85 templates/unig.project-admin.html.twig:579
+msgid "Save Order"
+msgstr "Sortierfolge sichern"
+
+#: templates/unig.list.html.twig:182 templates/unig.project-admin.html.twig:411
+#: templates/unig.project-download.html.twig:189
+msgid "Preview"
+msgstr "Vorschau"
+
+#: templates/unig.list.html.twig:209 templates/unig.project-admin.html.twig:190
+msgid "Delete Project"
+msgstr "Projekt löschen"
+
+#: templates/unig.list.html.twig:357 templates/unig.project-admin.html.twig:128
+#: templates/unig.project-admin.html.twig:1076
+msgid "Add description"
+msgstr "Beschreibung hinzufügen"
+
+#: templates/unig.list.html.twig:391 templates/unig.project-admin.html.twig:257
+msgid "Add copyright"
+msgstr "Urheber hinzufügen"
+
+#: templates/unig.list.html.twig:424 templates/unig.project-admin.html.twig:301
+msgid "Delete this project and all its images?"
+msgstr "Dieses Projekt und alle seine Bilder löschen?"
+
+#: templates/unig.list.html.twig:435 templates/unig.project-admin.html.twig:312
+msgid "No, Cancel"
+msgstr "Nein, Abbrechen"
+
+#: templates/unig.list.html.twig:444 templates/unig.project-admin.html.twig:321
+msgid "Yes, Delete Project"
+msgstr "Ja, Projekt löschen"
+
+#: templates/unig.project-admin.html.twig:164
+#: templates/unig.project-admin.html.twig:629
+#: templates/unig.project-admin.html.twig:836
+#: templates/unig.project-download.html.twig:74
+#: templates/unig.project-download.html.twig:285
+#: templates/unig.project-download.html.twig:492
+msgid "of"
+msgstr "von"
+
+#: templates/unig.project-admin.html.twig:344
+msgid "All Projects"
+msgstr "Alle Projekte"
+
+#: templates/unig.project-admin.html.twig:351
+msgid "Add Files"
+msgstr "Dateien hinzufügen"
+
+#: templates/unig.project-admin.html.twig:404
+#: templates/unig.project-download.html.twig:182
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/unig.project-admin.html.twig:428
+msgid "Bright"
+msgstr "Hell"
+
+#: templates/unig.project-admin.html.twig:457
+#: templates/unig.project-admin.html.twig:549
+#: templates/unig.project-download.html.twig:219
+#: templates/unig.project-download.html.twig:231
+msgid "Help"
+msgstr "Hilfe"
+
+#: templates/unig.project-admin.html.twig:468
+#: templates/unig.project-admin.html.twig:476
+msgid "Options"
+msgstr "Einstellungen"
+
+#: templates/unig.project-admin.html.twig:487
+msgid "Extract Keywords"
+msgstr "Schlüsselwörter extrahieren"
+
+#: templates/unig.project-admin.html.twig:495
+msgid "Clear Project Cache"
+msgstr "Projektcache löschen"
+
+#: templates/unig.project-admin.html.twig:503
+msgid "Rebuild Project Cache"
+msgstr "Projektcache neu erstellen"
+
+#: templates/unig.project-admin.html.twig:513
+msgid "Generate Image Styles"
+msgstr "Bilder-Style generieren"
+
+#: templates/unig.project-admin.html.twig:519
+msgid "Stop generating Styles"
+msgstr "Stile erstellen abbrechen"
+
+#: templates/unig.project-admin.html.twig:531
+msgid "Close"
+msgstr "Schließen"
+
+#: templates/unig.project-admin.html.twig:562
+#: templates/unig.project-download.html.twig:244
+msgid "Close Help"
+msgstr "Hilfe Schliessen"
+
+#: templates/unig.project-admin.html.twig:585
+msgid "Reset to alphabetical"
+msgstr "Auf Alphabetisch zurücksetzen"
+
+#: templates/unig.project-admin.html.twig:602
+#: templates/unig.project-download.html.twig:259
+msgid "Files:"
+msgstr "Dateien:"
+
+#: templates/unig.project-admin.html.twig:610
+#: templates/unig.project-download.html.twig:267
+msgid "Add all"
+msgstr "Alle hinzufügen"
+
+#: templates/unig.project-admin.html.twig:616
+#: templates/unig.project-download.html.twig:273
+msgid "Empty List"
+msgstr "Liste leeren"
+
+#: templates/unig.project-admin.html.twig:628
+#: templates/unig.project-download.html.twig:284
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: templates/unig.project-admin.html.twig:630
+#: templates/unig.project-download.html.twig:286
+msgid "Images"
+msgstr "Bilder"
+
+#: templates/unig.project-admin.html.twig:723
+#: templates/unig.project-download.html.twig:379
+msgid "Keywords"
+msgstr "Schlüsselwörter"
+
+#: templates/unig.project-admin.html.twig:737
+#: templates/unig.project-admin.html.twig:798
+#: templates/unig.project-download.html.twig:393
+#: templates/unig.project-download.html.twig:454
+msgid "Uncheck all"
+msgstr "Alle Markierungen aufheben"
+
+#: templates/unig.project-admin.html.twig:743
+#: templates/unig.project-admin.html.twig:804
+#: templates/unig.project-download.html.twig:399
+#: templates/unig.project-download.html.twig:460
+msgid "Check all"
+msgstr "Alle markieren"
+
+#: templates/unig.project-admin.html.twig:750
+#: templates/unig.project-download.html.twig:406
+msgid "Show Keywords on Files"
+msgstr "Schlüsselwörter in Bilder anzeigen"
+
+#: templates/unig.project-admin.html.twig:784
+#: templates/unig.project-download.html.twig:440
+msgid "People Names"
+msgstr "Personennamen"
+
+#: templates/unig.project-admin.html.twig:810
+#: templates/unig.project-download.html.twig:466
+msgid "Show People Names on Files"
+msgstr "Personennamen in Bilder anzeigen"
+
+#: templates/unig.project-admin.html.twig:834
+#: templates/unig.project-download.html.twig:490
+msgid "Generate preview images:"
+msgstr "Vorschau Bilder generieren:"
+
+#: templates/unig.project-admin.html.twig:881
+msgid "Create new album"
+msgstr "Neues Album erstellen"
+
+#: templates/unig.project-admin.html.twig:931
+#: templates/unig.project-download.html.twig:544
+msgid "Mark for Download"
+msgstr "Für Download markieren"
+
+#: templates/unig.project-admin.html.twig:938
+#: templates/unig.project-download.html.twig:551
+msgid "Mark as Favorite"
+msgstr "Als Favorit markieren"
+
+#: templates/unig.project-admin.html.twig:1010
+#: templates/unig.project-admin.html.twig:1148
+msgid "Cover Picture"
+msgstr "Titelbild"
+
+#: templates/unig.project-admin.html.twig:1016
+msgid "Set as cover picture"
+msgstr "Als Titelbild nutzen"
+
+#: templates/unig.project-admin.html.twig:1172
+#: templates/unig.project-download.html.twig:669
+msgid "Size"
+msgstr "Grösse"
+
+#: templates/unig.project-admin.html.twig:1178
+#: templates/unig.project-download.html.twig:675
+msgid "Width"
+msgstr "Breite"
+
+#: templates/unig.project-admin.html.twig:1184
+#: templates/unig.project-download.html.twig:681
+msgid "Height"
+msgstr "Höhe"
+
+#: templates/unig.project-admin.html.twig:1194
+msgid "Add to Album"
+msgstr "Zum Album hinzufügen"
+
+#: templates/unig.project-admin.html.twig:1220
+#: templates/unig.project-download.html.twig:700
+msgid "Add to download list"
+msgstr "Zur Download Liste hinzufügen"
+
+#: templates/unig.project-admin.html.twig:1222
+#: templates/unig.project-download.html.twig:702
+msgid "Remove from download list"
+msgstr "Von der Download Liste entfernen"
+
+#: templates/unig.project-public.html.twig:142
+msgid "Show image names"
+msgstr "Bildnamen anzeigen"
+
+#: templates/unig.project-public.html.twig:144
+msgid "Hide image names"
+msgstr "Bilder Namen ausblenden"
+
+#: templates/unig.project-public.html.twig:150
+msgid "Show index numbers"
+msgstr "Indexnummer anzeigen"
+
+#: templates/unig.project-public.html.twig:152
+msgid "Hide index numbers"
+msgstr "Indexnummer ausblenden"
+
+#: templates/unig.project-public.html.twig:162
+msgid "Download"
+msgstr "Download"
+
+#~ msgid "Add All Images"
+#~ msgstr "Alle Bilder hinzufügen"
+
+#~ msgid "Remove All Images"
+#~ msgstr "Alle Bilder entfernen"
+
+#~ msgid "search"
+#~ msgstr "suchen"
+
+#~ msgid "Save to server failed."
+#~ msgstr "Daten konnten nicht gespeichert werden."
+
+#~ msgid "A zip-archive with the pictures will be created. Please wait."
+#~ msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
+
+#~ msgid "Loading..."
+#~ msgstr "Lade..."
+
+#~ msgid "Show all Galeries"
+#~ msgstr "Alle Projekte anzeigen"
+
+#~ msgid "Image"
+#~ msgstr "Bild"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid "Save"
+#~ msgstr "Sichern"
+
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#~ msgid "Private Project"
+#~ msgstr "Privates Projekt"

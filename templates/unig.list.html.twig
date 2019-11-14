@@ -1,22 +1,21 @@
 {#
 /**
- * @file unig.project-list.html.twig
+ * @file unig.list.html.twig
  *
  */
 #}
 
 
+
 {#
 {{ dd(project_list) }}
 #}
+
 <unig>
 <div id="unig-main" class="unig unig-project-list">
 
   <div class="unig-debug">
-
   </div>
-
-
 
 
   {% if is_admin %}
@@ -27,16 +26,13 @@
 
       <div class="unig-fieldset no-border unig-fieldset-general">
 
-
         <a type="button" class="unig-button unig-new-project-trigger"
-           href=" {{ path('unig.upload',{'project_nid':null}) }}">
+           href=" {{ path('unig.upload',{'project_id':null}) }}">
           <i class="fas fa-plus" aria-hidden="true"></i>
           {% trans %} New Project {% endtrans %}
         </a>
 
-
         {# sort #}
-
         <div class="unig-button unig-sort-list-toggle-trigger">
           <i class="fas fa-sort" aria-hidden="true"></i>
           {% trans %} Sort order {% endtrans %}
@@ -133,16 +129,16 @@
           {% endif %}
 
           {# sortable list #}
-          <li class="unig-project-list-item unig-sortable-item unig-project-nid"
-              id="unig-sortable-item-id_{{ project.nid }}"
-              data-unig-project-nid="{{ project.nid }}">
+          <li class="unig-project-list-item unig-sortable-item unig-project-id"
+              id="unig-sortable-item-id_{{ project.id }}"
+              data-unig-project-id="{{ project.id }}">
 
 
             <article
-              class="unig-project-container unig-project-private-status unig-project-{{ project.nid }} {{ class }} {% if project.private %} private {% endif %}">
+              class="unig-project-container unig-project-private-status unig-project-{{ project.id }} {{ class }} {% if project.private %} private {% endif %}">
               {# ----------- Nid ----------- #}
 
-              <div class="unig-project-nid unig-col-right" style="display: none">{{ project.nid }}</div>
+              <div class="unig-project-id unig-col-right" style="display: none">{{ project.id }}</div>
 
 
               {# ----------- Weight ----------- #}
@@ -152,7 +148,7 @@
 
               {# ----------- Cover ----------- #}
               <div class="unig-project-cover">
-                <a href="/unig/project/{{ project.nid }}">
+                  <a href="{{ url('unig.project.admin', {'project_id':project.id}) }}">
                   <div class="unig-project-cover-background">
                     {% if project.cover_image and project.cover_image.unig_cover.url %}
                       <div class="unig-project-cover-image">
@@ -182,7 +178,7 @@
 
                     {# Preview #}
                     <a class="unig-button-icon-info"
-                       href="{{ path('unig.lightgallery', {'album_nid': null, 'project_nid': project.nid}) }}">
+                       href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
                       {% trans %} Preview {% endtrans %}
 
                     </a>
@@ -215,7 +211,7 @@
                     </div>
 
                     {#  -----------   Prozess Indicator -----------  #}
-                    <div class="unig-toolbar-icon unig-project-{{ project.nid }}">
+                    <div class="unig-toolbar-icon unig-project-{{ project.id }}">
                                                 <span class="unig-process-spinner" style="display: none"> <i
                                                     class="fas fa-spinner fa-spin"
                                                     aria-hidden="true"></i></span>
@@ -233,17 +229,17 @@
                 <hr class="unig unig-project-list">
 
 
-                <div class="animate-container animate-container-{{ project.nid }}">
+                <div class="animate-container animate-container-{{ project.id }}">
 
 
                   {#  -----------   Category  -----------  #}
                   <div class="unig-project-category">
 
                     {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-category-{{ project.nid }}">
+                    <div class="unig-project-category-{{ project.id }}">
 
                       {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                            data-unig-field="category"
                            data-unig-mode="project"
                            data-unig-form="option_list">
@@ -265,8 +261,8 @@
                       <div class="unig-edit-input" style="display: none">
 
 
-                        <select name="unig-project-category-{{ project.nid }}"
-                                id="unig-project-category-{{ project.nid }}-input">
+                        <select name="unig-project-category-{{ project.id }}"
+                                id="unig-project-category-{{ project.id }}-input">
                           {% for category_item in project.category_list %}
                             <option
                               value="{{ category_item.id }}"{% if category_item.name == project.category %} selected {% endif %}>{{ category_item.name }} </option>
@@ -282,10 +278,10 @@
                   <div class="unig-project-title">
 
                     {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-title-{{ project.nid }}">
+                    <div class="unig-project-title-{{ project.id }}">
 
                       {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                            data-unig-field="title"
                            data-unig-mode="project">
 
@@ -299,7 +295,7 @@
                       {# ----------- Edit Input ----------- #}
                       <div class="unig-edit-input" style="display: none">
 
-                        <input id="unig-project-title-{{ project.nid }}-input"
+                        <input id="unig-project-title-{{ project.id }}-input"
                                title="Title"
                                class="unig-project-title"
                                type="text"
@@ -315,10 +311,10 @@
                   <div class="unig-project-date">
 
                     {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-date-{{ project.nid }}">
+                    <div class="unig-project-date-{{ project.id }}">
 
                       {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                            data-unig-field="date"
                            data-unig-mode="project">
 
@@ -332,7 +328,7 @@
                       {# ----------- Edit Input ----------- #}
                       <div class="unig-edit-input" style="display: none">
 
-                        <input id="unig-project-date-{{ project.nid }}-input"
+                        <input id="unig-project-date-{{ project.id }}-input"
                                title="date"
                                class="unig-project-date"
                                type="date"
@@ -345,11 +341,11 @@
                     <div class="unig-project-description">
 
                       {#  -----------   Edit Root  -----------  #}
-                      <div class="unig-project-description-{{ project.nid }}">
+                      <div class="unig-project-description-{{ project.id }}">
 
                         {# ----------- Edit Trigger ----------- #}
                         <div class="unig-edit-trigger"
-                             data-unig-nid="{{ project.nid }}"
+                             data-unig-project-id="{{ project.id }}"
                              data-unig-field="description"
                              data-unig-mode="project"
                         >
@@ -369,7 +365,7 @@
                         {# ----------- Edit Input ----------- #}
                         <div class="unig-edit-input" style="display: none">
                                                 <textarea
-                                                  id="unig-project-description-{{ project.nid }}-input"
+                                                  id="unig-project-description-{{ project.id }}-input"
                                                   rows="4"
                                                   cols="23"
                                                   title="Description">{{ project.description }}</textarea>
@@ -382,10 +378,10 @@
                     <div class="unig-project-copyright">
 
                       {#  -----------   Edit Root  -----------  #}
-                      <div class="unig-project-copyright-{{ project.nid }}">
+                      <div class="unig-project-copyright-{{ project.id }}">
 
                         {# ----------- Edit Trigger ----------- #}
-                        <div class="unig-edit-trigger" data-unig-nid="{{ project.nid }}"
+                        <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
                              data-unig-field="copyright"
                              data-unig-mode="project">
 
@@ -403,7 +399,7 @@
                         {# ----------- Edit Input ----------- #}
                         <div class="unig-edit-input" style="display: none">
 
-                          <input id="unig-project-copyright-{{ project.nid }}-input"
+                          <input id="unig-project-copyright-{{ project.id }}-input"
                                  title="copyright"
                                  class="unig-project-copyright"
                                  type="text"
@@ -419,7 +415,7 @@
                     <div class="unig-project-list-toolbar">
 
                       {#  ----------- Confirm Project  -----------  #}
-                      <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.nid }}"
+                      <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.id }}"
                            style="display: none">
 
                         {# Message#}
@@ -434,7 +430,7 @@
                           <div role="button"
                                class="unig-button
                                                   unig-button-project-delete-cancel
-                                                  unig-button-project-delete-cancel-{{ project.nid }}
+                                                  unig-button-project-delete-cancel-{{ project.id }}
                                                   unig-project-delete-cancel-trigger">
                             {% trans %}No, Cancel{% endtrans %}
                           </div>
@@ -443,8 +439,8 @@
                           <a role="button"
                              class="use-ajax unig-button unig-button-danger
                                                unig-button-project-delete-yes
-                                               unig-button-project-delete-yes-{{ project.nid }}"
-                             href="{{ path('unig.project.ajax.delete', {'project_nid': project.nid}) }}">
+                                               unig-button-project-delete-yes-{{ project.id }}"
+                             href="{{ path('unig.api.project.delete', {'project_id': project.id}) }}">
                             {% trans %}Yes, Delete Project{% endtrans %}
                           </a>
                         </div>
@@ -460,7 +456,7 @@
                         <ul class="unig unig-project-album-list-items">
                           {% for album in project.album_list %}
                             <li>
-                              <a href="/unig/project/{{ project.nid }}/{{ album.nid }}">{{ album.title }}</a>
+                              <a href="{{ path('unig.project.admin',{'project_id':project.id, 'album_id':album.id}) }}">{{ album.title }}</a>
                             </li>
 
                           {% endfor %}
@@ -491,13 +487,13 @@
           <li class="unig-project-list-item">
 
             <article
-              class="unig-project-container unig-project-private-status unig-project-{{ project.nid }} {{ class }} {% if project.private %} private {% endif %}">
+              class="unig-project-container unig-project-private-status unig-project-{{ project.id }} {{ class }} {% if project.private %} private {% endif %}">
 
 
               {# ----------- Cover ----------- #}
               <div class="unig-project-cover">
 
-                <a href="/unig/lightgallery/{{ project.nid }}">
+                <a href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
 
                   <div class="unig-project-cover-background">
                     {% if project.cover_image.unig_cover.url %}
@@ -549,7 +545,7 @@
 
 
                     {% if can_download %}
-                      <a href="/unig/member/{{ project.nid }}"> <i class="fas fa-download"></i></a>
+                      <a class="unig-list-link" href="{{ path('unig.project.download', {'project_id': project.id, 'album_id': album.id, }) }}"> <i class="fas fa-download"></i></a>
                       {% endif %}
                   </div>
                 </div>
