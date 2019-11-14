@@ -1,35 +1,42 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigLazyLoad = {
+    loop: 0,
     files: [],
     currentSize: 'medium',
+    messageID: 'load-images',
     styles: [
       {
         name: 'small',
         styleName: 'unig_thumbnail',
         missing: false,
+        workerCount: 0,
       },
       {
         name: 'medium',
         styleName: 'unig_medium',
         missing: false,
+        workerCount: 0,
       },
       {
         name: 'large',
         styleName: 'unig_hd',
         missing: false,
+        workerCount: 0,
       },
       {
         name: 'SD',
         styleName: 'unig_sd',
         missing: false,
+        workerCount: 0,
       },
     ],
+    workerQueue: [],
 
     /**
      *
      * @param fileList
      */
-    loadImages() {
+    loadImages(createMissingStyles = true) {
       if (Drupal.behaviors.unigSize.hasOwnProperty('currentSize')) {
         this.currentSize = Drupal.behaviors.unigSize.currentSize;
       }
@@ -47,7 +54,10 @@
               this.addImages('SD').then(resolve => {
                 console.log('SD', resolve);
                 this.remarkImages();
+
+                if(createMissingStyles){
                 this.createMissingStyles();
+                }
               });
             });
           });
@@ -69,11 +79,30 @@
     createMissingStyles() {
       this.styles.forEach(style => {
         if (style.missing) {
-          Drupal.behaviors.unigOptions.cacheClear();
+          console.log('createMissingStyles', style);
 
           style.missing = false;
           const styleName = style.styleName;
-          Drupal.behaviors.unigImageStyles.startWorker(styleName);
+          if (this.loop < 10) {
+            this.loop++;
+
+            if (style.workerCount === 0) {
+              Drupal.behaviors.unigImageStyles.startWorker(styleName);
+              style.workerCount++;
+            }
+          } else {
+            const message = Drupal.t(
+              'To many Worker Loops. Please Reload Website',
+            );
+            console.error(message);
+
+            Drupal.behaviors.unigMessages.updateMessage(
+              message,
+              'error',
+              this.messageID,
+            );
+            Drupal.behaviors.unigOptions.cacheClear();
+          }
         }
       });
     },
@@ -108,7 +137,7 @@
       if (file_size !== 0) {
         // console.log('     Image Exists', file_size);
 
-        if (size === 'small' || size ==='medium' || size ==='large') {
+        if (size === 'small' || size === 'medium' || size === 'large') {
           const src = file.image[styleName].url;
           const imgID = `img-${id}-${size}`;
 
@@ -137,8 +166,6 @@
         });
       }
     },
-
-
 
     /**
      *
@@ -184,8 +211,7 @@
         ElemsTargetImageContainer[i].appendChild(DOMContainerLarge);
         i++;
       });
-      const message = 'done Build Container';
-      return message;
+      return Drupal.t('Done building Container');
     },
 
     attach(context, settings) {

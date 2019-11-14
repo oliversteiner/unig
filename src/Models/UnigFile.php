@@ -31,7 +31,7 @@ class UnigFile
   public const field_title_generated = 'field_unig_title_generated';
   public const field_trash = 'field_unig_trash';
   public const field_weight = 'field_unig_weight';
-  public const field_favorite = 'field_unig_favorit';
+  public const field_favorite = 'field_unig_favorite';
 
   /**
    * @param $file_id

@@ -1,4 +1,4 @@
-let ImageStylesWorker = { unig_sd: undefined, unig_hd: undefined, unig_thumbnail: undefined };
+let ImageStylesWorker = { unig_sd: undefined, unig_hd: undefined, medium: undefined, unig_thumbnail: undefined };
 
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigImageStyles = {
@@ -45,9 +45,6 @@ let ImageStylesWorker = { unig_sd: undefined, unig_hd: undefined, unig_thumbnail
 
       if (typeof Worker !== 'undefined') {
         if (typeof worker == 'undefined') {
-          /*          ImageStylesWorker[style] = new Worker(
-            'https://drullo.local/modules/custom/unig/assets/js/workerStyles.js',
-          );*/
           const path = drupalSettings.unig.path;
           ImageStylesWorker[style] = new Worker(
             path + '/assets/js/workerStyles.js',
@@ -115,6 +112,7 @@ let ImageStylesWorker = { unig_sd: undefined, unig_hd: undefined, unig_thumbnail
       // All Workers Stopped
       if (
         typeof ImageStylesWorker.unig_thumbnail === 'undefined' &&
+        typeof ImageStylesWorker.medium === 'undefined' &&
         typeof ImageStylesWorker.unig_sd === 'undefined' &&
         typeof ImageStylesWorker.unig_hd === 'undefined'
       ) {
@@ -125,7 +123,7 @@ let ImageStylesWorker = { unig_sd: undefined, unig_hd: undefined, unig_thumbnail
           'success',
           this.messageID,
         );
-        Drupal.behaviors.unigOptions.cacheRebuild();
+         Drupal.behaviors.unigOptions.cacheRebuild();
       }
     },
 

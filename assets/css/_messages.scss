@@ -55,21 +55,32 @@ ul.unig-messages li {
   color: #7e77c8;
 }
 
+// error
+.unig-message-icon.error,
 .unig-message-type-error .unig-message-icon {
   color: $color-error;
 }
 
+// success
+.unig-message-icon.success,
 .unig-message-type-success .unig-message-icon {
   color: $color-success;
 }
 
+// warning
+.unig-message-icon.warning,
 .unig-message-type-warning .unig-message-icon {
   color: $color-warning;
 }
 
+// info
+.unig-message-icon.info,
 .unig-message-type-info .unig-message-icon {
   color: $color-admin-info;
 }
+
+// favorite
+.unig-message-icon.favorite,
 .unig-message-type-favorite .unig-message-icon {
   color: $color-admin-favorite;
 }

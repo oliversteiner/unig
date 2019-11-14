@@ -1442,22 +1442,27 @@ ul.unig-messages li {
   color: #7e77c8;
 }
 
+.unig-message-icon.error,
 .unig-message-type-error .unig-message-icon {
   color: #a2132b;
 }
 
+.unig-message-icon.success,
 .unig-message-type-success .unig-message-icon {
   color: #0f7f34;
 }
 
+.unig-message-icon.warning,
 .unig-message-type-warning .unig-message-icon {
   color: #ffbd57;
 }
 
+.unig-message-icon.info,
 .unig-message-type-info .unig-message-icon {
   color: #8f8f8f;
 }
 
+.unig-message-icon.favorite,
 .unig-message-type-favorite .unig-message-icon {
   color: #ff0004;
 }
