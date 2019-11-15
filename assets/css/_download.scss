@@ -123,12 +123,15 @@ td.unig-file-download-table-size {
   font-size: 1.5em;
   margin: 0;
 }
-.badge {
+.unig .badge {
   display: inline-block;
   padding: 1px 7px;
   border-radius: 10px;
   background-color: $color-badge;
   color: $color-admin-background-invert;
+  font-size: 100%;
+  line-height: inherit;
+
 
   &-marked {
     background-color: $color-badge-marked;
