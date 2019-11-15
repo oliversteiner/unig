@@ -79,6 +79,11 @@
     save(data, name);
   }
 
+
+  function orderByDate(context) {
+    alert('This function has not yet been implemented.')
+  }
+
   function saveSortOrder(context) {
     sortDeactivate(context);
 
@@ -102,16 +107,20 @@
         }
       });
 
-      $('.unig-button-sort-save', context).click(() => {
+      $('.unig-sort-save-trigger', context).click(() => {
         saveSortOrder(context);
       });
 
-      $('.unig-button-sort-cancel', context).click(() => {
+      $('.unig-sort-cancel-trigger', context).click(() => {
         sortCancel(context);
       });
 
-      $('.unig-button-sort-alphanumeric', context).click(() => {
+      $('.unig-order-alphanumeric-trigger', context).click(() => {
         resetToAlphanumeric(context);
+      });
+
+      $('.unig-order-by-date-trigger', context).click(() => {
+        orderByDate(context);
       });
     },
   };

@@ -354,8 +354,8 @@
 
         {# sort #}
         <div class="unig-button unig-button-sort-toggle">
-          <i class="fas fa-sort" aria-hidden="true"></i>
-          {% trans %} Sort order {% endtrans %}
+          <i class="fas fa-sort-amount-up" aria-hidden="true"></i>
+          {% trans %} Change Order {% endtrans %}
         </div>
       </div>
 
@@ -571,26 +571,33 @@
   {# Toolbar - Sort #}
   <div class="unig-toolbar unig-toolbar-sort" style="display: none">
 
-    <span class="unig-toolbar-title">{% trans %} Sort order {% endtrans %}</span>
+    <span class="unig-toolbar-title">{% trans %} Change Order {% endtrans %}</span>
 
-    {# Button Save Order #}
-    <div class="unig-button unig-button-ok unig-button-sort-save">
-      <i class="fas fa-check" aria-hidden="true"></i>
-      {% trans %} Save Order {% endtrans %}
+
+
+    {# Button Order alphabetical #}
+    <div class="unig-button unig-button-warning unig-order-alphanumeric-trigger">
+      <i class="fas fa-sort-alpha-up" aria-hidden="true"></i>
+      {% trans %} Order alphabetical {% endtrans %}
     </div>
 
-    {# Button reset to alphabetical #}
-    <div class="unig-button unig-button-warning unig-button-sort-alphanumeric">
-      <i class="fas fa-times" aria-hidden="true"></i>
-      {% trans %} Reset to alphabetical {% endtrans %}
+    {# Button  Order by date #}
+    <div class="unig-button unig-button-warning unig-order-by-date-trigger">
+      <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+      {% trans %} Order by Date {% endtrans %}
     </div>
 
     {# Button Cancel #}
-    <div class="unig-button unig-button-warning unig-button-sort-cancel">
+    <div class="unig-button unig-button-warning unig-sort-cancel-trigger">
       <i class="fas fa-times" aria-hidden="true"></i>
       {% trans %} Cancel {% endtrans %}
     </div>
 
+    {# Button Save Order #}
+    <div class="unig-button unig-button-ok unig-sort-save-trigger">
+      <i class="fas fa-check" aria-hidden="true"></i>
+      {% trans %} Save Order {% endtrans %}
+    </div>
 
   </div> {# Toolbar - Sort #}
 

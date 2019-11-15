@@ -955,14 +955,16 @@
   font-size: 1.5em;
   margin: 0;
 }
-#unig-main.unig-theme-dark .badge {
+#unig-main.unig-theme-dark .unig .badge {
   display: inline-block;
   padding: 1px 7px;
   border-radius: 10px;
   background-color: #464646;
   color: #979797;
+  font-size: 100%;
+  line-height: inherit;
 }
-#unig-main.unig-theme-dark .badge-marked {
+#unig-main.unig-theme-dark .unig .badge-marked {
   background-color: #464646;
   color: #979797;
 }
