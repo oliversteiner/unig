@@ -2,8 +2,9 @@
   Drupal.behaviors.unigProject = {
     showKeywordsOnFile: false,
     showPeoplesOnFile: false,
-    currentSize:'medium',
+    currentSize: 'medium',
     Store: {},
+    updateCounter: 0,
 
     edit(event) {
       // Elem
@@ -37,7 +38,7 @@
     },
 
     clearAjaxMessageBox() {
-      document.getElementsByClassName('unig-ajax-container').innerHtml = '';
+      $('.unig-ajax-container').html('');
     },
 
     editFileTitle(id) {
@@ -66,25 +67,29 @@
     },
 
     updateNumbers() {
+      // DOM Elements
       const $ButtonDownloadVisible = $(
         '.unig-button-download-add-current-to-list',
       );
       const $NumberOfVisible = $('.number-of-visible');
       const $IconOfVisible = $('.icon-of-visible');
 
-      const number_of_all_items = Drupal.behaviors.unigData.FileList.count();
-      let number_of_Visible_items = this.Store.count();
+      // Number of All Items
+      let number_of_all_items = 0;
+      if (Drupal.behaviors.unigData.hasOwnProperty('count')) {
+        number_of_all_items = Drupal.behaviors.unigData.count();
+      }
 
+      // Icon
       let icon = 'fa-key';
-      const isPeopleStoreLoaded = Drupal.behaviors.unigPeople.Store.hasOwnProperty(
-        'get',
-      );
-      if (isPeopleStoreLoaded) {
+      if (Drupal.behaviors.unigPeople.Store.hasOwnProperty('get')) {
         if (Drupal.behaviors.unigPeople.Store.count()) {
           icon = 'fa-user';
         }
       }
 
+      // Number of Visible Items
+      let number_of_Visible_items = this.Store.count();
       if (number_of_Visible_items > 0) {
         $ButtonDownloadVisible.show();
         $NumberOfVisible.html(number_of_Visible_items);
@@ -96,43 +101,43 @@
     },
 
     updateBrowser() {
-      this.Store.clear();
+      this.updateCounter++;
+      console.log('updateCounter', this.updateCounter);
+
       // People
-      let peopleIds = [];
+      let peopleList = [];
       const isPeopleStoreLoaded = Drupal.behaviors.unigPeople.Store.hasOwnProperty(
         'get',
       );
       if (isPeopleStoreLoaded) {
-        peopleIds = Drupal.behaviors.unigPeople.Store.get();
+        peopleList = Drupal.behaviors.unigPeople.Store.get();
       }
 
       // Keywords
-      let keywordIds = [];
+      let keywordList = [];
       const isKeywordStoreLoaded = Drupal.behaviors.unigKeywords.Store.hasOwnProperty(
         'get',
       );
       if (isKeywordStoreLoaded) {
-        keywordIds = Drupal.behaviors.unigKeywords.Store.get();
+        keywordList = Drupal.behaviors.unigKeywords.Store.get();
       }
 
       // favorites
       let favorites = false;
-      const isFavoritesLoaded = Drupal.behaviors.unigFavorite.hasOwnProperty(
-        'filter',
-      );
+      const isFavoritesLoaded = Drupal.behaviors.hasOwnProperty('unigFavorite');
       if (isFavoritesLoaded) {
-         favorites = Drupal.behaviors.unigFavorite.filter;
+        favorites = Drupal.behaviors.unigFavorite.filter;
       }
 
+      let fullList = Drupal.behaviors.unigData.get();
 
-      let fullList = Drupal.behaviors.unigData.FileList.list;
-
-      if(favorites){
-        fullList = fullList.filter( item=>item.favorite === 1);
+      if (favorites) {
+        fullList = fullList.filter(item => item.favorite === 1);
       }
 
+      this.Store.clear();
 
-      if (peopleIds.length > 0) {
+      if (peopleList.length > 0) {
         // hide all files with this tag
 
         if (fullList && fullList.length > 0) {
@@ -141,12 +146,12 @@
 
             // all people
             for (const people of item.people) {
-              if (peopleIds.includes(parseInt(people.id))) {
+              if (peopleList.includes(parseInt(people.id))) {
                 // if also keywords
                 // all Keywords
-                if (keywordIds.length > 0) {
+                if (keywordList.length > 0) {
                   for (const keywords of item.keywords) {
-                    if (keywordIds.includes(parseInt(keywords.id))) {
+                    if (keywordList.includes(parseInt(keywords.id))) {
                       this.Store.add(item.id);
                     }
                   }
@@ -158,11 +163,11 @@
             }
           }
         }
-      } else if (keywordIds.length > 0) {
+      } else if (keywordList.length > 0) {
         if (fullList && fullList.length > 0) {
           for (const item of fullList) {
             for (const keywords of item.keywords) {
-              if (keywordIds.includes(parseInt(keywords.id))) {
+              if (keywordList.includes(parseInt(keywords.id))) {
                 this.Store.add(item.id);
               }
             }
@@ -188,7 +193,31 @@
         }
       }
 
+      // Hide all if bad Combination of Keywords
+      if (
+        this.Store.count() === 0 &&
+        (peopleList.length > 0 || keywordList.length > 0)
+      ) {
+        console.warn('bad Combination of Keywords');
+        // Hide All
+        for (const item of fullList) {
+          $(`#unig-file-${item.id}`).hide();
+        }
+      }
+
       this.updateNumbers();
+
+      if (Drupal.behaviors.hasOwnProperty('unigFilter')) {
+        Drupal.behaviors.unigFilter.update();
+      }
+
+      if (Drupal.behaviors.hasOwnProperty('unigPeople')) {
+        Drupal.behaviors.unigPeople.update();
+      }
+
+      if (Drupal.behaviors.hasOwnProperty('unigKeywords')) {
+        Drupal.behaviors.unigKeywords.update();
+      }
     },
 
     attach(context) {
@@ -235,7 +264,6 @@
             const projectId = $container.data('project-id');
             $formElemProjectNid.val(projectId);
           });
-
 
           const projectId = drupalSettings.unig.project.project.id;
 

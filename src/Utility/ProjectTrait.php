@@ -122,7 +122,7 @@ trait ProjectTrait
     $default_config = Drupal::config('unig.settings');
     $default_project_id = $default_config->get('unig.default_project');
     if ($default_project_id) {
-      return (int) $default_project_id;
+      return (int)$default_project_id;
     }
 
     // or take newest Project
@@ -285,7 +285,7 @@ trait ProjectTrait
   {
     $variables = [];
     if ($nid) {
-      $node = Node::load((int) $nid);
+      $node = Node::load((int)$nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
         $variables = CreateImageStylesTrait::createImageStyles(
@@ -444,7 +444,7 @@ trait ProjectTrait
     //
 
     // Load Project
-    $node = Node::load((int) $project_id);
+    $node = Node::load((int)$project_id);
 
     // check if Nid is Unig Project
     if ($node && $node->bundle() !== 'unig_project') {
@@ -498,7 +498,7 @@ trait ProjectTrait
     }
 
     // Timestamp
-    $timestamp = (int) $php_date_obj->format('U');
+    $timestamp = (int)$php_date_obj->format('U');
 
     // Year
     $year = $php_date_obj->format('Y');
@@ -517,7 +517,7 @@ trait ProjectTrait
       $new_cover = self::setCover($project_id);
       $cover_id = $new_cover->getTid();
     }
-    $cover_image = self::getCoverImageVars((int) $cover_id);
+    $cover_image = self::getCoverImageVars((int)$cover_id);
 
     // number_of_items
     $number_of_items = self::countFilesInProject($project_id);
@@ -599,7 +599,8 @@ trait ProjectTrait
   public static function getJSONFromProjectFiles(
     $project_id,
     $album_id = null
-  ): JsonResponse {
+  ): JsonResponse
+  {
     $response = new JsonResponse();
 
     // TODO: (replace $_POST with new Drupal method )
@@ -663,8 +664,8 @@ trait ProjectTrait
     }
     foreach ($terms as $term) {
       $term_data[] = [
-        'id' => (int) $term->tid,
-        'name' => (string) $term->name
+        'id' => (int)$term->tid,
+        'name' => (string)$term->name
       ];
     }
 
@@ -680,7 +681,8 @@ trait ProjectTrait
   public static function importKeywordsFromProject(
     $project_id,
     $album_id = null
-  ): array {
+  ): array
+  {
     $list = [];
     $nids = self::getListofFilesInProject($project_id, $album_id);
 
@@ -774,8 +776,7 @@ trait ProjectTrait
         // Node delete success
         $status = true;
         $message = 'Das Projekt mit der ID ' . $project_id . ' wurde gelöscht';
-      }
-      // no Node found
+      } // no Node found
       else {
         $status = false;
         $message = 'kein Projekt mit der ID ' . $project_id . ' gefunden';
@@ -840,7 +841,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int) $data['private'];
+    $int_private = (int)$data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {
@@ -865,4 +866,27 @@ $response = new AjaxResponse();
     $output->setData($data);
     return $output->json();
   }
+
+  /**
+   * @param $project_id
+   * @return array
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
+  public static function getPeopleTerms($project_id): array
+  {
+    return Helper::getTermList(UnigProject::term_people);
+  }
+
+  /**
+   * @param $project_id
+   * @return array
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
+  public static function getKeywordTerms($project_id): array
+  {
+    return Helper::getTermList(UnigProject::term_keywords);
+  }
+
 }

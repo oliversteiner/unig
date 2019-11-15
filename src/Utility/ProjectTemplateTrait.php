@@ -112,9 +112,13 @@ trait ProjectTemplateTrait
       $variables['album'] = $cache['album'];
       $variables['project'] = $cache['project'];
       $variables['files'] = $cache['files'];
+      $variables['keywords'] = $cache['keywords'];
+      $variables['people'] = $cache['people'];
     } else {
       // generate Project items
       $variables['album'] = AlbumTrait::getAlbumList($project_id);
+      $variables['keywords'] = ProjectTrait::getKeywordTerms($project_id);
+      $variables['people'] = ProjectTrait::getPeopleTerms($project_id);
       $variables['project'] = ProjectTrait::buildProject($project_id);
       $variables['files'] = ProjectTrait::buildFileList(
         $project_id,

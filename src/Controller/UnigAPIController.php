@@ -36,7 +36,7 @@ class UnigAPIController extends ControllerBase
   {
     // Get HTTP Vars
     $post_as_json = \Drupal::request()->getContent();
-    $methode = \Drupal::request()->getMethod();
+    // $method = \Drupal::request()->getMethod();
 
     $data = json_decode($post_as_json, true);
 
@@ -152,11 +152,13 @@ class UnigAPIController extends ControllerBase
 
     Timer::start($name);
 
-    $result = UnigCache::clearProjectCache($id);
+    UnigCache::clearProjectCache($id);
     $variables = [];
     $variables['album'] = AlbumTrait::getAlbumList($id);
     $variables['project'] = ProjectTrait::buildProject($id);
     $variables['files'] = ProjectTrait::buildFileList($id, null);
+    $variables['keywords'] = ProjectTrait::getKeywordTerms($id);
+    $variables['people'] = ProjectTrait::getPeopleTerms($id);
     $result = UnigCache::saveProjectCache($id, $variables);
 
     Timer::stop($name);

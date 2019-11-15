@@ -2,17 +2,23 @@
   Drupal.behaviors.unigStore = {
     attach(context, settings) {
       // onload
+
+      const peopleList = drupalSettings.unig.project.keywords;
+      const keywordsList = drupalSettings.unig.project.people;
+      this.terms = peopleList.concat(keywordsList);
     },
 
     name: 'unig',
     module: 'none',
     items: [],
+    terms: [],
 
     init(name) {
       this.module = name;
       const host = Drupal.behaviors.unigData.project.host;
       const projectId = Drupal.behaviors.unigData.project.id;
       this.name = host + '.unig.' + name + '.' + projectId;
+
       this.load();
     },
 
@@ -56,7 +62,6 @@
      * save to localStorage
      */
     save() {
-      // const cleanArray = Drupal.behaviors.unig.cleanArray(this.items);
       localStorage.setItem(this.name, this.items);
     },
 
@@ -81,6 +86,11 @@
      */
     get() {
       return this.items;
+    },
+
+    getNameByID(id) {
+      const term = this.terms.find(term => term.id === id);
+      return term.name;
     },
 
     count() {

@@ -78,6 +78,7 @@ unig.project.admin:
     assets/js/UnigSize.js: {}
     assets/js/UnigDownload.js: {}
     assets/js/UnigLazyLoad.js: {}
+    assets/js/UnigFilter.js: {}
     assets/js/UnigOptions.js: {}
     assets/js/UnigFavorite.js: {}
     assets/js/UnigImageStyles.js: {}

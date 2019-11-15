@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unig\n"
-"POT-Creation-Date: 2019-11-14 23:00+0100\n"
+"POT-Creation-Date: 2019-11-15 20:35+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: \n"
@@ -11,10 +11,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: t\n"
+"X-Poedit-KeywordsList: t;Drupal.t\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: src\n"
 "X-Poedit-SearchPath-1: templates\n"
+"X-Poedit-SearchPath-2: assets/js\n"
+
+#: assets/js/UnigAdmin.js:221 assets/js/UnigAdmin.js:351
+msgid "Save to server failed."
+msgstr "Daten konnten nicht gespeichert werden."
+
+#: assets/js/UnigAdmin.js:326 templates/unig.list.html.twig:357
+#: templates/unig.project-admin.html.twig:128
+#: templates/unig.project-admin.html.twig:991
+msgid "Add description"
+msgstr "Beschreibung hinzufügen"
+
+#: assets/js/UnigAdmin.js:331 templates/unig.list.html.twig:391
+#: templates/unig.project-admin.html.twig:257
+msgid "Add copyright"
+msgstr "Urheber hinzufügen"
+
+#: assets/js/UnigDownload.js:239
+msgid "A zip-archive with the pictures will be created. Please wait."
+msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
+
+#: assets/js/UnigDownload.js:241
+msgid "Cancel download"
+msgstr "Download abbrechen"
+
+#: assets/js/UnigDownload.js:242
+msgid "Loading..."
+msgstr "Lade..."
+
+#: assets/js/UnigFilter.js:41
+msgid "NO Images found with this combination: "
+msgstr "KEINE Bilder mit dieser Kombination gefunden: "
+
+#: assets/js/UnigFilter.js:47
+msgid "Images found"
+msgstr "Bilder gefunden"
+
+#: assets/js/UnigFilter.js:59
+msgid "with person"
+msgstr "mit Person"
+
+#: assets/js/UnigFilter.js:61
+msgid "with persons"
+msgstr "mit Personen"
+
+#: assets/js/UnigFilter.js:80
+msgid " or "
+msgstr " oder "
+
+#: assets/js/UnigFilter.js:90
+msgid " and "
+msgstr " und "
+
+#: assets/js/UnigFilter.js:96
+msgid "with Keyword"
+msgstr "mit Schlüsselwort"
+
+#: assets/js/UnigFilter.js:98
+msgid "with Keywords"
+msgstr "mit Schlüsselwörtern"
+
+#: assets/js/UnigLazyLoad.js:94
+msgid "To many Worker Loops. Please Reload Website"
+msgstr "Für viele aktive Web Worker. Bitte Website neu laden"
+
+#: assets/js/UnigLazyLoad.js:209
+msgid "Done building Container"
+msgstr "Bilder Container Aufbau beendet"
 
 #: src/Controller/FilesController.php:73
 #: src/Controller/ProjectController.php:80
@@ -54,7 +122,7 @@ msgid "Verifying entry..."
 msgstr "Eintrag wird überprüft..."
 
 #: src/Form/NewAlbumForm.php:81 templates/unig.list.html.twig:91
-#: templates/unig.project-admin.html.twig:591
+#: templates/unig.project-admin.html.twig:602
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -126,8 +194,7 @@ msgid "The file with the ID %file_id is no longer a favorite."
 msgstr "Die Datei mit der ID %file_id ist kein Favorit mehr."
 
 #: src/Models/UnigFile.php:122
-#, fuzzy, php-format
-#| msgid "Can't save changes of File %file_id. "
+#, php-format
 msgid "Can't save changes of File %file_id."
 msgstr "Änderungen von Datei %file_id können nicht gespeichert werden."
 
@@ -148,6 +215,32 @@ msgstr "Neues Cover Bild gesetzt für Projekt "
 msgid "ERROR: cover image adding failed. Project: "
 msgstr "FEHLER: Coverbild konnte nicht gesetzt werden für Projekt: "
 
+#: templates/includes/unig.toolbar.keywords.html.twig:11
+msgid "Keywords"
+msgstr "Schlüsselwörter"
+
+#: templates/includes/unig.toolbar.keywords.html.twig:25
+#: templates/includes/unig.toolbar.people.html.twig:25
+msgid "Uncheck all"
+msgstr "Alle Markierungen aufheben"
+
+#: templates/includes/unig.toolbar.keywords.html.twig:31
+#: templates/includes/unig.toolbar.people.html.twig:31
+msgid "Check all"
+msgstr "Alle markieren"
+
+#: templates/includes/unig.toolbar.keywords.html.twig:38
+msgid "Show Keywords on Files"
+msgstr "Schlüsselwörter in Bilder anzeigen"
+
+#: templates/includes/unig.toolbar.people.html.twig:11
+msgid "People Names"
+msgstr "Personennamen"
+
+#: templates/includes/unig.toolbar.people.html.twig:37
+msgid "Show People Names on Files"
+msgstr "Personennamen in Bilder anzeigen"
+
 #: templates/unig-project-teaser.html.twig:62 templates/unig.list.html.twig:162
 #: templates/unig.list.html.twig:508
 msgid "No cover picture selected"
@@ -162,8 +255,6 @@ msgid "New Project"
 msgstr "Neues Projekt"
 
 #: templates/unig.list.html.twig:38 templates/unig.list.html.twig:69
-#: templates/unig.project-admin.html.twig:358
-#: templates/unig.project-admin.html.twig:574
 msgid "Sort order"
 msgstr "Reihenfolge"
 
@@ -183,7 +274,7 @@ msgstr "Alphabetisch sortieren"
 msgid "Sort by date"
 msgstr "Nach Datum sortieren"
 
-#: templates/unig.list.html.twig:85 templates/unig.project-admin.html.twig:579
+#: templates/unig.list.html.twig:85 templates/unig.project-admin.html.twig:608
 msgid "Save Order"
 msgstr "Sortierfolge sichern"
 
@@ -195,15 +286,6 @@ msgstr "Vorschau"
 #: templates/unig.list.html.twig:209 templates/unig.project-admin.html.twig:190
 msgid "Delete Project"
 msgstr "Projekt löschen"
-
-#: templates/unig.list.html.twig:357 templates/unig.project-admin.html.twig:128
-#: templates/unig.project-admin.html.twig:1076
-msgid "Add description"
-msgstr "Beschreibung hinzufügen"
-
-#: templates/unig.list.html.twig:391 templates/unig.project-admin.html.twig:257
-msgid "Add copyright"
-msgstr "Urheber hinzufügen"
 
 #: templates/unig.list.html.twig:424 templates/unig.project-admin.html.twig:301
 msgid "Delete this project and all its images?"
@@ -218,11 +300,11 @@ msgid "Yes, Delete Project"
 msgstr "Ja, Projekt löschen"
 
 #: templates/unig.project-admin.html.twig:164
-#: templates/unig.project-admin.html.twig:629
-#: templates/unig.project-admin.html.twig:836
+#: templates/unig.project-admin.html.twig:645
+#: templates/unig.project-admin.html.twig:751
 #: templates/unig.project-download.html.twig:74
 #: templates/unig.project-download.html.twig:285
-#: templates/unig.project-download.html.twig:492
+#: templates/unig.project-download.html.twig:393
 msgid "of"
 msgstr "von"
 
@@ -234,6 +316,11 @@ msgstr "Alle Projekte"
 msgid "Add Files"
 msgstr "Dateien hinzufügen"
 
+#: templates/unig.project-admin.html.twig:358
+#: templates/unig.project-admin.html.twig:583
+msgid "Change Order"
+msgstr "Reihenfolge ändern"
+
 #: templates/unig.project-admin.html.twig:404
 #: templates/unig.project-download.html.twig:182
 msgid "Edit"
@@ -244,7 +331,7 @@ msgid "Bright"
 msgstr "Hell"
 
 #: templates/unig.project-admin.html.twig:457
-#: templates/unig.project-admin.html.twig:549
+#: templates/unig.project-admin.html.twig:558
 #: templates/unig.project-download.html.twig:219
 #: templates/unig.project-download.html.twig:231
 msgid "Help"
@@ -267,140 +354,114 @@ msgstr "Projektcache löschen"
 msgid "Rebuild Project Cache"
 msgstr "Projektcache neu erstellen"
 
-#: templates/unig.project-admin.html.twig:513
+#: templates/unig.project-admin.html.twig:512
+msgid "Clear Local Storage"
+msgstr "Lokalen Speicher löschen"
+
+#: templates/unig.project-admin.html.twig:522
 msgid "Generate Image Styles"
 msgstr "Bilder-Style generieren"
 
-#: templates/unig.project-admin.html.twig:519
+#: templates/unig.project-admin.html.twig:528
 msgid "Stop generating Styles"
 msgstr "Stile erstellen abbrechen"
 
-#: templates/unig.project-admin.html.twig:531
+#: templates/unig.project-admin.html.twig:540
 msgid "Close"
 msgstr "Schließen"
 
-#: templates/unig.project-admin.html.twig:562
+#: templates/unig.project-admin.html.twig:571
 #: templates/unig.project-download.html.twig:244
 msgid "Close Help"
-msgstr "Hilfe Schliessen"
+msgstr "Hilfe schliessen"
 
-#: templates/unig.project-admin.html.twig:585
-msgid "Reset to alphabetical"
-msgstr "Auf Alphabetisch zurücksetzen"
+#: templates/unig.project-admin.html.twig:590
+msgid "Order alphabetical"
+msgstr "Alphabetisch sortieren"
 
-#: templates/unig.project-admin.html.twig:602
+#: templates/unig.project-admin.html.twig:596
+msgid "Order by Date"
+msgstr "Nach Datum sortieren"
+
+#: templates/unig.project-admin.html.twig:618
 #: templates/unig.project-download.html.twig:259
 msgid "Files:"
 msgstr "Dateien:"
 
-#: templates/unig.project-admin.html.twig:610
+#: templates/unig.project-admin.html.twig:626
 #: templates/unig.project-download.html.twig:267
 msgid "Add all"
 msgstr "Alle hinzufügen"
 
-#: templates/unig.project-admin.html.twig:616
+#: templates/unig.project-admin.html.twig:632
 #: templates/unig.project-download.html.twig:273
 msgid "Empty List"
 msgstr "Liste leeren"
 
-#: templates/unig.project-admin.html.twig:628
+#: templates/unig.project-admin.html.twig:644
 #: templates/unig.project-download.html.twig:284
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: templates/unig.project-admin.html.twig:630
+#: templates/unig.project-admin.html.twig:646
 #: templates/unig.project-download.html.twig:286
 msgid "Images"
 msgstr "Bilder"
 
-#: templates/unig.project-admin.html.twig:723
-#: templates/unig.project-download.html.twig:379
-msgid "Keywords"
-msgstr "Schlüsselwörter"
-
-#: templates/unig.project-admin.html.twig:737
-#: templates/unig.project-admin.html.twig:798
-#: templates/unig.project-download.html.twig:393
-#: templates/unig.project-download.html.twig:454
-msgid "Uncheck all"
-msgstr "Alle Markierungen aufheben"
-
-#: templates/unig.project-admin.html.twig:743
-#: templates/unig.project-admin.html.twig:804
-#: templates/unig.project-download.html.twig:399
-#: templates/unig.project-download.html.twig:460
-msgid "Check all"
-msgstr "Alle markieren"
-
-#: templates/unig.project-admin.html.twig:750
-#: templates/unig.project-download.html.twig:406
-msgid "Show Keywords on Files"
-msgstr "Schlüsselwörter in Bilder anzeigen"
-
-#: templates/unig.project-admin.html.twig:784
-#: templates/unig.project-download.html.twig:440
-msgid "People Names"
-msgstr "Personennamen"
-
-#: templates/unig.project-admin.html.twig:810
-#: templates/unig.project-download.html.twig:466
-msgid "Show People Names on Files"
-msgstr "Personennamen in Bilder anzeigen"
-
-#: templates/unig.project-admin.html.twig:834
-#: templates/unig.project-download.html.twig:490
+#: templates/unig.project-admin.html.twig:749
+#: templates/unig.project-download.html.twig:391
 msgid "Generate preview images:"
 msgstr "Vorschau Bilder generieren:"
 
-#: templates/unig.project-admin.html.twig:881
+#: templates/unig.project-admin.html.twig:796
 msgid "Create new album"
 msgstr "Neues Album erstellen"
 
-#: templates/unig.project-admin.html.twig:931
-#: templates/unig.project-download.html.twig:544
+#: templates/unig.project-admin.html.twig:846
+#: templates/unig.project-download.html.twig:445
 msgid "Mark for Download"
 msgstr "Für Download markieren"
 
-#: templates/unig.project-admin.html.twig:938
-#: templates/unig.project-download.html.twig:551
+#: templates/unig.project-admin.html.twig:853
+#: templates/unig.project-download.html.twig:452
 msgid "Mark as Favorite"
 msgstr "Als Favorit markieren"
 
-#: templates/unig.project-admin.html.twig:1010
-#: templates/unig.project-admin.html.twig:1148
+#: templates/unig.project-admin.html.twig:925
+#: templates/unig.project-admin.html.twig:1063
 msgid "Cover Picture"
 msgstr "Titelbild"
 
-#: templates/unig.project-admin.html.twig:1016
+#: templates/unig.project-admin.html.twig:931
 msgid "Set as cover picture"
 msgstr "Als Titelbild nutzen"
 
-#: templates/unig.project-admin.html.twig:1172
-#: templates/unig.project-download.html.twig:669
+#: templates/unig.project-admin.html.twig:1087
+#: templates/unig.project-download.html.twig:570
 msgid "Size"
 msgstr "Grösse"
 
-#: templates/unig.project-admin.html.twig:1178
-#: templates/unig.project-download.html.twig:675
+#: templates/unig.project-admin.html.twig:1093
+#: templates/unig.project-download.html.twig:576
 msgid "Width"
 msgstr "Breite"
 
-#: templates/unig.project-admin.html.twig:1184
-#: templates/unig.project-download.html.twig:681
+#: templates/unig.project-admin.html.twig:1099
+#: templates/unig.project-download.html.twig:582
 msgid "Height"
 msgstr "Höhe"
 
-#: templates/unig.project-admin.html.twig:1194
+#: templates/unig.project-admin.html.twig:1109
 msgid "Add to Album"
 msgstr "Zum Album hinzufügen"
 
-#: templates/unig.project-admin.html.twig:1220
-#: templates/unig.project-download.html.twig:700
+#: templates/unig.project-admin.html.twig:1135
+#: templates/unig.project-download.html.twig:601
 msgid "Add to download list"
 msgstr "Zur Download Liste hinzufügen"
 
-#: templates/unig.project-admin.html.twig:1222
-#: templates/unig.project-download.html.twig:702
+#: templates/unig.project-admin.html.twig:1137
+#: templates/unig.project-download.html.twig:603
 msgid "Remove from download list"
 msgstr "Von der Download Liste entfernen"
 
@@ -424,6 +485,9 @@ msgstr "Indexnummer ausblenden"
 msgid "Download"
 msgstr "Download"
 
+#~ msgid "Reset to alphabetical"
+#~ msgstr "Auf Alphabetisch zurücksetzen"
+
 #~ msgid "Add All Images"
 #~ msgstr "Alle Bilder hinzufügen"
 
@@ -432,15 +496,6 @@ msgstr "Download"
 
 #~ msgid "search"
 #~ msgstr "suchen"
-
-#~ msgid "Save to server failed."
-#~ msgstr "Daten konnten nicht gespeichert werden."
-
-#~ msgid "A zip-archive with the pictures will be created. Please wait."
-#~ msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
-
-#~ msgid "Loading..."
-#~ msgstr "Lade..."
 
 #~ msgid "Show all Galeries"
 #~ msgstr "Alle Projekte anzeigen"

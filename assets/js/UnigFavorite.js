@@ -7,7 +7,7 @@
     toggleShowOnlyFavorites() {
       this.show = !this.show;
       this.filter = !this.filter;
-      const fullList = Drupal.behaviors.unigData.FileList.list;
+      const fullList = Drupal.behaviors.unigData.get();
 
       if (fullList && fullList.length > 0) {
         for (const item of fullList) {
@@ -41,7 +41,7 @@
 
     update() {
 
-      const favorites = Drupal.behaviors.unigData.FileList.list.filter(
+      const favorites = Drupal.behaviors.unigData.get().filter(
         item => item.favorite === 1,
       );
 
@@ -56,7 +56,8 @@
       let favorite = 0;
 
       // set Favorite
-      Drupal.behaviors.unigData.FileList.list.forEach(file => {
+      const allFiles = Drupal.behaviors.unigData.get();
+      allFiles.forEach(file => {
         if (file.id === fileId) {
 
           if (file.favorite) {

@@ -24,7 +24,6 @@
         const id = file.id;
 
         downloadSizes.forEach(downloadSize => {
-        //  console.log(' - Update Fileinfo for',id );
 
           const name = downloadSize.name;
           const styleName = downloadSize.styleName;
@@ -75,7 +74,6 @@
             type = 'success';
 
             if (data.variables) {
-              console.log('data.variables', data.variables);
               drupalSettings.unig.project.project = data.variables.project;
               drupalSettings.unig.project.album = data.variables.album;
               drupalSettings.unig.project.files = data.variables.files;
@@ -142,6 +140,36 @@
       this.$StopTrigger.hide();
     },
 
+    clearLocalStorage(){
+
+      // People
+      const isPeopleStoreLoaded = Drupal.behaviors.unigPeople.Store.hasOwnProperty(
+        'clear',
+      );
+      if (isPeopleStoreLoaded) {
+        Drupal.behaviors.unigPeople.Store.clear();
+      }
+
+      // Keywords
+      const isKeywordStoreLoaded = Drupal.behaviors.unigKeywords.Store.hasOwnProperty(
+        'clear',
+      );
+      if (isKeywordStoreLoaded) {
+        Drupal.behaviors.unigKeywords.Store.clear();
+      }
+
+      // Project
+      const isProjectStoreLoaded = Drupal.behaviors.unigProject.Store.hasOwnProperty(
+        'clear',
+      );
+      if (isProjectStoreLoaded) {
+        Drupal.behaviors.unigProject.Store.clear();
+      }
+
+      Drupal.behaviors.unigProject.updateBrowser();
+
+    },
+
     attach(context) {
       $('#unig-main', context)
         .once('options')
@@ -182,6 +210,12 @@
           //  Clear Cache
           $('.unig-rebuild-project-cache-trigger', context).click(() => {
             this.cacheRebuild();
+            $optionsDropdown.hide();
+          });
+
+          //  Clear Local Store
+          $('.unig-clear-local-storage-trigger', context).click(() => {
+            this.clearLocalStorage();
             $optionsDropdown.hide();
           });
 

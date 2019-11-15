@@ -51,6 +51,17 @@ class Helper
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
+  public static function getTermList(string $vid): array
+  {
+    return self::getTermsForOptionList($vid);
+  }
+
+  /**
+   * @param string $vid
+   * @return array
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
   public static function getTermsForOptionList(string $vid): array
   {
     $term_list = [];
@@ -59,7 +70,7 @@ class Helper
     if ($terms) {
       foreach ($terms as $term) {
         $term_list[] = [
-          'id' => $term->tid,
+          'id' => (integer)$term->tid,
           'name' => $term->name
         ];
       }
