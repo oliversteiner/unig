@@ -1,0 +1,53 @@
+.unig-filter-item {
+  display: inline-block;
+  border: 1px solid silver; /* Debug */
+  margin: 2px;
+  padding: 2px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 0.9rem;
+
+}
+
+.unig-filter-item-remove {
+  width: 20px;
+  text-align: center;
+  margin-left: 5px;
+  cursor: pointer;
+  color: silver;
+}
+
+
+.unig-filter-item-remove:hover {
+  color: red;
+}
+
+.unig-filter-item-remove:active {
+  color: black;
+}
+
+
+.unig-filter.number-of-visible{
+  color: green;
+  font-size: 1rem;
+  display: inline-block;
+  border: 1px solid silver; /* Debug */
+  margin: 2px;
+  padding: 2px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+
+  &:hover{
+    background-color: silver;
+  }
+
+  &:active{
+    background: #353535;
+    color: #cecece;
+  }
+}
+
+
+.unig-toolbar-filter .unig-toolbar-footer{
+  padding-top: 10px;
+}

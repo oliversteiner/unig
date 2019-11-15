@@ -1,0 +1,55 @@
+{# Toolbar - Filter  #}
+<div class="unig-toolbar unig-toolbar-filter" style="display: block">
+
+
+
+  {# Toolbar Body #}
+  <div class="unig-toolbar-body">
+
+
+    <span class="unig-filter number-of-visible unig-add-visible-to-download-list-trigger">12</span> Images found with Person
+    <span class="unig-filter-item">Hans
+      <span
+        class="unig-filter-item-remove unig-filter-item-remove-trigger"> <i class="fa fa-times"></i>
+      </span>
+    </span>
+
+    or
+    <span class="unig-filter-item">Anna
+      <span
+        class="unig-filter-item-remove unig-filter-item-remove-trigger"> <i class="fa fa-times"></i>
+      </span>
+    </span>
+
+    and Keyword
+
+    <span class="unig-filter-item">Paar
+      <span
+        class="unig-filter-item-remove unig-filter-item-remove-trigger"> <i class="fa fa-times"></i>
+      </span>
+    </span>
+
+
+  </div>
+
+  {# Toolbar Footer #}
+  <div class="unig-toolbar-footer">
+
+
+    {# Button reset-filter #}
+    <div class="unig-button   unig-reset-filter-trigger">
+      <i class="far fa-trash" aria-hidden="true"></i>
+      <span class="unig-button-label">{% trans %}  Filter zurücksetzen {% endtrans %}</span>
+    </div>
+
+
+    {# Button add-visible-to-download-list #}
+    <div class="unig-button  unig-add-visible-to-download-list-trigger">
+      <i class="far fa-list" aria-hidden="true"></i>
+      <span class="unig-button-label"> <span
+          class="number-of-visible">12</span> {% trans %}Bilder in die Download-Liste legen {% endtrans %}</span>
+    </div>
+
+
+  </div>
+</div> {# Toolbar - People #}
