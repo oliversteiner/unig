@@ -22,8 +22,33 @@ ul.unig-images-small li.unig-file-item {
 }
 
 ul.unig-images-small .unig-file-head {
+  padding-bottom: 2px;
+
+  .unig-file-index {
+    display: none;
+  }
+
+  .unig-file-id{
+    border: none;
+    padding: 0;
+  }
+
   .unig-file-rating {
-    font-size: 0.7rem;
+    width: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  .unig-file-favorite {
+    width: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  .unig-file-download-mark {
+    width: auto;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -58,7 +83,6 @@ ul.unig-images-medium div.unig-lazyload-container {
 .unig-images-large img {
   width: 100%;
 }
-
 
 ul.unig-images-large li.unig-file-item {
   width: 460px;

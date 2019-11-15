@@ -197,12 +197,12 @@ ul.unig-gallery li.unig-file-item:hover {
   width: 220px;
 }
 
-.unig-images-big .unig-image-is-cover-container {
+.unig-images-large .unig-image-is-cover-container {
   width: 460px;
 }
-.unig-images-big .unig-image-is-cover,
-.unig-images-big .unig-set-project-cover-button,
-.unig-images-big .unig-set-project-cover-process {
+.unig-images-large .unig-image-is-cover,
+.unig-images-large .unig-set-project-cover-button,
+.unig-images-large .unig-set-project-cover-process {
   width: 460px;
 }
 

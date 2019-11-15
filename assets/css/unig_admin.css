@@ -797,7 +797,7 @@ ul.unig-images-medium .unig-sortable-placeholder {
   min-height: 150px;
 }
 
-ul.unig-images-big .unig-sortable-placeholder {
+ul.unig-images-large .unig-sortable-placeholder {
   min-width: 440px;
   min-height: 280px;
 }
@@ -1358,8 +1358,30 @@ ul.unig-images-small li.unig-file-item {
   width: 150px;
 }
 
+ul.unig-images-small .unig-file-head {
+  padding-bottom: 2px;
+}
+ul.unig-images-small .unig-file-head .unig-file-index {
+  display: none;
+}
+ul.unig-images-small .unig-file-head .unig-file-id {
+  border: none;
+  padding: 0;
+}
 ul.unig-images-small .unig-file-head .unig-file-rating {
-  font-size: 0.7rem;
+  width: auto;
+  padding: 0;
+  margin: 0;
+}
+ul.unig-images-small .unig-file-head .unig-file-favorite {
+  width: auto;
+  padding: 0;
+  margin: 0;
+}
+ul.unig-images-small .unig-file-head .unig-file-download-mark {
+  width: auto;
+  padding: 0;
+  margin: 0;
 }
 
 ul.unig-images-small .unig-file-middle-toolbox {
