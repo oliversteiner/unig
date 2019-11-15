@@ -481,7 +481,7 @@
 
       // Open Toolbar
       $('.unig-toolbar-area-open-trigger', context).click(() => {
-        Drupal.behaviors.unigDownload.closeToolbar(context);
+        Drupal.behaviors.unigDownload.openToolbar(context);
       });
 
       // Toggle Toolbar
