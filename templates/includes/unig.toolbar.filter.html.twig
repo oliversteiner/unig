@@ -7,25 +7,38 @@
   <div class="unig-toolbar-body">
 
 
-    <span class="unig-filter number-of-visible unig-add-visible-to-download-list-trigger">12</span> Images found with Person
-    <span class="unig-filter-item">Hans
+    <span class="unig-filter number-of-visible unig-add-visible-to-download-list-trigger">12</span>
+
+    <span class="unig-filter-text-people">Images found with Person</span>
+
+{# Peoples #}
+    <span class="unig-filter-item" data-id="hans">Hans
       <span
-        class="unig-filter-item-remove unig-filter-item-remove-trigger"> <i class="fa fa-times"></i>
+        class="unig-filter-item-remove unig-filter-item-remove-trigger" > <i class="fa fa-times"></i>
       </span>
     </span>
 
-    or
-    <span class="unig-filter-item">Anna
+    {# Operator #}
+    <span class="unig-filter-operator">or
       <span
-        class="unig-filter-item-remove unig-filter-item-remove-trigger"> <i class="fa fa-times"></i>
+        class="unig-filter-operator-icon unig-filter-operator-trigger"> <i class="fa fa-caret-down"></i>
       </span>
     </span>
 
-    and Keyword
-
-    <span class="unig-filter-item">Paar
+    <span class="unig-filter-item" data-id="anna">Anna
       <span
-        class="unig-filter-item-remove unig-filter-item-remove-trigger"> <i class="fa fa-times"></i>
+        class="unig-filter-item-remove unig-filter-item-remove-trigger"  > <i class="fa fa-times"></i>
+      </span>
+    </span>
+
+
+
+    {# Keywords #}
+    <span class="unig-filter-text-keyword">and Keyword</span>
+
+    <span class="unig-filter-item" data-id="paar">Paar
+      <span
+        class="unig-filter-item-remove unig-filter-item-remove-trigger"   > <i class="fa fa-times"></i>
       </span>
     </span>
 
@@ -36,10 +49,10 @@
   <div class="unig-toolbar-footer">
 
 
-    {# Button reset-filter #}
-    <div class="unig-button   unig-reset-filter-trigger">
+    {# Button clear-filter #}
+    <div class="unig-button   unig-clear-filter-trigger">
       <i class="far fa-trash" aria-hidden="true"></i>
-      <span class="unig-button-label">{% trans %}  Filter zurücksetzen {% endtrans %}</span>
+      <span class="unig-button-label">{% trans %}  Clear Filter {% endtrans %}</span>
     </div>
 
 
