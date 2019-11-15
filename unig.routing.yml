@@ -335,7 +335,7 @@ unig.api.file:
   path: '/unig/api/file/{file_id}/{project_id}'
   methods: [GET, HEAD]
   defaults:
-    _controller: '\Drupal\unig\Controller\UnigApiController::file'
+    _controller: '\Drupal\unig\Controller\UnigAPIController::file'
     file_id: null
     project_id: null
 
@@ -347,7 +347,7 @@ unig.api.file.delete:
   path: '/unig/api/file/{file_id}/{project_id}'
   methods: [DELETE]
   defaults:
-    _controller: '\Drupal\unig\Controller\UnigApiController::fileDelete'
+    _controller: '\Drupal\unig\Controller\UnigAPIController::fileDelete'
     file_id: null
     project_id: null
   requirements:
@@ -357,7 +357,7 @@ unig.api.file.delete:
 unig.api.file.favorit:
   path: '/unig/api/file/favorite/{file_id}/{value}/{project_id}'
   defaults:
-    _controller: '\Drupal\unig\Controller\UnigApiController::fileFavorite'
+    _controller: '\Drupal\unig\Controller\UnigAPIController::fileFavorite'
     file_id: null
     value: 0
     project_id: null
