@@ -1,0 +1,48 @@
+{# Toolbar - People #}
+<div class="unig-toolbar unig-toolbar-people" style="display: none">
+
+  <div class="unig-toolbar-head">
+    {# title #}
+    <div class="unig-toolbar-head-title">
+          <span class="unig-toolbar-head-title-icon">
+            <i class="fas fa-user" aria-hidden="true"></i>
+          </span>
+      <span class="unig-toolbar-head-title-label">
+            {% trans %} People Names {% endtrans %}
+          </span>
+    </div>
+
+    {# space #}
+    <div class="unig-space"></div>
+
+    {# separator #}
+    <div class="unig-separator"></div>
+
+    {# Unmark all  #}
+    <div
+      class="unig-tag unig-unmark-all-tags unig-button-people-unmark-all-tags unig-people-unmark-all-tags-trigger">
+      <i class="far fa-times" aria-hidden="true"></i>
+      <span class="unig-tags-title">{% trans %} Uncheck all {% endtrans %}</span>
+    </div>
+
+    {# Mark all #}
+    <div class="unig-tag unig-mark-all-tags unig-button-people-mark-all-tags unig-people-mark-all-tags-trigger">
+      <i class="fas fa-circle" aria-hidden="true"></i>
+      <span class="unig-tags-title">{% trans %} Check all {% endtrans %}</span>
+    </div>
+
+    {#  Show Keywords on Files #}
+    <div class="unig-tag unig-show-people-on-files unig-show-people-on-files-trigger unig-button-people-toggle-all">
+      <i class="fas fa-list" aria-hidden="true"></i>
+      <span class="unig-tags-title">{% trans %} Show People Names on Files {% endtrans %}</span>
+    </div>
+
+  </div>
+  <div class="unig-toolbar-body">
+    <div class="unig-toolbar-people-tags-container">
+      {# Placeholder for tags#}
+    </div>
+  </div>
+  <div class="unig-toolbar-footer">
+  </div>
+</div> {# Toolbar - People #}

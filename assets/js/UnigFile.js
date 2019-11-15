@@ -23,7 +23,7 @@
 
             // Remove Item from HTML
             $('#unig-file-' + fileId).remove();
-            Drupal.behaviors.unigData.FileList.remove(fileId);
+            Drupal.behaviors.unigData.remove(fileId);
             // Remove Item from LIST
           }
 

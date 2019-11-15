@@ -44,7 +44,6 @@
       // reset Missing Styles
 
       this.buildImgContainer().then(resolve => {
-        console.log('buildImgContainer', resolve);
         this.addImages('medium').then(resolve => {
           console.log('medium', resolve);
           this.addImages('small').then(resolve => {
@@ -127,7 +126,6 @@
       const styleName = style.styleName;
       const id = file.id;
 
-      // console.log(` -- addImage: [${styleName}] ${file.title}`);
 
       // target
       $(`#unig-file-${id} .unig-lazyload-placeholder`).hide();
@@ -135,7 +133,6 @@
       const file_size = file.image[styleName].file_size;
 
       if (file_size !== 0) {
-        // console.log('     Image Exists', file_size);
 
         if (size === 'small' || size === 'medium' || size === 'large') {
           const src = file.image[styleName].url;
@@ -153,11 +150,9 @@
 
           if (this.currentSize === size) {
             DomTarget.setAttribute('style', 'block');
-            // DomTarget.classList.add('fade-in');
           }
         }
       } else {
-        // console.log('     No File Found ');
         this.styles = this.styles.map(style => {
           if (style.name === size) {
             style.missing = true;

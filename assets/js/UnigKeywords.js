@@ -1,6 +1,6 @@
 (function($, Drupal, drupalSettings) {
   Drupal.behaviors.unigKeywords = {
-    keywordList: [],
+    list: [],
     Store: {},
     isToolbarOpen: false,
     $tags_container: $('.unig-toolbar-keywords-tags-container', this.context),
@@ -20,11 +20,63 @@
         .once('unigKeywords')
         .each(() => {
           this.constructor(context, settings);
-          this.addAll();
-          this.markAllAsActive();
-          this.update();
         });
     },
+
+
+    getKeywordIDsInProject() {
+
+      let keywordIDsInProject = [];
+      const files = drupalSettings.unig.project.files;
+
+      files.forEach(item => {
+        const keywords = item.keywords;
+        keywords.forEach(keyword => {
+          const id = parseInt(keyword.id);
+          if (!keywordIDsInProject.includes(id)) {
+            keywordIDsInProject.push(id);
+          }
+        });
+      });
+
+      return keywordIDsInProject;
+    },
+
+
+    load() {
+      const allItems = drupalSettings.unig.project.keywords;
+      const itemsInProject = this.getKeywordIDsInProject();
+
+      let list = [];
+      if (itemsInProject) {
+        allItems.forEach(item => {
+          if (itemsInProject.includes(item.id)) {
+            list.push(item);
+          }
+        });
+      } else {
+        list = allItems;
+      }
+
+      this.list = list;
+    },
+
+    clear() {
+      this.list = [];
+    },
+
+    get() {
+      return this.list;
+    },
+
+    count() {
+      return this.list.length;
+    },
+
+
+
+
+
     toggleToolbar(context) {
       if (this.isToolbarOpen) {
         this.closeToolbar(context);
@@ -49,14 +101,21 @@
 
     add(id) {
       this.Store.add(id);
+      this.markAsActive(id);
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     remove(id) {
       this.Store.remove(id);
+      this.markAsInactive(id);
+
+      Drupal.behaviors.unigProject.updateBrowser();
+
     },
 
     toggle(id) {
       this.Store.toggle(id);
+      Drupal.behaviors.unigProject.updateBrowser();
     },
     /**
      *
@@ -104,14 +163,14 @@
      */
     removeAll() {
       this.Store.clear();
+      Drupal.behaviors.unigProject.updateBrowser();
     },
     /**
      *
      *
      */
     addAll() {
-      const items = this.keywordList;
-
+      const items = this.list;
       for (let i = 0; i < items.length; i++) {
         this.add(items[i].id);
       }
@@ -128,8 +187,7 @@
      *
      */
     markAllAsActive() {
-      const items = this.keywordList;
-
+      const items = this.list;
       for (let i = 0; i < items.length; i++) {
         this.markAsActive(items[i].id);
       }
@@ -139,15 +197,14 @@
      *
      */
     update() {
-      this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
       // target
       const $targetNumberOf = $('.unig-keywords-display');
 
-      // get Number
-
-
-      const numberAllItems = this.keywordList.length;
-      const numberChosenItems = this.Store.count();
+      const numberAllItems = this.list.length;
+      let numberChosenItems = 0;
+      if(this.Store.hasOwnProperty('count')){
+        numberChosenItems = this.Store.count();
+      }
 
       let text = '';
 
@@ -166,13 +223,12 @@
         // remove text
         $targetNumberOf.html();
       }
-      Drupal.behaviors.unigProject.updateBrowser();
     },
 
-    buildTags(keywordsList) {
+    buildTags() {
       let elemLi = '';
-      if (keywordsList) {
-        keywordsList.forEach(item => {
+      if (this.list) {
+        this.list.forEach(item => {
           // check
           const additionalClass = '';
           const label = item.name;
@@ -198,32 +254,27 @@
       // Add to dom
       this.$tags_container.html(html);
 
-      const scope = Drupal.behaviors.unigKeywords;
 
       $('.unig-keywords-mark-all-tags-trigger').click(() => {
-        scope.addAll();
-        scope.markAllAsActive();
-        scope.update();
+        this.markAllAsActive();
+        this.addAll();
       });
 
       $('.unig-keywords-unmark-all-tags-trigger').click(() => {
-        scope.removeAll();
-        scope.markAllAsInactive();
-        scope.update();
+        this.markAllAsInactive();
+        this.removeAll();
       });
 
       // Update GUI
 
       $('.build-done').ready(() => {
-        scope.reMark();
-        scope.update();
+        this.reMark();
       });
     },
 
     toggleTag(id){
-      this.toggle(id);
       this.toggleMark(id);
-      this.update();
+      this.toggle(id);
     },
 
     /**
@@ -291,10 +342,11 @@
      * @param settings
      */
     constructor(context) {
-      this.keywordList = Drupal.behaviors.unigData.projectKeywords.list;
+      this.load();
 
       this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
       this.Store.init('keywords');
+      this.buildTags();
 
       // Close Toolbar
       $('.unig-toolbar-keywords-close-trigger', context).click(event => {

@@ -272,7 +272,7 @@
 
       // get Item List
       const itemsForDownload = this.Store.get();
-      const itemList = Drupal.behaviors.unigData.FileList.get();
+      const itemList = Drupal.behaviors.unigData.get();
 
       let elemLi = '';
       if (itemsForDownload) {
@@ -347,7 +347,7 @@
      *
      */
     removeAllMarks() {
-      const listItem = Drupal.behaviors.unigData.FileList.get();
+      const listItem = Drupal.behaviors.unigData.get();
 
       if (listItem) {
         for (const item of listItem) {
@@ -364,7 +364,7 @@
     },
 
     addAllMarks() {
-      const listItem = Drupal.behaviors.unigData.FileList.get();
+      const listItem = Drupal.behaviors.unigData.get();
 
       if (listItem) {
         for (const item of listItem) {
@@ -375,7 +375,7 @@
 
     addAll() {
       this.removeAll();
-      const listItem = Drupal.behaviors.unigData.FileList.get();
+      const listItem = Drupal.behaviors.unigData.get();
 
       if (listItem) {
         for (const item of listItem) {
@@ -403,7 +403,7 @@
 
     calculateDownloadSize() {
       const downloadIDs = this.Store.get();
-      const allItems = Drupal.behaviors.unigData.FileList.get();
+      const allItems = Drupal.behaviors.unigData.get();
 
       // clear
       this.downloadSize = {
