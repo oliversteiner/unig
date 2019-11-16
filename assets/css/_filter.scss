@@ -1,6 +1,19 @@
+.unig-filter-placeholder.active {
+  border: 1px solid #e0eed5;
+  padding: 10px 20px;
+  background-color: #e2ffe3;
+  border-radius: 10px;
+  margin: 10px 5px;
+}
+.unig-filter-placeholder.warning {
+  border: 1px solid #e0c4bf;
+  background-color: #ffeae7;
+}
+
 .unig-filter-item {
   display: inline-block;
   border: 1px solid silver; /* Debug */
+  background-color: white;
   margin: 2px 7px;
   padding: 2px 10px;
   font-weight: bold;
@@ -32,6 +45,7 @@
   padding: 2px 7px;
   font-weight: bold;
   border-radius: 5px;
+  background-color: white;
 
   &:hover {
     background-color: silver;
@@ -81,4 +95,14 @@
 
 .unig-filter-text-people.warning {
   color: $color-error;
+}
+
+.unig-filter-item-favorite-remove {
+  .red {
+    color: red;
+  }
+}
+
+.unig-filter-item-favorite-label {
+  margin-left: 10px;
 }

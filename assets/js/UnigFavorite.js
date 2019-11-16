@@ -3,10 +3,12 @@
     version: '1.0.0',
     show: false,
     number_of_favorites: 0,
-    filter:false,
+    filter: false,
+    showOnlyFavorites: false,
     toggleShowOnlyFavorites() {
       this.show = !this.show;
       this.filter = !this.filter;
+      this.showOnlyFavorites = !this.showOnlyFavorites;
       const fullList = Drupal.behaviors.unigData.get();
 
       if (fullList && fullList.length > 0) {
@@ -36,7 +38,7 @@
           }
         }
       }
-
+      Drupal.behaviors.unigProject.updateBrowser();
     },
 
     update() {

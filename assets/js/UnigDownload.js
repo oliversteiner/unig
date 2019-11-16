@@ -36,6 +36,7 @@
       this.calculateDownloadSize();
       this.buildThumbnails();
       this.updateInfo();
+      this.resetDownloadBox();
     },
 
 
@@ -212,7 +213,7 @@
       $('.unig-message-box-body').html(message);
     },
 
-    bulkDownloadCancel() {
+    resetDownloadBox(){
       const $bulkDownloadSd = $('.unig-bulk-download-sd-trigger');
       const $bulkDownloadHd = $('.unig-bulk-download-hd-trigger');
       const $bulkDownloadXl = $('.unig-bulk-download-xl-trigger');
@@ -226,10 +227,15 @@
       const icon = false;
       const message = '';
       Drupal.behaviors.unigDownload.setDownloadMessage(status, icon, message);
+    },
+
+    bulkDownloadCancel() {
+    this.resetDownloadBox();
       Drupal.behaviors.unigDownload.closeDownloadMessageBox();
     },
 
     closeDownloadMessageBox() {
+      this.resetDownloadBox();
       this.$bulkDownloadMessageContainer.slideUp('fast', function() {});
     },
 
