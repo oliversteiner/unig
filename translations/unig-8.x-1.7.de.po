@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unig\n"
-"POT-Creation-Date: 2019-11-15 20:35+0100\n"
+"POT-Creation-Date: 2019-11-16 02:09+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: \n"
@@ -32,31 +32,31 @@ msgstr "Beschreibung hinzufügen"
 msgid "Add copyright"
 msgstr "Urheber hinzufügen"
 
-#: assets/js/UnigDownload.js:239
+#: assets/js/UnigDownload.js:245
 msgid "A zip-archive with the pictures will be created. Please wait."
 msgstr "Ein Zip-Archiv mit den Bildern wird erstellt. Bitte warten."
 
-#: assets/js/UnigDownload.js:241
+#: assets/js/UnigDownload.js:247
 msgid "Cancel download"
 msgstr "Download abbrechen"
 
-#: assets/js/UnigDownload.js:242
+#: assets/js/UnigDownload.js:248
 msgid "Loading..."
 msgstr "Lade..."
 
-#: assets/js/UnigFilter.js:41
+#: assets/js/UnigFilter.js:43
 msgid "NO Images found with this combination: "
 msgstr "KEINE Bilder mit dieser Kombination gefunden: "
 
-#: assets/js/UnigFilter.js:47
+#: assets/js/UnigFilter.js:49
 msgid "Images found"
 msgstr "Bilder gefunden"
 
-#: assets/js/UnigFilter.js:59
+#: assets/js/UnigFilter.js:60
 msgid "with person"
 msgstr "mit Person"
 
-#: assets/js/UnigFilter.js:61
+#: assets/js/UnigFilter.js:62
 msgid "with persons"
 msgstr "mit Personen"
 
@@ -75,6 +75,18 @@ msgstr "mit Schlüsselwort"
 #: assets/js/UnigFilter.js:98
 msgid "with Keywords"
 msgstr "mit Schlüsselwörtern"
+
+#: assets/js/UnigFilter.js:123
+msgid "Favorites"
+msgstr "Favoriten"
+
+#: assets/js/UnigFilter.js:126
+msgid "Show only"
+msgstr "Zeige nur"
+
+#: assets/js/UnigFilter.js:129
+msgid "only of"
+msgstr "nur von"
 
 #: assets/js/UnigLazyLoad.js:94
 msgid "To many Worker Loops. Please Reload Website"

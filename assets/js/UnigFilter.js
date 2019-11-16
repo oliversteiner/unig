@@ -120,14 +120,14 @@
       // Favorites
       if (Drupal.behaviors.unigFavorite.showOnlyFavorites) {
         $placeholder.addClass('active');
-        const t_favorites = Drupal.t('Favorites ');
+        const t_favorites = Drupal.t('Favorites');
 
         if (people.length === 0 && keywords.length === 0) {
-          const t_show_only = Drupal.t('Show only ');
+          const t_show_only = Drupal.t('Show only');
           output += `<span class="unig-filter-text-favorites">${t_show_only} </span>`;
         } else {
-          const t_only_in = Drupal.t('only in ');
-          output += `<span class="unig-filter-text-favorites">${t_only_in} </span>`;
+          const t_only_of = Drupal.t('only of');
+          output += `<span class="unig-filter-text-favorites">${t_only_of} </span>`;
         }
 
         output +=
