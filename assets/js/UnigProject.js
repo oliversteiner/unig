@@ -218,6 +218,14 @@
       if (Drupal.behaviors.hasOwnProperty('unigKeywords')) {
         Drupal.behaviors.unigKeywords.update();
       }
+
+
+      // TODO Hack for Operette.ch
+
+      $('.unig-people-tag-id-151').remove();  // Operette Möriken Wildegg
+      $('.unig-people-tag-id-152').remove();  // Die Lustige Witwe
+      $('.unig-people-tag-id-154').remove(); // Namen
+
     },
 
     attach(context) {
