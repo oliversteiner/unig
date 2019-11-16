@@ -70,7 +70,7 @@
           // Add Name Tag
           output += `<span class="unig-filter-item" data-id="${id}">${name}
             <span class="unig-filter-item-remove unig-filter-item-remove-trigger"> 
-            <i class="fa fa-times"></i>
+            <i class="fas fa-times"></i>
             </span>
             </span>`;
           i++;
@@ -106,7 +106,7 @@
           // Add Name Tag
           output += ` <span class="unig-filter-item" data-id="${id}">${name}
             <span class="unig-filter-item-remove unig-filter-item-remove-trigger"> 
-            <i class="fa fa-times"></i></span></span>`;
+            <i class="fas fa-times"></i></span></span>`;
 
           y++;
 
@@ -132,10 +132,10 @@
 
         output +=
           `<span class="unig-filter-item unig-filter-item-favorite-remove ">` +
-          `<i class="fa fa-heart red"></i>` +
+          `<i class="fas fa-heart red"></i>` +
           `<span class="unig-filter-item-favorite-label">${t_favorites} </span>` +
           `<span class="unig-filter-item-remove unig-filter-item-favorite-remove-trigger">` +
-          `<i class="fa fa-times"></i>` +
+          `<i class="fas fa-times"></i>` +
           `</span>` +
           `</span>`;
       }
