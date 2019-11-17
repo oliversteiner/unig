@@ -39,6 +39,7 @@
                   thumb: image.image.unig_thumbnail.url,
                   id: image.id,
                   index: index++,
+                  favorite:image.favorite,
                 },
               );
 
@@ -57,6 +58,7 @@
                 thumb: image.image.unig_thumbnail.url,
                 id: image.id,
                 index: index++,
+                favorite:image.favorite,
               },
             );
 
@@ -83,6 +85,8 @@
           loop: false,
           controls: false,
           counter: false,
+          favorite: true,
+
         };
 
         // Mobile Options
@@ -97,6 +101,8 @@
           loop: false,
           controls: false,
           counter: false,
+          favorite: true,
+
         };
 
         // Desktop options
@@ -111,7 +117,7 @@
           loop: false,
           controls: true,
           counter: true,
-          hide: true,
+          favorite: true,
         };
 
         // Merge Options

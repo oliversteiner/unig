@@ -54,7 +54,7 @@
 
     },
 
-    toggleFavorite: function(fileId, projectId) {
+    toggleFavorite: async function(fileId, projectId) {
       let favorite = 0;
 
       // set Favorite
@@ -85,9 +85,11 @@
       // send to server
       const url = `/unig/api/file/favorite/${fileId}/${favorite}/${projectId}`;
 
-      fetch(url)
+      return await fetch(url)
         .then(response => response.json())
         .then(data => {
+
+          console.log('data', data);
 
           // Set message to ajax container
           const text = data.message;
@@ -102,6 +104,7 @@
           // Update Message
           Drupal.behaviors.unigMessages.removeMessageByID(messageID);
           Drupal.behaviors.unigMessages.addMessage(text, type, messageID);
+          return data;
         });
     },
 
