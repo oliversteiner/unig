@@ -6,585 +6,583 @@
 #}
 
 
-
-{#
-{{ dd(project_list) }}
-#}
-
 <unig>
-<div id="unig-main" class="unig unig-project-list">
+  <div id="unig-main" class="unig unig-project-list">
 
-  <div class="unig-debug">
-  </div>
-
-
-  {% if is_admin %}
-
-    <div class="unig-toolbar">
-
-      {# Fieldset - General #}
-
-      <div class="unig-fieldset no-border unig-fieldset-general">
-
-        <a type="button" class="unig-button unig-new-project-trigger"
-           href=" {{ path('unig.upload',{'project_id':null}) }}">
-          <i class="fas fa-plus" aria-hidden="true"></i>
-          {% trans %} New Project {% endtrans %}
-        </a>
-
-        {# sort #}
-        <div class="unig-button unig-sort-list-toggle-trigger">
-          <i class="fas fa-sort" aria-hidden="true"></i>
-          {% trans %} Sort order {% endtrans %}
-
-        </div>
-      </div>
-
-
-      {# Fieldset - Themes #}
-      <div class="unig-fieldset no-border unig-fieldset-themes">
-
-        {# Dark #}
-        <div class="unig-button unig-button-theme-dark unig-theme-dark-trigger">
-          <i class="fas fa-adjust" aria-hidden="true"></i>
-          {% trans %} Dark {% endtrans %}
-        </div>
-
-        {# Default #}
-        <div class="unig-button unig-button-theme-default  unig-theme-default-trigger" style="display: none">
-          <i class="fas fa-adjust" aria-hidden="true"></i>
-          {% trans %} Default {% endtrans %}
-        </div>
-      </div>
-
-
+    <div class="unig-debug">
     </div>
 
 
-    {# Fieldset - Sort #}
+    {% if is_admin %}
 
-    <div class="unig-toolbar unig-toolbar-sort" style="display: none">
+      <div class="unig-toolbar">
+
+        {# Fieldset - General #}
+
+        <div class="unig-fieldset no-border unig-fieldset-general">
+
+          <a type="button" class="unig-button unig-new-project-trigger"
+             href=" {{ path('unig.upload',{'project_id':null}) }}">
+            <i class="fas fa-plus" aria-hidden="true"></i>
+            {% trans %} New Project {% endtrans %}
+          </a>
+
+          {# sort #}
+          <div class="unig-button unig-sort-list-toggle-trigger">
+            <i class="fas fa-sort" aria-hidden="true"></i>
+            {% trans %} Sort order {% endtrans %}
+
+          </div>
+        </div>
 
 
-      <span class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</span>
+        {# Fieldset - Themes #}
+        <div class="unig-fieldset no-border unig-fieldset-themes">
+
+          {# Dark #}
+          <div class="unig-button unig-button-theme-dark unig-theme-dark-trigger">
+            <i class="fas fa-adjust" aria-hidden="true"></i>
+            {% trans %} Dark {% endtrans %}
+          </div>
+
+          {# Default #}
+          <div class="unig-button unig-button-theme-default  unig-theme-default-trigger" style="display: none">
+            <i class="fas fa-adjust" aria-hidden="true"></i>
+            {% trans %} Default {% endtrans %}
+          </div>
+        </div>
 
 
-      <div class="unig-button unig-button unig-button-sort-list-alphanumeric unig-sort-list-alphanumeric-trigger ">
-        <i class="fas fa-sort-alpha-down"></i>
-        {% trans %} Sort alphabetical {% endtrans %}
       </div>
 
-      <div class="unig-button unig-button-sort-list-date unig-sort-list-date-trigger ">
-        <i class="far fa-calendar-alt"></i>
-        {% trans %} Sort by date {% endtrans %}
+
+      {# Fieldset - Sort #}
+
+      <div class="unig-toolbar unig-toolbar-sort" style="display: none">
+
+
+        <span class="unig-fieldset-title">{% trans %} Sort order {% endtrans %}</span>
+
+
+        <div class="unig-button unig-button unig-button-sort-list-alphanumeric unig-sort-list-alphanumeric-trigger ">
+          <i class="fas fa-sort-alpha-down"></i>
+          {% trans %} Sort alphabetical {% endtrans %}
+        </div>
+
+        <div class="unig-button unig-button-sort-list-date unig-sort-list-date-trigger ">
+          <i class="far fa-calendar-alt"></i>
+          {% trans %} Sort by date {% endtrans %}
+        </div>
+
+        <div class="unig-button unig-button-ok unig-button-sort-list-save unig-sort-list-save-trigger"
+             style="display: none">
+          <i class="fas fa-check" aria-hidden="true"></i>
+          {% trans %} Save Order {% endtrans %}
+        </div>
+
+        <div class="unig-button unig-button-warning unig-button-sort-list-cancel unig-sort-list-cancel-trigger"
+             style="display: none">
+          <i class="fas fa-times" aria-hidden="true"></i>
+          {% trans %} Cancel {% endtrans %}
+        </div>
+
+
       </div>
 
-      <div class="unig-button unig-button-ok unig-button-sort-list-save unig-sort-list-save-trigger"
-           style="display: none">
-        <i class="fas fa-check" aria-hidden="true"></i>
-        {% trans %} Save Order {% endtrans %}
-      </div>
+    {% endif %}
 
-      <div class="unig-button unig-button-warning unig-button-sort-list-cancel unig-sort-list-cancel-trigger"
-           style="display: none">
-        <i class="fas fa-times" aria-hidden="true"></i>
-        {% trans %} Cancel {% endtrans %}
-      </div>
-
-
+    {# --------------- Ajax Message  --------------- #}
+    <div class="unig-messages-container">
+      <ul class="unig-messages">
+      </ul>
     </div>
 
-  {% endif %}
 
-  {# --------------- Ajax Message  --------------- #}
-  <div class="unig-messages-container">
-    <ul class="unig-messages">
-    </ul>
-  </div>
+    <div class="unig">
+      <ul class="unig-project-list unig-sortable">
 
-
-  <div class="unig">
-    <ul class="unig-project-list unig-sortable">
-
-      {% for project in project_list %}
-{#        {% set date = project.timestamp|format_date(0, "d. F Y" ) %}
-        {% set date_short = project.timestamp|format_date(0, "d. M Y" ) %}#}
+        {% for project in project_list %}
+          {% set date_long = project.timestamp|format_date('date_long') %}
+          {% set date_short = project.timestamp|format_date('date_short') %}
 
 
 
-        {# -------------------  Admin -------------------------- #}
-        {% if is_admin %}
-          {# ----------- YEAR ----------- #}
-          {% if sort_year != project.year %}
-            <li class="unig-project-list-item unig-project-list-item-year">
-              <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
-            </li>
-          {% endif %}
+          {# -------------------  Admin -------------------------- #}
+          {% if is_admin %}
+            {# ----------- YEAR ----------- #}
+            {% if sort_year != project.year %}
+              <li class="unig-project-list-item unig-project-list-item-year">
+                <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
+              </li>
+            {% endif %}
 
-          {% if project.private == 1 %}
-            {% set class = 'private' %}
-          {% else %}
-            {% set class = '' %}
-          {% endif %}
+            {% if project.private == 1 %}
+              {% set class = 'private' %}
+            {% else %}
+              {% set class = '' %}
+            {% endif %}
 
-          {# sortable list #}
-          <li class="unig-project-list-item unig-sortable-item unig-project-id"
-              id="unig-sortable-item-id_{{ project.id }}"
-              data-unig-project-id="{{ project.id }}">
-
-
-            <article
-              class="unig-project-container unig-project-private-status unig-project-{{ project.id }} {{ class }} {% if project.private %} private {% endif %}">
-              {# ----------- Nid ----------- #}
-
-              <div class="unig-project-id unig-col-right" style="display: none">{{ project.id }}</div>
+            {# sortable list #}
+            <li class="unig-project-list-item unig-sortable-item unig-project-id"
+                id="unig-sortable-item-id_{{ project.id }}"
+                data-unig-project-id="{{ project.id }}">
 
 
-              {# ----------- Weight ----------- #}
-              <div class="unig-project-weight" style="display: none">
-                {{ project.weight }}
-              </div>
+              <article
+                class="unig-project-container unig-project-private-status unig-project-{{ project.id }} {{ class }} {% if project.private %} private {% endif %}">
+                {# ----------- Nid ----------- #}
 
-              {# ----------- Cover ----------- #}
-              <div class="unig-project-cover">
+                <div class="unig-project-id unig-col-right" style="display: none">{{ project.id }}</div>
+
+
+                {# ----------- Weight ----------- #}
+                <div class="unig-project-weight" style="display: none">
+                  {{ project.weight }}
+                </div>
+
+                {# ----------- Cover ----------- #}
+                <div class="unig-project-cover">
                   <a href="{{ url('unig.project.admin', {'project_id':project.id}) }}">
-                  <div class="unig-project-cover-background">
-                    {% if project.cover_image and project.cover_image.unig_cover.url %}
-                      <div class="unig-project-cover-image">
-                        <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
-                      </div>
-                    {% else %}
-                      <div class="unig-project-cover-image-placeholder">
-
-                        <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
-                        <div class="unig-project-cover-text">
-                          <span>{% trans %} No cover picture selected {% endtrans %}</span>
+                    <div class="unig-project-cover-background">
+                      {% if project.cover_image and project.cover_image.unig_cover.url %}
+                        <div class="unig-project-cover-image">
+                          <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
                         </div>
-                      </div>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-              <div class="unig-project-text">
+                      {% else %}
+                        <div class="unig-project-cover-image-placeholder">
 
-                <div class="unig-project-info-container">
-                  <div class="unig-row">
-
-                    {# ----------- Number of items ----------- #}
-                    <div class="unig-project-number-of-items unig-col-left">
-                      <i class="fas fa-images"></i> {{ project.number_of_items }}
+                          <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+                          <div class="unig-project-cover-text">
+                            <span>{% trans %} No cover picture selected {% endtrans %}</span>
+                          </div>
+                        </div>
+                      {% endif %}
                     </div>
+                  </a>
+                </div>
+                <div class="unig-project-text">
 
-                    {# Preview #}
-                    <a class="unig-button-icon-info"
-                       href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
-                      {% trans %} Preview {% endtrans %}
+                  <div class="unig-project-info-container">
+                    <div class="unig-row">
 
-                    </a>
+                      {# ----------- Number of items ----------- #}
+                      <div class="unig-project-number-of-items unig-col-left">
+                        <i class="fas fa-images"></i> {{ project.number_of_items }}
+                      </div>
 
-                    {# ----------- Private ----------- #}
+                      {# Preview #}
+                      <a class="unig-button-icon-info"
+                         href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
+                        {% trans %} Preview {% endtrans %}
 
-                    {% if project.private %}
-                      {% set title_private =  "Dieses Projekt ist privat" %}
-                    {% else %}
-                      {% set title_private = "Dieses Projekt ist öffentlich" %}
-                    {% endif %}
+                      </a>
 
-                    <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
-                         title="{{ title_private }}">
+                      {# ----------- Private ----------- #}
+
+                      {% if project.private %}
+                        {% set title_private =  "Dieses Projekt ist privat" %}
+                      {% else %}
+                        {% set title_private = "Dieses Projekt ist öffentlich" %}
+                      {% endif %}
+
+                      <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
+                           title="{{ title_private }}">
                                             <span
                                               class="unig-project-private" {% if not project.private %} style="display: none" {% endif %}>
                                                 <i class="fas fa-lock"></i>
                                             </span>
 
-                      <span class="unig-project-public" {% if  project.private %} style="display: none" {% endif %}>
+                        <span class="unig-project-public" {% if  project.private %} style="display: none" {% endif %}>
                                                 <i class="fas fa-lock-open"></i>
                                             </span>
 
-                    </div>
+                      </div>
 
-                    {# ----------- Delete ----------- #}
-                    <div class="unig-button-icon-info unig-project-delete unig-project-delete-trigger"
-                         title="{% trans %} Delete Project {% endtrans %}">
-                      <i class="fas fa-trash " aria-hidden="true"></i>
-                    </div>
+                      {# ----------- Delete ----------- #}
+                      <div class="unig-button-icon-info unig-project-delete unig-project-delete-trigger"
+                           title="{% trans %} Delete Project {% endtrans %}">
+                        <i class="fas fa-trash " aria-hidden="true"></i>
+                      </div>
 
-                    {#  -----------   Prozess Indicator -----------  #}
-                    <div class="unig-toolbar-icon unig-project-{{ project.id }}">
+                      {#  -----------   Prozess Indicator -----------  #}
+                      <div class="unig-toolbar-icon unig-project-{{ project.id }}">
                                                 <span class="unig-process-spinner" style="display: none"> <i
                                                     class="fas fa-spinner fa-spin"
                                                     aria-hidden="true"></i></span>
-                      <span class="unig-process-success" style="display: none"> <i
-                          class="fas fa-check" aria-hidden="true"></i></span>
-                      <span class="unig-process-error" style="display: none"> <i
-                          class="fas fa-exclamation-triangle"
-                          aria-hidden="true"></i></span>
-                    </div>
+                        <span class="unig-process-success" style="display: none"> <i
+                            class="fas fa-check" aria-hidden="true"></i></span>
+                        <span class="unig-process-error" style="display: none"> <i
+                            class="fas fa-exclamation-triangle"
+                            aria-hidden="true"></i></span>
+                      </div>
 
+                    </div>
                   </div>
-                </div>
-                {# ----------- Display ----------- #}
+                  {# ----------- Display ----------- #}
 
-                <hr class="unig unig-project-list">
-
-
-                <div class="animate-container animate-container-{{ project.id }}">
+                  <hr class="unig unig-project-list">
 
 
-                  {#  -----------   Category  -----------  #}
-                  <div class="unig-project-category">
-
-                    {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-category-{{ project.id }}">
-
-                      {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
-                           data-unig-field="category"
-                           data-unig-mode="project"
-                           data-unig-form="option_list">
-
-                        {# ----------- Edit Content ----------- #}
-                        <div class="unig-project-category unig-edit-content unig-default-box ">
-
-                          {% if not project.category %}
-                            <span class="unig-input-placeholder"> {% trans %} Category {% endtrans %} </span>
-                          {% else %}
-                            {{ project.category }}
-                          {% endif %}
-
-                        </div>
-
-                      </div>
-
-                      {# ----------- Edit Input ----------- #}
-                      <div class="unig-edit-input" style="display: none">
+                  <div class="animate-container animate-container-{{ project.id }}">
 
 
-                        <select name="unig-project-category-{{ project.id }}"
-                                id="unig-project-category-{{ project.id }}-input">
-                          {% for category_item in project.category_list %}
-                            <option
-                              value="{{ category_item.id }}"{% if category_item.name == project.category %} selected {% endif %}>{{ category_item.name }} </option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                    </div>
-
-                  </div>
-
-
-                  {#  -----------   Title  -----------  #}
-                  <div class="unig-project-title">
-
-                    {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-title-{{ project.id }}">
-
-                      {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
-                           data-unig-field="title"
-                           data-unig-mode="project">
-
-                        {# ----------- Edit Content ----------- #}
-                        <h2 class="unig-project-title unig-edit-content unig-default-box ">
-                          {{ project.title }}
-                        </h2>
-
-                      </div>
-
-                      {# ----------- Edit Input ----------- #}
-                      <div class="unig-edit-input" style="display: none">
-
-                        <input id="unig-project-title-{{ project.id }}-input"
-                               title="Title"
-                               class="unig-project-title"
-                               type="text"
-                               size="26"
-                               value="{{ project.title }}">
-                      </div>
-                    </div>
-
-                  </div>
-
-
-                  {#  -----------   Date  -----------  #}
-                  <div class="unig-project-date">
-
-                    {#  -----------   Edit Root  -----------  #}
-                    <div class="unig-project-date-{{ project.id }}">
-
-                      {# ----------- Edit Trigger ----------- #}
-                      <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
-                           data-unig-field="date"
-                           data-unig-mode="project">
-
-                        {# ----------- Edit Content ----------- #}
-                        <div class="unig-project-date unig-edit-content unig-default-box ">
-                          {{ project.date }}
-                        </div>
-
-                      </div>
-
-                      {# ----------- Edit Input ----------- #}
-                      <div class="unig-edit-input" style="display: none">
-
-                        <input id="unig-project-date-{{ project.id }}-input"
-                               title="date"
-                               class="unig-project-date"
-                               type="date"
-                               value="{{ project.date_drupal }}">
-                      </div>
-                    </div>
-
-
-                    {#  -----------   Description  -----------  #}
-                    <div class="unig-project-description">
+                    {#  -----------   Category  -----------  #}
+                    <div class="unig-project-category">
 
                       {#  -----------   Edit Root  -----------  #}
-                      <div class="unig-project-description-{{ project.id }}">
+                      <div class="unig-project-category-{{ project.id }}">
 
                         {# ----------- Edit Trigger ----------- #}
-                        <div class="unig-edit-trigger"
-                             data-unig-project-id="{{ project.id }}"
-                             data-unig-field="description"
+                        <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
+                             data-unig-field="category"
                              data-unig-mode="project"
-                        >
+                             data-unig-form="option_list">
 
                           {# ----------- Edit Content ----------- #}
-                          <div class="unig-edit-content unig-default-box-textarea">
+                          <div class="unig-project-category unig-edit-content unig-default-box ">
 
-                            {% if not project.description %}
-                              <span class="unig-input-placeholder"> {% trans %} Add description {% endtrans %} </span>
+                            {% if not project.category %}
+                              <span class="unig-input-placeholder"> {% trans %} Category {% endtrans %} </span>
                             {% else %}
-                              {{ project.description }}
+                              {{ project.category }}
                             {% endif %}
 
                           </div>
+
                         </div>
 
                         {# ----------- Edit Input ----------- #}
                         <div class="unig-edit-input" style="display: none">
+
+
+                          <select name="unig-project-category-{{ project.id }}"
+                                  id="unig-project-category-{{ project.id }}-input">
+                            {% for category_item in project.category_list %}
+                              <option
+                                value="{{ category_item.id }}"{% if category_item.name == project.category %} selected {% endif %}>{{ category_item.name }} </option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    {#  -----------   Title  -----------  #}
+                    <div class="unig-project-title">
+
+                      {#  -----------   Edit Root  -----------  #}
+                      <div class="unig-project-title-{{ project.id }}">
+
+                        {# ----------- Edit Trigger ----------- #}
+                        <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
+                             data-unig-field="title"
+                             data-unig-mode="project">
+
+                          {# ----------- Edit Content ----------- #}
+                          <h2 class="unig-project-title unig-edit-content unig-default-box ">
+                            {{ project.title }}
+                          </h2>
+
+                        </div>
+
+                        {# ----------- Edit Input ----------- #}
+                        <div class="unig-edit-input" style="display: none">
+
+                          <input id="unig-project-title-{{ project.id }}-input"
+                                 title="Title"
+                                 class="unig-project-title"
+                                 type="text"
+                                 size="26"
+                                 value="{{ project.title }}">
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    {#  -----------   Date  -----------  #}
+                    <div class="unig-project-date">
+
+                      {#  -----------   Edit Root  -----------  #}
+                      <div class="unig-project-date-{{ project.id }}">
+
+                        {# ----------- Edit Trigger ----------- #}
+                        <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
+                             data-unig-field="date"
+                             data-unig-mode="project">
+
+                          {# ----------- Edit Content ----------- #}
+                          <div class="unig-project-date unig-edit-content unig-default-box ">
+                            {{ date_long }}
+                          </div>
+
+                        </div>
+
+                        {# ----------- Edit Input ----------- #}
+                        <div class="unig-edit-input" style="display: none">
+
+                          <input id="unig-project-date-{{ project.id }}-input"
+                                 title="date"
+                                 class="unig-project-date"
+                                 type="date"
+                                 value="{{ project.date_drupal }}">
+                        </div>
+                      </div>
+
+
+                      {#  -----------   Description  -----------  #}
+                      <div class="unig-project-description">
+
+                        {#  -----------   Edit Root  -----------  #}
+                        <div class="unig-project-description-{{ project.id }}">
+
+                          {# ----------- Edit Trigger ----------- #}
+                          <div class="unig-edit-trigger"
+                               data-unig-project-id="{{ project.id }}"
+                               data-unig-field="description"
+                               data-unig-mode="project"
+                          >
+
+                            {# ----------- Edit Content ----------- #}
+                            <div class="unig-edit-content unig-default-box-textarea">
+
+                              {% if not project.description %}
+                                <span class="unig-input-placeholder"> {% trans %} Add description {% endtrans %} </span>
+                              {% else %}
+                                {{ project.description }}
+                              {% endif %}
+
+                            </div>
+                          </div>
+
+                          {# ----------- Edit Input ----------- #}
+                          <div class="unig-edit-input" style="display: none">
                                                 <textarea
                                                   id="unig-project-description-{{ project.id }}-input"
                                                   rows="4"
                                                   cols="23"
                                                   title="Description">{{ project.description }}</textarea>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
 
-                    {#  -----------   Copyright  -----------  #}
-                    <div class="unig-project-copyright">
+                      {#  -----------   Copyright  -----------  #}
+                      <div class="unig-project-copyright">
 
-                      {#  -----------   Edit Root  -----------  #}
-                      <div class="unig-project-copyright-{{ project.id }}">
+                        {#  -----------   Edit Root  -----------  #}
+                        <div class="unig-project-copyright-{{ project.id }}">
 
-                        {# ----------- Edit Trigger ----------- #}
-                        <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
-                             data-unig-field="copyright"
-                             data-unig-mode="project">
+                          {# ----------- Edit Trigger ----------- #}
+                          <div class="unig-edit-trigger" data-unig-project-id="{{ project.id }}"
+                               data-unig-field="copyright"
+                               data-unig-mode="project">
 
-                          {# ----------- Edit Content ----------- #}
-                          <div class="unig-project-copyright unig-edit-content unig-default-box ">
-                            {% if not project.copyright %}
-                              <span class="unig-input-placeholder"> {% trans %} Add copyright {% endtrans %} </span>
-                            {% else %}
-                              {{ project.copyright }}
-                            {% endif %}
+                            {# ----------- Edit Content ----------- #}
+                            <div class="unig-project-copyright unig-edit-content unig-default-box ">
+                              {% if not project.copyright %}
+                                <span class="unig-input-placeholder"> {% trans %} Add copyright {% endtrans %} </span>
+                              {% else %}
+                                {{ project.copyright }}
+                              {% endif %}
+                            </div>
+
                           </div>
 
+                          {# ----------- Edit Input ----------- #}
+                          <div class="unig-edit-input" style="display: none">
+
+                            <input id="unig-project-copyright-{{ project.id }}-input"
+                                   title="copyright"
+                                   class="unig-project-copyright"
+                                   type="text"
+                                   size="26"
+                                   value="{{ project.copyright }}">
+                          </div>
                         </div>
 
-                        {# ----------- Edit Input ----------- #}
-                        <div class="unig-edit-input" style="display: none">
-
-                          <input id="unig-project-copyright-{{ project.id }}-input"
-                                 title="copyright"
-                                 class="unig-project-copyright"
-                                 type="text"
-                                 size="26"
-                                 value="{{ project.copyright }}">
-                        </div>
                       </div>
 
-                    </div>
 
+                      {#  ----------- Delete Project  -----------  #}
+                      <div class="unig-project-list-toolbar">
 
-                    {#  ----------- Delete Project  -----------  #}
-                    <div class="unig-project-list-toolbar">
+                        {#  ----------- Confirm Project  -----------  #}
+                        <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.id }}"
+                             style="display: none">
 
-                      {#  ----------- Confirm Project  -----------  #}
-                      <div class="unig-project-delete-confirm unig-project-delete-confirm-{{ project.id }}"
-                           style="display: none">
+                          {# Message#}
+                          <div class="unig-project-delete-confirm-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            {% trans %} Delete this project and all its images? {% endtrans %}
+                          </div>
 
-                        {# Message#}
-                        <div class="unig-project-delete-confirm-message">
-                          <i class="fas fa-exclamation-triangle"></i>
-                          {% trans %} Delete this project and all its images? {% endtrans %}
-                        </div>
-
-                        {# Buttons #}
-                        <div class="unig-row">
-                          {# Button Cancel#}
-                          <div role="button"
-                               class="unig-button
+                          {# Buttons #}
+                          <div class="unig-row">
+                            {# Button Cancel#}
+                            <div role="button"
+                                 class="unig-button
                                                   unig-button-project-delete-cancel
                                                   unig-button-project-delete-cancel-{{ project.id }}
                                                   unig-project-delete-cancel-trigger">
-                            {% trans %}No, Cancel{% endtrans %}
-                          </div>
+                              {% trans %}No, Cancel{% endtrans %}
+                            </div>
 
-                          {# Button Delete#}
-                          <a role="button"
-                             class="use-ajax unig-button unig-button-danger
+                            {# Button Delete#}
+                            <a role="button"
+                               class="use-ajax unig-button unig-button-danger
                                                unig-button-project-delete-yes
                                                unig-button-project-delete-yes-{{ project.id }}"
-                             href="{{ path('unig.api.project.delete', {'project_id': project.id}) }}">
-                            {% trans %}Yes, Delete Project{% endtrans %}
-                          </a>
+                               href="{{ path('unig.api.project.delete', {'project_id': project.id}) }}">
+                              {% trans %}Yes, Delete Project{% endtrans %}
+                            </a>
+                          </div>
                         </div>
+
                       </div>
 
+
+                      {#  -----------   Album  -----------  #}
+                      {% if album_list %}
+                        <div class="unig-project-album-list">
+                          <h3 class="unig-project-album-list-title">Alben</h3>
+                          <ul class="unig unig-project-album-list-items">
+                            {% for album in project.album_list %}
+                              <li>
+                                <a
+                                  href="{{ path('unig.project.admin',{'project_id':project.id, 'album_id':album.id}) }}">{{ album.title }}</a>
+                              </li>
+
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      {% endif %}
                     </div>
-
-
-                    {#  -----------   Album  -----------  #}
-                    {% if album_list %}
-                      <div class="unig-project-album-list">
-                        <h3 class="unig-project-album-list-title">Alben</h3>
-                        <ul class="unig unig-project-album-list-items">
-                          {% for album in project.album_list %}
-                            <li>
-                              <a href="{{ path('unig.project.admin',{'project_id':project.id, 'album_id':album.id}) }}">{{ album.title }}</a>
-                            </li>
-
-                          {% endfor %}
-                        </ul>
-                      </div>
-                    {% endif %}
                   </div>
                 </div>
-              </div>
 
-            </article>
-          </li>
-
-          {# ------------------- End Admin -------------------------- #}
-          {# -------------------------------------------------------- #}
-
-        {% else %}
-
-          {# ----------- YEAR ----------- #}
-          {% if sort_year != project.year %}
-            <li class="unig-project-list-item-year">
-              <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
+              </article>
             </li>
 
-          {% endif %}
+            {# ------------------- End Admin -------------------------- #}
+            {# -------------------------------------------------------- #}
+
+          {% else %}
+
+            {# ----------- YEAR ----------- #}
+            {% if sort_year != project.year %}
+              <li class="unig-project-list-item-year">
+                <div class="unig-project-year"><h2>{{ project.year }}</h2></div>
+              </li>
+
+            {% endif %}
 
 
-          <li class="unig-project-list-item">
+            <li class="unig-project-list-item">
 
-            <article
-              class="unig-project-container unig-project-private-status unig-project-{{ project.id }} {{ class }} {% if project.private %} private {% endif %}">
+              <article
+                class="unig-project-container unig-project-private-status unig-project-{{ project.id }} {{ class }} {% if project.private %} private {% endif %}">
 
 
-              {# ----------- Cover ----------- #}
-              <div class="unig-project-cover">
+                {# ----------- Cover ----------- #}
+                <div class="unig-project-cover">
 
-                <a href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
+                  <a href="{{ path('unig.project.public', {'project_id': project.id, 'album_id': album.id, }) }}">
 
-                  <div class="unig-project-cover-background">
-                    {% if project.cover_image.unig_cover.url %}
-                      <div class="unig-project-cover-image">
-                        <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
-                      </div>
-                    {% else %}
-                      <div class="unig-project-cover-image-placeholder">
-
-                        <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
-                        <div class="unig-project-cover-text">
-                          <span>{% trans %} No cover picture selected {% endtrans %}</span>
+                    <div class="unig-project-cover-background">
+                      {% if project.cover_image.unig_cover.url %}
+                        <div class="unig-project-cover-image">
+                          <img class="" src="{{ project.cover_image.unig_cover.url }}" alt="">
                         </div>
+                      {% else %}
+                        <div class="unig-project-cover-image-placeholder">
+
+                          <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+                          <div class="unig-project-cover-text">
+                            <span>{% trans %} No cover picture selected {% endtrans %}</span>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </a>
+                </div>
+                <div class="unig-project-text">
+
+                  <div class="unig-project-info-container">
+                    <div class="unig-row">
+
+                      {# ----------- Number of items ----------- #}
+                      <div class="unig-project-number-of-items unig-col-left">
+                        <i class="fas fa-images"></i> {{ project.number_of_items }}
                       </div>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-              <div class="unig-project-text">
 
-                <div class="unig-project-info-container">
-                  <div class="unig-row">
+                      {#  -----------   Date  -----------  #}
+                      <div class="unig-project-date">
+                        {{ date_long }}
+                      </div>
 
-                    {# ----------- Number of items ----------- #}
-                    <div class="unig-project-number-of-items unig-col-left">
-                      <i class="fas fa-images"></i> {{ project.number_of_items }}
-                    </div>
+                      {# ----------- Private ----------- #}
+                      {% if project.private %}
+                        {% set title_private =  "Dieses Projekt ist privat" %}
+                      {% else %}
+                        {% set title_private = "Dieses Projekt ist öffentlich" %}
+                      {% endif %}
 
-                    {#  -----------   Date  -----------  #}
-                    <div class="unig-project-date">
-                      {{ project.date }}
-                    </div>
-
-                    {# ----------- Private ----------- #}
-                    {% if project.private %}
-                      {% set title_private =  "Dieses Projekt ist privat" %}
-                    {% else %}
-                      {% set title_private = "Dieses Projekt ist öffentlich" %}
-                    {% endif %}
-
-                    <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
-                         title="{{ title_private }}">
+                      <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
+                           title="{{ title_private }}">
                         <span
                           class="unig-project-private" {% if not project.private %} style="display: none" {% endif %}>
                             <i class="fas fa-lock"></i>
                         </span>
+                      </div>
+
+                      {% if can_download %}
+                        <a class="unig-list-link"
+                           href="{{ path('unig.project.download', {'project_id': project.id, 'album_id': album.id, }) }}">
+                          <i class="fas fa-download"></i></a>
+                      {% endif %}
+
+
+                    </div>
+                  </div>
+
+                  {# ----------- Display ----------- #}
+
+                  <div class="unig-project-text-container">
+
+                    {#  -----------   Category  -----------  #}
+                    <div class="unig-project-category">
+                      {{ project.category }}
                     </div>
 
-                    {% if can_download %}
-                      <a class="unig-list-link" href="{{ path('unig.project.download', {'project_id': project.id, 'album_id': album.id, }) }}"> <i class="fas fa-download"></i></a>
-                    {% endif %}
+                    {# -----------  Content ----------- #}
+                    <h2 class="unig-project-title ">
+                      {{ project.title }}
+                    </h2>
 
+                    {#  -----------   Description  -----------  #}
+                    <div class="unig-project-description">
+                      {{ project.description }}
+                    </div>
 
+                    {#  -----------   Copyright  -----------  #}
+                    <div class="unig-project-copyright">
+                      {{ project.copyright }}
+                    </div>
                   </div>
                 </div>
 
-                {# ----------- Display ----------- #}
+              </article>
+            </li>
 
-                <div class="unig-project-text-container">
+          {% endif %}
 
-                  {#  -----------   Category  -----------  #}
-                  <div class="unig-project-category">
-                    {{ project.category }}
-                  </div>
+          {% set sort_year = project.year %}
 
-                  {# -----------  Content ----------- #}
-                  <h2 class="unig-project-title ">
-                    {{ project.title }}
-                  </h2>
+        {% endfor %}
 
-                  {#  -----------   Description  -----------  #}
-                  <div class="unig-project-description">
-                    {{ project.description }}
-                  </div>
-
-                  {#  -----------   Copyright  -----------  #}
-                  <div class="unig-project-copyright">
-                    {{ project.copyright }}
-                  </div>
-                </div>
-              </div>
-
-            </article>
-          </li>
-
-        {% endif %}
-
-        {% set sort_year = project.year %}
-
-      {% endfor %}
-
-    </ul>
+      </ul>
+    </div>
   </div>
-</div>
 </unig>

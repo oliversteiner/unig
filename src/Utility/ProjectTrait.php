@@ -586,7 +586,7 @@ trait ProjectTrait
       'tags_list' => $tags_list,
       'private' => $private,
       'user' => $user,
-      'timestamp' => $timestamp,
+      'timestamp' => $timestamp, // can be used with Twig filter | format_date('DRUPAL_DATE')
       'date' => $date,
       'date_short' => $date_short,
       'date_drupal' => $date_drupal,

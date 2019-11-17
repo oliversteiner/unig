@@ -1,5 +1,9 @@
-{% set datum = project.timestamp|format_date(0, "d. F Y" ) %}
+{#
+unig.project-download.thml.twig
+#}
 
+{% set date_short = project.timestamp|format_date('date_short') %}
+{% set date_long = project.timestamp|format_date('date_long') %}
 
 <div id="unig-main" class="unig unig-project unig-project-id" data-unig-project-id="{{ project.id }}">
   <div class="unig-header">
@@ -222,7 +226,7 @@
 
                       {# ----------- Edit Content ----------- #}
                       <div class="unig-project-date unig-edit-content unig-default-box ">
-                        {{ project.date }}
+                        {{ date_long }}
                       </div>
 
                     </div>

@@ -66,7 +66,8 @@ Twig Vars
 
 
 
-{% set date = project.timestamp|format_date(0, "d. F Y" ) %}
+{% set date_short = project.timestamp|format_date('date_short') %}
+{% set date_long = project.timestamp|format_date('date_long') %}
 
 {# header #}
 <div class="unig-file-gallery-head">
@@ -110,7 +111,7 @@ Twig Vars
       {# ROW 2 #}
       <div class="unig-gallery-header-text-row-2">
         {# Date #}
-        <div class="unig-project-date"> {{ date }}</div>
+        <div class="unig-project-date"> {{ date_long }}</div>
 
         {# copyright #}
         <div class="unig-project-copyright">{{ project.copyright }}</div>
