@@ -528,7 +528,6 @@
                     </div>
 
                     {# ----------- Private ----------- #}
-
                     {% if project.private %}
                       {% set title_private =  "Dieses Projekt ist privat" %}
                     {% else %}
@@ -537,16 +536,17 @@
 
                     <div class="unig-project-public-private unig-button-icon-info unig-project-private-trigger"
                          title="{{ title_private }}">
-                                            <span
-                                              class="unig-project-private" {% if not project.private %} style="display: none" {% endif %}>
-                                                <i class="fas fa-lock"></i>
-                                            </span>
+                        <span
+                          class="unig-project-private" {% if not project.private %} style="display: none" {% endif %}>
+                            <i class="fas fa-lock"></i>
+                        </span>
                     </div>
-
 
                     {% if can_download %}
                       <a class="unig-list-link" href="{{ path('unig.project.download', {'project_id': project.id, 'album_id': album.id, }) }}"> <i class="fas fa-download"></i></a>
-                      {% endif %}
+                    {% endif %}
+
+
                   </div>
                 </div>
 

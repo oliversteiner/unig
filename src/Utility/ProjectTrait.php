@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Drupal\unig\Utility;
 
 use Drupal;
@@ -20,7 +19,6 @@ use User;
 
 trait ProjectTrait
 {
-
   /**
    * @return array|int
    *
@@ -122,7 +120,7 @@ trait ProjectTrait
     $default_config = Drupal::config('unig.settings');
     $default_project_id = $default_config->get('unig.default_project');
     if ($default_project_id) {
-      return (int)$default_project_id;
+      return (int) $default_project_id;
     }
 
     // or take newest Project
@@ -234,8 +232,10 @@ trait ProjectTrait
    *
    * @return OutputController
    */
-  public static function setCover($nid_project, $nid_image = null): OutputController
-  {
+  public static function setCover(
+    $nid_project,
+    $nid_image = null
+  ): OutputController {
     $output = new OutputController();
 
     $node = Node::load($nid_project);
@@ -285,7 +285,7 @@ trait ProjectTrait
   {
     $variables = [];
     if ($nid) {
-      $node = Node::load((int)$nid);
+      $node = Node::load((int) $nid);
       if ($node) {
         $unig_image_id = Helper::getFieldValue($node, 'unig_image');
         $variables = CreateImageStylesTrait::createImageStyles(
@@ -444,7 +444,7 @@ trait ProjectTrait
     //
 
     // Load Project
-    $node = Node::load((int)$project_id);
+    $node = Node::load((int) $project_id);
 
     // check if Nid is Unig Project
     if ($node && $node->bundle() !== 'unig_project') {
@@ -475,18 +475,31 @@ trait ProjectTrait
     $private = Helper::getFieldValue($node, UnigProject::field_private);
 
     // Category
-    $category = Helper::getFieldValue($node, UnigProject::field_category, UnigProject::term_category);
+    $category = Helper::getFieldValue(
+      $node,
+      UnigProject::field_category,
+      UnigProject::term_category
+    );
     $category_id = Helper::getFieldValue($node, UnigProject::field_category);
     $category_list = Helper::getTermsForOptionList(UnigProject::term_category);
 
     // Tags
-    $tags = Helper::getFieldValue($node, UnigProject::field_tags, UnigProject::term_tags, true);
-    $tags_ids = Helper::getFieldValue($node, UnigProject::field_tags, false, true);
+    $tags = Helper::getFieldValue(
+      $node,
+      UnigProject::field_tags,
+      UnigProject::term_tags,
+      true
+    );
+    $tags_ids = Helper::getFieldValue(
+      $node,
+      UnigProject::field_tags,
+      false,
+      true
+    );
     $tags_list = Helper::getTermsForOptionList(UnigProject::term_tags);
 
     // Help
     $help = Helper::getFieldValue($node, UnigProject::field_help);
-
 
     // Date
     $date = Helper::getFieldValue($node, UnigProject::field_date);
@@ -498,7 +511,7 @@ trait ProjectTrait
     }
 
     // Timestamp
-    $timestamp = (int)$php_date_obj->format('U');
+    $timestamp = (int) $php_date_obj->format('U');
 
     // Year
     $year = $php_date_obj->format('Y');
@@ -517,7 +530,7 @@ trait ProjectTrait
       $new_cover = self::setCover($project_id);
       $cover_id = $new_cover->getTid();
     }
-    $cover_image = self::getCoverImageVars((int)$cover_id);
+    $cover_image = self::getCoverImageVars((int) $cover_id);
 
     // number_of_items
     $number_of_items = self::countFilesInProject($project_id);
@@ -544,6 +557,14 @@ trait ProjectTrait
       'project_id' => $project_id
     ]);
 
+
+    // Generate User Items
+    $_user = Drupal::currentUser();
+    $user['logged_in'] = $_user->isAuthenticated();
+    $user['is_admin'] = $_user->hasPermission('access unig admin');
+    $user['can_download'] = $_user->hasPermission('access unig download');
+    $user['show_private'] = $_user->hasPermission('access private project');
+
     // Twig-Variables
     // --------------------------------------------
     $project = [
@@ -561,6 +582,7 @@ trait ProjectTrait
       'tags_ids' => $tags_ids,
       'tags_list' => $tags_list,
       'private' => $private,
+      'user' => $user,
       'timestamp' => $timestamp,
       'date' => $date,
       'date_drupal' => $date_drupal,
@@ -599,8 +621,7 @@ trait ProjectTrait
   public static function getJSONFromProjectFiles(
     $project_id,
     $album_id = null
-  ): JsonResponse
-  {
+  ): JsonResponse {
     $response = new JsonResponse();
 
     // TODO: (replace $_POST with new Drupal method )
@@ -664,8 +685,8 @@ trait ProjectTrait
     }
     foreach ($terms as $term) {
       $term_data[] = [
-        'id' => (int)$term->tid,
-        'name' => (string)$term->name
+        'id' => (int) $term->tid,
+        'name' => (string) $term->name
       ];
     }
 
@@ -681,8 +702,7 @@ trait ProjectTrait
   public static function importKeywordsFromProject(
     $project_id,
     $album_id = null
-  ): array
-  {
+  ): array {
     $list = [];
     $nids = self::getListofFilesInProject($project_id, $album_id);
 
@@ -776,7 +796,8 @@ trait ProjectTrait
         // Node delete success
         $status = true;
         $message = 'Das Projekt mit der ID ' . $project_id . ' wurde gelöscht';
-      } // no Node found
+      }
+      // no Node found
       else {
         $status = false;
         $message = 'kein Projekt mit der ID ' . $project_id . ' gefunden';
@@ -841,7 +862,7 @@ trait ProjectTrait
     $entity->field_unig_category[0]['target_id'] = $data['category'];
 
     // private
-    $int_private = (int)$data['private'];
+    $int_private = (int) $data['private'];
     if ($int_private == 1) {
       $private = 1;
     } else {
@@ -888,5 +909,4 @@ $response = new AjaxResponse();
   {
     return Helper::getTermList(UnigProject::term_keywords);
   }
-
 }

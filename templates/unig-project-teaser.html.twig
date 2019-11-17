@@ -18,6 +18,11 @@
  *  - tags_ids
  *  - tags_list
  *  - private
+ *  - user
+ *    - logged_in
+ *    - is_admin
+ *    - can_download
+ *    - show_private
  *  - timestamp
  *  - date
  *  - date_drupal
@@ -27,94 +32,109 @@
  *  - cover_image
  *  - album_list
  *  - host
+
  *
  */
 #}
 
-{% set classes = [
-  view_mode ? view_mode|clean_class,
-  private ? 'private',
-  'unig-project-preview',
-  'unig-project-container',
-  'unig-project-'~id]
-%}
 
-
-{% if private != false and logged_in == false %}
+{% if private != false and user.logged_in == false %}
 {%  elseif id == 0 %}
 {% else %}
 
-  <div class="{{ classes|join(' ')}}">
+  {% set classes = [
+    view_mode ? view_mode|clean_class,
+    private ? 'private',
+    'unig-project-preview',
+    'unig-project-container',
+    'unig-project-'~id] %}
 
-    {# ----------- Cover ----------- #}
-    <div class="unig-project-cover">
-      <a href="{{ url }}">
-        <div class="unig-project-cover-background">
-          {% if cover_image.unig_cover.url %}
-            <div class="unig-project-cover-image">
-              <img class="" src="{{ cover_image.unig_cover.url }}" alt="">
-            </div>
-          {% else %}
-            <div class="unig-project-cover-image-placeholder">
 
-              <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
-              <div class="unig-project-cover-text">
-                <span>{% trans %} No cover picture selected {% endtrans %}</span>
-              </div>
+<div class="{{ classes|join(' ') }}">
+
+  {# ----------- Cover ----------- #}
+  <div class="unig-project-cover">
+    <a href="{{ url }}">
+      <div class="unig-project-cover-background">
+        {% if cover_image.unig_cover.url %}
+          <div class="unig-project-cover-image">
+            <img class="" src="{{ cover_image.unig_cover.url }}" alt="">
+          </div>
+        {% else %}
+          <div class="unig-project-cover-image-placeholder">
+
+            <div class="unig-project-cover-icon"><i class="far fa-image"></i></div>
+            <div class="unig-project-cover-text">
+              <span>{% trans %} No cover picture selected {% endtrans %}</span>
             </div>
-          {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </a>
+  </div>
+
+  {# ----------- Text ----------- #}
+  <div class="unig-project-text">
+    <div class="unig-project-info-container">
+      <div class="unig-row">
+
+        {# ----------- Number of items ----------- #}
+        <div class="unig-project-number-of-items unig-col-left">
+          <i class="fas fa-images"></i> {{ number_of_items }}
         </div>
-      </a>
+
+        {#  -----------   Date  -----------  #}
+        <div class="unig-project-date">
+          {{ date }}
+        </div>
+
+        {# ----------- Private ----------- #}
+        {% if private %}
+          {% set title_private =  "Dieses Projekt ist privat" %}
+        {% else %}
+          {% set title_private = "Dieses Projekt ist öffentlich" %}
+        {% endif %}
+
+        {% if private %}
+          <div class="unig-project-public-private unig-button-icon-info"
+               title="{{ title_private }}">
+                        <span class="unig-project-private">
+                            <i class="fas fa-lock"></i>
+                        </span>
+          </div>
+        {% endif %}
+
+        {% if user.can_download %}
+          <a class="unig-list-link"
+             href="{{ path('unig.project.download',
+               {'project_id': id, 'album_id': album_id, }) }}">
+            <i class="fas fa-download"></i>
+          </a>
+        {% endif %}
+
+      </div>
     </div>
 
-    {# ----------- Text ----------- #}
-    <div class="unig-project-text">
-      <div class="unig-project-info-container">
-        <div class="unig-row">
+    {# ----------- Display ----------- #}
 
-          {# ----------- Number of items ----------- #}
-          <div class="unig-project-number-of-items unig-col-left">
-            <i class="fas fa-images"></i> {{ number_of_items }}
-          </div>
+    <div class="unig-project-text-container">
 
-          {#  -----------   Date  -----------  #}
-          <div class="unig-project-date">
-            {{ date }}
-          </div>
-
-          {# ----------- Private ----------- #}
-          {% if private %}
-            <div class="unig-project-public-private unig-button-icon-info"
-                 title="{% trans %} This Project is private {% endtrans %} ">
-                <span>
-                    <i class="fas fa-lock"></i>
-                </span>
-            </div>
-          {% endif %}
-
-        </div>
+      {#  -----------   Category  -----------  #}
+      <div class="unig-project-category">
+        {{ category }}
       </div>
 
-      {# ----------- Display ----------- #}
+      {# -----------  Content ----------- #}
+      <h2 class="unig-project-title">
+        {{ title }}
+      </h2>
 
-      <div class="unig-project-text-container">
-
-        {#  -----------   Category  -----------  #}
-        <div class="unig-project-category">
-          {{ category }}
-        </div>
-
-        {# -----------  Content ----------- #}
-        <h2 class="unig-project-title">
-          {{ title }}
-        </h2>
-
-        {#  -----------   Description  -----------  #}
-        <div class="unig-project-description">
-          {{ description }}
-        </div>
-
+      {#  -----------   Description  -----------  #}
+      <div class="unig-project-description">
+        {{ description }}
       </div>
+
     </div>
   </div>
+</div>
 {% endif %}

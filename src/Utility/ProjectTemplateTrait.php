@@ -64,12 +64,14 @@ trait ProjectTemplateTrait
     ];
 
     // Project Variables for JS
-    $build['#attached']['drupalSettings']['unig']['project'] = $project_variables;
+    $build['#attached']['drupalSettings']['unig'][
+      'project'
+    ] = $project_variables;
 
     $host = \Drupal::request()->getSchemeAndHttpHost();
     $module = drupal_get_path('module', $this->getModuleName());
-    $build['#attached']['drupalSettings']['unig']['path'] = $host . '/' . $module;
-
+    $build['#attached']['drupalSettings']['unig']['path'] =
+      $host . '/' . $module;
 
     // Adding JS Library depends of admin or not
     if (
@@ -87,7 +89,9 @@ trait ProjectTemplateTrait
     $finish = $time;
     $total_time = round($finish - $start, 4);
 
-    $build['#attached']['drupalSettings']['unig']['project']['time'] = $total_time;
+    $build['#attached']['drupalSettings']['unig']['project'][
+      'time'
+    ] = $total_time;
 
     return $build;
   }
@@ -109,25 +113,37 @@ trait ProjectTemplateTrait
     $cache = UnigCache::loadProjectCache($project_id);
 
     if (!empty($cache)) {
-      $variables['album'] = $cache['album'];
-      $variables['project'] = $cache['project'];
-      $variables['files'] = $cache['files'];
-      $variables['keywords'] = $cache['keywords'];
-      $variables['people'] = $cache['people'];
+      $variables['album'] = [];
+      $variables['project'] = [];
+      $variables['files'] = [];
+      $variables['keywords'] = [];
+      $variables['people'] = [];
+
+      if (isset($cache['album'])) {
+        $variables['album'] = $cache['album'];
+      }
+      if (isset($cache['project'])) {
+        $variables['project'] = $cache['project'];
+      }
+      if (isset($cache['files'])) {
+        $variables['files'] = $cache['files'];
+      }
+      if (isset($cache['keywords'])) {
+        $variables['keywords'] = $cache['keywords'];
+      }
+      if (isset($cache['people'])) {
+        $variables['people'] = $cache['people'];
+      }
     } else {
       // generate Project items
       $variables['album'] = AlbumTrait::getAlbumList($project_id);
       $variables['keywords'] = ProjectTrait::getKeywordTerms($project_id);
       $variables['people'] = ProjectTrait::getPeopleTerms($project_id);
       $variables['project'] = ProjectTrait::buildProject($project_id);
-      $variables['files'] = ProjectTrait::buildFileList(
-        $project_id,
-        $album_id
-      );
+      $variables['files'] = ProjectTrait::buildFileList($project_id, $album_id);
 
       // save project variables to cache
-      // TODO: activate Cache
-   //   UnigCache::saveProjectCache($project_id, $variables);
+      UnigCache::saveProjectCache($project_id, $variables);
     }
 
     // Module
@@ -139,18 +155,9 @@ trait ProjectTemplateTrait
       ->getId();
     $variables['language'] = $language;
 
+    // TODO replace with ProjectTrait.php:561
     // Generate User Items
     $user = Drupal::currentUser();
-
-    // TODO: Remove deprecated Code
-    /*    $variables['user'] = clone $user;
-    // Remove password and session IDs, since themes should not need nor see them.
-    unset(
-      $variables['user']->pass,
-      $variables['user']->sid,
-      $variables['user']->ssid
-    );*/
-
     $variables['is_admin'] = $user->hasPermission('access unig admin');
     $variables['can_download'] = $user->hasPermission('access unig download');
     $variables['access_private_project'] = $user->hasPermission(
