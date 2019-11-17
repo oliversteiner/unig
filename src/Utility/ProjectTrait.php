@@ -517,7 +517,10 @@ trait ProjectTrait
     $year = $php_date_obj->format('Y');
 
     // Date
-    $date = $php_date_obj->format('d. M Y');
+    $date = $php_date_obj->format('d. F Y');
+
+    // Date short
+    $date_short = $php_date_obj->format('d. M Y');
 
     // Date
     // TODO: move date display format to settings page
@@ -585,6 +588,7 @@ trait ProjectTrait
       'user' => $user,
       'timestamp' => $timestamp,
       'date' => $date,
+      'date_short' => $date_short,
       'date_drupal' => $date_drupal,
       'year' => $year,
       'number_of_items' => $number_of_items,
