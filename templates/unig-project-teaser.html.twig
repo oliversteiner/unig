@@ -90,17 +90,11 @@
 
         {# ----------- Private ----------- #}
         {% if private %}
-          {% set title_private =  "Dieses Projekt ist privat" %}
-        {% else %}
-          {% set title_private = "Dieses Projekt ist öffentlich" %}
-        {% endif %}
-
-        {% if private %}
           <div class="unig-project-public-private unig-button-icon-info"
-               title="{{ title_private }}">
-                        <span class="unig-project-private">
-                            <i class="fas fa-lock"></i>
-                        </span>
+               title="{% trans %}Private Project{% endtrans %}">
+                <span class="unig-project-private">
+                    <i class="fas fa-lock"></i>
+                </span>
           </div>
         {% endif %}
 
@@ -124,7 +118,7 @@
         {{ category }}
       </div>
 
-      {# -----------  Content ----------- #}
+      {# -----------  Title ----------- #}
       <h2 class="unig-project-title">
         {{ title }}
       </h2>

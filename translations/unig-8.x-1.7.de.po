@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Unig\n"
-"POT-Creation-Date: 2019-11-16 02:09+0100\n"
+"POT-Creation-Date: 2019-11-17 11:52+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Oliver Steiner <oliver@mollo.ch>\n"
 "Language-Team: \n"
@@ -21,13 +21,13 @@ msgstr ""
 msgid "Save to server failed."
 msgstr "Daten konnten nicht gespeichert werden."
 
-#: assets/js/UnigAdmin.js:326 templates/unig.list.html.twig:357
+#: assets/js/UnigAdmin.js:326 templates/unig.list.html.twig:356
 #: templates/unig.project-admin.html.twig:128
 #: templates/unig.project-admin.html.twig:991
 msgid "Add description"
 msgstr "Beschreibung hinzufügen"
 
-#: assets/js/UnigAdmin.js:331 templates/unig.list.html.twig:391
+#: assets/js/UnigAdmin.js:331 templates/unig.list.html.twig:390
 #: templates/unig.project-admin.html.twig:257
 msgid "Add copyright"
 msgstr "Urheber hinzufügen"
@@ -211,11 +211,11 @@ msgid "Can't save changes of File %file_id."
 msgstr "Änderungen von Datei %file_id können nicht gespeichert werden."
 
 #: src/Utility/ProjectListTemplateTrait.php:25
-#: templates/unig.list.html.twig:251 templates/unig.project-admin.html.twig:53
+#: templates/unig.list.html.twig:250 templates/unig.project-admin.html.twig:53
 msgid "Category"
 msgstr "Kategorie"
 
-#: src/Utility/ProjectTrait.php:88
+#: src/Utility/ProjectTrait.php:86
 msgid "Create new project..."
 msgstr "Neues Projekt erstellen..."
 
@@ -253,14 +253,14 @@ msgstr "Personennamen"
 msgid "Show People Names on Files"
 msgstr "Personennamen in Bilder anzeigen"
 
-#: templates/unig-project-teaser.html.twig:62 templates/unig.list.html.twig:162
-#: templates/unig.list.html.twig:508
+#: templates/unig-project-teaser.html.twig:68 templates/unig.list.html.twig:161
+#: templates/unig.list.html.twig:507
 msgid "No cover picture selected"
 msgstr "Noch kein Titelbild ausgewählt"
 
-#: templates/unig-project-teaser.html.twig:88
-msgid "This Project is private"
-msgstr "Dieses Projekt ist privat"
+#: templates/unig-project-teaser.html.twig:94
+msgid "Private Project"
+msgstr "Privates Projekt"
 
 #: templates/unig.list.html.twig:32
 msgid "New Project"
@@ -290,24 +290,24 @@ msgstr "Nach Datum sortieren"
 msgid "Save Order"
 msgstr "Sortierfolge sichern"
 
-#: templates/unig.list.html.twig:182 templates/unig.project-admin.html.twig:411
+#: templates/unig.list.html.twig:181 templates/unig.project-admin.html.twig:411
 #: templates/unig.project-download.html.twig:189
 msgid "Preview"
 msgstr "Vorschau"
 
-#: templates/unig.list.html.twig:209 templates/unig.project-admin.html.twig:190
+#: templates/unig.list.html.twig:208 templates/unig.project-admin.html.twig:190
 msgid "Delete Project"
 msgstr "Projekt löschen"
 
-#: templates/unig.list.html.twig:424 templates/unig.project-admin.html.twig:301
+#: templates/unig.list.html.twig:423 templates/unig.project-admin.html.twig:301
 msgid "Delete this project and all its images?"
 msgstr "Dieses Projekt und alle seine Bilder löschen?"
 
-#: templates/unig.list.html.twig:435 templates/unig.project-admin.html.twig:312
+#: templates/unig.list.html.twig:434 templates/unig.project-admin.html.twig:312
 msgid "No, Cancel"
 msgstr "Nein, Abbrechen"
 
-#: templates/unig.list.html.twig:444 templates/unig.project-admin.html.twig:321
+#: templates/unig.list.html.twig:443 templates/unig.project-admin.html.twig:321
 msgid "Yes, Delete Project"
 msgstr "Ja, Projekt löschen"
 
@@ -497,6 +497,9 @@ msgstr "Indexnummer ausblenden"
 msgid "Download"
 msgstr "Download"
 
+#~ msgid "This Project is private"
+#~ msgstr "Dieses Projekt ist privat"
+
 #~ msgid "Reset to alphabetical"
 #~ msgstr "Auf Alphabetisch zurücksetzen"
 
@@ -526,6 +529,3 @@ msgstr "Download"
 
 #~ msgid "Date"
 #~ msgstr "Datum"
-
-#~ msgid "Private Project"
-#~ msgstr "Privates Projekt"
