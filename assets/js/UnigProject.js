@@ -67,29 +67,6 @@
       });
     },
 
-    updateLightgallery() {
-
-      const idsOfItemsVisible = this.Store.get();
-      console.log('updateLightgallery', idsOfItemsVisible);
-
-
-      if (idsOfItemsVisible.length > 0) {
-        $(`.lightgallery-item`).removeClass('active');
-
-        for (const id of idsOfItemsVisible) {
-          $(`#unig-file-${id} .lightgallery-item`).addClass('active');
-        }
-      } else {
-        $(`.lightgallery-item`).addClass('active');
-      }
-
-
-      /*      $("*[id^='lightgallery-']").lightGallery({
-              selector: '.lightgallery-item.active',
-            });*/
-
-    },
-
 
     updateNumbers() {
       // DOM Elements
@@ -128,6 +105,7 @@
     updateBrowser() {
       this.updateCounter++;
       console.log('updateCounter', this.updateCounter);
+      let fullList = Drupal.behaviors.unigData.get();
 
       // People
       let peopleList = [];
@@ -153,8 +131,6 @@
       if (isFavoritesLoaded) {
         favorites = Drupal.behaviors.unigFavorite.filter;
       }
-
-      let fullList = Drupal.behaviors.unigData.get();
 
       if (favorites) {
         fullList = fullList.filter(item => item.favorite === 1);
@@ -203,15 +179,12 @@
       }
 
       if (this.Store.count() > 0) {
-
         const idsOfItemsVisible = this.Store.get();
         for (const item of fullList) {
           if (idsOfItemsVisible.includes(item.id)) {
             $(`#unig-file-${item.id}`).show();
-
           } else {
             $(`#unig-file-${item.id}`).hide();
-
           }
         }
       } else {
@@ -233,7 +206,6 @@
         }
       }
 
-      this.updateLightgallery();
       this.updateNumbers();
 
       if (Drupal.behaviors.hasOwnProperty('unigFilter')) {
@@ -248,13 +220,15 @@
         Drupal.behaviors.unigKeywords.update();
       }
 
+      if (Drupal.behaviors.hasOwnProperty('unigLightGallery')) {
+        Drupal.behaviors.unigLightGallery.update();
+      }
 
       // TODO Hack for Operette.ch
 
-      $('.unig-people-tag-id-151').remove();  // Operette Möriken Wildegg
-      $('.unig-people-tag-id-152').remove();  // Die Lustige Witwe
+      $('.unig-people-tag-id-151').remove(); // Operette Möriken Wildegg
+      $('.unig-people-tag-id-152').remove(); // Die Lustige Witwe
       $('.unig-people-tag-id-154').remove(); // Namen
-
     },
 
     attach(context) {
@@ -271,47 +245,18 @@
           this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
           this.Store.init('project');
           this.restore();
+
+          //  const $elem = $(`#lightgallery-${projectID}`);
+          //  $elem.lightGallery();
+
+/*          $('.dynamic').click(event => {
+            $(this).lightGallery({
+              dynamic: true,
+              dynamicEl: [],
+            });
+          });*/
+
           this.updateBrowser();
-
-          const $elem = $(`#lightgallery-${projectID}`);
-
-
-          // Mobile Options
-          let options = {
-            thumbnail: false,
-            share: false,
-            autoplay: false,
-            download: false,
-            zoom: false,
-            loop: false,
-            controls: false,
-            counter: false,
-            selector: '.lightgallery-item',
-          };
-
-          // Desktop options
-          const desktopOptions = {
-            thumbnail: true,
-            share: false,
-            autoplay: false,
-            download: false,
-            zoom: true,
-            loop: false,
-            controls: true,
-            counter: true,
-            selector: '.lightgallery-item',
-          };
-
-          // init
-          const w = window.innerWidth;
-          console.log('WindowSize', w);
-
-          if (w > 400) {
-             options = desktopOptions;
-          }
-
-          $elem.lightGallery(options);
-
 
           // Toggle all Keywords
           $('.unig-show-keywords-on-files-trigger', context).click(() => {

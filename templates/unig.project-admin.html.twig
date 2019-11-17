@@ -587,7 +587,6 @@ unig.project-download.thml.twig
     <span class="unig-toolbar-title">{% trans %} Change Order {% endtrans %}</span>
 
 
-
     {# Button Order alphabetical #}
     <div class="unig-button unig-button-warning unig-order-alphanumeric-trigger">
       <i class="fas fa-sort-alpha-up" aria-hidden="true"></i>
@@ -774,6 +773,9 @@ unig.project-download.thml.twig
   </div>
 
 </div>
+
+<div class="dynamic">Dynamic</div>
+<div id="dynamic-holder"></div>
 {# Unig Body #}
 <div class="unig-body">
   <div class="unig unig-project unig-lightgallery">
@@ -900,10 +902,13 @@ unig.project-download.thml.twig
             </div>
 
             {#  -----------   Image  -----------  #}
-            <div class="lightgallery-item"
+            <div class="lightgallery-item lightgallery-trigger"
                  id="unig-lightgallery-placeholder-{{ file.id }}"
                  data-sub-html="{{ file.title }}"
-                 data-src="{{ file.image.unig_hd.url }}">
+                 data-src="{{ file.image.unig_hd.url }}"
+                 data-show="true"
+                 data-id="{{ file.id }}"
+            >
 
               {% if file.label is not empty %}
                 <div class="field-label">
