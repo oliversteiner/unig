@@ -517,7 +517,7 @@ trait ProjectTrait
     $year = $php_date_obj->format('Y');
 
     // Date
-    $date = $php_date_obj->format('d. F Y');
+    $date = $php_date_obj->format('d. M Y');
 
     // Date
     // TODO: move date display format to settings page
