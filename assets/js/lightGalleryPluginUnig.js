@@ -16,7 +16,8 @@
   (function() {
     'use strict';
     const defaults = {
-      favorite: true,
+      favorite: false,
+      bookmark: false,
     };
 
     let UnigPlugin = function(element) {
@@ -34,6 +35,7 @@
     UnigPlugin.prototype.init = function() {
       const _this = this;
 
+      // Favorit
       let favoriteIcon = '';
       if (this.core.s.favorite) {
         favoriteIcon = '<span class="lg-favorite lg-icon"></span>';
@@ -60,6 +62,34 @@
           }, 100);
         });
       }
+
+      // Downmload Mark
+      let bookmarkIcon = '';
+      if (this.core.s.bookmark) {
+        bookmarkIcon = '<span class="lg-bookmark lg-icon"></span>';
+
+        // Add favorite Icon
+        this.core.$outer.find('.lg-toolbar').append(bookmarkIcon);
+
+        // Get Current Slide
+        _this.core.$el.on('onAfterSlide.lg.tm', function(
+          event,
+          prevIndex,
+          index,
+        ) {
+          setTimeout(() => {
+            // save Current Index
+            UnigPlugin.currentSlide = index;
+
+            // change Favorite Icon on File Status
+            const fileVars = _this.getFileVars(index);
+            _this.setBookmarkIcon(index, fileVars.bookmark);
+
+            // Event Listening
+            _this.toggleBookmarkTrigger(index);
+          }, 100);
+        });
+      }
     };
 
     UnigPlugin.prototype.setFavoritIcon = function(index, value) {
@@ -70,6 +100,15 @@
         .html('<i class="' + faClass + ' fa-heart"></i>');
     };
 
+    UnigPlugin.prototype.setBookmarkIcon = function(index, value) {
+
+      const faClass = value ? 'fas' : 'far';
+
+      this.core.$outer
+        .find('.lg-bookmark')
+        .html('<i class="' + faClass + ' fa-bookmark"></i>');
+    };
+
     UnigPlugin.prototype.getFileVars = function() {
       const index = UnigPlugin.currentSlide;
 
@@ -77,6 +116,7 @@
       if (this.core.s.dynamic) {
         fileVars = this.core.s.dynamicEl[index];
       }
+
       return fileVars;
     };
 
@@ -91,6 +131,20 @@
             _this.setFavoritIcon(index, data.favorite);
           }
         });
+      });
+    };
+
+    UnigPlugin.prototype.toggleBookmarkTrigger = function(index) {
+      const _this = this;
+      this.core.$outer.find('.lg-bookmark').once('bookmark-618521').on('click.lg', function() {
+        const fileVars = _this.getFileVars();
+
+        //  Command
+        const result = Drupal.behaviors.unigDownload.toggle(fileVars.id);
+        setTimeout(() => {
+          _this.setBookmarkIcon(index, result);
+          _this.core.s.dynamicEl[index].bookmark = result;
+        }, 20);
       });
     };
 

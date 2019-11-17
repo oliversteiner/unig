@@ -28,7 +28,25 @@
     load() {
       this.project = drupalSettings.unig.project.project;
       this.files = drupalSettings.unig.project.files;
+      this.files.forEach(file => {
+          file.bookmark = false;
+      });
+    },
 
+    addMark(id) {
+      this.files.forEach(file => {
+        if (file.id === id) {
+          file.bookmark = true;
+        }
+      });
+    },
+
+    removeMark(id) {
+      this.files.forEach(file => {
+        if (file.id === id) {
+          file.bookmark = false;
+        }
+      });
     },
 
     clear() {
@@ -39,9 +57,8 @@
       return this.files;
     },
 
-
     getFiles() {
-        return this.files;
+      return this.files;
     },
 
     getProject() {
@@ -52,6 +69,4 @@
       return this.files.length;
     },
   };
-
-
 })(jQuery, Drupal, drupalSettings);

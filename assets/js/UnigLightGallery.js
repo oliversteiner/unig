@@ -9,14 +9,13 @@
 
       const projectId = drupalSettings.unig.project.project.id;
       const allImages = Drupal.behaviors.unigData.get();
-      $('#dynamic-holder').removeData('#dynamic-holder');
+      $('#light-gallery-store').removeData('#light-gallery-store');
 
       $('.lightgallery-trigger').once('dsafdsafdsa').click(event => {
         //  $(this).lightGallery().destroy();
-        console.log('this.lightGallery', this.lightGallery);
 
         this.lightGallery = undefined;
-        this.lightGallery = $('#dynamic-holder');
+        this.lightGallery = $('#light-gallery-store');
 
 
         let idsOfItemsVisible = [];
@@ -33,13 +32,16 @@
           for (const image of allImages) {
             if (idsOfItemsVisible.includes(image.id)) {
               // Image is Visible
+
+
               dynamicEL.push(
                 {
-                  src: image.image.unig_hd.url,
-                  thumb: image.image.unig_thumbnail.url,
                   id: image.id,
                   index: index++,
                   favorite:image.favorite,
+                  bookmark:image.bookmark,
+                  src: image.image.unig_hd.url,
+                  thumb: image.image.unig_thumbnail.url,
                 },
               );
 
@@ -54,11 +56,13 @@
 
             dynamicEL.push(
               {
-                src: image.image.unig_hd.url,
-                thumb: image.image.unig_thumbnail.url,
                 id: image.id,
                 index: index++,
                 favorite:image.favorite,
+                bookmark:image.bookmark,
+                src: image.image.unig_hd.url,
+                thumb: image.image.unig_thumbnail.url,
+
               },
             );
 
@@ -69,7 +73,6 @@
         // Get Index for Gallerystart
         const root = $(event.target).parents('.unig-file-item');
         const _id = root[0].dataset.unigFileId;
-        console.log('_id', _id);
 
         const activeImage = dynamicEL.find(item => parseInt(item.id) === parseInt(_id));
 
@@ -86,6 +89,7 @@
           controls: false,
           counter: false,
           favorite: true,
+          bookmark: true,
 
         };
 
@@ -102,6 +106,7 @@
           controls: false,
           counter: false,
           favorite: true,
+          bookmark: true,
 
         };
 
@@ -118,6 +123,8 @@
           controls: true,
           counter: true,
           favorite: true,
+          bookmark: true,
+
         };
 
         // Merge Options
@@ -125,7 +132,7 @@
 
         // init
         const w = window.innerWidth;
-        console.log('WindowSize', w);
+        // console.log('WindowSize', w);
 
         if (w > 700) {
           options = desktopOptions;
@@ -137,12 +144,9 @@
         options.index = activeImage.index;
         options.dynamicEL = dynamicEL;
 
-        console.log('activeImage.index', activeImage.index);
-        console.log('options', options);
 
         this.lightGallery.lightGallery(options);
         setTimeout(() => {
-          console.log('slide ... ', activeImage.index);
 
           this.lightGallery.data('lightGallery').slide(activeImage.index);
         }, 200);

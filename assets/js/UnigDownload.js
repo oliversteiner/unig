@@ -39,7 +39,6 @@
       this.resetDownloadBox();
     },
 
-
     toggleToolbar(context) {
       if (this.isToolbarOpen) {
         this.closeToolbar(context);
@@ -78,12 +77,14 @@
       this.Store.add(id);
       this.updateDownloadList();
       this.addMark(id);
+      Drupal.behaviors.unigData.addMark(id);
     },
 
     remove(id) {
       this.Store.remove(id);
       this.updateDownloadList();
       this.removeMark(id);
+      Drupal.behaviors.unigData.removeMark(id);
     },
 
     toggle(id) {
@@ -91,8 +92,12 @@
 
       if (result) {
         this.removeMark(id);
+        Drupal.behaviors.unigData.removeMark(id);
+        return false;
       } else {
         this.addMark(id);
+        Drupal.behaviors.unigData.addMark(id);
+        return true;
       }
     },
 
@@ -213,7 +218,7 @@
       $('.unig-message-box-body').html(message);
     },
 
-    resetDownloadBox(){
+    resetDownloadBox() {
       const $bulkDownloadSd = $('.unig-bulk-download-sd-trigger');
       const $bulkDownloadHd = $('.unig-bulk-download-hd-trigger');
       const $bulkDownloadXl = $('.unig-bulk-download-xl-trigger');
@@ -230,7 +235,7 @@
     },
 
     bulkDownloadCancel() {
-    this.resetDownloadBox();
+      this.resetDownloadBox();
       Drupal.behaviors.unigDownload.closeDownloadMessageBox();
     },
 
@@ -362,11 +367,12 @@
       }
     },
 
-
     addVisible() {
       this.removeAll();
       const idsOfItemsVisible = Drupal.behaviors.unigProject.Store.get();
-      idsOfItemsVisible.forEach(id =>{this.add(id)});
+      idsOfItemsVisible.forEach(id => {
+        this.add(id);
+      });
     },
 
     addAllMarks() {
@@ -519,13 +525,14 @@
         const name = elem.currentTarget.dataset.name;
         const id = elem.currentTarget.dataset.id;
 
-
-        const item = drupalSettings.unig.project.files.find(item=>item.id === id);
+        const item = drupalSettings.unig.project.files.find(
+          item => item.id === id,
+        );
 
         const nameWithSize = name.replace(/\./, '-' + size + '.');
 
         // TODO implement Download for  other Files then JPG
-         // download(url);
+        // download(url);
 
         let x = new XMLHttpRequest();
         x.open('GET', url, true);
@@ -534,8 +541,6 @@
           download(e.target.response, nameWithSize, 'image/jpg');
         };
         x.send();
-
-
       });
     },
   };
