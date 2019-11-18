@@ -5,6 +5,7 @@
     currentSize: 'medium',
     Store: {},
     updateCounter: 0,
+    lightgallery: null,
 
     edit(event) {
       // Elem
@@ -66,6 +67,7 @@
       });
     },
 
+
     updateNumbers() {
       // DOM Elements
       const $ButtonDownloadVisible = $(
@@ -103,6 +105,7 @@
     updateBrowser() {
       this.updateCounter++;
       console.log('updateCounter', this.updateCounter);
+      let fullList = Drupal.behaviors.unigData.get();
 
       // People
       let peopleList = [];
@@ -128,8 +131,6 @@
       if (isFavoritesLoaded) {
         favorites = Drupal.behaviors.unigFavorite.filter;
       }
-
-      let fullList = Drupal.behaviors.unigData.get();
 
       if (favorites) {
         fullList = fullList.filter(item => item.favorite === 1);
@@ -219,13 +220,15 @@
         Drupal.behaviors.unigKeywords.update();
       }
 
+      if (Drupal.behaviors.hasOwnProperty('unigLightGallery')) {
+        Drupal.behaviors.unigLightGallery.update();
+      }
 
       // TODO Hack for Operette.ch
 
-      $('.unig-people-tag-id-151').remove();  // Operette Möriken Wildegg
-      $('.unig-people-tag-id-152').remove();  // Die Lustige Witwe
+      $('.unig-people-tag-id-151').remove(); // Operette Möriken Wildegg
+      $('.unig-people-tag-id-152').remove(); // Die Lustige Witwe
       $('.unig-people-tag-id-154').remove(); // Namen
-
     },
 
     attach(context) {
@@ -236,15 +239,24 @@
         .once('unigProject')
         .each(() => {
           console.log('LoadTime:', drupalSettings.unig.project.time);
+          const projectID = drupalSettings.unig.project.project.id;
+          console.log('projectID:', projectID);
 
           this.Store = Object.assign(this.Store, Drupal.behaviors.unigStore);
           this.Store.init('project');
           this.restore();
-          this.updateBrowser();
 
-          $("*[id^='lightgallery-']").lightGallery({
-            selector: '.lightgallery-item',
-          });
+          //  const $elem = $(`#lightgallery-${projectID}`);
+          //  $elem.lightGallery();
+
+/*          $('.dynamic').click(event => {
+            $(this).lightGallery({
+              dynamic: true,
+              dynamicEl: [],
+            });
+          });*/
+
+          this.updateBrowser();
 
           // Toggle all Keywords
           $('.unig-show-keywords-on-files-trigger', context).click(() => {
@@ -268,7 +280,7 @@
             const $container = $('#ajax-container-new-album-container');
             $container.toggle();
 
-            const $formElemProjectNid = $("input[name='projectId']");
+            const $formElemProjectNid = $('input[name=\'projectId\']');
             const projectId = $container.data('project-id');
             $formElemProjectNid.val(projectId);
           });

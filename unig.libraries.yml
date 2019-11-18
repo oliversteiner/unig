@@ -82,6 +82,7 @@ unig.project.admin:
     assets/js/UnigOptions.js: {}
     assets/js/UnigFavorite.js: {}
     assets/js/UnigImageStyles.js: {}
+    assets/js/UnigLightGallery.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings
@@ -145,6 +146,7 @@ unig.lightgallery:
       /libraries/lightgallery/dist/css/lg-transitions.min.css: {}
   js:
     /libraries/lightgallery/dist/js/lightgallery-all.min.js: {}
+    assets/js/lightGalleryPluginUnig.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once

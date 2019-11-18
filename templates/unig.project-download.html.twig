@@ -417,6 +417,8 @@ unig.project-download.thml.twig
 
   </div> {# Unig Header #}
 
+<div id="light-gallery-store"></div>
+
   {# Unig Body #}
   <div class="unig-body">
 
@@ -492,10 +494,11 @@ unig.project-download.thml.twig
               </div>
 
               {#  -----------   Image  -----------  #}
-              <div class="lightgallery-item"
+              <div class="lightgallery-item lightgallery-trigger"
                    id="unig-lightgallery-placeholder-{{ file.id }}"
                    data-sub-html="{{ file.title }}"
-                   data-src="{{ file.image.unig_hd.url }}">
+                   data-src="{{ file.image.unig_hd.url }}"
+                   data-id="{{ file.id }}">
 
                 {% if file.label is not empty %}
                   <div class="field-label">

@@ -130,9 +130,31 @@ class UnigAPIController extends ControllerBase
    */
   public function fileFavorite($file_id, $value, $project_id): JsonResponse
   {
+    $label = 'Set Favorite of File';
+    $name = 'favorite';
+    $base = 'unig/api/file';
+    $version = '1.0.0';
+    $favorite = false;
+
     $result = UnigFile::favorite($file_id, $value, $project_id);
 
-    return new JsonResponse($result);
+    if($result['status']){
+      $favorite = $value;
+    }
+
+    $response = [
+      'label' => $label,
+      'path' => $base . $name,
+      'version' => $version,
+      'projectId' => (int)$project_id,
+      'favorite' => (int)$favorite,
+      'id' => (int)$file_id,
+      'status' => $result['status'],
+      'message' => $result['message'],
+    ];
+
+
+    return new JsonResponse($response);
   }
 
   /**
