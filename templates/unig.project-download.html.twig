@@ -226,162 +226,23 @@ unig.project-download.thml.twig
 
     </div> {# Toolbar - general #}
 
-
     {# Toolbar - Help #}
-    <div class="unig-toolbar unig-toolbar-help" style="display: none">
-
-      {# Header #}
-      <div class="unig-toolbar-header">
-        <span class="unig-toolbar-title">{% trans %} Help {% endtrans %}</span>
-      </div>
-
-      {# Body #}
-      <div class="unig-toolbar-body">
-        {{project.help|raw}}
-      </div>
-
-      {# Footer #}
-      <div class="unig-toolbar-footer">
-        {# Button Cancel #}
-        <div class="unig-button unig-button-info unig-help-close-trigger">
-          <i class="fas fa-times" aria-hidden="true"></i>
-          {% trans %} Close Help {% endtrans %}
-        </div>
-      </div>
-
-    </div>
-
-
-  </div> {# Toolbar - Help #}
-
+    {% include('@unig/includes/unig.toolbar.help.html.twig') %}
 
     {# Toolbar - Download #}
-    <div class="unig-toolbar unig-toolbar-download" style="display: none">
+    {% include('@unig/includes/unig.toolbar.download.html.twig') %}
 
-      <div>
-        <div class="unig-dl-info-head">
-          {% trans %} Files: {% endtrans %} <span class="unig-dl-number-of">0</span>
+    {# Toolbar - Keywords #}
+    {% include('@unig/includes/unig.toolbar.keywords.html.twig') %}
 
-        </div>
-        <div class="unig-dl-info-body">
-          <div>
-            {# Button Add All to  Download List  #}
-            <div class="unig-button unig-button-small  unig-button-download-add-all-to-list-trigger">
-              <i class="fas fa-plus-circle" aria-hidden="true"></i>
-              {% trans %} Add all  {% endtrans %}
-            </div>
+    {# Toolbar - People #}
+    {% include('@unig/includes/unig.toolbar.people.html.twig') %}
 
-            {# Button Clear Download List  #}
-            <div class="unig-button unig-button-small  unig-button-download-clear-list-trigger">
-              <i class="fas fa-trash" aria-hidden="true"></i>
-              {% trans %} Empty List  {% endtrans %}
-            </div>
-          </div>
-
-          <div>
-            {# Button Add All to  Download List  #}
-            <div
-              class="unig-button unig-button-small
-              unig-button-download-add-current-to-list
-              unig-button-download-add-current-to-list-trigger"
-              style="display: none">
-              <span class="icon-of-visible"> </span> {% trans %} Add {% endtrans %} <span
-                class="number-of-visible"> 0 </span> {% trans %} of {% endtrans %} <span
-                class="number-of-all-files">{{ project.number_of_items }}</span> {% trans %} Images {% endtrans %}
-            </div>
-
-          </div>
+    {# Toolbar - Filter  #}
+    {% include('@unig/includes/unig.toolbar.filter.html.twig') %}
 
 
-          <div class="unig-toolbox">
-            <table class="unig-bulk-download-table">
-
-              {# SD #}
-              <tr role="button" class="unig-bulk-download-sd-trigger">
-                <td class="unig-file-download-table-label">SD</td>
-                <td class="unig-file-download-table-width">720&thinsp;px</td>
-                <td class="unig-file-download-table-size">
-                  <span class="unig-file-download-table-size-sd">0 MB</span>
-                </td>
-                <td class="unig-file-download-table-icon">
-                  <i class="fas fa-download" aria-hidden="true"></i>
-                </td>
-
-              </tr>
-
-              {# HD #}
-              <tr role="button" class="unig-bulk-download-hd-trigger">
-                <td class="unig-file-download-table-label">HD</td>
-                <td class="unig-file-download-table-width">1920&thinsp;px</td>
-                <td class="unig-file-download-table-size">
-                  <span class="unig-file-download-table-size-hd">0 MB</span>
-                </td>
-                <td class="unig-file-download-table-icon">
-                  <i class="fas fa-download" aria-hidden="true"></i>
-                </td>
-
-              </tr>
-
-              {# XL #}
-              <tr role="button" class="unig-bulk-download-xl-trigger">
-                <td class="unig-file-download-table-label">XL</td>
-                <td class="unig-file-download-table-width">4500&thinsp;px</td>
-                <td class="unig-file-download-table-size">
-                  <span class="unig-file-download-table-size-xl">0 MB</span>
-                </td>
-                <td class="unig-file-download-table-icon"><i class="fas fa-download"
-                                                             aria-hidden="true"></i>
-                </td>
-
-              </tr>
-            </table>
-          </div>
-
-          {# Messages #}
-          <div class="unig-bulk-download-message-container">
-            <div>
-
-              <div class="unig-message-box-header">
-                <div class="unig-message-box-close-trigger">
-                  <i class="fas fa-times-circle" aria-hidden="true"></i>
-                </div>
-              </div>
-
-              <div class="unig-message-box-picto">
-              </div>
-
-              <div class="unig-message-box-body">
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-        {# Download Footer #}
-        <div class="unig-dl-info-footer">
-        </div>
-      </div>
-
-      {# Download Thumbnails #}
-      <div class="unig-dl-thumbnails">
-        {# Placeholder for Thumbnails #}
-      </div>
-
-    </div> {# Toolbar - Download #}
-
-
-  {# Toolbar - Keywords #}
-  {% include('@unig/includes/unig.toolbar.keywords.html.twig') %}
-
-  {# Toolbar - People #}
-  {% include('@unig/includes/unig.toolbar.people.html.twig') %}
-
-  {# Toolbar - Filter  #}
-  {% include('@unig/includes/unig.toolbar.filter.html.twig') %}
-
-
-  {# --------------- Ajax Message  --------------- #}
+    {# --------------- Ajax Message  --------------- #}
     <div class="unig-messages-container">
       <ul class="unig-messages">
       </ul>
@@ -417,7 +278,7 @@ unig.project-download.thml.twig
 
   </div> {# Unig Header #}
 
-<div id="light-gallery-store"></div>
+  <div id="light-gallery-store"></div>
 
   {# Unig Body #}
   <div class="unig-body">
@@ -669,12 +530,12 @@ unig.project-download.thml.twig
                     </span>
                     </td>
                     <td class="unig-file-download-table-size">
-                      <span  class="unig-file-download-table-size-xl">
+                      <span class="unig-file-download-table-size-xl">
                         {{ file.image.original.file_size_formatted }}
                       </span>
                     </td>
                     <td class="unig-file-download-table-icon">
-                      <i class="fas fa-download"  aria-hidden="true"></i>
+                      <i class="fas fa-download" aria-hidden="true"></i>
                     </td>
 
                   </tr>

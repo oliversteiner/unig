@@ -1512,7 +1512,6 @@ ul.unig-messages li {
 .unig-bulk-download-message-container {
   display: none;
 }
-
 .unig-bulk-download-message-container .working,
 .unig-bulk-download-message-container .default {
   border-radius: 10px;
@@ -1728,6 +1727,22 @@ ul.unig-messages li {
 
 .unig-filter-item-favorite-label {
   margin-left: 10px;
+}
+
+.unig-filter-process {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-content: flex-start;
+  align-items: center;
+  font-size: 2rem;
+  margin-left: 20px;
+}
+
+.unig-row-filter {
+  display: flex;
+  align-content: flex-start;
+  align-items: center;
 }
 
 .unig {

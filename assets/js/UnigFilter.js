@@ -47,8 +47,14 @@
       } else {
         $placeholder.addClass('active');
         const message = Drupal.t('Images found');
-        output = `<span class="unig-filter unig-filter-number-of-visible  unig-add-visible-to-download-list-trigger"> <span class="nov-icon"> 
-<i class="fas fa-download" aria-hidden="true"></i> </span> <span class="number-of-visible">${number_of_visible}</span> </span>`;
+        output =
+          `<span class="unig-filter unig-filter-number-of-visible  unig-add-visible-to-download-list-trigger"> ` +
+          `<span class="nov-icon"> ` +
+          `<span class="nov-ok"><i class="fas fa-download" aria-hidden="true"></i></span> ` +
+          `<span class="nov-working"><i class="fas fa-spinner fa-spin" aria-hidden="true" style="display: none"></i> </span>` +
+          `</span>`+
+          `<span class="number-of-visible">${number_of_visible}</span> ` +
+          `</span>`;
         output += `<span class="unig-filter-text-people">${message} </span>`;
       }
 
@@ -161,7 +167,6 @@
       $('.unig-add-visible-to-download-list-trigger')
         .once('unigFilter')
         .click(() => {
-          Drupal.behaviors.unigDownload.openToolbar();
           this.addVisible();
         });
     },

@@ -5,6 +5,7 @@
   border-radius: 10px;
   margin: 10px 5px;
 }
+
 .unig-filter-placeholder.warning {
   border: 1px solid #e0c4bf;
   background-color: #ffeae7;
@@ -105,4 +106,20 @@
 
 .unig-filter-item-favorite-label {
   margin-left: 10px;
+}
+
+.unig-filter-process {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-content: flex-start;
+  align-items: center;
+  font-size: 2rem;
+  margin-left: 20px;
+}
+
+.unig-row-filter {
+  display: flex;
+  align-content: flex-start;
+  align-items: center
 }

@@ -7,11 +7,10 @@
   border: 1px solid;
 }
 
-.unig-bulk-download-message-container {
-  display: none;
-}
 
 .unig-bulk-download-message-container {
+  display: none;
+
   .working,
   .default {
     @include message-box;

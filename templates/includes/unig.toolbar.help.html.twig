@@ -1,0 +1,26 @@
+{# Toolbar - Help #}
+<div class="unig-toolbar unig-toolbar-help" style="display: none">
+
+  {# Header #}
+  <div class="unig-toolbar-header">
+    <span class="unig-toolbar-title">{% trans %} Help {% endtrans %}</span>
+  </div>
+
+  {# Body #}
+  <div class="unig-toolbar-body">
+    {{ project.help|raw }}
+  </div>
+
+  {# Footer #}
+  <div class="unig-toolbar-footer">
+    {# Button Cancel #}
+    <div class="unig-button unig-button-info unig-help-close-trigger">
+      <i class="fas fa-times" aria-hidden="true"></i>
+      {% trans %} Close Help {% endtrans %}
+    </div>
+  </div>
+
+</div>
+
+
+</div> {# Toolbar - Help #}

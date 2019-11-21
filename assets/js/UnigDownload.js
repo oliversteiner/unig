@@ -22,6 +22,8 @@
 
     $bulkDownloadMessageContainer: $('.unig-bulk-download-message-container'),
 
+    $ProcessIndicator: $('.unig-filter-process-icon'),
+
     attach(context, settings) {
       // onload
 
@@ -203,7 +205,13 @@
     },
 
     setDownloadMessage(status, icon, message) {
-      Drupal.behaviors.unigDownload.openDownloadMessageBox();
+      console.log('setDownloadMessage',message );
+
+      if(message === ''){
+        this.$bulkDownloadMessageContainer.hide();
+      }else{
+        Drupal.behaviors.unigDownload.openDownloadMessageBox();
+      }
 
       $('.unig-bulk-download-message-container > div')
         .removeClass()
@@ -216,6 +224,8 @@
 
       $('.unig-message-box-body').html();
       $('.unig-message-box-body').html(message);
+
+
     },
 
     resetDownloadBox() {
@@ -340,7 +350,6 @@
 
     fillDownloadListWithCurrent() {
       this.addVisible();
-      this.addMarksToCurrent();
       this.updateDownloadList();
     },
 
@@ -368,11 +377,19 @@
     },
 
     addVisible() {
+      this.$ProcessIndicator.show();
       this.removeAll();
       const idsOfItemsVisible = Drupal.behaviors.unigProject.Store.get();
-      idsOfItemsVisible.forEach(id => {
-        this.add(id);
-      });
+
+      setTimeout(()=>{
+        idsOfItemsVisible.forEach((id) => {
+          this.add(id);
+        });
+        this.$ProcessIndicator.hide();
+        this.openToolbar();
+
+      }, 20)
+
     },
 
     addAllMarks() {
