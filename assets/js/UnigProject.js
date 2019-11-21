@@ -246,16 +246,6 @@
           this.Store.init('project');
           this.restore();
 
-          //  const $elem = $(`#lightgallery-${projectID}`);
-          //  $elem.lightGallery();
-
-/*          $('.dynamic').click(event => {
-            $(this).lightGallery({
-              dynamic: true,
-              dynamicEl: [],
-            });
-          });*/
-
           this.updateBrowser();
 
           // Toggle all Keywords

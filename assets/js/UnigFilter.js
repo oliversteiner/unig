@@ -2,6 +2,7 @@
   Drupal.behaviors.unigFilter = {
     version: '1.0.0',
     isToolbarOpen: false,
+    $ProcessIndicator: $('.unig-filter-process-icon'),
 
     getId(event) {
       const $elem = $(event.target).parents('.unig-filter-item');
@@ -169,6 +170,9 @@
         .click(() => {
           this.addVisible();
         });
+
+      this.$ProcessIndicator.hide();
+
     },
 
     changeOperator() {},
@@ -179,7 +183,10 @@
       Drupal.behaviors.unigKeywords.remove(id);
 
       // Update
+      this.$ProcessIndicator.show();
+      setTimeout(()=>{
       this.update();
+      },20);
     },
 
     addVisible() {
