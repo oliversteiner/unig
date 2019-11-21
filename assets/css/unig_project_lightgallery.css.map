@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "",
-"sources": [],
-"names": [],
-"file": "unig_project_lightgallery.css"
-}
+{"version":3,"sourceRoot":"","sources":["unig_project_lightgallery.scss"],"names":[],"mappings":"AAAA;EACE;EACA;EACF","file":"unig_project_lightgallery.css"}

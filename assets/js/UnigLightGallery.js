@@ -88,23 +88,13 @@
           loop: false,
           controls: false,
           counter: false,
-          favorite: true,
-          bookmark: true,
+          favorite: false,
+          bookmark: false,
 
         };
 
         // Mobile Options
         let mobileOptions = {
-          dynamic: true,
-          dynamicEl: dynamicEL,
-          thumbnail: false,
-          share: false,
-          autoplay: false,
-          download: false,
-          zoom: false,
-          loop: false,
-          controls: false,
-          counter: false,
           favorite: true,
           bookmark: true,
 
@@ -112,38 +102,24 @@
 
         // Desktop options
         const desktopOptions = {
-          dynamic: true,
-          dynamicEl: dynamicEL,
           thumbnail: true,
-          share: false,
-          autoplay: false,
-          download: false,
           zoom: true,
-          loop: false,
           controls: true,
           counter: true,
           favorite: true,
           bookmark: true,
-
         };
-
-        // Merge Options
-        Object.assign(options, desktopOptions);
 
         // init
         const w = window.innerWidth;
-        // console.log('WindowSize', w);
 
         if (w > 700) {
-          options = desktopOptions;
+          // Merge Options
+          options = Object.assign(options, desktopOptions);
         }else{
-          options = mobileOptions;
+          // Merge Options
+          options = Object.assign(options, mobileOptions);
         }
-
-
-        options.index = activeImage.index;
-        options.dynamicEL = dynamicEL;
-
 
         this.lightGallery.lightGallery(options);
         setTimeout(() => {

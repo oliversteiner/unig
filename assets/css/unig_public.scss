@@ -381,9 +381,12 @@ a.unig-button-edit-project {
   margin: 5px;
 }
 
-.unig-gallery-diashow {
-  color: whitesmoke;
+h1.unig-gallery-diashow{
+  font-size: 1rem;
+  color: grey;
+  font-family: $font-sans-serif;
 }
+
 
 .unig-project-date {
 }
@@ -399,4 +402,44 @@ a.unig-button-edit-project {
   border-top: solid 1px silver;
   padding: 5px 2px 0;
   color: $color-text;
+}
+
+
+//
+// Mobile Medium
+// ------------------------------------------------
+
+@media (max-width: 767.98px) {
+  .lg-sub-html {
+    display: none;
+  }
+}
+
+//
+// Mobile Small
+// ------------------------------------------------
+
+@media (max-width: 575.98px) {
+//
+
+}
+
+//
+// iPhone 6 7 8
+// ------------------------------------------------
+
+@media (min-width: 320px) and (max-width: 410.98px) {
+
+  .lg-sub-html {
+    display: none;
+  }
+
+}
+
+//
+// iPhone 5 / SE
+// ------------------------------------------------
+
+@media (max-width: 320px) {
+  //
 }

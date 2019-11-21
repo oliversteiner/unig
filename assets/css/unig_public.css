@@ -269,8 +269,10 @@ a.unig-button-edit-project {
   margin: 5px;
 }
 
-.unig-gallery-diashow {
-  color: whitesmoke;
+h1.unig-gallery-diashow {
+  font-size: 1rem;
+  color: grey;
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 }
 
 .unig-project-info-container {
@@ -284,6 +286,17 @@ a.unig-button-edit-project {
   border-top: solid 1px silver;
   padding: 5px 2px 0;
   color: #232323;
+}
+
+@media (max-width: 767.98px) {
+  .lg-sub-html {
+    display: none;
+  }
+}
+@media (min-width: 320px) and (max-width: 410.98px) {
+  .lg-sub-html {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=unig_public.css.map */

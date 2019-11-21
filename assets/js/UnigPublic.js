@@ -113,10 +113,50 @@
 
     // Attach
     attach(context, settings) {
-      // onload
-      $("*[id^='lightgallery-']").lightGallery({
+
+      // Default Options
+      let options = {
         selector: '.lightgallery-item',
-      });
+        thumbnail: false,
+        share: false,
+        autoplay: false,
+        download: false,
+        zoom: false,
+        loop: false,
+        controls: false,
+        counter: false,
+        favorite: false,
+        bookmark: false,
+
+      };
+
+      // Mobile Options
+      let mobileOptions = {
+
+      };
+
+      // Desktop options
+      const desktopOptions = {
+        thumbnail: true,
+        zoom: true,
+        controls: true,
+        counter: true,
+      };
+
+      // init
+      const w = window.innerWidth;
+
+      if (w > 700) {
+        // Merge Options
+        options = Object.assign(options, desktopOptions);
+      }else{
+        // Merge Options
+        options = Object.assign(options, mobileOptions);
+      }
+
+
+      // onload
+      $("*[id^='lightgallery-']").lightGallery(options);
 
       // Title Trigger
       document

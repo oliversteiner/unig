@@ -3,7 +3,9 @@
 // ------------------------------------------------
 
 @media (max-width: 767.98px) {
-  //
+  .lg-sub-html {
+    display: none;
+  }
 }
 
 //
@@ -41,7 +43,7 @@
     margin: 0;
   }
 
-  li.unig-file-item{
+  li.unig-file-item {
     padding: 0;
     margin: 14px;
   }
@@ -60,6 +62,10 @@
     margin: 15px 0;
     padding: 10px;
   }
+  .lg-sub-html {
+    display: none;
+  }
+
 }
 
 //
