@@ -7,8 +7,7 @@ core_version_requirement: ^8 || ^9
 configure: unig.settings_form
 dependencies:
   - drupal:node
-  - plupload
-  - plupload_widget
+  - autocomplete_deluxe
 
 
 project: unig

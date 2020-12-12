@@ -58,7 +58,7 @@ class UniGSettingsForm extends ConfigFormBase
       '#type' => 'textfield',
       '#title' => $this->t('Allowed file types'),
       '#default_value' => $config->get(
-        'unig.plupload.file_validate_extensions'
+        'unig.file_validate_extensions'
       ),
       '#description' => $this->t(
         'Allowed file types, no points, separated by space.'
@@ -92,7 +92,7 @@ class UniGSettingsForm extends ConfigFormBase
     );
 
     $config->set(
-      'unig.plupload.file_validate_extensions',
+      'unig.file_validate_extensions',
       $form_state->getValue('file_validate_extensions')
     );
     $config->save();

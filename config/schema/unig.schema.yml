@@ -13,9 +13,3 @@ unig.settings:
         default_project:
           type: text
           label: 'Default Project Name'
-      plupload:
-        type: mapping
-        mapping:
-          file_validate_extensions:
-            type: text
-            label: 'File Extensions'
