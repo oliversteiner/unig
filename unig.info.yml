@@ -11,6 +11,6 @@ dependencies:
 
 
 project: unig
-version: 9.x-1.7
+version: 9.x-1.8
 'interface translation project': unig
 'interface translation server pattern': modules/custom/%project/translations/%project-%version.%language.po
