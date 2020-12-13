@@ -162,7 +162,7 @@ trait FileTrait {
       if ($node) {
         $node->delete();
 
-        // Node delete succses
+        // Node delete success
         $status = TRUE;
         $message = 'Die Datei mit der ID ' . $file_id . ' wurde gelöscht';
 
@@ -194,16 +194,12 @@ trait FileTrait {
    */
   public function uploadFile($tid, $project_id): array {
 
-    $config = \Drupal::config('unig.settings');
-
-
     $path_destination = 'public://';
     $path_unig = 'unig/';
-
     $path_project = $project_id . '/';
-    $validators = $config->get('file_validate_extensions');
-    $file = File::load($tid);
 
+
+    $file = File::load($tid);
     if ($file === NULL) {
       return [];
     }
@@ -218,13 +214,17 @@ trait FileTrait {
 
     $destination = $path_destination . $path_unig . $path_project . $file_name;
 
-    // Create file object from a locally copied file.
-    // $uri = file_unmanaged_copy($tmppath, $uri_destination, FILE_EXISTS_REPLACE);
-    $upload_name = 'file_upload';
-//  file_move(FileInterface $source, $destination = NULL, $replace = FILE_EXISTS_RENAME) {
-    $result = file_move($file, $destination, true);
+    // validate file type
+    $mime_type = Drupal::service('file.mime_type.guesser.extension')
+      ->guess($file_uri);
+    if ($file_mime !== $mime_type) {
+      dpm('Wrong Mime-Type for File ' . $file_name);
+      return [];
+    }
 
     // move file to destination
+    $result = file_move($file, $destination, TRUE);
+
     if ($result) {
       $file->setFileUri($destination);
     }

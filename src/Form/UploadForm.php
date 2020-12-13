@@ -21,13 +21,8 @@ use Drupal\unig\Utility\FileTrait;
  */
 class UploadForm extends FormBase {
 
-  // Albums
   public $projectList;
-
-  public $projectNids;
-
   public $counter;
-
   public $config;
 
   /**
