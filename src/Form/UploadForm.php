@@ -19,13 +19,16 @@ use Drupal\unig\Utility\FileTrait;
  * This example demonstrates the different input elements that are used to
  * collect data in a form.
  */
-class UploadForm extends FormBase
-{
-  // Albums
+class UploadForm extends FormBase {
+
   public $projectList;
-  public $projectNids;
   public $counter;
   public $config;
+
+  /**
+   * @var string
+   */
+  private $upload_location;
 
   use UniGTrait;
   use ProjectTrait;
@@ -34,17 +37,16 @@ class UploadForm extends FormBase
   /**
    * UploadImages constructor.
    */
-  public function __construct()
-  {
+  public function __construct() {
     $this->config = $this->defaultConfiguration();
     $this->projectList = $this->getProjectlistSelected();
+    $this->upload_location = 'private://uploads/unig';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormId()
-  {
+  public function getFormId() {
     return 'unig_upload_files';
   }
 
@@ -54,9 +56,9 @@ class UploadForm extends FormBase
   public function buildForm(
     array $form,
     FormStateInterface $form_state,
-    $project_id = null
+    $project_id = NULL
   ) {
-    if ($project_id !== null) {
+    if ($project_id !== NULL) {
       // Make sure you don't trust the URL to be safe! Always check for exploits.
       if (!is_numeric($project_id)) {
         // We will just show a standard "access denied" page in this case.
@@ -65,7 +67,7 @@ class UploadForm extends FormBase
 
       $form['project_id'] = [
         '#type' => 'hidden',
-        '#value' => $project_id
+        '#value' => $project_id,
       ];
     }
     // JS
@@ -74,7 +76,7 @@ class UploadForm extends FormBase
     // link to Dashboard
     $form['go_to_projects'] = [
       '#theme' => '',
-      '#title' => t('Show all projects')
+      '#title' => t('Show all projects'),
     ];
 
     // Input Text "Name new Project"
@@ -86,7 +88,7 @@ class UploadForm extends FormBase
       '#class' => 'form-control',
 
       '#prefix' => '<div id="unig_form_upload_new_project" class="">',
-      '#suffix' => '</div>'
+      '#suffix' => '</div>',
     ];
 
     // Input Option Select width Projectlist
@@ -97,42 +99,40 @@ class UploadForm extends FormBase
       '#default_value' => $this->getDefaultProjectNid($project_id),
       '#prefix' =>
         '<div id="unig_form_upload_project" class="" style="display:none">',
-      '#suffix' => '</div>'
+      '#suffix' => '</div>',
     ];
 
-    // Plupload
-    //  https://www.drupal.org/node/1647890
+
     $form['file_upload'] = [
-      '#type' => 'plupload',
+      '#type' => 'managed_file',
       '#title' => t('Upload Images / Files'),
+      '#required' => FALSE,
+      '#multiple' => TRUE,
+      '#upload_location' => $this->upload_location,
       '#upload_validators' => [
         'file_validate_extensions' => [
-          $this->config['file_validate_extensions']
+          $this->config['file_validate_extensions'],
         ],
-        'my_custom_file_validator' => ['']
       ],
-      '#plupload_settings' => [
-        'runtimes' => 'html5',
-        'chunk_size' => '1mb'
-      ]
     ];
+
 
     $form['js_wrapper'] = [
       '#type' => 'container',
-      '#attributes' => ['id' => 'js-wrapper']
+      '#attributes' => ['id' => 'js-wrapper'],
     ];
 
     // Group submit handlers in an actions element with a key of "actions" so
     // that it gets styled correctly, and so that other modules may add actions
     // to the form.
     $form['actions'] = [
-      '#type' => 'actions'
+      '#type' => 'actions',
     ];
 
     // Add a submit button that handles the submission of the form.
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Submit')
+      '#value' => $this->t('Submit'),
     ];
 
     return $form;
@@ -141,8 +141,7 @@ class UploadForm extends FormBase
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
     // Inputs:
@@ -167,6 +166,7 @@ class UploadForm extends FormBase
   /**
    * @param array $form
    * @param FormStateInterface $form_state
+   *
    * @return string
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
@@ -176,19 +176,20 @@ class UploadForm extends FormBase
     array &$form,
     FormStateInterface $form_state
   ): string {
-    $create_new_project = false;
+    $create_new_project = FALSE;
     $values = $form_state->getValues();
 
     // New Album?
     $new_project = $values['new_project'];
 
     if (isset($new_project) && !empty($new_project)) {
-      $create_new_project = true;
+      $create_new_project = TRUE;
       $project_id = self::newUniGProject($new_project);
 
       // Get Title
       $project_title = $new_project;
-    } else {
+    }
+    else {
       $project_id = $values['project'];
 
       // Get Title
@@ -197,6 +198,10 @@ class UploadForm extends FormBase
 
     // Create Nodes
     $values['project_id'] = $project_id;
+
+    // move Files to destination
+
+
     $node_ids = $this->createMultiNode($values);
     $count = count($node_ids);
 
@@ -205,35 +210,38 @@ class UploadForm extends FormBase
       // Multiple Images
       if ($create_new_project) {
         $variant = 'new_many';
-      } else {
+      }
+      else {
         $variant = 'add_many';
       }
-    } else {
+    }
+    else {
       // just one Image
       if ($create_new_project) {
         $variant = 'new_one';
-      } else {
+      }
+      else {
         $variant = 'add_one';
       }
     }
 
     // Messages:
     $message_new_one = t('Added 1 item to the new project %project.', [
-      '%project' => $project_title
+      '%project' => $project_title,
     ]);
 
     $message_new_many = t('Added %count items to the new project %project.', [
       '%count' => $count,
-      '%project' => $project_title
+      '%project' => $project_title,
     ]);
 
     $message_add_one = t('Added 1 item to the project %project.', [
-      '%project' => $project_title
+      '%project' => $project_title,
     ]);
 
     $message_add_many = t('Added %count items to the project %project.', [
       '%count' => $count,
-      '%project' => $project_title
+      '%project' => $project_title,
     ]);
 
     switch ($variant) {
@@ -257,4 +265,5 @@ class UploadForm extends FormBase
 
     return 'submitForm';
   }
+
 }

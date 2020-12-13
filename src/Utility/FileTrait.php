@@ -13,6 +13,7 @@ use Drupal\unig\Controller\OutputController;
 
 /**
  * Trait FileTrait
+ *
  * @package Drupal\unig\Utility
  *
  *
@@ -20,8 +21,8 @@ use Drupal\unig\Controller\OutputController;
  * TODO: replace drupal_Set_message
  *
  */
-trait FileTrait
-{
+trait FileTrait {
+
   public $bundle_file = 'unig_file';
 
   // define Extensions to be used als imagefield
@@ -35,12 +36,6 @@ trait FileTrait
    *      - field_unig_project: Entity
    *      - field_unig_image : Image
    *
-   *  Inputs Plupload:
-   *      - tmppath   => string(45)
-   *          "temporary://o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
-   *      - tmpname   => string(33) "o_1bfv2k9af2fdqogn551i9b1uqfc.tmp"
-   *      - name      => string(22) "451415562631785265.jpg"
-   *      - status    => string(4) "done"
    *
    * @param $file_tmp
    * @param $project_id
@@ -49,31 +44,26 @@ trait FileTrait
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function createNodeUniGImage($file_tmp, $project_id = null): int
-  {
+  public function createNodeUniGImage($file_tid, $project_id = NULL): int {
     // define entity type and bundle
     $entity_type = 'node';
 
     // get fid of the temporary uploaded file
-    $file_id = $this->getFileId($file_tmp, $project_id);
+    $file = $this->uploadFile($file_tid, $project_id);
 
-    // split the filename: get name and lowercase extension separately
-    $file_temp = $file_tmp['name'];
-    $file_name = pathinfo($file_temp, PATHINFO_FILENAME);
-    $file_ext = strtolower(pathinfo($file_temp, PATHINFO_EXTENSION));
 
     // Node Title is filename without file extension
-    $node_title = $file_name;
+    $node_title = $file['name'];
 
     // get definition of target entity type
-    $storage = Drupal::entityTypeManager()->getStorage('node');
+    $storage = Drupal::entityTypeManager()->getStorage($entity_type);
 
     // load up an array for creation
     $new_unig_file = $storage->create([
       'title' => $node_title,
       'status' => 0, //(1 or 0): published or not
       'promote' => 0, //(1 or 0): promoted to front page
-      'type' => 'unig_file'
+      'type' => 'unig_file',
     ]);
 
     // Set true for generated Title
@@ -83,21 +73,21 @@ trait FileTrait
 
     if (!empty($new_unig_file->field_unig_project)) {
       $new_unig_file->field_unig_project->setValue([
-        'target_id' => $project_id
+        'target_id' => $project_id,
       ]);
     }
 
     // check file if Image or File:
-    if (in_array($file_ext, $this->ext_image)) {
+    if (in_array($file['extension'], $this->ext_image)) {
       // if Image save to Imagefield
       if (!empty($new_unig_file->field_unig_image)) {
         $new_unig_file->field_unig_image->setValue([
-          'target_id' => $file_id
+          'target_id' => $file['id'],
         ]);
       }
 
       // IPTC
-      $iptc = new IptcController($file_id, $project_id);
+      $iptc = new IptcController($file['id'], $project_id);
       $keywords = $iptc->getKeywordTermIDs();
       $people = $iptc->getPeopleTermIds();
 
@@ -119,7 +109,8 @@ trait FileTrait
         }
         $new_unig_file->field_unig_people = $value_people;
       }
-    } else {
+    }
+    else {
       // if other save for Filefield
     }
 
@@ -129,9 +120,7 @@ trait FileTrait
     }
 
     // hole die neu erstellte ID
-    $new_id = $new_unig_file->id();
-
-    return $new_id;
+    return $new_unig_file->id();
   }
 
   /**
@@ -141,8 +130,7 @@ trait FileTrait
    * @throws InvalidPluginDefinitionException
    * @throws PluginNotFoundException
    */
-  public function createMultiNode($values): array
-  {
+  public function createMultiNode($values): array {
     // Create Multiple Nodes
     $node_ids = [];
     $file_upload = $values['file_upload'];
@@ -160,12 +148,11 @@ trait FileTrait
    *
    * @return array
    * @throws EntityStorageException
-   *@internal param $values
+   * @internal param $values
    * TODO: Deprecated
    */
-  public static function deleteFile($file_id, $project_id = null): array
-  {
-    $status = false;
+  public static function deleteFile($file_id, $project_id = NULL): array {
+    $status = FALSE;
     $message = $file_id;
 
     if ($file_id) {
@@ -175,8 +162,8 @@ trait FileTrait
       if ($node) {
         $node->delete();
 
-        // Node delete succses
-        $status = true;
+        // Node delete success
+        $status = TRUE;
         $message = 'Die Datei mit der ID ' . $file_id . ' wurde gelöscht';
 
         // Clear Project Cache
@@ -186,7 +173,7 @@ trait FileTrait
       }
       // no Node found
       else {
-        $status = false;
+        $status = FALSE;
         $message = 'kein File mit der ID ' . $file_id . ' gefunden';
       }
     }
@@ -194,66 +181,68 @@ trait FileTrait
     // Output
     return [
       'status' => $status,
-      'message' => $message
+      'message' => $message,
     ];
   }
 
   /**
-   * @param $file_temp
+   * @param $tid
    * @param $project_id
+   * @param array $validators
    *
-   * @return int
+   * @return array
    */
-  public function getFileId($file_temp, $project_id)
-  {
-    // Plupload
-    // ---------------------------------
-    // [tmppath] => 'temporary://o_hash.tmp',
-    // [tmpname] => 'o_hash.tmp',
-    // [name] => 'filename.jpg',
-    // [status] => 'done')
+  public function uploadFile($tid, $project_id): array {
 
-    $tmppath = $file_temp['tmppath'];
-    $name = $file_temp['name'];
-
-    $path_prefix_unig = '';
     $path_destination = 'public://';
     $path_unig = 'unig/';
+    $path_project = $project_id . '/';
 
-    // If Pathauto is active, take aliasname from project for directory
-    $project_alias = Drupal::service('path.alias_storage')->load([
-      'source' => '/node/' . $project_id
-    ]);
 
-    if ($project_alias) {
-      $project_name = $project_id . '-' . $project_alias . '/';
-    } else {
-      $project_name = $project_id . '/';
-    }
-    $path_album = $path_prefix_unig . $project_name;
-
-    $this->checkProjectDir($path_destination, $path_unig, $path_album);
-
-    $uri_destination = $path_destination . $path_unig . $path_album . $name;
-
-    // Create file object from a locally copied file.
-    $uri = file_unmanaged_copy($tmppath, $uri_destination, FILE_EXISTS_REPLACE);
-    $file = File::Create([
-      'uri' => $uri
-    ]);
-
-    try {
-      $file->save();
-    } catch (EntityStorageException $e) {
-      // TODO
+    $file = File::load($tid);
+    if ($file === NULL) {
+      return [];
     }
 
+    $file->setPermanent();
+    $file_name = $file->getFilename();
+    $file_uri = $file->getFileUri();
     $file_id = $file->id();
-    return $file_id;
+    $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    $file_mime = $file->getMimeType();
+    $this->checkProjectDir($path_destination, $path_unig, $path_project);
+
+    $destination = $path_destination . $path_unig . $path_project . $file_name;
+
+    // validate file type
+    $mime_type = Drupal::service('file.mime_type.guesser.extension')
+      ->guess($file_uri);
+    if ($file_mime !== $mime_type) {
+      dpm('Wrong Mime-Type for File ' . $file_name);
+      return [];
+    }
+
+    // move file to destination
+    $result = file_move($file, $destination, TRUE);
+
+    if ($result) {
+      $file->setFileUri($destination);
+    }
+    $file->save();
+
+
+    return [
+      'id' => $file_id,
+      'name' => $file_name,
+      'extension' => $file_extension,
+      'mime' => $file_mime,
+    ];
+
+
   }
 
-  function createStyle($image_uri, $style_name)
-  {
+  function createStyle($image_uri, $style_name) {
     CreateImageStylesTrait::createImageStyles($image_uri, $style_name);
   }
+
 }

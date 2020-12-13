@@ -3,14 +3,14 @@ type: module
 description: 'Image / File Gallery with Multifield upload'
 package: Media
 core: 8.x
+core_version_requirement: ^8 || ^9
 configure: unig.settings_form
 dependencies:
   - drupal:node
-  - plupload
-  - plupload_widget
+  - autocomplete_deluxe
 
 
 project: unig
-version: 8.x-1.7
+version: 9.x-1.7
 'interface translation project': unig
 'interface translation server pattern': modules/custom/%project/translations/%project-%version.%language.po

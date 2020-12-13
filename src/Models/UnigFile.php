@@ -77,18 +77,19 @@ class UnigFile
   }
 
   /**
-   * @param $file_id
+   * @param $nid
    * @param $value
    * @param null $project_id
+   *
    * @return array
    */
-  public static function favorite($file_id, $value, $project_id = null): array
+  public static function favorite($nid, $value, $project_id = null): array
   {
     $status = false;
     $message = '';
 
-    if ($file_id) {
-      $node = Node::Load((int) $file_id);
+    if ($nid) {
+      $node = Node::Load((int) $nid);
 
       // load node
       if ($node) {
@@ -101,12 +102,12 @@ class UnigFile
           if ($value) {
             $message = t(
               'The file with the ID %file_id was marked as favorite.',
-              ['%file_id' => $file_id]
+              ['%file_id' => $nid]
             );
           } else {
             $message = t(
               'The file with the ID %file_id is no longer a favorite.',
-              ['%file_id' => $file_id]
+              ['%file_id' => $nid]
             );
           }
 
@@ -120,14 +121,14 @@ class UnigFile
           $status = 'error';
           $message =
             t('Can\'t save changes of File %file_id.', [
-              '%file_id' => $file_id
+              '%file_id' => $nid
             ]) . $e;
         }
       }
       // no Node found
       else {
         $status = false;
-        $message = 'no file found with ID ' . $file_id;
+        $message = 'no file found with ID ' . $nid;
       }
     }
     // Output
