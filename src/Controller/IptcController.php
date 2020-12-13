@@ -191,7 +191,7 @@ class IptcController extends ControllerBase
       $size = getimagesize($path, $info);
 
       // IPTC auslesen
-      if ($size && $info && $info['APP13']) {
+      if ($size && $info && isset($info['APP13'])) {
         $iptc = iptcparse($info['APP13']);
 
         if ($iptc && is_array($iptc)) {
