@@ -1,0 +1,15 @@
+uuid: 2fef266f-01f5-407c-be55-899b22d3a1d5
+langcode: de
+status: true
+dependencies: {  }
+name: unig_sd
+label: 'UniG SD (720)'
+effects:
+  e2718237-82f6-4d43-8ca1-c42156236b0d:
+    uuid: e2718237-82f6-4d43-8ca1-c42156236b0d
+    id: image_scale
+    weight: 1
+    data:
+      width: 720
+      height: null
+      upscale: false

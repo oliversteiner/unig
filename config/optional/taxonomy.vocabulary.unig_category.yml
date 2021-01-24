@@ -5,5 +5,4 @@ dependencies: {  }
 name: 'Unig Category'
 vid: unig_category
 description: ''
-hierarchy: 0
 weight: 0

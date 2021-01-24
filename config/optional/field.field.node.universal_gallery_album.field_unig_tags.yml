@@ -1,0 +1,29 @@
+uuid: 35cf1760-36b6-41e3-99a3-45d03fb9f0c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_tags
+    - node.type.universal_gallery_album
+    - taxonomy.vocabulary.unig_tags
+id: node.universal_gallery_album.field_unig_tags
+field_name: field_unig_tags
+entity_type: node
+bundle: universal_gallery_album
+label: 'Unig Tags'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      unig_tags: unig_tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

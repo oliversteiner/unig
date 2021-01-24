@@ -6,6 +6,8 @@ dependencies:
     - field.field.node.unig_file.field_unig_album
     - field.field.node.unig_file.field_unig_copyright
     - field.field.node.unig_file.field_unig_description
+    - field.field.node.unig_file.field_unig_favorit
+    - field.field.node.unig_file.field_unig_favorite
     - field.field.node.unig_file.field_unig_file
     - field.field.node.unig_file.field_unig_image
     - field.field.node.unig_file.field_unig_keywords
@@ -18,7 +20,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.unig_file
   module:
-    - content_moderation
     - file
     - image
     - path
@@ -42,6 +43,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   field_unig_copyright:
     type: string_textfield
@@ -59,6 +61,20 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_unig_favorit:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_unig_favorite:
+    weight: 27
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_unig_file:
     type: file_generic
     weight: 15
@@ -82,6 +98,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   field_unig_people:
     type: entity_reference_autocomplete
@@ -91,6 +108,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   field_unig_project:
     type: entity_reference_autocomplete
@@ -100,6 +118,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   field_unig_rating:
     weight: 9
@@ -135,12 +154,6 @@ content:
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
-  moderation_state:
-    type: moderation_state_default
-    weight: 7
-    settings: {  }
-    region: content
     third_party_settings: {  }
   path:
     type: path
@@ -184,6 +197,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     region: content
     third_party_settings: {  }
 hidden: {  }
