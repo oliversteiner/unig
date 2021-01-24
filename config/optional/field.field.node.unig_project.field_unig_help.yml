@@ -1,0 +1,28 @@
+uuid: ebc82af5-5d2a-43f0-a263-e35fac92db6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_help
+    - node.type.unig_project
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    full_html: full_html
+    plain_text: plain_text
+    html_email: '0'
+    json: '0'
+id: node.unig_project.field_unig_help
+field_name: field_unig_help
+entity_type: node
+bundle: unig_project
+label: 'UniG Help'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

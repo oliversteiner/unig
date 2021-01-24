@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.unig_project.field_unig_album
+    - field.field.node.unig_project.field_unig_cache
     - field.field.node.unig_project.field_unig_category
     - field.field.node.unig_project.field_unig_copyright
     - field.field.node.unig_project.field_unig_date
     - field.field.node.unig_project.field_unig_description
+    - field.field.node.unig_project.field_unig_help
     - field.field.node.unig_project.field_unig_meta
     - field.field.node.unig_project.field_unig_private
     - field.field.node.unig_project.field_unig_project_cover
@@ -32,6 +34,13 @@ content:
     settings:
       link: true
     third_party_settings: {  }
+  field_unig_cache:
+    weight: 13
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
   field_unig_category:
     weight: 2
     label: above
@@ -64,6 +73,13 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
+  field_unig_help:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
   field_unig_meta:
     type: entity_reference_label
     weight: 8

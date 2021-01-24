@@ -6,6 +6,8 @@ dependencies:
     - field.field.node.unig_file.field_unig_album
     - field.field.node.unig_file.field_unig_copyright
     - field.field.node.unig_file.field_unig_description
+    - field.field.node.unig_file.field_unig_favorit
+    - field.field.node.unig_file.field_unig_favorite
     - field.field.node.unig_file.field_unig_file
     - field.field.node.unig_file.field_unig_image
     - field.field.node.unig_file.field_unig_keywords
@@ -25,6 +27,26 @@ targetEntityType: node
 bundle: unig_file
 mode: default
 content:
+  field_unig_favorit:
+    weight: 7
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_unig_favorite:
+    weight: 8
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_unig_file:
     type: file_default
     weight: 5

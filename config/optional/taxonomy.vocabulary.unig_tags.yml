@@ -5,5 +5,4 @@ dependencies: {  }
 name: 'Unig Tags'
 vid: unig_tags
 description: ''
-hierarchy: 0
 weight: 0

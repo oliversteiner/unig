@@ -7,4 +7,7 @@ label: 'UniG Member'
 weight: 2
 is_admin: null
 permissions:
+  - 'access unig download'
   - 'access unig private'
+  - 'access unig user'
+  - 'use text format text'
