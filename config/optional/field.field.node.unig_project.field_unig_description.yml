@@ -1,0 +1,23 @@
+uuid: 57cc4b16-d714-4626-86cd-0c981628975e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_description
+    - node.type.unig_project
+  module:
+    - text
+_core:
+  default_config_hash: yWCdRQ9TRBYspW3fu6ImCUUesCpl2m8nVlC2X1_aqlg
+id: node.unig_project.field_unig_description
+field_name: field_unig_description
+entity_type: node
+bundle: unig_project
+label: 'UniG Description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

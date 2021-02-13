@@ -1,0 +1,29 @@
+uuid: a66aa05b-6630-4256-b05d-adc5e840b9e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_file
+    - node.type.unig_file
+  module:
+    - file
+_core:
+  default_config_hash: CFNzRZU5YLug8zHRiqRh1aACpjpWJVQr8SEKdcPO4Rw
+id: node.unig_file.field_unig_file
+field_name: field_unig_file
+entity_type: node
+bundle: unig_file
+label: 'UniG File'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf rtf'
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

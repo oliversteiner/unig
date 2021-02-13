@@ -1,0 +1,20 @@
+uuid: 10f23e22-b225-4431-a687-946902dd3fbb
+langcode: de
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: vmzjfjmdTtAR7KgjEc-e9ECF17nBTkEisP5UUo6VU2o
+name: 'Universal Gallery Project'
+type: unig_project
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

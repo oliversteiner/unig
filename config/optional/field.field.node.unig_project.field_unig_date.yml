@@ -1,0 +1,26 @@
+uuid: 1eef2bcd-853e-4fad-930c-bc5635e01f06
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_date
+    - node.type.unig_project
+  module:
+    - datetime
+_core:
+  default_config_hash: lmExoPKHbRy0RtbxDdnfjB7n4gcxLeOeVEKyQz3sB90
+id: node.unig_project.field_unig_date
+field_name: field_unig_date
+entity_type: node
+bundle: unig_project
+label: 'UniG Date'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

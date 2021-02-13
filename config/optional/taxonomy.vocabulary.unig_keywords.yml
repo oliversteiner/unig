@@ -1,0 +1,10 @@
+uuid: 6059aba8-7cde-451a-a3a8-025f2de00566
+langcode: und
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: V5J43Qvp9QlWr_AVCDzRedTbIWyHAV9fRCPKOohJaZc
+name: 'UniG Keywords'
+vid: unig_keywords
+description: ''
+weight: 0

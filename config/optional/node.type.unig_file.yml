@@ -1,0 +1,20 @@
+uuid: 7a2563a8-45bf-4662-82b1-cf04b18c044d
+langcode: de
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: uTISTpwIEVyjlC-5GpJz-V7U3C5QitJ6jW3ElOKyj8w
+name: 'Universal Gallery File'
+type: unig_file
+description: 'Files or Images'
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

@@ -1,0 +1,23 @@
+uuid: e41cf781-3bdf-4eba-acd5-6005fd2aad4f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_meta
+    - node.type.unig_project
+_core:
+  default_config_hash: Mp7I0KIUkurNKDF9CFmn0pK51l8lsJjlH-Ey6xfuWX8
+id: node.unig_project.field_unig_meta
+field_name: field_unig_meta
+entity_type: node
+bundle: unig_project
+label: 'UniG Meta'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node_type'
+  handler_settings: {  }
+field_type: entity_reference

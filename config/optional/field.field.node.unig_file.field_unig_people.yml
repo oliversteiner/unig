@@ -1,0 +1,31 @@
+uuid: ac5d2152-2f8f-450c-acc7-582ea7765559
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_people
+    - node.type.unig_file
+    - taxonomy.vocabulary.unig_people
+_core:
+  default_config_hash: POiTqup17HRAlaYnG8mu0msvFbn-WDGyfEOvZBbTzj8
+id: node.unig_file.field_unig_people
+field_name: field_unig_people
+entity_type: node
+bundle: unig_file
+label: 'UniG People'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      unig_people: unig_people
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

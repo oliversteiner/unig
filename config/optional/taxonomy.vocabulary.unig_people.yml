@@ -1,0 +1,10 @@
+uuid: 579c67ba-ec07-4af7-8a22-7ad6210a728b
+langcode: und
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: vrJ8V2664m61SKulsfSKyHxqGgW2wM9o7DXIIlXlEts
+name: 'UniG People'
+vid: unig_people
+description: ''
+weight: 0

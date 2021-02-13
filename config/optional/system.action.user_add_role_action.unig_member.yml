@@ -1,0 +1,16 @@
+uuid: 4c9b2f8d-17e6-41d9-b8e3-c7bb66bb9d12
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.unig_member
+  module:
+    - user
+_core:
+  default_config_hash: vdMFqG09ziBLY5nOItXylaQd81w6_YJ3IeacN0eE9pk
+id: user_add_role_action.unig_member
+label: 'Add the UniG Member role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: unig_member

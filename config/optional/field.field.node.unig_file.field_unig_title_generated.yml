@@ -1,0 +1,23 @@
+uuid: bd72bcf1-af05-4fbd-ae7b-1dc722209979
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_title_generated
+    - node.type.unig_file
+id: node.unig_file.field_unig_title_generated
+field_name: field_unig_title_generated
+entity_type: node
+bundle: unig_file
+label: unig_title_generated
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

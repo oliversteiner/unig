@@ -1,0 +1,31 @@
+uuid: 3d8e01a3-4ee6-4cc1-a84c-ef6f8fb06ac5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unig_category
+    - node.type.unig_project
+    - taxonomy.vocabulary.unig_category
+_core:
+  default_config_hash: IhG2nuAE7DWt9X5d7z7N4jLF9dQGApQK7ZGUh72Ugco
+id: node.unig_project.field_unig_category
+field_name: field_unig_category
+entity_type: node
+bundle: unig_project
+label: 'Unig Category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      unig_category: unig_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: unig_keywords
+field_type: entity_reference

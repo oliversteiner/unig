@@ -1,0 +1,108 @@
+uuid: 6927a7c4-8b40-468d-8892-377150883193
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.unig_project.field_unig_cache
+    - field.field.node.unig_project.field_unig_category
+    - field.field.node.unig_project.field_unig_copyright
+    - field.field.node.unig_project.field_unig_date
+    - field.field.node.unig_project.field_unig_description
+    - field.field.node.unig_project.field_unig_help
+    - field.field.node.unig_project.field_unig_meta
+    - field.field.node.unig_project.field_unig_private
+    - field.field.node.unig_project.field_unig_project_cover
+    - field.field.node.unig_project.field_unig_tags
+    - field.field.node.unig_project.field_unig_trash
+    - field.field.node.unig_project.field_unig_weight
+    - node.type.unig_project
+  module:
+    - path
+id: node.unig_project.default
+targetEntityType: node
+bundle: unig_project
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_unig_private:
+    weight: 121
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_unig_trash:
+    weight: 122
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 120
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+hidden:
+  field_unig_cache: true
+  field_unig_category: true
+  field_unig_copyright: true
+  field_unig_date: true
+  field_unig_description: true
+  field_unig_help: true
+  field_unig_meta: true
+  field_unig_project_cover: true
+  field_unig_tags: true
+  field_unig_weight: true
