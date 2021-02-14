@@ -2,10 +2,12 @@
 unig.project-download.thml.twig
 #}
 
+{{ dd(_context) }}
+
 {% set date_short = project.timestamp|format_date('date_short') %}
 {% set date_long = project.timestamp|format_date('date_long') %}
 
-<div id="unig-main" class="unig unig-project unig-project-id" data-unig-project-id="{{ project.id }}">
+<div id="unig-main" class="unig unig-project unig-project-id {{ dark_mode ? 'unig-theme-dark' :'unig-theme-bright' }}" data-unig-project-id="{{ project.id }}">
   <div class="unig-header">
 
     <div class="animate-container-{{ project.id }}">

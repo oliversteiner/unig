@@ -2,7 +2,8 @@
 UniG 1.6.3
 
 ## Todo
-
+- [ ] Fix Dark Mode
+- [x] Add Dark Mode Checkbox in Unig Settings
 
 
 ## Planed Features

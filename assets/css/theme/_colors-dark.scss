@@ -9,7 +9,7 @@
 $color-text: rgb(213, 213, 213);
 $color-label: rgb(175, 175, 175);
 $color-text-invert: rgb(19, 19, 19);
-$color-background: rgb(19, 19, 19);
+$color-background: rgb(30, 30, 31);
 $color-background-invert: rgb(213, 213, 213);
 
 // Grayscale
@@ -31,7 +31,7 @@ $color-0: rgb(255, 255, 255);
 $color-debug: rgb(255, 221, 138);
 
 // default
-$color-default-border: rgb(16, 16, 16);
+$color-default-border: rgb(43, 44, 46);
 $color-default-border-hover: rgb(70, 47, 97);
 
 $color-default-border-invert: rgba(11, 11, 11, 0.95);
@@ -39,7 +39,7 @@ $color-default-border-invert-hover: rgb(51, 51, 51);
 
 $color-default-background: rgb(45, 45, 45);
 $color-default-background-hover: rgb(70, 47, 97);
-$color-default-background-file-list: rgb(45, 45, 45);
+$color-default-background-file-list: rgb(28, 28, 29);
 
 $color-default-background-invert: rgb(79, 79, 79);
 $color-default-background-invert-hover: rgb(35, 35, 35);
@@ -96,7 +96,7 @@ $color-admin-background-invert: rgb(151, 151, 151);
 $color-admin-background-invert-hover: rgb(119, 119, 119);
 
 // Border
-$color-admin-border: rgb(58, 58, 58);
+$color-admin-border: rgb(41, 41, 41);
 $color-admin-border-hover: rgb(65, 77, 71);
 $color-admin-border-invert: rgb(190, 190, 190);
 
@@ -143,22 +143,22 @@ $color-admin-marked-hover: rgb(139, 127, 200);
 
 // badge
 $color-badge: rgb(70, 70, 70);
-$color-badge-marked:  rgb(70, 70, 70);
+$color-badge-marked: rgb(70, 70, 70);
 
 $color-badge-inverted: rgb(70, 70, 70);
-$color-badge-marked-inverted:  rgb(70, 70, 70);
+$color-badge-marked-inverted: rgb(70, 70, 70);
 // fieldset
-$color-fieldset-border: rgb(62, 62, 62);
-$color-fieldset-background: rgb(62, 62, 62);
+$color-fieldset-border: rgb(43, 43, 43);
+$color-fieldset-background: rgb(24, 24, 27);
 
 // toolbar
-$color-toolbar-border: rgb(87, 87, 87);
-$color-toolbar-background: rgb(45, 45, 45);
+$color-toolbar-border: rgb(30, 30, 31);
+$color-toolbar-background: rgb(25, 25, 27);
 
 // toolbox
 $color-toolbox-text: $color-admin-text;
 $color-toolbox-label: $color-admin-label;
-$color-toolbar-title:rgb(110, 109, 109);
+$color-toolbar-title: rgb(110, 109, 109);
 $color-toolbox-border: rgb(230, 230, 230);
 $color-toolbox-hover: rgb(249, 249, 249);
 $color-toolbox-active: rgb(198, 203, 249);
@@ -191,13 +191,13 @@ $color-toolbox-tag-border-invert-hover: rgb(255, 255, 255);
 // sort
 $color-sortable-placeholder-background: rgb(19, 19, 19);
 $color-sortable-placeholder-border: rgb(82, 82, 82);
-$color-sortable-active-background : rgb(182, 142, 61);
-$color-sortable-active-text : rgb(182, 177, 151);
+$color-sortable-active-background: rgb(182, 142, 61);
+$color-sortable-active-text: rgb(182, 177, 151);
 
 // Private
-$color-admin-private : rgb(195, 204, 185);
-$color-admin-private-hover : rgb(153, 160, 145);
-$color-admin-private-active : rgb(123, 129, 117);
+$color-admin-private: rgb(195, 204, 185);
+$color-admin-private-hover: rgb(153, 160, 145);
+$color-admin-private-active: rgb(123, 129, 117);
 
 // Color Cover
 // -- Default

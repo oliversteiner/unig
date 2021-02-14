@@ -7,20 +7,17 @@ namespace Drupal\unig\Utility;
  * @see \Drupal\Core\Render\Element\InlineTemplate
  * @see https://www.drupal.org/developing/api/8/localization
  */
-trait ProjectListTemplateTrait
-{
-
+trait ProjectListTemplateTrait {
 
   /**
    * @param $cat_id
    * @return string
    */
-  public function getCategoryTitle($cat_id): string
-  {
+  public function getCategoryTitle($cat_id): string {
     if ($cat_id) {
       $cat_id = trim($cat_id);
       $cat_id = (int) $cat_id;
-    return Helper::getTermNameByID($cat_id);
+      return Helper::getTermNameByID($cat_id);
     }
     return t('Category');
   }
@@ -28,22 +25,20 @@ trait ProjectListTemplateTrait
   /**
    * Generate a render array with our Admin content.
    *
-   * @param null $cat_id term-id from taxonomy Vocabulary unig_category
+   * @param null $cat_id
+   *   term-id from taxonomy Vocabulary unig_category.
+   *
    * @return array
    *   A render array.
-   *
    */
-  public function projectListTemplate($cat_id = null): array
-  {
+  public function projectListTemplate($cat_id = NULL): array {
     if ($cat_id) {
       $cat_id = trim($cat_id);
       $cat_id = (int) $cat_id;
 
-      // check if  cat_id is valid term
+      // Check if  cat_id is valid term.
       $term = Helper::getTermNameByID($cat_id);
     }
-
-
 
     $template_path = $this->getProjectListPath();
     $template = file_get_contents($template_path);
@@ -52,15 +47,16 @@ trait ProjectListTemplateTrait
       'description' => [
         '#type' => 'inline_template',
         '#template' => $template,
-        '#context' => $variables
-      ]
+        '#context' => $variables,
+      ],
     ];
 
     $build['#attached']['drupalSettings']['projects'] = $variables;
 
     if (\Drupal::currentUser()->hasPermission('access unig admin')) {
       $build['#attached']['library'] = 'unig/unig.list.admin';
-    } else {
+    }
+    else {
       $build['#attached']['library'] = 'unig/unig.list.public';
     }
 
@@ -71,24 +67,25 @@ trait ProjectListTemplateTrait
    * Variables to act as context to the twig template file.
    *
    * @param null $cat_id
+   *
    * @return array
    *   Associative array that defines context for a template.
    */
-  protected function getProjectListVariables($cat_id = null): array
-  {
-    // Module
+  protected function getProjectListVariables($cat_id = NULL): array {
+    // Module.
     $variables['module'] = $this->getModuleName();
 
-    // language
+    // Language.
     $language = \Drupal::languageManager()
       ->getCurrentLanguage()
       ->getId();
     $variables['language'] = $language;
 
-    // User
+    // User.
     $user = \Drupal::currentUser();
     $variables['user'] = clone $user;
-    // Remove password and session IDs, since themes should not need nor see them.
+    // Remove password and session IDs,
+    // since themes should not need nor see them.
     unset(
       $variables['user']->pass,
       $variables['user']->sid,
@@ -99,8 +96,9 @@ trait ProjectListTemplateTrait
     $variables['can_download'] = $user->hasPermission('access unig download');
     $variables['show_private'] = $user->hasPermission('access unig admin');
     $variables['logged_in'] = $user->isAuthenticated();
+    $variables['dark_mode'] = $this->config('unig.settings')->get('unig.dark_mode');
 
-    // Projects
+    // Projects.
     $variables['project_list'] = ProjectTrait::buildProjectList($cat_id);
 
     return $variables;
@@ -112,9 +110,9 @@ trait ProjectListTemplateTrait
    * @return string
    *   Path string.
    */
-  protected function getProjectListPath()
-  {
+  protected function getProjectListPath() {
     return drupal_get_path('module', $this->getModuleName()) .
       '/templates/unig.list.html.twig';
   }
+
 }

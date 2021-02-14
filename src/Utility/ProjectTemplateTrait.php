@@ -164,6 +164,7 @@ trait ProjectTemplateTrait
       'access private project'
     );
     $variables['logged_in'] = $user->isAuthenticated();
+    $variables['dark_mode'] = $this->config('unig.settings')->get('unig.dark_mode');
 
     return $variables;
   }

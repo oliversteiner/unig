@@ -69,8 +69,9 @@ Twig Vars
 {% set date_short = project.timestamp|format_date('date_short') %}
 {% set date_long = project.timestamp|format_date('date_long') %}
 
+<div class="{{ dark_mode ? 'unig-theme-dark' :'unig-theme-bright' }}">
 {# header #}
-<div class="unig-file-gallery-head">
+<div class="unig-file-gallery-head ">
 
   {# header-left #}
   <div class="unig-gallery-header-left">
@@ -222,4 +223,5 @@ Twig Vars
 
     {% endfor %}
   </ul>
+</div>
 </div>

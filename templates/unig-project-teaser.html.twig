@@ -54,7 +54,7 @@
   {% set date_long = timestamp|format_date('date_long') %}
 
 
-  <div class="{{ classes|join(' ') }}">
+  <div class="{{ classes|join(' ') }} {{ dark_mode ? 'unig-theme-dark' :'unig-theme-bright' }}">
 
     {# ----------- Cover ----------- #}
     <div class="unig-project-cover">

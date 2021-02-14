@@ -6,7 +6,7 @@ unig.project-download.thml.twig
 {% set date_long = project.timestamp|format_date('date_long') %}
 
 {# Unig Main #}
-<div id="unig-main" class="unig unig-project unig-project-user unig-project-id"
+<div id="unig-main" class="unig unig-project unig-project-user unig-project-id {{ dark_mode ? 'unig-theme-dark' :'unig-theme-bright' }}"
      data-unig-project-id="{{ project.id }}">
 
   {# Unig Header #}

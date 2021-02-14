@@ -8,23 +8,23 @@ use Drupal\node\Entity\Node;
 use Drupal\unig\Utility\AdminTemplateTrait;
 use Drupal\unig\Utility\UnigCache;
 
-class AdminController extends ControllerBase
-{
+/**
+ *
+ */
+class AdminController extends ControllerBase {
   use AdminTemplateTrait;
 
   /**
    * {@inheritdoc}
    */
-  protected function getModuleName()
-  {
+  protected function getModuleName() {
     return 'unig';
   }
 
   /**
    * @return array
    */
-  public function unigConfig()
-  {
+  public function unigConfig() {
     // Default settings.
     $config = \Drupal::config('unig.settings');
 
@@ -34,12 +34,7 @@ class AdminController extends ControllerBase
 
     return [
       '#markup' =>
-        '<p>page_title = ' .
-        $page_title .
-        '</p>' .
-        '<p>source_text = ' .
-        $source_text .
-        '</p>'
+      sprintf("<p>page_title = %s</p><p>source_text = %s</p>", $page_title, $source_text),
     ];
   }
 
@@ -49,81 +44,80 @@ class AdminController extends ControllerBase
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function save()
-  {
+  public static function save() {
     $output = new OutputController();
 
-    $data = json_decode(file_get_contents('php://input'), true);
+    $data = json_decode(file_get_contents('php://input'), TRUE);
 
     $id = $data['id'];
     $project_id = $data['project_id'];
     $field = $data['field'];
     $value = $data && isset($data['value']) ? $data['value'] : '';
-    $mode = false;
+    $mode = FALSE;
 
     if ($data && !empty($data['mode'])) {
       $mode = $data['mode'];
     }
 
-    // Load node
+    // Load node.
     $node = Node::load($id);
-    if (!empty($node)) {
-      // Title
+    if ($node !== NULL) {
+      // Title.
       if ($field === 'title') {
-        // Update Title
-
+        // Update Title.
         $node->setTitle($value);
 
-
-        // set Field "title generated" to false
+        // Set Field "title generated" to false.
         if ($mode === 'file') {
           $node->set('field_unig_title_generated', 0);
         }
       }
 
       // Privat
-      // Toggle Value
+      // Toggle Value.
       elseif ($field === 'private') {
-        // Load Value From Server
+        // Load Value From Server.
         $field_name = 'field_unig_private';
         $node_private = $node->get($field_name)->getValue();
 
-        // Check if Field and Field value
+        // Check if Field and Field value.
         $node_private = $node_private ? $node_private[0]['value'] : 0;
 
-        // Toggle Value
+        // Toggle Value.
         $newValue = $node_private ? 0 : 1;
 
-        // Save New Value
+        // Save New Value.
         $node->get($field_name)->setValue($newValue);
 
-        // for Ajax Output
+        // For Ajax Output.
         $value = $newValue;
-      } else {
-        // set Value to Field
+      }
+      else {
+        // Set Value to Field.
         $node->set('field_unig_' . $field, $value);
       }
 
       try {
-        // Save node
+        // Save node.
         $node->save();
 
-        // empty cache
+        // Empty cache.
         UnigCache::clearProjectCache($project_id);
 
-        // Prepare JSON Output
-        $output->setStatus(true);
+        // Prepare JSON Output.
+        $output->setStatus(TRUE);
         $output->setData([$field, $value]);
         $output->setNid($id);
-      } catch (EntityStorageException $e) {
-        // Prepare JSON Output
-        $output->setStatus(false);
+      }
+      catch (EntityStorageException $e) {
+        // Prepare JSON Output.
+        $output->setStatus(FALSE);
         $output->setMessages([$e, 'error']);
         $output->setData([$id, $field, $value]);
       }
     }
-    // Output
-
+    // Output.
     return $output->json();
   }
+
 }
