@@ -227,10 +227,15 @@ class UnigFile
     }
 
     // image
-    $image = ProjectTrait::getImageVars($file_nid);
+    if($file_nid) {
+      $image = ProjectTrait::getImageVars($file_nid);
+    }
 
     // $file_path = FileSystem::realpath($entity->get('field_unig_image')->entity->getFileUri());
-    $file_name = $entity->get('field_unig_image')->entity->getFilename();
+    $file_name ='';
+    if (isset($entity->get('field_unig_image')->entity)) {
+      $file_name = $entity->get('field_unig_image')->entity->getFilename();
+    }
 
     // people
     $people = [];

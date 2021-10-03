@@ -26,8 +26,13 @@ trait CreateImageStylesTrait
   {
     $images = [];
 
+if(!$img_id_or_file){
+  $message = `No Image or File found`;
+  \Drupal::logger('type')->error($message);
 
-    if ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
+  return [];
+}
+    elseif ($img_id_or_file && $img_id_or_file instanceof FileInterface) {
       $entity = $img_id_or_file;
     } else {
       $entity = File::load($img_id_or_file);
@@ -48,9 +53,9 @@ trait CreateImageStylesTrait
         }
       }
   }
-    $image_style_name = 'unig_hd';
-    $image_style = \Drupal\image\Entity\ImageStyle::load($image_style_name);
-    $vars = self::imageStyleVars($img_id_or_file, $image_style);
+   // $image_style_name = 'unig_hd';
+ //   $image_style = \Drupal\image\Entity\ImageStyle::load($image_style_name);
+   // $vars = self::imageStyleVars($img_id_or_file, $image_style);
 
 
     if (!$style_name) {
