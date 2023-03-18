@@ -1,9 +1,18 @@
 let Unig = {
+  update() {
+    Drupal.behaviors.unigOptions.update();
+    console.log('rebuild Cache');
+
+  },
   cr() {
     Drupal.behaviors.unigOptions.cacheRebuild();
+    console.log('rebuild Cache');
+
   },
   cc() {
     Drupal.behaviors.unigOptions.cacheClear();
+    console.log('clear Cache');
+
   },
 };
 
@@ -18,7 +27,9 @@ let Unig = {
     attach(context) {
       $('#unig-main', context)
         .once('unig')
-        .each(() => {});
+        .each(() => {
+          Unig.cr();
+        });
     },
 
     removeDuplicates(arr) {
