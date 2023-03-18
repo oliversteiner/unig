@@ -1,5 +1,14 @@
-(function($, Drupal, drupalSettings) {
+(function ($, Drupal, drupalSettings) {
   Drupal.behaviors.unigOptions = {
+    update() {
+      this.cacheClear();
+      const rebuild = this.cacheRebuild();
+      if (rebuild) {
+        console.log('rebuild');
+        this.startGeneratingImageStyles()
+      }
+    },
+
     serverError(object) {
       const text = 'Server Error: ' + object.message;
       const type = 'error';
@@ -20,11 +29,10 @@
         { name: 'xl', styleName: 'original' },
       ];
 
-      files.forEach(file => {
+      files.forEach((file) => {
         const id = file.id;
 
-        downloadSizes.forEach(downloadSize => {
-
+        downloadSizes.forEach((downloadSize) => {
           const name = downloadSize.name;
           const styleName = downloadSize.styleName;
 
@@ -42,15 +50,18 @@
       });
     },
 
-
-     cacheClear() {
+    cacheClear() {
       const title = 'Clear Cache';
       const name = 'cache-clear';
-      return  this.projectCache(title, name);
+      drupalSettings.unig.project.project = [];
+      drupalSettings.unig.project.album = [];
+      drupalSettings.unig.project.files = [];
+      this.clearLocalStorage();
+      return true;
     },
 
-     async projectCache(title, name) {
-       Drupal.behaviors.unigMessages.clear();
+    async projectCache(title, name) {
+      Drupal.behaviors.unigMessages.clear();
 
       const id = this.getProjectID();
       const messageID = `${name}-${id}`;
@@ -62,13 +73,13 @@
       let timer = 0;
       Drupal.behaviors.unigMessages.updateMessage(text, type, messageID);
 
-       fetch(url).then(response => {
+      fetch(url).then((response) => {
         if (response.status === 404) {
-          response.json().then(object => {
+          response.json().then((object) => {
             this.serverError(object);
           });
         } else if (response.status === 200) {
-          response.json().then(data => {
+          response.json().then((data) => {
             text = `${title} for Project with id: ${data.projectId}.`;
             timer = data.timer;
             type = 'success';
@@ -78,8 +89,6 @@
               drupalSettings.unig.project.album = data.variables.album;
               drupalSettings.unig.project.files = data.variables.files;
               this.addFileInfo();
-
-
             }
 
             if (!data[name]) {
@@ -107,13 +116,13 @@
       const id = this.getProjectID();
       const url = `/unig/process/extract-keyword/${id}/`;
 
-      fetch(url).then(response => {
+      fetch(url).then((response) => {
         if (response.status === 404) {
-          response.json().then(object => {
+          response.json().then((object) => {
             this.serverError(object);
           });
         } else if (response.status === 200) {
-          response.json().then(data => {
+          response.json().then((data) => {
             // Set message to ajax container
             const text = data.messages[0][0];
             const type = data.messages[0][1];
@@ -140,34 +149,29 @@
       this.$StopTrigger.hide();
     },
 
-    clearLocalStorage(){
-
+    clearLocalStorage() {
       // People
-      const isPeopleStoreLoaded = Drupal.behaviors.unigPeople.Store.hasOwnProperty(
-        'clear',
-      );
+      const isPeopleStoreLoaded =
+        Drupal.behaviors.unigPeople.Store.hasOwnProperty('clear');
       if (isPeopleStoreLoaded) {
         Drupal.behaviors.unigPeople.Store.clear();
       }
 
       // Keywords
-      const isKeywordStoreLoaded = Drupal.behaviors.unigKeywords.Store.hasOwnProperty(
-        'clear',
-      );
+      const isKeywordStoreLoaded =
+        Drupal.behaviors.unigKeywords.Store.hasOwnProperty('clear');
       if (isKeywordStoreLoaded) {
         Drupal.behaviors.unigKeywords.Store.clear();
       }
 
       // Project
-      const isProjectStoreLoaded = Drupal.behaviors.unigProject.Store.hasOwnProperty(
-        'clear',
-      );
+      const isProjectStoreLoaded =
+        Drupal.behaviors.unigProject.Store.hasOwnProperty('clear');
       if (isProjectStoreLoaded) {
         Drupal.behaviors.unigProject.Store.clear();
       }
 
       Drupal.behaviors.unigProject.updateBrowser();
-
     },
 
     attach(context) {
@@ -228,6 +232,16 @@
           //  stop generating image styles
           this.$StopTrigger.click(() => {
             this.stopGeneratingImageStyles();
+            $optionsDropdown.hide();
+          });
+
+          //  Update
+          /**
+           * Sync local (cached) Layout with server.
+           * Rebuild Page on new Images
+           */
+          $('.unig-update-trigger', context).click(() => {
+            this.update();
             $optionsDropdown.hide();
           });
         });

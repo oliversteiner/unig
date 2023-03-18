@@ -118,12 +118,16 @@ let ImageStylesWorker = { unig_sd: undefined, unig_hd: undefined, medium: undefi
       ) {
         const message = 'All Workers Stopped';
         console.log(message);
+
+
         Drupal.behaviors.unigMessages.updateMessage(
           message,
           'success',
           this.messageID,
         );
          Drupal.behaviors.unigOptions.cacheRebuild();
+        // reload Page
+        window.location.reload(false);
       }
     },
 

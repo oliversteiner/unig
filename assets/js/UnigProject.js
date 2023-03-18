@@ -104,7 +104,7 @@
 
     updateBrowser() {
       this.updateCounter++;
-      console.log('updateCounter', this.updateCounter);
+      console.log('updateBrowser', this.updateCounter);
       let fullList = Drupal.behaviors.unigData.get();
 
       // People

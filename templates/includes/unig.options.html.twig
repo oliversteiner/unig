@@ -1,0 +1,92 @@
+
+<div class="unig-dropdown-wrapper">
+    {# Button Option #}
+    <div class="unig-button-icon unig-button-project-options  unig-project-options-trigger">
+        <i class="fas fa-cog" aria-hidden="true"></i>
+        <span class="button-label" style="display: none">{% trans %} Options {% endtrans %}</span>
+    </div>
+
+    {# Dropdown #}
+    <div class="unig-dropdown unig-dropdown-project-options" style="display: none">
+
+        {# Header #}
+        <div class="unig-dropdown-header">
+            <span class="unig-dropdown-header-label"> {% trans %} Options {% endtrans %}</span>
+        </div>
+
+        {# Main #}
+        <div class="unig-dropdown-main">
+            {# Row #}
+
+            {# Item - Extract Keywords #}
+            <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-extract-keywords-trigger">
+                    <span class="unig-dropdown-item-icon"><i class="fas fa-key" aria-hidden="true"></i></span>
+                    <span class="unig-dropdown-item-label"> {% trans %} Extract Keywords {% endtrans %}</span>
+                </div>
+            </div>
+
+            {# Item - Clear Cache #}
+            <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-clear-project-cache-trigger" data-id="{{ project.id }}">
+                    <span class="unig-dropdown-item-icon"><i class="fas fa-ban" aria-hidden="true"></i></span>
+                    <span class="unig-dropdown-item-label"> {% trans %} Clear Project Cache {% endtrans %}</span>
+                </div>
+            </div>
+
+            {# Item - rebuild Cache #}
+            <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-rebuild-project-cache-trigger" data-id="{{ project.id }}">
+                    <span class="unig-dropdown-item-icon"><i class="fas fa-recycle" aria-hidden="true"></i></span>
+                    <span class="unig-dropdown-item-label"> {% trans %} Rebuild Project Cache {% endtrans %}</span>
+                </div>
+            </div>
+
+
+            {# Item - clear Local Storage #}
+            <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-clear-local-storage-trigger" data-id="{{ project.id }}">
+                    <span class="unig-dropdown-item-icon"><i class="fas fa-database" aria-hidden="true"></i></span>
+                    <span class="unig-dropdown-item-label"> {% trans %} Clear Local Storage {% endtrans %}</span>
+                </div>
+            </div>
+
+            {# Item - Update #}
+            <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-update-trigger" data-id="{{ project.id }}">
+                    <span class="unig-dropdown-item-icon"><i class="fas fa-sync" aria-hidden="true"></i></span>
+                    <span class="unig-dropdown-item-label"> {% trans %} Update Project {% endtrans %}</span>
+                </div>
+            </div>
+
+            {# Item - Generate Image Styles #}
+            <div class="unig-dropdown-row">
+                <div class="unig-dropdown-item unig-options-generate-image-styles">
+                    {# start generating image styles #}
+                    <div class="unig-options-generate-image-styles-start unig-generate-image-styles-start-trigger">
+                        <span class="unig-dropdown-item-icon"><i class="fas fa-images" aria-hidden="true"></i></span>
+                        <span class="unig-dropdown-item-label"> {% trans %} Generate Image Styles {% endtrans %}</span>
+                    </div>
+                    {# stop #}
+                    <div class="unig-options-generate-image-styles-stop unig-generate-image-styles-stop-trigger"
+                         style="display:none;">
+                        <span class="unig-dropdown-item-icon"><i class="fas fa-cog fa-spin" aria-hidden="true"></i></span>
+                        <span class="unig-dropdown-item-label"> {% trans %} Stop generating Styles {% endtrans %}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {# Footer #}
+        <div class="unig-dropdown-footer">
+            {# Close Button #}
+            <div class="unig-dropdown-close unig-project-options-close-trigger">
+                <span class="unig-dropdown-footer-icon"><i class="fas fa-times" aria-hidden="true"></i></span>
+                <span class="unig-dropdown-footer-label"> {% trans %} Close {% endtrans %}</span>
+            </div>
+        </div>
+
+    </div>
+
+</div> {# unig-dropdown-wrapper #}
