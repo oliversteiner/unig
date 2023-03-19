@@ -2,11 +2,12 @@
 
 namespace Drupal\unig\Utility;
 
+use DateTime;
+use DateTimeImmutable;
+use Drupal\mollo_utils\Utility\MolloUtils;
 use Drupal\unig\Models\UnigFile;
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
-use Drupal\unig\Controller\OutputController;
 use Drupal\unig\Models\UnigProject;
 
 /**
@@ -16,12 +17,6 @@ class Project {
 
   use ProjectTrait;
   use FileTrait;
-
-
-
-
-
-
 
   /**
    * Get uri from all styles from Cover image.
@@ -37,7 +32,7 @@ class Project {
     if ($nid) {
       $node = Node::load((int) $nid);
       if ($node) {
-        $unig_image_id = Helper::getFieldValue($node, 'unig_image');
+        $unig_image_id = MolloUtils::getFieldValue($node, 'unig_image');
         $variables = CreateImageStyles::createStyles(
           $unig_image_id,
           FALSE,
@@ -47,11 +42,6 @@ class Project {
     }
     return $variables;
   }
-
-
-
-
-
 
   /**
    *
@@ -64,7 +54,8 @@ class Project {
       foreach ($nids as $project_id) {
         try {
           $variables[] = $this->buildProject($project_id);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
         }
       }
     }
@@ -119,56 +110,54 @@ class Project {
     $title = $node->label();
 
     // Body.
-    $description = Helper::getFieldValue($node, UnigProject::field_description);
+    $description = MolloUtils::getFieldValue($node, UnigProject::field_description);
 
     // Weight.
-    $weight = Helper::getFieldValue($node, UnigProject::field_weight);
+    $weight = MolloUtils::getFieldValue($node, UnigProject::field_weight);
 
     // Copyright.
-    $copyright = Helper::getFieldValue($node, UnigProject::field_copyright);
+    $copyright = MolloUtils::getFieldValue($node, UnigProject::field_copyright);
 
     // Private.
-    $private = Helper::getFieldValue($node, UnigProject::field_private);
+    $private = MolloUtils::getFieldValue($node, UnigProject::field_private);
 
     // Category.
-    $category = Helper::getFieldValue(
+    $category = MolloUtils::getFieldValue(
       $node,
       UnigProject::field_category,
       UnigProject::term_category
     );
-    $category_id = Helper::getFieldValue($node, UnigProject::field_category);
-    $category_list = Helper::getTermsForOptionList(UnigProject::term_category);
+    $category_id = MolloUtils::getFieldValue($node, UnigProject::field_category);
+    $category_list = MolloUtils::getListOfTerms(UnigProject::term_category);
 
     // Tags.
-    $tags = Helper::getFieldValue(
+    $tags = MolloUtils::getFieldValue(
       $node,
       UnigProject::field_tags,
       UnigProject::term_tags,
       TRUE
     );
-    $tags_ids = Helper::getFieldValue(
+    $tags_ids = MolloUtils::getFieldValue(
       $node,
       UnigProject::field_tags,
       FALSE,
       TRUE
     );
-    $tags_list = Helper::getTermsForOptionList(UnigProject::term_tags);
+    $tags_list = MolloUtils::getListOfTerms(UnigProject::term_tags);
 
     // Help.
-    $help = Helper::getFieldValue($node, UnigProject::field_help);
+    $help = MolloUtils::getFieldValue($node, UnigProject::field_help);
 
     // Date.
-    $date = Helper::getFieldValue($node, UnigProject::field_date);
+    $date = MolloUtils::getFieldValue($node, UnigProject::field_date);
     if ($date) {
-      $format = 'Y-m-d';
-      $php_date_obj = date_create_from_format($format, $date);
+      $php_date_obj = new DateTime();
+      $php_date_obj->setTimestamp($date);
     }
     else {
-      $php_date_obj = date_create();
+      $php_date_obj = new DateTimeImmutable('now');
     }
-
-    // Timestamp.
-    $timestamp = (int) $php_date_obj->format('U');
+    $timestamp = $php_date_obj->format('U');
 
     // Year.
     $year = $php_date_obj->format('Y');
@@ -184,10 +173,10 @@ class Project {
     $date_drupal = $php_date_obj->format('Y-m-d');
 
     // Cover Image.
-    $cover_id = Helper::getFieldValue($node, UnigProject::field_project_cover);
+    $cover_id = MolloUtils::getFieldValue($node, UnigProject::field_project_cover);
 
     if (!$cover_id) {
-      $new_cover = $this->setCover($project_id);
+      $new_cover = self::setCover($project_id);
       $cover_id = $new_cover->getTid();
     }
     $cover_image = self::getCoverImageVars((int) $cover_id);
@@ -279,7 +268,3 @@ class Project {
   }
 
 }
-
-
-
-

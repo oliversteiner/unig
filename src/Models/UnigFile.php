@@ -298,7 +298,7 @@ class UnigFile {
     $variables = [];
     $node = Node::load($unig_file_id);
     if ($node) {
-      $unig_image_id = Helper::getFieldValue($node, 'unig_image');
+      $unig_image_id = MolloUtils::getFieldValue($node, 'unig_image');
       $variables = self::forceImageStyle($unig_image_id, 'large');
     }
 

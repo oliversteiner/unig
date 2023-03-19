@@ -2,12 +2,12 @@ name: UniG - Universal Gallery
 type: module
 description: 'Image / File Gallery with Multifield upload'
 package: Media
-core: 8.x
 core_version_requirement: ^8 || ^9
 configure: unig.settings_form
 dependencies:
   - drupal:node
   - autocomplete_deluxe
+  - mollo_utils
 
 
 project: unig
