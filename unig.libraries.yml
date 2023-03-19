@@ -89,10 +89,11 @@ unig.project.admin:
     - core/jquery
     - core/jquery.once
     - core/jquery.ui.datepicker
-    - core/jquery.ui.sortable
     - unig/unig.lightgallery
     - unig/unig.autocomplete
     - unig/unig.download
+    - unig/unig.sortable
+
 #
 #
 #
@@ -116,7 +117,7 @@ unig.list.admin:
     - core/jquery
     - core/jquery.once
     - core/jquery.ui.datepicker
-    - core/jquery.ui.sortable
+    - unig/unig.sortable
 
 #
 #
@@ -165,3 +166,12 @@ unig.autocomplete:
 unig.download:
   js:
     assets/third-party/download/download.min.js: {}
+#
+#
+# Drupal 9 removed jquery-ui sortable, dirty fix: load it here
+unig.sortable:
+  css:
+    theme:
+      assets/third-party/jquery-ui/jquery-ui.min.css: {}
+  js:
+    assets/third-party/jquery-ui/jquery-ui.min.js: {}

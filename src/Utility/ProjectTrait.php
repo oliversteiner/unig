@@ -2,28 +2,23 @@
 
 namespace Drupal\unig\Utility;
 
-use Drupal\unig\Models\UnigFile;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-
 use Drupal\Core\Entity\EntityStorageException;
-use Drupal\Core\Url;
-
 use Drupal\node\Entity\Node;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
+use Drupal\unig\Models\UnigFile;
 use Drupal\unig\Models\UnigProject;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-/**
- *
- */
-trait ProjectTrait
-{
+trait ProjectTrait {
+
   /**
+   * @param null $cat_id
+   *
    * @return array|int
    */
-  public static function getAllProjectNids($cat_id = null)
-  {
+  public static function getAllProjectNids($cat_id = NULL): array|int {
     // Get the current user.
     $user = \Drupal::currentUser();
 
@@ -41,7 +36,7 @@ trait ProjectTrait
     }
 
     // Restricting to category?
-    if ($cat_id && is_int($cat_id)) {
+    if (isset($cat_id)) {
       // Check if  cat_id is valid term.
       $term = Helper::getTermNameByID($cat_id);
 
@@ -58,14 +53,12 @@ trait ProjectTrait
       ->sort('created', 'DESC')
       ->sort('field_unig_date', 'DESC')
       ->sort('title')
-      ->accessCheck(false);
+      ->accessCheck(FALSE);
 
     $nids = $query->execute();
 
     if (count($nids) === 0) {
-      // $nid_default = self::newDefaultUniGProject();
-      //   $nids[0] = $nid_default;
-      $nids = false;
+      $nids = FALSE;
     }
 
     return $nids;
@@ -74,8 +67,7 @@ trait ProjectTrait
   /**
    * @return array
    */
-  public function getProjectlistSelected(): array
-  {
+  public static function getProjectListSelected(): array {
     $select = [];
 
     $nids = self::getAllProjectNids();
@@ -101,34 +93,6 @@ trait ProjectTrait
     return $select;
   }
 
-  /**
-   * Depricated.
-   *
-   * @param bool $project_id
-   *
-   * @return int
-   */
-  public function getDefaultProjectNid($project_id = false): ?int
-  {
-    if ($project_id) {
-      return $project_id;
-    }
-
-    // Choose the default project from settings.
-    $default_config = \Drupal::config('unig.settings');
-    $default_project_id = $default_config->get('unig.default_project');
-    if ($default_project_id) {
-      return (int) $default_project_id;
-    }
-
-    // Or take newest Project.
-    $list = ProjectTrait::getAllProjectNids();
-    if ($list) {
-      return array_shift($list);
-    }
-
-    return 0;
-  }
 
   /**
    * @param $title
@@ -138,8 +102,7 @@ trait ProjectTrait
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public static function newUniGProject($title)
-  {
+  public static function newUniGProject($title): int|string|null {
     $config = \Drupal::config('unig.settings');
 
     // Load up an array for creation.
@@ -174,8 +137,7 @@ trait ProjectTrait
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public static function newDefaultUniGProject(): int
-  {
+  public static function newDefaultUniGProject(): int {
     $title = 'Default';
     $nid = self::newUniGProject($title);
 
@@ -189,472 +151,94 @@ trait ProjectTrait
   }
 
   /**
-   * @param $path_destination
-   * @param $path_unig
-   * @param $path_project
    *
-   * @return bool
+   * @return mixed
+   *
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function checkProjectDir($path_destination, $path_unig, $path_project)
-  {
-    $root = \Drupal::service('file_system')->realpath(
-      $path_destination . $path_unig
-    );
-    $realpath_project = $root . '/' . $path_project;
+  public static function saveProject() {
+    $postReq = \Drupal::request()->request->all();
+    $project_id = $postReq['id'] ?? FALSE;
+    $data = $postReq['data'] ?? FALSE;
 
-    $is_dir = is_dir($realpath_project);
+    // Load node.
+    $entity = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->load($project_id);
 
-    if (false == $is_dir) {
-      $result = \Drupal::service('file_system')->mkdir(
-        $realpath_project,
-        0755,
-        true
-      );
+    if ($entity) {
 
-      if (false == $result) {
-        \Drupal::messenger()->addMessage(
-          'ERROR: Could not create the directory for the gallery'
-        );
+      // Title.
+      $entity->title[0] = $data['title'];
+
+      // Date.
+      $entity->field_unig_date[0] = $data['date'];
+
+      // Weight.
+      $entity->field_unig_weight[0] = $data['weight'];
+
+      // Description.
+      $entity->field_unig_description[0] = $data['description'];
+
+      // Copyright.
+      $entity->field_unig_copyright[0] = $data['copyright'];
+
+      // Category.
+      $entity->field_unig_category[0]['target_id'] = $data['category'];
+
+      // Private.
+      $int_private = (int) $data['private'];
+      if ($int_private == 1) {
+        $private = 1;
       }
-    } else {
-      $result = $realpath_project;
+      else {
+        $private = 0;
+      }
+
+      $entity->field_unig_private[0] = $private;
+
+      // Save node.
+      $entity->save();
+
     }
-    $this->counter++;
-
-    return $result;
-  }
-
-  /**
-   *
-   *
-   * @param      $nid_project
-   * @param null $nid_image
-   *
-   * @return \Drupal\unig\Controller\OutputController
-   */
-  public static function setCover(
-    $nid_project,
-    $nid_image = null
-  ): OutputController {
     $output = new OutputController();
 
-    $node = Node::load($nid_project);
-    $title = $node->getTitle();
-
-    if ($nid_image) {
-      $nid_cover = $nid_image;
-      $node->get('field_unig_project_cover')->target_id = $nid_cover;
-    }
-
-    // Load and Save Project.
-    try {
-      $node->save();
-      $cover_tid = $node->get('field_unig_project_cover')->target_id;
-
-      $output->setStatus(true);
-      $output->setTitle($title);
-      $output->setTid($cover_tid);
-      $output->setMessages(
-        t('New cover picture set for project ' . $title),
-        'success'
-      );
-    } catch (EntityStorageException $e) {
-      $output->setStatus(true);
-      $output->setTitle($node->getTitle());
-      $output->setTid(0);
-      $output->setMessages(
-        t('ERROR: cover image adding failed. Project: ' . $title),
-        'error'
-      );
-    }
-
-    return $output;
-  }
-
-  /**
-   * Get uri from all styles from Cover image.
-   *
-   * @param $nid
-   *
-   * @return array
-   *
-   * @throws \Exception
-   */
-  public static function getCoverImageVars($nid): array
-  {
-    $variables = [];
-    if ($nid) {
-      $node = Node::load((int) $nid);
-      if ($node) {
-        $unig_image_id = Helper::getFieldValue($node, 'unig_image');
-        $variables = CreateImageStylesTrait::createImageStyles(
-          $unig_image_id,
-          false,
-          false
-        );
-      }
-    }
-    return $variables;
-  }
-
-  /**
-   * Get uri from all styles.
-   *
-   * @param $nid
-   *
-   * @return array
-   *
-   * @throws \Exception
-   */
-  public static function getImageVars($nid): array
-  {
-    $variables = [];
-
-    $node = Node::load($nid);
-    if ($node) {
-      $unig_image_id = Helper::getFieldValue($node, 'unig_image');
-      if ($unig_image_id) {
-        $variables = CreateImageStylesTrait::createImageStyles(
-          $unig_image_id,
-          false,
-          false
-        );
-      }else {
-        \Drupal::messenger()->addError('No Image found');
-      }
-    }
-    return $variables;
-  }
-
-  /**
-   * @param $nid_project
-   *
-   * @return int
-   */
-  public static function countFilesInProject($nid_project)
-  {
-    $files = self::getListofFilesInProject($nid_project);
-
-    if (!empty($files)) {
-      $number_of_files = count($files);
-    } else {
-      $number_of_files = 0;
-    }
-
-    return $number_of_files;
-  }
-
-  /**
-   * @param      $nid_project
-   *
-   * @param null $album_id
-   *
-   * @return array
-   */
-  public static function getListofFilesInProject($nid_project, $album_id = null)
-  {
-    // Bundle : unig_file
-    // field: field_unig_project[0]['target_id']
-    //
-    // sorting alphanumeric correctly
-    // https://stackoverflow.com/questions/8557172/mysql-order-by-sorting-alphanumeric-correctly
-    //
-    if ($album_id != null) {
-      // Alphanumeric.
-      $query =
-        //
-        // Condition
-        //
-        // Order by.
-        \Drupal::entityQuery('node')
-          ->condition('type', 'unig_file')
-          ->condition('field_unig_project', $nid_project)
-          ->condition('field_unig_album', $album_id)
-          ->sort('field_unig_weight.value', 'ASC')
-          ->sort('title', 'ASC')
-          ->sort('created', 'DESC');
-
-      $nids = $query->execute();
-    } else {
-      // Get all unig_file_nodes in Project.
-      $query =
-        //
-        // Condition
-        //
-        // Order by
-        //
-        // Access.
-        \Drupal::entityQuery('node')
-          ->condition('type', 'unig_file')
-          ->condition('field_unig_project', $nid_project)
-          ->sort('field_unig_weight.value', 'ASC')
-          ->accessCheck(false);
-
-      $nids = $query->execute();
-    }
-
-    return $nids;
-  }
-
-  /**
-   *
-   */
-  public static function buildProjectList($cat_id = null): array
-  {
-    $nids = self::getAllProjectNids($cat_id);
-    // DEBUG
-    //   $nids = [298];.
-    $variables = [];
-
-    if ($nids) {
-      foreach ($nids as $project_id) {
-        try {
-          $variables[] = self::buildProject($project_id);
-        } catch (\Exception $e) {
-        }
-      }
-    }
-
-    return $variables;
+    // Output.
+    $output->setStatus(TRUE);
+    $output->setData($data);
+    return $output->json();
   }
 
   /**
    * @param $project_id
-   * @return array
    *
+   * @return array
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Exception
    */
-  public static function buildProject($project_id): array
-  {
-    // project
-    //  - nid  id
-    //  - date
-    //  - timestamp
-    //  - year
-    //  - title.
-    // - weight (draggable)
-    //   - number_of_items
-    //  - album
-    //    - title
-    //      - number_of_items
-    //  - links
-    //    - edit
-    //    - delete
-    //  - cover_id
-    //  - cover_image
-    //
-    // Load Project.
-    $node = Node::load((int) $project_id);
-
-    // Check if Nid is Unig Project.
-    if ($node && $node->bundle() !== 'unig_project') {
-      $message = 'Node with ' . $project_id . ' is not an UniG-Project';
-      \Drupal::logger('type')->error($message);
-      return ['nid' => 0];
-    }
-
-    // No Project with this Nid.
-    /** @var TYPE_NAME $node */
-    if (!$node) {
-      return ['nid' => 0];
-    }
-
-    // Title.
-    $title = $node->label();
-
-    // Body.
-    $description = Helper::getFieldValue($node, UnigProject::field_description);
-
-    // Weight.
-    $weight = Helper::getFieldValue($node, UnigProject::field_weight);
-
-    // Copyright.
-    $copyright = Helper::getFieldValue($node, UnigProject::field_copyright);
-
-    // Private.
-    $private = Helper::getFieldValue($node, UnigProject::field_private);
-
-    // Category.
-    $category = Helper::getFieldValue(
-      $node,
-      UnigProject::field_category,
-      UnigProject::term_category
-    );
-    $category_id = Helper::getFieldValue($node, UnigProject::field_category);
-    $category_list = Helper::getTermsForOptionList(UnigProject::term_category);
-
-    // Tags.
-    $tags = Helper::getFieldValue(
-      $node,
-      UnigProject::field_tags,
-      UnigProject::term_tags,
-      true
-    );
-    $tags_ids = Helper::getFieldValue(
-      $node,
-      UnigProject::field_tags,
-      false,
-      true
-    );
-    $tags_list = Helper::getTermsForOptionList(UnigProject::term_tags);
-
-    // Help.
-    $help = Helper::getFieldValue($node, UnigProject::field_help);
-
-    // Date.
-    $date = Helper::getFieldValue($node, UnigProject::field_date);
-    if ($date) {
-      $format = 'Y-m-d';
-      $php_date_obj = date_create_from_format($format, $date);
-    } else {
-      $php_date_obj = date_create();
-    }
-
-    // Timestamp.
-    $timestamp = (int) $php_date_obj->format('U');
-
-    // Year.
-    $year = $php_date_obj->format('Y');
-
-    // Date.
-    $date = $php_date_obj->format('d. F Y');
-
-    // Date short.
-    $date_short = $php_date_obj->format('d. M Y');
-
-    // Date.
-    // @todo move date display format to settings page.
-    $date_drupal = $php_date_obj->format('Y-m-d');
-
-    // Cover Image.
-    $cover_id = Helper::getFieldValue($node, UnigProject::field_project_cover);
-
-    if (!$cover_id) {
-      $new_cover = self::setCover($project_id);
-      $cover_id = $new_cover->getTid();
-    }
-    $cover_image = self::getCoverImageVars((int) $cover_id);
-
-    // number_of_items.
-    $number_of_items = self::countFilesInProject($project_id);
-
-    // Album List.
-    $album_list = AlbumTrait::getAlbumList($project_id);
-
-    // Url friendly title
-    // Always replace whitespace with the separator.
-    if (\Drupal::hasService('pathauto.alias_cleaner')) {
-      $clean_string = \Drupal::service('pathauto.alias_cleaner')->cleanString(
-        $title
-      );
-    } else {
-      $clean_string = preg_replace('/\s+/', '_', $title);
-    }
-
-    // Host.
-    $host = \Drupal::request()->getHost();
-
-    // URL.
-    $url = Url::fromRoute('unig.project.public', [
-      'project_id' => $project_id,
-    ]);
-
-    // Generate User Items.
-    $_user = \Drupal::currentUser();
-    $user['logged_in'] = $_user->isAuthenticated();
-    $user['is_admin'] = $_user->hasPermission('access unig admin');
-    $user['can_download'] = $_user->hasPermission('access unig download');
-    $user['show_private'] = $_user->hasPermission('access private project');
-
-    // Twig-Variables
-    // --------------------------------------------.
-    $project = [
-      'id' => $project_id,
-      'project_id' => $project_id,
-      'title' => $title,
-      'title_url' => $clean_string,
-      'description' => $description,
-      'copyright' => $copyright,
-      'weight' => $weight,
-      'category' => $category,
-      'category_id' => $category_id,
-      'category_list' => $category_list,
-      'tags' => $tags,
-      'tags_ids' => $tags_ids,
-      'tags_list' => $tags_list,
-      'private' => $private,
-      'user' => $user,
-      // Can be used with Twig filter | format_date('DRUPAL_DATE')
-      'timestamp' => $timestamp,
-      'date' => $date,
-      'date_short' => $date_short,
-      'date_drupal' => $date_drupal,
-      'year' => $year,
-      'number_of_items' => $number_of_items,
-      'cover_id' => $cover_id,
-      'cover_image' => $cover_image,
-      'album_list' => $album_list,
-      'host' => $host,
-      'url' => $url,
-      'help' => $help,
-    ];
-
-    return $project;
+  public static function getPeopleTerms($project_id): array {
+    return Helper::getTermList(UnigProject::term_people);
   }
 
   /**
-   * @param      $project_id
-   * @param null $album_id
+   * @param $project_id
    *
    * @return array
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public static function buildFileList($project_id, $album_id = null)
-  {
-    $file_nids = self::getListofFilesInProject($project_id, $album_id);
-    $variables = [];
-
-    foreach ($file_nids as $file_nid) {
-      $variables[] = UnigFile::buildFile($file_nid);
-    }
-
-    return $variables;
+  public static function getKeywordTerms($project_id): array {
+    return Helper::getTermList(UnigProject::term_keywords);
   }
 
-  /**
-   *
-   */
-  public static function getJSONFromProjectFiles(
-    $project_id,
-    $album_id = null
-  ): JsonResponse {
-    $response = new JsonResponse();
-
-    // @todo (replace $_POST with new Drupal method )
-    $postReq = \Drupal::request()->request->all();
-    // $response['debug'] = $postReq;
-    if (isset($postReq, $postReq['project_id'])) {
-      $project_id = $postReq['project_id'];
-    }
-
-    $file_nids = self::getListofFilesInProject($project_id);
-    $variables = [];
-
-    foreach ($file_nids as $file_nid) {
-      $variables[$file_nid] = UnigFile::buildFile($file_nid);
-    }
-
-    $response->setData($variables);
-    return $response;
-  }
 
   /**
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
-  public static function getJSONfromKeywordsForProject($project_id)
-  {
+  public static function getJSONfromKeywordsForProject($project_id) {
     $vid = 'unig_keywords';
     return self::getJSONfromKeywords($vid);
   }
@@ -662,8 +246,7 @@ trait ProjectTrait
   /**
    *
    */
-  public static function getJSONfromKeywords()
-  {
+  public static function getJSONfromKeywords() {
     $vid = 'unig_keywords';
     return self::getJSONfromVocubulary($vid);
   }
@@ -671,8 +254,7 @@ trait ProjectTrait
   /**
    *
    */
-  public static function getJSONfromPeopleForProject($project_id)
-  {
+  public static function getJSONfromPeopleForProject($project_id) {
     $vid = 'unig_people';
     return self::getJSONfromPeople($vid);
   }
@@ -680,8 +262,7 @@ trait ProjectTrait
   /**
    *
    */
-  public static function getJSONfromPeople()
-  {
+  public static function getJSONfromPeople() {
     $vid = 'unig_people';
     return self::getJSONfromVocubulary($vid);
   }
@@ -689,8 +270,7 @@ trait ProjectTrait
   /**
    *
    */
-  public static function getJSONfromVocubulary($vid)
-  {
+  public static function getJSONfromVocubulary($vid) {
     $response = new JsonResponse();
 
     $terms = [];
@@ -714,14 +294,15 @@ trait ProjectTrait
   /**
    * @param      $project_id
    * @param null $album_id
+   *
    * @return array
    */
-  public static function importKeywordsFromProject(
+  public function importKeywordsFromProject(
     $project_id,
-    $album_id = null
+    $album_id = NULL
   ): array {
     $list = [];
-    $nids = self::getListofFilesInProject($project_id, $album_id);
+    $nids = $this->getListofFilesInProject($project_id, $album_id);
 
     // Read Keywords of every Files in Project.
     foreach ($nids as $nid) {
@@ -737,10 +318,10 @@ trait ProjectTrait
 
   /**
    * @param $nid
+   *
    * @return bool|null
    */
-  public static function importKeywordsFromNode($nid): ?bool
-  {
+  public static function importKeywordsFromNode($nid): ?bool {
     // File.
     $entity = Node::load($nid);
     if (!empty($entity)) {
@@ -776,29 +357,30 @@ trait ProjectTrait
           if (!empty($value_people) || !empty($value_keywords)) {
             return $nid;
           }
-          return false;
+          return FALSE;
         } catch (EntityStorageException $e) {
-          return false;
+          return FALSE;
         }
-      } else {
+      }
+      else {
         $message = 'importKeywordsFromNode: no Image found in Node ' . $nid;
         \Drupal::logger('unig')->warning($message);
-        return false;
+        return FALSE;
       }
-    } else {
+    }
+    else {
       $message = 'importKeywordsFromNode: invalid NID';
       \Drupal::logger('unig')->warning($message);
-      return false;
+      return FALSE;
     }
   }
 
   /**
    *
    */
-  public static function projectDelete($project_id)
-  {
+  public static function projectDelete($project_id) {
     // Delete Project.
-    $status = false;
+    $status = FALSE;
     $message = $project_id;
 
     if ($project_id) {
@@ -813,12 +395,12 @@ trait ProjectTrait
         self::deleteAllFilesInProject($project_id);
 
         // Node delete success.
-        $status = true;
+        $status = TRUE;
         $message = 'Das Projekt mit der ID ' . $project_id . ' wurde gelöscht';
       }
       // No Node found.
       else {
-        $status = false;
+        $status = FALSE;
         $message = 'kein Projekt mit der ID ' . $project_id . ' gefunden';
       }
     }
@@ -834,101 +416,235 @@ trait ProjectTrait
   /**
    *
    */
-  public static function deleteAllFilesInProject($project_id)
-  {
+  public function getJSONFromProjectFiles(
+    $project_id,
+    $album_id = NULL
+  ): JsonResponse {
+    $response = new JsonResponse();
+
+    // @todo (replace $_POST with new Drupal method )
+    $postReq = \Drupal::request()->request->all();
+    // $response['debug'] = $postReq;
+    if (isset($postReq, $postReq['project_id'])) {
+      $project_id = $postReq['project_id'];
+    }
+
+    $file_nids = self::getListofFilesInProject($project_id);
+    $variables = [];
+
+    foreach ($file_nids as $file_nid) {
+      $variables[$file_nid] = UnigFile::buildFile($file_nid);
+    }
+
+    $response->setData($variables);
+    return $response;
+  }
+
+  public static function getDefaultProjectNid(){
+    $nid = 0;
+
+    $config = Unig::getConfig();
+    $nid = $config->get();
+
+    return $nid;
+  }
+
+  /**
+   *
+   */
+  public function deleteAllFilesInProject($project_id) {
     // Delete all Files.
     $file_nids = self::getListofFilesInProject($project_id);
 
     foreach ($file_nids as $file_nid) {
-      FileTrait::deleteFile($file_nid, $project_id);
+      self::deleteFile($file_nid, $project_id);
     }
-    return true;
+    return TRUE;
+  }
+
+
+  /**
+   * Get uri from all styles.
+   *
+   * @param $nid
+   *
+   * @return array
+   *
+   * @throws \Exception
+   */
+  public static function getImageVars($nid): array {
+    $variables = [];
+
+    $node = Node::load($nid);
+    if ($node) {
+      $unig_image_id = Helper::getFieldValue($node, 'unig_image');
+      if ($unig_image_id) {
+        $variables = CreateImageStyles::createStyles(
+          $unig_image_id,
+          FALSE,
+          FALSE
+        );
+      }
+      else {
+        \Drupal::messenger()->addError('No Image found');
+      }
+    }
+    return $variables;
+  }
+
+  /**
+   * @param $nid_project
+   *
+   * @return int
+   */
+  public static function countFilesInProject($nid_project): int {
+    $files = self::getListofFilesInProject($nid_project);
+
+    if (!empty($files)) {
+      $number_of_files = count($files);
+    }
+    else {
+      $number_of_files = 0;
+    }
+
+    return $number_of_files;
+  }
+  /**
+   * @param      $nid_project
+   *
+   * @param null $album_id
+   *
+   * @return array
+   */
+  public static function getListofFilesInProject($nid_project, $album_id = NULL): array {
+    // Bundle : unig_file
+    // field: field_unig_project[0]['target_id']
+    //
+    // sorting alphanumeric correctly
+    // https://stackoverflow.com/questions/8557172/mysql-order-by-sorting-alphanumeric-correctly
+    //
+    if ($album_id != NULL) {
+      // Alphanumeric.
+      $query =
+        //
+        // Condition
+        //
+        // Order by.
+        \Drupal::entityQuery('node')
+          ->condition('type', 'unig_file')
+          ->condition('field_unig_project', $nid_project)
+          ->condition('field_unig_album', $album_id)
+          ->sort('field_unig_weight.value', 'ASC')
+          ->sort('title', 'ASC')
+          ->sort('created', 'DESC');
+
+      $nids = $query->execute();
+    }
+    else {
+      // Get all unig_file_nodes in Project.
+      $query =
+        //
+        // Condition
+        //
+        // Order by
+        //
+        // Access.
+        \Drupal::entityQuery('node')
+          ->condition('type', 'unig_file')
+          ->condition('field_unig_project', $nid_project)
+          ->sort('field_unig_weight.value', 'ASC')
+          ->accessCheck(FALSE);
+
+      $nids = $query->execute();
+    }
+
+    return $nids;
+  }
+
+  /**
+   * @param $path_destination
+   * @param $path_unig
+   * @param $path_project
+   *
+   * @return bool
+   */
+  public static function checkProjectDir($path_destination, $path_unig, $path_project) {
+    $root = \Drupal::service('file_system')->realpath(
+      $path_destination . $path_unig
+    );
+    $realpath_project = $root . '/' . $path_project;
+
+    $is_dir = is_dir($realpath_project);
+
+    if (FALSE == $is_dir) {
+      $result = \Drupal::service('file_system')->mkdir(
+        $realpath_project,
+        0755,
+        TRUE
+      );
+
+      if (FALSE == $result) {
+        \Drupal::messenger()->addMessage(
+          'ERROR: Could not create the directory for the gallery'
+        );
+      }
+    }
+    else {
+      $result = $realpath_project;
+    }
+
+    return $result;
   }
 
   /**
    *
-   * @return mixed
    *
+   * @param      $nid_project
+   * @param null $nid_image
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @return \Drupal\unig\Controller\OutputController
+   * @throws \Exception
    */
-  public static function saveProject()
-  {
-    $postReq = \Drupal::request()->request->all();
-    $project_id = $postReq['id'] ?? false;
-    $data = $postReq['data'] ?? false;
-
-    // Load node.
-    $entity = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->load($project_id);
-
-    // Title.
-    $entity->title[0] = $data['title'];
-
-    // Date.
-    $entity->field_unig_date[0] = $data['date'];
-
-    // Weight.
-    $entity->field_unig_weight[0] = $data['weight'];
-
-    // Description.
-    $entity->field_unig_description[0] = $data['description'];
-
-    // Copyright.
-    $entity->field_unig_copyright[0] = $data['copyright'];
-
-    // Category.
-    $entity->field_unig_category[0]['target_id'] = $data['category'];
-
-    // Private.
-    $int_private = (int) $data['private'];
-    if ($int_private == 1) {
-      $private = 1;
-    } else {
-      $private = 0;
-    }
-
-    $entity->field_unig_private[0] = $private;
-
-    // Save node.
-    $entity->save();
-
-    /*
-    $response = new AjaxResponse();
-    $response->addCommand(new AlertCommand($data));
-    return $response;
-     */
-
+  public static function setCover(
+    $nid_project,
+    $nid_image = NULL
+  ): OutputController {
     $output = new OutputController();
 
-    // Output.
-    $output->setStatus(true);
-    $output->setData($data);
-    return $output->json();
+    $node = Node::load($nid_project);
+    if(!isset($node) ){
+      throw new \Exception('Unig Project not found');
+    }
+    $title = $node->getTitle();
+
+    if ($nid_image) {
+      $nid_cover = $nid_image;
+      $node->get('field_unig_project_cover')->target_id = $nid_cover;
+    }
+
+    // Load and Save Project.
+    try {
+      $node->save();
+      $cover_tid = $node->get('field_unig_project_cover')->target_id;
+
+      $output->setStatus(TRUE);
+      $output->setTitle($title);
+      $output->setTid($cover_tid);
+      $output->setMessages(
+        t('New cover picture set for project ' . $title),
+        'success'
+      );
+    } catch (EntityStorageException $e) {
+      $output->setStatus(TRUE);
+      $output->setTitle($node->getTitle());
+      $output->setTid(0);
+      $output->setMessages(
+        t('ERROR: cover image adding failed. Project: ' . $title),
+        'error'
+      );
+    }
+
+    return $output;
   }
 
-  /**
-   * @param $project_id
-   * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  public static function getPeopleTerms($project_id): array
-  {
-    return Helper::getTermList(UnigProject::term_people);
-  }
-
-  /**
-   * @param $project_id
-   * @return array
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  public static function getKeywordTerms($project_id): array
-  {
-    return Helper::getTermList(UnigProject::term_keywords);
-  }
 }

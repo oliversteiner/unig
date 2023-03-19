@@ -2,20 +2,20 @@
 
 namespace Drupal\unig\Models;
 
-use Drupal;
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\unig\Utility\Album;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\Helper;
-use Drupal\unig\Utility\ProjectTrait;
 use Drupal\unig\Utility\UnigCache;
-use Exception;
 
-class UnigFile
-{
-  use Drupal\unig\Utility\CreateImageStylesTrait;
+/**
+ *
+ */
+class UnigFile {
+
+  use \Drupal\unig\Utility\ProjectTrait;
+
   public const type = 'unig_file';
 
   /* Drupal Fields */
@@ -37,42 +37,41 @@ class UnigFile
    * @param $file_id
    * @param null $project_id
    * @return array
-   * @throws EntityStorageException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function delete($file_id, $project_id = null): array
-  {
-    $status = false;
+  public static function delete($file_id, $project_id = NULL): array {
+    $status = FALSE;
     $message = $file_id;
 
     if ($file_id) {
       $node = Node::Load($file_id);
 
-      // load node
+      // Load node.
       if ($node) {
         $node->delete();
 
-        // Node delete success
-        $status = true;
+        // Node delete success.
+        $status = TRUE;
         $message = t('The file with the ID %file_id was deleted.', [
-          '%file_id' => $file_id
+          '%file_id' => $file_id,
         ]);
 
-        // Clear Project Cache
+        // Clear Project Cache.
         if ($project_id) {
           UnigCache::clearProjectCache($project_id);
         }
       }
-      // no Node found
+      // No Node found.
       else {
-        $status = false;
+        $status = FALSE;
         $message = 'no file found with ID ' . $file_id;
       }
     }
 
-    // Output
+    // Output.
     return [
       'status' => $status,
-      'message' => $message
+      'message' => $message,
     ];
   }
 
@@ -83,58 +82,59 @@ class UnigFile
    *
    * @return array
    */
-  public static function favorite($nid, $value, $project_id = null): array
-  {
-    $status = false;
+  public static function favorite($nid, $value, $project_id = NULL): array {
+    $status = FALSE;
     $message = '';
 
     if ($nid) {
       $node = Node::Load((int) $nid);
 
-      // load node
+      // Load node.
       if ($node) {
         $node->set(self::field_favorite, $value);
         try {
           $node->save();
-          $status = true;
+          $status = TRUE;
 
-          // Status Message
+          // Status Message.
           if ($value) {
             $message = t(
               'The file with the ID %file_id was marked as favorite.',
               ['%file_id' => $nid]
             );
-          } else {
+          }
+          else {
             $message = t(
               'The file with the ID %file_id is no longer a favorite.',
               ['%file_id' => $nid]
-            );
+                      );
           }
 
-          // Clear Project Cache
+          // Clear Project Cache.
           if ($project_id) {
             UnigCache::clearProjectCache($project_id);
           }
 
-          // on Error
-        } catch (EntityStorageException $e) {
+          // On Error.
+        }
+        catch (EntityStorageException $e) {
           $status = 'error';
           $message =
             t('Can\'t save changes of File %file_id.', [
-              '%file_id' => $nid
+              '%file_id' => $nid,
             ]) . $e;
         }
       }
-      // no Node found
+      // No Node found.
       else {
-        $status = false;
+        $status = FALSE;
         $message = 'no file found with ID ' . $nid;
       }
     }
-    // Output
+    // Output.
     return [
       'status' => $status,
-      'message' => $message
+      'message' => $message,
     ];
   }
 
@@ -143,28 +143,25 @@ class UnigFile
    *
    * @return array
    *
-   * @throws InvalidPluginDefinitionException
-   * @throws Exception
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Exception
    */
-  public static function buildFile($file_nid): array
-  {
+  public static function buildFile($file_nid): array {
     // project
     //  - nid
     //  - date
     //  - timestamp
     //  - title
     //  - description
-    //  - copyright
-
-    //  - weight (draggable)
-    //  - album
-    //      - title
-    //      - number_of_items
+    //  - copyright.
+    // - weight (draggable)
+    //   - album
+    //     - title
+    //       - number_of_items
     //  - links
     //    - edit
-    //    - delete
-
-    $entity = Drupal::entityTypeManager()
+    //    - delete.
+    $entity = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($file_nid);
 
@@ -174,70 +171,71 @@ class UnigFile
       return ['nid' => 0];
     }
 
-    // NID
+    // NID.
     $nid = $entity->id();
 
-    // Title
+    // Title.
     $title = $entity->label();
 
-    // Title Generated
+    // Title Generated.
     $title_generated = $entity->get('field_unig_title_generated')->getValue();
     if ($title_generated) {
       $title_generated = $title_generated[0]['value'];
-    } else {
+    }
+    else {
       $title_generated = 1;
     }
 
-    // Description
+    // Description.
     $description = $entity->get('field_unig_description')->getValue();
 
     if ($description) {
       $description = $description[0]['value'];
     }
 
-    // comments
+    // Comments.
     $comments = 'comments';
 
-    // Rating
+    // Rating.
     $rating = 0;
     $node_rating = $entity->get('field_unig_rating')->getValue();
     if ($node_rating) {
       $rating = $node_rating[0]['value'];
     }
 
-    // Rating
-    $favorite = false;
+    // Rating.
+    $favorite = FALSE;
     $node_favorite = $entity->get(self::field_favorite)->getValue();
     if ($node_favorite) {
       $favorite = $node_favorite[0]['value'];
     }
 
-    // Weight
+    // Weight.
     $weight = 0;
     $node_weight = $entity->get('field_unig_weight')->getValue();
     if ($node_weight) {
       $weight = $node_weight[0]['value'];
     }
 
-    // Copyright
+    // Copyright.
     $copyright = '';
     $node_copyright = $entity->get('field_unig_copyright')->getValue();
     if ($node_copyright) {
       $copyright = $node_copyright[0]['value'];
     }
 
-    // image
-    if($file_nid) {
-      $image = ProjectTrait::getImageVars($file_nid);
+    // Image.
+    if ($file_nid) {
+      $image = self::getImageVars($file_nid);
     }
 
     // $file_path = FileSystem::realpath($entity->get('field_unig_image')->entity->getFileUri());
-    $file_name ='';
+    $file_name = '';
     if (isset($entity->get('field_unig_image')->entity)) {
       $file_name = $entity->get('field_unig_image')->entity->getFilename();
     }
 
-    // people
+    // People.
     $people = [];
     $node_people = $entity->get('field_unig_people')->getValue();
     if ($node_people) {
@@ -252,7 +250,7 @@ class UnigFile
         }
       }
     }
-    // keywords
+    // Keywords.
     $keywords = [];
     $node_keywords = $entity->get('field_unig_keywords')->getValue();
     if ($node_keywords) {
@@ -267,10 +265,10 @@ class UnigFile
         }
       }
     }
-    // Album List
-    $album_list = AlbumTrait::getAlbumList($nid);
+    // Album List.
+    $album_list = Album::getAlbumList($nid);
 
-    // Twig-Variables
+    // Twig-Variables.
     $file = [
       'id' => (int) $nid,
       'title' => $title,
@@ -285,7 +283,7 @@ class UnigFile
       'copyright' => $copyright,
       'people' => $people,
       'keywords' => $keywords,
-      'title_generated' => $title_generated
+      'title_generated' => $title_generated,
     ];
 
     return $file;
@@ -294,10 +292,9 @@ class UnigFile
   /**
    * @param $unig_file_id
    * @return array|Drupal\Core\Image\Image
-   * @throws Exception
+   * @throws \Exception
    */
-  public static function forceImageStyleFromUnigFile($unig_file_id)
-  {
+  public static function forceImageStyleFromUnigFile($unig_file_id) {
     $variables = [];
     $node = Node::load($unig_file_id);
     if ($node) {
@@ -307,4 +304,5 @@ class UnigFile
 
     return $variables;
   }
+
 }
