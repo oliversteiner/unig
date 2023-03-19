@@ -2,7 +2,7 @@ name: UniG - Universal Gallery
 type: module
 description: 'Image / File Gallery with Multifield upload'
 package: Media
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9.2 || ^10
 configure: unig.settings_form
 dependencies:
   - drupal:node
@@ -11,6 +11,6 @@ dependencies:
 
 
 project: unig
-version: 9.x-1.8
+version: 9.x-1.9
 'interface translation project': unig
 'interface translation server pattern': modules/custom/%project/translations/%project-%version.%language.po
