@@ -9,15 +9,13 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  * @see \Drupal\Core\Render\Element\InlineTemplate
  * @see https://www.drupal.org/developing/api/8/localization
  */
-trait ProjectTemplateTrait {
-
+class ProjectTemplate {
   /**
    * Name of our module.
    *
    * @return string
    *   A module name.
    */
-  abstract protected function getModuleName(): string;
 
   /**
    * Generate a render array with our Admin content.
@@ -31,7 +29,7 @@ trait ProjectTemplateTrait {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function projectTemplate($project_id, $album_id = NULL): array {
+  public function getTemplate($project_id, $album_id = NULL): array {
     // Times to Load
     // build without cache : 8.2914
     // load from cache field : 0.0619.
@@ -62,9 +60,9 @@ trait ProjectTemplateTrait {
     $build['#attached']['drupalSettings']['unig']['project'] = $project_variables;
 
     $host = \Drupal::request()->getSchemeAndHttpHost();
-    $module = drupal_get_path('module', $this->getModuleName());
+    $module_path = Unig::getModulPath();
     $build['#attached']['drupalSettings']['unig']['path'] =
-      $host . '/' . $module;
+      $host . '/' . $module_path;
 
     // Adding JS Library depends of admin or not.
     if (
@@ -130,18 +128,19 @@ trait ProjectTemplateTrait {
     }
     else {
       // Generate Project items.
-      $variables['album'] = AlbumTrait::getAlbumList($project_id);
-      $variables['keywords'] = ProjectTrait::getKeywordTerms($project_id);
-      $variables['people'] = ProjectTrait::getPeopleTerms($project_id);
-      $variables['project'] = ProjectTrait::buildProject($project_id);
-      $variables['files'] = ProjectTrait::buildFileList($project_id, $album_id);
+      $project = new Project();
+      $variables['album'] = Album::getAlbumList($project_id);
+      $variables['keywords'] = Project::getKeywordTerms($project_id);
+      $variables['people'] = Project::getPeopleTerms($project_id);
+      $variables['project'] = $project->buildProject($project_id);
+      $variables['files'] = $project->buildFileList($project_id, $album_id);
 
       // Save project variables to cache.
       UnigCache::saveProjectCache($project_id, $variables);
     }
 
     // Module.
-    $variables['module'] = $this->getModuleName();
+    $variables['module'] = 'unig';
 
     // Language.
     $language = \Drupal::languageManager()
@@ -158,7 +157,7 @@ trait ProjectTemplateTrait {
       'access private project'
     );
     $variables['logged_in'] = $user->isAuthenticated();
-    $variables['dark_mode'] = $this->config('unig.settings')->get(
+    $variables['dark_mode'] = Unig::getConfig()->get(
       'unig.dark_mode'
     );
 
@@ -185,9 +184,7 @@ trait ProjectTemplateTrait {
       $template = 'unig.project-admin.html.twig';
     }
 
-    return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/' .
-      $template;
+    return Unig::getTemplatePath() . $template;
   }
 
 }

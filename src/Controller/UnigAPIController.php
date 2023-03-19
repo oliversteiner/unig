@@ -5,8 +5,8 @@ namespace Drupal\unig\Controller;
 use Drupal\Component\Utility\Timer;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\unig\Models\UnigFile;
-use Drupal\unig\Utility\AlbumTrait;
-use Drupal\unig\Utility\ProjectTemplateTrait;
+use Drupal\unig\Utility\Album;
+use Drupal\unig\Utility\Project;
 use Drupal\unig\Utility\ProjectTrait;
 use Drupal\unig\Utility\UnigCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * Class APIController.
  */
 class UnigAPIController extends ControllerBase {
-  use projectTemplateTrait;
 
   /**
    * @param $id
@@ -149,14 +148,15 @@ class UnigAPIController extends ControllerBase {
     $version = '1.0.0';
 
     Timer::start($name);
+    $project = new Project();
 
     UnigCache::clearProjectCache($id);
     $variables = [];
-    $variables['album'] = AlbumTrait::getAlbumList($id);
-    $variables['project'] = ProjectTrait::buildProject($id);
-    $variables['files'] = ProjectTrait::buildFileList($id, NULL);
-    $variables['keywords'] = ProjectTrait::getKeywordTerms($id);
-    $variables['people'] = ProjectTrait::getPeopleTerms($id);
+    $variables['album'] = Album::getAlbumList($id);
+    $variables['project'] = $project->buildProject($id);
+    $variables['files'] = $project->buildFileList($id, NULL);
+    $variables['keywords'] = Project::getKeywordTerms($id);
+    $variables['people'] = Project::getPeopleTerms($id);
     $result = UnigCache::saveProjectCache($id, $variables);
 
     Timer::stop($name);

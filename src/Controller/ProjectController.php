@@ -2,19 +2,16 @@
 
 namespace Drupal\unig\Controller;
 
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
-use Drupal\unig\Utility\AlbumTrait;
 use Drupal\unig\Utility\FileTrait;
-use Drupal\unig\Utility\ProjectListTemplateTrait;
-use Drupal\unig\Utility\ProjectTemplateTrait;
+use Drupal\unig\Utility\ProjectListTemplate;
+use Drupal\unig\Utility\Project;
+use Drupal\unig\Utility\ProjectTemplate;
 use Drupal\unig\Utility\ProjectTrait;
 use Drupal\unig\Utility\RatingTrait;
 use Drupal\unig\Utility\SortTrait;
@@ -23,69 +20,69 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Controller routines for page example routes.
  */
-class ProjectController extends ControllerBase
-{
+class ProjectController extends ControllerBase {
+
   /**
    * {@inheritdoc}
    */
-  protected function getModuleName()
-  {
+  protected function getModuleName(): string {
     return 'unig';
   }
 
-  use ProjectTrait;
   use FileTrait;
-  use ProjectListTemplateTrait;
-  use ProjectTemplateTrait;
   use SortTrait;
   use RatingTrait;
+  use ProjectTrait;
 
-  public function project($project_id, $album_id = null)
-  {
+  /**
+   *
+   */
+  public function project($project_id, $album_id = NULL): array {
+
     if (empty($project_id)) {
-      return $this->projectListTemplate();
+      return (new ProjectListTemplate())->getListTemplate();
     }
-
-    return $this->projectTemplate($project_id, $album_id);
+    return (new ProjectTemplate())->getTemplate($project_id, $album_id);
   }
 
   /**
    * Returns a page title.
-   * @param $project_id
-   * @param null $album_id
+   *
+   * @param int|null $project_id
+   * @param int|null $album_id
+   *
    * @return string
    */
-  public function getTitle($project_id, $album_id = null): string
-  {
-    // Get Node from Project
-    if ($project_id !== null) {
+  public static function getTitle(int|null $project_id, int|null $album_id = NULL): string {
+    $node = NULL;
+    // Get Node from Project.
+    if ($project_id !== NULL) {
       $node = Node::load($project_id);
     }
 
-    // Get Node from Album
-    if ($album_id !== null) {
+    // Get Node from Album.
+    if ($album_id !== NULL) {
       $node = Node::load($album_id);
     }
 
-    // Get Title from loaded Node
-    return !empty($node) ? $node->getTitle() : t('Project');
+    // Get Title from loaded Node.
+    return $node !== NULL ? $node->getTitle() : t('Project');
+
   }
 
   /**
    * @return array
    */
-  public function testPage()
-  {
+  public function testPage() {
     return [
-      '#markup' => '<p>' . $this->t('Test Page') . '</p>'
+      '#markup' => '<p>' . $this->t('Test Page') . '</p>',
     ];
   }
 
   /**
-   * @return AjaxResponse
+   * @return \Drupal\Core\Ajax\AjaxResponse
    */
-  public function ajaxTest($nid): AjaxResponse
-  {
+  public function ajaxTest($nid): AjaxResponse {
     $message = $nid;
     $response = new AjaxResponse();
     $response->addCommand(
@@ -97,8 +94,10 @@ class ProjectController extends ControllerBase
     return $response;
   }
 
-  public static function extractKeyword($project_id): JsonResponse
-  {
+  /**
+   *
+   */
+  public static function extractKeyword($project_id): JsonResponse {
     $output = new OutputController();
 
     $list = self::importKeywordsFromProject($project_id);
@@ -109,15 +108,18 @@ class ProjectController extends ControllerBase
         'Found Keywords in ' . $number_of_images_with_keywords . ' Images',
         'info'
       );
-    } else {
+    }
+    else {
       $output->setMessages('No Keywords found', 'warning');
     }
 
     return $output->json();
   }
 
-  public static function extractKeywordTest($nid): array
-  {
+  /**
+   *
+   */
+  public static function extractKeywordTest($nid): array {
     $version = 3;
     $result = self::importKeywordsFromNode($nid);
 
@@ -129,36 +131,36 @@ class ProjectController extends ControllerBase
         '</p>
    <p>extractKeywordTestAction: ' .
         $result .
-        '</p>'
+        '</p>',
     ];
   }
 
   /**
-   * @return JsonResponse
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
-  public function ajaxSetCover($project_id, $image_nid): JsonResponse
-  {
-    $data = ProjectTrait::setCover($project_id, $image_nid);
+  public function ajaxSetCover($project_id, $image_nid): JsonResponse {
+    $data = self::setCover($project_id, $image_nid);
     return $data->json();
   }
 
   /**
    * @param $file_id
    * @param $album_id
-   * @return AjaxResponse
-   * @throws InvalidPluginDefinitionException
-   * @throws PluginNotFoundException
-   * @throws EntityStorageException
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function ajaxAddAlbum($file_id, $album_id): AjaxResponse
-  {
+  public function ajaxAddAlbum($file_id, $album_id): AjaxResponse {
     $album_name = AlbumTrait::getAlbum($album_id)->title;
 
     $cover_id = AlbumTrait::addAlbum($file_id, $album_id);
 
     if ($cover_id) {
       $message = "Das Bild wurde zum Album $album_name hinzugefügt";
-    } else {
+    }
+    else {
       $message = "Fehler: Das Bild konnte dem Album $album_name nicht hinzugefügt werden";
     }
 
@@ -175,11 +177,11 @@ class ProjectController extends ControllerBase
   /**
    * @param $file_id
    * @param $project_id
-   * @return AjaxResponse
-   * @throws EntityStorageException
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function ajaxDeleteFile($file_id, $project_id): AjaxResponse
-  {
+  public function ajaxDeleteFile($file_id, $project_id): AjaxResponse {
     $response = new AjaxResponse();
 
     $result = FileTrait::deleteFile($file_id, $project_id);
@@ -202,13 +204,12 @@ class ProjectController extends ControllerBase
   }
 
   /**
-   * @return AjaxResponse
+   * @return \Drupal\Core\Ajax\AjaxResponse
    */
-  public function ajaxProjectDelete($project_id): AjaxResponse
-  {
+  public function ajaxProjectDelete($project_id): AjaxResponse {
     $response = new AjaxResponse();
 
-    $result = ProjectTrait::projectDelete($project_id);
+    $result = Project::projectDelete($project_id);
 
     if ($result['status']) {
       $response->addCommand(
@@ -230,10 +231,9 @@ class ProjectController extends ControllerBase
   /**
    * @param $project_id
    *
-   * @return AjaxResponse
+   * @return \Drupal\Core\Ajax\AjaxResponse
    */
-  public function ajaxNewAlbumForm($project_id): AjaxResponse
-  {
+  public function ajaxNewAlbumForm($project_id): AjaxResponse {
     $message = 'new form';
     $css = ['display' => 'block'];
     $response = new AjaxResponse();
@@ -247,25 +247,35 @@ class ProjectController extends ControllerBase
   /**
    * @param $project_id
    *
-   * @return JsonResponse
-   * @throws InvalidPluginDefinitionException
-   * @throws PluginNotFoundException
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function ajaxProjectInfo($project_id): JsonResponse
-  {
+  public function ajaxProjectInfo($project_id): JsonResponse {
     if (isset($_POST['project_id'])) {
       $project_id = $_POST['project_id'];
     }
 
     $response = new JsonResponse();
-    $result = ProjectTrait::buildProject($project_id);
+    $project = new Project();
+    $result = $project->buildProject($project_id);
 
     if (!empty($result)) {
       $response->setData($result);
-    } else {
+    }
+    else {
       $response->setData(0);
     }
 
     return $response;
   }
+
+  /**
+   *
+   */
+  public function projectListTemplate(): array {
+    $template = new ProjectListTemplate();
+    return $template->getListTemplate();
+  }
+
 }

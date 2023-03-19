@@ -6,9 +6,10 @@ use Drupal;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\unig\Utility\AlbumTrait;
+use Drupal\unig\Utility\Unig;
+use Drupal\unig\Utility\Album;
 use Drupal\unig\Utility\FileTrait;
-use Drupal\unig\Utility\ProjectTrait;
+use Drupal\unig\Utility\Project;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -16,7 +17,6 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  */
 class LightgalleryController extends ControllerBase
 {
-  use ProjectTrait;
   use FileTrait;
 
   /**
@@ -71,10 +71,11 @@ class LightgalleryController extends ControllerBase
    */
   protected function getTemplateVariables($project_id, $album_id = null): array
   {
-    $variables['module'] = $this->getModuleName();
-    $variables['album'] = AlbumTrait::getAlbumList($project_id);
-    $variables['project'] = ProjectTrait::buildProject($project_id);
-    $variables['files'] = ProjectTrait::buildFileList($project_id, $album_id);
+    $project = new Project();
+    $variables['module'] = Unig::getModulName();
+    $variables['album'] = Album::getAlbumList($project_id);
+    $variables['project'] = $project->buildProject($project_id);
+    $variables['files'] = $project->buildFileList($project_id, $album_id);
     $user = Drupal::currentUser();
     $variables['user'] = clone $user;
     return $variables;
@@ -88,7 +89,7 @@ class LightgalleryController extends ControllerBase
    */
   protected function getTemplatePath(): string
   {
-    return drupal_get_path('module', $this->getModuleName()) .
-      '/templates/unig.project-public.html.twig';
+    return Unig::getTemplatePath() .
+      '/unig.project-public.html.twig';
   }
 }

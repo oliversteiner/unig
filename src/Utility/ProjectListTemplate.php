@@ -7,10 +7,18 @@ namespace Drupal\unig\Utility;
  * @see \Drupal\Core\Render\Element\InlineTemplate
  * @see https://www.drupal.org/developing/api/8/localization
  */
-trait ProjectListTemplateTrait {
+class ProjectListTemplate {
+
+  /**
+   *
+   */
+  public function getModuleName(): string {
+    return "unig";
+  }
 
   /**
    * @param $cat_id
+   *
    * @return string
    */
   public function getCategoryTitle($cat_id): string {
@@ -31,7 +39,7 @@ trait ProjectListTemplateTrait {
    * @return array
    *   A render array.
    */
-  public function projectListTemplate($cat_id = NULL): array {
+  public function getListTemplate($cat_id = NULL): array {
     if ($cat_id) {
       $cat_id = trim($cat_id);
       $cat_id = (int) $cat_id;
@@ -74,6 +82,7 @@ trait ProjectListTemplateTrait {
   protected function getProjectListVariables($cat_id = NULL): array {
     // Module.
     $variables['module'] = $this->getModuleName();
+    $config = \Drupal::config('unig.settings');
 
     // Language.
     $language = \Drupal::languageManager()
@@ -96,10 +105,11 @@ trait ProjectListTemplateTrait {
     $variables['can_download'] = $user->hasPermission('access unig download');
     $variables['show_private'] = $user->hasPermission('access unig admin');
     $variables['logged_in'] = $user->isAuthenticated();
-    $variables['dark_mode'] = $this->config('unig.settings')->get('unig.dark_mode');
+    $variables['dark_mode'] = $config ->get('unig.dark_mode');
 
     // Projects.
-    $variables['project_list'] = ProjectTrait::buildProjectList($cat_id);
+    $projectTrait = new Project();
+    $variables['project_list'] = $projectTrait->buildProjectList($cat_id);
 
     return $variables;
   }
@@ -110,8 +120,9 @@ trait ProjectListTemplateTrait {
    * @return string
    *   Path string.
    */
-  protected function getProjectListPath() {
-    return drupal_get_path('module', $this->getModuleName()) .
+  protected function getProjectListPath(): string {
+
+    return \Drupal::service('extension.list.module')->getPath($this->getModuleName()) .
       '/templates/unig.list.html.twig';
   }
 

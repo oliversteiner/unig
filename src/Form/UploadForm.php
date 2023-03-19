@@ -2,15 +2,13 @@
 
 namespace Drupal\unig\Form;
 
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\unig\Utility\ProjectTrait;
+use Drupal\unig\Utility\Unig;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Drupal\unig\Utility\UniGTrait;
-use Drupal\unig\Utility\ProjectTrait;
 use Drupal\unig\Utility\FileTrait;
 
 /**
@@ -21,8 +19,12 @@ use Drupal\unig\Utility\FileTrait;
  */
 class UploadForm extends FormBase {
 
+  use ProjectTrait;
+
   public $projectList;
+
   public $counter;
+
   public $config;
 
   /**
@@ -31,15 +33,14 @@ class UploadForm extends FormBase {
   private $upload_location;
 
   use UniGTrait;
-  use ProjectTrait;
   use FileTrait;
 
   /**
    * UploadImages constructor.
    */
   public function __construct() {
-    $this->config = $this->defaultConfiguration();
-    $this->projectList = $this->getProjectlistSelected();
+    $this->config = Unig::getConfigAsArray();
+    $this->projectList = self::getProjectlistSelected();
     $this->upload_location = 'private://uploads/unig';
   }
 
@@ -56,8 +57,8 @@ class UploadForm extends FormBase {
   public function buildForm(
     array $form,
     FormStateInterface $form_state,
-    $project_id = NULL
-  ) {
+                       $project_id = NULL
+  ): array {
     if ($project_id !== NULL) {
       // Make sure you don't trust the URL to be safe! Always check for exploits.
       if (!is_numeric($project_id)) {
@@ -70,16 +71,16 @@ class UploadForm extends FormBase {
         '#value' => $project_id,
       ];
     }
-    // JS
+    // JS.
     $form['#attached']['library'][] = 'unig/unig.upload';
 
-    // link to Dashboard
+    // Link to Dashboard.
     $form['go_to_projects'] = [
       '#theme' => '',
       '#title' => t('Show all projects'),
     ];
 
-    // Input Text "Name new Project"
+    // Input Text "Name new Project".
     $form['new_project'] = [
       '#type' => 'textfield',
       '#title' => t('Name new project'),
@@ -91,17 +92,16 @@ class UploadForm extends FormBase {
       '#suffix' => '</div>',
     ];
 
-    // Input Option Select width Projectlist
+    // Input Option Select width Projectlist.
     $form['project'] = [
       '#title' => $this->t('Choose Project'),
       '#type' => 'select',
-      '#options' => $this->getProjectlistSelected(),
-      '#default_value' => $this->getDefaultProjectNid($project_id),
+      '#options' => self::getProjectlistSelected(),
+      '#default_value' => self::getDefaultProjectNid($project_id),
       '#prefix' =>
-        '<div id="unig_form_upload_project" class="" style="display:none">',
+      '<div id="unig_form_upload_project" class="" style="display:none">',
       '#suffix' => '</div>',
     ];
-
 
     $form['file_upload'] = [
       '#type' => 'managed_file',
@@ -115,7 +115,6 @@ class UploadForm extends FormBase {
         ],
       ],
     ];
-
 
     $form['js_wrapper'] = [
       '#type' => 'container',
@@ -145,9 +144,12 @@ class UploadForm extends FormBase {
     $values = $form_state->getValues();
 
     // Inputs:
-    $project = $values['project']; // string - keine Abklärung nötig
-    $new_project = $values['new_project']; // sting  - nicht leer wenn "project" auf "neu"
-    $file_upload = $values['file_upload']; // array - nicht leer sein
+    // string - keine Abklärung nötig.
+    $project = $values['project'];
+    // Sting  - nicht leer wenn "project" auf "neu".
+    $new_project = $values['new_project'];
+    // Array - nicht leer sein.
+    $file_upload = $values['file_upload'];
 
     if ($project === 'neu' && $new_project == '') {
       // Set an error for the form element with a key of "title".
@@ -165,12 +167,12 @@ class UploadForm extends FormBase {
 
   /**
    * @param array $form
-   * @param FormStateInterface $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *
    * @return string
-   * @throws InvalidPluginDefinitionException
-   * @throws PluginNotFoundException
-   * @throws EntityStorageException
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function submitForm(
     array &$form,
@@ -186,28 +188,26 @@ class UploadForm extends FormBase {
       $create_new_project = TRUE;
       $project_id = self::newUniGProject($new_project);
 
-      // Get Title
+      // Get Title.
       $project_title = $new_project;
     }
     else {
       $project_id = $values['project'];
 
-      // Get Title
+      // Get Title.
       $project_title = $form['project']['#options'][$project_id];
     }
 
-    // Create Nodes
+    // Create Nodes.
     $values['project_id'] = $project_id;
 
-    // move Files to destination
-
-
+    // Move Files to destination.
     $node_ids = $this->createMultiNode($values);
     $count = count($node_ids);
 
-    // Build Message
+    // Build Message.
     if ($count > 1) {
-      // Multiple Images
+      // Multiple Images.
       if ($create_new_project) {
         $variant = 'new_many';
       }
@@ -216,7 +216,7 @@ class UploadForm extends FormBase {
       }
     }
     else {
-      // just one Image
+      // Just one Image.
       if ($create_new_project) {
         $variant = 'new_one';
       }
@@ -248,18 +248,21 @@ class UploadForm extends FormBase {
       case 'new_one':
         $message = $message_new_one;
         break;
+
       case 'new_many':
         $message = $message_new_many;
         break;
+
       case 'add_one':
         $message = $message_add_one;
         break;
+
       case 'add_many':
         $message = $message_add_many;
         break;
     }
 
-    // go to Gallery Page
+    // Go to Gallery Page.
     $arr_args = ['project_id' => $project_id];
     $form_state->setRedirect('unig.project.admin', $arr_args);
 

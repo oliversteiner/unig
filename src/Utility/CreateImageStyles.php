@@ -3,13 +3,11 @@
 namespace Drupal\unig\Utility;
 
 use Drupal;
-use Drupal\Core\Image\Image;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\node\Entity\Node;
 
-trait CreateImageStylesTrait
+class CreateImageStyles
 {
 
   /**
@@ -18,7 +16,7 @@ trait CreateImageStylesTrait
    * @param bool $create
    * @return array|mixed
    */
-  public static function createImageStyles(
+  public static function createStyles(
     $img_id_or_file,
     $style_name = false,
     $create = true
@@ -97,7 +95,7 @@ if(!$img_id_or_file){
    * @param bool $create
    * @return array|Image
    */
-  public static function createImageStyle(
+  public static function createStyle(
     $img_id_or_file,
     ImageStyle $image_style,
     $create = true
@@ -230,7 +228,7 @@ if(!$img_id_or_file){
 
       foreach ($image_styles as $image_style) {
         $image_style_id = $image_style->id();
-        $images[$image_style_id] = self::createImageStyle(
+        $images[$image_style_id] = self::createStyle(
           $file,
           $image_style,
           $create
@@ -242,7 +240,7 @@ if(!$img_id_or_file){
     } else {
       $image_style = ImageStyle::load($style_name);
       if ($image_style) {
-        $images = self::createImageStyle($file, $image_style, $create);
+        $images = self::createStyle($file, $image_style, $create);
       } else {
         $images = false;
       }

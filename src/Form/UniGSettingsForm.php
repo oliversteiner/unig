@@ -5,8 +5,10 @@ namespace Drupal\unig\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\unig\Utility\Helper;
+use Drupal\unig\Utility\Unig;
 
 /**
+ * Fields:
  *
  */
 class UniGSettingsForm extends ConfigFormBase {
@@ -41,8 +43,8 @@ class UniGSettingsForm extends ConfigFormBase {
     // Page title field.
     $form['default_project'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Default Project'),
-      '#default_value' => $config->get('unig.default_project'),
+      '#title' => $this->t('Default Project Node ID'),
+      '#default_value' => Unig::getDefaultProjectNid(),
     ];
 
     // Category.
@@ -50,16 +52,14 @@ class UniGSettingsForm extends ConfigFormBase {
       '#type' => 'select',
       '#options' => $options_unig_category,
       '#title' => $this->t('Default Category'),
-      '#default_value' => $config->get('unig.default_category'),
+      '#default_value' => Unig::getDefaultCategory(),
     ];
 
     // Source text field.
     $form['file_validate_extensions'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Allowed file types'),
-      '#default_value' => $config->get(
-        'unig.file_validate_extensions'
-      ),
+      '#default_value' => Unig::getAllowedExtensions(),
       '#description' => $this->t(
         'Allowed file types, no points, separated by space.'
       ),
@@ -69,7 +69,14 @@ class UniGSettingsForm extends ConfigFormBase {
     $form['dark_mode'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use Dark Mode?'),
-      '#default_value' => $config->get('unig.dark_mode'),
+      '#default_value' => Unig::useDarkMode(),
+    ];
+
+    // Set Dark Mode.
+    $form['page_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Page Title'),
+      '#default_value' => Unig::getPageTitle(),
     ];
 
     return $form;
@@ -103,6 +110,10 @@ class UniGSettingsForm extends ConfigFormBase {
     $config->set(
       'unig.dark_mode',
       $form_state->getValue('dark_mode')
+    );
+    $config->set(
+      'unig.page_title',
+      $form_state->getValue('page_title')
     );
     $config->save();
     return parent::submitForm($form, $form_state);

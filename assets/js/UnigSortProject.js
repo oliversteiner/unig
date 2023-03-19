@@ -1,5 +1,7 @@
 (function($, Drupal, drupalSettings) {
   function save(data, name) {
+    console.log('Sort Data', data);
+
     $.ajax({
       url: Drupal.url(`unig/sort/${name}`),
       type: 'POST',
