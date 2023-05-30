@@ -19,7 +19,7 @@ trait ProjectTrait {
    *
    * @return array|int
    */
-  public static function getAllProjectNids($cat_id = NULL): array|int {
+  public static function getAllProjectNids($cat_id = NULL) {
     // Get the current user.
     $user = \Drupal::currentUser();
 
@@ -103,7 +103,7 @@ trait ProjectTrait {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public static function newUniGProject($title): int|string|null {
+  public static function newUniGProject($title){
     $config = \Drupal::config('unig.settings');
 
     // Load up an array for creation.

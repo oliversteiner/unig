@@ -53,7 +53,7 @@ class ProjectController extends ControllerBase {
    *
    * @return string
    */
-  public static function getTitle(int|null $project_id, int|null $album_id = NULL): string {
+  public static function getTitle($project_id, $album_id = NULL): string {
     $node = NULL;
     // Get Node from Project.
     if ($project_id !== NULL) {
