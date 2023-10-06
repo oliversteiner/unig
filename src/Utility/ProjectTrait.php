@@ -4,6 +4,7 @@ namespace Drupal\unig\Utility;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\mollo_utils\Utility\MolloUtils;
 use Drupal\node\Entity\Node;
 use Drupal\unig\Controller\IptcController;
 use Drupal\unig\Controller\OutputController;
@@ -18,7 +19,7 @@ trait ProjectTrait {
    *
    * @return array|int
    */
-  public static function getAllProjectNids($cat_id = NULL): array|int {
+  public static function getAllProjectNids($cat_id = NULL) {
     // Get the current user.
     $user = \Drupal::currentUser();
 
@@ -38,7 +39,7 @@ trait ProjectTrait {
     // Restricting to category?
     if (isset($cat_id)) {
       // Check if  cat_id is valid term.
-      $term = Helper::getTermNameByID($cat_id);
+      $term = MolloUtils::getTermNameByID($cat_id);
 
       if ($term) {
         $query->condition('field_unig_category', $cat_id);
@@ -102,7 +103,7 @@ trait ProjectTrait {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public static function newUniGProject($title): int|string|null {
+  public static function newUniGProject($title){
     $config = \Drupal::config('unig.settings');
 
     // Load up an array for creation.
@@ -220,7 +221,7 @@ trait ProjectTrait {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public static function getPeopleTerms($project_id): array {
-    return Helper::getTermList(UnigProject::term_people);
+    return MolloUtils::getTermList(UnigProject::term_people);
   }
 
   /**
@@ -231,7 +232,7 @@ trait ProjectTrait {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public static function getKeywordTerms($project_id): array {
-    return Helper::getTermList(UnigProject::term_keywords);
+    return MolloUtils::getTermList(UnigProject::term_keywords);
   }
 
 
@@ -477,7 +478,7 @@ trait ProjectTrait {
 
     $node = Node::load($nid);
     if ($node) {
-      $unig_image_id = Helper::getFieldValue($node, 'unig_image');
+      $unig_image_id = MolloUtils::getFieldValue($node, 'unig_image');
       if ($unig_image_id) {
         $variables = CreateImageStyles::createStyles(
           $unig_image_id,

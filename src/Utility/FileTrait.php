@@ -2,7 +2,9 @@
 
 namespace Drupal\unig\Utility;
 
+use Drupal;
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use Drupal\unig\Controller\IptcController;
@@ -10,16 +12,17 @@ use Drupal\unig\Controller\IptcController;
 /**
  * Trait FileTrait.
  *
- * @package Drupal\unig\Utility
- *
  * @todo replace German Strings
  * @todo replace drupal_Set_message
+ * @package Drupal\unig\Utility
+ *
  */
 trait FileTrait {
 
   public $bundle_file = 'unig_file';
 
   // Define Extensions to be used als imagefield.
+
   /**
    * @todo move to settings page.
    */
@@ -56,9 +59,9 @@ trait FileTrait {
     // Load up an array for creation.
     $new_unig_file = $storage->create([
       'title' => $node_title,
-    // (1 or 0): published or not
+      // (1 or 0): published or not
       'status' => 0,
-    // (1 or 0): promoted to front page
+      // (1 or 0): promoted to front page
       'promote' => 0,
       'type' => 'unig_file',
     ]);
@@ -110,8 +113,7 @@ trait FileTrait {
 
     try {
       $new_unig_file->save();
-    }
-    catch (EntityStorageException $e) {
+    } catch (EntityStorageException $e) {
     }
 
     // Hole die neu erstellte ID.
@@ -143,8 +145,8 @@ trait FileTrait {
    *
    * @return array
    * @throws \Drupal\Core\Entity\EntityStorageException
-   * @internal param $values
    * @todo Deprecated
+   * @internal param $values
    */
   public static function deleteFile($file_id, $project_id = NULL): array {
     $status = FALSE;
@@ -193,6 +195,11 @@ trait FileTrait {
     $path_unig = 'unig/';
     $path_project = $project_id . '/';
 
+    // new File Upload Drupal 9.4
+
+
+    $file_system = \Drupal::service('file_system');
+
     $file = File::load($tid);
     if ($file === NULL) {
       return [];
@@ -204,7 +211,7 @@ trait FileTrait {
     $file_id = $file->id();
     $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
     $file_mime = $file->getMimeType();
-    self::checkProjectDir($path_destination, $path_unig, $path_project);
+    // self::checkProjectDir($path_destination, $path_unig, $path_project);
 
     $destination = $path_destination . $path_unig . $path_project . $file_name;
 
@@ -212,17 +219,27 @@ trait FileTrait {
     $mime_type = \Drupal::service('file.mime_type.guesser.extension')
       ->guess($file_uri);
     if ($file_mime !== $mime_type) {
-      \Drupal::logger('Wrong Mime-Type for File ' . $file_name);
+      \Drupal::logger('unig')->notice('Wrong Mime-Type for File ' . $file_name);
       return [];
     }
 
     // Move file to destination.
-    $result = move_uploaded_file($file_name, $destination);
+    // $result = move_uploaded_file($file_name, $destination).
+    $directory = $path_destination . $path_unig . $path_project;
+    $filepath = $file_uri;
+
+    $file_system->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+    $result = $file_system->copy($filepath, $directory . basename($filepath), FileSystemInterface::EXISTS_REPLACE);
 
     if ($result) {
       $file->setFileUri($destination);
     }
-    $file->save();
+    try {
+      $file->save();
+    } catch (EntityStorageException $e) {
+
+      Drupal::logger('unig',)->error('can not save File: ' . $file_name);
+    }
 
     return [
       'id' => $file_id,

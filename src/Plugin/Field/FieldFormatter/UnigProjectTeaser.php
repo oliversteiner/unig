@@ -7,7 +7,9 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\unig\Utility\Project;
 use Drupal\unig\Utility\ProjectTrait;
+use Drupal\unig\Utility\Unig;
 
 /**
  * Plugin implementation of the 'UnigProjectTeaser' formatter.
@@ -60,19 +62,18 @@ class UnigProjectTeaser extends EntityReferenceFormatterBase
   {
     $element = [];
 
-    $template_path =
-      drupal_get_path('module', 'unig') .
-      '/templates/unig-project-teaser.html.twig';
+    $template_path = Unig::getTemplatePath().'unig-project-teaser.html.twig';
     $template = file_get_contents($template_path);
 
     foreach ($items as $delta => $item) {
       $value = $item->getValue();
       $nid = $value['target_id'];
+      $unig = new Project();
 
       $element[$delta] = [
         '#type' => 'inline_template',
         '#template' => $template,
-        '#context' => $this::buildProject($nid)
+        '#context' => $unig->buildProject($nid),
       ];
     }
 

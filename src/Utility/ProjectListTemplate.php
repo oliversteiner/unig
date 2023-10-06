@@ -25,7 +25,7 @@ class ProjectListTemplate {
     if ($cat_id) {
       $cat_id = trim($cat_id);
       $cat_id = (int) $cat_id;
-      return Helper::getTermNameByID($cat_id);
+      return MolloUtils::getTermNameByID($cat_id);
     }
     return t('Category');
   }
@@ -45,7 +45,7 @@ class ProjectListTemplate {
       $cat_id = (int) $cat_id;
 
       // Check if  cat_id is valid term.
-      $term = Helper::getTermNameByID($cat_id);
+      $term = MolloUtils::getTermNameByID($cat_id);
     }
 
     $template_path = $this->getProjectListPath();

@@ -29,7 +29,7 @@ class UniGSettingsForm extends ConfigFormBase {
 
     $options_unig_category = [];
     $vocabulary = 'unig_category';
-    $terms = Helper::getTerms($vocabulary);
+    $terms = MolloUtils::getTerms($vocabulary);
 
     if ($terms) {
       foreach ($terms as $term) {
