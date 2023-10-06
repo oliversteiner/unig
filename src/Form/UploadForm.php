@@ -4,12 +4,11 @@ namespace Drupal\unig\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\unig\Utility\FileTrait;
 use Drupal\unig\Utility\ProjectTrait;
 use Drupal\unig\Utility\Unig;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
 use Drupal\unig\Utility\UniGTrait;
-use Drupal\unig\Utility\FileTrait;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Implements InputDemo form controller.
@@ -21,16 +20,16 @@ class UploadForm extends FormBase {
 
   use ProjectTrait;
 
-  public $projectList;
+  public array $projectList;
 
   public $counter;
 
-  public $config;
+  public array $config;
 
   /**
    * @var string
    */
-  private $upload_location;
+  private string $upload_location;
 
   use UniGTrait;
   use FileTrait;
@@ -60,7 +59,8 @@ class UploadForm extends FormBase {
                        $project_id = NULL
   ): array {
     if ($project_id !== NULL) {
-      // Make sure you don't trust the URL to be safe! Always check for exploits.
+      // Make sure you don't trust the URL to be safe!
+      // Always check for exploits.
       if (!is_numeric($project_id)) {
         // We will just show a standard "access denied" page in this case.
         throw new AccessDeniedHttpException();
